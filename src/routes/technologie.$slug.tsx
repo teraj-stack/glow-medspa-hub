@@ -1,7 +1,7 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { BookingForm } from "@/components/site/BookingForm";
-import { getTechnology, TECHNOLOGIES } from "@/data/technologies";
+import { getTechnology, TECHNOLOGIES, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check } from "lucide-react";
 
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/technologie/$slug")({
 });
 
 function TechnologyDetail() {
-  const { tech } = Route.useLoaderData();
+  const { tech } = Route.useLoaderData() as { tech: Technology };
 
   return (
     <>
