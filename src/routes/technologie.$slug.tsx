@@ -6,7 +6,7 @@ import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check } from "lucide-react";
 
 export const Route = createFileRoute("/technologie/$slug")({
-  loader: ({ params }) => {
+  loader: ({ params }): { tech: import("@/data/technologies").Technology } => {
     const tech = getTechnology(params.slug);
     if (!tech) throw notFound();
     return { tech };
