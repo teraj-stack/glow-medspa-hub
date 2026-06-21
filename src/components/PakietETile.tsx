@@ -76,7 +76,7 @@ export default function PakietETile({
         <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground font-body mb-2">
           {protocolLabel}
         </p>
-        <p className="font-serif text-xl text-champagne mb-3">« {protocol} »</p>
+        <p className="font-serif text-xl text-champagne mb-3">{protocol}</p>
         <p className="text-muted-foreground font-body leading-relaxed">
           {protocolDescription}
         </p>
