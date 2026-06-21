@@ -141,6 +141,8 @@ function PotrzebyPage() {
                     ))}
                   </ul>
                 )}
+              </article>
+            ))}
           </div>
         </div>
       </section>
