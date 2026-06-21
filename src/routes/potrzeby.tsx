@@ -68,8 +68,8 @@ const TILES: Tile[] = [
     ],
   },
   { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", tagline: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url, bullets: [
-    { text: "Efekt Photoshopa w rzeczywistości - Tekstura skóry staje się jedwabista i gładka." },
-    { text: "Zwężenie porów i wyrównanie struktury skóry — cera wygląda nieskazitelnie przez cały dzień, wiele pacjentek z czasem rezygnuje z nakładania makijażu." },
+    { title: "Efekt Photoshopa w rzeczywistości", text: "Tekstura skóry staje się jedwabista i gładka." },
+    { title: "Zwężenie porów i wyrównanie struktury skóry", text: "cera wygląda nieskazitelnie przez cały dzień, wiele pacjentek z czasem rezygnuje z nakładania makijażu." },
     { text: "Skuteczna redukcja blizn i rozstępów." },
   ]},
   { nr: "03", slug: "rewitalizacja-dloni", title: "Rewitalizacja dłoni", tagline: "Dłonie", icon: dlonieAsset.url, bullets: [
