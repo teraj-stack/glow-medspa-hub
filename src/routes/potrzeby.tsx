@@ -80,9 +80,9 @@ const TILES: Tile[] = [
   { nr: "04", slug: "okolica-oka", title: "Okolica oka", tagline: "Kontur oka · Blask spojrzenia", icon: okoAsset.url, bullets: [
     { title: "Otwarcie spojrzenia", text: "Delikatny lifting opadającej powieki — plastyka powieki górnej." },
     { title: "Redukcja obrzęku", text: "Zagęszczenie i poprawa jędrności wiotkiej skóry pod oczami — niwelujemy zastoinowe sińce i obrzęki." },
-    { text: "Wygładzenie « kurzych łapek »." },
-    { text: "Stymulacja kolagenu w cienkiej skórze wokół oczu." },
-    { title: "Otwarcie i lifting powieki", text: "Ujędrnienie opadającej powieki górnej i zagęszczenie skóry powieki dolnej." },
+    { text: "Wygładzenie « kurzych łapek »\u00a0\nRewitalizacja cienkiej skóry wokół oczu, redukcja zmarszczek." },
+    { text: "\u00a0cienkiej skórze wokół oczu." },
+    { title: "Plastyka powieki górnej", text: "" },
   ]},
   { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Dyskretne rozwiązania", icon: komfortAsset.url },
 ];
