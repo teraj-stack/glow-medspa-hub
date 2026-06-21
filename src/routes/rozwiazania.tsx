@@ -2,7 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Sparkles, Wand2, Hand, Eye, HeartHandshake } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
-import PakietCard from "@/components/PakietCard";
+import PakietTile from "@/components/PakietTile";
+import konturyAsset from "@/assets/kontur-lifting-owal-v2.png.asset.json";
 
 
 export const Route = createFileRoute("/rozwiazania")({
@@ -137,12 +138,31 @@ function RozwiazaniaPage() {
       <section className="bg-background py-16 md:py-24">
         <div className="container-luxury">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
-            <PakietCard
-              subtitle="Pakiet A — Lifting & kontur"
-              title="Architektura twarzy"
-              protocol={"«\u00A0Głęboki lifting 4D\u00A0»"}
-              protocolDescription="Połączenie stymulacji mięśniowej (HIFEM+MSF+RH) z przebudową struktur skóry (HIFU). Działamy jednocześnie nad mięśniami, powięzią i kolagenem — efekt liftingu bez efektu maski."
-              technologies={["Laser tulowy", "Ultradźwięki zogniskowane (HIFU)", "Laser pikosekundowy", "RF Mikroigłowa"]}
+            <PakietTile
+              nr="01"
+              tagline="LIFTING I OWAL"
+              title="Przywrócenie konturów"
+              icon={konturyAsset.url}
+              bullets={[
+                {
+                  title: "Nieoperacyjny lifting",
+                  text: "redukcja « chomików ». Wyostrzenie linii żuchwy, która z wiekiem traci swój zarys.",
+                },
+                {
+                  title: "Bruzdy nosowo-wargowe i linie marionetki",
+                  text: "powstają, gdy opadają policzki — zanika kolagen, a wraz z nim owal twarzy.",
+                },
+                {
+                  title: "Szyja i dekolt",
+                  text: "delikatna okolica, w której cienka, wiotka skóra z plamami starczymi najszybciej zdradza wiek.",
+                },
+              ]}
+              technologies={[
+                "Laser tulowy",
+                "Ultradźwięki zogniskowane (HIFU)",
+                "Laser pikosekundowy",
+                "RF Mikroigłowa",
+              ]}
             />
 
             <ul className="contents">
