@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { TechCard } from "@/components/site/TechCard";
 import { BookingForm } from "@/components/site/BookingForm";
 import { TECHNOLOGIES } from "@/data/technologies";
-import { Sparkles, Shield, HeartHandshake, Stethoscope, ArrowRight, Microscope, Leaf, Clock } from "lucide-react";
+import { Sparkles, Shield, HeartHandshake, ArrowRight } from "lucide-react";
 import bujokAsset from "@/assets/bujok.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
@@ -27,7 +27,6 @@ function Home() {
     <>
       <Hero />
       <ManifestSection />
-      <MethodologySection />
       <TechnologiesPreview />
       <Testimonials />
       <BookingSection />
@@ -120,37 +119,6 @@ function ManifestSection() {
   );
 }
 
-function MethodologySection() {
-  const pillars = [
-    { icon: Stethoscope, title: "Diagnoza", desc: "Konsultacja medyczna, ocena skóry i potrzeb." },
-    { icon: Microscope, title: "Protokół", desc: "Dobór technologii i dawkowanie pod Państwa cele." },
-    { icon: Leaf, title: "Zabieg", desc: "Procedura w sterylnych warunkach, z opieką pielęgniarską." },
-    { icon: Clock, title: "Opieka po", desc: "Plan domowy, kontrola efektów, korekta protokołu." },
-  ];
-  return (
-    <section className="bg-secondary/50 py-20 md:py-28">
-      <div className="container-luxury">
-        <SectionHeading
-          eyebrow="Metodologia"
-          title="Cztery filary naszej praktyki"
-          description="Powtarzalna, etyczna ścieżka — od pierwszej konsultacji po długoterminową opiekę."
-        />
-        <div className="tile-grid mt-12">
-          {pillars.map((p, i) => (
-            <div key={p.title} className="tile-card">
-              <div className="flex items-center gap-3">
-                <div className="tile-icon"><p.icon className="size-5" /></div>
-                <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">0{i + 1}</span>
-              </div>
-              <h3 className="tile-title">{p.title}</h3>
-              <p className="tile-text">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function TechnologiesPreview() {
   const featured = TECHNOLOGIES.slice(0, 6);
