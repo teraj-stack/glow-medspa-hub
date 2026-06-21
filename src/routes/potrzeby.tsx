@@ -92,7 +92,7 @@ function PotrzebyPage() {
                   />
                 </div>
 
-                <div className="mt-5 text-xs uppercase tracking-[0.3em] text-champagne">{t.nr}</div>
+                <div className="mt-5 text-right text-xs uppercase tracking-[0.3em] text-champagne">{t.nr}</div>
 
                 <h2 className="gold-line mt-2 font-serif text-2xl text-foreground md:text-3xl">
                   {t.title}
