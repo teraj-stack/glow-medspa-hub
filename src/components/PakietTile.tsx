@@ -40,7 +40,7 @@ export default function PakietTile({
   technologies,
 }: PakietTileProps) {
   return (
-    <article className="group relative flex h-full flex-col rounded-sm bg-background p-6 transition-all duration-700 ease-out hover:bg-secondary/40 md:p-8">
+    <article className="group relative flex h-full flex-col rounded-sm bg-card p-6 transition-all duration-700 ease-out hover:bg-secondary/40 md:p-8">
       {/* Numer w rogu */}
       <div className="absolute right-6 top-6 text-xs uppercase tracking-[0.3em] text-champagne md:right-8 md:top-8">
         {nr}
