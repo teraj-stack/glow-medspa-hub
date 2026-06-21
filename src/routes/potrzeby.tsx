@@ -102,6 +102,7 @@ function PotrzebyPage() {
           <SectionHeading
             eyebrow="POTRZEBY"
             title="Wiemy, czego pragną nasze pacjentki"
+            as="h1"
           />
           <div className="mt-6 max-w-2xl space-y-4">
             <p className="text-base text-muted-foreground md:text-lg">

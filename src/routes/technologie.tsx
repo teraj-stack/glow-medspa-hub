@@ -38,6 +38,7 @@ function TechnologiesPage() {
             eyebrow="Katalog"
             title="Technologie, na które stawiamy"
             description="Każde urządzenie ma swoje miejsce w protokole. Opisujemy je po inżyniersku — nazwy handlowe omawiamy w gabinecie."
+            as="h1"
           />
         </div>
       </section>

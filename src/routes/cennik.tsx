@@ -29,6 +29,7 @@ function Pricing() {
             eyebrow="Cennik"
             title="Przejrzyste ceny, indywidualne protokoły"
             description="Poniższe ceny mają charakter orientacyjny. Ostateczna wycena następuje po konsultacji medycznej."
+            as="h1"
           />
         </div>
       </section>

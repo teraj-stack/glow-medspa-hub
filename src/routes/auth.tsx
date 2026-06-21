@@ -77,6 +77,7 @@ function AuthPage() {
         <SectionHeading
           eyebrow={mode === "login" ? "Logowanie" : "Rejestracja"}
           title={mode === "login" ? "Witamy ponownie" : "Konto pacjenta"}
+          as="h1"
         />
         <form onSubmit={onSubmit} className="mt-8 grid gap-4 rounded-lg border border-border bg-card p-6 shadow-soft">
           {mode === "signup" && (
