@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles, Wand2, Hand, Eye, HeartHandshake } from "lucide-r
 import ScrollReveal from "@/components/ScrollReveal";
 import PakietTile from "@/components/PakietTile";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
+import sylwetkaAsset from "@/assets/szkic-sylwetka.png.asset.json";
 
 
 export const Route = createFileRoute("/rozwiazania")({
@@ -168,7 +169,7 @@ function RozwiazaniaPage() {
               nr="02"
               tagline="REDUKCJA BLIZN I ZMARSZCZEK"
               title="Tekstura « HD »"
-              icon={konturyAsset.url}
+              icon={sylwetkaAsset.url}
               bullets={[
                 {
                   title: "Redukcja blizn i przebarwień",
