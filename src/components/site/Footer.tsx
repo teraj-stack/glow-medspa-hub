@@ -9,7 +9,7 @@ export function Footer() {
             BMClinics.ai
           </div>
           <p className="mt-3 max-w-md text-sm text-alabaster/70">
-            Klinika medycyny estetycznej i laserowej w Siedlcach. Naturalny efekt. Dyskretna pamięć.
+            Klinika medycyny estetycznej i laserowej. Naturalny efekt.&nbsp;
           </p>
         </div>
         <div>
