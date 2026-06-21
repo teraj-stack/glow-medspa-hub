@@ -105,7 +105,7 @@ function PotrzebyPage() {
           />
           <div className="mt-6 max-w-2xl space-y-4">
             <p className="text-base text-muted-foreground md:text-lg">
-              Skąd? Uczymy się od najlepszych..
+              Uczymy się od najlepszych..
             </p>
             <blockquote className="border-l-2 border-champagne/40 pl-4 text-base font-light italic text-muted-foreground/70 md:text-lg">
               „Wiem, czego pragną kobiety. Chcą być piękne”{" "}
