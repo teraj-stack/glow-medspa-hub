@@ -81,7 +81,6 @@ function Hero() {
           <div className="absolute -bottom-6 -left-6 hidden rounded-lg border border-border bg-card p-5 shadow-soft md:block">
             <div className="text-xs uppercase tracking-[0.3em] text-champagne">Dyskretnie</div>
             <div className="mt-1 font-serif text-xl text-ink">Najlepsza technologia jest bezwartościowa bez empatii i partnerskiej relacji z pacjentem.</div>
-            <div className="text-sm text-muted-foreground">bez retuszu, bez filtrów</div>
           </div>
         </div>
       </div>
