@@ -9,7 +9,7 @@ import komfortAsset from "@/assets/komfort.avif.asset.json";
 export const Route = createFileRoute("/potrzeby")({
   head: () => ({
     meta: [
-      { title: "Potrzeby — na czym się skupiamy | Beauty & Mind Clinic Siedlce" },
+      { title: "Potrzeby — Beauty & Mind Clinic Siedlce" },
       {
         name: "description",
         content:
