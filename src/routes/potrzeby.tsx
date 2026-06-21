@@ -72,7 +72,11 @@ const TILES: Tile[] = [
     { text: "Zwężenie porów i wyrównanie struktury skóry — cera wygląda nieskazitelnie przez cały dzień, wiele pacjentek z czasem rezygnuje z nakładania makijażu." },
     { text: "Skuteczna redukcja blizn i rozstępów." },
   ]},
-  { nr: "03", slug: "rewitalizacja-dloni", title: "Rewitalizacja dłoni", tagline: "Dłonie", icon: dlonieAsset.url },
+  { nr: "03", slug: "rewitalizacja-dloni", title: "Rewitalizacja dłoni", tagline: "Dłonie", icon: dlonieAsset.url, bullets: [
+    { text: "Dłonie są wizytówką każdego z nas." },
+    { text: "Przywrócenie gęstości skórze dłoni, by odzyskały młody wygląd i nie zdradzały wieku." },
+    { text: "Usunięcie plam starczych — redukcja przebarwień i plam pigmentacyjnych na dłoniach i przedramionach przywraca jednolity koloryt skóry." },
+  ]},
   { nr: "04", slug: "okolica-oka", title: "Okolica oka", lead: "Spojrzenie i powieki", icon: okoAsset.url },
   { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Dyskretne rozwiązania", icon: komfortAsset.url },
 ];
@@ -149,14 +153,12 @@ function PotrzebyPage() {
                         <span className="whitespace-pre-line">
                           {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
                           {b.title && " —\u00a0"}
-                          {b.text.split(/(z wiekiem|kolagen|owal twarzy)/).map((part, i) => {
+                          {b.text.split(/(z wiekiem|kolagen|owal twarzy|Dłonie|wieku|plam starczych)/).map((part, i) => {
                             if (part === "kolagen") return null;
-                            const displayPart = part === "owal twarzy" ? "owal twarzy" : part.replace(", wraz z ", ", wraz z nim");
-                            
-                            return ["z wiekiem", "owal twarzy"].includes(part) ? (
-                              <strong key={i} className="font-medium text-foreground">{displayPart}</strong>
+                            return ["z wiekiem", "owal twarzy", "Dłonie", "wieku", "plam starczych"].includes(part) ? (
+                              <strong key={i} className="font-medium text-foreground">{part}</strong>
                             ) : (
-                              <span key={i}>{displayPart}</span>
+                              <span key={i}>{part}</span>
                             );
                           })}
                         </span>
