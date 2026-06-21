@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import logoBmc from "@/assets/logo-bmc.png.asset.json";
 
 const NAV = [
   { to: "/technologie", label: "Technologie" },
@@ -13,11 +14,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
       <div className="container-luxury flex h-16 items-center justify-between md:h-20">
-        <Link to="/" className="flex items-baseline gap-2 font-serif text-xl tracking-wide text-ink">
-          <span>Beauty</span>
-          <span className="text-champagne">&amp;</span>
-          <span>Mind</span>
-          <span className="ml-1 text-xs uppercase tracking-[0.3em] text-muted-foreground">Clinic</span>
+        <Link to="/" aria-label="Beauty & Mind Clinic — strona główna" className="flex items-center">
+          <img
+            src={logoBmc.url}
+            alt="Beauty & Mind Clinic"
+            className="h-10 w-auto md:h-12"
+            width={120}
+            height={120}
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
