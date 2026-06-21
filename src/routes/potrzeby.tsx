@@ -111,9 +111,10 @@ function PotrzebyPage() {
               „Wiem, czego pragną kobiety. Chcą być piękne”
               <span className="not-italic mt-2 block text-right text-sm">Rudolf Valentino</span>
             </blockquote>
-            <p className="text-base text-muted-foreground md:text-lg">
+            <p className="text-base text-muted-foreground md:text-lg whitespace-pre-line">
               Pięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zabiegowy zaczyna się od konsultacji: wywiad, badanie i{"\u00a0"}<br />
-              doświadczenie lekarza prowadzącego dają rozpoznanie.{"\u00a0"}<br /><br /><br />
+              doświadczenie lekarza prowadzącego dają rozpoznanie.{"\u00a0"}
+
               Po postawieniu rozpoznania skupiamy uwagę na oczekiwaniach pacjenta i{"\u00a0"}<br />
               dobieramy dostępne technologie.
             </p>
