@@ -251,7 +251,7 @@ function RozwiazaniaPage() {
                     { name: "Body Longevity · biostymulator premium" },
                     { name: "Konsultacja autorska — lek. Jan Bujok" },
                   ]}
-                  ctaTeaser="« RENESANS BODY LONGEVITY »"
+                  ctaTeaser="« RENESANS\u00a0»\u00a0BODY LONGEVITY\u00a0"
                   ctaLabel="Umów konsultację autorską →"
                   ctaHref="#konsultacja"
                 />
