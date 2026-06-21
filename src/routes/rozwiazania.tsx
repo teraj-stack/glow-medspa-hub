@@ -214,11 +214,23 @@ function RozwiazaniaPage() {
               ]}
             />
 
-            <ul className="contents">
-              {TILES.map((tile, i) => (
-                <TileCard key={tile.nr} tile={tile} index={i} isFifth={false} />
-              ))}
-            </ul>
+            <PakietTile
+              nr="05"
+              tagline="PAKIET D · BODY CONTOUR"
+              title="Modelowanie sylwetki"
+              icon={bodyContourAsset}
+              bullets={[
+                {
+                  text: "« Body Management 360 » to trening mięśni bez siłowni — buduje gorset mięśniowy brzucha lub pośladków, redukując niechciany tłuszcz.",
+                  boldParts: ["« Body Management 360 »"],
+                },
+                {
+                  text: "Połączenie z fototerapią pozwala odpocząć, odprężyć się i zregenerować — Body Longevity Beauty & Mind.",
+                },
+              ]}
+              technologies={["HIFEM+MSF+RF", "Fototerapia"]}
+            />
+
           </div>
         </div>
       </section>
