@@ -1,4 +1,6 @@
-import { ArrowRight, Sparkles, type LucideIcon } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
+import { ArrowRight } from "lucide-react";
+import FaceContourIcon from "./icons/FaceContourIcon";
 
 export type PakietCardProps = {
   subtitle: string;
@@ -6,7 +8,7 @@ export type PakietCardProps = {
   protocol: string;
   protocolDescription: string;
   technologies: string[];
-  icon?: LucideIcon;
+  icon?: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
 export default function PakietCard({
@@ -15,7 +17,7 @@ export default function PakietCard({
   protocol,
   protocolDescription,
   technologies,
-  icon: Icon = Sparkles,
+  icon: Icon = FaceContourIcon,
 }: PakietCardProps) {
   return (
     <article className="group h-full flex flex-col p-6 sm:p-8 md:p-10 rounded-sm border border-border/60 bg-card hover:border-champagne/60 hover:shadow-[0_20px_40px_-20px_hsl(var(--champagne)/0.25)] hover:-translate-y-1 transition-[transform,border-color,box-shadow] duration-500 ease-out will-change-transform">
