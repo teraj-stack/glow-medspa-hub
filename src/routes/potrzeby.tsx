@@ -145,8 +145,8 @@ function PotrzebyPage() {
                         <span className="whitespace-pre-line">
                           {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
                           {b.title && " — "}
-                          {b.text.split(/(z wiekiem)/).map((part, i) =>
-                            part === "z wiekiem" ? (
+                          {b.text.split(/(z wiekiem|kolagen|owal twarzy)/).map((part, i) =>
+                            ["z wiekiem", "kolagen", "owal twarzy"].includes(part) ? (
                               <strong key={i} className="font-medium text-foreground">{part}</strong>
                             ) : (
                               <span key={i}>{part}</span>
