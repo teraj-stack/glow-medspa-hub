@@ -49,8 +49,8 @@ function Hero() {
             .
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            W mojej pracowni medycyna staje się sztuką proporcji, a technologia służy naturze. 
-            Poznaj autorskie protokoły zabiegowe skrojone pod Twoją anatomię.
+            „Najlepsza technologia jest bezwartościowa bez empatii i partnerskiej relacji z pacjentem."
+            <span className="mt-2 block text-sm text-champagne">— Jan Bujok</span>
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
