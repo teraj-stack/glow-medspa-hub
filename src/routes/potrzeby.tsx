@@ -1,5 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import konturyAsset from "@/assets/kontury-lifting.avif.asset.json";
+import teksturaAsset from "@/assets/tekstura-hd.avif.asset.json";
+import dlonieAsset from "@/assets/dlonie-cialo.avif.asset.json";
+import okoAsset from "@/assets/okolica-oka.avif.asset.json";
+import komfortAsset from "@/assets/komfort.avif.asset.json";
 
 export const Route = createFileRoute("/potrzeby")({
   head: () => ({
@@ -32,14 +37,14 @@ export const Route = createFileRoute("/potrzeby")({
   component: PotrzebyPage,
 });
 
-type Tile = { nr: string; slug: string; title: string; lead: string };
+type Tile = { nr: string; slug: string; title: string; lead: string; icon: string };
 
 const TILES: Tile[] = [
-  { nr: "01", slug: "przywrocenie-konturow", title: "Przywrócenie konturów", lead: "Podniesienie i owal" },
-  { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", lead: "Redukcja blizn i zmarszczek" },
-  { nr: "03", slug: "rewitalizacja-dloni-i-ciala", title: "Rewitalizacja dłoni i ciała", lead: "Gęstość, jędrność" },
-  { nr: "04", slug: "okolica-oka", title: "Okolica oka", lead: "Spojrzenie i powieki" },
-  { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Dyskretne rozwiązania" },
+  { nr: "01", slug: "przywrocenie-konturow", title: "Przywrócenie konturów", lead: "Podniesienie i owal", icon: konturyAsset.url },
+  { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", lead: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url },
+  { nr: "03", slug: "rewitalizacja-dloni-i-ciala", title: "Rewitalizacja dłoni i ciała", lead: "Gęstość, jędrność", icon: dlonieAsset.url },
+  { nr: "04", slug: "okolica-oka", title: "Okolica oka", lead: "Spojrzenie i powieki", icon: okoAsset.url },
+  { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Dyskretne rozwiązania", icon: komfortAsset.url },
 ];
 
 function PotrzebyPage() {
@@ -71,14 +76,20 @@ function PotrzebyPage() {
                 style={{ animationDelay: `${i * 80}ms` }}
               >
                 <div
-                  className="flex h-[84px] w-[84px] items-center justify-center rounded-full border transition-transform duration-500 group-hover:scale-105"
+                  className="flex h-[84px] w-[84px] items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
                   style={{
                     background: "color-mix(in oklab, var(--champagne) 10%, transparent)",
                     borderColor: "color-mix(in oklab, var(--champagne) 30%, transparent)",
                   }}
                   aria-hidden="true"
                 >
-                  <img src="" alt="" className="h-12 w-12" />
+                  <img
+                    src={t.icon}
+                    alt=""
+                    loading="lazy"
+                    className="h-14 w-14 object-contain transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
+                    style={{ animationDelay: `${i * 0.4}s` }}
+                  />
                 </div>
 
                 <div className="mt-5 text-xs uppercase tracking-[0.3em] text-champagne">{t.nr}</div>
