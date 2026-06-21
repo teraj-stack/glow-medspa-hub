@@ -196,6 +196,8 @@
 
 @utility rise-in { animation: rise 0.7s ease-out both; }
 
+@utility font-body { font-family: var(--font-sans); }
+
 @utility shimmer-text {
   background: linear-gradient(110deg, var(--champagne) 0%, var(--champagne-light) 45%, var(--gold) 50%, var(--champagne-light) 55%, var(--champagne) 100%);
   background-size: 200% 100%;
