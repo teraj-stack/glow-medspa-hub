@@ -49,8 +49,9 @@ function Hero() {
             .
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            W mojej pracowni medycyna staje się sztuką proporcji, a technologia służy naturze. 
-            Poznaj autorskie protokoły zabiegowe skrojone pod Twoją anatomię.
+            W mojej pracowni medycyna staje się sztuką proporcji,&nbsp;<br />
+            a technologia służy naturze. Poznaj autorskie protokoły&nbsp;<br />
+            zabiegowe skrojone pod Twoją anatomię.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
@@ -93,7 +94,7 @@ function ManifestSection() {
     <section className="bg-secondary/30 py-20 md:py-28">
       <div className="container-luxury max-w-4xl">
         <div className="text-xs uppercase tracking-[0.3em] text-champagne">Manifest / O twórcy</div>
-        <h2 className="mt-4 font-serif text-ink">Spójrz na czystą linię obojczyka, na cień pod dolną wargą, na układ rzęs...</h2>
+        <h2 className="mt-4 font-serif text-ink">Spójrz na czystą linię obojczyka,&nbsp;<br />na cień pod dolną wargą, na układ rzęs...</h2>
         
         <div className="mt-10 space-y-8 text-foreground">
           <p>
