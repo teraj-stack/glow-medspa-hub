@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { TECHNOLOGIES } from "@/data/technologies";
 
-const BASE_URL = "";
+const BASE_URL = "https://bmclinics.ai";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
@@ -10,9 +10,10 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
+          { path: "/potrzeby", changefreq: "monthly", priority: "0.8" },
+          { path: "/rozwiazania", changefreq: "monthly", priority: "0.8" },
           { path: "/technologie", changefreq: "monthly", priority: "0.9" },
           { path: "/cennik", changefreq: "monthly", priority: "0.8" },
-          { path: "/auth", changefreq: "yearly", priority: "0.3" },
           { path: "/polityka-prywatnosci", changefreq: "yearly", priority: "0.3" },
           { path: "/regulamin", changefreq: "yearly", priority: "0.3" },
           ...TECHNOLOGIES.map((t) => ({

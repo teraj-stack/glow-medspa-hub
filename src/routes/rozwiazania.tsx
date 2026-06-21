@@ -23,9 +23,9 @@ export const Route = createFileRoute("/rozwiazania")({
       },
       { property: "og:title", content: "Rozwiązania — Beauty & Mind Clinic" },
       { property: "og:description", content: "Pięć obszarów naszej praktyki w estetyce «cichego luksusu»." },
-      { property: "og:url", content: "/rozwiazania" },
+      { property: "og:url", content: "https://bmclinics.ai/rozwiazania" },
     ],
-    links: [{ rel: "canonical", href: "/rozwiazania" }],
+    links: [{ rel: "canonical", href: "https://bmclinics.ai/rozwiazania" }],
   }),
   component: RozwiazaniaPage,
 });

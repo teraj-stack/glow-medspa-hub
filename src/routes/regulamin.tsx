@@ -3,10 +3,13 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/regulamin")({
   head: () => ({
     meta: [
-      { title: "Regulamin | Beauty & Mind Clinic" },
-      { name: "description", content: "Regulamin świadczenia usług kliniki Beauty & Mind Clinic w Siedlcach." },
+      { title: "Regulamin | BMClinics.ai" },
+      { name: "description", content: "Regulamin świadczenia usług BMClinics.ai — zasady rezerwacji, odwołań i reklamacji wizyt." },
+      { property: "og:title", content: "Regulamin | BMClinics.ai" },
+      { property: "og:description", content: "Warunki rezerwacji, odwołań i reklamacji wizyt w BMClinics.ai." },
+      { property: "og:url", content: "https://bmclinics.ai/regulamin" },
     ],
-    links: [{ rel: "canonical", href: "https://glow-medspa-hub.lovable.app/regulamin" }],
+    links: [{ rel: "canonical", href: "https://bmclinics.ai/regulamin" }],
   }),
   component: () => (
     <section className="container-luxury py-20">
