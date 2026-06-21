@@ -238,7 +238,7 @@ function RozwiazaniaPage() {
                 <PakietETile
                   letter="E"
                   subtitle="Body Longevity · Signature"
-                  title="Renesans\u00a0"
+                  title="Renesans"
                   imageSrc={renesansAsset.url}
                   imageAlt="Minimalistyczna ilustracja line-art przedstawiająca sylwetkę kobiety od tyłu — symbol autorskiej filozofii « Body Longevity » lek. Jana Bujok, czyli Powrót do Renesansu"
                   protocolLabel="TWOJA SYGNATURA"
