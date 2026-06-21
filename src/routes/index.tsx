@@ -42,7 +42,7 @@ function Hero() {
         <div className="rise-in">
           <div className="text-xs uppercase tracking-[0.3em] text-champagne">Beauty &amp; Mind Clinic · Siedlce</div>
           <h1 className="mt-6 font-serif text-ink">
-            Piękno nie potrzebuje hałasu. Piękno potrzebuje{" "}
+            Piękno nie potrzebuje hałasu. Potrzebuje{" "}
             <span className="bg-gradient-to-r from-champagne-light via-gold to-champagne bg-clip-text text-transparent">
               zrozumienia
             </span>
