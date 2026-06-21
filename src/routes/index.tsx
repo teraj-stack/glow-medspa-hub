@@ -4,6 +4,7 @@ import { TechCard } from "@/components/site/TechCard";
 import { BookingForm } from "@/components/site/BookingForm";
 import { TECHNOLOGIES } from "@/data/technologies";
 import { Sparkles, Shield, HeartHandshake, Stethoscope, ArrowRight, Microscope, Leaf, Clock } from "lucide-react";
+import bujokAsset from "@/assets/bujok.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
