@@ -33,7 +33,6 @@ type Tile = {
 };
 
 const TILES: Tile[] = [
-  { nr: "03", title: "Gęstość, jędrność", subtitle: "Rewitalizacja dłoni i ciała", Icon: Hand },
   { nr: "04", title: "Spojrzenie i powieki", subtitle: "Okolica oka", Icon: Eye },
   { nr: "05", title: "Dyskretne rozwiązania", subtitle: "Komfort i pewność siebie", Icon: HeartHandshake },
 ];
@@ -191,6 +190,33 @@ function RozwiazaniaPage() {
                 "RF Mikroigłowa",
               ]}
               protocol={{ label: "LADD", href: "/ladd" }}
+            />
+
+            <PakietTile
+              nr="03"
+              tagline="REWITALIZACJA DŁONI I CIAŁA"
+              title="Gęstość, jędrność"
+              icon={sylwetkaAsset.url}
+              bullets={[
+                {
+                  title: "Dłonie",
+                  text: "skóra dłoni szybko traci gęstość i ujawnia wiek — wymaga odbudowy kolagenu i nawilżenia w głębokich warstwach.",
+                },
+                {
+                  title: "Ramiona i wewnętrzna strona ud",
+                  text: "obszary delikatnej, cienkiej skóry, gdzie wiotkość pojawia się najwcześniej.",
+                },
+                {
+                  title: "Brzuch i pośladki",
+                  text: "utrata jędrności i napięcia powięziowego — praca nad warstwą mięśniową i podskórną.",
+                },
+              ]}
+              technologies={[
+                "HIFU Body",
+                "HIFEM",
+                "RF Mikroigłowa",
+                "Mezoterapia",
+              ]}
             />
 
             <ul className="contents">
