@@ -56,7 +56,7 @@ const TILES: Tile[] = [
     icon: konturyAsset.url,
     tagline: "LIFTING I OWAL",
     bullets: [
-      { title: "Nieoperacyjny lifting", text: "redukcja « chomików »." },
+      { title: "Nieoperacyjny lifting", text: "redukcja « chomików ». Wyostrzenie linii żuchwy, która z wiekiem traci swój zarys." },
       {
         title: "Bruzdy nosowo-wargowe i linie marionetki",
         text: "powstają, gdy opadają policzki (zanika owal i słabnie kolagen).",
