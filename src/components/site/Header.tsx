@@ -18,9 +18,9 @@ export function Header() {
           <img
             src={logoBmc.url}
             alt="Beauty & Mind Clinic"
-            className="h-10 w-auto md:h-12"
-            width={120}
-            height={120}
+            className="h-12 w-auto md:h-16"
+            width={160}
+            height={160}
           />
         </Link>
 
