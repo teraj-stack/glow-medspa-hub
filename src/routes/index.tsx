@@ -79,8 +79,8 @@ function Hero() {
             className="aspect-[4/5] w-full rounded-lg object-cover shadow-elegant"
           />
           <div className="absolute -bottom-6 -left-6 hidden rounded-lg border border-border bg-card p-5 shadow-soft md:block">
-            <div className="text-xs uppercase tracking-[0.3em] text-champagne">AUTOR: JAN BUJOK</div>
             <div className="mt-1 font-serif text-xl text-ink">"Najlepsza technologia jest bezwartościowa bez empatii i partnerskiej relacji z pacjentem."</div>
+            <div className="text-xs uppercase tracking-[0.3em] text-champagne">AUTOR: JAN BUJOK</div>
           </div>
         </div>
       </div>
