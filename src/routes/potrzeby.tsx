@@ -93,7 +93,7 @@ function PotrzebyPage() {
                 key={t.slug}
                 id={t.slug}
                 className={
-                  "group rise-in tile-card p-6 transition-all duration-300 hover:bg-secondary/40 focus-within:ring-2 focus-within:ring-champagne/60 md:p-8 " +
+                  "group rise-in tile-card relative p-6 transition-all duration-300 hover:bg-secondary/40 focus-within:ring-2 focus-within:ring-champagne/60 md:p-8 " +
                   (i === TILES.length - 1 && TILES.length % 2 === 1
                     ? "md:col-span-2 md:mx-auto md:w-1/2"
                     : "")
