@@ -68,8 +68,8 @@ const TILES: Tile[] = [
     ],
   },
   { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", tagline: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url, bullets: [
-    { text: "Efekt Photoshopa w rzeczywistości - Tekstura skóry staje się jedwabista i gładka." },
-    { text: "Zwężenie porów i wyrównanie struktury skóry — cera wygląda nieskazitelnie przez cały dzień, wiele pacjentek z czasem rezygnuje z nakładania makijażu." },
+    { title: "Efekt Photoshopa w rzeczywistości", text: "Tekstura skóry staje się jedwabista i gładka." },
+    { title: "Zwężenie porów i wyrównanie struktury skóry", text: "cera wygląda nieskazitelnie przez cały dzień, wiele pacjentek z czasem rezygnuje z nakładania makijażu." },
     { text: "Skuteczna redukcja blizn i rozstępów." },
   ]},
   { nr: "03", slug: "rewitalizacja-dloni", title: "Rewitalizacja dłoni", tagline: "Dłonie", icon: dlonieAsset.url, bullets: [
@@ -158,9 +158,9 @@ function PotrzebyPage() {
                         <span className="whitespace-pre-line">
                           {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
                           {b.title && b.text && " —\u00a0"}
-                          {b.text.split(/(z wiekiem|kolagen|owal twarzy|Dłonie|wieku|plam starczych)/).map((part, i) => {
+                          {b.text.split(/(z wiekiem|kolagen|owal twarzy|Dłonie|wieku|plam starczych|rezygnuje|redukcja blizn i rozstępów)/).map((part, i) => {
                             if (part === "kolagen") return null;
-                            return ["z wiekiem", "owal twarzy", "Dłonie", "wieku", "plam starczych"].includes(part) ? (
+                            return ["z wiekiem", "owal twarzy", "Dłonie", "wieku", "plam starczych", "rezygnuje", "redukcja blizn i rozstępów"].includes(part) ? (
                               <strong key={i} className="font-medium text-foreground">{part}</strong>
                             ) : (
                               <span key={i}>{part}</span>
