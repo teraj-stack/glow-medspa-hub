@@ -50,9 +50,8 @@ function Hero() {
           <h1 className="mt-6 font-serif text-ink">
             Piękno nie potrzebuje hałasu. Potrzebuje{" "}
             <span className="bg-gradient-to-r from-champagne-light via-gold to-champagne bg-clip-text text-transparent">
-              zrozumienia
+              zrozumienia.
             </span>
-            .
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
             W mojej pracowni medycyna staje się sztuką proporcji,&nbsp;<br />
