@@ -14,7 +14,9 @@ export const Route = createFileRoute("/technologie")({
       },
       { property: "og:title", content: "Technologie — Beauty & Mind Clinic" },
       { property: "og:description", content: "15 sprawdzonych technologii dobranych pod Państwa potrzeby." },
+      { property: "og:url", content: "https://glow-medspa-hub.lovable.app/technologie" },
     ],
+    links: [{ rel: "canonical", href: "https://glow-medspa-hub.lovable.app/technologie" }],
   }),
   component: TechnologiesPage,
 });
