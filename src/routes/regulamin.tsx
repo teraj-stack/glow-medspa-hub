@@ -6,6 +6,7 @@ export const Route = createFileRoute("/regulamin")({
       { title: "Regulamin | Beauty & Mind Clinic" },
       { name: "description", content: "Regulamin świadczenia usług kliniki Beauty & Mind Clinic w Siedlcach." },
     ],
+    links: [{ rel: "canonical", href: "https://glow-medspa-hub.lovable.app/regulamin" }],
   }),
   component: () => (
     <section className="container-luxury py-20">
