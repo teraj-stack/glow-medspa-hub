@@ -13,7 +13,7 @@ export const Route = createFileRoute("/potrzeby")({
       {
         name: "description",
         content:
-          "Pięć obszarów, w których pomagamy: kontury twarzy, tekstura skóry, rewitalizacja dłoni i ciała, okolica oka oraz komfort i pewność siebie.",
+          "Pięć obszarów, w których pomagamy: kontury twarzy, tekstura skóry, rewitalizacja dłoni, okolica oka oraz komfort i pewność siebie.",
       },
       { property: "og:title", content: "Potrzeby — Beauty & Mind Clinic" },
       { property: "og:description", content: "Na czym się skupiamy — pięć obszarów naszej praktyki." },
@@ -68,7 +68,7 @@ const TILES: Tile[] = [
     ],
   },
   { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", tagline: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url },
-  { nr: "03", slug: "rewitalizacja-dloni-i-ciala", title: "Rewitalizacja dłoni i ciała", lead: "Gęstość, jędrność", icon: dlonieAsset.url },
+  { nr: "03", slug: "rewitalizacja-dloni", title: "Rewitalizacja dłoni", lead: "Gęstość, jędrność", icon: dlonieAsset.url },
   { nr: "04", slug: "okolica-oka", title: "Okolica oka", lead: "Spojrzenie i powieki", icon: okoAsset.url },
   { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Dyskretne rozwiązania", icon: komfortAsset.url },
 ];
