@@ -42,7 +42,7 @@ function Hero() {
         <div className="rise-in">
           <div className="text-xs uppercase tracking-[0.3em] text-champagne">Beauty &amp; Mind Clinic · Siedlce</div>
           <h1 className="mt-6 font-serif text-ink">
-            Piękno nie potrzebuje hałasu. Potrzebuje zrozumienia.
+            Piękno nie potrzebuje hałasu. Piękno potrzebuje zrozumienia.
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
             W mojej pracowni medycyna staje się sztuką proporcji, a technologia służy naturze. 
