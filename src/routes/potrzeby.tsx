@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import konturyAsset from "@/assets/kontury-lifting.avif.asset.json";
-import teksturaAsset from "@/assets/tekstura-hd.avif.asset.json";
+import teksturaAsset from "@/assets/tekstura-hd.png.asset.json";
 import dlonieAsset from "@/assets/dlonie-cialo.avif.asset.json";
 import okoAsset from "@/assets/okolica-oka.avif.asset.json";
 import komfortAsset from "@/assets/komfort.avif.asset.json";
