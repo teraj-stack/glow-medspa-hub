@@ -42,7 +42,7 @@ type Tile = {
   nr: string;
   slug: string;
   title: string;
-  lead: string;
+  lead?: string;
   icon: string;
   tagline?: string;
   bullets?: BulletItem[];
@@ -53,9 +53,8 @@ const TILES: Tile[] = [
     nr: "01",
     slug: "przywrocenie-konturow",
     title: "Przywrócenie konturów",
-    lead: "Lifting i owal",
-    tagline: "LIFTING I OWAL",
     icon: konturyAsset.url,
+    tagline: "LIFTING I OWAL",
     bullets: [
       { title: "Nieoperacyjny lifting", text: "redukcja « chomików »." },
       {
@@ -132,9 +131,11 @@ function PotrzebyPage() {
                   {t.title}
                 </h2>
 
-                <p className="mt-3 font-sans text-sm tracking-wide text-muted-foreground">
-                  {t.lead}
-                </p>
+                {t.lead && (
+                  <p className="mt-3 font-sans text-sm tracking-wide text-muted-foreground">
+                    {t.lead}
+                  </p>
+                )}
 
                 {t.bullets && (
                   <ul className="mt-4 space-y-2 font-sans text-sm leading-relaxed text-muted-foreground">
