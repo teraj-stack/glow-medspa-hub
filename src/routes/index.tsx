@@ -26,7 +26,7 @@ function Home() {
   return (
     <>
       <Hero />
-      <FlagshipPaths />
+      <ManifestSection />
       <MethodologySection />
       <TechnologiesPreview />
       <Testimonials />
