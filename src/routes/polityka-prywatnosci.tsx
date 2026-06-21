@@ -3,10 +3,13 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/polityka-prywatnosci")({
   head: () => ({
     meta: [
-      { title: "Polityka prywatności | Beauty & Mind Clinic" },
-      { name: "description", content: "Polityka prywatności kliniki Beauty & Mind Clinic w Siedlcach." },
+      { title: "Polityka prywatności | BMClinics.ai" },
+      { name: "description", content: "Polityka prywatności BMClinics.ai — zasady przetwarzania danych osobowych pacjentów i użytkowników formularza rezerwacji." },
+      { property: "og:title", content: "Polityka prywatności | BMClinics.ai" },
+      { property: "og:description", content: "Jak przetwarzamy Państwa dane osobowe — podstawa prawna, zakres, prawa pacjenta." },
+      { property: "og:url", content: "https://bmclinics.ai/polityka-prywatnosci" },
     ],
-    links: [{ rel: "canonical", href: "https://glow-medspa-hub.lovable.app/polityka-prywatnosci" }],
+    links: [{ rel: "canonical", href: "https://bmclinics.ai/polityka-prywatnosci" }],
   }),
   component: () => (
     <section className="container-luxury py-20">

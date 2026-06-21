@@ -1,0 +1,13 @@
+# BMClinics.ai
+
+> Klinika medycyny estetycznej i laserowej. Naturalny efekt, dyskretne protokoły dobierane do potrzeb pacjenta.
+
+## Pages
+
+- [Strona główna](/): Manifest kliniki, wybrane technologie, rezerwacja konsultacji.
+- [Potrzeby](/potrzeby): Pięć obszarów praktyki — kontury twarzy, tekstura skóry, dłonie, okolica oka, komfort.
+- [Rozwiązania](/rozwiazania): Autorskie pakiety zabiegowe i protokoły terapeutyczne.
+- [Technologie](/technologie): Pełny katalog urządzeń i metod stosowanych w klinice.
+- [Cennik](/cennik): Orientacyjne ceny zabiegów; ostateczna wycena po konsultacji.
+- [Polityka prywatności](/polityka-prywatnosci): Zasady przetwarzania danych osobowych.
+- [Regulamin](/regulamin): Warunki rezerwacji, odwołań i świadczenia usług.
