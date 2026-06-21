@@ -119,7 +119,7 @@ function PotrzebyPage() {
 
                 <div className="absolute right-6 top-6 text-xs uppercase tracking-[0.3em] text-champagne md:right-8 md:top-8">{t.nr}</div>
 
-                <h2 className="gold-line mt-2 font-serif text-2xl text-foreground md:text-3xl">
+                <h2 className="gold-line mt-7 font-serif text-2xl text-foreground md:text-3xl">
                   {t.title}
                 </h2>
 
