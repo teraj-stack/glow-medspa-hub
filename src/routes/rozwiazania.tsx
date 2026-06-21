@@ -28,37 +28,6 @@ export const Route = createFileRoute("/rozwiazania")({
   component: RozwiazaniaPage,
 });
 
-type Tile = {
-  nr: string;
-  title: string;
-  subtitle: string;
-  Icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
-};
-
-const TILES: Tile[] = [
-  { nr: "05", title: "Dyskretne rozwiązania", subtitle: "Komfort i pewność siebie", Icon: HeartHandshake },
-];
-
-function useInView<T extends Element>(options?: IntersectionObserverInit) {
-  const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.15, ...options },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [options]);
-  return { ref, inView };
-}
 
 function RozwiazaniaPage() {
   return (
