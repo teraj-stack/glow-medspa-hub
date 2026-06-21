@@ -6,7 +6,7 @@ export type PakietTileProps = {
   tagline: string;
   title: string;
   icon: string;
-  bullets: { title?: string; text: string; boldParts?: string[] }[];
+  bullets: { title?: string; text?: string; boldParts?: string[] }[];
   technologies?: string[];
   protocol?: { label: string; href: string };
 };
