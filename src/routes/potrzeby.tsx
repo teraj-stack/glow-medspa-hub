@@ -42,7 +42,7 @@ type Tile = {
   nr: string;
   slug: string;
   title: string;
-  lead: string;
+  lead?: string;
   icon: string;
   tagline?: string;
   bullets?: BulletItem[];
