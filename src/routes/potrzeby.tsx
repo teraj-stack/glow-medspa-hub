@@ -112,8 +112,10 @@ function PotrzebyPage() {
               <span className="not-italic">Rudolf Valentino</span>
             </blockquote>
             <p className="text-base text-muted-foreground md:text-lg">
-              Pięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zabiegowy zaczyna się od konsultacji: wywiad, badanie i doświadczenie lekarza prowadzącego dają rozpoznanie.{"\u00a0"}<br />
-              Po postawieniu rozpoznania skupiamy uwagę na oczekiwaniach pacjenta i dobieramy dostępne technologie.
+              Pięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zabiegowy zaczyna się od konsultacji: wywiad, badanie i{"\u00a0"}<br />
+              doświadczenie lekarza prowadzącego dają rozpoznanie.{"\u00a0"}<br /><br /><br />
+              Po postawieniu rozpoznania skupiamy uwagę na oczekiwaniach pacjenta i{"\u00a0"}<br />
+              dobieramy dostępne technologie.
             </p>
           </div>
         </div>
