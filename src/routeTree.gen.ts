@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TechnologieRouteImport } from './routes/technologie'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as RozwiazaniaRouteImport } from './routes/rozwiazania'
 import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as PotrzebyRouteImport } from './routes/potrzeby'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
@@ -27,6 +28,11 @@ const TechnologieRoute = TechnologieRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RozwiazaniaRoute = RozwiazaniaRouteImport.update({
+  id: '/rozwiazania',
+  path: '/rozwiazania',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegulaminRoute = RegulaminRouteImport.update({
@@ -72,6 +78,7 @@ export interface FileRoutesByFullPath {
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
+  '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/technologie': typeof TechnologieRouteWithChildren
   '/technologie/$slug': typeof TechnologieSlugRoute
@@ -83,6 +90,7 @@ export interface FileRoutesByTo {
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
+  '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/technologie': typeof TechnologieRouteWithChildren
   '/technologie/$slug': typeof TechnologieSlugRoute
@@ -95,6 +103,7 @@ export interface FileRoutesById {
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
+  '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/technologie': typeof TechnologieRouteWithChildren
   '/technologie/$slug': typeof TechnologieSlugRoute
@@ -108,6 +117,7 @@ export interface FileRouteTypes {
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
+    | '/rozwiazania'
     | '/sitemap.xml'
     | '/technologie'
     | '/technologie/$slug'
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
+    | '/rozwiazania'
     | '/sitemap.xml'
     | '/technologie'
     | '/technologie/$slug'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
+    | '/rozwiazania'
     | '/sitemap.xml'
     | '/technologie'
     | '/technologie/$slug'
@@ -142,6 +154,7 @@ export interface RootRouteChildren {
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
+  RozwiazaniaRoute: typeof RozwiazaniaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TechnologieRoute: typeof TechnologieRouteWithChildren
 }
@@ -160,6 +173,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rozwiazania': {
+      id: '/rozwiazania'
+      path: '/rozwiazania'
+      fullPath: '/rozwiazania'
+      preLoaderRoute: typeof RozwiazaniaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/regulamin': {
@@ -233,19 +253,10 @@ const rootRouteChildren: RootRouteChildren = {
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
+  RozwiazaniaRoute: RozwiazaniaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TechnologieRoute: TechnologieRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
