@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Sparkles, Wand2, Hand, Eye, HeartHandshake } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
+import PakietCard from "@/components/PakietCard";
 
 
 export const Route = createFileRoute("/rozwiazania")({
@@ -30,7 +31,6 @@ type Tile = {
 };
 
 const TILES: Tile[] = [
-  { nr: "01", title: "Lifting i owal", subtitle: "Przywrócenie konturów", Icon: Sparkles },
   { nr: "02", title: "Redukcja blizn, zmarszczek", subtitle: "Tekstura « HD »", Icon: Wand2 },
   { nr: "03", title: "Gęstość, jędrność", subtitle: "Rewitalizacja dłoni i ciała", Icon: Hand },
   { nr: "04", title: "Spojrzenie i powieki", subtitle: "Okolica oka", Icon: Eye },
@@ -136,11 +136,21 @@ function RozwiazaniaPage() {
 
       <section className="bg-background py-16 md:py-24">
         <div className="container-luxury">
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {TILES.map((tile, i) => (
-              <TileCard key={tile.nr} tile={tile} index={i} isFifth={i === 4} />
-            ))}
-          </ul>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+            <PakietCard
+              subtitle="Pakiet A — Lifting & kontur"
+              title="Architektura twarzy"
+              protocol={"«\u00A0Głęboki lifting 4D\u00A0»"}
+              protocolDescription="Połączenie stymulacji mięśniowej (HIFEM+MSF+RH) z przebudową struktur skóry (HIFU). Działamy jednocześnie nad mięśniami, powięzią i kolagenem — efekt liftingu bez efektu maski."
+              technologies={["Laser tulowy", "Ultradźwięki zogniskowane (HIFU)", "Laser pikosekundowy", "RF Mikroigłowa"]}
+              icon={Sparkles}
+            />
+            <ul className="contents">
+              {TILES.map((tile, i) => (
+                <TileCard key={tile.nr} tile={tile} index={i} isFifth={false} />
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
