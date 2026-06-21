@@ -2,11 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Sparkles } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import PakietTile from "@/components/PakietTile";
+import PakietETile from "@/components/PakietETile";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 import sylwetkaAsset from "@/assets/szkic-sylwetka.png.asset.json";
 import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
 import okoAsset from "@/assets/oko-szkic-v2.png.asset.json";
 import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
+import renesansAsset from "@/assets/renesans-szkic.png.asset.json";
 
 
 
@@ -230,6 +232,33 @@ function RozwiazaniaPage() {
               ]}
               technologies={["HIFEM+MSF+RF", "Fototerapia"]}
             />
+
+            <div className="md:col-span-2">
+              <ScrollReveal>
+                <PakietETile
+                  letter="E"
+                  subtitle="Body Longevity · Signature"
+                  title="Powrót do Renesansu"
+                  imageSrc={renesansAsset.url}
+                  imageAlt="Minimalistyczna ilustracja line-art przedstawiająca sylwetkę kobiety od tyłu — symbol autorskiej filozofii « Body Longevity » lek. Jana Bujok, czyli Powrót do Renesansu"
+                  protocolLabel="Twoja sygnatura — Renaissance"
+                  protocol="Renaissance by lek. Jan Bujok"
+                  protocolDescription="Autorska narracja lek. Jana Bujok — protokoły « Renaissance » łączą wyselekcjonowane, zestrojone kombinacje technologii w sekwencjach niedostępnych w pojedynczych urządzeniach. Każdy plan jest projektowany przez lekarza dla pacjentek i pacjentów, których oczekiwania wykraczają poza schemat — w pełni oparty na wieloletnim doświadczeniu klinicznym. Ten projekt « Body Longevity » to powrót do złotej ery piękna, czyli Powrót do Renesansu: harmonia funkcjonalna, naturalna witalność i ponadczasowa elegancja."
+                  technologiesLabel="Sygnatury Body Longevity"
+                  technologies={[
+                    { name: "Sekwencja Sygnatur Renesansowych" },
+                    { name: "Body Longevity · podejście multi-technologiczne" },
+                    { name: "Body Longevity · biostymulator premium" },
+                    { name: "Konsultacja autorska — lek. Jan Bujok" },
+                  ]}
+                  ctaTeaser="« RENESANS BODY LONGEVITY »"
+                  ctaLabel="Umów konsultację autorską →"
+                  ctaHref="#konsultacja"
+                />
+              </ScrollReveal>
+            </div>
+
+
 
           </div>
         </div>
