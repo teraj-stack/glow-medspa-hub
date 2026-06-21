@@ -17,6 +17,11 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:title", content: "Beauty & Mind Clinic — Siedlce" },
       { property: "og:description", content: "Naturalny efekt. Dyskretna pamięć." },
+      { property: "og:image", content: bujokAsset.url },
+      { name: "twitter:image", content: bujokAsset.url },
+    ],
+    links: [
+      { rel: "preload", as: "image", href: bujokAsset.url, fetchpriority: "high" },
     ],
   }),
   component: Home,
@@ -76,6 +81,8 @@ function Hero() {
             width={1200}
             height={1500}
             loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="aspect-[4/5] w-full rounded-lg object-cover shadow-elegant"
           />
           <div className="absolute -bottom-6 -left-6 hidden rounded-lg border border-border bg-card p-5 shadow-soft md:block">
