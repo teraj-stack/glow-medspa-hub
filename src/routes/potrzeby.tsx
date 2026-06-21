@@ -4,7 +4,7 @@ import konturyAsset from "@/assets/kontur-lifting-owal-v2.png.asset.json";
 import teksturaAsset from "@/assets/tekstura-hd-clean.png.asset.json";
 import dlonieAsset from "@/assets/dlonie-cialo.avif.asset.json";
 import okoAsset from "@/assets/okolica-oka.avif.asset.json";
-import komfortAsset from "@/assets/komfort.avif.asset.json";
+import komfortAsset from "@/assets/komfort-szkic.png.asset.json";
 
 export const Route = createFileRoute("/potrzeby")({
   head: () => ({
