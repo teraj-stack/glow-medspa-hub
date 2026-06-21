@@ -76,14 +76,20 @@ function PotrzebyPage() {
                 style={{ animationDelay: `${i * 80}ms` }}
               >
                 <div
-                  className="flex h-[84px] w-[84px] items-center justify-center rounded-full border transition-transform duration-500 group-hover:scale-105"
+                  className="flex h-[84px] w-[84px] items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
                   style={{
                     background: "color-mix(in oklab, var(--champagne) 10%, transparent)",
                     borderColor: "color-mix(in oklab, var(--champagne) 30%, transparent)",
                   }}
                   aria-hidden="true"
                 >
-                  <img src="" alt="" className="h-12 w-12" />
+                  <img
+                    src={t.icon}
+                    alt=""
+                    loading="lazy"
+                    className="h-14 w-14 object-contain transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
+                    style={{ animationDelay: `${i * 0.4}s` }}
+                  />
                 </div>
 
                 <div className="mt-5 text-xs uppercase tracking-[0.3em] text-champagne">{t.nr}</div>
