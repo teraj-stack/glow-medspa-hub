@@ -1,8 +1,3 @@
-`lead` w pierwszym kafelku nie zmieniamy "Przywrócenie konturów", poniżej "Lifting i owal"; Pod elementem `lead`  dodaj listę punktowaną:
-
-- Nieoperacyjny **Lifting** - redukcja « chomików »
-- **Bruzdy nosowo-wargowe i Linie marionetki**
-  powstają, gdy opadają policzki (zanika owal i słabnie kolagen).
-- Szyja i dekolt - To niezwykle delikatna okolica, gdzie cienka, wiotka skóra pokryta przebarwieniami  posłonecznymi najszybciej zdradza wiek kobiety. 
-
-Dodatkowo aktualizacja typu `Tile` i logiki renderującej, aby obsługiwała zarówno pojedynczy tekst (`string`), jak i listę punktowaną (`string[]`).
+1. Ustawić `relative` na elemencie `<article>` każdego kafla, aby mógł być punktem odniesienia dla pozycjonowania absolutnego.
+2. Przenieść numer sekcji (`t.nr`) w prawy górny róg kafla, stosując `absolute top-6 right-6 md:top-8 md:right-8` (dostosowane do paddingu `p-6 md:p-8`).
+3. Zachować obecny styl tekstu numeru: `text-xs uppercase tracking-[0.3em] text-champagne`.

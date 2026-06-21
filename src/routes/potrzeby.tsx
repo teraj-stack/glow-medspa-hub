@@ -93,7 +93,7 @@ function PotrzebyPage() {
                 key={t.slug}
                 id={t.slug}
                 className={
-                  "group rise-in tile-card p-6 transition-all duration-300 hover:bg-secondary/40 focus-within:ring-2 focus-within:ring-champagne/60 md:p-8 " +
+                  "group rise-in tile-card relative p-6 transition-all duration-300 hover:bg-secondary/40 focus-within:ring-2 focus-within:ring-champagne/60 md:p-8 " +
                   (i === TILES.length - 1 && TILES.length % 2 === 1
                     ? "md:col-span-2 md:mx-auto md:w-1/2"
                     : "")
@@ -117,9 +117,9 @@ function PotrzebyPage() {
                   />
                 </div>
 
-                <div className="mt-5 text-right text-xs uppercase tracking-[0.3em] text-champagne">{t.nr}</div>
+                <div className="absolute right-6 top-6 text-xs uppercase tracking-[0.3em] text-champagne md:right-8 md:top-8">{t.nr}</div>
 
-                <h2 className="gold-line mt-2 font-serif text-2xl text-foreground md:text-3xl">
+                <h2 className="gold-line mt-7 font-serif text-2xl text-foreground md:text-3xl">
                   {t.title}
                 </h2>
 
