@@ -77,7 +77,13 @@ const TILES: Tile[] = [
     { text: "Przywrócenie gęstości skórze dłoni, by odzyskały młody wygląd i nie zdradzały wieku." },
     { text: "Usunięcie plam starczych — redukcja przebarwień i plam pigmentacyjnych na dłoniach i przedramionach przywraca jednolity koloryt skóry." },
   ]},
-  { nr: "04", slug: "okolica-oka", title: "Okolica oka", tagline: "Kontur oka · Blask spojrzenia", icon: okoAsset.url },
+  { nr: "04", slug: "okolica-oka", title: "Okolica oka", tagline: "Kontur oka · Blask spojrzenia", icon: okoAsset.url, bullets: [
+    { title: "Otwarcie spojrzenia", text: "Delikatny lifting opadającej powieki — plastyka powieki górnej." },
+    { title: "Redukcja obrzęku", text: "Zagęszczenie i poprawa jędrności wiotkiej skóry pod oczami — niwelujemy zastoinowe sińce i obrzęki." },
+    { text: "Wygładzenie « kurzych łapek »." },
+    { text: "Stymulacja kolagenu w cienkiej skórze wokół oczu." },
+    { title: "Otwarcie i lifting powieki", text: "Ujędrnienie opadającej powieki górnej i zagęszczenie skóry powieki dolnej." },
+  ]},
   { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Dyskretne rozwiązania", icon: komfortAsset.url },
 ];
 
