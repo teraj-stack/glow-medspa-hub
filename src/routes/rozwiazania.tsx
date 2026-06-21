@@ -31,7 +31,6 @@ type Tile = {
 };
 
 const TILES: Tile[] = [
-  { nr: "01", title: "Lifting i owal", subtitle: "Przywrócenie konturów", Icon: Sparkles },
   { nr: "02", title: "Redukcja blizn, zmarszczek", subtitle: "Tekstura « HD »", Icon: Wand2 },
   { nr: "03", title: "Gęstość, jędrność", subtitle: "Rewitalizacja dłoni i ciała", Icon: Hand },
   { nr: "04", title: "Spojrzenie i powieki", subtitle: "Okolica oka", Icon: Eye },
