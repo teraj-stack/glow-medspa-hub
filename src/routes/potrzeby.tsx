@@ -126,8 +126,21 @@ function PotrzebyPage() {
                 <p className="mt-3 font-sans text-sm tracking-wide text-muted-foreground">
                   {t.lead}
                 </p>
-              </article>
-            ))}
+
+                {t.bullets && (
+                  <ul className="mt-4 space-y-2 font-sans text-sm leading-relaxed text-muted-foreground">
+                    {t.bullets.map((b, bi) => (
+                      <li key={bi} className="flex gap-2">
+                        <span className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-champagne" aria-hidden="true" />
+                        <span>
+                          {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
+                          {b.title && " — "}
+                          {b.text}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
           </div>
         </div>
       </section>
