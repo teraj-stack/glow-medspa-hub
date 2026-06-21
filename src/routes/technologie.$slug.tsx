@@ -18,10 +18,27 @@ export const Route = createFileRoute("/technologie/$slug")({
           { name: "description", content: loaderData.tech.shortDesc },
           { property: "og:title", content: loaderData.tech.name },
           { property: "og:description", content: loaderData.tech.shortDesc },
-          { property: "og:url", content: `https://glow-medspa-hub.lovable.app/technologie/${params.slug}` },
+          { property: "og:url", content: `https://bmclinics.ai/technologie/${params.slug}` },
         ]
       : [{ title: "Technologia — Beauty & Mind Clinic" }],
-    links: [{ rel: "canonical", href: `https://glow-medspa-hub.lovable.app/technologie/${params.slug}` }],
+    links: [{ rel: "canonical", href: `https://bmclinics.ai/technologie/${params.slug}` }],
+    scripts:
+      loaderData && loaderData.tech.faq && loaderData.tech.faq.length > 0
+        ? [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: loaderData.tech.faq.map((item) => ({
+                  "@type": "Question",
+                  name: item.q,
+                  acceptedAnswer: { "@type": "Answer", text: item.a },
+                })),
+              }),
+            },
+          ]
+        : undefined,
   }),
   component: TechnologyDetail,
   notFoundComponent: () => (
