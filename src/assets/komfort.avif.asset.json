@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "fef28410-2b93-4c2d-917d-4b47e525a10d",
+  "asset_id": "84819218-8420-477e-ab3f-7cc3f149d32e",
   "project_id": "7c40afc9-5d62-4e26-8703-fb0c05436327",
-  "url": "/__l5e/assets-v1/fef28410-2b93-4c2d-917d-4b47e525a10d/komfort.avif",
-  "r2_key": "a/v1/7c40afc9-5d62-4e26-8703-fb0c05436327/fef28410-2b93-4c2d-917d-4b47e525a10d/komfort.avif",
-  "original_filename": "komfort.avif",
-  "size": 13208,
-  "content_type": "image/avif",
-  "created_at": "2026-06-21T08:41:52Z"
+  "url": "/__l5e/assets-v1/84819218-8420-477e-ab3f-7cc3f149d32e/komfort.png",
+  "r2_key": "a/v1/7c40afc9-5d62-4e26-8703-fb0c05436327/84819218-8420-477e-ab3f-7cc3f149d32e/komfort.png",
+  "original_filename": "komfort.png",
+  "size": 308133,
+  "content_type": "image/png",
+  "created_at": "2026-06-21T08:52:04Z"
 }
