@@ -37,10 +37,35 @@ export const Route = createFileRoute("/potrzeby")({
   component: PotrzebyPage,
 });
 
-type Tile = { nr: string; slug: string; title: string; lead: string; icon: string };
+type BulletItem = { title?: string; text: string };
+type Tile = {
+  nr: string;
+  slug: string;
+  title: string;
+  lead: string;
+  icon: string;
+  bullets?: BulletItem[];
+};
 
 const TILES: Tile[] = [
-  { nr: "01", slug: "przywrocenie-konturow", title: "Przywrócenie konturów", lead: "Podniesienie i owal", icon: konturyAsset.url },
+  {
+    nr: "01",
+    slug: "przywrocenie-konturow",
+    title: "Przywrócenie konturów",
+    lead: "Lifting i owal",
+    icon: konturyAsset.url,
+    bullets: [
+      { title: "Nieoperacyjny lifting", text: "redukcja « chomików »." },
+      {
+        title: "Bruzdy nosowo-wargowe i linie marionetki",
+        text: "powstają, gdy opadają policzki (zanika owal i słabnie kolagen).",
+      },
+      {
+        title: "Szyja i dekolt",
+        text: "to niezwykle delikatna okolica, gdzie cienka, wiotka skóra pokryta przebarwieniami posłonecznymi najszybciej zdradza wiek kobiety.",
+      },
+    ],
+  },
   { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", lead: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url },
   { nr: "03", slug: "rewitalizacja-dloni-i-ciala", title: "Rewitalizacja dłoni i ciała", lead: "Gęstość, jędrność", icon: dlonieAsset.url },
   { nr: "04", slug: "okolica-oka", title: "Okolica oka", lead: "Spojrzenie i powieki", icon: okoAsset.url },
@@ -101,6 +126,21 @@ function PotrzebyPage() {
                 <p className="mt-3 font-sans text-sm tracking-wide text-muted-foreground">
                   {t.lead}
                 </p>
+
+                {t.bullets && (
+                  <ul className="mt-4 space-y-2 font-sans text-sm leading-relaxed text-muted-foreground">
+                    {t.bullets.map((b, bi) => (
+                      <li key={bi} className="flex gap-2">
+                        <span className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-champagne" aria-hidden="true" />
+                        <span>
+                          {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
+                          {b.title && " — "}
+                          {b.text}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </article>
             ))}
           </div>
