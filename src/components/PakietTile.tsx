@@ -5,24 +5,16 @@ export type PakietTileProps = {
   tagline: string;
   title: string;
   icon: string;
-  bullets: { title?: string; text: string }[];
+  bullets: { title?: string; text: string; boldParts?: string[] }[];
   technologies?: string[];
 };
 
-const HIGHLIGHTS = [
-  "z wiekiem",
-  "owal twarzy",
-  "wieku",
-  "plam starczych",
-  "redukcja blizn i rozstępów",
-  "Dłonie",
-];
-
-function renderText(text: string) {
-  const re = new RegExp(`(${HIGHLIGHTS.join("|")})`, "g");
+function renderBoldParts(text: string, boldParts?: string[]) {
+  if (!boldParts || boldParts.length === 0) return <span>{text}</span>;
+  const re = new RegExp(`(${boldParts.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join("|")})`, "g");
   return text.split(re).map((part, i) =>
-    HIGHLIGHTS.includes(part) ? (
-      <strong key={i} className="font-medium text-foreground">
+    boldParts.includes(part) ? (
+      <strong key={i} className="font-semibold text-foreground">
         {part}
       </strong>
     ) : (
@@ -40,7 +32,7 @@ export default function PakietTile({
   technologies,
 }: PakietTileProps) {
   return (
-    <article className="group relative flex h-full flex-col rounded-sm bg-card p-6 transition-all duration-700 ease-out hover:bg-secondary/40 md:p-8">
+    <article className="group relative flex h-full flex-col rounded-sm bg-card p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-lg md:p-8">
       {/* Numer w rogu */}
       <div className="absolute right-6 top-6 text-xs uppercase tracking-[0.3em] text-champagne md:right-8 md:top-8">
         {nr}
@@ -68,31 +60,33 @@ export default function PakietTile({
         </span>
       </div>
 
-      {/* Tytuł + linia */}
-      <h2 className="gold-line mt-7 font-serif text-2xl text-foreground md:text-3xl">
+      {/* Tytuł */}
+      <h2 className="mt-7 font-serif text-2xl text-foreground md:text-3xl">
         {title}
       </h2>
+
+      {/* Separator */}
+      <div className="mt-3 h-px w-10 bg-foreground/20" />
 
       {/* Bullety */}
       <ul className="mt-4 space-y-2 font-sans text-sm leading-relaxed text-muted-foreground">
         {bullets.map((b, bi) => (
           <li key={bi} className="flex gap-2">
-            <span
-              className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-champagne"
-              aria-hidden="true"
-            />
+            <span className="mt-1.5 shrink-0 text-champagne" aria-hidden="true">
+              •
+            </span>
             <span className="whitespace-pre-line">
               {b.title && (
-                <strong className="font-medium text-foreground">{b.title}</strong>
+                <strong className="font-semibold text-foreground">{b.title}</strong>
               )}
               {b.title && b.text && " —\u00a0"}
-              {renderText(b.text)}
+              {renderBoldParts(b.text, b.boldParts)}
             </span>
           </li>
         ))}
       </ul>
 
-      {/* Stopka — przyciski technologii (identyczne jak w PakietCard) */}
+      {/* Stopka — przyciski technologii */}
       {technologies && technologies.length > 0 && (
         <footer className="mt-auto pt-5 border-t border-border/40">
           <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground font-body mb-2">
