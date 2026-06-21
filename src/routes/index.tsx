@@ -4,6 +4,7 @@ import { TechCard } from "@/components/site/TechCard";
 import { BookingForm } from "@/components/site/BookingForm";
 import { TECHNOLOGIES } from "@/data/technologies";
 import { Sparkles, Shield, HeartHandshake, Stethoscope, ArrowRight, Microscope, Leaf, Clock } from "lucide-react";
+import bujokAsset from "@/assets/bujok.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -65,12 +66,13 @@ function Hero() {
         </div>
 
         <div className="relative">
-          <div
-            className="aspect-[4/5] w-full overflow-hidden rounded-lg shadow-elegant"
-            style={{
-              background:
-                "radial-gradient(120% 80% at 30% 20%, oklch(0.86 0.05 78) 0%, oklch(0.78 0.045 70) 40%, oklch(0.18 0.005 60) 100%)",
-            }}
+          <img
+            src={bujokAsset.url}
+            alt="Lekarz Beauty & Mind Clinic w gabinecie"
+            width={1200}
+            height={1500}
+            loading="eager"
+            className="aspect-[4/5] w-full rounded-lg object-cover shadow-elegant"
           />
           <div className="absolute -bottom-6 -left-6 hidden rounded-lg border border-border bg-card p-5 shadow-soft md:block">
             <div className="text-xs uppercase tracking-[0.3em] text-champagne">Dyskretnie</div>
