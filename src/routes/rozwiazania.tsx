@@ -111,8 +111,29 @@ function RozwiazaniaPage() {
         </div>
       </section>
 
+      {/* Filozofia Body Longevity */}
+      <section className="container mt-20 md:mt-28">
+        <ScrollReveal>
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="text-xs tracking-[0.3em] uppercase text-champagne mb-4 font-body">
+              Filozofia « Body Longevity »
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl text-foreground mb-6 leading-tight">
+              Dlaczego łączymy technologie w sekwencje?
+            </h2>
+            <p className="text-muted-foreground text-lg font-body leading-relaxed">
+              Ciało to wielowarstwowa struktura — a piękno to harmonia jego warstw.
+              Lasery pracują nad skórą, HIFU zagęszcza i wzmacnia skórę głęboką
+              i powięź SMAS nad, a HIFEM nad mięśniami pod obszarem. Aplikacja « MySkinCode »
+              komponuje te elementy w autorskie sekwencje&nbsp;« Body Longevity »,
+              które pracują razem na Twój wynik równocześnie.
+            </p>
+          </div>
+        </ScrollReveal>
+      </section>
 
       {/* Tile grid */}
+
       <section className="bg-background py-16 md:py-24">
         <div className="container-luxury">
           <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
