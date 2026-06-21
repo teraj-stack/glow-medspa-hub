@@ -83,7 +83,7 @@ export default function PakietTile({
                 <strong className="font-semibold text-foreground">{b.title}</strong>
               )}
               {b.title && b.text && " —\u00a0"}
-              {renderBoldParts(b.text, b.boldParts)}
+              {b.text && renderBoldParts(b.text, b.boldParts)}
             </span>
           </li>
         ))}
