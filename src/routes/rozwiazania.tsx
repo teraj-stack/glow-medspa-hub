@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Sparkles, Wand2, Hand, Eye, HeartHandshake } from "lucide-react";
+import { ArrowRight, Sparkles, Wand2, Hand, Eye, HeartHandshake } from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
+
 
 export const Route = createFileRoute("/rozwiazania")({
   head: () => ({
@@ -58,20 +60,57 @@ function useInView<T extends Element>(options?: IntersectionObserverInit) {
 
 function RozwiazaniaPage() {
   return (
-    <main>
-      {/* Hero */}
-      <section className="border-b border-border bg-background">
-        <div className="container-luxury py-16 md:py-24">
-          <p className="mb-4 text-xs uppercase tracking-[0.3em] text-champagne">Rozwiązania</p>
-          <h1 className="gold-line font-serif text-foreground">
-            Pięć obszarów, w których łączymy doświadczenie&nbsp;z technologią
-          </h1>
-          <p className="mt-6 max-w-2xl text-base text-muted-foreground md:text-lg">
-            Każdy protokół zaczyna się od konsultacji i diagnozy — dobór metody zawsze pod
-            Państwa skórę i oczekiwania.
-          </p>
+    <main className="min-h-screen bg-background pt-28 md:pt-36 pb-20">
+      {/* HERO — Inteligentny Dobór Terapii */}
+      <section>
+        <div className="container">
+          <ScrollReveal>
+            <div className="relative overflow-hidden rounded-sm border border-champagne/30 bg-gradient-to-b from-background via-card to-background p-8 md:p-16">
+              {/* Subtelny gradient radialny w prawym górnym rogu */}
+              <div
+                className="pointer-events-none absolute inset-0 opacity-30"
+                style={{
+                  background:
+                    "radial-gradient(circle at top right, color-mix(in oklab, var(--champagne) 25%, transparent), transparent 60%)",
+                }}
+                aria-hidden
+              />
+
+              <div className="relative">
+                {/* Etykieta nadtytułowa z ikoną Sparkles */}
+                <p className="mb-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-champagne font-body">
+                  <Sparkles className="size-4" aria-hidden />
+                  Body Longevity · Inteligentny Dobór Terapii
+                </p>
+
+                {/* Główny nagłówek serif */}
+                <h1 className="font-serif text-4xl md:text-6xl text-foreground leading-tight text-balance">
+                  Twój personalny plan «&nbsp;Body Longevity&nbsp;» w 60 sekund
+                </h1>
+
+                {/* Akapit body */}
+                <p className="mt-6 max-w-2xl text-muted-foreground text-lg font-body leading-relaxed">
+                  Autorska metoda lek. Jana Bujok komponuje optymalne sekwencje «&nbsp;Body Longevity&nbsp;»
+                  z naszego parku technologii na podstawie dokładnej diagnozy w gabinecie.
+                  Koniec z metodą prób i błędów — Twój plan terapeutyczny jest
+                  oparty na faktach, precyzyjnych danych i wieloletnim doświadczeniu klinicznym.
+                </p>
+
+                {/* Przycisk CTA */}
+                <Link
+                  to="/"
+                  hash="rezerwacja"
+                  className="mt-10 inline-flex items-center gap-3 bg-champagne text-accent-foreground rounded-sm px-8 py-4 hover:bg-champagne-light transition-colors duration-500 tracking-wide font-body"
+                >
+                  Nasz sekret — lek. Jan Bujok
+                  <ArrowRight size={16} aria-hidden />
+                </Link>
+              </div>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
+
 
       {/* Tile grid */}
       <section className="bg-background py-16 md:py-24">
