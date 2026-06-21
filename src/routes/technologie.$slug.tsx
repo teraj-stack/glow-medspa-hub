@@ -11,15 +11,17 @@ export const Route = createFileRoute("/technologie/$slug")({
     if (!tech) throw notFound();
     return { tech };
   },
-  head: ({ loaderData }) => ({
+  head: ({ loaderData, params }) => ({
     meta: loaderData
       ? [
-          { title: `${loaderData.tech.name} | Beauty & Mind Clinic Siedlce` },
+          { title: loaderData.tech.name },
           { name: "description", content: loaderData.tech.shortDesc },
           { property: "og:title", content: loaderData.tech.name },
           { property: "og:description", content: loaderData.tech.shortDesc },
+          { property: "og:url", content: `https://glow-medspa-hub.lovable.app/technologie/${params.slug}` },
         ]
-      : [{ title: "Technologia | Beauty & Mind Clinic" }],
+      : [{ title: "Technologia — Beauty & Mind Clinic" }],
+    links: [{ rel: "canonical", href: `https://glow-medspa-hub.lovable.app/technologie/${params.slug}` }],
   }),
   component: TechnologyDetail,
   notFoundComponent: () => (

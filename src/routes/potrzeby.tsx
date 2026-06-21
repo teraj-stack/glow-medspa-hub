@@ -9,7 +9,7 @@ import komfortAsset from "@/assets/komfort.avif.asset.json";
 export const Route = createFileRoute("/potrzeby")({
   head: () => ({
     meta: [
-      { title: "Potrzeby — na czym się skupiamy | Beauty & Mind Clinic Siedlce" },
+      { title: "Potrzeby — Beauty & Mind Clinic Siedlce" },
       {
         name: "description",
         content:
@@ -17,9 +17,9 @@ export const Route = createFileRoute("/potrzeby")({
       },
       { property: "og:title", content: "Potrzeby — Beauty & Mind Clinic" },
       { property: "og:description", content: "Na czym się skupiamy — pięć obszarów naszej praktyki." },
-      { property: "og:url", content: "/potrzeby" },
+      { property: "og:url", content: "https://glow-medspa-hub.lovable.app/potrzeby" },
     ],
-    links: [{ rel: "canonical", href: "/potrzeby" }],
+    links: [{ rel: "canonical", href: "https://glow-medspa-hub.lovable.app/potrzeby" }],
     scripts: [
       {
         type: "application/ld+json",

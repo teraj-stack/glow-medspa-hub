@@ -9,7 +9,7 @@ import bujokAsset from "@/assets/bujok.jpeg.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Beauty & Mind Clinic — Medycyna estetyczna i laserowa | Siedlce" },
+      { title: "Beauty & Mind Clinic — Medycyna estetyczna, Siedlce" },
       {
         name: "description",
         content:
@@ -17,10 +17,12 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:title", content: "Beauty & Mind Clinic — Siedlce" },
       { property: "og:description", content: "Naturalny efekt. Dyskretna pamięć." },
+      { property: "og:url", content: "https://glow-medspa-hub.lovable.app/" },
       { property: "og:image", content: bujokAsset.url },
       { name: "twitter:image", content: bujokAsset.url },
     ],
     links: [
+      { rel: "canonical", href: "https://glow-medspa-hub.lovable.app/" },
       { rel: "preload", as: "image", href: bujokAsset.url, fetchPriority: "high" },
     ],
   }),

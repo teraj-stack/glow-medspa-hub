@@ -72,7 +72,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Beauty & Mind Clinic — Medycyna estetyczna i laserowa, Siedlce" },
+      { title: "Beauty & Mind Clinic — Medycyna estetyczna, Siedlce" },
       {
         name: "description",
         content:
