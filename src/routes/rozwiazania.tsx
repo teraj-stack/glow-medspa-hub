@@ -140,7 +140,7 @@ function RozwiazaniaPage() {
             <PakietCard
               subtitle="Pakiet A — Lifting & kontur"
               title="Architektura twarzy"
-              protocol="«&nbsp;Głęboki lifting 4D&nbsp;»"
+              protocol={"«\u00A0Głęboki lifting 4D\u00A0»"}
               protocolDescription="Połączenie stymulacji mięśniowej (HIFEM+MSF+RH) z przebudową struktur skóry (HIFU). Działamy jednocześnie nad mięśniami, powięzią i kolagenem — efekt liftingu bez efektu maski."
               technologies={["Laser tulowy", "Ultradźwięki zogniskowane (HIFU)", "Laser pikosekundowy", "RF Mikroigłowa"]}
               icon={Sparkles}
