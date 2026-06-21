@@ -100,9 +100,10 @@ function PotrzebyPage() {
       <section className="bg-secondary/50 py-16 md:py-24">
         <div className="container-luxury">
           <SectionHeading
-            eyebrow="Zastosowania"
+            eyebrow="POTRZEBY"
             title="Na czym się skupiamy?"
-            description="Pięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zaczyna się od konsultacji i diagnozy — dobór metody zawsze pod Państwa skórę i oczekiwania."
+            description={"Wiemy, czego pragną kobiety. Uczymy się od najlepszych..\n\n\nPięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zaczyna się od konsultacji i diagnozy — dobór metody zawsze pod Państwa skórę i oczekiwania."}
+
           />
         </div>
       </section>
