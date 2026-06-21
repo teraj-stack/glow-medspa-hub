@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export type PakietTileProps = {
   nr: string;
@@ -7,6 +8,7 @@ export type PakietTileProps = {
   icon: string;
   bullets: { title?: string; text: string; boldParts?: string[] }[];
   technologies?: string[];
+  protocol?: { label: string; href: string };
 };
 
 function renderBoldParts(text: string, boldParts?: string[]) {
@@ -30,6 +32,7 @@ export default function PakietTile({
   icon,
   bullets,
   technologies,
+  protocol,
 }: PakietTileProps) {
   return (
     <article className="group relative flex h-full flex-col rounded-sm bg-card p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-lg md:p-8">
@@ -102,6 +105,21 @@ export default function PakietTile({
               </li>
             ))}
           </ul>
+
+          {protocol && (
+            <div className="mt-4">
+              <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground font-body mb-2">
+                Protokół zabiegowy
+              </p>
+              <Link
+                to={protocol.href}
+                className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-sm border border-champagne/40 bg-champagne/5 text-champagne font-body hover:bg-champagne/10 hover:border-champagne/60 transition-colors duration-300"
+              >
+                {protocol.label}
+                <ArrowRight size={12} className="opacity-60" aria-hidden />
+              </Link>
+            </div>
+          )}
         </footer>
       )}
     </article>

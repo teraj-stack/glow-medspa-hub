@@ -189,6 +189,7 @@ function RozwiazaniaPage() {
                 "Mezoterapia",
                 "RF Mikroigłowa",
               ]}
+              protocol={{ label: "LADD", href: "/ladd" }}
             />
 
             <ul className="contents">
