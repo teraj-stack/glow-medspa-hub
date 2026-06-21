@@ -48,8 +48,8 @@ function Hero() {
             </span>
             .
           </h1>
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            W mojej pracowni medycyna staje się sztuką proporcji, a technologia służy naturze. 
+          <p className="mt-6 max-w-xl font-serif text-xl text-ink">
+            W mojej pracowni medycyna staje się sztuką proporcji, a technologia służy naturze.
             Poznaj autorskie protokoły zabiegowe skrojone pod Twoją anatomię.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
