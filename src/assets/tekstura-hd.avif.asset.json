@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "e6dd74b2-c872-48fa-943e-00bd58329553",
+  "asset_id": "944fc00b-925d-42a8-bc98-dbd9098c02a1",
   "project_id": "7c40afc9-5d62-4e26-8703-fb0c05436327",
-  "url": "/__l5e/assets-v1/e6dd74b2-c872-48fa-943e-00bd58329553/tekstura-hd.avif",
-  "r2_key": "a/v1/7c40afc9-5d62-4e26-8703-fb0c05436327/e6dd74b2-c872-48fa-943e-00bd58329553/tekstura-hd.avif",
-  "original_filename": "tekstura-hd.avif",
-  "size": 1593,
-  "content_type": "image/avif",
-  "created_at": "2026-06-21T08:41:52Z"
+  "url": "/__l5e/assets-v1/944fc00b-925d-42a8-bc98-dbd9098c02a1/tekstura-hd.png",
+  "r2_key": "a/v1/7c40afc9-5d62-4e26-8703-fb0c05436327/944fc00b-925d-42a8-bc98-dbd9098c02a1/tekstura-hd.png",
+  "original_filename": "tekstura-hd.png",
+  "size": 137081,
+  "content_type": "image/png",
+  "created_at": "2026-06-21T08:49:49Z"
 }
