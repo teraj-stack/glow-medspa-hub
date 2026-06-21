@@ -6,7 +6,7 @@ import PakietTile from "@/components/PakietTile";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 import sylwetkaAsset from "@/assets/szkic-sylwetka.png.asset.json";
 import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
-import okoAsset from "@/assets/oko-szkic.png";
+import okoAsset from "@/assets/oko-szkic-v2.png.asset.json";
 
 
 export const Route = createFileRoute("/rozwiazania")({
@@ -224,7 +224,7 @@ function RozwiazaniaPage() {
               nr="04"
               tagline="KONTUR OKA · BLASK SPOJRZENIA"
               title="Okolica oka"
-              icon={okoAsset}
+              icon={okoAsset.url}
               bullets={[
                 {
                   title: "Zmarszczki mimiczne",
