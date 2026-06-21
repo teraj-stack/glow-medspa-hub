@@ -1,6 +1,4 @@
-import type { ComponentType, SVGProps } from "react";
 import { ArrowRight } from "lucide-react";
-import FaceContourIcon from "./icons/FaceContourIcon";
 
 export type PakietCardProps = {
   subtitle: string;
@@ -8,7 +6,6 @@ export type PakietCardProps = {
   protocol: string;
   protocolDescription: string;
   technologies: string[];
-  icon?: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
 export default function PakietCard({
