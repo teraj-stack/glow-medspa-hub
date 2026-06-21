@@ -13,9 +13,9 @@ export const Route = createFileRoute("/cennik")({
       },
       { property: "og:title", content: "Cennik — Beauty & Mind Clinic" },
       { property: "og:description", content: "Przejrzyste ceny, indywidualna wycena protokołu." },
-      { property: "og:url", content: "https://glow-medspa-hub.lovable.app/cennik" },
+      { property: "og:url", content: "https://bmclinics.ai/cennik" },
     ],
-    links: [{ rel: "canonical", href: "https://glow-medspa-hub.lovable.app/cennik" }],
+    links: [{ rel: "canonical", href: "https://bmclinics.ai/cennik" }],
   }),
   component: Pricing,
 });
