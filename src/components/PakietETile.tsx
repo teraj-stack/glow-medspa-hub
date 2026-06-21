@@ -78,7 +78,7 @@ export default function PakietETile({
         </p>
         <p className="font-serif text-xl text-champagne mb-3">« {protocol} »</p>
         <p className="text-muted-foreground font-body leading-relaxed">
-          « {protocolDescription} »
+          {protocolDescription}
         </p>
       </div>
 
