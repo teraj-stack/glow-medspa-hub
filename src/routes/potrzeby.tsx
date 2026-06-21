@@ -158,9 +158,9 @@ function PotrzebyPage() {
                         <span className="whitespace-pre-line">
                           {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
                           {b.title && b.text && " —\u00a0"}
-                          {b.text.split(/(z wiekiem|kolagen|owal twarzy|Dłonie|wieku|plam starczych)/).map((part, i) => {
+                          {b.text.split(/(z wiekiem|kolagen|owal twarzy|Dłonie|wieku|plam starczych|rezygnuje|redukcja blizn i rozstępów)/).map((part, i) => {
                             if (part === "kolagen") return null;
-                            return ["z wiekiem", "owal twarzy", "Dłonie", "wieku", "plam starczych"].includes(part) ? (
+                            return ["z wiekiem", "owal twarzy", "Dłonie", "wieku", "plam starczych", "rezygnuje", "redukcja blizn i rozstępów"].includes(part) ? (
                               <strong key={i} className="font-medium text-foreground">{part}</strong>
                             ) : (
                               <span key={i}>{part}</span>
