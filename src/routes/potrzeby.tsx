@@ -181,11 +181,10 @@ function PotrzebyPage() {
                             if (part === "kolagen") return null;
                             if (part === "z wiekiem") return <strong key={i} className="font-medium text-foreground">z wieki{"\u00a0"}</strong>;
                             if (part === " wraz z ") return "\u00a0";
-                            if (part === "owal twarzy") return <strong key={i} className="font-medium text-foreground">kolagenem owal twarzy</strong>;
-                            return ["Dłonie", "wieku", "plam starczych", "rezygnuje", "redukcja blizn i rozstępów"].includes(part) ? (
+                            return ["owal twarzy", "Dłonie", "wieku", "plam starczych", "rezygnuje", "redukcja blizn i rozstępów"].includes(part) ? (
                               <strong key={i} className="font-medium text-foreground">{part}</strong>
                             ) : (
-                              <span key={i}>{part.replace(" (zanika ", " (zanika")}</span>
+                              <span key={i}>{part.replace(" (zanika ", " (zanika\u00a0")}</span>
                             );
                           })}
                         </span>
