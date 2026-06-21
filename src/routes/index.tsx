@@ -112,7 +112,7 @@ function ManifestSection() {
           <p>
             Jestem twórcą „MySkinCode” — aplikacji AI, w której każda technologia jest dobierana jak nuta w kompozycji, 
             a nie jak produkt z katalogu. Aplikacja "MySkinCode" to jedno z wielu narzędzi, które zbudowałem, by ta opieka była spójna, 
-            bezpieczna i osobista od pierwszego dotknięcia.
+            bezpieczna i osobista od pierwszego wdrożenia.
           </p>
         </div>
       </div>
