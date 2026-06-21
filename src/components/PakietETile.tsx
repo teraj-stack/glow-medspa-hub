@@ -66,7 +66,7 @@ export default function PakietETile({
             « PAKIET {letter} — {subtitle} »
           </div>
           <h3 className="font-serif text-2xl md:text-3xl text-foreground leading-tight">
-            « {title} »
+            «&nbsp;{title} »
           </h3>
         </div>
       </header>
