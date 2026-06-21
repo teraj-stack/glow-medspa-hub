@@ -6,6 +6,7 @@ export const Route = createFileRoute("/polityka-prywatnosci")({
       { title: "Polityka prywatności | Beauty & Mind Clinic" },
       { name: "description", content: "Polityka prywatności kliniki Beauty & Mind Clinic w Siedlcach." },
     ],
+    links: [{ rel: "canonical", href: "https://glow-medspa-hub.lovable.app/polityka-prywatnosci" }],
   }),
   component: () => (
     <section className="container-luxury py-20">
