@@ -59,7 +59,7 @@ const TILES: Tile[] = [
       { title: "Nieoperacyjny lifting", text: "redukcja « chomików ».\nWyostrzenie linii żuchwy, która z wiekiem traci swój zarys." },
       {
         title: "Bruzdy nosowo-wargowe i linie marionetki",
-        text: "powstają, gdy opadają policzki (zanika owal i słabnie kolagen).",
+        text: "powstają, gdy opadają policzki (zanika kolagen, wraz z kolagenem owal twarzy).",
       },
       {
         title: "Szyja i dekolt",
