@@ -30,7 +30,7 @@ export default function PakietCard({
       </header>
 
       {/* Middle */}
-      <div className="mb-5 pl-0 sm:pl-[6.25rem] md:pl-[7.5rem]">
+      <div className="mb-5">
         <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground font-body mb-2">
           Twój protokół
         </p>
@@ -41,7 +41,7 @@ export default function PakietCard({
       </div>
 
       {/* Footer */}
-      <footer className="mt-auto pt-5 pl-0 sm:pl-[6.25rem] md:pl-[7.5rem] border-t border-border/40">
+      <footer className="mt-auto pt-5 border-t border-border/40">
         <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground font-body mb-2">
           Technologia
         </p>
