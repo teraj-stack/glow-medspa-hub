@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export type PakietTileProps = {
   nr: string;
@@ -7,6 +8,7 @@ export type PakietTileProps = {
   icon: string;
   bullets: { title?: string; text: string; boldParts?: string[] }[];
   technologies?: string[];
+  protocol?: { label: string; href: string };
 };
 
 function renderBoldParts(text: string, boldParts?: string[]) {
