@@ -26,7 +26,7 @@ function Home() {
   return (
     <>
       <Hero />
-      <FlagshipPaths />
+      <ManifestSection />
       <MethodologySection />
       <TechnologiesPreview />
       <Testimonials />
@@ -88,27 +88,32 @@ function Hero() {
   );
 }
 
-function FlagshipPaths() {
-  const paths = [
-    { title: "Twarz", desc: "Lifting bezoperacyjny, regeneracja, modelowanie owalu.", icon: Sparkles },
-    { title: "Ciało", desc: "Modelowanie sylwetki, redukcja tkanki tłuszczowej, cellulit.", icon: HeartHandshake },
-    { title: "Intymność", desc: "Dyskretne protokoły ginekologii estetycznej i regeneracji.", icon: Shield },
-  ];
+function ManifestSection() {
   return (
-    <section className="container-luxury py-20 md:py-28">
-      <SectionHeading
-        eyebrow="Trzy ścieżki"
-        title="Trzy obszary, jedna filozofia"
-        description="Każdy program zaczyna się od konsultacji medycznej — protokół powstaje pod Państwa skórę i potrzeby."
-      />
-      <div className="tile-grid mt-12">
-        {paths.map((p) => (
-          <div key={p.title} className="tile-card rise-in">
-            <div className="tile-icon"><p.icon className="size-5" /></div>
-            <h3 className="tile-title">{p.title}</h3>
-            <p className="tile-text">{p.desc}</p>
-          </div>
-        ))}
+    <section className="bg-secondary/30 py-20 md:py-28">
+      <div className="container-luxury max-w-4xl">
+        <div className="text-xs uppercase tracking-[0.3em] text-champagne">Manifest / O twórcy</div>
+        <h2 className="mt-4 font-serif text-ink">Spójrz na czystą linię obojczyka, na cień pod dolną wargą, na układ rzęs...</h2>
+        
+        <div className="mt-10 space-y-8 text-foreground">
+          <p>
+            Jako chirurg i człowiek, który kocha tworzyć, spędziłem tysiące godzin, badając strukturę ludzkiego ciała. 
+            Wiem, jak reaguje tkanka, jak starzeje się skóra i jak światło potrafi zmienić odbiór całej twarzy. 
+            Moja pracownia powstała po to, by tę wiedzę zamienić w bezpieczną rzeczywistość.
+          </p>
+          
+          <p>
+            Nie znajdziesz tu taśmowej pracy. Każdy protokół zabiegowy traktuję jak unikalny projekt — skrojony pod Twoją anatomię, 
+            Twoje emocje i Twój styl życia. Lasery i zaawansowana technologia, którymi dysponuję, dają mi absolutną kontrolę nad procesem, 
+            ale to ludzkie oko i bezpieczna ręka chirurga decydują o ostatecznym efekcie. Tworzę to miejsce jako przestrzeń absolutnego zaufania i dyskrecji.
+          </p>
+          
+          <p>
+            Jestem twórcą „Renaissance Signature Sequence” — autorskiego protokołu, w którym każda technologia jest dobierana jak nuta w kompozycji, 
+            a nie jak produkt z katalogu. Aplikacja MySkinCode to jedno z wielu narzędzi, które zbudowałem, by ta opieka była spójna, 
+            bezpieczna i osobista od pierwszego dotknięcia.
+          </p>
+        </div>
       </div>
     </section>
   );
