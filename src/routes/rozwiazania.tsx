@@ -89,7 +89,7 @@ function RozwiazaniaPage() {
         <div className="container-luxury py-16 text-center md:py-20">
           <h2 className="font-serif text-foreground">Porozmawiajmy o Państwa potrzebach</h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Konsultacja to pierwszy krok — wspólnie dobierzemy najlepszą ścieżkę.
+            Konsultacja to pierwszy krok — wspólnie dobierzemy najlepsze rozwiązania.
           </p>
           <Link
             to="/"
