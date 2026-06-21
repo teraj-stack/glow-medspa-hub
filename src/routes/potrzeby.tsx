@@ -53,9 +53,8 @@ const TILES: Tile[] = [
     nr: "01",
     slug: "przywrocenie-konturow",
     title: "Przywrócenie konturów",
-    lead: "Lifting i owal",
-    tagline: "LIFTING I OWAL",
     icon: konturyAsset.url,
+    tagline: "LIFTING I OWAL",
     bullets: [
       { title: "Nieoperacyjny lifting", text: "redukcja « chomików »." },
       {
