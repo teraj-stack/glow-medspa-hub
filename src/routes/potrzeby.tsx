@@ -67,7 +67,7 @@ const TILES: Tile[] = [
       },
     ],
   },
-  { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", lead: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url },
+  { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", tagline: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url },
   { nr: "03", slug: "rewitalizacja-dloni-i-ciala", title: "Rewitalizacja dłoni i ciała", lead: "Gęstość, jędrność", icon: dlonieAsset.url },
   { nr: "04", slug: "okolica-oka", title: "Okolica oka", lead: "Spojrzenie i powieki", icon: okoAsset.url },
   { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Dyskretne rozwiązania", icon: komfortAsset.url },
