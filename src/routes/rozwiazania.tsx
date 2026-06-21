@@ -159,7 +159,7 @@ function RozwiazaniaPage() {
               ]}
               technologies={[
                 "Laser tulowy",
-                "Ultradźwięki zogniskowane (HIFU)",
+                "HIFU 4D",
                 "Laser pikosekundowy",
                 "RF Mikroigłowa",
               ]}
