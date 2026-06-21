@@ -31,7 +31,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <div className="container-luxury flex flex-col items-start justify-between gap-2 py-5 text-xs text-alabaster/50 md:flex-row md:items-center">
           <div>© {new Date().getFullYear()} BMClinics.ai</div>
-          <div>Wykonano z dbałością o detal.</div>
+          <div>Wykonano z dbałością o detal by Jan Bujok.</div>
         </div>
       </div>
     </footer>
