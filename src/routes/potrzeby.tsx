@@ -177,11 +177,11 @@ function PotrzebyPage() {
                         <span className="whitespace-pre-line">
                           {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
                           {b.title && b.text && " —\u00a0"}
-                          {b.text.split(/(z wiekiem|kolagen| wraz z |owal twarzy|Dłonie|wieku|wiek|plam starczych|rezygnuje|redukcja blizn i rozstępów)/).map((part, i) => {
+                          {b.text.split(/(z wiekiem|kolagen| wraz z |owal twarzy|Dłonie|wieku|plam starczych|rezygnuje|redukcja blizn i rozstępów)/).map((part, i) => {
                             if (part === "kolagen") return null;
                             if (part === "z wiekiem") return <strong key={i} className="font-medium text-foreground">z wieki{"\u00a0"}</strong>;
                             if (part === " wraz z ") return "\u00a0";
-                            return ["owal twarzy", "Dłonie", "wieku", "wiek", "plam starczych", "rezygnuje", "redukcja blizn i rozstępów"].includes(part) ? (
+                            return ["owal twarzy", "Dłonie", "wieku", "plam starczych", "rezygnuje", "redukcja blizn i rozstępów"].includes(part) ? (
                               <strong key={i} className="font-medium text-foreground">{part}</strong>
                             ) : (
                               <span key={i}>{part.replace(" (zanika ", " (zanika\u00a0")}</span>
