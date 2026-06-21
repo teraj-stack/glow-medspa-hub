@@ -63,7 +63,7 @@ export default function PakietETile({
 
         <div className="flex-1 min-w-0">
           <div className="text-xs tracking-[0.3em] uppercase text-champagne font-body mb-1">
-            « PAKIET {letter} — {subtitle} »
+            PAKIET {letter} — {subtitle}
           </div>
           <h3 className="font-serif text-2xl md:text-3xl text-foreground leading-tight">
             « {title} »
