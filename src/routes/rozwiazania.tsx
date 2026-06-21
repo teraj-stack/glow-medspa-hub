@@ -5,6 +5,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import PakietTile from "@/components/PakietTile";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 import sylwetkaAsset from "@/assets/szkic-sylwetka.png.asset.json";
+import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
 
 
 export const Route = createFileRoute("/rozwiazania")({
@@ -196,7 +197,7 @@ function RozwiazaniaPage() {
               nr="03"
               tagline="REWITALIZACJA DŁONI I CIAŁA"
               title="Gęstość, jędrność"
-              icon={sylwetkaAsset.url}
+              icon={dlonieCialoAsset.url}
               bullets={[
                 {
                   title: "Dłonie",
