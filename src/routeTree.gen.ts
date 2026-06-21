@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TechnologieRouteImport } from './routes/technologie'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RegulaminRouteImport } from './routes/regulamin'
+import { Route as PotrzebyRouteImport } from './routes/potrzeby'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -31,6 +32,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RegulaminRoute = RegulaminRouteImport.update({
   id: '/regulamin',
   path: '/regulamin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PotrzebyRoute = PotrzebyRouteImport.update({
+  id: '/potrzeby',
+  path: '/potrzeby',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/technologie': typeof TechnologieRouteWithChildren
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/technologie': typeof TechnologieRouteWithChildren
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/technologie': typeof TechnologieRouteWithChildren
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cennik'
     | '/polityka-prywatnosci'
+    | '/potrzeby'
     | '/regulamin'
     | '/sitemap.xml'
     | '/technologie'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cennik'
     | '/polityka-prywatnosci'
+    | '/potrzeby'
     | '/regulamin'
     | '/sitemap.xml'
     | '/technologie'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cennik'
     | '/polityka-prywatnosci'
+    | '/potrzeby'
     | '/regulamin'
     | '/sitemap.xml'
     | '/technologie'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CennikRoute: typeof CennikRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
+  PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TechnologieRoute: typeof TechnologieRouteWithChildren
@@ -154,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/regulamin'
       fullPath: '/regulamin'
       preLoaderRoute: typeof RegulaminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/potrzeby': {
+      id: '/potrzeby'
+      path: '/potrzeby'
+      fullPath: '/potrzeby'
+      preLoaderRoute: typeof PotrzebyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/polityka-prywatnosci': {
@@ -211,6 +231,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CennikRoute: CennikRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
+  PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TechnologieRoute: TechnologieRouteWithChildren,
