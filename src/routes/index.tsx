@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:image", content: bujokAsset.url },
     ],
     links: [
-      { rel: "preload", as: "image", href: bujokAsset.url, fetchpriority: "high" },
+      { rel: "preload", as: "image", href: bujokAsset.url, fetchPriority: "high" },
     ],
   }),
   component: Home,
