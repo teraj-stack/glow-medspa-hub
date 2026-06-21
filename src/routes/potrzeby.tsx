@@ -145,7 +145,13 @@ function PotrzebyPage() {
                         <span className="whitespace-pre-line">
                           {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
                           {b.title && " — "}
-                          {b.text}
+                          {b.text.split(/(z wiekiem)/).map((part, i) =>
+                            part === "z wiekiem" ? (
+                              <strong key={i} className="font-medium text-foreground">{part}</strong>
+                            ) : (
+                              <span key={i}>{part}</span>
+                            )
+                          )}
                         </span>
                       </li>
                     ))}
