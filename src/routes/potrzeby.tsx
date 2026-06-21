@@ -102,10 +102,19 @@ function PotrzebyPage() {
           <SectionHeading
             eyebrow="POTRZEBY"
             title="Wiemy, czego pragną nasze pacjentki"
-            description="Skąd? Uczymy się od najlepszych.. Pięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zaczyna się od konsultacji i diagnozy — dobór metody zawsze pod Państwa skórę i oczekiwania."
-
-
           />
+          <div className="mt-6 max-w-2xl space-y-4">
+            <p className="text-base text-muted-foreground md:text-lg">
+              Skąd? Uczymy się od najlepszych..
+            </p>
+            <blockquote className="border-l-2 border-champagne/40 pl-4 text-base font-light italic text-muted-foreground/70 md:text-lg">
+              „Wiem, czego pragną kobiety. Chcą być piękne”{" "}
+              <span className="not-italic">— Rudolf Valentino</span>
+            </blockquote>
+            <p className="text-base text-muted-foreground md:text-lg">
+              Pięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zabiegowy zaczyna się od konsultacji: wywiad, badanie i doświadczenie lekarza prowadzącego dają rozpoznanie — Po postawieniu rozpoznania skupiamy uwagę na oczekiwaniach pacjenta i dobieramy dostępne technologie.
+            </p>
+          </div>
         </div>
       </section>
 
