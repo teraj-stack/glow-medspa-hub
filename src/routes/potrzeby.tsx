@@ -101,8 +101,9 @@ function PotrzebyPage() {
         <div className="container-luxury">
           <SectionHeading
             eyebrow="POTRZEBY"
-            title="Na czym się skupiamy?"
-            description={"Wiemy, czego pragną kobiety. Uczymy się od najlepszych..\n\n\nPięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zaczyna się od konsultacji i diagnozy — dobór metody zawsze pod Państwa skórę i oczekiwania."}
+            title="Wiemy, czego pragną nasze pacjentki"
+            description="Skąd? Uczymy się od najlepszych.. Pięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zaczyna się od konsultacji i diagnozy — dobór metody zawsze pod Państwa skórę i oczekiwania."
+
 
           />
         </div>
