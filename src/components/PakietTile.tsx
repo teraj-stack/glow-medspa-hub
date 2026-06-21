@@ -32,6 +32,7 @@ export default function PakietTile({
   icon,
   bullets,
   technologies,
+  protocol,
 }: PakietTileProps) {
   return (
     <article className="group relative flex h-full flex-col rounded-sm bg-card p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-lg md:p-8">
