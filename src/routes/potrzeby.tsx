@@ -81,7 +81,6 @@ const TILES: Tile[] = [
     { title: "Otwarcie spojrzenia", text: "Delikatny lifting opadającej powieki — plastyka powieki górnej." },
     { title: "Redukcja obrzęku", text: "Zagęszczenie i poprawa jędrności wiotkiej skóry pod oczami — niwelujemy zastoinowe sińce i obrzęki." },
     { title: "Wygładzenie « kurzych łapek »", text: "Rewitalizacja cienkiej skóry wokół oczu, redukcja zmarszczek." },
-    { text: "\u00a0cienkiej skórze wokół oczu." },
     { title: "Plastyka powieki górnej", text: "" },
   ]},
   { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Dyskretne rozwiązania", icon: komfortAsset.url },
