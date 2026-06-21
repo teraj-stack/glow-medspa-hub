@@ -5,6 +5,7 @@ import logoBmc from "@/assets/logo-bmc.png.asset.json";
 
 const NAV = [
   { to: "/potrzeby", label: "Potrzeby" },
+  { to: "/rozwiazania", label: "Rozwiązania" },
   { to: "/technologie", label: "Technologie" },
   { to: "/cennik", label: "Cennik" },
 ];
