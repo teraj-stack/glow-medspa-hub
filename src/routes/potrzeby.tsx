@@ -56,7 +56,7 @@ const TILES: Tile[] = [
     icon: konturyAsset.url,
     tagline: "LIFTING I OWAL",
     bullets: [
-      { title: "Nieoperacyjny lifting", text: "redukcja « chomików ». Wyostrzenie linii żuchwy, która z wiekiem traci swój zarys." },
+      { title: "Nieoperacyjny lifting", text: "redukcja « chomików ».\nWyostrzenie linii żuchwy, która z wiekiem traci swój zarys." },
       {
         title: "Bruzdy nosowo-wargowe i linie marionetki",
         text: "powstają, gdy opadają policzki (zanika owal i słabnie kolagen).",
@@ -142,7 +142,7 @@ function PotrzebyPage() {
                     {t.bullets.map((b, bi) => (
                       <li key={bi} className="flex gap-2">
                         <span className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-champagne" aria-hidden="true" />
-                        <span>
+                        <span className="whitespace-pre-line">
                           {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
                           {b.title && " — "}
                           {b.text}
