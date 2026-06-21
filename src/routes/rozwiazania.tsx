@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Sparkles, Wand2, Hand, Eye, HeartHandshake } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import PakietTile from "@/components/PakietTile";
-import konturyAsset from "@/assets/kontur-lifting-owal-v2.png.asset.json";
+import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 
 
 export const Route = createFileRoute("/rozwiazania")({
