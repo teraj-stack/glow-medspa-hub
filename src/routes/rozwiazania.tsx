@@ -35,7 +35,6 @@ type Tile = {
 };
 
 const TILES: Tile[] = [
-  { nr: "04", title: "Spojrzenie i powieki", subtitle: "Okolica oka", Icon: Eye },
   { nr: "05", title: "Dyskretne rozwiązania", subtitle: "Komfort i pewność siebie", Icon: HeartHandshake },
 ];
 
