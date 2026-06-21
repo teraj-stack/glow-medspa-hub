@@ -158,7 +158,7 @@ function PotrzebyPage() {
                         <span className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-champagne" aria-hidden="true" />
                         <span className="whitespace-pre-line">
                           {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
-                          {b.title && " —\u00a0"}
+                          {b.title && b.text && " —\u00a0"}
                           {b.text.split(/(z wiekiem|kolagen|owal twarzy|Dłonie|wieku|plam starczych)/).map((part, i) => {
                             if (part === "kolagen") return null;
                             return ["z wiekiem", "owal twarzy", "Dłonie", "wieku", "plam starczych"].includes(part) ? (
