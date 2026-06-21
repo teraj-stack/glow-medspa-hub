@@ -254,31 +254,3 @@ function RozwiazaniaPage() {
     </main>
   );
 }
-
-function TileCard({ tile, index, isFifth }: { tile: Tile; index: number; isFifth: boolean }) {
-  const { ref, inView } = useInView<HTMLLIElement>();
-  const { Icon } = tile;
-  return (
-    <li
-      ref={ref}
-      className={`${isFifth ? "lg:col-start-2" : ""} group relative flex flex-col rounded-2xl border border-border bg-card p-8 transition-all duration-500 ease-out hover:-translate-y-1 hover:border-champagne/50 hover:shadow-xl focus-within:ring-2 focus-within:ring-champagne focus-within:ring-offset-2`}
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0)" : "translateY(2rem)",
-        transition: `opacity 700ms ease-out ${index * 100}ms, transform 700ms ease-out ${index * 100}ms, border-color 300ms, box-shadow 300ms`,
-      }}
-      aria-labelledby={`tile-${tile.nr}-title`}
-    >
-      <span aria-hidden className="absolute right-6 top-6 font-serif text-5xl text-champagne/40">
-        {tile.nr}
-      </span>
-      <span className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full border border-champagne/30 bg-champagne/5 text-champagne transition-transform duration-500 group-hover:scale-110">
-        <Icon className="size-7" aria-hidden />
-      </span>
-      <h2 id={`tile-${tile.nr}-title`} className="mb-2 font-serif text-2xl text-foreground">
-        {tile.title}
-      </h2>
-      <p className="text-sm leading-relaxed text-muted-foreground">{tile.subtitle}</p>
-    </li>
-  );
-}
