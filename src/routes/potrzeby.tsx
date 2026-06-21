@@ -87,7 +87,7 @@ function PotrzebyPage() {
                     src={t.icon}
                     alt=""
                     loading="lazy"
-                    className="h-14 w-14 object-contain transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
+                    className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
                     style={{ animationDelay: `${i * 0.4}s` }}
                   />
                 </div>
