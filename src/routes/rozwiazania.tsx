@@ -218,7 +218,7 @@ function RozwiazaniaPage() {
               nr="05"
               tagline="PAKIET D · BODY CONTOUR"
               title="Modelowanie sylwetki"
-              icon={bodyContourAsset}
+              icon={bodyContourAsset.url}
               bullets={[
                 {
                   text: "« Body Management 360 » to trening mięśni bez siłowni — buduje gorset mięśniowy brzucha lub pośladków, redukując niechciany tłuszcz.",
