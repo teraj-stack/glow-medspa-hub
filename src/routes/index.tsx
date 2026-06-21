@@ -81,6 +81,8 @@ function Hero() {
             width={1200}
             height={1500}
             loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="aspect-[4/5] w-full rounded-lg object-cover shadow-elegant"
           />
           <div className="absolute -bottom-6 -left-6 hidden rounded-lg border border-border bg-card p-5 shadow-soft md:block">
