@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Sparkles, Wand2, Hand, Eye, HeartHandshake } from "lucide-react";
+import { ArrowRight, Sparkles, HeartHandshake } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import PakietTile from "@/components/PakietTile";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 import sylwetkaAsset from "@/assets/szkic-sylwetka.png.asset.json";
 import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
+import okoAsset from "@/assets/oko-szkic.png";
 
 
 export const Route = createFileRoute("/rozwiazania")({
@@ -34,7 +35,6 @@ type Tile = {
 };
 
 const TILES: Tile[] = [
-  { nr: "04", title: "Spojrzenie i powieki", subtitle: "Okolica oka", Icon: Eye },
   { nr: "05", title: "Dyskretne rozwiązania", subtitle: "Komfort i pewność siebie", Icon: HeartHandshake },
 ];
 
@@ -217,6 +217,30 @@ function RozwiazaniaPage() {
                 "HIFEM",
                 "RF Mikroigłowa",
                 "Mezoterapia",
+              ]}
+            />
+
+            <PakietTile
+              nr="04"
+              tagline="KONTUR OKA · BLASK SPOJRZENIA"
+              title="Okolica oka"
+              icon={okoAsset}
+              bullets={[
+                {
+                  title: "Zmarszczki mimiczne",
+                  text: "« kurze łapki » i linie wokół oczu — precyzyjna praca nad delikatną skórą powiek.",
+                },
+                {
+                  title: "Cienie i worki pod oczami",
+                  text: "rozjaśnienie okolicy i redukcja obrzęków — przywrócenie świeżego spojrzenia.",
+                },
+                {
+                  title: "Opadająca powieka",
+                  text: "nieinwazyjny lifting okolicy oka — uniesienie i napięcie skóry powieki górnej.",
+                },
+                {
+                  title: "Plastyka powieki górnej",
+                },
               ]}
             />
 

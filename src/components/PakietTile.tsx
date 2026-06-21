@@ -6,7 +6,7 @@ export type PakietTileProps = {
   tagline: string;
   title: string;
   icon: string;
-  bullets: { title?: string; text: string; boldParts?: string[] }[];
+  bullets: { title?: string; text?: string; boldParts?: string[] }[];
   technologies?: string[];
   protocol?: { label: string; href: string };
 };
@@ -83,7 +83,7 @@ export default function PakietTile({
                 <strong className="font-semibold text-foreground">{b.title}</strong>
               )}
               {b.title && b.text && " —\u00a0"}
-              {renderBoldParts(b.text, b.boldParts)}
+              {b.text && renderBoldParts(b.text, b.boldParts)}
             </span>
           </li>
         ))}
