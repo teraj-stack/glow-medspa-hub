@@ -109,10 +109,11 @@ function PotrzebyPage() {
             </p>
             <blockquote className="border-l-2 border-champagne/40 pl-4 text-base font-light italic text-muted-foreground/70 md:text-lg">
               „Wiem, czego pragną kobiety. Chcą być piękne”{" "}
-              <span className="not-italic">— Rudolf Valentino</span>
+              <span className="not-italic">Rudolf Valentino</span>
             </blockquote>
             <p className="text-base text-muted-foreground md:text-lg">
-              Pięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zabiegowy zaczyna się od konsultacji: wywiad, badanie i doświadczenie lekarza prowadzącego dają rozpoznanie — Po postawieniu rozpoznania skupiamy uwagę na oczekiwaniach pacjenta i dobieramy dostępne technologie.
+              Pięć obszarów, w których łączymy doświadczenie medyczne z technologią. Każdy protokół zabiegowy zaczyna się od konsultacji: wywiad, badanie i doświadczenie lekarza prowadzącego dają rozpoznanie.{"\u00a0"}<br />
+              Po postawieniu rozpoznania skupiamy uwagę na oczekiwaniach pacjenta i dobieramy dostępne technologie.
             </p>
           </div>
         </div>
