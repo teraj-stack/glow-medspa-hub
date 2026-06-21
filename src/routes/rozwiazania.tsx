@@ -220,6 +220,30 @@ function RozwiazaniaPage() {
               ]}
             />
 
+            <PakietTile
+              nr="04"
+              tagline="KONTUR OKA · BLASK SPOJRZENIA"
+              title="Okolica oka"
+              icon={okoAsset}
+              bullets={[
+                {
+                  title: "Zmarszczki mimiczne",
+                  text: "« kurze łapki » i linie wokół oczu — precyzyjna praca nad delikatną skórą powiek.",
+                },
+                {
+                  title: "Cienie i worki pod oczami",
+                  text: "rozjaśnienie okolicy i redukcja obrzęków — przywrócenie świeżego spojrzenia.",
+                },
+                {
+                  title: "Opadająca powieka",
+                  text: "nieinwazyjny lifting okolicy oka — uniesienie i napięcie skóry powieki górnej.",
+                },
+                {
+                  title: "Plastyka powieki górnej",
+                },
+              ]}
+            />
+
             <ul className="contents">
               {TILES.map((tile, i) => (
                 <TileCard key={tile.nr} tile={tile} index={i} isFifth={false} />
