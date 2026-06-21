@@ -71,7 +71,7 @@ function RozwiazaniaPage() {
                 className="pointer-events-none absolute inset-0 opacity-30"
                 style={{
                   background:
-                    "radial-gradient(circle_at_top_right, hsl(var(--champagne) / 0.25), transparent 60%)",
+                    "radial-gradient(circle at top right, color-mix(in oklab, var(--champagne) 25%, transparent), transparent 60%)",
                 }}
                 aria-hidden
               />
