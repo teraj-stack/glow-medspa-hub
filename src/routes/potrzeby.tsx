@@ -131,9 +131,11 @@ function PotrzebyPage() {
                   {t.title}
                 </h2>
 
-                <p className="mt-3 font-sans text-sm tracking-wide text-muted-foreground">
-                  {t.lead}
-                </p>
+                {t.lead && (
+                  <p className="mt-3 font-sans text-sm tracking-wide text-muted-foreground">
+                    {t.lead}
+                  </p>
+                )}
 
                 {t.bullets && (
                   <ul className="mt-4 space-y-2 font-sans text-sm leading-relaxed text-muted-foreground">
