@@ -148,14 +148,17 @@ function PotrzebyPage() {
                         <span className="mt-2 inline-block h-1 w-1 shrink-0 rounded-full bg-champagne" aria-hidden="true" />
                         <span className="whitespace-pre-line">
                           {b.title && <strong className="font-medium text-foreground">{b.title}</strong>}
-                          {b.title && " — "}
-                          {b.text.split(/(z wiekiem|kolagen|owal twarzy)/).map((part, i) =>
-                            ["z wiekiem", "kolagen", "owal twarzy"].includes(part) ? (
-                              <strong key={i} className="font-medium text-foreground">{part}</strong>
+                          {b.title && " —\u00a0"}
+                          {b.text.split(/(z wiekiem|kolagen|owal twarzy)/).map((part, i) => {
+                            if (part === "kolagen") return null;
+                            const displayPart = part === "owal twarzy" ? "owal twarzy" : part.replace(", wraz z ", ", wraz z nim");
+                            
+                            return ["z wiekiem", "owal twarzy"].includes(part) ? (
+                              <strong key={i} className="font-medium text-foreground">{displayPart}</strong>
                             ) : (
-                              <span key={i}>{part}</span>
-                            )
-                          )}
+                              <span key={i}>{displayPart}</span>
+                            );
+                          })}
                         </span>
                       </li>
                     ))}
