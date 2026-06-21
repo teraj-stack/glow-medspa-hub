@@ -42,11 +42,11 @@ function Hero() {
         <div className="rise-in">
           <div className="text-xs uppercase tracking-[0.3em] text-champagne">Beauty &amp; Mind Clinic · Siedlce</div>
           <h1 className="mt-6 font-serif text-ink">
-            Medycyna estetyczna <span className="shimmer-text">z duszą</span>.
+            Piękno nie potrzebuje hałasu. Potrzebuje zrozumienia.
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            Łączymy zaawansowane technologie laserowe z uważną diagnozą. Wierzymy w naturalny efekt
-            i dyskretną pamięć — żaden zabieg nie powinien Państwa wyprzedzać.
+            W mojej pracowni medycyna staje się sztuką proporcji, a technologia służy naturze. 
+            Poznaj autorskie protokoły zabiegowe skrojone pod Twoją anatomię.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
