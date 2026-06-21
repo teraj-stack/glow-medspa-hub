@@ -136,11 +136,21 @@ function RozwiazaniaPage() {
 
       <section className="bg-background py-16 md:py-24">
         <div className="container-luxury">
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-            {TILES.map((tile, i) => (
-              <TileCard key={tile.nr} tile={tile} index={i} isFifth={i === 4} />
-            ))}
-          </ul>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+            <PakietCard
+              subtitle="Pakiet A — Lifting & kontur"
+              title="Architektura twarzy"
+              protocol="«&nbsp;Głęboki lifting 4D&nbsp;»"
+              protocolDescription="Połączenie stymulacji mięśniowej (HIFEM+MSF+RH) z przebudową struktur skóry (HIFU). Działamy jednocześnie nad mięśniami, powięzią i kolagenem — efekt liftingu bez efektu maski."
+              technologies={["Laser tulowy", "Ultradźwięki zogniskowane (HIFU)", "Laser pikosekundowy", "RF Mikroigłowa"]}
+              icon={Sparkles}
+            />
+            <ul className="contents">
+              {TILES.map((tile, i) => (
+                <TileCard key={tile.nr} tile={tile} index={i} isFifth={false} />
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
 
