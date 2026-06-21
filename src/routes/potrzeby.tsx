@@ -49,7 +49,7 @@ type Tile = {
 
 const TILES: Tile[] = [
   {
-    nr: "01",
+    nr: "LIFTING I OWAL 01",
     slug: "przywrocenie-konturow",
     title: "Przywrócenie konturów",
     lead: "Lifting i owal",
