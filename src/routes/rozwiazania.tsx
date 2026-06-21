@@ -32,7 +32,6 @@ type Tile = {
 };
 
 const TILES: Tile[] = [
-  { nr: "02", title: "Redukcja blizn, zmarszczek", subtitle: "Tekstura « HD »", Icon: Wand2 },
   { nr: "03", title: "Gęstość, jędrność", subtitle: "Rewitalizacja dłoni i ciała", Icon: Hand },
   { nr: "04", title: "Spojrzenie i powieki", subtitle: "Okolica oka", Icon: Eye },
   { nr: "05", title: "Dyskretne rozwiązania", subtitle: "Komfort i pewność siebie", Icon: HeartHandshake },
@@ -161,6 +160,33 @@ function RozwiazaniaPage() {
                 "Laser tulowy",
                 "HIFU 4D",
                 "Laser pikosekundowy",
+                "RF Mikroigłowa",
+              ]}
+            />
+
+            <PakietTile
+              nr="02"
+              tagline="REDUKCJA BLIZN I ZMARSZCZEK"
+              title="Tekstura « HD »"
+              icon={konturyAsset.url}
+              bullets={[
+                {
+                  title: "Redukcja blizn i przebarwień",
+                  text: "tekstura skóry wymaga precyzyjnej przebudowy kolagenu i elastyny.",
+                },
+                {
+                  title: "Zmarszczki i drobne linie",
+                  text: "zanik elastyny sprawia, że skóra traci jędrność i gładkość powierzchni.",
+                },
+                {
+                  title: "Nierówności i rozszerzone pory",
+                  text: "frakcyjne technologie wygładzają powierzchnię bez uszkadzania naskórka.",
+                },
+              ]}
+              technologies={[
+                "Laser frakcyjny",
+                "Laser pikosekundowy",
+                "Mezoterapia",
                 "RF Mikroigłowa",
               ]}
             />
