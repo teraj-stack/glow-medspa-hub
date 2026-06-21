@@ -224,7 +224,7 @@ function RozwiazaniaPage() {
               nr="04"
               tagline="KONTUR OKA · BLASK SPOJRZENIA"
               title="Okolica oka"
-              icon={okoAsset}
+              icon={okoAsset.url}
               bullets={[
                 {
                   title: "Zmarszczki mimiczne",
