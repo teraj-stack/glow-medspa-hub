@@ -58,12 +58,12 @@ function AuthPage() {
     }
   }
 
-  async function onGoogle() {
+  async function onOAuth(provider: "google" | "apple") {
     setLoading(true);
     setError(null);
-    const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+    const res = await lovable.auth.signInWithOAuth(provider, { redirect_uri: window.location.origin });
     if (res.error) {
-      setError(res.error instanceof Error ? res.error.message : "Nie udało się zalogować przez Google.");
+      setError(res.error instanceof Error ? res.error.message : `Nie udało się zalogować przez ${provider === "google" ? "Google" : "Apple"}.`);
       setLoading(false);
       return;
     }
