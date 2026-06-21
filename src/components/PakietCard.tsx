@@ -1,6 +1,4 @@
-import type { ComponentType, SVGProps } from "react";
 import { ArrowRight } from "lucide-react";
-import FaceContourIcon from "./icons/FaceContourIcon";
 
 export type PakietCardProps = {
   subtitle: string;
@@ -8,7 +6,6 @@ export type PakietCardProps = {
   protocol: string;
   protocolDescription: string;
   technologies: string[];
-  icon?: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
 export default function PakietCard({
@@ -17,15 +14,11 @@ export default function PakietCard({
   protocol,
   protocolDescription,
   technologies,
-  icon: Icon = FaceContourIcon,
 }: PakietCardProps) {
   return (
     <article className="group h-full flex flex-col p-6 sm:p-8 md:p-10 rounded-sm border border-border/60 bg-card hover:border-champagne/60 hover:shadow-[0_20px_40px_-20px_hsl(var(--champagne)/0.25)] hover:-translate-y-1 transition-[transform,border-color,box-shadow] duration-500 ease-out will-change-transform">
       {/* Header */}
-      <header className="flex gap-4 sm:gap-5 md:gap-6 mb-5 sm:mb-6 md:mb-7 min-h-[7rem]">
-        <div className="shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-sm bg-champagne/10 border border-champagne/30 flex items-center justify-center text-champagne overflow-hidden group-hover:scale-105 group-hover:border-champagne/60 transition-transform duration-500">
-          <Icon className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 p-0.5 mix-blend-multiply contrast-125" aria-hidden />
-        </div>
+      <header className="mb-5 sm:mb-6 md:mb-7">
         <div className="min-w-0">
           <p className="text-xs tracking-[0.3em] uppercase text-champagne font-body mb-1">
             {subtitle}
@@ -37,7 +30,7 @@ export default function PakietCard({
       </header>
 
       {/* Middle */}
-      <div className="mb-5 pl-0 sm:pl-[6.25rem] md:pl-[7.5rem]">
+      <div className="mb-5">
         <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground font-body mb-2">
           Twój protokół
         </p>
@@ -48,7 +41,7 @@ export default function PakietCard({
       </div>
 
       {/* Footer */}
-      <footer className="mt-auto pt-5 pl-0 sm:pl-[6.25rem] md:pl-[7.5rem] border-t border-border/40">
+      <footer className="mt-auto pt-5 border-t border-border/40">
         <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground font-body mb-2">
           Technologia
         </p>
