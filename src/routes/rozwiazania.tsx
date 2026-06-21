@@ -1,12 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Sparkles, HeartHandshake } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
 import PakietTile from "@/components/PakietTile";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 import sylwetkaAsset from "@/assets/szkic-sylwetka.png.asset.json";
 import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
 import okoAsset from "@/assets/oko-szkic-v2.png.asset.json";
+import bodyContourAsset from "@/assets/sylwetka-body-contour.png";
+
 
 
 export const Route = createFileRoute("/rozwiazania")({
@@ -27,37 +28,6 @@ export const Route = createFileRoute("/rozwiazania")({
   component: RozwiazaniaPage,
 });
 
-type Tile = {
-  nr: string;
-  title: string;
-  subtitle: string;
-  Icon: React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
-};
-
-const TILES: Tile[] = [
-  { nr: "05", title: "Dyskretne rozwiązania", subtitle: "Komfort i pewność siebie", Icon: HeartHandshake },
-];
-
-function useInView<T extends Element>(options?: IntersectionObserverInit) {
-  const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      },
-      { threshold: 0.15, ...options },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [options]);
-  return { ref, inView };
-}
 
 function RozwiazaniaPage() {
   return (
@@ -244,11 +214,23 @@ function RozwiazaniaPage() {
               ]}
             />
 
-            <ul className="contents">
-              {TILES.map((tile, i) => (
-                <TileCard key={tile.nr} tile={tile} index={i} isFifth={false} />
-              ))}
-            </ul>
+            <PakietTile
+              nr="05"
+              tagline="PAKIET D · BODY CONTOUR"
+              title="Modelowanie sylwetki"
+              icon={bodyContourAsset}
+              bullets={[
+                {
+                  text: "« Body Management 360 » to trening mięśni bez siłowni — buduje gorset mięśniowy brzucha lub pośladków, redukując niechciany tłuszcz.",
+                  boldParts: ["« Body Management 360 »"],
+                },
+                {
+                  text: "Połączenie z fototerapią pozwala odpocząć, odprężyć się i zregenerować — Body Longevity Beauty & Mind.",
+                },
+              ]}
+              technologies={["HIFEM+MSF+RF", "Fototerapia"]}
+            />
+
           </div>
         </div>
       </section>
@@ -270,33 +252,5 @@ function RozwiazaniaPage() {
         </div>
       </section>
     </main>
-  );
-}
-
-function TileCard({ tile, index, isFifth }: { tile: Tile; index: number; isFifth: boolean }) {
-  const { ref, inView } = useInView<HTMLLIElement>();
-  const { Icon } = tile;
-  return (
-    <li
-      ref={ref}
-      className={`${isFifth ? "lg:col-start-2" : ""} group relative flex flex-col rounded-2xl border border-border bg-card p-8 transition-all duration-500 ease-out hover:-translate-y-1 hover:border-champagne/50 hover:shadow-xl focus-within:ring-2 focus-within:ring-champagne focus-within:ring-offset-2`}
-      style={{
-        opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0)" : "translateY(2rem)",
-        transition: `opacity 700ms ease-out ${index * 100}ms, transform 700ms ease-out ${index * 100}ms, border-color 300ms, box-shadow 300ms`,
-      }}
-      aria-labelledby={`tile-${tile.nr}-title`}
-    >
-      <span aria-hidden className="absolute right-6 top-6 font-serif text-5xl text-champagne/40">
-        {tile.nr}
-      </span>
-      <span className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full border border-champagne/30 bg-champagne/5 text-champagne transition-transform duration-500 group-hover:scale-110">
-        <Icon className="size-7" aria-hidden />
-      </span>
-      <h2 id={`tile-${tile.nr}-title`} className="mb-2 font-serif text-2xl text-foreground">
-        {tile.title}
-      </h2>
-      <p className="text-sm leading-relaxed text-muted-foreground">{tile.subtitle}</p>
-    </li>
   );
 }
