@@ -126,7 +126,7 @@ function TileCard({ tile, index, isFifth }: { tile: Tile; index: number; isFifth
       </span>
       <h2 id={`tile-${tile.nr}-title`} className="mb-2 font-serif text-2xl text-foreground">
         {tile.title}
-      </h3>
+      </h2>
       <p className="text-sm leading-relaxed text-muted-foreground">{tile.subtitle}</p>
     </li>
   );
