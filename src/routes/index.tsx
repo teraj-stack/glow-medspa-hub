@@ -17,6 +17,11 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:title", content: "Beauty & Mind Clinic — Siedlce" },
       { property: "og:description", content: "Naturalny efekt. Dyskretna pamięć." },
+      { property: "og:image", content: bujokAsset.url },
+      { name: "twitter:image", content: bujokAsset.url },
+    ],
+    links: [
+      { rel: "preload", as: "image", href: bujokAsset.url, fetchpriority: "high" },
     ],
   }),
   component: Home,
