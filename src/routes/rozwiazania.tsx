@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, Sparkles, Wand2, Hand, Eye, HeartHandshake } from "lucide-react";
 import ScrollReveal from "@/components/ScrollReveal";
+import PakietCard from "@/components/PakietCard";
 
 
 export const Route = createFileRoute("/rozwiazania")({
