@@ -4,8 +4,8 @@ import { useState } from "react";
 import logoBmc from "@/assets/logo-bmc.png.asset.json";
 
 const NAV = [
-  { to: "/technologie", label: "Technologie" },
   { to: "/potrzeby", label: "Potrzeby" },
+  { to: "/technologie", label: "Technologie" },
   { to: "/cennik", label: "Cennik" },
 ];
 
