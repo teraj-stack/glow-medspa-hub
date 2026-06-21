@@ -164,6 +164,33 @@ function RozwiazaniaPage() {
               ]}
             />
 
+            <PakietTile
+              nr="02"
+              tagline="REDUKCJA BLIZN I ZMARSZCZEK"
+              title="Tekstura « HD »"
+              icon={konturyAsset.url}
+              bullets={[
+                {
+                  title: "Redukcja blizn i przebarwień",
+                  text: "tekstura skóry wymaga precyzyjnej przebudowy kolagenu i elastyny.",
+                },
+                {
+                  title: "Zmarszczki i drobne linie",
+                  text: "zanik elastyny sprawia, że skóra traci jędrność i gładkość powierzchni.",
+                },
+                {
+                  title: "Nierówności i rozszerzone pory",
+                  text: "frakcyjne technologie wygładzają powierzchnię bez uszkadzania naskórka.",
+                },
+              ]}
+              technologies={[
+                "Laser frakcyjny",
+                "Laser pikosekundowy",
+                "Mezoterapia",
+                "RF Mikroigłowa",
+              ]}
+            />
+
             <ul className="contents">
               {TILES.map((tile, i) => (
                 <TileCard key={tile.nr} tile={tile} index={i} isFifth={false} />
