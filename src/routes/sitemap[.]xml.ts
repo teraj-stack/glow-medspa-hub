@@ -22,6 +22,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/blog/powiklania-mezoterapia-iglowa", changefreq: "monthly", priority: "0.7" },
           { path: "/blog/blizny-potradzikowe", changefreq: "monthly", priority: "0.7" },
           { path: "/blog/laser-frakcyjny-rekonwalescencja", changefreq: "monthly", priority: "0.8" },
+          { path: "/technologie/laser-tulowy", changefreq: "monthly", priority: "0.85" },
           { path: "/polityka-prywatnosci", changefreq: "yearly", priority: "0.3" },
           { path: "/regulamin", changefreq: "yearly", priority: "0.3" },
           ...TECHNOLOGIES.map((t) => ({
