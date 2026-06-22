@@ -501,7 +501,7 @@ function LaserTulowyPage() {
           <SectionHeading
             eyebrow="Efekty"
             title="Przed i po — galeria pacjentek"
-            description="Realne rezultaty po serii zabiegów laserem tulowo-erbowym. Zdjęcia publikujemy za zgodą pacjentek."
+            description="Realne rezultaty po serii zabiegów laserem tulowym 1927 nm. Zdjęcia publikujemy za zgodą pacjentek."
           />
           <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {BEFORE_AFTER.map((item) => (
