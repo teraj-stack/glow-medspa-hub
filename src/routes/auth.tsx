@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { sendTransactionalEmail } from "@/lib/email/send";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
