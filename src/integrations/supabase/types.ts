@@ -65,6 +65,78 @@ export type Database = {
         }
         Relationships: []
       }
+      consultation_orders: {
+        Row: {
+          amount: number
+          consultation_type: string
+          created_at: string
+          currency: string
+          email: string
+          email_sent_at: string | null
+          environment: string
+          full_name: string
+          id: string
+          intake_completed_at: string | null
+          intake_token: string | null
+          notes: string | null
+          paid_at: string | null
+          phone: string | null
+          preferred_date: string | null
+          price_id: string
+          status: string
+          stripe_customer_id: string | null
+          stripe_session_id: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          amount: number
+          consultation_type: string
+          created_at?: string
+          currency?: string
+          email: string
+          email_sent_at?: string | null
+          environment?: string
+          full_name: string
+          id?: string
+          intake_completed_at?: string | null
+          intake_token?: string | null
+          notes?: string | null
+          paid_at?: string | null
+          phone?: string | null
+          preferred_date?: string | null
+          price_id: string
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number
+          consultation_type?: string
+          created_at?: string
+          currency?: string
+          email?: string
+          email_sent_at?: string | null
+          environment?: string
+          full_name?: string
+          id?: string
+          intake_completed_at?: string | null
+          intake_token?: string | null
+          notes?: string | null
+          paid_at?: string | null
+          phone?: string | null
+          preferred_date?: string | null
+          price_id?: string
+          status?: string
+          stripe_customer_id?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
