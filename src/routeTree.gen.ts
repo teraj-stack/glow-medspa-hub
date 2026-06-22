@@ -16,6 +16,7 @@ import { Route as RozwiazaniaRouteImport } from './routes/rozwiazania'
 import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as PotrzebyRouteImport } from './routes/potrzeby'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
@@ -62,6 +63,11 @@ const PotrzebyRoute = PotrzebyRouteImport.update({
 const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
   id: '/polityka-prywatnosci',
   path: '/polityka-prywatnosci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KonsultacjaRoute = KonsultacjaRouteImport.update({
+  id: '/konsultacja',
+  path: '/konsultacja',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CennikRoute = CennikRouteImport.update({
@@ -133,6 +139,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
+  '/konsultacja': typeof KonsultacjaRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -154,6 +161,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
+  '/konsultacja': typeof KonsultacjaRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -176,6 +184,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
+  '/konsultacja': typeof KonsultacjaRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -199,6 +208,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/cennik'
+    | '/konsultacja'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/cennik'
+    | '/konsultacja'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -241,6 +252,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/cennik'
+    | '/konsultacja'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -263,6 +275,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   CennikRoute: typeof CennikRoute
+  KonsultacjaRoute: typeof KonsultacjaRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
@@ -329,6 +342,13 @@ declare module '@tanstack/react-router' {
       path: '/polityka-prywatnosci'
       fullPath: '/polityka-prywatnosci'
       preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/konsultacja': {
+      id: '/konsultacja'
+      path: '/konsultacja'
+      fullPath: '/konsultacja'
+      preLoaderRoute: typeof KonsultacjaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cennik': {
@@ -434,6 +454,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   CennikRoute: CennikRoute,
+  KonsultacjaRoute: KonsultacjaRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
