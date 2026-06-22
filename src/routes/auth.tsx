@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { SectionHeading } from "@/components/site/SectionHeading";
-import { useServerFn } from "@tanstack/react-start";
-import { sendWelcomeEmail } from "@/lib/email/welcome.functions";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
