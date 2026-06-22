@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { TechCard } from "@/components/site/TechCard";
-import { BookingForm } from "@/components/site/BookingForm";
+
 import { TECHNOLOGIES } from "@/data/technologies";
 import { Sparkles, Shield, HeartHandshake, ArrowRight } from "lucide-react";
 import bujokAsset from "@/assets/bujok.jpeg.asset.json";
