@@ -20,6 +20,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/unsubscribe", changefreq: "yearly", priority: "0.3" },
           { path: "/email/unsubscribe", changefreq: "yearly", priority: "0.3" },
           { path: "/blog/powiklania-mezoterapia-iglowa", changefreq: "monthly", priority: "0.7" },
+          { path: "/blog/blizny-potradzikowe", changefreq: "monthly", priority: "0.7" },
           { path: "/polityka-prywatnosci", changefreq: "yearly", priority: "0.3" },
           { path: "/regulamin", changefreq: "yearly", priority: "0.3" },
           ...TECHNOLOGIES.map((t) => ({
