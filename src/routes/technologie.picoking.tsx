@@ -64,7 +64,8 @@ export const Route = createFileRoute("/technologie/picoking")({
     const url = "https://bmclinics.ai/technologie/picoking";
     const title = "Laser pikosekundowy — Siedlce | Beauty & Mind Clinic";
     const description =
-      "Laser pikosekundowy 350 ps (1064 / 755 / 532 nm) na melasmę, blizny potrądzikowe, przebarwienia, tatuaże i fotoodmładzanie. Efekt fotoakustyczny zamiast termicznego — skóra się nie poparza. Standard premium klinik warszawskich w Siedlcach.";
+      "Laser pikosekundowy 350 ps w Siedlcach: melasma, blizny potrądzikowe, przebarwienia, tatuaże, fotoodmładzanie. Standard premium klinik warszawskich.";
+
 
     const serviceSchema = loaderData
       ? {
