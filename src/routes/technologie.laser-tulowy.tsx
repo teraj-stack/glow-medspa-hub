@@ -536,12 +536,14 @@ function LaserTulowyPage() {
           <SectionHeading eyebrow="FAQ" title="Najczęstsze pytania" />
           <div className="mx-auto mt-10 max-w-3xl divide-y divide-border/60 rounded-xl border border-border/60 bg-card">
             {[
-              { q: "Czym różni się laser tulowo-erbowy 1927 nm od lasera CO₂?", a: "Laser tulowo-erbowy (Thulium/Erbium Glass) jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa do 0,3 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej, daje silniejszą przebudowę kolagenu, ale wiąże się z 7–14-dniową rekonwalescencją i większym ryzykiem powikłań pigmentacyjnych." },
-              { q: "Czy zabieg jest bezpieczny dla osób z melasmą?", a: "Tak — laser tulowo-erbowy 1927 nm jest obecnie najbezpieczniejszą opcją laserową dla melasmy. Działa dokładnie w okolicy uszkodzonej błony podstawnej, nie pobudzając tyrozynazy w głębszych warstwach." },
-              { q: "Ile sesji potrzeba?", a: "Rewitalizacja: 1–2 sesje rocznie. Melasma i oporne przebarwienia: seria 3–4 sesji co 4–6 tygodni + sesja podtrzymująca co 6 miesięcy." },
+              { q: "Czym różni się laser tulowy 1927 nm od lasera CO₂?", a: "Laser tulowy 1927 nm jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa bardzo powierzchownie, około 0,1 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej i wiąże się z 7–14-dniową rekonwalescencją oraz większym ryzykiem powikłań pigmentacyjnych." },
+              { q: "Czy laser tulowy liftinguje lub odmładza skórę?", a: "Nie. Laser 1927 nm działa wyłącznie na powierzchniowej warstwie skóry i nie dociera do struktur odpowiedzialnych za lifting czy przebudowę kolagenu. Do modelowania konturu i ujędrnienia wybieramy HIFU lub RF mikroigłową." },
+              { q: "Czy zabieg jest bezpieczny dla osób z melasmą?", a: "Tak — laser tulowy 1927 nm jest obecnie najbezpieczniejszą opcją laserową dla melasmy. Działa dokładnie w okolicy uszkodzonej błony podstawnej, nie pobudzając tyrozynazy w głębszych warstwach." },
+              { q: "Ile sesji potrzeba?", a: "Dla melasmy i opornych przebarwień: seria 3–4 sesji co 4–6 tygodni + sesja podtrzymująca co 6 miesięcy." },
+              { q: "Czy mogę wykonać zabieg po toksynie botulinowej?", a: "Tak. Jest to jedna z najczęstszych sytuacji, w których pacjentki wybierają laser tulowy — jego głębokość działania nie wpływa na efekt neuromodulatora wprowadzonego w głębsze warstwy." },
               { q: "Czy mogę wykonać zabieg latem?", a: "Optymalny sezon to jesień–wiosna. Latem — pod warunkiem bezwzględnej fotoprotekcji SPF 50+ i unikania bezpośredniego słońca przez minimum 4 tygodnie po zabiegu." },
               { q: "Czy nadaje się dla ciemnych fototypów?", a: "Tak. 1927 nm ma najwyższą absorpcję w wodzie i najniższą w melaninie — jest najbezpieczniejszą długością fali dla fototypów IV–VI." },
-              { q: "Jak szybko widać efekt?", a: "Pierwsza poprawa kolorytu — w 7. dniu po pierwszej sesji. Pełna przebudowa kolagenu — 12 tygodni." },
+              { q: "Jak szybko widać efekt?", a: "Pierwsza poprawa kolorytu — w 7. dniu po pierwszej sesji. Pełny efekt depigmentacji rozwija się po serii zabiegów." },
             ].map((f) => (
               <details key={f.q} className="group p-6 [&_summary::-webkit-details-marker]:hidden">
                 <summary className="flex cursor-pointer items-start justify-between gap-4">
