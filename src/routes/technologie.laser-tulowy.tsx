@@ -129,7 +129,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Strona główna", item: "https://bmclinics.ai/" },
         { "@type": "ListItem", position: 2, name: "Technologie", item: "https://bmclinics.ai/technologie" },
-        { "@type": "ListItem", position: 3, name: "Laser tulowy 1927 nm", item: URL },
+        { "@type": "ListItem", position: 3, name: "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927/1550 nm", item: URL },
       ],
     };
 
