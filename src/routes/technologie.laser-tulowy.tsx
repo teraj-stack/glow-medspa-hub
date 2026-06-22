@@ -25,9 +25,9 @@ import ba3Before from "@/assets/tulowy-ba-3.png.asset.json";
 import ba3After from "@/assets/tulowy-ba-3a.png.asset.json";
 
 const BEFORE_AFTER = [
-  { before: ba1Before.url, after: ba1After.url, title: "Przebarwienia posłoneczne i fotostarzenie", desc: "Wyraźna redukcja plam pigmentacyjnych, ujednolicenie kolorytu i poprawa jakości skóry twarzy." },
-  { before: ba2Before.url, after: ba2After.url, title: "Wiotkość owalu i linia żuchwy", desc: "Ujędrnienie skóry policzka i dolnej części twarzy, poprawa konturu owalu." },
-  { before: ba3Before.url, after: ba3After.url, title: "Zmarszczki i napięcie skóry", desc: "Spłycenie zmarszczek, wygładzenie tekstury, widocznie bardziej napięta i zregenerowana skóra." },
+  { before: ba1Before.url, after: ba1After.url, title: "Przebarwienia posłoneczne i plamy pigmentacyjne", desc: "Wyraźna redukcja plam, ujednolicenie kolorytu i rozjaśnienie skóry twarzy." },
+  { before: ba2Before.url, after: ba2After.url, title: "Melasma i hiperpigmentacja policzków", desc: "Wyrównanie odcienia cery i zmniejszenie ogniskowej hiperpigmentacji." },
+  { before: ba3Before.url, after: ba3After.url, title: "Jednolity koloryt i rozświetlona skóra", desc: "Redukcja szarej, zmęczonej poświaty i poprawa jednolitości naskórka." },
 ];
 
 const TECH_SLUG = "laser-tulowy";
