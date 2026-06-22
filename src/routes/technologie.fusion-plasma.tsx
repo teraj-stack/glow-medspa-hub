@@ -10,6 +10,21 @@ import dzialanieAsset from "@/assets/plasma-dzialanie.png.asset.json";
 import zaawansowanaAsset from "@/assets/plasma-zaawansowana.png.asset.json";
 import heroVideoAsset from "@/assets/plasma-hero.mp4.asset.json";
 import heroPosterAsset from "@/assets/plasma-poster.jpg.asset.json";
+import ba1Before from "@/assets/plasma-ba-1.png.asset.json";
+import ba1After from "@/assets/plasma-ba-1a.png.asset.json";
+import ba2Before from "@/assets/plasma-ba-2.png.asset.json";
+import ba2After from "@/assets/plasma-ba-2a.png.asset.json";
+import ba3Before from "@/assets/plasma-ba-3.png.asset.json";
+import ba3After from "@/assets/plasma-ba-3a.png.asset.json";
+import ba4Before from "@/assets/plasma-ba-4.png.asset.json";
+import ba4After from "@/assets/plasma-ba-4a.png.asset.json";
+
+const BEFORE_AFTER = [
+  { before: ba1Before.url, after: ba1After.url, title: "Trądzik i niedoskonałości", desc: "Redukcja zmian zapalnych, wyrównanie kolorytu, zmniejszenie widoczności porów na policzku." },
+  { before: ba2Before.url, after: ba2After.url, title: "Zmarszczki na czole", desc: "Wygładzenie linii poziomych, ujednolicenie tekstury skóry i poprawa napięcia." },
+  { before: ba3Before.url, after: ba3After.url, title: "Rozszerzone pory i tekstura", desc: "Zwężenie porów w strefie T, wyraźna poprawa gładkości i jakości skóry." },
+  { before: ba4Before.url, after: ba4After.url, title: "Okolica oka — kurze łapki", desc: "Spłycenie zmarszczek mimicznych, ujędrnienie cienkiej skóry wokół oka." },
+];
 
 const TECH_SLUG = "fusion-plasma";
 
