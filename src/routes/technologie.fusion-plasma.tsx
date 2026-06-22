@@ -18,12 +18,27 @@ import ba3Before from "@/assets/plasma-ba-3.png.asset.json";
 import ba3After from "@/assets/plasma-ba-3a.png.asset.json";
 import ba4Before from "@/assets/plasma-ba-4.png.asset.json";
 import ba4After from "@/assets/plasma-ba-4a.png.asset.json";
+import ba5Before from "@/assets/plasma-ba-5.png.asset.json";
+import ba5After from "@/assets/plasma-ba-5a.png.asset.json";
+import ba6Before from "@/assets/plasma-ba-6.png.asset.json";
+import ba6After from "@/assets/plasma-ba-6a.png.asset.json";
+import ba7Before from "@/assets/plasma-ba-7.png.asset.json";
+import ba7After from "@/assets/plasma-ba-7a.png.asset.json";
+import ba8Before from "@/assets/plasma-ba-8.png.asset.json";
+import ba8After from "@/assets/plasma-ba-8a.png.asset.json";
+import ba9Before from "@/assets/plasma-ba-9.png.asset.json";
+import ba9After from "@/assets/plasma-ba-9a.png.asset.json";
 
 const BEFORE_AFTER = [
   { before: ba1Before.url, after: ba1After.url, title: "Trądzik i niedoskonałości", desc: "Redukcja zmian zapalnych, wyrównanie kolorytu, zmniejszenie widoczności porów na policzku." },
   { before: ba2Before.url, after: ba2After.url, title: "Zmarszczki na czole", desc: "Wygładzenie linii poziomych, ujednolicenie tekstury skóry i poprawa napięcia." },
   { before: ba3Before.url, after: ba3After.url, title: "Rozszerzone pory i tekstura", desc: "Zwężenie porów w strefie T, wyraźna poprawa gładkości i jakości skóry." },
   { before: ba4Before.url, after: ba4After.url, title: "Okolica oka — kurze łapki", desc: "Spłycenie zmarszczek mimicznych, ujędrnienie cienkiej skóry wokół oka." },
+  { before: ba5Before.url, after: ba5After.url, title: "Przebarwienia i melasma", desc: "Wyraźne rozjaśnienie plam pigmentacyjnych, ujednolicenie kolorytu policzka." },
+  { before: ba6Before.url, after: ba6After.url, title: "Rewitalizacja całej twarzy", desc: "Wygładzenie tekstury, zmniejszenie zaczerwienień, świeży i wypoczęty wygląd skóry." },
+  { before: ba7Before.url, after: ba7After.url, title: "Dekolt — fotostarzenie", desc: "Redukcja przebarwień posłonecznych, wygładzenie skóry dekoltu i poprawa jej kolorytu." },
+  { before: ba8Before.url, after: ba8After.url, title: "Trądzik różowaty i naczynka", desc: "Zmniejszenie zaczerwienienia, wyciszenie skóry naczyniowej, ujednolicenie tonu." },
+  { before: ba9Before.url, after: ba9After.url, title: "Okolica ust i broda", desc: "Wygładzenie skóry wokół ust, redukcja drobnych niedoskonałości i poprawa napięcia." },
 ];
 
 const TECH_SLUG = "fusion-plasma";
