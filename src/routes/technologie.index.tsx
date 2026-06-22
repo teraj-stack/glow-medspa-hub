@@ -67,8 +67,8 @@ const GROUPS: NeedGroup[] = [
     title: "Rewitalizacja dłoni i ciała",
     icon: dlonieAsset.url,
     lead:
-      "Dłonie, ramiona, wewnętrzna strona ud, brzuch — odbudowa gęstości skóry i napięcia powięziowego. HIFU pracuje głęboko, RF mikroigłowa i lasery przebudowują warstwę skórno-naskórkową.",
-    techSlugs: ["hifu", "virtue-rf", "laser-tulowy", "picoking"],
+      "Dłonie, ramiona, wewnętrzna strona ud, brzuch — odbudowa gęstości skóry i jednolitego kolorytu. W tej strefie najskuteczniejszy jest laser pikosekundowy, następnie zimna plazma atmosferyczna, a na trzecim miejscu fototerapia LED. Pozostałe narzędzia nie przynoszą tu oczekiwanego efektu.",
+    techSlugs: ["picoking", "fusion-plasma", "terapia-led"],
   },
   {
     nr: "04",
