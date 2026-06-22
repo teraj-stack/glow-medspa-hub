@@ -215,12 +215,12 @@ function Testimonials() {
 function BookingSection() {
   return (
     <section id="rezerwacja" className="container-luxury py-20 md:py-28">
-      <div className="grid gap-12 md:grid-cols-2">
+      <div className="grid gap-12 md:grid-cols-2 md:items-center">
         <div>
           <SectionHeading
             eyebrow="Rezerwacja"
             title="Umówmy konsultację"
-            description="Zostawcie Państwo kontakt — oddzwonimy w godzinach pracy kliniki, aby ustalić dogodny termin."
+            description="Rezerwacja online z natychmiastową płatnością. Po opłaceniu otrzymasz e-mailem formularz wstępnej diagnostyki."
           />
           <dl className="mt-8 space-y-4 text-sm">
             <div>
@@ -231,9 +231,25 @@ function BookingSection() {
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Godziny</dt>
               <dd className="mt-1 text-foreground">pon.–pt. 9:00–20:00 · sob. 9:00–15:00</dd>
             </div>
+            <div>
+              <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Cena</dt>
+              <dd className="mt-1 text-foreground">500 zł — konsultacja online lub w klinice</dd>
+            </div>
           </dl>
         </div>
-        <BookingForm />
+        <div className="rounded-lg border border-border bg-card p-8 md:p-10">
+          <h3 className="font-serif text-2xl text-ink">Zarezerwuj termin</h3>
+          <p className="mt-3 text-sm text-foreground/75">
+            Wybierz formę spotkania, podaj kontakt i opłać rezerwację kartą. Po płatności
+            otrzymasz e-mail z linkiem do formularza diagnostycznego.
+          </p>
+          <Link
+            to="/konsultacja"
+            className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-ink px-6 text-sm tracking-wide text-alabaster transition hover:bg-ink/90"
+          >
+            Przejdź do rezerwacji <ArrowRight className="size-4" />
+          </Link>
+        </div>
       </div>
     </section>
   );
