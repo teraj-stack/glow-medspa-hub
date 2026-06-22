@@ -10,6 +10,32 @@ import type { Database } from "@/integrations/supabase/types";
 
 const PRICE_LOOKUP_KEY = "konsultacja_jednorazowa";
 
+const ALLOWED_RETURN_ORIGINS = new Set([
+  "https://bmclinics.ai",
+  "https://www.bmclinics.ai",
+  "https://bmclinics.dev",
+  "https://www.bmclinics.dev",
+  "https://bmclinics.org",
+  "https://www.bmclinics.org",
+  "https://glow-medspa-hub.lovable.app",
+]);
+const ALLOWED_RETURN_HOST_SUFFIXES = [".lovable.app", ".lovableproject.com"];
+
+function sanitizeReturnUrl(raw: string): string {
+  const parsed = new URL(raw);
+  if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
+    throw new Error("Invalid returnUrl");
+  }
+  const okExact = ALLOWED_RETURN_ORIGINS.has(parsed.origin);
+  const okSuffix = ALLOWED_RETURN_HOST_SUFFIXES.some((s) =>
+    parsed.hostname.endsWith(s),
+  );
+  if (!okExact && !okSuffix) {
+    throw new Error("Invalid returnUrl");
+  }
+  return parsed.toString();
+}
+
 const Input = z.object({
   consultationType: z.enum(["online", "clinic"]),
   fullName: z.string().trim().min(2).max(120),
@@ -17,9 +43,10 @@ const Input = z.object({
   phone: z.string().trim().min(6).max(30).optional().or(z.literal("")),
   preferredDate: z.string().trim().max(40).optional().or(z.literal("")),
   notes: z.string().trim().max(2000).optional().or(z.literal("")),
-  returnUrl: z.string().url(),
+  returnUrl: z.string().url().transform(sanitizeReturnUrl),
   environment: z.enum(["sandbox", "live"]),
 });
+
 
 type Result = { clientSecret: string } | { error: string };
 
