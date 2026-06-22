@@ -79,7 +79,7 @@ export const Route = createFileRoute("/technologie/picoking")({
       scripts: scripts.length > 0 ? scripts : undefined,
     };
   },
-  component: PicoKingPage,
+  component: PikosekundowyPage,
 });
 
 const WAVELENGTHS: Array<{ nm: string; targets: string; color: string }> = [
@@ -102,7 +102,7 @@ const BENEFITS = [
   { icon: Sparkles, title: "Mniej sesji niż Q-Switched", body: "Pigment rozbity na mikropył jest szybciej fagocytowany przez układ limfatyczny." },
 ];
 
-function PicoKingPage() {
+function PikosekundowyPage() {
   const { tech } = Route.useLoaderData() as { tech: Technology };
 
   return (
@@ -158,7 +158,7 @@ function PicoKingPage() {
             <SectionHeading
               eyebrow="Przewaga technologiczna"
               title="Ciśnienie zamiast ciepła"
-              description="Starsze lasery Q-Switched podgrzewały pigment i otaczające tkanki. PicoKing dostarcza energię tak szybko, że nie zdąży zamienić się w ciepło — pigment rozpada się pod wpływem fali uderzeniowej."
+              description="Starsze lasery Q-Switched podgrzewały pigment i otaczające tkanki. Pikolaser dostarcza energię tak szybko, że nie zdąży zamienić się w ciepło — pigment rozpada się pod wpływem fali uderzeniowej."
             />
             <ul className="mt-8 space-y-4 text-foreground/85">
               <li className="flex items-start gap-3">
@@ -291,7 +291,7 @@ function PicoKingPage() {
             <SectionHeading
               eyebrow="Trzy długości fali"
               title="Każdy kolor ma swoją odpowiedź"
-              description="Jeden laser, trzy precyzyjnie dobrane długości fali. Dlatego PicoKing radzi sobie z patologiami, które dla jednofalowych laserów pozostają niedostępne."
+              description="Jeden laser, trzy precyzyjnie dobrane długości fali. Dlatego pikolaser radzi sobie z patologiami, które dla jednofalowych laserów pozostają niedostępne."
             />
             <div className="mt-8 space-y-3">
               {WAVELENGTHS.map((w) => (
