@@ -21,6 +21,7 @@ import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
@@ -92,6 +93,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologiePicokingRoute = TechnologiePicokingRouteImport.update({
+  id: '/picoking',
+  path: '/picoking',
+  getParentRoute: () => TechnologieRoute,
 } as any)
 const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
   id: '/$slug',
@@ -171,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
+  '/technologie/picoking': typeof TechnologiePicokingRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -196,6 +203,7 @@ export interface FileRoutesByTo {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
+  '/technologie/picoking': typeof TechnologiePicokingRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -222,6 +230,7 @@ export interface FileRoutesById {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
+  '/technologie/picoking': typeof TechnologiePicokingRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -249,6 +258,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
+    | '/technologie/picoking'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
+    | '/technologie/picoking'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
+    | '/technologie/picoking'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
@@ -419,6 +431,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/technologie/picoking': {
+      id: '/technologie/picoking'
+      path: '/picoking'
+      fullPath: '/technologie/picoking'
+      preLoaderRoute: typeof TechnologiePicokingRouteImport
+      parentRoute: typeof TechnologieRoute
+    }
     '/technologie/$slug': {
       id: '/technologie/$slug'
       path: '/$slug'
@@ -501,10 +520,12 @@ declare module '@tanstack/react-router' {
 
 interface TechnologieRouteChildren {
   TechnologieSlugRoute: typeof TechnologieSlugRoute
+  TechnologiePicokingRoute: typeof TechnologiePicokingRoute
 }
 
 const TechnologieRouteChildren: TechnologieRouteChildren = {
   TechnologieSlugRoute: TechnologieSlugRoute,
+  TechnologiePicokingRoute: TechnologiePicokingRoute,
 }
 
 const TechnologieRouteWithChildren = TechnologieRoute._addFileChildren(
