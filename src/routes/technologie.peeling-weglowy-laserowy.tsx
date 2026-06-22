@@ -224,8 +224,8 @@ function PeelingWeglowyPage() {
             {[
               { n: "01", t: "Demakijaż i diagnostyka", d: "Ocena fototypu, oczyszczenie skóry, ustalenie parametrów lasera." },
               { n: "02", t: "Aplikacja pasty węglowej", d: "Cienka, równa warstwa pasty nanocząsteczkowej. Pozostawiamy do wchłonięcia w pory (~10 min)." },
-              { n: "03", t: "Sublimacja — long-pulse", d: "Sekwencyjna praca lasera Nd:YAG na całej powierzchni. Komfortowe ciepło, lekkie strzelanie." },
-              { n: "04", t: "Faza fotoakustyczna", d: "Drugie przejście w trybie Q-Switched, pielęgnacja kojąca, SPF 50+." },
+              { n: "03", t: "Sublimacja — laser pikosekundowy", d: "Sekwencyjna praca lasera pikosekundowego 1064 nm na całej powierzchni. Fotoakustyczna fala uderzeniowa sublimuje węgiel bez termicznego uszkadzania skóry." },
+              { n: "04", t: "Faza frakcyjna i pielęgnacja", d: "Drugie przejście w trybie frakcyjnym Honeycomb, aplikacja kosmetyków kojących, SPF 50+." },
             ].map((s) => (
               <li key={s.n} className="rounded-xl border border-border/60 bg-card p-6">
                 <div className="font-serif text-2xl text-champagne">{s.n}</div>
