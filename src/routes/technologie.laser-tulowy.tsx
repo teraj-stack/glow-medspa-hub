@@ -30,14 +30,14 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
   },
   head: () => {
     const title =
-      "Laser tulowy 1927 nm — przebarwienia, melasma, rewitalizacja | Beauty & Mind Clinic Siedlce";
+      "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927 nm + 1550 nm — melasma, przebarwienia, rewitalizacja | Beauty & Mind Clinic Siedlce";
     const description =
-      "Laser tulowy 1927 nm i hybrydowy 1550/1927 nm — złoty standard w leczeniu melasmy, przebarwień posłonecznych i fotostarzenia. Standard premium klinik warszawskich w Siedlcach.";
+      "Laser tulowo-erbowy, czyli hybryda lasera tulowego 1927 nm i lasera erbowego (szkło erbowe, Erbium Glass) 1550 nm — złoty standard w leczeniu melasmy, przebarwień posłonecznych i fotostarzenia. Standard premium klinik warszawskich w Siedlcach.";
 
     const serviceSchema = {
       "@context": "https://schema.org",
       "@type": "MedicalTherapy",
-      name: "Laser tulowy 1927 nm — rewitalizacja i depigmentacja",
+      name: "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927 nm + 1550 nm — rewitalizacja i depigmentacja",
       description,
       url: URL,
       provider: {
@@ -66,10 +66,10 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       mainEntity: [
         {
           "@type": "Question",
-          name: "Czym różni się laser tulowy 1927 nm od lasera frakcyjnego CO₂?",
+          name: "Czym różni się laser tulowo-erbowy 1927 nm od lasera frakcyjnego CO₂?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Laser tulowy jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa do 0,3 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej, daje silniejszą przebudowę kolagenu, ale wiąże się z tygodniową rekonwalescencją i większym ryzykiem powikłań pigmentacyjnych.",
+            text: "Laser tulowo-erbowy (hybryda Thulium/Erbium Glass) jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa do 0,3 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej, daje silniejszą przebudowę kolagenu, ale wiąże się z tygodniową rekonwalescencją i większym ryzykiem powikłań pigmentacyjnych.",
           },
         },
         {
@@ -129,7 +129,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Strona główna", item: "https://bmclinics.ai/" },
         { "@type": "ListItem", position: 2, name: "Technologie", item: "https://bmclinics.ai/technologie" },
-        { "@type": "ListItem", position: 3, name: "Laser tulowy 1927 nm", item: URL },
+        { "@type": "ListItem", position: 3, name: "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927/1550 nm", item: URL },
       ],
     };
 
@@ -186,13 +186,14 @@ function LaserTulowyPage() {
               Wszystkie technologie
             </Link>
             <div className="text-xs uppercase tracking-[0.3em] text-champagne">
-              Laser frakcyjny tulowy · 1927 nm / 1550 nm
+              Laser frakcyjny tulowo-erbowy · 1927 nm / 1550 nm
             </div>
             <h1 className="gold-line max-w-3xl font-serif text-4xl text-ink md:text-5xl lg:text-6xl">
               Laser, który zamyka temat melasmy i przebarwień
             </h1>
             <p className="max-w-xl text-lg text-muted-foreground">
-              Nieablacyjna fototermoliza frakcyjna o długości fali 1927 nm — najbezpieczniejsza
+              Nieablacyjna fototermoliza frakcyjna lasera tulowo-erbowego — połączenie wiązki
+              tulowej 1927 nm i wiązki erbowej (szkło erbowe) 1550 nm. Najbezpieczniejsza
               i najbardziej selektywna technologia w terapii hiperpigmentacji, fotostarzenia
               i rewitalizacji skóry. Standard premium klinik warszawskich — w Siedlcach.
             </p>
@@ -239,12 +240,12 @@ function LaserTulowyPage() {
         <SectionHeading
           eyebrow="Mechanizm działania"
           title="Dwie długości fali. Dwie różne głębokości pracy."
-          description="Technologia hybrydowa łączy w jednym urządzeniu wiązkę tulową 1927 nm (warstwa powierzchowna — pigment) z wiązką erbową 1550 nm (skóra właściwa — kolagen i blizny). Zabieg dopasowujemy do problemu, nie odwrotnie."
+          description="Technologia hybrydowa łączy w jednym urządzeniu wiązkę tulową 1927 nm (warstwa powierzchowna — pigment) z wiązką erbową, czyli szkłem erbowym 1550 nm (skóra właściwa — kolagen i blizny). Zabieg dopasowujemy do problemu, nie odwrotnie."
         />
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr,1fr] lg:items-center">
           <img
             src={mechanizmAsset.url}
-            alt="Schemat działania lasera frakcyjnego tulowo-erbowego 1920 nm i 1540 nm w skórze — kontrolowana koagulacja, kolumna MTZ i efekt halo"
+            alt="Schemat działania lasera frakcyjnego tulowo-erbowego 1927 nm i szkła erbowego 1550 nm w skórze — kontrolowana koagulacja, kolumna MTZ i efekt halo"
             loading="lazy"
             width={1600}
             height={1024}
@@ -334,7 +335,7 @@ function LaserTulowyPage() {
           </div>
           <img
             src={mechanizmAsset.url}
-            alt="Schemat frakcyjnej fototermolizy — kolumny MTZ, nienaruszone wyspy skóry i strefa koagulacji halo"
+            alt="Schemat frakcyjnej fototermolizy lasera tulowo-erbowego — kolumny MTZ, nienaruszone wyspy skóry i strefa koagulacji halo"
             loading="lazy"
             width={1600}
             height={1024}
@@ -399,7 +400,7 @@ function LaserTulowyPage() {
         <div className="grid gap-10 lg:grid-cols-[1fr,1.2fr] lg:items-center">
           <img
             src={rezultatAsset.url}
-            alt="Skóra po zabiegu laserem tulowym — gładka, rozjaśniona, zregenerowana"
+            alt="Skóra po zabiegu laserem tulowo-erbowym — gładka, rozjaśniona, zregenerowana"
             loading="lazy"
             width={1024}
             height={1536}
@@ -511,8 +512,8 @@ function LaserTulowyPage() {
           <SectionHeading eyebrow="FAQ" title="Najczęstsze pytania" />
           <div className="mx-auto mt-10 max-w-3xl divide-y divide-border/60 rounded-xl border border-border/60 bg-card">
             {[
-              { q: "Czym różni się laser tulowy 1927 nm od lasera CO₂?", a: "Laser tulowy jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa do 0,3 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej, daje silniejszą przebudowę kolagenu, ale wiąże się z 7–14-dniową rekonwalescencją i większym ryzykiem powikłań pigmentacyjnych." },
-              { q: "Czy zabieg jest bezpieczny dla osób z melasmą?", a: "Tak — laser tulowy 1927 nm jest obecnie najbezpieczniejszą opcją laserową dla melasmy. Działa dokładnie w okolicy uszkodzonej błony podstawnej, nie pobudzając tyrozynazy w głębszych warstwach." },
+              { q: "Czym różni się laser tulowo-erbowy 1927 nm od lasera CO₂?", a: "Laser tulowo-erbowy (Thulium/Erbium Glass) jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa do 0,3 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej, daje silniejszą przebudowę kolagenu, ale wiąże się z 7–14-dniową rekonwalescencją i większym ryzykiem powikłań pigmentacyjnych." },
+              { q: "Czy zabieg jest bezpieczny dla osób z melasmą?", a: "Tak — laser tulowo-erbowy 1927 nm jest obecnie najbezpieczniejszą opcją laserową dla melasmy. Działa dokładnie w okolicy uszkodzonej błony podstawnej, nie pobudzając tyrozynazy w głębszych warstwach." },
               { q: "Ile sesji potrzeba?", a: "Rewitalizacja: 1–2 sesje rocznie. Melasma i oporne przebarwienia: seria 3–4 sesji co 4–6 tygodni + sesja podtrzymująca co 6 miesięcy." },
               { q: "Czy mogę wykonać zabieg latem?", a: "Optymalny sezon to jesień–wiosna. Latem — pod warunkiem bezwzględnej fotoprotekcji SPF 50+ i unikania bezpośredniego słońca przez minimum 4 tygodnie po zabiegu." },
               { q: "Czy nadaje się dla ciemnych fototypów?", a: "Tak. 1927 nm ma najwyższą absorpcję w wodzie i najniższą w melaninie — jest najbezpieczniejszą długością fali dla fototypów IV–VI." },
