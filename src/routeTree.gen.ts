@@ -16,12 +16,12 @@ import { Route as RozwiazaniaRouteImport } from './routes/rozwiazania'
 import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as PotrzebyRouteImport } from './routes/potrzeby'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-dziekujemy'
 import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
-import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja.dziekujemy'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -66,6 +66,11 @@ const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
   path: '/polityka-prywatnosci',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KonsultacjaDziekujemyRoute = KonsultacjaDziekujemyRouteImport.update({
+  id: '/konsultacja-dziekujemy',
+  path: '/konsultacja-dziekujemy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KonsultacjaRoute = KonsultacjaRouteImport.update({
   id: '/konsultacja',
   path: '/konsultacja',
@@ -90,11 +95,6 @@ const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => TechnologieRoute,
-} as any)
-const KonsultacjaDziekujemyRoute = KonsultacjaDziekujemyRouteImport.update({
-  id: '/dziekujemy',
-  path: '/dziekujemy',
-  getParentRoute: () => KonsultacjaRoute,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
@@ -145,7 +145,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
-  '/konsultacja': typeof KonsultacjaRouteWithChildren
+  '/konsultacja': typeof KonsultacjaRoute
+  '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -154,7 +155,6 @@ export interface FileRoutesByFullPath {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
-  '/konsultacja/dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -168,7 +168,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
-  '/konsultacja': typeof KonsultacjaRouteWithChildren
+  '/konsultacja': typeof KonsultacjaRoute
+  '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -177,7 +178,6 @@ export interface FileRoutesByTo {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
-  '/konsultacja/dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -192,7 +192,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
-  '/konsultacja': typeof KonsultacjaRouteWithChildren
+  '/konsultacja': typeof KonsultacjaRoute
+  '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -201,7 +202,6 @@ export interface FileRoutesById {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
-  '/konsultacja/dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -218,6 +218,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cennik'
     | '/konsultacja'
+    | '/konsultacja-dziekujemy'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -226,7 +227,6 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
-    | '/konsultacja/dziekujemy'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -241,6 +241,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cennik'
     | '/konsultacja'
+    | '/konsultacja-dziekujemy'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -249,7 +250,6 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
-    | '/konsultacja/dziekujemy'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -264,6 +264,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cennik'
     | '/konsultacja'
+    | '/konsultacja-dziekujemy'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -272,7 +273,6 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
-    | '/konsultacja/dziekujemy'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -287,7 +287,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   CennikRoute: typeof CennikRoute
-  KonsultacjaRoute: typeof KonsultacjaRouteWithChildren
+  KonsultacjaRoute: typeof KonsultacjaRoute
+  KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
@@ -356,6 +357,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/konsultacja-dziekujemy': {
+      id: '/konsultacja-dziekujemy'
+      path: '/konsultacja-dziekujemy'
+      fullPath: '/konsultacja-dziekujemy'
+      preLoaderRoute: typeof KonsultacjaDziekujemyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/konsultacja': {
       id: '/konsultacja'
       path: '/konsultacja'
@@ -390,13 +398,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/technologie/$slug'
       preLoaderRoute: typeof TechnologieSlugRouteImport
       parentRoute: typeof TechnologieRoute
-    }
-    '/konsultacja/dziekujemy': {
-      id: '/konsultacja/dziekujemy'
-      path: '/dziekujemy'
-      fullPath: '/konsultacja/dziekujemy'
-      preLoaderRoute: typeof KonsultacjaDziekujemyRouteImport
-      parentRoute: typeof KonsultacjaRoute
     }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
@@ -457,18 +458,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface KonsultacjaRouteChildren {
-  KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
-}
-
-const KonsultacjaRouteChildren: KonsultacjaRouteChildren = {
-  KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,
-}
-
-const KonsultacjaRouteWithChildren = KonsultacjaRoute._addFileChildren(
-  KonsultacjaRouteChildren,
-)
-
 interface TechnologieRouteChildren {
   TechnologieSlugRoute: typeof TechnologieSlugRoute
 }
@@ -485,7 +474,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   CennikRoute: CennikRoute,
-  KonsultacjaRoute: KonsultacjaRouteWithChildren,
+  KonsultacjaRoute: KonsultacjaRoute,
+  KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
