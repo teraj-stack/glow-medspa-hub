@@ -8,6 +8,8 @@ import skoraZdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
 import skoraWiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";
 import dzialanieAsset from "@/assets/plasma-dzialanie.png.asset.json";
 import zaawansowanaAsset from "@/assets/plasma-zaawansowana.png.asset.json";
+import heroVideoAsset from "@/assets/plasma-hero.mp4.asset.json";
+import heroPosterAsset from "@/assets/plasma-poster.jpg.asset.json";
 
 const TECH_SLUG = "fusion-plasma";
 
