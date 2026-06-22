@@ -17,6 +17,18 @@ import {
 } from "lucide-react";
 import heroAsset from "@/assets/tulowy-hero.jpg.asset.json";
 import mechanizmAsset from "@/assets/tulowy-mechanizm.png.asset.json";
+import ba1Before from "@/assets/tulowy-ba-1.png.asset.json";
+import ba1After from "@/assets/tulowy-ba-1a.png.asset.json";
+import ba2Before from "@/assets/tulowy-ba-2.png.asset.json";
+import ba2After from "@/assets/tulowy-ba-2a.png.asset.json";
+import ba3Before from "@/assets/tulowy-ba-3.png.asset.json";
+import ba3After from "@/assets/tulowy-ba-3a.png.asset.json";
+
+const BEFORE_AFTER = [
+  { before: ba1Before.url, after: ba1After.url, title: "Przebarwienia posłoneczne i fotostarzenie", desc: "Wyraźna redukcja plam pigmentacyjnych, ujednolicenie kolorytu i poprawa jakości skóry twarzy." },
+  { before: ba2Before.url, after: ba2After.url, title: "Wiotkość owalu i linia żuchwy", desc: "Ujędrnienie skóry policzka i dolnej części twarzy, poprawa konturu owalu." },
+  { before: ba3Before.url, after: ba3After.url, title: "Zmarszczki i napięcie skóry", desc: "Spłycenie zmarszczek, wygładzenie tekstury, widocznie bardziej napięta i zregenerowana skóra." },
+];
 
 const TECH_SLUG = "laser-tulowy";
 const PAGE_URL = "https://bmclinics.ai/technologie/laser-tulowy";
