@@ -111,7 +111,17 @@ function FusionPlasmaPage() {
               </div>
             </div>
             <div className="rounded-lg overflow-hidden bg-white shadow-soft">
-              <img src={dzialanieAsset.url} alt="Aplikator zimnej plazmy działający na skórę" className="w-full h-auto" />
+              <video
+                src={heroVideoAsset.url}
+                poster={heroPosterAsset.url}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full h-auto block"
+                aria-label="Zabieg zimnej plazmy — pokaz w gabinecie"
+              />
             </div>
           </div>
         </div>
