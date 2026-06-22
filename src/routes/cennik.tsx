@@ -59,6 +59,21 @@ function Pricing() {
           ))}
         </div>
       </section>
+
+      <section className="bg-secondary/40 py-16 md:py-20">
+        <div className="container-luxury text-center">
+          <h2 className="font-serif text-ink">Gotowy/a na konsultację?</h2>
+          <p className="mx-auto mt-3 max-w-xl text-foreground/75">
+            Ostateczna wycena protokołu odbywa się po konsultacji medycznej (500 zł).
+          </p>
+          <Link
+            to="/konsultacja"
+            className="mt-6 inline-flex h-12 items-center justify-center rounded-md bg-ink px-6 text-sm tracking-wide text-alabaster transition hover:bg-ink/90"
+          >
+            Umów konsultację — 500 zł
+          </Link>
+        </div>
+      </section>
     </>
   );
 }
