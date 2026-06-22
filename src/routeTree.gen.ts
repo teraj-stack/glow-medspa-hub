@@ -16,10 +16,13 @@ import { Route as RozwiazaniaRouteImport } from './routes/rozwiazania'
 import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as PotrzebyRouteImport } from './routes/potrzeby'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-dziekujemy'
+import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
+import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -27,6 +30,7 @@ import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/l
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
@@ -63,6 +67,16 @@ const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
   path: '/polityka-prywatnosci',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KonsultacjaDziekujemyRoute = KonsultacjaDziekujemyRouteImport.update({
+  id: '/konsultacja-dziekujemy',
+  path: '/konsultacja-dziekujemy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KonsultacjaRoute = KonsultacjaRouteImport.update({
+  id: '/konsultacja',
+  path: '/konsultacja',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CennikRoute = CennikRouteImport.update({
   id: '/cennik',
   path: '/cennik',
@@ -82,6 +96,11 @@ const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => TechnologieRoute,
+} as any)
+const FormularzTokenRoute = FormularzTokenRouteImport.update({
+  id: '/formularz/$token',
+  path: '/formularz/$token',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
@@ -121,11 +140,19 @@ const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
   path: '/lovable/email/auth/preview',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicPaymentsWebhookRoute =
+  ApiPublicPaymentsWebhookRouteImport.update({
+    id: '/api/public/payments/webhook',
+    path: '/api/public/payments/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
+  '/konsultacja': typeof KonsultacjaRoute
+  '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -134,8 +161,10 @@ export interface FileRoutesByFullPath {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -146,6 +175,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
+  '/konsultacja': typeof KonsultacjaRoute
+  '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -154,8 +185,10 @@ export interface FileRoutesByTo {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -167,6 +200,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
+  '/konsultacja': typeof KonsultacjaRoute
+  '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -175,8 +210,10 @@ export interface FileRoutesById {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -189,6 +226,8 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/cennik'
+    | '/konsultacja'
+    | '/konsultacja-dziekujemy'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -197,8 +236,10 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/formularz/$token'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
+    | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -209,6 +250,8 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/cennik'
+    | '/konsultacja'
+    | '/konsultacja-dziekujemy'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -217,8 +260,10 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/formularz/$token'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
+    | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -229,6 +274,8 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/cennik'
+    | '/konsultacja'
+    | '/konsultacja-dziekujemy'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -237,8 +284,10 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/formularz/$token'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
+    | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
     | '/lovable/email/queue/process'
@@ -250,6 +299,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   CennikRoute: typeof CennikRoute
+  KonsultacjaRoute: typeof KonsultacjaRoute
+  KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
@@ -258,7 +309,9 @@ export interface RootRouteChildren {
   TechnologieRoute: typeof TechnologieRouteWithChildren
   UnsubscribeRoute: typeof UnsubscribeRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
+  FormularzTokenRoute: typeof FormularzTokenRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
+  ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
@@ -317,6 +370,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/konsultacja-dziekujemy': {
+      id: '/konsultacja-dziekujemy'
+      path: '/konsultacja-dziekujemy'
+      fullPath: '/konsultacja-dziekujemy'
+      preLoaderRoute: typeof KonsultacjaDziekujemyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/konsultacja': {
+      id: '/konsultacja'
+      path: '/konsultacja'
+      fullPath: '/konsultacja'
+      preLoaderRoute: typeof KonsultacjaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cennik': {
       id: '/cennik'
       path: '/cennik'
@@ -344,6 +411,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/technologie/$slug'
       preLoaderRoute: typeof TechnologieSlugRouteImport
       parentRoute: typeof TechnologieRoute
+    }
+    '/formularz/$token': {
+      id: '/formularz/$token'
+      path: '/formularz/$token'
+      fullPath: '/formularz/$token'
+      preLoaderRoute: typeof FormularzTokenRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
@@ -394,6 +468,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/payments/webhook': {
+      id: '/api/public/payments/webhook'
+      path: '/api/public/payments/webhook'
+      fullPath: '/api/public/payments/webhook'
+      preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -413,6 +494,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   CennikRoute: CennikRoute,
+  KonsultacjaRoute: KonsultacjaRoute,
+  KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
@@ -421,7 +504,9 @@ const rootRouteChildren: RootRouteChildren = {
   TechnologieRoute: TechnologieRouteWithChildren,
   UnsubscribeRoute: UnsubscribeRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
+  FormularzTokenRoute: FormularzTokenRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
+  ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
@@ -431,13 +516,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
