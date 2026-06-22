@@ -341,15 +341,17 @@ function PikosekundowyPage() {
         <div className="container-luxury grid gap-12 md:grid-cols-2 md:items-center">
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-champagne-light">Wymienne głowice</div>
-            <h2 className="mt-4 font-serif text-3xl md:text-4xl">Cztery wzory wiązki, jeden cel — Twoja skóra</h2>
+            <h2 className="mt-4 font-serif text-3xl md:text-4xl">Sześć wzorców wiązki, jeden cel — Twoja skóra</h2>
             <p className="mt-4 text-alabaster/80">
-              Optyka głowic decyduje, jak energia rozkłada się w tkance. Od mikrosoczewek Honeycomb po jednolitą plamkę do peelingu węglowego — każdy protokół ma swój dedykowany aplikator.
+              Optyka głowic decyduje, jak energia rozkłada się w tkance. Od mikrosoczewek Honeycomb po jednolitą plamkę do peelingu węglowego — każdy protokół ma swój dedykowany aplikator. Dodatkowe rękojeści 650 nm i 585 nm rozszerzają zakres na zielone tatuaże oraz zmiany naczyniowe.
             </p>
             <ul className="mt-8 space-y-3 text-alabaster/85">
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Honeycomb 755 nm</strong> — matryca mikrosoczewek (LIOB) do blizn i frakcyjnej rewitalizacji.</span></li>
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Carbon Peeling</strong> — Hollywood Peel: oczyszczanie porów + redukcja łojotoku.</span></li>
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Red Grid (kołowa)</strong> — łagodne fotoodmładzanie dla powierzchownej pigmentacji.</span></li>
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Golden Grid (kwadratowa)</strong> — pełne nasycenie tkanki energią dla głębokiej dyspigmentacji.</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Rękojeść 650 nm</strong> — zielone tatuaże i trudne do usunięcia barwniki niebieskie.</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Rękojeść 585 nm</strong> — naczyniaki (hemangiomy), rumień, drobne teleangiektazje.</span></li>
             </ul>
           </div>
           <div className="overflow-hidden rounded-lg border border-champagne/20">
