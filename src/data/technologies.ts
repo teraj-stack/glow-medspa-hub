@@ -2,6 +2,7 @@
  * Katalog technologii — opisy WYŁĄCZNIE techniczne (zgodność z prawem reklamy
  * wyrobów medycznych). Nie używamy nazw handlowych urządzeń w treści publicznej.
  */
+import hifuMechanizmImg from "@/assets/hifu-mechanizm.jpg";
 export type PricingItem = { label: string; price: number | null; note?: string };
 export type FaqItem = { q: string; a: string };
 
