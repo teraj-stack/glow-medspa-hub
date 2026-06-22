@@ -66,10 +66,10 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       mainEntity: [
         {
           "@type": "Question",
-          name: "Czym różni się laser tulowy 1927 nm od lasera frakcyjnego CO₂?",
+          name: "Czym różni się laser tulowo-erbowy 1927 nm od lasera frakcyjnego CO₂?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Laser tulowy jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa do 0,3 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej, daje silniejszą przebudowę kolagenu, ale wiąże się z tygodniową rekonwalescencją i większym ryzykiem powikłań pigmentacyjnych.",
+            text: "Laser tulowo-erbowy (hybryda Thulium/Erbium Glass) jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa do 0,3 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej, daje silniejszą przebudowę kolagenu, ale wiąże się z tygodniową rekonwalescencją i większym ryzykiem powikłań pigmentacyjnych.",
           },
         },
         {
