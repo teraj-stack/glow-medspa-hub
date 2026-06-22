@@ -8,7 +8,7 @@ import sylwetkaAsset from "@/assets/sylwetka-back-v3.png.asset.json";
 import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
 import okoAsset from "@/assets/oko-szkic-v2.png.asset.json";
 import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
-import renesansAsset from "@/assets/renesans-szkic.png.asset.json";
+import renesansAsset from "@/assets/renesans-v2.png.asset.json";
 
 
 
