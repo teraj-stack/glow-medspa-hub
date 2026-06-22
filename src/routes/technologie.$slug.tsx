@@ -48,7 +48,7 @@ export const Route = createFileRoute("/technologie/$slug")({
     return {
       meta: loaderData
         ? [
-            { title: loaderData.tech.name },
+            { title: `${loaderData.tech.name} — Beauty & Mind Clinic` },
             { name: "description", content: loaderData.tech.shortDesc },
             { property: "og:title", content: `${loaderData.tech.name} — Beauty & Mind Clinic` },
             { property: "og:description", content: loaderData.tech.shortDesc },

@@ -73,12 +73,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "google-site-verification", content: "ac6x7fhzir3wN2rMsVlD1uTAjpSXJJpy5FKhCTEd1NU" },
-      { title: "Beauty & Mind Clinic — Medycyna estetyczna, Siedlce" },
-      {
-        name: "description",
-        content:
-          "Klinika medycyny estetycznej i laserowej w Siedlcach. Naturalny efekt, dyskretna pamięć — protokoły dopasowane do skóry i potrzeb.",
-      },
       { name: "author", content: "Beauty & Mind Clinic" },
       { name: "theme-color", content: "#0a0a0a" },
       { property: "og:title", content: "Beauty & Mind Clinic — Medycyna estetyczna, Siedlce" },

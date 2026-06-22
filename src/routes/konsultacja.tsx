@@ -131,8 +131,9 @@ function ConsultationPage() {
             </div>
 
             <div>
-              <label className="mb-1 block text-sm font-medium">Uwagi (opcjonalnie)</label>
+              <label htmlFor="consultation-notes" className="mb-1 block text-sm font-medium">Uwagi (opcjonalnie)</label>
               <textarea
+                id="consultation-notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={3}
