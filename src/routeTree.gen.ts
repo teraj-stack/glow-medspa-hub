@@ -10,7 +10,6 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
-import { Route as TechnologieRouteImport } from './routes/technologie'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RozwiazaniaRouteImport } from './routes/rozwiazania'
 import { Route as RegulaminRouteImport } from './routes/regulamin'
@@ -21,6 +20,7 @@ import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
 import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
@@ -37,11 +37,6 @@ import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/publi
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
   path: '/unsubscribe',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TechnologieRoute = TechnologieRouteImport.update({
-  id: '/technologie',
-  path: '/technologie',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -94,15 +89,20 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TechnologieIndexRoute = TechnologieIndexRouteImport.update({
+  id: '/technologie/',
+  path: '/technologie/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TechnologiePicokingRoute = TechnologiePicokingRouteImport.update({
-  id: '/picoking',
-  path: '/picoking',
-  getParentRoute: () => TechnologieRoute,
+  id: '/technologie/picoking',
+  path: '/technologie/picoking',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => TechnologieRoute,
+  id: '/technologie/$slug',
+  path: '/technologie/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const FormularzTokenRoute = FormularzTokenRouteImport.update({
   id: '/formularz/$token',
@@ -171,13 +171,13 @@ export interface FileRoutesByFullPath {
   '/regulamin': typeof RegulaminRoute
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
+  '/technologie/': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -197,13 +197,13 @@ export interface FileRoutesByTo {
   '/regulamin': typeof RegulaminRoute
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
+  '/technologie': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -224,13 +224,13 @@ export interface FileRoutesById {
   '/regulamin': typeof RegulaminRoute
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
+  '/technologie/': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -252,13 +252,13 @@ export interface FileRouteTypes {
     | '/regulamin'
     | '/rozwiazania'
     | '/sitemap.xml'
-    | '/technologie'
     | '/unsubscribe'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
     | '/technologie/picoking'
+    | '/technologie/'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
@@ -278,13 +278,13 @@ export interface FileRouteTypes {
     | '/regulamin'
     | '/rozwiazania'
     | '/sitemap.xml'
-    | '/technologie'
     | '/unsubscribe'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
     | '/technologie/picoking'
+    | '/technologie'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
@@ -304,13 +304,13 @@ export interface FileRouteTypes {
     | '/regulamin'
     | '/rozwiazania'
     | '/sitemap.xml'
-    | '/technologie'
     | '/unsubscribe'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
     | '/technologie/picoking'
+    | '/technologie/'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
@@ -331,11 +331,13 @@ export interface RootRouteChildren {
   RegulaminRoute: typeof RegulaminRoute
   RozwiazaniaRoute: typeof RozwiazaniaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  TechnologieRoute: typeof TechnologieRouteWithChildren
   UnsubscribeRoute: typeof UnsubscribeRoute
   BlogPowiklaniaMezoterapiaIglowaRoute: typeof BlogPowiklaniaMezoterapiaIglowaRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   FormularzTokenRoute: typeof FormularzTokenRoute
+  TechnologieSlugRoute: typeof TechnologieSlugRoute
+  TechnologiePicokingRoute: typeof TechnologiePicokingRoute
+  TechnologieIndexRoute: typeof TechnologieIndexRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
@@ -352,13 +354,6 @@ declare module '@tanstack/react-router' {
       path: '/unsubscribe'
       fullPath: '/unsubscribe'
       preLoaderRoute: typeof UnsubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/technologie': {
-      id: '/technologie'
-      path: '/technologie'
-      fullPath: '/technologie'
-      preLoaderRoute: typeof TechnologieRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -431,19 +426,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/technologie/': {
+      id: '/technologie/'
+      path: '/technologie'
+      fullPath: '/technologie/'
+      preLoaderRoute: typeof TechnologieIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/technologie/picoking': {
       id: '/technologie/picoking'
-      path: '/picoking'
+      path: '/technologie/picoking'
       fullPath: '/technologie/picoking'
       preLoaderRoute: typeof TechnologiePicokingRouteImport
-      parentRoute: typeof TechnologieRoute
+      parentRoute: typeof rootRouteImport
     }
     '/technologie/$slug': {
       id: '/technologie/$slug'
-      path: '/$slug'
+      path: '/technologie/$slug'
       fullPath: '/technologie/$slug'
       preLoaderRoute: typeof TechnologieSlugRouteImport
-      parentRoute: typeof TechnologieRoute
+      parentRoute: typeof rootRouteImport
     }
     '/formularz/$token': {
       id: '/formularz/$token'
@@ -518,20 +520,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface TechnologieRouteChildren {
-  TechnologieSlugRoute: typeof TechnologieSlugRoute
-  TechnologiePicokingRoute: typeof TechnologiePicokingRoute
-}
-
-const TechnologieRouteChildren: TechnologieRouteChildren = {
-  TechnologieSlugRoute: TechnologieSlugRoute,
-  TechnologiePicokingRoute: TechnologiePicokingRoute,
-}
-
-const TechnologieRouteWithChildren = TechnologieRoute._addFileChildren(
-  TechnologieRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
@@ -543,11 +531,13 @@ const rootRouteChildren: RootRouteChildren = {
   RegulaminRoute: RegulaminRoute,
   RozwiazaniaRoute: RozwiazaniaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  TechnologieRoute: TechnologieRouteWithChildren,
   UnsubscribeRoute: UnsubscribeRoute,
   BlogPowiklaniaMezoterapiaIglowaRoute: BlogPowiklaniaMezoterapiaIglowaRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   FormularzTokenRoute: FormularzTokenRoute,
+  TechnologieSlugRoute: TechnologieSlugRoute,
+  TechnologiePicokingRoute: TechnologiePicokingRoute,
+  TechnologieIndexRoute: TechnologieIndexRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
