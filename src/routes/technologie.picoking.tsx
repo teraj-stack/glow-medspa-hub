@@ -93,7 +93,7 @@ export const Route = createFileRoute("/technologie/picoking")({
 const WAVELENGTHS: Array<{ nm: string; targets: string; color: string }> = [
   { nm: "1064 nm", targets: "tatuaż czarny i granat, znamiona głębokie, toning", color: "from-zinc-700 to-zinc-900" },
   { nm: "755 nm", targets: "tatuaż zielony i błękit, melasma, blizny (Honeycomb)", color: "from-rose-900 to-amber-900" },
-  { nm: "532 nm", targets: "tatuaż czerwony, żółty, plamy soczewicowate, piegi", color: "from-emerald-700 to-emerald-900" },
+  { nm: "532 nm", targets: "tatuaż czerwony, żółty, rumień — najskuteczniejsza długość fali do usuwania rumienia, plamy soczewicowate, piegi", color: "from-emerald-700 to-emerald-900" },
   { nm: "650 nm", targets: "tatuaż zielony, ciemnoniebieski, niebieski (Green tattoo)", color: "from-red-700 to-rose-900" },
   { nm: "585 nm", targets: "naczyniaki, rumień, teleangiektazje (Hemangioma treatment)", color: "from-amber-500 to-orange-700" },
 ];
@@ -350,8 +350,8 @@ function PikosekundowyPage() {
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">1064 nm — rękojeść frakcyjna</strong> — rewitalizacja, poprawa tekstury skóry, efekt "Total look".</span></li>
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">755 nm — jednorodna plamka</strong> — zielone/niebieskie tatuaże, melasma, fotoodmładzanie.</span></li>
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">755 nm — rękojeść frakcyjna Honeycomb</strong> — blizny potrądzikowe, frakcyjna rewitalizacja, "Baby face lift".</span></li>
-              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">532 nm — jednorodna plamka</strong> — czerwone/żółte tatuaże, plamy soczewicowate, piegi.</span></li>
-              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">532 nm — rękojeść frakcyjna</strong> — przebarwienia powierzchowne, fotoodmładzanie, poprawa tekstury.</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">532 nm — jednorodna plamka</strong> — czerwone/żółte tatuaże, plamy soczewicowate, piegi, rumień (najskuteczniejsza długość fali).</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">532 nm — rękojeść frakcyjna</strong> — przebarwienia powierzchowne, fotoodmładzanie, poprawa tekstury, rumień.</span></li>
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Rękojeść 650 nm</strong> — zielone tatuaże i trudne do usunięcia barwniki niebieskie.</span></li>
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Rękojeść 585 nm</strong> — naczyniaki (hemangiomy), rumień, drobne teleangiektazje.</span></li>
             </ul>

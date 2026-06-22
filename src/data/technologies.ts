@@ -127,7 +127,7 @@ export const TECHNOLOGIES: Technology[] = [
     applicators: [
       "1064 nm — jednorodna plamka + rękojeść frakcyjna (tekstura, rewitalizacja)",
       "755 nm — jednorodna plamka + rękojeść frakcyjna Honeycomb (blizny, melasma)",
-      "532 nm — jednorodna plamka + rękojeść frakcyjna (przebarwienia, fotoodmładzanie)",
+      "532 nm — jednorodna plamka + rękojeść frakcyjna (przebarwienia, rumień — najskuteczniejsza długość fali do usuwania rumienia)",
       "Rękojeść 650 nm — Green tattoo (zielone tatuaże)",
       "Rękojeść 585 nm — Hemangioma treatment (naczyniaki)",
     ],
