@@ -83,8 +83,7 @@ const TILES: Tile[] = [
     { title: "Wygładzenie « kurzych łapek »", text: "Rewitalizacja cienkiej skóry wokół oczu, redukcja zmarszczek." },
     { title: "Plastyka powieki górnej", text: "" },
   ]},
-  { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", tagline: "Dyskretne rozwiązania", icon: komfortAsset.url, bullets: [
-    { text: "Każdy z nas je ma, drobne kompleksy odbierające codzienną swobodę:" },
+  { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Każdy z nas je ma, drobne kompleksy odbierające codzienną swobodę:", tagline: "Dyskretne rozwiązania", icon: komfortAsset.url, bullets: [
     { text: "Rozstępy" },
     { text: "Odstająca dolna partia brzucha" },
     { text: "Wiszący brzuch" },
