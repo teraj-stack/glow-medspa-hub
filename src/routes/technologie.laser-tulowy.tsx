@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import heroAsset from "@/assets/tulowy-hero.jpg.asset.json";
 import mechanizmAsset from "@/assets/tulowy-mechanizm.png.asset.json";
-import rezultatAsset from "@/assets/tulowy-rezultat.jpg.asset.json";
 
 const TECH_SLUG = "laser-tulowy";
 const PAGE_URL = "https://bmclinics.ai/technologie/laser-tulowy";
@@ -397,35 +396,25 @@ function LaserTulowyPage() {
 
       {/* REKONWALESCENCJA */}
       <section className="container mx-auto px-4 py-20">
-        <div className="grid gap-10 lg:grid-cols-[1fr,1.2fr] lg:items-center">
-          <img
-            src={rezultatAsset.url}
-            alt="Skóra po zabiegu laserem tulowo-erbowym — gładka, rozjaśniona, zregenerowana"
-            loading="lazy"
-            width={1024}
-            height={1536}
-            className="rounded-xl border border-border/60 shadow-sm"
+        <div className="mx-auto max-w-3xl">
+          <SectionHeading
+            eyebrow="Rekonwalescencja"
+            title="Co się dzieje po zabiegu — dzień po dniu"
           />
-          <div className="flex flex-col gap-6">
-            <SectionHeading
-              eyebrow="Rekonwalescencja"
-              title="Co się dzieje po zabiegu — dzień po dniu"
-            />
-            <ul className="space-y-4">
-              {[
-                { d: "Dzień 0", t: "Rumień, uczucie ciepła, lekki obrzęk. Skóra wygląda jakby po intensywnym treningu." },
-                { d: "Dni 1–2", t: "Obrzęk maksymalny — szczególnie wokół oczu (do 24–48 h). Skóra staje się szorstka jak papier ścierny." },
-                { d: "Dni 3–5", t: "Pojawiają się mikrobrązowe punkty (efekt MEND) — to wydalana melanina. Obrzęk znika, skóra zaczyna się delikatnie złuszczać." },
-                { d: "Dni 5–7", t: "Mikropunkty samoistnie odpadają. Pod nimi — nowy, jednolity, rozjaśniony naskórek. Można wracać do makijażu." },
-                { d: "Tydzień 2–12", t: "Stopniowa neokolageneza. Skóra zyskuje gęstość, koloryt się wyrównuje, drobne zmarszczki ulegają wygładzeniu." },
-              ].map((row) => (
-                <li key={row.d} className="grid grid-cols-[100px,1fr] gap-4 border-l-2 border-champagne pl-4">
-                  <div className="font-serif text-sm uppercase tracking-wider text-champagne">{row.d}</div>
-                  <div className="text-sm text-ink/80">{row.t}</div>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="mt-10 space-y-4">
+            {[
+              { d: "Dzień 0", t: "Rumień, uczucie ciepła, lekki obrzęk. Skóra wygląda jakby po intensywnym treningu." },
+              { d: "Dni 1–2", t: "Obrzęk maksymalny — szczególnie wokół oczu (do 24–48 h). Skóra staje się szorstka jak papier ścierny." },
+              { d: "Dni 3–5", t: "Pojawiają się mikrobrązowe punkty (efekt MEND) — to wydalana melanina. Obrzęk znika, skóra zaczyna się delikatnie złuszczać." },
+              { d: "Dni 5–7", t: "Mikropunkty samoistnie odpadają. Pod nimi — nowy, jednolity, rozjaśniony naskórek. Można wracać do makijażu." },
+              { d: "Tydzień 2–12", t: "Stopniowa neokolageneza. Skóra zyskuje gęstość, koloryt się wyrównuje, drobne zmarszczki ulegają wygładzeniu." },
+            ].map((row) => (
+              <li key={row.d} className="grid grid-cols-[100px,1fr] gap-4 border-l-2 border-champagne pl-4">
+                <div className="font-serif text-sm uppercase tracking-wider text-champagne">{row.d}</div>
+                <div className="text-sm text-ink/80">{row.t}</div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
