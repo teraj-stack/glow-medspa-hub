@@ -8,6 +8,8 @@ import skoraZdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
 import skoraWiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";
 import dzialanieAsset from "@/assets/plasma-dzialanie.png.asset.json";
 import zaawansowanaAsset from "@/assets/plasma-zaawansowana.png.asset.json";
+import heroVideoAsset from "@/assets/plasma-hero.mp4.asset.json";
+import heroPosterAsset from "@/assets/plasma-poster.jpg.asset.json";
 
 const TECH_SLUG = "fusion-plasma";
 
@@ -109,7 +111,17 @@ function FusionPlasmaPage() {
               </div>
             </div>
             <div className="rounded-lg overflow-hidden bg-white shadow-soft">
-              <img src={dzialanieAsset.url} alt="Aplikator zimnej plazmy działający na skórę" className="w-full h-auto" />
+              <video
+                src={heroVideoAsset.url}
+                poster={heroPosterAsset.url}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="w-full h-auto block"
+                aria-label="Zabieg zimnej plazmy — pokaz w gabinecie"
+              />
             </div>
           </div>
         </div>
