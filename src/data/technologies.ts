@@ -67,7 +67,14 @@ export const TECHNOLOGIES: Technology[] = [
     mechanism:
       "Strumień zjonizowanego gazu inicjuje natychmiastową sublimację powierzchniowych komórek przy zachowaniu integralności warstw głębszych.",
     indications: ["opadająca powieka górna", "kurze łapki", "drobne zmarszczki wokół ust"],
-    pricing: [{ label: "Powieka górna", price: 1200 }, { label: "Okolica oczu", price: 1600 }],
+    pricing: [
+      { label: "Okolice oczu (powieki)", price: 2150 },
+      { label: "Twarz (cała — high energy)", price: 4250 },
+      { label: "Szyja", price: 2400 },
+      { label: "Dekolt", price: 3000 },
+      { label: "Combo: twarz + oczy + szyja", price: 7500 },
+      { label: "Pakiet seryjny (low energy)", price: 7250 },
+    ],
     faq: [{ q: "Czas rekonwalescencji?", a: "Drobne strupki do 5–7 dni. Powrót do aktywności zawodowej zwykle następnego dnia." }],
   },
   {
