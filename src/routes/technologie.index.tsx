@@ -58,7 +58,7 @@ const GROUPS: NeedGroup[] = [
     icon: teksturaAsset.url,
     lead:
       "Praca nad porami, bliznami i drobnymi zmarszczkami — łączymy frakcyjną fototermolizę z efektem fotoakustycznym i regeneracją w niskiej temperaturze fizjologicznej.",
-    techSlugs: ["picoking", "laser-tulowy", "virtue-rf", "fusion-plasma", "peeling-weglowy-laserowy", "ipl-bm14"],
+    techSlugs: ["picoking", "fusion-plasma", "peeling-weglowy-laserowy", "ipl-bm14", "virtue-rf", "laser-tulowy"],
   },
   {
     nr: "03",
