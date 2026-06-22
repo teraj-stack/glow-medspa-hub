@@ -4,12 +4,17 @@ import { BookingForm } from "@/components/site/BookingForm";
 import { getTechnology, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check, MapPin, Sparkles, ShieldCheck, Clock, Heart } from "lucide-react";
-import heroImg from "@/assets/picoking-hero.jpg";
-import comparisonImg from "@/assets/picoking-comparison.jpg";
-import skinImg from "@/assets/picoking-skin-cross-section.jpg";
+import heroAsset from "@/assets/picoking-hero.jpg.asset.json";
+import comparisonAsset from "@/assets/picoking-comparison.jpg.asset.json";
+import skinAsset from "@/assets/picoking-skin-cross-section.jpg.asset.json";
 import pico532Img from "@/assets/pico-532-fractional.jpeg.asset.json";
 import pico1064Img from "@/assets/pico-1064-fractional.jpeg.asset.json";
-import applicatorsImg from "@/assets/picoking-applicators.jpg";
+import applicatorsAsset from "@/assets/picoking-applicators.jpg.asset.json";
+
+const heroImg = heroAsset.url;
+const comparisonImg = comparisonAsset.url;
+const skinImg = skinAsset.url;
+const applicatorsImg = applicatorsAsset.url;
 
 const TECH_SLUG = "picoking";
 
