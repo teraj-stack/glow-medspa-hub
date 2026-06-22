@@ -318,7 +318,7 @@ function FusionPlasmaPage() {
           <SectionHeading
             eyebrow="Efekty"
             title="Przed i po — galeria pacjentek"
-            subtitle="Realne rezultaty po serii zabiegów zimnej plazmy. Zdjęcia publikujemy za zgodą pacjentek."
+            description="Realne rezultaty po serii zabiegów zimnej plazmy. Zdjęcia publikujemy za zgodą pacjentek."
           />
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             {BEFORE_AFTER.map((item) => (
