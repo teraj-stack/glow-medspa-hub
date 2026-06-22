@@ -107,7 +107,7 @@ const MODES = [
 
 const BENEFITS = [
   { icon: ShieldCheck, title: "Bezpieczne dla fototypów III–V", body: "Brak ciepła w naskórku → minimalne ryzyko PIH i przebarwień pozapalnych." },
-  { icon: Clock, title: "Minimal downtime", body: "Powrót do aktywności tego samego dnia. Toning, peeling węglowy — zero śladów." },
+  { icon: Clock, title: "Zero śladów po 2–4 godzinach", body: "Czas impulsu 350 ps jest zbyt krótki, by spowodować oparzenie tkanki. Po zabiegu nie ma śladu już po 2–4 h — powrót do aktywności natychmiastowy." },
   { icon: Heart, title: "Niemal bezbolesny", body: "Tryb Multipulse rozkłada energię na mikroimpulsy nieprzekraczające progu bólu." },
   { icon: Sparkles, title: "Mniej sesji niż Q-Switched", body: "Pigment rozbity na mikropył jest szybciej fagocytowany przez układ limfatyczny." },
 ];
@@ -212,7 +212,7 @@ function PikosekundowyPage() {
           <SectionHeading
             eyebrow="Mechanizm fotoakustyczny"
             title="Ciśnienie zamiast ciepła — dlatego skóra się nie poparza"
-            description="Impuls 350 pikosekund jest zbyt krótki, by przekazać tkance energię cieplną. Zamiast oparzenia powstaje mikro-fala ciśnienia (efekt fotoakustyczny), która rozbija pigment i pobudza fibroblasty — bez uszkodzenia termicznego naskórka."
+            description="Impuls 350 pikosekund jest zbyt krótki, by przekazać tkance energię cieplną. Zamiast oparzenia powstaje mikro-fala ciśnienia (efekt fotoakustyczny), która rozbija pigment i pobudza fibroblasty — bez uszkodzenia termicznego naskórka. Po zabiegu nie ma śladu już po 2–4 godzinach."
           />
           <div className="mt-12 grid gap-8 md:grid-cols-2">
             <figure className="overflow-hidden rounded-lg border border-white/10 bg-white">
