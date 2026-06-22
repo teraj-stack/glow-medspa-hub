@@ -38,8 +38,7 @@ export function Header() {
             </Link>
           ))}
           <Link
-            to="/"
-            hash="rezerwacja"
+            to="/konsultacja"
             className="inline-flex h-10 items-center justify-center rounded-md bg-ink px-5 text-sm tracking-wide text-alabaster transition hover:bg-ink/90"
           >
             Umów wizytę
