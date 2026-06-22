@@ -30,14 +30,14 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
   },
   head: () => {
     const title =
-      "Laser tulowy 1927 nm — przebarwienia, melasma, rewitalizacja | Beauty & Mind Clinic Siedlce";
+      "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927 nm + 1550 nm — melasma, przebarwienia, rewitalizacja | Beauty & Mind Clinic Siedlce";
     const description =
-      "Laser tulowy 1927 nm i hybrydowy 1550/1927 nm — złoty standard w leczeniu melasmy, przebarwień posłonecznych i fotostarzenia. Standard premium klinik warszawskich w Siedlcach.";
+      "Laser tulowo-erbowy, czyli hybryda lasera tulowego 1927 nm i lasera erbowego (szkło erbowe, Erbium Glass) 1550 nm — złoty standard w leczeniu melasmy, przebarwień posłonecznych i fotostarzenia. Standard premium klinik warszawskich w Siedlcach.";
 
     const serviceSchema = {
       "@context": "https://schema.org",
       "@type": "MedicalTherapy",
-      name: "Laser tulowy 1927 nm — rewitalizacja i depigmentacja",
+      name: "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927 nm + 1550 nm — rewitalizacja i depigmentacja",
       description,
       url: URL,
       provider: {
