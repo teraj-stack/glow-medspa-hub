@@ -8,10 +8,7 @@ import {
 } from "@/lib/stripe.server";
 import type { Database } from "@/integrations/supabase/types";
 
-const PRICE_MAP: Record<"online" | "clinic", string> = {
-  online: "konsultacja_online_jednorazowa",
-  clinic: "konsultacja_w_klinice_jednorazowa",
-};
+const PRICE_LOOKUP_KEY = "konsultacja_jednorazowa";
 
 const Input = z.object({
   consultationType: z.enum(["online", "clinic"]),
