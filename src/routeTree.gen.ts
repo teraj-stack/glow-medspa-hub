@@ -27,6 +27,7 @@ import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
+import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -126,6 +127,11 @@ const BlogPowiklaniaMezoterapiaIglowaRoute =
     path: '/blog/powiklania-mezoterapia-iglowa',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogBliznyPotradzikoweRoute = BlogBliznyPotradzikoweRouteImport.update({
+  id: '/blog/blizny-potradzikowe',
+  path: '/blog/blizny-potradzikowe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
@@ -205,6 +212,7 @@ export interface FileRoutesByTo {
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
@@ -233,6 +241,7 @@ export interface FileRoutesById {
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
@@ -262,6 +271,7 @@ export interface FileRouteTypes {
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/blog/blizny-potradzikowe'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
@@ -289,6 +299,7 @@ export interface FileRouteTypes {
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/blog/blizny-potradzikowe'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
@@ -316,6 +327,7 @@ export interface FileRouteTypes {
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/blog/blizny-potradzikowe'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
@@ -344,6 +356,7 @@ export interface RootRouteChildren {
   RozwiazaniaRoute: typeof RozwiazaniaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
   BlogPowiklaniaMezoterapiaIglowaRoute: typeof BlogPowiklaniaMezoterapiaIglowaRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   FormularzTokenRoute: typeof FormularzTokenRoute
@@ -488,6 +501,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogPowiklaniaMezoterapiaIglowaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/blizny-potradzikowe': {
+      id: '/blog/blizny-potradzikowe'
+      path: '/blog/blizny-potradzikowe'
+      fullPath: '/blog/blizny-potradzikowe'
+      preLoaderRoute: typeof BlogBliznyPotradzikoweRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
       path: '/lovable/email/suppression'
@@ -552,6 +572,7 @@ const rootRouteChildren: RootRouteChildren = {
   RozwiazaniaRoute: RozwiazaniaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  BlogBliznyPotradzikoweRoute: BlogBliznyPotradzikoweRoute,
   BlogPowiklaniaMezoterapiaIglowaRoute: BlogPowiklaniaMezoterapiaIglowaRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   FormularzTokenRoute: FormularzTokenRoute,
