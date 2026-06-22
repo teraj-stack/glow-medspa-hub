@@ -151,7 +151,7 @@ export const TECHNOLOGIES: Technology[] = [
       { label: "Przebarwienia — dłonie / dekolt", price: 1200 },
     ],
     faq: [
-      { q: "Czym laser pikosekundowy różni się od starszych laserów Q-Switched?", a: "Impuls jest około 1000 razy krótszy (350 pikosekund vs nanosekundy). Pigment jest rozbijany ciśnieniem fali uderzeniowej, a nie ciepłem — dzięki temu skóra wokół nie ulega oparzeniu, a makrofagi sprawniej usuwają rozdrobniony „pył" barwnika. Mniej sesji, brak śladów po 2–4 godzinach." },
+      { q: "Czym laser pikosekundowy różni się od starszych laserów Q-Switched?", a: "Impuls jest około 1000 razy krótszy (350 pikosekund vs nanosekundy). Pigment jest rozbijany ciśnieniem fali uderzeniowej, a nie ciepłem — dzięki temu skóra wokół nie ulega oparzeniu, a makrofagi sprawniej usuwają rozdrobniony pył barwnika. Mniej sesji, brak śladów po 2–4 godzinach." },
       { q: "Ile sesji potrzeba?", a: "Toning i fotoodmładzanie — seria 4–6 zabiegów co 3–4 tygodnie. Melasma — 3–5 sesji w trybie Dual Pulse. Blizny potrądzikowe — 4–6 sesji w trybie frakcyjnym Honeycomb. Tatuaż — średnio 4–8 sesji co 6–8 tygodni." },
       { q: "Jak długo trwa rekonwalescencja?", a: "Laser pikosekundowy pracuje wyłącznie w protokołach złożonych (zimna plazma + rewitalizacja + fototerapia LED). Dzięki temu rekonwalescencja jest minimalna — zwykle zero śladów już po 2–4 godzinach. Planowanie urlopu czy rezygnacja z aktywności jest niepotrzebna." },
       { q: "Czy zabieg boli?", a: "W trybie Multipulse (MPTP) zabieg jest niemal bezbolesny. W pozostałych trybach stosujemy chłodzenie i krem znieczulający." },
