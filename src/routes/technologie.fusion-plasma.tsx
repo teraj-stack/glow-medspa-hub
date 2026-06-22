@@ -28,6 +28,12 @@ import ba8Before from "@/assets/plasma-ba-8.png.asset.json";
 import ba8After from "@/assets/plasma-ba-8a.png.asset.json";
 import ba9Before from "@/assets/plasma-ba-9.png.asset.json";
 import ba9After from "@/assets/plasma-ba-9a.png.asset.json";
+import ba10Before from "@/assets/plasma-ba-10.png.asset.json";
+import ba10After from "@/assets/plasma-ba-10a.png.asset.json";
+import ba11Before from "@/assets/plasma-ba-11.png.asset.json";
+import ba11After from "@/assets/plasma-ba-11a.png.asset.json";
+import ba12Before from "@/assets/plasma-ba-12.png.asset.json";
+import ba12After from "@/assets/plasma-ba-12a.png.asset.json";
 
 const BEFORE_AFTER = [
   { before: ba1Before.url, after: ba1After.url, title: "Trądzik i niedoskonałości", desc: "Redukcja zmian zapalnych, wyrównanie kolorytu, zmniejszenie widoczności porów na policzku." },
@@ -39,6 +45,9 @@ const BEFORE_AFTER = [
   { before: ba7Before.url, after: ba7After.url, title: "Dekolt — fotostarzenie", desc: "Redukcja przebarwień posłonecznych, wygładzenie skóry dekoltu i poprawa jej kolorytu." },
   { before: ba8Before.url, after: ba8After.url, title: "Trądzik różowaty i naczynka", desc: "Zmniejszenie zaczerwienienia, wyciszenie skóry naczyniowej, ujednolicenie tonu." },
   { before: ba9Before.url, after: ba9After.url, title: "Okolica ust i broda", desc: "Wygładzenie skóry wokół ust, redukcja drobnych niedoskonałości i poprawa napięcia." },
+  { before: ba10Before.url, after: ba10After.url, title: "Blizny potrądzikowe", desc: "Spłycenie blizn atroficznych, wyrównanie tekstury i zmniejszenie zaczerwienienia policzka." },
+  { before: ba11Before.url, after: ba11After.url, title: "Trądzik zapalny — policzek", desc: "Wyciszenie zmian zapalnych, ujednolicenie kolorytu i wyraźna poprawa kondycji skóry." },
+  { before: ba12Before.url, after: ba12After.url, title: "Skóra dłoni — odmłodzenie", desc: "Wygładzenie naskórka, poprawa napięcia i nawilżenia skóry grzbietu dłoni." },
 ];
 
 const TECH_SLUG = "fusion-plasma";
