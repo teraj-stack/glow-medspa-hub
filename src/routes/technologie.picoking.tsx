@@ -10,6 +10,42 @@ import skinAsset from "@/assets/picoking-skin-cross-section.jpg.asset.json";
 import pico532Img from "@/assets/pico-532-fractional.jpeg.asset.json";
 import pico1064Img from "@/assets/pico-1064-fractional.jpeg.asset.json";
 import applicatorsAsset from "@/assets/picoking-applicators.jpg.asset.json";
+import { BeforeAfterSlider } from "@/components/site/BeforeAfterSlider";
+import ba5 from "@/assets/piko-ba-5.webp.asset.json";
+import ba5a from "@/assets/piko-ba-5a.webp.asset.json";
+import ba6 from "@/assets/piko-ba-6.webp.asset.json";
+import ba6a from "@/assets/piko-ba-6a.webp.asset.json";
+import ba7 from "@/assets/piko-ba-7.webp.asset.json";
+import ba7a from "@/assets/piko-ba-7a.webp.asset.json";
+import ba8 from "@/assets/piko-ba-8.webp.asset.json";
+import ba8a from "@/assets/piko-ba-8a.webp.asset.json";
+
+const BA_GALLERY = [
+  {
+    before: ba5.url,
+    after: ba5a.url,
+    label: "Blizny potrądzikowe · seria 4 sesji",
+    caption: "Soczewka Honeycomb 755 nm — efekt LIOB pobudza fibroblasty. Tekstura wygładzona, naskórek nienaruszony.",
+  },
+  {
+    before: ba6.url,
+    after: ba6a.url,
+    label: "Przebarwienia okolicy ust · 3 sesje",
+    caption: "Dual Pulse (PTP) rozbija ziarna melaniny bez efektu odbicia — koloryt ujednolicony.",
+  },
+  {
+    before: ba7.url,
+    after: ba7a.url,
+    label: "Melasma policzka · 4 sesje",
+    caption: "Fotoakustyka 1064 nm zamiast termiki — melanosomy rozbite, melanocyt nieuszkodzony.",
+  },
+  {
+    before: ba8.url,
+    after: ba8a.url,
+    label: "Plamy posłoneczne dłoni · 3 sesje",
+    caption: "Selektywne 532 nm na pigment powierzchowny — rewitalizacja skóry dłoni bez przerwy w aktywności.",
+  },
+];
 
 const heroImg = heroAsset.url;
 const comparisonImg = comparisonAsset.url;
@@ -281,6 +317,31 @@ function PikosekundowyPage() {
               <p className="mt-3 text-sm leading-relaxed text-foreground/75">{item.body}</p>
             </div>
           ))}
+        </div>
+
+        {/* GALERIA PRZED / PO */}
+        <div className="mt-20">
+          <SectionHeading
+            eyebrow="Przed / Po"
+            title="Realne efekty — przesuń suwak"
+            description="Zdjęcia pacjentek wykonane w tym samym ustawieniu światła, bez retuszu. Przeciągnij linię na środku, aby porównać stan skóry przed pierwszą sesją i po zakończonej serii."
+          />
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {BA_GALLERY.map((g) => (
+              <BeforeAfterSlider
+                key={g.label}
+                beforeSrc={g.before}
+                afterSrc={g.after}
+                beforeAlt={`Skóra przed zabiegiem — ${g.label}`}
+                afterAlt={`Skóra po zabiegu — ${g.label}`}
+                label={g.label}
+                caption={g.caption}
+              />
+            ))}
+          </div>
+          <p className="mt-6 text-xs text-foreground/55">
+            Indywidualne rezultaty mogą się różnić w zależności od typu skóry, fototypu i przestrzegania zaleceń pozabiegowych.
+          </p>
         </div>
       </section>
 
