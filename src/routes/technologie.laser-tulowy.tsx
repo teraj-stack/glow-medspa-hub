@@ -507,7 +507,42 @@ function LaserTulowyPage() {
         </div>
       </section>
 
+      {/* BEFORE / AFTER */}
+      <section className="border-t border-border/40 bg-secondary/40">
+        <div className="container mx-auto px-4 py-20">
+          <SectionHeading
+            eyebrow="Efekty"
+            title="Przed i po — galeria pacjentek"
+            description="Realne rezultaty po serii zabiegów laserem tulowo-erbowym. Zdjęcia publikujemy za zgodą pacjentek."
+          />
+          <div className="mt-10 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {BEFORE_AFTER.map((item) => (
+              <figure key={item.title} className="overflow-hidden rounded-lg border border-border bg-card">
+                <div className="grid grid-cols-2">
+                  <div className="relative">
+                    <img src={item.before} alt={`${item.title} — przed zabiegiem`} loading="lazy" className="aspect-[3/4] w-full object-cover" />
+                    <span className="absolute left-3 top-3 rounded-full bg-ink/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white">Przed</span>
+                  </div>
+                  <div className="relative">
+                    <img src={item.after} alt={`${item.title} — po zabiegu`} loading="lazy" className="aspect-[3/4] w-full object-cover" />
+                    <span className="absolute left-3 top-3 rounded-full bg-champagne px-3 py-1 text-xs uppercase tracking-[0.2em] text-ink">Po</span>
+                  </div>
+                </div>
+                <figcaption className="border-t border-border p-5">
+                  <div className="font-serif text-lg text-ink">{item.title}</div>
+                  <p className="mt-2 text-sm text-muted-foreground">{item.desc}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-6 text-center text-xs text-muted-foreground">
+            Efekty zabiegu mogą się różnić w zależności od kondycji skóry, wieku, stylu życia i liczby sesji.
+          </p>
+        </div>
+      </section>
+
       {/* FAQ */}
+
       <section className="border-t border-border/40 bg-muted/30">
         <div className="container mx-auto px-4 py-20">
           <SectionHeading eyebrow="FAQ" title="Najczęstsze pytania" />
