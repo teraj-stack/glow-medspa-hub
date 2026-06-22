@@ -10,6 +10,21 @@ import dzialanieAsset from "@/assets/plasma-dzialanie.png.asset.json";
 import zaawansowanaAsset from "@/assets/plasma-zaawansowana.png.asset.json";
 import heroVideoAsset from "@/assets/plasma-hero.mp4.asset.json";
 import heroPosterAsset from "@/assets/plasma-poster.jpg.asset.json";
+import ba1Before from "@/assets/plasma-ba-1.png.asset.json";
+import ba1After from "@/assets/plasma-ba-1a.png.asset.json";
+import ba2Before from "@/assets/plasma-ba-2.png.asset.json";
+import ba2After from "@/assets/plasma-ba-2a.png.asset.json";
+import ba3Before from "@/assets/plasma-ba-3.png.asset.json";
+import ba3After from "@/assets/plasma-ba-3a.png.asset.json";
+import ba4Before from "@/assets/plasma-ba-4.png.asset.json";
+import ba4After from "@/assets/plasma-ba-4a.png.asset.json";
+
+const BEFORE_AFTER = [
+  { before: ba1Before.url, after: ba1After.url, title: "Trądzik i niedoskonałości", desc: "Redukcja zmian zapalnych, wyrównanie kolorytu, zmniejszenie widoczności porów na policzku." },
+  { before: ba2Before.url, after: ba2After.url, title: "Zmarszczki na czole", desc: "Wygładzenie linii poziomych, ujednolicenie tekstury skóry i poprawa napięcia." },
+  { before: ba3Before.url, after: ba3After.url, title: "Rozszerzone pory i tekstura", desc: "Zwężenie porów w strefie T, wyraźna poprawa gładkości i jakości skóry." },
+  { before: ba4Before.url, after: ba4After.url, title: "Okolica oka — kurze łapki", desc: "Spłycenie zmarszczek mimicznych, ujędrnienie cienkiej skóry wokół oka." },
+];
 
 const TECH_SLUG = "fusion-plasma";
 
@@ -297,8 +312,43 @@ function FusionPlasmaPage() {
         </div>
       </section>
 
+      {/* BEFORE / AFTER */}
+      <section className="bg-secondary/40 py-16 md:py-24">
+        <div className="container-luxury">
+          <SectionHeading
+            eyebrow="Efekty"
+            title="Przed i po — galeria pacjentek"
+            description="Realne rezultaty po serii zabiegów zimnej plazmy. Zdjęcia publikujemy za zgodą pacjentek."
+          />
+          <div className="mt-10 grid gap-8 md:grid-cols-2">
+            {BEFORE_AFTER.map((item) => (
+              <figure key={item.title} className="overflow-hidden rounded-lg border border-border bg-card">
+                <div className="grid grid-cols-2">
+                  <div className="relative">
+                    <img src={item.before} alt={`${item.title} — przed zabiegiem`} loading="lazy" className="aspect-square w-full object-cover" />
+                    <span className="absolute left-3 top-3 rounded-full bg-ink/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white">Przed</span>
+                  </div>
+                  <div className="relative">
+                    <img src={item.after} alt={`${item.title} — po zabiegu`} loading="lazy" className="aspect-square w-full object-cover" />
+                    <span className="absolute left-3 top-3 rounded-full bg-champagne px-3 py-1 text-xs uppercase tracking-[0.2em] text-ink">Po</span>
+                  </div>
+                </div>
+                <figcaption className="border-t border-border p-5">
+                  <div className="font-serif text-lg text-ink">{item.title}</div>
+                  <p className="mt-2 text-sm text-muted-foreground">{item.desc}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <p className="mt-6 text-center text-xs text-muted-foreground">
+            Efekty zabiegu mogą się różnić w zależności od kondycji skóry, wieku, stylu życia i liczby sesji.
+          </p>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="container-luxury py-16 md:py-24">
+
         <SectionHeading eyebrow="FAQ" title="Najczęstsze pytania pacjentek" />
         <div className="mt-8 divide-y divide-border rounded-lg border border-border bg-card">
           {[
