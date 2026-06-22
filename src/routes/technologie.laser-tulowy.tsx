@@ -400,7 +400,7 @@ function LaserTulowyPage() {
         <div className="grid gap-10 lg:grid-cols-[1fr,1.2fr] lg:items-center">
           <img
             src={rezultatAsset.url}
-            alt="Skóra po zabiegu laserem tulowym — gładka, rozjaśniona, zregenerowana"
+            alt="Skóra po zabiegu laserem tulowo-erbowym — gładka, rozjaśniona, zregenerowana"
             loading="lazy"
             width={1024}
             height={1536}
