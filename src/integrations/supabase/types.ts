@@ -77,6 +77,7 @@ export type Database = {
           full_name: string
           id: string
           intake_completed_at: string | null
+          intake_data: Json | null
           intake_token: string | null
           notes: string | null
           paid_at: string | null
@@ -100,6 +101,7 @@ export type Database = {
           full_name: string
           id?: string
           intake_completed_at?: string | null
+          intake_data?: Json | null
           intake_token?: string | null
           notes?: string | null
           paid_at?: string | null
@@ -123,6 +125,7 @@ export type Database = {
           full_name?: string
           id?: string
           intake_completed_at?: string | null
+          intake_data?: Json | null
           intake_token?: string | null
           notes?: string | null
           paid_at?: string | null
