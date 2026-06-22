@@ -148,10 +148,10 @@ export const TECHNOLOGIES: Technology[] = [
     shortDesc:
       "Laserowa fototermoliza pasty węglowej — natychmiastowy efekt rozświetlenia, oczyszczenia porów i wygładzenia skóry bez rekonwalescencji. Klasyczny „lunchtime peel” gwiazd Hollywood.",
     mechanism:
-      "Na skórę nakładamy warstwę nanocząsteczkowej pasty węglowej, która penetruje rozszerzone ujścia mieszków włosowych i wiąże sebum, martwy naskórek oraz zanieczyszczenia. Następnie wiązka lasera Nd:YAG 1064 nm w trybie długoimpulsowym pracuje na pełnej powierzchni — węgiel staje się egzogennym chromoforem, absorbuje energię i zostaje sublimowany. Efekt łączy mechaniczne złuszczanie (fotoeksplozja węgla) z termiczną pracą na sebum, bakteriach C. acnes i powierzchownej warstwie skóry. Drugie przejście w trybie Q-Switched (impulsy nanosekundowe) generuje falę fotoakustyczną, która rozbija powierzchowne przebarwienia, zwęża pory i pobudza fibroblasty do syntezy kolagenu.",
+      "Na skórę nakładamy warstwę nanocząsteczkowej pasty węglowej, która penetruje rozszerzone ujścia mieszków włosowych i wiąże sebum, martwy naskórek oraz zanieczyszczenia. Następnie wiązka lasera pikosekundowego 1064 nm (ultrakrótki impuls ~350 ps) pracuje na pełnej powierzchni — węgiel staje się egzogennym chromoforem, absorbuje energię i zostaje sublimowany fotoakustyczną falą uderzeniową. Dzięki pikosekundowemu czasowi impulsu otaczające tkanki pozostają chłodne, a efekt łączy mechaniczne złuszczanie (fotoeksplozja węgla) z precyzyjną pracą na sebum, bakteriach C. acnes i powierzchownej warstwie skóry. Drugie przejście w trybie frakcyjnym pobudza fibroblasty do syntezy kolagenu i dodatkowo zwęża pory, bez termicznego uszkadzania naskórka.",
     applicators: [
-      "Nd:YAG 1064 nm — tryb long-pulse (faza węglowa, sebum, bakterie)",
-      "Nd:YAG 1064 nm — tryb Q-Switched (faza fotoakustyczna, kolagen, pory)",
+      "Laser pikosekundowy 1064 nm — tryb fotomechaniczny (faza węglowa, sebum, bakterie)",
+      "Laser pikosekundowy 1064 nm — tryb frakcyjny Honeycomb (kolagen, pory, tekstura)",
       "Pasta węglowa kosmetyczna o granulacji nano (chromofor egzogenny)",
     ],
     indications: [
