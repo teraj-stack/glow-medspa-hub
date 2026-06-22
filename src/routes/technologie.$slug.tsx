@@ -11,35 +11,54 @@ export const Route = createFileRoute("/technologie/$slug")({
     if (!tech) throw notFound();
     return { tech };
   },
-  head: ({ loaderData, params }) => ({
-    meta: loaderData
-      ? [
-          { title: loaderData.tech.name },
-          { name: "description", content: loaderData.tech.shortDesc },
-          { property: "og:title", content: loaderData.tech.name },
-          { property: "og:description", content: loaderData.tech.shortDesc },
-          { property: "og:url", content: `https://bmclinics.ai/technologie/${params.slug}` },
-        ]
-      : [{ title: "Technologia — Beauty & Mind Clinic" }],
-    links: [{ rel: "canonical", href: `https://bmclinics.ai/technologie/${params.slug}` }],
-    scripts:
+  head: ({ loaderData, params }) => {
+    const serviceSchema = loaderData
+      ? {
+          "@context": "https://schema.org",
+          "@type": "MedicalTherapy",
+          name: loaderData.tech.name,
+          description: loaderData.tech.shortDesc,
+          url: `https://bmclinics.ai/technologie/${params.slug}`,
+          provider: {
+            "@type": "MedicalBusiness",
+            name: "Beauty & Mind Clinic",
+            url: "https://bmclinics.ai",
+          },
+          indication: loaderData.tech.indications,
+        }
+      : undefined;
+
+    const faqSchema =
       loaderData && loaderData.tech.faq && loaderData.tech.faq.length > 0
+        ? {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: loaderData.tech.faq.map((item) => ({
+              "@type": "Question",
+              name: item.q,
+              acceptedAnswer: { "@type": "Answer", text: item.a },
+            })),
+          }
+        : undefined;
+
+    const scripts: Array<{ type: string; children: string }> = [];
+    if (serviceSchema) scripts.push({ type: "application/ld+json", children: JSON.stringify(serviceSchema) });
+    if (faqSchema) scripts.push({ type: "application/ld+json", children: JSON.stringify(faqSchema) });
+
+    return {
+      meta: loaderData
         ? [
-            {
-              type: "application/ld+json",
-              children: JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "FAQPage",
-                mainEntity: loaderData.tech.faq.map((item) => ({
-                  "@type": "Question",
-                  name: item.q,
-                  acceptedAnswer: { "@type": "Answer", text: item.a },
-                })),
-              }),
-            },
+            { title: loaderData.tech.name },
+            { name: "description", content: loaderData.tech.shortDesc },
+            { property: "og:title", content: loaderData.tech.name },
+            { property: "og:description", content: loaderData.tech.shortDesc },
+            { property: "og:url", content: `https://bmclinics.ai/technologie/${params.slug}` },
           ]
-        : undefined,
-  }),
+        : [{ title: "Technologia — Beauty & Mind Clinic" }],
+      links: [{ rel: "canonical", href: `https://bmclinics.ai/technologie/${params.slug}` }],
+      scripts: scripts.length > 0 ? scripts : undefined,
+    };
+  },
   component: TechnologyDetail,
   notFoundComponent: () => (
     <div className="container-luxury py-24 text-center">
