@@ -240,12 +240,12 @@ function LaserTulowyPage() {
         <SectionHeading
           eyebrow="Mechanizm działania"
           title="Dwie długości fali. Dwie różne głębokości pracy."
-          description="Technologia hybrydowa łączy w jednym urządzeniu wiązkę tulową 1927 nm (warstwa powierzchowna — pigment) z wiązką erbową 1550 nm (skóra właściwa — kolagen i blizny). Zabieg dopasowujemy do problemu, nie odwrotnie."
+          description="Technologia hybrydowa łączy w jednym urządzeniu wiązkę tulową 1927 nm (warstwa powierzchowna — pigment) z wiązką erbową, czyli szkłem erbowym 1550 nm (skóra właściwa — kolagen i blizny). Zabieg dopasowujemy do problemu, nie odwrotnie."
         />
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr,1fr] lg:items-center">
           <img
             src={mechanizmAsset.url}
-            alt="Schemat działania lasera frakcyjnego tulowo-erbowego 1920 nm i 1540 nm w skórze — kontrolowana koagulacja, kolumna MTZ i efekt halo"
+            alt="Schemat działania lasera frakcyjnego tulowo-erbowego 1927 nm i szkła erbowego 1550 nm w skórze — kontrolowana koagulacja, kolumna MTZ i efekt halo"
             loading="lazy"
             width={1600}
             height={1024}
