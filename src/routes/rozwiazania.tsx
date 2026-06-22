@@ -97,9 +97,9 @@ function RozwiazaniaPage() {
             <p className="text-muted-foreground text-lg font-body leading-relaxed">
               Ciało to wielowarstwowa struktura — a piękno to harmonia jego warstw.
               Lasery pracują nad skórą, HIFU zagęszcza i wzmacnia skórę głęboką
-              i powięź SMAS nad, a HIFEM nad mięśniami pod obszarem. Aplikacja « MySkinCode »
-              komponuje te elementy w autorskie sekwencje&nbsp;« Body Longevity »,
-              które pracują razem na Twój wynik równocześnie.
+              i powięź SMAS nad, a HIFEM nad mięśniami pod obszarem. Komponujemy
+              te elementy w autorskie sekwencje&nbsp;« Body Longevity », które
+              pracują razem na Twój wynik równocześnie.
             </p>
           </div>
         </ScrollReveal>
