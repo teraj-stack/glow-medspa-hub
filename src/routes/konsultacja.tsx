@@ -49,7 +49,7 @@ function ConsultationPage() {
           phone,
           preferredDate,
           notes,
-          returnUrl: `${window.location.origin}/konsultacja/dziekujemy?session_id={CHECKOUT_SESSION_ID}`,
+          returnUrl: `${window.location.origin}/konsultacja-dziekujemy?session_id={CHECKOUT_SESSION_ID}`,
           environment: getStripeEnvironment(),
         },
       });
