@@ -80,7 +80,10 @@ export const Route = createFileRoute("/technologie/picoking")({
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: heroImg },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        { rel: "preload", as: "image", href: heroImg, fetchPriority: "high" },
+      ],
       scripts: scripts.length > 0 ? scripts : undefined,
     };
   },
