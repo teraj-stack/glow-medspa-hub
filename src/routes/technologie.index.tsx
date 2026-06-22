@@ -121,6 +121,63 @@ function TechnologiesPage() {
         </div>
       </section>
 
+      {/* PROTOKÓŁ BAZOWY — UNIWERSALNY */}
+      <section className="container-luxury py-12 md:py-16">
+        <div className="rounded-lg border border-champagne/40 bg-secondary/30 p-6 md:p-10">
+          <span className="text-xs uppercase tracking-[0.3em] text-champagne">
+            Protokół bazowy · uniwersalny
+          </span>
+          <h2 className="gold-line mt-2 font-serif text-2xl text-ink md:text-3xl">
+            Trzy technologie, które łączymy w większości przypadków
+          </h2>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            Z mojego doświadczenia kolejność zimna plazma → laser pikosekundowy → fototerapia LED to podstawowe, uniwersalne rozwiązanie dla większości pacjentek. Łączenie tych trzech narzędzi pozwala uzyskać efekt, który wcześniej wymagał dwukrotnie dłuższego protokołu.
+          </p>
+
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {[
+              {
+                step: "01",
+                title: "Zimna plazma",
+                desc: "Co drugi dzień. Indukuje procesy regeneracyjne i aktywuje komórki macierzyste skóry.",
+              },
+              {
+                step: "02",
+                title: "Fototerapia LED",
+                desc: "Co drugi dzień. Pobudza regenerację i aktywuje układ STEM — skraca okres gojenia o około 40%.",
+              },
+              {
+                step: "03",
+                title: "Laser pikosekundowy",
+                desc: "Co 10 dni. Po 2 sesjach pracuje na pełnej, przygotowanej skórze — bez ryzyka odczynu zapalnego.",
+              },
+            ].map((item) => (
+              <div
+                key={item.step}
+                className="rounded-lg border border-border bg-card p-5 shadow-soft"
+              >
+                <div className="text-xs uppercase tracking-[0.3em] text-champagne">
+                  Krok {item.step}
+                </div>
+                <h3 className="mt-2 font-serif text-xl text-ink">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/75">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-lg border border-champagne/30 bg-ink p-6 text-alabaster md:p-8">
+            <div className="text-xs uppercase tracking-[0.3em] text-champagne">
+              Efekt łączenia
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-alabaster/85 md:text-base">
+              Po 2 zabiegach laserem pikosekundowym (około 3 tygodniach protokołu) uzyskujemy efekt porównywalny z 6 tygodniami klasycznego protokołu opartego wyłącznie na laserze. Już po 3 tygodniach pracy w protokole bazowym widoczny rezultat jest lepszy niż przy zabiegach prowadzonych pojedynczo, bez łączenia technologii.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {GROUPS.map((group) => {
         const techs = group.techSlugs.map(getTech).filter(Boolean) as Technology[];
         if (!techs.length) return null;
