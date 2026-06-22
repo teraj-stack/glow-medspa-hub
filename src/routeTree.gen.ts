@@ -22,6 +22,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
 import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
+import { Route as TechnologieLaserTulowyRouteImport } from './routes/technologie.laser-tulowy'
 import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
@@ -100,6 +101,11 @@ const TechnologieIndexRoute = TechnologieIndexRouteImport.update({
 const TechnologiePicokingRoute = TechnologiePicokingRouteImport.update({
   id: '/technologie/picoking',
   path: '/technologie/picoking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologieLaserTulowyRoute = TechnologieLaserTulowyRouteImport.update({
+  id: '/technologie/laser-tulowy',
+  path: '/technologie/laser-tulowy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TechnologieFusionPlasmaRoute = TechnologieFusionPlasmaRouteImport.update({
@@ -198,6 +204,7 @@ export interface FileRoutesByFullPath {
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
+  '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByTo {
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
+  '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -257,6 +265,7 @@ export interface FileRoutesById {
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
+  '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -288,6 +297,7 @@ export interface FileRouteTypes {
     | '/formularz/$token'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
+    | '/technologie/laser-tulowy'
     | '/technologie/picoking'
     | '/technologie/'
     | '/lovable/email/suppression'
@@ -317,6 +327,7 @@ export interface FileRouteTypes {
     | '/formularz/$token'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
+    | '/technologie/laser-tulowy'
     | '/technologie/picoking'
     | '/technologie'
     | '/lovable/email/suppression'
@@ -346,6 +357,7 @@ export interface FileRouteTypes {
     | '/formularz/$token'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
+    | '/technologie/laser-tulowy'
     | '/technologie/picoking'
     | '/technologie/'
     | '/lovable/email/suppression'
@@ -376,6 +388,7 @@ export interface RootRouteChildren {
   FormularzTokenRoute: typeof FormularzTokenRoute
   TechnologieSlugRoute: typeof TechnologieSlugRoute
   TechnologieFusionPlasmaRoute: typeof TechnologieFusionPlasmaRoute
+  TechnologieLaserTulowyRoute: typeof TechnologieLaserTulowyRoute
   TechnologiePicokingRoute: typeof TechnologiePicokingRoute
   TechnologieIndexRoute: typeof TechnologieIndexRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -478,6 +491,13 @@ declare module '@tanstack/react-router' {
       path: '/technologie/picoking'
       fullPath: '/technologie/picoking'
       preLoaderRoute: typeof TechnologiePicokingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/laser-tulowy': {
+      id: '/technologie/laser-tulowy'
+      path: '/technologie/laser-tulowy'
+      fullPath: '/technologie/laser-tulowy'
+      preLoaderRoute: typeof TechnologieLaserTulowyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/technologie/fusion-plasma': {
@@ -601,6 +621,7 @@ const rootRouteChildren: RootRouteChildren = {
   FormularzTokenRoute: FormularzTokenRoute,
   TechnologieSlugRoute: TechnologieSlugRoute,
   TechnologieFusionPlasmaRoute: TechnologieFusionPlasmaRoute,
+  TechnologieLaserTulowyRoute: TechnologieLaserTulowyRoute,
   TechnologiePicokingRoute: TechnologiePicokingRoute,
   TechnologieIndexRoute: TechnologieIndexRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
