@@ -27,6 +27,7 @@ import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
+import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -127,6 +128,12 @@ const BlogPowiklaniaMezoterapiaIglowaRoute =
     path: '/blog/powiklania-mezoterapia-iglowa',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogLaserFrakcyjnyRekonwalescencjaRoute =
+  BlogLaserFrakcyjnyRekonwalescencjaRouteImport.update({
+    id: '/blog/laser-frakcyjny-rekonwalescencja',
+    path: '/blog/laser-frakcyjny-rekonwalescencja',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogBliznyPotradzikoweRoute = BlogBliznyPotradzikoweRouteImport.update({
   id: '/blog/blizny-potradzikowe',
   path: '/blog/blizny-potradzikowe',
@@ -185,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
+  '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
@@ -213,6 +221,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
+  '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
@@ -242,6 +251,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
+  '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
@@ -272,6 +282,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/blog/blizny-potradzikowe'
+    | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
@@ -300,6 +311,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/blog/blizny-potradzikowe'
+    | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
@@ -328,6 +340,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/blog/blizny-potradzikowe'
+    | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
@@ -357,6 +370,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
+  BlogLaserFrakcyjnyRekonwalescencjaRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   BlogPowiklaniaMezoterapiaIglowaRoute: typeof BlogPowiklaniaMezoterapiaIglowaRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   FormularzTokenRoute: typeof FormularzTokenRoute
@@ -501,6 +515,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogPowiklaniaMezoterapiaIglowaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/laser-frakcyjny-rekonwalescencja': {
+      id: '/blog/laser-frakcyjny-rekonwalescencja'
+      path: '/blog/laser-frakcyjny-rekonwalescencja'
+      fullPath: '/blog/laser-frakcyjny-rekonwalescencja'
+      preLoaderRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/blizny-potradzikowe': {
       id: '/blog/blizny-potradzikowe'
       path: '/blog/blizny-potradzikowe'
@@ -573,6 +594,8 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   BlogBliznyPotradzikoweRoute: BlogBliznyPotradzikoweRoute,
+  BlogLaserFrakcyjnyRekonwalescencjaRoute:
+    BlogLaserFrakcyjnyRekonwalescencjaRoute,
   BlogPowiklaniaMezoterapiaIglowaRoute: BlogPowiklaniaMezoterapiaIglowaRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   FormularzTokenRoute: FormularzTokenRoute,
@@ -591,13 +614,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
