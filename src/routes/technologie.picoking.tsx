@@ -341,23 +341,28 @@ function PikosekundowyPage() {
         <div className="container-luxury grid gap-12 md:grid-cols-2 md:items-center">
           <div>
             <div className="text-xs uppercase tracking-[0.3em] text-champagne-light">Wymienne głowice</div>
-            <h2 className="mt-4 font-serif text-3xl md:text-4xl">Sześć wzorców wiązki, jeden cel — Twoja skóra</h2>
+            <h2 className="mt-4 font-serif text-3xl md:text-4xl">Siedem niezależnych narzędzi — jeden cel: Twoja skóra</h2>
             <p className="mt-4 text-alabaster/80">
-              Optyka głowic decyduje, jak energia rozkłada się w tkance. Od mikrosoczewek Honeycomb po jednolitą plamkę do peelingu węglowego — każdy protokół ma swój dedykowany aplikator. Dodatkowe rękojeści 650 nm i 585 nm rozszerzają zakres na zielone tatuaże oraz zmiany naczyniowe.
+              Dla każdej z trzech głównych długości fali (1064 / 755 / 532 nm) mamy zarówno rękojeść z jednorodną plamką, jak i rękojeść frakcyjną. Ta druga oprócz dedykowanych funkcji (usuwanie pigmentu, melasma, przebarwienia) dodatkowo poprawia teksturę skóry i rewitalizuje — efekt znany w warszawskich klinikach jako "Total look" lub "Baby face lift".
             </p>
             <ul className="mt-8 space-y-3 text-alabaster/85">
-              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Honeycomb 755 nm</strong> — matryca mikrosoczewek (LIOB) do blizn i frakcyjnej rewitalizacji.</span></li>
-              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Carbon Peeling</strong> — Hollywood Peel: oczyszczanie porów + redukcja łojotoku.</span></li>
-              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Red Grid (kołowa)</strong> — łagodne fotoodmładzanie dla powierzchownej pigmentacji.</span></li>
-              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Golden Grid (kwadratowa)</strong> — pełne nasycenie tkanki energią dla głębokiej dyspigmentacji.</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">1064 nm — jednorodna plamka</strong> — tatuaże czarne/granatowe, toning, zmiany głębokie.</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">1064 nm — rękojeść frakcyjna</strong> — rewitalizacja, poprawa tekstury skóry, efekt "Total look".</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">755 nm — jednorodna plamka</strong> — zielone/niebieskie tatuaże, melasma, fotoodmładzanie.</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">755 nm — rękojeść frakcyjna Honeycomb</strong> — blizny potrądzikowe, frakcyjna rewitalizacja, "Baby face lift".</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">532 nm — jednorodna plamka</strong> — czerwone/żółte tatuaże, plamy soczewicowate, piegi.</span></li>
+              <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">532 nm — rękojeść frakcyjna</strong> — przebarwienia powierzchowne, fotoodmładzanie, poprawa tekstury.</span></li>
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Rękojeść 650 nm</strong> — zielone tatuaże i trudne do usunięcia barwniki niebieskie.</span></li>
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Rękojeść 585 nm</strong> — naczyniaki (hemangiomy), rumień, drobne teleangiektazje.</span></li>
             </ul>
+            <p className="mt-6 text-sm text-champagne-light">
+              Rękojeść frakcyjna = podstawowe działanie długości fali + bonusowy efekt odmłodzenia i wyrównania tekstury skóry. Dlatego warszawskie kliniki nazywają te zabiegi "Total look" lub "Baby face lift".
+            </p>
           </div>
           <div className="overflow-hidden rounded-lg border border-champagne/20">
             <img
               src={applicatorsImg}
-              alt="Wzory wiązki czterech głowic: Honeycomb, Carbon, Red Grid, Golden Grid"
+              alt="Wzory wiązki głowic laserowych: jednorodna plamka i rękojeści frakcyjne 1064/755/532 nm, Honeycomb, Red Grid, Golden Grid"
               width={1200}
               height={1200}
               loading="lazy"
