@@ -48,7 +48,7 @@ const GROUPS: NeedGroup[] = [
     lead:
       "Najskuteczniejszym narzędziem nieoperacyjnego liftingu jest HIFU — dociera do warstwy SMAS i pracuje w tej samej płaszczyźnie co nici. Następnie pikosekundowy laser w trybach frakcyjnych przebudowuje kolagen powierzchowny i ujednolica koloryt.",
     highlight: "hifu",
-    techSlugs: ["hifu", "picoking", "virtue-rf", "laser-tulowy"],
+    techSlugs: ["hifu", "picoking", "virtue-rf"],
   },
   {
     nr: "02",
