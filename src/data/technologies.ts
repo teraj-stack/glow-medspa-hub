@@ -2,6 +2,7 @@
  * Katalog technologii — opisy WYŁĄCZNIE techniczne (zgodność z prawem reklamy
  * wyrobów medycznych). Nie używamy nazw handlowych urządzeń w treści publicznej.
  */
+import hifuMechanizmImg from "@/assets/hifu-mechanizm.jpg";
 export type PricingItem = { label: string; price: number | null; note?: string };
 export type FaqItem = { q: string; a: string };
 
@@ -11,6 +12,7 @@ export type Technology = {
   category: "twarz" | "ciało" | "intymność" | "skóra" | "modelowanie";
   shortDesc: string;
   mechanism: string;       // jak działa
+  mechanismImage?: { src: string; alt: string; caption?: string };
   applicators?: string[];  // głowice / tryby
   indications: string[];
   contraindications?: string[];
@@ -108,6 +110,11 @@ export const TECHNOLOGIES: Technology[] = [
       "Technologia HIFU (High Intensity Focused Ultrasound) dostarcza precyzyjnie skupioną energię ultradźwiękową na głębokość od 1,5 do 13 mm, tworząc punktowe ogniska termicznej koagulacji. Energia dociera do powierzchniowo-mięśniowej warstwy SMAS, której chirurgiczne naciągnięcie jest podstawą klasycznego liftingu twarzy — HIFU wywołuje jej obkurczanie i intensywną stymulację nowego kolagenu, dając efekt naturalnego, nieoperacyjnego liftingu bez cięcia i bez śladu po zabiegu. " +
       "Pacjenci z Siedlec i okolic często pytają o tę metodę, dlatego warto jasno opisać wszystkie możliwości urządzenia. Posiadana sonda umożliwia wykonanie zabiegu identycznego z implantacją nici pod skórę — działa w tej samej płaszczyźnie, natychmiast podtrzymuje kontur twarzy i wywołuje długotrwałe ujędrnienie. Dzięki temu HIFU nie tylko liftinguje owal i linię żuchwy, ale także kompleksowo rewitalizuje skórę, poprawia jej gęstość i opóźnia procesy starzenia. " +
       "Procedura jest w pełni bezinwazyjna — skóra pozostaje nieprzekłuta i nieuszkodzona, nie powstają strupy, opuchlizna ani okres rekonwalescencji. Dlatego latem nie ma przeciwwskazań do wykonywania zabiegu; pacjentka może wrócić do codziennych aktywności i stosować standardową ochronę przeciwsłoneczną. Efekt utrzymuje się 2–3 lata — wystarczy jedna sesja, by przez lata cieszyć się wyraźnie młodszą, bardziej napiętą i promienną skórą. To właśnie dlatego, pomimo upływu lat i pojawiania się nowszych technologii, HIFU pozostaje najskuteczniejszym narzędziem rewitalizującym i anti-aging.",
+    mechanismImage: {
+      src: hifuMechanizmImg,
+      alt: "Przekrój skóry twarzy z głowicą HIFU — skupione wiązki ultradźwiękowe docierają do trzech głębokości (1,5 mm, 3,0 mm, 4,5 mm) tworząc punktowe ogniska termicznej koagulacji w warstwie SMAS.",
+      caption: "Skupione wiązki ultradźwiękowe konwergują w precyzyjnych ogniskach na głębokościach 1,5 / 3,0 / 4,5 mm — od skóry właściwej po warstwę SMAS — bez naruszenia naskórka.",
+    },
     applicators: ["1,5 mm", "3,0 mm", "4,5 mm", "6 mm", "9 mm", "13 mm"],
     indications: [
       "wiotkość owalu twarzy i szyi",
