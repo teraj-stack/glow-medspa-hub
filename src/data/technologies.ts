@@ -45,10 +45,24 @@ export const TECHNOLOGIES: Technology[] = [
     slug: "laser-tulowy",
     name: "Laser tulowy 1927 nm",
     category: "skóra",
-    shortDesc: "Frakcyjna fototermoliza ułamkowa do regeneracji warstwy naskórkowej.",
+    shortDesc:
+      "Precyzyjna, powierzchowna fototermoliza frakcyjna do depigmentacji — najbezpieczniejsza opcja dla melasmy i przebarwień.",
     mechanism:
-      "Wiązka 1927 nm absorbowana jest selektywnie przez wodę w naskórku, tworząc mikrokolumny koagulacji, które przyspieszają wymianę komórkową.",
-    indications: ["przebarwienia posłoneczne", "melasma", "fotostarzenie", "drobne zmarszczki"],
+      "Wiązka 1927 nm jest silnie absorbowana przez wodę w naskórku i dociera jedynie około 0,1 mm wgłąb. Tworzy mikrokolumny koagulacji dokładnie w warstwie, w której gromadzi się nadmiar melaniny, przyspieszając wymianę komórkową i depigmentację. Zabieg nie dociera do warstw odpowiedzialnych za lifting czy przebudowę kolagenu, dlatego nie modeluje konturu twarzy ani nie działa anti-aging. Jest natomiast bezpieczny dla osób po zabiegach z toksyną botulinową — jego głębokość działania nie zakłóca efektu neuromodulatora.",
+    indications: [
+      "melasma",
+      "przebarwienia posłoneczne i plamy starcze",
+      "nierówny koloryt",
+      "piegi i plamy pigmentacyjne",
+      "skóra po zabiegach z toksyną botulinową",
+    ],
+    contraindications: [
+      "ciąża i karmienie piersią",
+      "aktywna opryszczka",
+      "świeża opalenizna lub samoopalacz",
+      "leki światłouczulające",
+      "choroby autoimmunologiczne w fazie zaostrzenia",
+    ],
     pricing: [
       { label: "Twarz", price: 1750 },
       { label: "Szyja", price: 1200 },
@@ -58,6 +72,14 @@ export const TECHNOLOGIES: Technology[] = [
       { label: "Seria 3× twarz", price: 4600, note: "ok. 15% rabatu strukturalnego" },
     ],
     faq: [
+      {
+        q: "Czy laser tulowy liftinguje twarz?",
+        a: "Nie. Laser 1927 nm penetruje około 0,1 mm i działa wyłącznie na poziomie naskórka oraz powierzchniowej warstwy skóry właściwej. Do modelowania owalu i liftingu wybieramy HIFU lub RF mikroigłową.",
+      },
+      {
+        q: "Czy laser tulowy jest bezpieczny po zabiegu z toksyną botulinową?",
+        a: "Tak. Jest często wybierany przez pacjentki po zabiegach z toksyną botulinową, ponieważ jego głębokość działania nie wpływa na efekt neuromodulatora.",
+      },
       { q: "Czy zabieg boli?", a: "Stosujemy znieczulenie miejscowe — odczucie ciepła i mrowienia jest do zaakceptowania." },
     ],
   },
