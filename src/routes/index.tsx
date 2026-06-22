@@ -91,8 +91,7 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link
-              to="/"
-              hash="rezerwacja"
+              to="/konsultacja"
               className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-ink px-6 text-sm tracking-wide text-alabaster transition hover:bg-ink/90"
             >
               Umów konsultację <ArrowRight className="size-4" />
