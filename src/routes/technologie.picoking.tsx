@@ -107,7 +107,7 @@ const MODES = [
 
 const BENEFITS = [
   { icon: ShieldCheck, title: "Bezpieczne dla fototypów III–V", body: "Brak ciepła w naskórku → minimalne ryzyko PIH i przebarwień pozapalnych." },
-  { icon: Clock, title: "Minimal downtime", body: "Powrót do aktywności tego samego dnia. Toning, peeling węglowy — zero śladów." },
+  { icon: Clock, title: "Zero śladów po 2–4 godzinach", body: "Czas impulsu 350 ps jest zbyt krótki, by spowodować oparzenie tkanki. Po zabiegu nie ma śladu już po 2–4 h — powrót do aktywności natychmiastowy." },
   { icon: Heart, title: "Niemal bezbolesny", body: "Tryb Multipulse rozkłada energię na mikroimpulsy nieprzekraczające progu bólu." },
   { icon: Sparkles, title: "Mniej sesji niż Q-Switched", body: "Pigment rozbity na mikropył jest szybciej fagocytowany przez układ limfatyczny." },
 ];
@@ -212,7 +212,7 @@ function PikosekundowyPage() {
           <SectionHeading
             eyebrow="Mechanizm fotoakustyczny"
             title="Ciśnienie zamiast ciepła — dlatego skóra się nie poparza"
-            description="Impuls 350 pikosekund jest zbyt krótki, by przekazać tkance energię cieplną. Zamiast oparzenia powstaje mikro-fala ciśnienia (efekt fotoakustyczny), która rozbija pigment i pobudza fibroblasty — bez uszkodzenia termicznego naskórka."
+            description="Impuls 350 pikosekund jest zbyt krótki, by przekazać tkance energię cieplną. Zamiast oparzenia powstaje mikro-fala ciśnienia (efekt fotoakustyczny), która rozbija pigment i pobudza fibroblasty — bez uszkodzenia termicznego naskórka. Po zabiegu nie ma śladu już po 2–4 godzinach."
           />
           <div className="mt-12 grid gap-8 md:grid-cols-2">
             <figure className="overflow-hidden rounded-lg border border-white/10 bg-white">
@@ -333,6 +333,50 @@ function PikosekundowyPage() {
               <p className="mt-3 text-sm leading-relaxed text-foreground/75">{m.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* PROTOKOŁY ZŁOŻONE */}
+      <section className="bg-secondary/40 py-16 md:py-24">
+        <div className="container-luxury">
+          <SectionHeading
+            eyebrow="Protokoły złożone"
+            title="Laser pikosekundowy tylko w protokołach łączonych"
+            description="Obecnie nie wykonuję zabiegów laserem pikosekundowym jako izolowanej terapii. Urządzenie pracuje wyłącznie w protokołach złożonych, gdzie efekty poszczególnych technologii wzmacniają się wzajemnie — skóra otrzymuje kompleksową regenerację w jednej sesji."
+          />
+          <div className="mt-12 rounded-lg border border-champagne/40 bg-card p-8 md:p-10">
+            <div className="text-xs uppercase tracking-[0.25em] text-champagne">Najpowszechniejszy protokół</div>
+            <h3 className="mt-3 font-serif text-2xl text-ink">Zimna plazma → Rewitalizacja pikosekundowa → Fototerapia LED</h3>
+            <p className="mt-4 max-w-3xl text-foreground/75">
+              Sekwencja rozpoczyna się od zimnej plazmy, która przygotowuje skórę i inicjuje proces regeneracji. Następnie laser pikosekundowy w trybie rewitalizacyjnym poprawia teksturę, stymuluje neokolagenezę i wyrównuje koloryt. Bezpośrednio po zabiegu laserowym — fototerapia LED, która łagodzi, przyspiesza gojenie i wzmacnia efekt końcowy.
+            </p>
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              <div className="rounded-lg border border-border bg-secondary/40 p-5">
+                <div className="text-xs uppercase tracking-[0.2em] text-champagne">Krok 1</div>
+                <div className="mt-2 font-serif text-lg text-ink">Zimna plazma</div>
+                <p className="mt-2 text-sm text-foreground/70">Przygotowanie skóry, sublimacja powierzchniowa, otwarcie kanałów absorpcyjnych.</p>
+              </div>
+              <div className="rounded-lg border border-border bg-secondary/40 p-5">
+                <div className="text-xs uppercase tracking-[0.2em] text-champagne">Krok 2</div>
+                <div className="mt-2 font-serif text-lg text-ink">Rewitalizacja 350 ps</div>
+                <p className="mt-2 text-sm text-foreground/70">Stymulacja kolagenu, wyrównanie tekstury, fotoakustyczne oczyszczenie pigmentu.</p>
+              </div>
+              <div className="rounded-lg border border-border bg-secondary/40 p-5">
+                <div className="text-xs uppercase tracking-[0.2em] text-champagne">Krok 3</div>
+                <div className="mt-2 font-serif text-lg text-ink">Fototerapia LED</div>
+                <p className="mt-2 text-sm text-foreground/70">Łagodzenie, redukcja zaczerwienienia, przyspieszenie regeneracji tkankowej.</p>
+              </div>
+            </div>
+            <div className="mt-8 flex items-start gap-3 rounded-lg border border-champagne/30 bg-champagne/5 p-5">
+              <Clock className="mt-0.5 size-5 shrink-0 text-champagne" />
+              <div>
+                <div className="font-serif text-ink">Planowanie rekonwalescencji jest niepotrzebne</div>
+                <p className="mt-1 text-sm text-foreground/75">
+                  Dzięki ultrakrótkiemu impulsowi 350 ps tkanka nie ulega oparzeniu termicznemu. Połączenie z plazmą i fototerapią sprawia, że skóra regeneruje się w czasie rzeczywistym podczas samego zabiegu. Możesz wrócić do aktywności zawodowej i społecznej natychmiast — bez planowania urlopu czy rezygnacji z ważnych spotkań.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
