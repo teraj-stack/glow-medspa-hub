@@ -128,7 +128,7 @@ function PeelingWeglowyPage() {
               Wszystkie technologie
             </Link>
             <div className="text-xs uppercase tracking-[0.3em] text-champagne">
-              Carbon Peel · Hollywood Peel · Nd:YAG 1064 nm
+              Carbon Peel · Hollywood Peel · laser pikosekundowy 1064 nm
             </div>
             <h1 className="gold-line max-w-3xl font-serif text-4xl text-ink md:text-5xl lg:text-6xl">
               Peeling węglowy — efekt „glow” w 45 minut
