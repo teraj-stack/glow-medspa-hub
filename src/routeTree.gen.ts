@@ -23,6 +23,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
 import { Route as TechnologieTerapiaLedRouteImport } from './routes/technologie.terapia-led'
 import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
+import { Route as TechnologiePeelingWeglowyLaserowyRouteImport } from './routes/technologie.peeling-weglowy-laserowy'
 import { Route as TechnologieLaserTulowyRouteImport } from './routes/technologie.laser-tulowy'
 import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
@@ -109,6 +110,12 @@ const TechnologiePicokingRoute = TechnologiePicokingRouteImport.update({
   path: '/technologie/picoking',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TechnologiePeelingWeglowyLaserowyRoute =
+  TechnologiePeelingWeglowyLaserowyRouteImport.update({
+    id: '/technologie/peeling-weglowy-laserowy',
+    path: '/technologie/peeling-weglowy-laserowy',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TechnologieLaserTulowyRoute = TechnologieLaserTulowyRouteImport.update({
   id: '/technologie/laser-tulowy',
   path: '/technologie/laser-tulowy',
@@ -211,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
+  '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie/': typeof TechnologieIndexRoute
@@ -242,6 +250,7 @@ export interface FileRoutesByTo {
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
+  '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie': typeof TechnologieIndexRoute
@@ -274,6 +283,7 @@ export interface FileRoutesById {
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
+  '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie/': typeof TechnologieIndexRoute
@@ -307,6 +317,7 @@ export interface FileRouteTypes {
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
+    | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
     | '/technologie/'
@@ -338,6 +349,7 @@ export interface FileRouteTypes {
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
+    | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
     | '/technologie'
@@ -369,6 +381,7 @@ export interface FileRouteTypes {
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
+    | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
     | '/technologie/'
@@ -401,6 +414,7 @@ export interface RootRouteChildren {
   TechnologieSlugRoute: typeof TechnologieSlugRoute
   TechnologieFusionPlasmaRoute: typeof TechnologieFusionPlasmaRoute
   TechnologieLaserTulowyRoute: typeof TechnologieLaserTulowyRoute
+  TechnologiePeelingWeglowyLaserowyRoute: typeof TechnologiePeelingWeglowyLaserowyRoute
   TechnologiePicokingRoute: typeof TechnologiePicokingRoute
   TechnologieTerapiaLedRoute: typeof TechnologieTerapiaLedRoute
   TechnologieIndexRoute: typeof TechnologieIndexRoute
@@ -511,6 +525,13 @@ declare module '@tanstack/react-router' {
       path: '/technologie/picoking'
       fullPath: '/technologie/picoking'
       preLoaderRoute: typeof TechnologiePicokingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/peeling-weglowy-laserowy': {
+      id: '/technologie/peeling-weglowy-laserowy'
+      path: '/technologie/peeling-weglowy-laserowy'
+      fullPath: '/technologie/peeling-weglowy-laserowy'
+      preLoaderRoute: typeof TechnologiePeelingWeglowyLaserowyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/technologie/laser-tulowy': {
@@ -642,6 +663,8 @@ const rootRouteChildren: RootRouteChildren = {
   TechnologieSlugRoute: TechnologieSlugRoute,
   TechnologieFusionPlasmaRoute: TechnologieFusionPlasmaRoute,
   TechnologieLaserTulowyRoute: TechnologieLaserTulowyRoute,
+  TechnologiePeelingWeglowyLaserowyRoute:
+    TechnologiePeelingWeglowyLaserowyRoute,
   TechnologiePicokingRoute: TechnologiePicokingRoute,
   TechnologieTerapiaLedRoute: TechnologieTerapiaLedRoute,
   TechnologieIndexRoute: TechnologieIndexRoute,
