@@ -28,6 +28,12 @@ import ba8Before from "@/assets/plasma-ba-8.png.asset.json";
 import ba8After from "@/assets/plasma-ba-8a.png.asset.json";
 import ba9Before from "@/assets/plasma-ba-9.png.asset.json";
 import ba9After from "@/assets/plasma-ba-9a.png.asset.json";
+import ba10Before from "@/assets/plasma-ba-10.png.asset.json";
+import ba10After from "@/assets/plasma-ba-10a.png.asset.json";
+import ba11Before from "@/assets/plasma-ba-11.png.asset.json";
+import ba11After from "@/assets/plasma-ba-11a.png.asset.json";
+import ba12Before from "@/assets/plasma-ba-12.png.asset.json";
+import ba12After from "@/assets/plasma-ba-12a.png.asset.json";
 
 const BEFORE_AFTER = [
   { before: ba1Before.url, after: ba1After.url, title: "Trądzik i niedoskonałości", desc: "Redukcja zmian zapalnych, wyrównanie kolorytu, zmniejszenie widoczności porów na policzku." },
