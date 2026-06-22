@@ -128,7 +128,7 @@ function PeelingWeglowyPage() {
               Wszystkie technologie
             </Link>
             <div className="text-xs uppercase tracking-[0.3em] text-champagne">
-              Carbon Peel · Hollywood Peel · Nd:YAG 1064 nm
+              Carbon Peel · Hollywood Peel · laser pikosekundowy 1064 nm
             </div>
             <h1 className="gold-line max-w-3xl font-serif text-4xl text-ink md:text-5xl lg:text-6xl">
               Peeling węglowy — efekt „glow” w 45 minut
@@ -160,7 +160,7 @@ function PeelingWeglowyPage() {
       <section className="border-b border-border/40 bg-muted/30">
         <div className="container mx-auto grid gap-6 px-4 py-12 md:grid-cols-4">
           {[
-            { Icon: Target, label: "Długość fali", value: "Nd:YAG 1064 nm" },
+            { Icon: Target, label: "Długość fali", value: "pikosekundowy 1064 nm" },
             { Icon: Clock, label: "Czas zabiegu", value: "30–45 min" },
             { Icon: Calendar, label: "Rekonwalescencja", value: "0 dni" },
             { Icon: ShieldCheck, label: "Bezpieczeństwo", value: "Fototypy I–V" },
@@ -187,25 +187,26 @@ function PeelingWeglowyPage() {
           <div className="rounded-xl border border-border/60 bg-card p-6">
             <div className="flex items-center gap-3">
               <Droplet className="h-5 w-5 text-champagne" />
-              <h3 className="font-serif text-xl text-ink">Faza 1 — long-pulse</h3>
+              <h3 className="font-serif text-xl text-ink">Faza 1 — fotoakustyczna sublimacja</h3>
             </div>
             <p className="mt-3 text-sm text-ink/80">
               Nanocząsteczki pasty węglowej wnikają w ujścia mieszków włosowych i wiążą sebum,
-              martwy naskórek oraz zanieczyszczenia. Wiązka Nd:YAG 1064 nm w trybie
-              długoimpulsowym podgrzewa węgiel — sublimuje go wraz z zawartością porów.
-              Jednocześnie ciepło redukuje aktywność gruczołów łojowych i niszczy bakterie
+              martwy naskórek oraz zanieczyszczenia. Wiązka lasera pikosekundowego 1064 nm
+              (impuls ~350 ps) uderza w węgiel falą fotoakustyczną — sublimuje go wraz
+              z zawartością porów, nie nagrzewając otaczającej skóry.
+              Jednocześnie energia redukuje aktywność gruczołów łojowych i niszczy bakterie
               C. acnes odpowiedzialne za trądzik.
             </p>
           </div>
           <div className="rounded-xl border border-border/60 bg-card p-6">
             <div className="flex items-center gap-3">
               <Sparkles className="h-5 w-5 text-champagne" />
-              <h3 className="font-serif text-xl text-ink">Faza 2 — Q-Switched</h3>
+              <h3 className="font-serif text-xl text-ink">Faza 2 — frakcyjna stymulacja kolagenu</h3>
             </div>
             <p className="mt-3 text-sm text-ink/80">
-              Drugie przejście w trybie nanosekundowym generuje falę fotoakustyczną.
-              Pozostały na skórze pył węglowy „eksploduje” mikropunktowo, rozbijając
-              powierzchowne przebarwienia i pobudzając fibroblasty do syntezy kolagenu.
+              Drugie przejście w trybie frakcyjnym (Honeycomb) rozbija powierzchowne przebarwienia
+              i tworzy mikroobszary kontrolowanej stymulacji. Pozostały na skórze pył węglowy
+              „eksploduje” pikosekundowo, a fibroblasty zostają pobudzone do syntezy kolagenu.
               Efekt: pory wyraźnie mniejsze, skóra rozświetlona, koloryt ujednolicony.
             </p>
           </div>
@@ -223,8 +224,8 @@ function PeelingWeglowyPage() {
             {[
               { n: "01", t: "Demakijaż i diagnostyka", d: "Ocena fototypu, oczyszczenie skóry, ustalenie parametrów lasera." },
               { n: "02", t: "Aplikacja pasty węglowej", d: "Cienka, równa warstwa pasty nanocząsteczkowej. Pozostawiamy do wchłonięcia w pory (~10 min)." },
-              { n: "03", t: "Sublimacja — long-pulse", d: "Sekwencyjna praca lasera Nd:YAG na całej powierzchni. Komfortowe ciepło, lekkie strzelanie." },
-              { n: "04", t: "Faza fotoakustyczna", d: "Drugie przejście w trybie Q-Switched, pielęgnacja kojąca, SPF 50+." },
+              { n: "03", t: "Sublimacja — laser pikosekundowy", d: "Sekwencyjna praca lasera pikosekundowego 1064 nm na całej powierzchni. Fotoakustyczna fala uderzeniowa sublimuje węgiel bez termicznego uszkadzania skóry." },
+              { n: "04", t: "Faza frakcyjna i pielęgnacja", d: "Drugie przejście w trybie frakcyjnym Honeycomb, aplikacja kosmetyków kojących, SPF 50+." },
             ].map((s) => (
               <li key={s.n} className="rounded-xl border border-border/60 bg-card p-6">
                 <div className="font-serif text-2xl text-champagne">{s.n}</div>
