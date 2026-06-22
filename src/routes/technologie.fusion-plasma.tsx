@@ -214,15 +214,27 @@ function FusionPlasmaPage() {
 
       {/* SOCIAL PROOF */}
       <section className="bg-ink py-16 text-alabaster md:py-20">
-        <div className="container-luxury grid gap-10 md:grid-cols-3 md:items-center">
-          <div className="md:col-span-2">
-            <Users className="size-8 text-champagne" />
-            <h2 className="mt-4 font-serif text-3xl md:text-4xl">Ponad 1 200 000 pacjentek miesięcznie</h2>
-            <p className="mt-4 text-alabaster/80">
-              Zimna plazma to obecnie najczęściej wybierany zabieg rewitalizacyjny na świecie. Stosują go najlepsze kliniki w Warszawie, Londynie, Mediolanie i Seulu. W Beauty & Mind Clinic w Siedlcach otrzymujesz dokładnie ten sam standard.
-            </p>
+        <div className="container-luxury">
+          <Users className="size-8 text-champagne" />
+          <h2 className="mt-4 font-serif text-3xl md:text-4xl">Zimna plazma podbija świat</h2>
+          <p className="mt-4 max-w-3xl text-alabaster/80">
+            To obecnie najczęściej wybierany zabieg rewitalizacyjny na świecie. Rośnie na popularności w Azji Południowo-Wschodniej, Stanach Zjednoczonych i na Bliskim Wschodzie.
+          </p>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="rounded-lg border border-champagne/30 bg-white/5 p-6">
+              <div className="font-serif text-3xl text-champagne">1 200 000+</div>
+              <p className="mt-2 text-sm text-alabaster/85">kobiet wykonuje zabieg zimną plazmą każdego miesiąca</p>
+            </div>
+            <div className="rounded-lg border border-champagne/30 bg-white/5 p-6">
+              <div className="font-serif text-3xl text-champagne">2 400 000</div>
+              <p className="mt-2 text-sm text-alabaster/85">zabiegów wykonywanych co godzinę na całym świecie</p>
+            </div>
+            <div className="rounded-lg border border-champagne/30 bg-white/5 p-6">
+              <div className="font-serif text-3xl text-champagne">Trendy światowe</div>
+              <p className="mt-2 text-sm text-alabaster/85">Azja Południowo-Wschodnia, Stany Zjednoczone, Bliski Wschód</p>
+            </div>
           </div>
-          <div className="rounded-lg border border-champagne/30 bg-white/5 p-6">
+          <div className="mt-6 rounded-lg border border-champagne/30 bg-white/5 p-6">
             <div className="text-xs uppercase tracking-[0.3em] text-champagne">Standard premium</div>
             <p className="mt-3 text-sm text-alabaster/85">
               10 lat doświadczenia w warszawskich klinikach premium. Ten sam protokół, to samo bezpieczeństwo — bez konieczności jazdy do stolicy.
