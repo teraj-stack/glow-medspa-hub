@@ -4,7 +4,7 @@ import ScrollReveal from "@/components/ScrollReveal";
 import PakietTile from "@/components/PakietTile";
 import PakietETile from "@/components/PakietETile";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
-import sylwetkaAsset from "@/assets/szkic-sylwetka.png.asset.json";
+import sylwetkaAsset from "@/assets/sylwetka-back-v3.png.asset.json";
 import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
 import okoAsset from "@/assets/oko-szkic-v2.png.asset.json";
 import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
