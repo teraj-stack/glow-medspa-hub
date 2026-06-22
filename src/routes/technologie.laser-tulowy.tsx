@@ -408,7 +408,7 @@ function LaserTulowyPage() {
               { d: "Dni 1–2", t: "Obrzęk maksymalny — szczególnie wokół oczu (do 24–48 h). Skóra staje się szorstka jak papier ścierny." },
               { d: "Dni 3–5", t: "Pojawiają się mikrobrązowe punkty (efekt MEND) — to wydalana melanina. Obrzęk znika, skóra zaczyna się delikatnie złuszczać." },
               { d: "Dni 5–7", t: "Mikropunkty samoistnie odpadają. Pod nimi — nowy, jednolity, rozjaśniony naskórek. Można wracać do makijażu." },
-              { d: "Tydzień 2–12", t: "Stopniowa neokolageneza. Skóra zyskuje gęstość, koloryt się wyrównuje, drobne zmarszczki ulegają wygładzeniu." },
+              { d: "Tydzień 2–4", t: "Stopniowe wyrównanie kolorytu i redukcja przebarwień. Pełny efekt depigmentacji rozwija się po serii zabiegów." },
             ].map((row) => (
               <li key={row.d} className="grid grid-cols-[100px,1fr] gap-4 border-l-2 border-champagne pl-4">
                 <div className="font-serif text-sm uppercase tracking-wider text-champagne">{row.d}</div>
