@@ -61,12 +61,27 @@ export const TECHNOLOGIES: Technology[] = [
   },
   {
     slug: "fusion-plasma",
-    name: "Zimna plazma fuzyjna",
-    category: "twarz",
-    shortDesc: "Niskotemperaturowa plazma do nieablacyjnej regeneracji skóry powiek.",
+    name: "Zimna plazma atmosferyczna (CAP)",
+    category: "skóra",
+    shortDesc:
+      "Najnowsza, nieablacyjna technologia rewitalizacji — czwarty stan skupienia materii pracujący w temperaturze fizjologicznej (35–40°C). Obecnie najczęściej wybierane narzędzie regeneracyjne na świecie — ponad 1 200 000 pacjentek miesięcznie.",
     mechanism:
-      "Strumień zjonizowanego gazu inicjuje natychmiastową sublimację powierzchniowych komórek przy zachowaniu integralności warstw głębszych.",
-    indications: ["opadająca powieka górna", "kurze łapki", "drobne zmarszczki wokół ust"],
+      "Zjonizowany strumień gazu szlachetnego (hel / argon) dostarcza do skóry kontrolowane stężenia Reaktywnych Form Tlenu i Azotu (RONS). Indukują one tzw. eustres oksydacyjny — fibroblasty zwiększają proliferację i biogenezę mitochondriów, uruchamiając kaskadę TGF-β / SMAD4. Po 12 tygodniach gęstość siatki kolagenowej rośnie średnio o 40%. Równolegle zachodzi plazmoporacja — czasowe rozluźnienie połączeń międzykomórkowych naskórka, które zwiększa przenikalność kosmetyków aktywnych nawet kilkudziesięciokrotnie.",
+    applicators: [
+      "Głowica omywająca — pełnopowierzchniowa rewitalizacja twarzy, szyi, dekoltu",
+      "Sonda punktowa — antyseptyka ognisk zapalnych, trądzik, opryszczka",
+      "Matryca do wprowadzania substancji aktywnych (plasma drug delivery)",
+    ],
+    indications: [
+      "skóra wrażliwa, naczyniowa, atopowa (AZS)",
+      "trądzik pospolity i potrądzikowe stany zapalne",
+      "zapalenie okołowargowe, egzema",
+      "nierówny koloryt, rozszerzone pory, szorstka tekstura",
+      "profilaktyka starzenia, rewitalizacja przed- i pozabiegowa",
+      "wspomaganie gojenia po laserach i mikronakłuwaniu",
+      "bielactwo nabyte (Vitiligo) — aktywacja szlaku Nrf2-ARE",
+    ],
+    contraindications: ["rozrusznik serca i implanty elektroniczne", "ciąża", "aktywna choroba nowotworowa skóry w polu zabiegowym"],
     pricing: [
       { label: "Okolice oczu (powieki)", price: 2150 },
       { label: "Twarz (cała — high energy)", price: 4250 },
@@ -75,7 +90,13 @@ export const TECHNOLOGIES: Technology[] = [
       { label: "Combo: twarz + oczy + szyja", price: 7500 },
       { label: "Pakiet seryjny (low energy)", price: 7250 },
     ],
-    faq: [{ q: "Czas rekonwalescencji?", a: "Drobne strupki do 5–7 dni. Powrót do aktywności zawodowej zwykle następnego dnia." }],
+    faq: [
+      { q: "Czy to ta sama „plazma” co przy nieoperacyjnej blefaroplastyce?", a: "Nie. Blefaroplastyka plazmowa wykorzystuje mikroskopijny łuk elektryczny (plazma gorąca, sublimacja w 60–65°C) i pozostawia strupki. Zimna plazma atmosferyczna (CAP) pracuje w 35–40°C, nie powoduje koagulacji ani strupów — działa wyłącznie biochemicznie, przez chemię wolnych rodników." },
+      { q: "Czy zabieg boli i wymaga rekonwalescencji?", a: "Zabieg jest bezbolesny, bezinwazyjny, bez rekonwalescencji. Skóra po zabiegu wygląda promiennie, można od razu wrócić do codziennych aktywności i nałożyć makijaż." },
+      { q: "Dlaczego stosuję zimną plazmę w każdym protokole rewitalizacyjnym?", a: "To obecnie najnowsza i najczęściej wybierana technologia regeneracyjna na świecie — ponad 1,2 miliona pacjentek miesięcznie. Zwiększa przenikalność substancji aktywnych nawet kilkudziesięciokrotnie, dlatego stanowi pierwszy krok w protokołach złożonych (zimna plazma → laser pikosekundowy → fototerapia LED)." },
+      { q: "Czy plazma działa antybakteryjnie?", a: "Tak — strumień plazmy generuje ozon i RONS, które niszczą Cutibacterium acnes przez peroksydację lipidów błony komórkowej. Bakterie nie wytwarzają oporności wtórnej, dlatego CAP jest wykorzystywany w trądziku zapalnym, AZS i wspomaganiu gojenia ran." },
+      { q: "Ile zabiegów potrzeba?", a: "Efekt rewitalizujący widać już po pierwszej sesji. Pełna przebudowa kolagenowa rozwija się przez 12 tygodni — rekomendujemy serię 4–6 zabiegów co 2–3 tygodnie." },
+    ],
   },
   {
     slug: "hifu",
