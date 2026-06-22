@@ -160,7 +160,7 @@ function PeelingWeglowyPage() {
       <section className="border-b border-border/40 bg-muted/30">
         <div className="container mx-auto grid gap-6 px-4 py-12 md:grid-cols-4">
           {[
-            { Icon: Target, label: "Długość fali", value: "Nd:YAG 1064 nm" },
+            { Icon: Target, label: "Długość fali", value: "pikosekundowy 1064 nm" },
             { Icon: Clock, label: "Czas zabiegu", value: "30–45 min" },
             { Icon: Calendar, label: "Rekonwalescencja", value: "0 dni" },
             { Icon: ShieldCheck, label: "Bezpieczeństwo", value: "Fototypy I–V" },
