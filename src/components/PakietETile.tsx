@@ -45,7 +45,7 @@ export default function PakietETile({
     >
       {/* Sekcja 1 — Nagłówek */}
       <header className="flex items-start gap-4 sm:gap-5 md:gap-6 mb-6">
-        <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-sm bg-champagne/10 border border-champagne/30 flex items-center justify-center text-champagne overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105 group-hover:border-champagne/60">
+        <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-sm bg-champagne/10 border border-champagne/30 flex items-center justify-center text-champagne overflow-hidden transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg group-hover:border-champagne/60">
           {imageSrc ? (
             <img
               src={imageSrc}
@@ -54,7 +54,7 @@ export default function PakietETile({
               height={96}
               loading="lazy"
               decoding="async"
-              className="object-contain p-2 mix-blend-multiply contrast-125 dark:mix-blend-screen dark:contrast-150 dark:[filter:invert(1)_sepia(0.55)_saturate(4)_hue-rotate(-8deg)_brightness(1.05)]"
+              className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite] mix-blend-multiply contrast-125 dark:mix-blend-screen dark:contrast-150 dark:[filter:invert(1)_sepia(0.55)_saturate(4)_hue-rotate(-8deg)_brightness(1.05)]"
             />
           ) : (
             <Icon size={40} strokeWidth={1.5} />

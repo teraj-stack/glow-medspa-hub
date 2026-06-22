@@ -190,9 +190,9 @@ function TechnologiesPage() {
             id={group.slug}
             className="container-luxury py-12 md:py-16"
           >
-            <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
+            <div className="group mb-8 flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
               <div
-                className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border"
+                className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
                 style={{
                   background: "color-mix(in oklab, var(--champagne) 10%, transparent)",
                   borderColor: "color-mix(in oklab, var(--champagne) 30%, transparent)",
@@ -203,7 +203,7 @@ function TechnologiesPage() {
                   src={group.icon}
                   alt=""
                   loading="lazy"
-                  className="h-full w-full object-contain p-2"
+                  className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
                 />
               </div>
               <div className="flex-1">
