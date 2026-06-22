@@ -435,7 +435,7 @@ function LaserTulowyPage() {
                   "ciąża i laktacja",
                   "aktywna opryszczka w polu zabiegowym",
                   "świeża opalenizna lub solarium (4 tyg.)",
-                  "izotretynoina (Roakkutan) — minimum 6 miesięcy po zakończeniu",
+                  "izotretynoina (leki przeciwtrądzikowe) — minimum 6 miesięcy po zakończeniu",
                   "aktywna choroba nowotworowa skóry",
                   "padaczka światłoczuła",
                 ].map((t) => (
@@ -454,7 +454,6 @@ function LaserTulowyPage() {
                   "leki światłouczulające (niektóre antybiotyki, retinoidy)",
                   "choroby autoimmunologiczne skóry",
                   "świeże wypełniacze HA (2 tyg. odstępu)",
-                  "toksyna botulinowa (2 tyg. odstępu)",
                 ].map((t) => (
                   <li key={t} className="flex items-start gap-2">
                     <span className="mt-2 h-1 w-1 rounded-full bg-champagne" />
