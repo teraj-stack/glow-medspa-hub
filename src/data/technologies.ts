@@ -11,6 +11,7 @@ export type Technology = {
   category: "twarz" | "ciało" | "intymność" | "skóra" | "modelowanie";
   shortDesc: string;
   mechanism: string;       // jak działa
+  mechanismImage?: { src: string; alt: string; caption?: string };
   applicators?: string[];  // głowice / tryby
   indications: string[];
   contraindications?: string[];
