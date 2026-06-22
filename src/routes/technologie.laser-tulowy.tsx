@@ -186,13 +186,14 @@ function LaserTulowyPage() {
               Wszystkie technologie
             </Link>
             <div className="text-xs uppercase tracking-[0.3em] text-champagne">
-              Laser frakcyjny tulowy · 1927 nm / 1550 nm
+              Laser frakcyjny tulowo-erbowy · 1927 nm / 1550 nm
             </div>
             <h1 className="gold-line max-w-3xl font-serif text-4xl text-ink md:text-5xl lg:text-6xl">
               Laser, który zamyka temat melasmy i przebarwień
             </h1>
             <p className="max-w-xl text-lg text-muted-foreground">
-              Nieablacyjna fototermoliza frakcyjna o długości fali 1927 nm — najbezpieczniejsza
+              Nieablacyjna fototermoliza frakcyjna lasera tulowo-erbowego — połączenie wiązki
+              tulowej 1927 nm i wiązki erbowej (szkło erbowe) 1550 nm. Najbezpieczniejsza
               i najbardziej selektywna technologia w terapii hiperpigmentacji, fotostarzenia
               i rewitalizacji skóry. Standard premium klinik warszawskich — w Siedlcach.
             </p>
