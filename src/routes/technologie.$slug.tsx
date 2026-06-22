@@ -50,7 +50,7 @@ export const Route = createFileRoute("/technologie/$slug")({
         ? [
             { title: loaderData.tech.name },
             { name: "description", content: loaderData.tech.shortDesc },
-            { property: "og:title", content: loaderData.tech.name },
+            { property: "og:title", content: `${loaderData.tech.name} — Beauty & Mind Clinic` },
             { property: "og:description", content: loaderData.tech.shortDesc },
             { property: "og:url", content: `https://bmclinics.ai/technologie/${params.slug}` },
           ]
