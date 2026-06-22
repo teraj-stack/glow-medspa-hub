@@ -16,8 +16,6 @@ import ba2Before from "@/assets/plasma-ba-2.png.asset.json";
 import ba2After from "@/assets/plasma-ba-2a.png.asset.json";
 import ba3Before from "@/assets/plasma-ba-3.png.asset.json";
 import ba3After from "@/assets/plasma-ba-3a.png.asset.json";
-import ba4Before from "@/assets/plasma-ba-4.png.asset.json";
-import ba4After from "@/assets/plasma-ba-4a.png.asset.json";
 import ba5Before from "@/assets/plasma-ba-5.png.asset.json";
 import ba5After from "@/assets/plasma-ba-5a.png.asset.json";
 import ba6Before from "@/assets/plasma-ba-6.png.asset.json";
