@@ -352,7 +352,7 @@ function TerapiaLedPage() {
         <SectionHeading
           eyebrow="Spektrum barw"
           title="Każda długość fali robi coś innego"
-          description="W gabinecie nigdy nie używamy „jednego światła". Protokół zawsze łączy 2–3 długości fali dobrane do problemu i fototypu pacjentki."
+          description={'W gabinecie nigdy nie używamy „jednego światła”. Protokół zawsze łączy 2–3 długości fali dobrane do problemu i fototypu pacjentki.'}
         />
         <div className="mt-10 grid gap-4 lg:grid-cols-2">
           {WAVELENGTHS.map((w) => (
