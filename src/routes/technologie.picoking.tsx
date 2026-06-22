@@ -93,7 +93,7 @@ export const Route = createFileRoute("/technologie/picoking")({
 const WAVELENGTHS: Array<{ nm: string; targets: string; color: string }> = [
   { nm: "1064 nm", targets: "tatuaż czarny i granat, znamiona głębokie, toning", color: "from-zinc-700 to-zinc-900" },
   { nm: "755 nm", targets: "tatuaż zielony i błękit, melasma, blizny (Honeycomb)", color: "from-rose-900 to-amber-900" },
-  { nm: "532 nm", targets: "tatuaż czerwony, żółty, plamy soczewicowate, piegi", color: "from-emerald-700 to-emerald-900" },
+  { nm: "532 nm", targets: "tatuaż czerwony, żółty, rumień — najskuteczniejsza długość fali do usuwania rumienia, plamy soczewicowate, piegi", color: "from-emerald-700 to-emerald-900" },
   { nm: "650 nm", targets: "tatuaż zielony, ciemnoniebieski, niebieski (Green tattoo)", color: "from-red-700 to-rose-900" },
   { nm: "585 nm", targets: "naczyniaki, rumień, teleangiektazje (Hemangioma treatment)", color: "from-amber-500 to-orange-700" },
 ];
