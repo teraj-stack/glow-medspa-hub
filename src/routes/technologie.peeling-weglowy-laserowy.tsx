@@ -201,12 +201,12 @@ function PeelingWeglowyPage() {
           <div className="rounded-xl border border-border/60 bg-card p-6">
             <div className="flex items-center gap-3">
               <Sparkles className="h-5 w-5 text-champagne" />
-              <h3 className="font-serif text-xl text-ink">Faza 2 — Q-Switched</h3>
+              <h3 className="font-serif text-xl text-ink">Faza 2 — frakcyjna stymulacja kolagenu</h3>
             </div>
             <p className="mt-3 text-sm text-ink/80">
-              Drugie przejście w trybie nanosekundowym generuje falę fotoakustyczną.
-              Pozostały na skórze pył węglowy „eksploduje” mikropunktowo, rozbijając
-              powierzchowne przebarwienia i pobudzając fibroblasty do syntezy kolagenu.
+              Drugie przejście w trybie frakcyjnym (Honeycomb) rozbija powierzchowne przebarwienia
+              i tworzy mikroobszary kontrolowanej stymulacji. Pozostały na skórze pył węglowy
+              „eksploduje” pikosekundowo, a fibroblasty zostają pobudzone do syntezy kolagenu.
               Efekt: pory wyraźnie mniejsze, skóra rozświetlona, koloryt ujednolicony.
             </p>
           </div>
