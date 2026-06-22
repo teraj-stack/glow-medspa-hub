@@ -12,7 +12,8 @@ export function BookingForm({ defaultTechnology }: { defaultTechnology?: string 
     e.preventDefault();
     setStatus("sending");
     setError(null);
-    const f = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const f = new FormData(form);
     try {
       await send({
         data: {
@@ -29,7 +30,7 @@ export function BookingForm({ defaultTechnology }: { defaultTechnology?: string 
         },
       });
       setStatus("ok");
-      e.currentTarget.reset();
+      form.reset();
     } catch (err) {
       setStatus("error");
       setError(err instanceof Error ? err.message : "Nie udało się wysłać formularza.");
