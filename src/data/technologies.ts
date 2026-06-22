@@ -125,12 +125,9 @@ export const TECHNOLOGIES: Technology[] = [
     mechanism:
       "Ultrakrótkie impulsy (350 ps) rozbijają pigment falą uderzeniową ciśnienia, a nie ciepłem. Otaczające tkanki pozostają chłodne — bezpieczne dla fototypów III–V, niemal bez ryzyka przebarwień pozapalnych (PIH).",
     applicators: [
-      "Standard Pulse — toning i tatuaże",
-      "Dual Pulse (PTP) — oporna melasma",
-      "Multipulse (MPTP) — komfort i okolice wrażliwe",
-      "Long Pulse — fotoodmładzanie i neokolagenezę",
-      "Honeycomb 755 nm — frakcja i blizny",
-      "Carbon Peeling — Hollywood Peel",
+      "1064 nm — jednorodna plamka + rękojeść frakcyjna (tekstura, rewitalizacja)",
+      "755 nm — jednorodna plamka + rękojeść frakcyjna Honeycomb (blizny, melasma)",
+      "532 nm — jednorodna plamka + rękojeść frakcyjna (przebarwienia, fotoodmładzanie)",
       "Rękojeść 650 nm — Green tattoo (zielone tatuaże)",
       "Rękojeść 585 nm — Hemangioma treatment (naczyniaki)",
     ],
