@@ -55,7 +55,7 @@ export default function PakietTile({
             src={icon}
             alt=""
             loading="lazy"
-            className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110"
+            className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
           />
         </div>
         <span className="text-xs uppercase tracking-[0.3em] text-champagne">
