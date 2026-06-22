@@ -427,7 +427,7 @@ function TerapiaLedPage() {
           {[
             { t: "Trądzik aktywny", d: "Fala 445 nm fotodynamicznie niszczy P. acnes i Malassezia. Bez antybiotyków, bez oporności." },
             { t: "Rumień i rosacea", d: "595 nm obkurcza naczynia i wycisza mediatory zapalne — kluczowa fala dla skóry naczyniowej." },
-            { t: "Melasma i PIH", d: "Odłącza szlak sygnałowy „keratynocyt → melanocyt". Skóra przestaje produkować nadmiar barwnika." },
+            { t: "Melasma i PIH", d: "Odłącza szlak sygnałowy „keratynocyt → melanocyt”. Skóra przestaje produkować nadmiar barwnika." },
             { t: "Anti-aging", d: "660 + 870 nm produkują kolagen I, sieciują elastynę. Wypełnienie tkanek widoczne po kilkunastu dniach." },
             { t: "Blizny potrądzikowe", d: "Stymuluje fibroblasty STEM — przebudowa atrofii bez termicznego urazu." },
             { t: "Finisz po laserze i iniekcjach", d: "Skraca rumień i obrzęk, przyspiesza reepitelizację o 50–60%. Standard po pikosekundzie, tulu i CO₂." },
