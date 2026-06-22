@@ -23,7 +23,7 @@
   /* Brand */
   --ink: oklch(0.16 0.005 60);                  /* #0a0a0a-ish */
   --alabaster: oklch(0.985 0.004 80);
-  --champagne: oklch(0.78 0.045 70);            /* #bda38f */
+  --champagne: oklch(0.58 0.075 65);            /* darker bronze for AA contrast */
   --champagne-light: oklch(0.86 0.05 78);       /* #d4b896 */
   --gold: oklch(0.82 0.09 80);
 
