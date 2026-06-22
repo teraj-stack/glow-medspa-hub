@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import heroAsset from "@/assets/tulowy-hero.jpg.asset.json";
 import mechanizmAsset from "@/assets/tulowy-mechanizm.png.asset.json";
-import rezultatAsset from "@/assets/tulowy-rezultat.jpg.asset.json";
 
 const TECH_SLUG = "laser-tulowy";
 const PAGE_URL = "https://bmclinics.ai/technologie/laser-tulowy";
