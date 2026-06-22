@@ -24,6 +24,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -107,6 +108,12 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   path: '/email/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogPowiklaniaMezoterapiaIglowaRoute =
+  BlogPowiklaniaMezoterapiaIglowaRouteImport.update({
+    id: '/blog/powiklania-mezoterapia-iglowa',
+    path: '/blog/powiklania-mezoterapia-iglowa',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
@@ -160,6 +167,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
+  '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
@@ -184,6 +192,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
+  '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
@@ -209,6 +218,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
+  '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
@@ -235,6 +245,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/technologie'
     | '/unsubscribe'
+    | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
@@ -259,6 +270,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/technologie'
     | '/unsubscribe'
+    | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
@@ -283,6 +295,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/technologie'
     | '/unsubscribe'
+    | '/blog/powiklania-mezoterapia-iglowa'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
@@ -308,6 +321,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TechnologieRoute: typeof TechnologieRouteWithChildren
   UnsubscribeRoute: typeof UnsubscribeRoute
+  BlogPowiklaniaMezoterapiaIglowaRoute: typeof BlogPowiklaniaMezoterapiaIglowaRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   FormularzTokenRoute: typeof FormularzTokenRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -426,6 +440,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/powiklania-mezoterapia-iglowa': {
+      id: '/blog/powiklania-mezoterapia-iglowa'
+      path: '/blog/powiklania-mezoterapia-iglowa'
+      fullPath: '/blog/powiklania-mezoterapia-iglowa'
+      preLoaderRoute: typeof BlogPowiklaniaMezoterapiaIglowaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
       path: '/lovable/email/suppression'
@@ -503,6 +524,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TechnologieRoute: TechnologieRouteWithChildren,
   UnsubscribeRoute: UnsubscribeRoute,
+  BlogPowiklaniaMezoterapiaIglowaRoute: BlogPowiklaniaMezoterapiaIglowaRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   FormularzTokenRoute: FormularzTokenRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
