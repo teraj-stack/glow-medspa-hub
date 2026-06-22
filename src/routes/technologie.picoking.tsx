@@ -7,6 +7,8 @@ import { ArrowLeft, Check, MapPin, Sparkles, ShieldCheck, Clock, Heart } from "l
 import heroImg from "@/assets/picoking-hero.jpg";
 import comparisonImg from "@/assets/picoking-comparison.jpg";
 import skinImg from "@/assets/picoking-skin-cross-section.jpg";
+import pico532Img from "@/assets/pico-532-fractional.jpeg.asset.json";
+import pico1064Img from "@/assets/pico-1064-fractional.jpeg.asset.json";
 import applicatorsImg from "@/assets/picoking-applicators.jpg";
 
 const TECH_SLUG = "picoking";
@@ -190,6 +192,59 @@ function PicoKingPage() {
               <div className="p-3">Stara technologia<br /><span className="text-foreground/60 normal-case tracking-normal">nanosekunda · ciepło</span></div>
               <div className="p-3 text-champagne">PicoKing<br /><span className="text-foreground/60 normal-case tracking-normal">350 ps · ciśnienie</span></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FOTOAKUSTYKA — BEZ OPARZEŃ */}
+      <section className="bg-ink py-16 md:py-24 text-background">
+        <div className="container-luxury">
+          <SectionHeading
+            eyebrow="Mechanizm fotoakustyczny"
+            title="Ciśnienie zamiast ciepła — dlatego skóra się nie poparza"
+            description="Impuls 350 pikosekund jest zbyt krótki, by przekazać tkance energię cieplną. Zamiast oparzenia powstaje mikro-fala ciśnienia (efekt fotoakustyczny), która rozbija pigment i pobudza fibroblasty — bez uszkodzenia termicznego naskórka."
+          />
+          <div className="mt-12 grid gap-8 md:grid-cols-2">
+            <figure className="overflow-hidden rounded-lg border border-white/10 bg-white">
+              <img
+                src={pico1064Img.url}
+                alt="Model anatomiczny — frakcyjny picolaser 1064 nm: punktowe mikro-rozpady fotoakustyczne (LIOB) w skórze właściwej, bez strefy termicznego oparzenia"
+                width={1920}
+                height={1440}
+                loading="lazy"
+                className="h-full w-full object-contain"
+              />
+              <figcaption className="border-t border-border bg-card p-4 text-sm text-foreground">
+                <div className="text-xs uppercase tracking-[0.2em] text-champagne">Tryb frakcyjny 1064 nm</div>
+                <p className="mt-2 leading-relaxed">Mikro-wiązki tworzą punktowe ogniska LIOB w skórze właściwej. Fala uderzeniowa rozprzestrzenia się mechanicznie — nie cieplnie. Naskórek pozostaje nienaruszony.</p>
+              </figcaption>
+            </figure>
+            <figure className="overflow-hidden rounded-lg border border-white/10 bg-white">
+              <img
+                src={pico532Img.url}
+                alt="Model anatomiczny — frakcyjny picolaser 532 nm: pole mikro-kawitacji fotoakustycznej, fragmentacja pigmentu i mikro-przerwy w naczyniach bez termicznego oparzenia tkanki"
+                width={1920}
+                height={1440}
+                loading="lazy"
+                className="h-full w-full object-contain"
+              />
+              <figcaption className="border-t border-border bg-card p-4 text-sm text-foreground">
+                <div className="text-xs uppercase tracking-[0.2em] text-champagne">Tryb frakcyjny 532 nm · siatka 10×10</div>
+                <p className="mt-2 leading-relaxed">Pole mikro-kawitacji fotoakustycznej rozbija ziarna melaniny i pobudza remodeling kolagenu. Brak rozległej strefy koagulacji — gojenie liczone w godzinach, nie tygodniach.</p>
+              </figcaption>
+            </figure>
+          </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {[
+              { k: "350 ps", v: "Impuls krótszy niż czas relaksacji termicznej melanosomu (~1 ns)" },
+              { k: "0 °C Δ", v: "Brak akumulacji ciepła w naskórku — bez ryzyka oparzenia i przebarwień pozapalnych" },
+              { k: "Ciśnienie", v: "Energia zamieniana w falę mechaniczną, która kruszy pigment fizycznie" },
+            ].map((s) => (
+              <div key={s.k} className="rounded-lg border border-white/10 bg-white/5 p-5">
+                <div className="font-serif text-2xl text-champagne">{s.k}</div>
+                <p className="mt-2 text-sm leading-relaxed text-background/80">{s.v}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
