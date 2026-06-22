@@ -57,7 +57,7 @@ const GROUPS: NeedGroup[] = [
     title: "Tekstura « HD »",
     icon: teksturaAsset.url,
     lead:
-      "Praca nad porami, bliznami i drobnymi liniami — łączymy frakcyjną fototermolizę z efektem fotoakustycznym i regeneracją w niskiej temperaturze fizjologicznej.",
+      "Praca nad porami, bliznami i drobnymi zmarszczkami — łączymy frakcyjną fototermolizę z efektem fotoakustycznym i regeneracją w niskiej temperaturze fizjologicznej.",
     techSlugs: ["picoking", "laser-tulowy", "virtue-rf", "fusion-plasma", "peeling-weglowy-laserowy", "ipl-bm14"],
   },
   {
