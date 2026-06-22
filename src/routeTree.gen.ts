@@ -21,6 +21,7 @@ import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
+import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja.dziekujemy'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -90,6 +91,11 @@ const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => TechnologieRoute,
 } as any)
+const KonsultacjaDziekujemyRoute = KonsultacjaDziekujemyRouteImport.update({
+  id: '/dziekujemy',
+  path: '/dziekujemy',
+  getParentRoute: () => KonsultacjaRoute,
+} as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
@@ -139,7 +145,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
-  '/konsultacja': typeof KonsultacjaRoute
+  '/konsultacja': typeof KonsultacjaRouteWithChildren
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -148,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/konsultacja/dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -161,7 +168,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
-  '/konsultacja': typeof KonsultacjaRoute
+  '/konsultacja': typeof KonsultacjaRouteWithChildren
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -170,6 +177,7 @@ export interface FileRoutesByTo {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/konsultacja/dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -184,7 +192,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
-  '/konsultacja': typeof KonsultacjaRoute
+  '/konsultacja': typeof KonsultacjaRouteWithChildren
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -193,6 +201,7 @@ export interface FileRoutesById {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/konsultacja/dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -217,6 +226,7 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/konsultacja/dziekujemy'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -239,6 +249,7 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/konsultacja/dziekujemy'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -261,6 +272,7 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/konsultacja/dziekujemy'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -275,7 +287,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   CennikRoute: typeof CennikRoute
-  KonsultacjaRoute: typeof KonsultacjaRoute
+  KonsultacjaRoute: typeof KonsultacjaRouteWithChildren
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
@@ -379,6 +391,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TechnologieSlugRouteImport
       parentRoute: typeof TechnologieRoute
     }
+    '/konsultacja/dziekujemy': {
+      id: '/konsultacja/dziekujemy'
+      path: '/dziekujemy'
+      fullPath: '/konsultacja/dziekujemy'
+      preLoaderRoute: typeof KonsultacjaDziekujemyRouteImport
+      parentRoute: typeof KonsultacjaRoute
+    }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
       path: '/email/unsubscribe'
@@ -438,6 +457,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface KonsultacjaRouteChildren {
+  KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
+}
+
+const KonsultacjaRouteChildren: KonsultacjaRouteChildren = {
+  KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,
+}
+
+const KonsultacjaRouteWithChildren = KonsultacjaRoute._addFileChildren(
+  KonsultacjaRouteChildren,
+)
+
 interface TechnologieRouteChildren {
   TechnologieSlugRoute: typeof TechnologieSlugRoute
 }
@@ -454,7 +485,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   CennikRoute: CennikRoute,
-  KonsultacjaRoute: KonsultacjaRoute,
+  KonsultacjaRoute: KonsultacjaRouteWithChildren,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
