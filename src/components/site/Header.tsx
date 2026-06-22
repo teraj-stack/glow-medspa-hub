@@ -70,8 +70,7 @@ export function Header() {
               </Link>
             ))}
             <Link
-              to="/"
-              hash="rezerwacja"
+              to="/konsultacja"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex h-11 items-center justify-center rounded-md bg-ink px-5 text-sm tracking-wide text-alabaster"
             >
