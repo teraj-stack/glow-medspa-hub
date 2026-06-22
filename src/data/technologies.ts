@@ -48,8 +48,12 @@ export const TECHNOLOGIES: Technology[] = [
       "Wiązka 1927 nm absorbowana jest selektywnie przez wodę w naskórku, tworząc mikrokolumny koagulacji, które przyspieszają wymianę komórkową.",
     indications: ["przebarwienia posłoneczne", "melasma", "fotostarzenie", "drobne zmarszczki"],
     pricing: [
-      { label: "Twarz", price: 1400 },
-      { label: "Twarz + szyja", price: 1900 },
+      { label: "Twarz", price: 1750 },
+      { label: "Szyja", price: 1200 },
+      { label: "Dekolt", price: 1400 },
+      { label: "Dłonie", price: 1000 },
+      { label: "Combo: twarz + szyja + dekolt", price: 4000 },
+      { label: "Seria 3× twarz", price: 4600, note: "ok. 15% rabatu strukturalnego" },
     ],
     faq: [
       { q: "Czy zabieg boli?", a: "Stosujemy znieczulenie miejscowe — odczucie ciepła i mrowienia jest do zaakceptowania." },
