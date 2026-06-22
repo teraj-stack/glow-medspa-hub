@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { SectionHeading } from "@/components/site/SectionHeading";
-import { sendTransactionalEmail } from "@/lib/email/send";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -41,7 +40,7 @@ function AuthPage() {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
       } else {
-        const { data: signUpData, error } = await supabase.auth.signUp({
+        const { error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -50,15 +49,9 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        const userId = signUpData.user?.id;
-        if (userId) {
-          sendTransactionalEmail({
-            templateName: "welcome",
-            recipientEmail: email,
-            idempotencyKey: `welcome-${userId}`,
-            templateData: { name: fullName, loginUrl: `${window.location.origin}/auth` },
-          }).catch((err) => console.error("Welcome email failed", err));
-        }
+        // Welcome/confirmation email is sent by the Supabase auth signup template.
+        // We don't trigger an additional transactional email from the client to
+        // avoid exposing a user-driven send endpoint.
       }
       navigate({ to: "/" });
     } catch (err) {
