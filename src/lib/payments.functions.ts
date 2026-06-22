@@ -29,7 +29,7 @@ export const createConsultationCheckout = createServerFn({ method: "POST" })
     try {
       const env: StripeEnv = data.environment;
       const stripe = createStripeClient(env);
-      const priceLookupKey = PRICE_MAP[data.consultationType];
+      const priceLookupKey = PRICE_LOOKUP_KEY;
 
       const prices = await stripe.prices.list({ lookup_keys: [priceLookupKey] });
       if (!prices.data.length) {
