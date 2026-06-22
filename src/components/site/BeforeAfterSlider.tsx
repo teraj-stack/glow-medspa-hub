@@ -99,7 +99,7 @@ export function BeforeAfterSlider({
           max={100}
           value={pos}
           onChange={(e) => setPos(Number(e.target.value))}
-          className="absolute inset-0 h-full w-full cursor-ew-resize opacity-0"
+          className="sr-only"
         />
       </div>
       {(caption || label) && (
