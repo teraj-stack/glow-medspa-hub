@@ -187,13 +187,14 @@ function PeelingWeglowyPage() {
           <div className="rounded-xl border border-border/60 bg-card p-6">
             <div className="flex items-center gap-3">
               <Droplet className="h-5 w-5 text-champagne" />
-              <h3 className="font-serif text-xl text-ink">Faza 1 — long-pulse</h3>
+              <h3 className="font-serif text-xl text-ink">Faza 1 — fotoakustyczna sublimacja</h3>
             </div>
             <p className="mt-3 text-sm text-ink/80">
               Nanocząsteczki pasty węglowej wnikają w ujścia mieszków włosowych i wiążą sebum,
-              martwy naskórek oraz zanieczyszczenia. Wiązka Nd:YAG 1064 nm w trybie
-              długoimpulsowym podgrzewa węgiel — sublimuje go wraz z zawartością porów.
-              Jednocześnie ciepło redukuje aktywność gruczołów łojowych i niszczy bakterie
+              martwy naskórek oraz zanieczyszczenia. Wiązka lasera pikosekundowego 1064 nm
+              (impuls ~350 ps) uderza w węgiel falą fotoakustyczną — sublimuje go wraz
+              z zawartością porów, nie nagrzewając otaczającej skóry.
+              Jednocześnie energia redukuje aktywność gruczołów łojowych i niszczy bakterie
               C. acnes odpowiedzialne za trądzik.
             </p>
           </div>
