@@ -8,10 +8,7 @@ import {
 } from "@/lib/stripe.server";
 import type { Database } from "@/integrations/supabase/types";
 
-const PRICE_MAP: Record<"online" | "clinic", string> = {
-  online: "konsultacja_online_jednorazowa",
-  clinic: "konsultacja_w_klinice_jednorazowa",
-};
+const PRICE_LOOKUP_KEY = "konsultacja_jednorazowa";
 
 const Input = z.object({
   consultationType: z.enum(["online", "clinic"]),
@@ -32,7 +29,7 @@ export const createConsultationCheckout = createServerFn({ method: "POST" })
     try {
       const env: StripeEnv = data.environment;
       const stripe = createStripeClient(env);
-      const priceLookupKey = PRICE_MAP[data.consultationType];
+      const priceLookupKey = PRICE_LOOKUP_KEY;
 
       const prices = await stripe.prices.list({ lookup_keys: [priceLookupKey] });
       if (!prices.data.length) {
