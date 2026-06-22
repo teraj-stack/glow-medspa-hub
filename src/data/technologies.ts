@@ -206,16 +206,32 @@ export const TECHNOLOGIES: Technology[] = [
     faq: [],
   },
   {
-    slug: "fototerapia",
-    name: "Fototerapia LED",
+    slug: "terapia-led",
+    name: "Terapia LED (fotobiomodulacja PBM)",
     category: "skóra",
-    shortDesc: "Niskoenergetyczne światło LED w terapii skóry naczyniowej, trądziku i regeneracji.",
-    mechanism: "Specyficzne długości fal (415/630/830 nm) modulują aktywność komórek skóry.",
-    indications: ["trądzik aktywny", "skóra naczyniowa", "wsparcie po zabiegach"],
-    pricing: [{ label: "Sesja 20 min", price: 150 }],
+    shortDesc:
+      "Wielodiodowa matryca LED wysokiej mocy emitująca światło widzialne i bliską podczerwień (445–870 nm). Nieinwazyjna fotobiomodulacja: gojenie, kolagen, melasma, trądzik.",
+    mechanism:
+      "Niejonizujące fotony wzbudzają oksydazę cytochromu c i strukturyzują wodę okołobłonową, uruchamiając pozamitochondrialną syntezę ATP. Efekt: aktywacja fibroblastów, neokolageneza, modulacja stanu zapalnego i fotodynamiczna eliminacja patogenów.",
+    indications: [
+      "wsparcie po zabiegach laserowych i iniekcjach",
+      "trądzik aktywny i Malassezia",
+      "skóra naczyniowa, rumień, rosacea",
+      "melasma i hiperpigmentacja pozapalna (PIH)",
+      "anti-aging — drobne zmarszczki, utrata gęstości",
+      "blizny potrądzikowe i pooperacyjne",
+      "łysienie androgenowe (stymulacja mieszków)",
+    ],
+    pricing: [
+      { label: "Sesja LED — twarz (20 min)", price: 150 },
+      { label: "Sesja LED — twarz + szyja + dekolt", price: 220 },
+      { label: "Pakiet 6 sesji — twarz", price: 750, note: "ok. 15% taniej" },
+      { label: "LED jako finisz po zabiegu laserowym / iniekcjach", price: 100, note: "dokupiona do innego zabiegu" },
+    ],
     faq: [],
   },
 ];
+
 
 export function getTechnology(slug: string) {
   return TECHNOLOGIES.find((t) => t.slug === slug);
