@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { TechCard } from "@/components/site/TechCard";
 import { TECHNOLOGIES, type Technology } from "@/data/technologies";
 
-export const Route = createFileRoute("/technologie")({
+export const Route = createFileRoute("/technologie/")({
   head: () => ({
     meta: [
       { title: "Technologie | Beauty & Mind Clinic Siedlce" },
