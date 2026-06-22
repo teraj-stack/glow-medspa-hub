@@ -45,6 +45,9 @@ const BEFORE_AFTER = [
   { before: ba7Before.url, after: ba7After.url, title: "Dekolt — fotostarzenie", desc: "Redukcja przebarwień posłonecznych, wygładzenie skóry dekoltu i poprawa jej kolorytu." },
   { before: ba8Before.url, after: ba8After.url, title: "Trądzik różowaty i naczynka", desc: "Zmniejszenie zaczerwienienia, wyciszenie skóry naczyniowej, ujednolicenie tonu." },
   { before: ba9Before.url, after: ba9After.url, title: "Okolica ust i broda", desc: "Wygładzenie skóry wokół ust, redukcja drobnych niedoskonałości i poprawa napięcia." },
+  { before: ba10Before.url, after: ba10After.url, title: "Blizny potrądzikowe", desc: "Spłycenie blizn atroficznych, wyrównanie tekstury i zmniejszenie zaczerwienienia policzka." },
+  { before: ba11Before.url, after: ba11After.url, title: "Trądzik zapalny — policzek", desc: "Wyciszenie zmian zapalnych, ujednolicenie kolorytu i wyraźna poprawa kondycji skóry." },
+  { before: ba12Before.url, after: ba12After.url, title: "Skóra dłoni — odmłodzenie", desc: "Wygładzenie naskórka, poprawa napięcia i nawilżenia skóry grzbietu dłoni." },
 ];
 
 const TECH_SLUG = "fusion-plasma";
