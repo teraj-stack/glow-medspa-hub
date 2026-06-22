@@ -41,14 +41,14 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
   },
   head: () => {
     const title =
-      "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927 nm + 1550 nm — melasma, przebarwienia, rewitalizacja | Beauty & Mind Clinic Siedlce";
+      "Laser tulowy 1927 nm — melasma, przebarwienia, depigmentacja | Beauty & Mind Clinic Siedlce";
     const description =
-      "Laser tulowo-erbowy, czyli hybryda lasera tulowego 1927 nm i lasera erbowego (szkło erbowe, Erbium Glass) 1550 nm — złoty standard w leczeniu melasmy, przebarwień posłonecznych i fotostarzenia. Standard premium klinik warszawskich w Siedlcach.";
+      "Laser tulowy 1927 nm — najbezpieczniejsza technologia w leczeniu melasmy i przebarwień posłonecznych. Precyzyjna depigmentacja bez wpływu na głębsze warstwy skóry. Standard premium klinik warszawskich w Siedlcach.";
 
     const serviceSchema = {
       "@context": "https://schema.org",
       "@type": "MedicalTherapy",
-      name: "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927 nm + 1550 nm — rewitalizacja i depigmentacja",
+      name: "Laser tulowy 1927 nm — depigmentacja i melasma",
       description,
       url: PAGE_URL,
       provider: {
@@ -64,10 +64,9 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       indication: [
         "melasma",
         "przebarwienia posłoneczne",
-        "fotostarzenie",
-        "drobne zmarszczki",
-        "nierówna tekstura skóry",
-        "rozszerzone pory",
+        "plamy starcze",
+        "nierówny koloryt skóry",
+        "piegi i plamy pigmentacyjne",
       ],
     };
 
@@ -77,10 +76,10 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       mainEntity: [
         {
           "@type": "Question",
-          name: "Czym różni się laser tulowo-erbowy 1927 nm od lasera frakcyjnego CO₂?",
+          name: "Czym różni się laser tulowy 1927 nm od lasera frakcyjnego CO₂?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Laser tulowo-erbowy (hybryda Thulium/Erbium Glass) jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa do 0,3 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej, daje silniejszą przebudowę kolagenu, ale wiąże się z tygodniową rekonwalescencją i większym ryzykiem powikłań pigmentacyjnych.",
+            text: "Laser tulowy 1927 nm jest nieablacyjny — nie narusza warstwy rogowej naskórka. Działa bardzo powierzchownie, około 0,1 mm wgłąb, idealnie celując w warstwę, w której powstają przebarwienia. CO₂ jest ablacyjny, działa głębiej i wiąże się z tygodniową rekonwalescencją oraz większym ryzykiem powikłań pigmentacyjnych.",
           },
         },
         {
@@ -88,7 +87,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
           name: "Czy zabieg jest bezpieczny dla osób z melasmą?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Tak — laser tulowy 1927 nm jest obecnie najbezpieczniejszą opcją laserową dla melasmy. Działa dokładnie w okolicy uszkodzonej błony podstawnej (~0,3 mm), nie pobudzając tyrozynazy w głębszych warstwach. W przeciwieństwie do laserów ablacyjnych nie wywołuje typowo pozapalnej hiperpigmentacji (PIH).",
+            text: "Tak — laser tulowy 1927 nm jest obecnie najbezpieczniejszą opcją laserową dla melasmy. Działa dokładnie w okolicy uszkodzonej błony podstawnej, nie pobudzając tyrozynazy w głębszych warstwach. W przeciwieństwie do laserów ablacyjnych nie wywołuje typowo pozapalnej hiperpigmentacji (PIH).",
           },
         },
         {
@@ -96,7 +95,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
           name: "Ile sesji jest potrzebnych?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Dla rewitalizacji: 1–2 sesje rocznie. Dla melasmy i opornych przebarwień: seria 3–4 sesji co 4–6 tygodni, a następnie 1 sesja podtrzymująca co 6 miesięcy.",
+            text: "Dla melasmy i opornych przebarwień: seria 3–4 sesji co 4–6 tygodni, a następnie 1 sesja podtrzymująca co 6 miesięcy.",
           },
         },
         {
@@ -104,7 +103,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
           name: "Jak wygląda rekonwalescencja?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Dzień 0–1: rumień i uczucie pieczenia, łagodny obrzęk. Dni 2–3: skóra przypomina „papier ścierny”, pojawiają się mikrobrązowe punkty (efekt MEND). Dni 4–7: punkty samoistnie odpadają, odsłaniając rozjaśnioną, gładką skórę. Pełna rekonwalescencja — 7 dni.",
+            text: "Dzień 0–1: rumień i uczucie pieczenia, łagodny obrzęk. Dni 2–3: skóra przypomina „papier ścierny”, pojawiają się mikrobrązowe punkty (efekt MEND). Dni 4–7: punkty samoistnie odpadają, odsłaniając rozjaśniony, jednolity naskórek. Pełna rekonwalescencja — 7 dni.",
           },
         },
         {
@@ -131,6 +130,14 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
             text: "Pojedyncza sesja twarzy: 1750 zł. Pakiet 3 sesji twarzy: 4600 zł (ok. 15% taniej). Combo twarz + szyja + dekolt: 4000 zł. To cennik klinik warszawskich — bez konieczności dojazdu do Warszawy.",
           },
         },
+        {
+          "@type": "Question",
+          name: "Czy laser tulowy można łączyć z zabiegami z toksyną botulinową?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Tak. Laser 1927 nm pracuje wyłącznie na powierzchni skóry, dlatego nie uszkadza efektu neuromodulatora wprowadzonego w głębsze warstwy. Jest to jedna z najczęstszych sytuacji, w których pacjentki wybierają tę technologię.",
+          },
+        },
       ],
     };
 
@@ -140,7 +147,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Strona główna", item: "https://bmclinics.ai/" },
         { "@type": "ListItem", position: 2, name: "Technologie", item: "https://bmclinics.ai/technologie" },
-        { "@type": "ListItem", position: 3, name: "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927/1550 nm", item: PAGE_URL },
+        { "@type": "ListItem", position: 3, name: "Laser tulowy 1927 nm", item: PAGE_URL },
       ],
     };
 
@@ -197,16 +204,16 @@ function LaserTulowyPage() {
               Wszystkie technologie
             </Link>
             <div className="text-xs uppercase tracking-[0.3em] text-champagne">
-              Laser frakcyjny tulowo-erbowy · 1927 nm / 1550 nm
+              Laser frakcyjny tulowy · 1927 nm
             </div>
             <h1 className="gold-line max-w-3xl font-serif text-4xl text-ink md:text-5xl lg:text-6xl">
               Laser, który zamyka temat melasmy i przebarwień
             </h1>
             <p className="max-w-xl text-lg text-muted-foreground">
-              Nieablacyjna fototermoliza frakcyjna lasera tulowo-erbowego — połączenie wiązki
-              tulowej 1927 nm i wiązki erbowej (szkło erbowe) 1550 nm. Najbezpieczniejsza
-              i najbardziej selektywna technologia w terapii hiperpigmentacji, fotostarzenia
-              i rewitalizacji skóry. Standard premium klinik warszawskich — w Siedlcach.
+              Nieablacyjna fototermoliza frakcyjna lasera tulowego 1927 nm. Najbezpieczniejsza
+              i najbardziej selektywna technologia w terapii hiperpigmentacji i melasmy.
+              Działa na powierzchni skóry — około 0,1 mm — dlatego nie zakłóca efektów
+              zabiegów z toksyną botulinową. Standard premium klinik warszawskich — w Siedlcach.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Link
@@ -230,8 +237,8 @@ function LaserTulowyPage() {
       <section className="border-b border-border/40 bg-muted/30">
         <div className="container mx-auto grid gap-6 px-4 py-12 md:grid-cols-4">
           {[
-            { Icon: Target, label: "Długość fali", value: "1927 nm + 1550 nm" },
-            { Icon: Clock, label: "Czas zabiegu", value: "45–60 min" },
+            { Icon: Target, label: "Długość fali", value: "1927 nm" },
+            { Icon: Clock, label: "Czas zabiegu", value: "30–45 min" },
             { Icon: Calendar, label: "Rekonwalescencja", value: "3–7 dni" },
             { Icon: ShieldCheck, label: "Bezpieczeństwo", value: "Fototypy I–VI" },
           ].map(({ Icon, label, value }) => (
@@ -250,60 +257,43 @@ function LaserTulowyPage() {
       <section id="mechanizm" className="container mx-auto px-4 py-20">
         <SectionHeading
           eyebrow="Mechanizm działania"
-          title="Dwie długości fali. Dwie różne głębokości pracy."
-          description="Technologia hybrydowa łączy w jednym urządzeniu wiązkę tulową 1927 nm (warstwa powierzchowna — pigment) z wiązką erbową, czyli szkłem erbowym 1550 nm (skóra właściwa — kolagen i blizny). Zabieg dopasowujemy do problemu, nie odwrotnie."
+          title="Bardzo precyzyjna, powierzchowna depigmentacja"
+          description="Wiązka 1927 nm jest silnie absorbowana przez wodę w naskórku. Dociera jedynie około 0,1 mm — dokładnie do warstwy, w której gromadzi się nadmiar melaniny. Działa wyłącznie na pigment, nie na SMAS, nie liftinguje i nie wpływa na głębsze struktury skóry."
         />
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr,1fr] lg:items-center">
           <img
             src={mechanizmAsset.url}
-            alt="Schemat działania lasera frakcyjnego tulowo-erbowego 1927 nm i szkła erbowego 1550 nm w skórze — kontrolowana koagulacja, kolumna MTZ i efekt halo"
+            alt="Schemat działania lasera tulowego 1927 nm w skórze — kontrolowana koagulacja w warstwie pigmentowej, kolumna MTZ i efekt halo"
             loading="lazy"
             width={1600}
             height={1024}
             className="rounded-xl border border-border/60 shadow-sm"
           />
-          <div className="flex flex-col gap-6">
-            <div className="rounded-xl border border-border/60 bg-card p-6">
-              <div className="flex items-center gap-3">
-                <Sun className="h-5 w-5 text-champagne" />
-                <h3 className="font-serif text-xl text-ink">1927 nm — wiązka tulowa</h3>
-              </div>
-              <div className="mt-2 text-sm text-muted-foreground">Głębokość: ~0,3 mm</div>
-              <p className="mt-3 text-sm text-ink/80">
-                Wysoka absorpcja w wodzie zatrzymuje energię tuż przy granicy naskórka i skóry
-                właściwej — dokładnie tam, gdzie znajduje się uszkodzona błona podstawna
-                odpowiedzialna za melasmę i większość zmian barwnikowych.
-              </p>
-              <ul className="mt-4 space-y-2 text-sm">
-                {["melasma i ostuda", "przebarwienia posłoneczne i posłoneczne plamy starcze", "fotostarzenie powierzchowne", "drobne zmarszczki, rozszerzone pory", "nierówny koloryt"].map((t) => (
-                  <li key={t} className="flex items-start gap-2 text-ink/80">
-                    <Check className="mt-0.5 h-4 w-4 text-champagne" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
+          <div className="rounded-xl border border-border/60 bg-card p-6">
+            <div className="flex items-center gap-3">
+              <Sun className="h-5 w-5 text-champagne" />
+              <h3 className="font-serif text-xl text-ink">1927 nm — wiązka tulowa</h3>
             </div>
-
-            <div className="rounded-xl border border-border/60 bg-card p-6">
-              <div className="flex items-center gap-3">
-                <Droplet className="h-5 w-5 text-champagne" />
-                <h3 className="font-serif text-xl text-ink">1550 nm — wiązka erbowa</h3>
-              </div>
-              <div className="mt-2 text-sm text-muted-foreground">Głębokość: do ~1,5 mm</div>
-              <p className="mt-3 text-sm text-ink/80">
-                Niższa absorpcja w wodzie pozwala fotonom „prześlizgnąć się” przez naskórek
-                i dotrzeć do warstwy siateczkowatej skóry właściwej, gdzie pracują fibroblasty.
-                Tu odbywa się przebudowa kolagenu i remodeling blizn.
-              </p>
-              <ul className="mt-4 space-y-2 text-sm">
-                {["blizny potrądzikowe i pooperacyjne", "rozstępy białe i atroficzne", "głębsze zmarszczki", "zwiotczenie skóry", "aktywny trądzik (redukcja sebum)"].map((t) => (
-                  <li key={t} className="flex items-start gap-2 text-ink/80">
-                    <Check className="mt-0.5 h-4 w-4 text-champagne" />
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <div className="mt-2 text-sm text-muted-foreground">Głębokość: około 0,1 mm</div>
+            <p className="mt-3 text-sm text-ink/80">
+              Wysoka absorpcja w wodzie zatrzymuje energię tuż przy granicy naskórka i skóry
+              właściwej — dokładnie tam, gdzie znajduje się uszkodzona błona podstawna
+              odpowiedzialna za melasmę i większość zmian barwnikowych.
+            </p>
+            <ul className="mt-4 space-y-2 text-sm">
+              {[
+                "melasma i ostuda",
+                "przebarwienia posłoneczne i plamy starcze",
+                "nierówny koloryt",
+                "piegi i plamy pigmentacyjne",
+                "skóra po zabiegach z toksyną botulinową",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2 text-ink/80">
+                  <Check className="mt-0.5 h-4 w-4 text-champagne" />
+                  {t}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
@@ -314,25 +304,25 @@ function LaserTulowyPage() {
           <div className="flex flex-col gap-4">
             <SectionHeading
               eyebrow="Frakcyjna fototermoliza"
-              title="Tysiące mikropunktów leczących. Nienaruszone wyspy zdrowej skóry."
+              title="Tysiące mikropunktów leczących pigment. Nienaruszone wyspy zdrowej skóry."
             />
             <p className="text-muted-foreground">
               W przeciwieństwie do klasycznego resurfacingu, który usuwa cały naskórek,
               technologia frakcyjna dzieli wiązkę na tysiące mikroskopowych kolumn termicznych
               (MTZ — Microscopic Treatment Zones). Pomiędzy nimi pozostają wyspy całkowicie
-              zdrowej tkanki — to one są rezerwuarem komórek macierzystych i przyspieszają
-              regenerację o 80–90% w stosunku do laserów ablacyjnych.
+              zdrowej tkanki — to one przyspieszają regenerację i ograniczają ryzyko
+              przebarwień pozapalnych.
             </p>
             <p className="text-muted-foreground">
-              Efekt: krótka rekonwalescencja, niemal zerowe ryzyko bliznowacenia, możliwość
-              wykonania zabiegu również u osób aktywnych zawodowo.
+              Efekt: skuteczna depigmentacja przy krótkiej rekonwalescencji, niemal zerowym
+              ryzyku bliznowacenia i możliwości wykonania zabiegu u osób aktywnych zawodowo.
             </p>
             <div className="mt-2 grid gap-3 sm:grid-cols-2">
               {[
-                { Icon: HeartPulse, t: "Neokolageneza", d: "wzrost gęstości kolagenu o ~40% w 12 tygodni" },
-                { Icon: Sparkles, t: "Wymiana naskórka", d: "pełna reepitelizacja w 24–72 h" },
-                { Icon: ShieldCheck, t: "Bez bliznowacenia", d: "wyspy zdrowej tkanki chronią przed PIH" },
                 { Icon: Sun, t: "MEND — mikrowydzielanie", d: "naturalna eliminacja melaniny" },
+                { Icon: Sparkles, t: "Wymiana naskórka", d: "szybkie złuszczenie warstwy rogowej" },
+                { Icon: ShieldCheck, t: "Bez bliznowacenia", d: "wyspy zdrowej tkanki chronią przed PIH" },
+                { Icon: HeartPulse, t: "Bezpieczny po toksynie", d: "nie zakłóca efektu neuromodulatora" },
               ].map(({ Icon, t, d }) => (
                 <div key={t} className="rounded-lg border border-border/60 bg-card p-4">
                   <div className="flex items-center gap-2">
@@ -346,7 +336,7 @@ function LaserTulowyPage() {
           </div>
           <img
             src={mechanizmAsset.url}
-            alt="Schemat frakcyjnej fototermolizy lasera tulowo-erbowego — kolumny MTZ, nienaruszone wyspy skóry i strefa koagulacji halo"
+            alt="Schemat frakcyjnej fototermolizy lasera tulowego — kolumny MTZ, nienaruszone wyspy skóry i strefa koagulacji halo"
             loading="lazy"
             width={1600}
             height={1024}
@@ -366,13 +356,12 @@ function LaserTulowyPage() {
           {[
             { t: "Melasma i ostuda", d: "Złoty standard. Działa dokładnie w warstwie uszkodzonej błony podstawnej, bez ryzyka nawrotu przez przegrzanie głębszych warstw." },
             { t: "Przebarwienia posłoneczne", d: "Plamy soczewicowate, piegi, zmiany barwnikowe po przewlekłej ekspozycji UV. Efekt już po 1 sesji." },
-            { t: "Fotostarzenie", d: "Drobne zmarszczki, szorstka tekstura, utrata gęstości — kompleksowa odbudowa naskórka i pobudzenie fibroblastów." },
-            { t: "Rozszerzone pory", d: "Obkurczenie ujść mieszków włosowych przez kontrolowaną koagulację okolicznych tkanek." },
-            { t: "Blizny potrądzikowe", d: "Wiązka 1550 nm wnika do skóry właściwej i przebudowuje strukturę blizn atroficznych typu „ice pick” i „boxcar”." },
-            { t: "Aktywny trądzik", d: "Redukcja sebum przez termiczne uszkodzenie gruczołów łojowych, działanie przeciwzapalne." },
-            { t: "Rozstępy białe", d: "Stymulacja neokolagenezy w obrębie zaniku skóry właściwej — efektywne na rozstępy w fazie dojrzałej." },
+            { t: "Plamy starcze i piegi", d: "Redukcja ogniskowej hiperpigmentacji — skóra staje się bardziej jednolita i rozjaśniona." },
+            { t: "Nierówny koloryt", d: "Wyrównanie odcienia cery, redukcja szarej, zmęczonej poświaty bez głębszej ingerencji w skórę." },
+            { t: "Skóra po toksynie botulinowej", d: "Częsty wybór pacjentek, które chcą zabieg laserowy bez ryzyka uszkodzenia efektu neuromodulatora." },
             { t: "Ciemne fototypy (IV–VI)", d: "Najbezpieczniejsza długość fali dla osób o ciemnej karnacji — minimalne ryzyko hiperpigmentacji pozapalnej." },
-            { t: "Skóra szyi i dekoltu", d: "Cienka, fotostarzała skóra reaguje znakomicie — bez ryzyka oparzeń typowych dla laserów ablacyjnych." },
+            { t: "Szyja i dekolt", d: "Cienka skóra w tych okolicach reaguje dobrze na delikatną, kontrolowaną depigmentację bez ryzyka oparzeń." },
+            { t: "Dłonie", d: "Pierwsze oznaki fotoagingu w postaci plam pigmentacyjnych — skuteczne rozjaśnienie i odświeżenie." },
           ].map(({ t, d }) => (
             <div key={t} className="rounded-xl border border-border/60 bg-card p-6">
               <h3 className="font-serif text-lg text-ink">{t}</h3>
@@ -391,9 +380,9 @@ function LaserTulowyPage() {
           />
           <ol className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {[
-              { step: "1", t: "Konsultacja", d: "Wywiad, analiza fototypu, zdjęcia w świetle widzialnym i UV, dobór długości fali i energii." },
+              { step: "1", t: "Konsultacja", d: "Wywiad, analiza fototypu, zdjęcia w świetle widzialnym i UV, dobór energii i parametrów pod pigment." },
               { step: "2", t: "Przygotowanie", d: "Demakijaż, znieczulenie miejscowe (krem EMLA, ok. 30 min). Schłodzenie skóry." },
-              { step: "3", t: "Zabieg", d: "45–60 min. Skanowanie skóry głowicą — pacjentka odczuwa ciepło i mrowienie, intensywność dobrana indywidualnie." },
+              { step: "3", t: "Zabieg", d: "30–45 min. Skanowanie skóry głowicą — pacjentka odczuwa ciepło i mrowienie, intensywność dobrana indywidualnie." },
               { step: "4", t: "Pielęgnacja po", d: "Maska kojąca, peptydy regenerujące, SPF 50+. Plan pielęgnacji domowej na 14 dni." },
             ].map(({ step, t, d }) => (
               <li key={step} className="rounded-xl border border-border/60 bg-card p-6">
