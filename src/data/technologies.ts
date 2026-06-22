@@ -100,13 +100,23 @@ export const TECHNOLOGIES: Technology[] = [
   },
   {
     slug: "hifu",
-    name: "HIFU 6w1 — skupiona ultradźwiękowa stymulacja",
+    name: "HIFU 6w1 — skupiona ultradźwiękowa stymulacja SMAS",
     category: "twarz",
-    shortDesc: "Liftingujące działanie ultradźwięków skupionych dostarczanych na 6 głębokościach.",
+    shortDesc:
+      "Najskuteczniejszy nieoperacyjny lifting twarzy, szyi i ciała. Skupione ultradźwięki HIFU docierają głęboko do warstwy SMAS, nie uszkadzając skóry i nie pozostawiając śladu. Zabieg można wykonywać o każdej porze roku — również latem, ponieważ nie ma przeciwwskazań do ekspozycji słonecznej po procedurze.",
     mechanism:
-      "Skupione fale ultradźwiękowe (HIFU) generują punktowe ogniska koagulacji termicznej na głębokościach od 1,5 do 13 mm, inicjując obkurczanie SMAS i nową syntezę kolagenu.",
+      "Technologia HIFU (High Intensity Focused Ultrasound) dostarcza precyzyjnie skupioną energię ultradźwiękową na głębokość od 1,5 do 13 mm, tworząc punktowe ogniska termicznej koagulacji. Energia dociera do powierzchniowo-mięśniowej warstwy SMAS, której chirurgiczne naciągnięcie jest podstawą klasycznego liftingu twarzy — HIFU wywołuje jej obkurczanie i intensywną stymulację nowego kolagenu, dając efekt naturalnego, nieoperacyjnego liftingu bez cięcia i bez śladu po zabiegu. " +
+      "Pacjenci z Siedlec i okolic często pytają o tę metodę, dlatego warto jasno opisać wszystkie możliwości urządzenia. Posiadana sonda umożliwia wykonanie zabiegu identycznego z implantacją nici pod skórę — działa w tej samej płaszczyźnie, natychmiast podtrzymuje kontur twarzy i wywołuje długotrwałe ujędrnienie. Dzięki temu HIFU nie tylko liftinguje owal i linię żuchwy, ale także kompleksowo rewitalizuje skórę, poprawia jej gęstość i opóźnia procesy starzenia. " +
+      "Procedura jest w pełni bezinwazyjna — skóra pozostaje nieprzekłuta i nieuszkodzona, nie powstają strupy, opuchlizna ani okres rekonwalescencji. Dlatego latem nie ma przeciwwskazań do wykonywania zabiegu; pacjentka może wrócić do codziennych aktywności i stosować standardową ochronę przeciwsłoneczną. Efekt utrzymuje się 2–3 lata — wystarczy jedna sesja, by przez lata cieszyć się wyraźnie młodszą, bardziej napiętą i promienną skórą. To właśnie dlatego, pomimo upływu lat i pojawiania się nowszych technologii, HIFU pozostaje najskuteczniejszym narzędziem rewitalizującym i anti-aging.",
     applicators: ["1,5 mm", "3,0 mm", "4,5 mm", "6 mm", "9 mm", "13 mm"],
-    indications: ["wiotkość owalu", "lifting bezoperacyjny", "modelowanie linii żuchwy", "modelowanie ciała"],
+    indications: [
+      "wiotkość owalu twarzy i szyi",
+      "nieoperacyjny lifting twarzy i SMAS",
+      "modelowanie linii żuchwy i podbródka",
+      "kurze łapki, zmarszczki i utrata jędrności",
+      "rewitalizacja i anti-aging skóry twarzy",
+      "ujędrnienie skóry ciała (brzuch, uda, pośladki, ramiona)",
+    ],
     pricing: [
       { label: "Twarz (cała)", price: 5250 },
       { label: "Szyja", price: 3000 },
@@ -115,7 +125,12 @@ export const TECHNOLOGIES: Technology[] = [
       { label: "Brzuch", price: 7250 },
       { label: "Combo: twarz + szyja + dekolt", price: 9750 },
     ],
-    faq: [{ q: "Ile trwa efekt?", a: "Do 12–18 miesięcy w zależności od wieku i stylu życia." }],
+    faq: [
+      { q: "Czy HIFU można wykonywać latem?", a: "Tak — zabieg nie narusza naskórka, nie powoduje śladów ani strupów i nie ma przeciwwskazań do ekspozycji słonecznej po procedurze. Wystarczy standardowa ochrona przeciwsłoneczna, jak zawsze." },
+      { q: "Ile trwa efekt?", a: "Efekt utrzymuje się zwykle 2–3 lata. Wystarczy jedna sesja, by przez długi czas cieszyć się ujędrnioną skórą i wyraźnie poprawionym owalem." },
+      { q: "Czy zabieg jest bolesny i wymaga rekonwalescencji?", a: "Zabieg jest bezinwazyjny — skóra pozostaje nieuszkodzona. Odczuwalne są punkty ciepła w głębszych warstwach, ale nie ma śladów, opuchlizny ani okresu rekonwalescencji. Można wrócić do codziennych aktywności od razu." },
+      { q: "Czym HIFU różni się od zabiegów nici?", a: "Specjalistyczna sonda HIFU pozwala wykonać zabieg w tej samej płaszczyźnie co implantacja nici pod skórę — bez nakłuwania, bez wchłaniania materiału i bez ryzyka powikłań inwazyjnych. Efekt liftingu i ujędrnienia jest porównywalny." },
+    ],
   },
   {
     slug: "ipl-bm14",
