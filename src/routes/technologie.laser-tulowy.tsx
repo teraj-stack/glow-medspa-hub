@@ -148,7 +148,11 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
         { name: "twitter:image", content: heroAsset.url },
       ],
       links: [{ rel: "canonical", href: PAGE_URL }],
-      scripts: [],
+      scripts: [
+        { type: "application/ld+json", children: JSON.stringify(serviceSchema) },
+        { type: "application/ld+json", children: JSON.stringify(faqSchema) },
+        { type: "application/ld+json", children: JSON.stringify(breadcrumbSchema) },
+      ],
     };
   },
   component: LaserTulowyPage,
