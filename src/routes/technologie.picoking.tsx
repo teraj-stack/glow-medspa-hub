@@ -318,6 +318,31 @@ function PikosekundowyPage() {
             </div>
           ))}
         </div>
+
+        {/* GALERIA PRZED / PO */}
+        <div className="mt-20">
+          <SectionHeading
+            eyebrow="Przed / Po"
+            title="Realne efekty — przesuń suwak"
+            description="Zdjęcia pacjentek wykonane w tym samym ustawieniu światła, bez retuszu. Przeciągnij linię na środku, aby porównać stan skóry przed pierwszą sesją i po zakończonej serii."
+          />
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {BA_GALLERY.map((g) => (
+              <BeforeAfterSlider
+                key={g.label}
+                beforeSrc={g.before}
+                afterSrc={g.after}
+                beforeAlt={`Skóra przed zabiegiem — ${g.label}`}
+                afterAlt={`Skóra po zabiegu — ${g.label}`}
+                label={g.label}
+                caption={g.caption}
+              />
+            ))}
+          </div>
+          <p className="mt-6 text-xs text-foreground/55">
+            Indywidualne rezultaty mogą się różnić w zależności od typu skóry, fototypu i przestrzegania zaleceń pozabiegowych.
+          </p>
+        </div>
       </section>
 
       {/* MECHANIZM — SKÓRA */}
