@@ -51,15 +51,9 @@ function AuthPage() {
           },
         });
         if (error) throw error;
-        const userId = signUpData.user?.id;
-        if (userId) {
-          sendTransactionalEmail({
-            templateName: "welcome",
-            recipientEmail: email,
-            idempotencyKey: `welcome-${userId}`,
-            templateData: { name: fullName, loginUrl: `${window.location.origin}/auth` },
-          }).catch((err) => console.error("Welcome email failed", err));
-        }
+        // Welcome/confirmation email is sent by the Supabase auth signup template.
+        // We don't trigger an additional transactional email from the client to
+        // avoid exposing a user-driven send endpoint.
       }
       navigate({ to: "/" });
     } catch (err) {
