@@ -335,7 +335,7 @@ function LaserTulowyPage() {
           </div>
           <img
             src={mechanizmAsset.url}
-            alt="Schemat frakcyjnej fototermolizy — kolumny MTZ, nienaruszone wyspy skóry i strefa koagulacji halo"
+            alt="Schemat frakcyjnej fototermolizy lasera tulowo-erbowego — kolumny MTZ, nienaruszone wyspy skóry i strefa koagulacji halo"
             loading="lazy"
             width={1600}
             height={1024}
