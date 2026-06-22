@@ -20,7 +20,7 @@ import mechanizmAsset from "@/assets/tulowy-mechanizm.png.asset.json";
 import rezultatAsset from "@/assets/tulowy-rezultat.jpg.asset.json";
 
 const TECH_SLUG = "laser-tulowy";
-const URL = "https://bmclinics.ai/technologie/laser-tulowy";
+const PAGE_URL = "https://bmclinics.ai/technologie/laser-tulowy";
 
 export const Route = createFileRoute("/technologie/laser-tulowy")({
   loader: (): { tech: Technology } => {
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       "@type": "MedicalTherapy",
       name: "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927 nm + 1550 nm — rewitalizacja i depigmentacja",
       description,
-      url: URL,
+      url: PAGE_URL,
       provider: {
         "@type": "MedicalBusiness",
         name: "Beauty & Mind Clinic",
@@ -129,7 +129,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Strona główna", item: "https://bmclinics.ai/" },
         { "@type": "ListItem", position: 2, name: "Technologie", item: "https://bmclinics.ai/technologie" },
-        { "@type": "ListItem", position: 3, name: "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927/1550 nm", item: URL },
+        { "@type": "ListItem", position: 3, name: "Laser tulowo-erbowy (Thulium/Erbium Glass) 1927/1550 nm", item: PAGE_URL },
       ],
     };
 
@@ -139,7 +139,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
-        { property: "og:url", content: URL },
+        { property: "og:url", content: PAGE_URL },
         { property: "og:type", content: "article" },
         { property: "og:image", content: heroAsset.url },
         { name: "twitter:card", content: "summary_large_image" },
@@ -147,7 +147,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: heroAsset.url },
       ],
-      links: [{ rel: "canonical", href: URL }],
+      links: [{ rel: "canonical", href: PAGE_URL }],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify(serviceSchema) },
         { type: "application/ld+json", children: JSON.stringify(faqSchema) },
