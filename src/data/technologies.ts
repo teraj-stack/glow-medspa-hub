@@ -118,7 +118,7 @@ export const TECHNOLOGIES: Technology[] = [
   },
   {
     slug: "picoking",
-    name: "Laser pikosekundowy PicoKing",
+    name: "Laser pikosekundowy",
     category: "skóra",
     shortDesc:
       "Impulsy 350 pikosekund w trzech długościach fali (1064 / 755 / 532 nm) — efekt fotoakustyczny zamiast termicznego. Jedyne takie urządzenie w promieniu 120 km od Siedlec.",
@@ -143,7 +143,7 @@ export const TECHNOLOGIES: Technology[] = [
     ],
     contraindications: ["ciąża i karmienie piersią", "aktywna opryszczka", "świeża opalenizna", "leki światłouczulające", "choroby autoimmunologiczne w fazie zaostrzenia"],
     pricing: [
-      { label: "Toning twarzy (PicoToning)", price: 900 },
+      { label: "Toning twarzy (pikosekundowy)", price: 900 },
       { label: "Pakiet 4× toning twarzy", price: 3200 },
       { label: "Melasma — twarz (1 sesja)", price: 1400 },
       { label: "Blizny potrądzikowe — twarz", price: 1800 },
@@ -152,11 +152,11 @@ export const TECHNOLOGIES: Technology[] = [
       { label: "Przebarwienia — dłonie / dekolt", price: 1200 },
     ],
     faq: [
-      { q: "Czym PicoKing różni się od starszych laserów Q-Switched?", a: "Impuls jest około 1000 razy krótszy (350 pikosekund vs nanosekundy). Pigment jest rozbijany ciśnieniem fali uderzeniowej, a nie ciepłem — dzięki temu skóra wokół nie ulega oparzeniu, a makrofagi sprawniej usuwają rozdrobniony „pył” barwnika. Mniej sesji, krótsza rekonwalescencja." },
+      { q: "Czym laser pikosekundowy różni się od starszych laserów Q-Switched?", a: "Impuls jest około 1000 razy krótszy (350 pikosekund vs nanosekundy). Pigment jest rozbijany ciśnieniem fali uderzeniowej, a nie ciepłem — dzięki temu skóra wokół nie ulega oparzeniu, a makrofagi sprawniej usuwają rozdrobniony „pył” barwnika. Mniej sesji, krótsza rekonwalescencja." },
       { q: "Ile sesji potrzeba?", a: "Toning i fotoodmładzanie — seria 4–6 zabiegów co 3–4 tygodnie. Melasma — 3–5 sesji w trybie Dual Pulse. Blizny potrądzikowe — 4–6 sesji w trybie frakcyjnym Honeycomb. Tatuaż — średnio 4–8 sesji co 6–8 tygodni." },
       { q: "Jak długo trwa rekonwalescencja?", a: "Toning, melasma, Hollywood Peel — powrót do aktywności tego samego dnia, lekkie zaróżowienie 2–4 h. Tryb frakcyjny — delikatne strupki przez 3–5 dni. Tatuaż — siniak/strup do 7–10 dni." },
       { q: "Czy zabieg boli?", a: "W trybie Multipulse (MPTP) zabieg jest niemal bezbolesny. W pozostałych trybach stosujemy chłodzenie i krem znieczulający." },
-      { q: "Dlaczego ceny są na poziomie warszawskim?", a: "Posiadamy fabrycznie nowy laser PicoKing EL950 — jedyny tej klasy w promieniu 120 km od Siedlec. Standard zabiegu, protokoły i bezpieczeństwo są identyczne jak w premium klinikach Warszawy; oszczędzasz natomiast czas, paliwo i dzień urlopu." },
+      { q: "Dlaczego ceny są na poziomie warszawskim?", a: "Od 10 lat pracuję wyłącznie w premium klinikach Warszawy. W Siedlcach wprowadzam dokładnie ten sam standard — protokoły, jakość urządzenia i bezpieczeństwo są identyczne. Oszczędzasz natomiast czas, paliwo i dzień urlopu." },
     ],
   },
   {

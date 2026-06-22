@@ -16,20 +16,20 @@ const TECH_SLUG = "picoking";
 export const Route = createFileRoute("/technologie/picoking")({
   loader: (): { tech: Technology } => {
     const tech = getTechnology(TECH_SLUG);
-    if (!tech) throw new Error("PicoKing technology entry missing");
+    if (!tech) throw new Error("Laser pikosekundowy — brak wpisu w bazie");
     return { tech };
   },
   head: ({ loaderData }) => {
     const url = "https://bmclinics.ai/technologie/picoking";
-    const title = "Laser pikosekundowy PicoKing — Siedlce | Beauty & Mind Clinic";
+    const title = "Laser pikosekundowy — Siedlce | Beauty & Mind Clinic";
     const description =
-      "PicoKing EL950 w Siedlcach — laser pikosekundowy 350 ps (1064/755/532 nm) na melasmę, blizny potrądzikowe, przebarwienia, tatuaże i fotoodmładzanie. Jedyne takie urządzenie w promieniu 120 km. Cennik premium klinik warszawskich.";
+      "Laser pikosekundowy 350 ps (1064 / 755 / 532 nm) na melasmę, blizny potrądzikowe, przebarwienia, tatuaże i fotoodmładzanie. Efekt fotoakustyczny zamiast termicznego — skóra się nie poparza. Standard premium klinik warszawskich w Siedlcach.";
 
     const serviceSchema = loaderData
       ? {
           "@context": "https://schema.org",
           "@type": "MedicalTherapy",
-          name: "Laser pikosekundowy PicoKing EL950",
+          name: "Laser pikosekundowy 350 ps",
           description: loaderData.tech.shortDesc,
           url,
           provider: {
@@ -124,7 +124,7 @@ function PicoKingPage() {
             <ArrowLeft className="size-4" /> Wszystkie technologie
           </Link>
           <div className="mt-6 max-w-2xl">
-            <div className="text-xs uppercase tracking-[0.3em] text-champagne-light">Laser pikosekundowy · PicoKing EL950</div>
+            <div className="text-xs uppercase tracking-[0.3em] text-champagne-light">Laser pikosekundowy · 350 ps</div>
             <h1 className="mt-4 font-serif text-4xl leading-tight md:text-5xl lg:text-6xl">
               350 pikosekund. Bez ciepła. Bez kompromisów.
             </h1>
@@ -190,7 +190,7 @@ function PicoKingPage() {
             />
             <div className="grid grid-cols-2 divide-x divide-border bg-card text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
               <div className="p-3">Stara technologia<br /><span className="text-foreground/60 normal-case tracking-normal">nanosekunda · ciepło</span></div>
-              <div className="p-3 text-champagne">PicoKing<br /><span className="text-foreground/60 normal-case tracking-normal">350 ps · ciśnienie</span></div>
+              <div className="p-3 text-champagne">Pikolaser<br /><span className="text-foreground/60 normal-case tracking-normal">350 ps · ciśnienie</span></div>
             </div>
           </div>
         </div>
@@ -345,7 +345,7 @@ function PicoKingPage() {
           <div className="overflow-hidden rounded-lg border border-champagne/20">
             <img
               src={applicatorsImg}
-              alt="Wzory wiązki czterech głowic PicoKing: Honeycomb, Carbon, Red Grid, Golden Grid"
+              alt="Wzory wiązki czterech głowic: Honeycomb, Carbon, Red Grid, Golden Grid"
               width={1200}
               height={1200}
               loading="lazy"
@@ -375,7 +375,7 @@ function PicoKingPage() {
           <SectionHeading
             eyebrow="Cennik"
             title="Standard warszawski — bez dojeżdżania do stolicy"
-            description="Cennik na poziomie premium klinik warszawskich, w których stoi ten sam typ urządzenia. U nas oszczędzasz pół dnia, paliwo i parking — protokół identyczny."
+            description="Od 10 lat pracuję w premium klinikach Warszawy. Ten sam standard zabiegu, protokoły i bezpieczeństwo — teraz w Siedlcach. Oszczędzasz pół dnia, paliwo i parking."
           />
           <div className="mt-12 grid gap-8 md:grid-cols-[2fr_1fr]">
             <div className="overflow-hidden rounded-lg border border-border bg-card shadow-soft">
@@ -403,9 +403,9 @@ function PicoKingPage() {
             <div className="space-y-4">
               <div className="rounded-lg border border-champagne/40 bg-card p-6">
                 <div className="text-xs uppercase tracking-[0.25em] text-champagne">Region Siedlce</div>
-                <h3 className="mt-2 font-serif text-xl text-ink">Najbliższy taki laser — 120 km</h3>
+                <h3 className="mt-2 font-serif text-xl text-ink">Najbliższy laser tej klasy — 120 km</h3>
                 <p className="mt-3 text-sm text-foreground/75">
-                  Do tej pory pacjentki z Siedlec, Mińska Mazowieckiego, Łukowa, Łosic, Sokołowa i Białej Podlaskiej musiały jechać do Warszawy. Teraz nie muszą.
+                  Do tej pory pacjentki z Siedlec, Mińska Mazowieckiego, Łukowa, Łosic, Sokołowa i Białej Podlaskiej musiały jeździć do Warszawy. Teraz nie muszą.
                 </p>
               </div>
               <div className="rounded-lg border border-border bg-ink p-6 text-alabaster">
@@ -445,7 +445,7 @@ function PicoKingPage() {
           <div>
             <SectionHeading eyebrow="Rezerwacja" title={<span className="text-alabaster">Konsultacja, zanim cokolwiek zaczniemy</span>} />
             <p className="mt-4 text-alabaster/80">
-              Każdy protokół laserowy zaczyna się od rozmowy i analizy skóry. Bez presji, bez sprzedaży. Wskażemy, czy PicoKing jest dla Ciebie, ile sesji potrzebujesz i jakiego efektu możesz się spodziewać.
+              Każdy protokół laserowy zaczyna się od rozmowy i analizy skóry. Bez presji, bez sprzedaży. Wskażemy, czy laser pikosekundowy jest dla Ciebie, ile sesji potrzebujesz i jakiego efektu możesz się spodziewać.
             </p>
             <div className="mt-8 space-y-2 text-sm text-alabaster/70">
               <div>· Bezpłatna konsultacja</div>
