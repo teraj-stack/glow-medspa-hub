@@ -23,9 +23,10 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/blog/blizny-potradzikowe", changefreq: "monthly", priority: "0.7" },
           { path: "/blog/laser-frakcyjny-rekonwalescencja", changefreq: "monthly", priority: "0.8" },
           { path: "/technologie/laser-tulowy", changefreq: "monthly", priority: "0.85" },
+          { path: "/technologie/terapia-led", changefreq: "monthly", priority: "0.85" },
           { path: "/polityka-prywatnosci", changefreq: "yearly", priority: "0.3" },
           { path: "/regulamin", changefreq: "yearly", priority: "0.3" },
-          ...TECHNOLOGIES.filter((t) => t.slug !== "laser-tulowy").map((t) => ({
+          ...TECHNOLOGIES.filter((t) => t.slug !== "laser-tulowy" && t.slug !== "terapia-led").map((t) => ({
             path: `/technologie/${t.slug}`,
             changefreq: "monthly" as const,
             priority: "0.7",

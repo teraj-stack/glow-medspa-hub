@@ -21,6 +21,7 @@ import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
+import { Route as TechnologieTerapiaLedRouteImport } from './routes/technologie.terapia-led'
 import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
 import { Route as TechnologieLaserTulowyRouteImport } from './routes/technologie.laser-tulowy'
 import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
@@ -96,6 +97,11 @@ const IndexRoute = IndexRouteImport.update({
 const TechnologieIndexRoute = TechnologieIndexRouteImport.update({
   id: '/technologie/',
   path: '/technologie/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologieTerapiaLedRoute = TechnologieTerapiaLedRouteImport.update({
+  id: '/technologie/terapia-led',
+  path: '/technologie/terapia-led',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TechnologiePicokingRoute = TechnologiePicokingRouteImport.update({
@@ -206,6 +212,7 @@ export interface FileRoutesByFullPath {
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
+  '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -236,6 +243,7 @@ export interface FileRoutesByTo {
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
+  '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -267,6 +275,7 @@ export interface FileRoutesById {
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
+  '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -299,6 +308,7 @@ export interface FileRouteTypes {
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
     | '/technologie/picoking'
+    | '/technologie/terapia-led'
     | '/technologie/'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -329,6 +339,7 @@ export interface FileRouteTypes {
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
     | '/technologie/picoking'
+    | '/technologie/terapia-led'
     | '/technologie'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -359,6 +370,7 @@ export interface FileRouteTypes {
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
     | '/technologie/picoking'
+    | '/technologie/terapia-led'
     | '/technologie/'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -390,6 +402,7 @@ export interface RootRouteChildren {
   TechnologieFusionPlasmaRoute: typeof TechnologieFusionPlasmaRoute
   TechnologieLaserTulowyRoute: typeof TechnologieLaserTulowyRoute
   TechnologiePicokingRoute: typeof TechnologiePicokingRoute
+  TechnologieTerapiaLedRoute: typeof TechnologieTerapiaLedRoute
   TechnologieIndexRoute: typeof TechnologieIndexRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
@@ -484,6 +497,13 @@ declare module '@tanstack/react-router' {
       path: '/technologie'
       fullPath: '/technologie/'
       preLoaderRoute: typeof TechnologieIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/terapia-led': {
+      id: '/technologie/terapia-led'
+      path: '/technologie/terapia-led'
+      fullPath: '/technologie/terapia-led'
+      preLoaderRoute: typeof TechnologieTerapiaLedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/technologie/picoking': {
@@ -623,6 +643,7 @@ const rootRouteChildren: RootRouteChildren = {
   TechnologieFusionPlasmaRoute: TechnologieFusionPlasmaRoute,
   TechnologieLaserTulowyRoute: TechnologieLaserTulowyRoute,
   TechnologiePicokingRoute: TechnologiePicokingRoute,
+  TechnologieTerapiaLedRoute: TechnologieTerapiaLedRoute,
   TechnologieIndexRoute: TechnologieIndexRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
