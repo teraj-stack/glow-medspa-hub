@@ -16,8 +16,7 @@ import {
   HeartPulse,
 } from "lucide-react";
 import heroAsset from "@/assets/tulowy-hero.jpg.asset.json";
-import penetracjaAsset from "@/assets/tulowy-penetracja.png.asset.json";
-import mtzAsset from "@/assets/tulowy-mtz.png.asset.json";
+import mechanizmAsset from "@/assets/tulowy-mechanizm.png.asset.json";
 import rezultatAsset from "@/assets/tulowy-rezultat.jpg.asset.json";
 
 const TECH_SLUG = "laser-tulowy";
@@ -244,8 +243,8 @@ function LaserTulowyPage() {
         />
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr,1fr] lg:items-center">
           <img
-            src={penetracjaAsset.url}
-            alt="Schemat głębokości penetracji laserów 1927 nm i 1550 nm w warstwach skóry"
+            src={mechanizmAsset.url}
+            alt="Schemat działania lasera frakcyjnego tulowo-erbowego 1920 nm i 1540 nm w skórze — kontrolowana koagulacja, kolumna MTZ i efekt halo"
             loading="lazy"
             width={1600}
             height={1024}
@@ -334,8 +333,8 @@ function LaserTulowyPage() {
             </div>
           </div>
           <img
-            src={mtzAsset.url}
-            alt="Mikroskopowy obraz mikrokolumn koagulacji MTZ w skórze po zabiegu laserem frakcyjnym"
+            src={mechanizmAsset.url}
+            alt="Schemat frakcyjnej fototermolizy — kolumny MTZ, nienaruszone wyspy skóry i strefa koagulacji halo"
             loading="lazy"
             width={1600}
             height={1024}
