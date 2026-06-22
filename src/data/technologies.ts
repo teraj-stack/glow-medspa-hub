@@ -131,6 +131,8 @@ export const TECHNOLOGIES: Technology[] = [
       "Long Pulse — fotoodmładzanie i neokolagenezę",
       "Honeycomb 755 nm — frakcja i blizny",
       "Carbon Peeling — Hollywood Peel",
+      "Rękojeść 650 nm — Green tattoo (zielone tatuaże)",
+      "Rękojeść 585 nm — Hemangioma treatment (naczyniaki)",
     ],
     indications: [
       "melasma i przebarwienia oporne na leczenie",
