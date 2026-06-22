@@ -151,11 +151,12 @@ export const TECHNOLOGIES: Technology[] = [
       { label: "Przebarwienia — dłonie / dekolt", price: 1200 },
     ],
     faq: [
-      { q: "Czym laser pikosekundowy różni się od starszych laserów Q-Switched?", a: "Impuls jest około 1000 razy krótszy (350 pikosekund vs nanosekundy). Pigment jest rozbijany ciśnieniem fali uderzeniowej, a nie ciepłem — dzięki temu skóra wokół nie ulega oparzeniu, a makrofagi sprawniej usuwają rozdrobniony „pył” barwnika. Mniej sesji, krótsza rekonwalescencja." },
+      { q: "Czym laser pikosekundowy różni się od starszych laserów Q-Switched?", a: "Impuls jest około 1000 razy krótszy (350 pikosekund vs nanosekundy). Pigment jest rozbijany ciśnieniem fali uderzeniowej, a nie ciepłem — dzięki temu skóra wokół nie ulega oparzeniu, a makrofagi sprawniej usuwają rozdrobniony „pył" barwnika. Mniej sesji, brak śladów po 2–4 godzinach." },
       { q: "Ile sesji potrzeba?", a: "Toning i fotoodmładzanie — seria 4–6 zabiegów co 3–4 tygodnie. Melasma — 3–5 sesji w trybie Dual Pulse. Blizny potrądzikowe — 4–6 sesji w trybie frakcyjnym Honeycomb. Tatuaż — średnio 4–8 sesji co 6–8 tygodni." },
-      { q: "Jak długo trwa rekonwalescencja?", a: "Toning, melasma, Hollywood Peel — powrót do aktywności tego samego dnia, lekkie zaróżowienie 2–4 h. Tryb frakcyjny — delikatne strupki przez 3–5 dni. Tatuaż — siniak/strup do 7–10 dni." },
+      { q: "Jak długo trwa rekonwalescencja?", a: "Laser pikosekundowy pracuje wyłącznie w protokołach złożonych (zimna plazma + rewitalizacja + fototerapia LED). Dzięki temu rekonwalescencja jest minimalna — zwykle zero śladów już po 2–4 godzinach. Planowanie urlopu czy rezygnacja z aktywności jest niepotrzebna." },
       { q: "Czy zabieg boli?", a: "W trybie Multipulse (MPTP) zabieg jest niemal bezbolesny. W pozostałych trybach stosujemy chłodzenie i krem znieczulający." },
       { q: "Dlaczego ceny są na poziomie warszawskim?", a: "Od 10 lat pracuję wyłącznie w premium klinikach Warszawy. W Siedlcach wprowadzam dokładnie ten sam standard — protokoły, jakość urządzenia i bezpieczeństwo są identyczne. Oszczędzasz natomiast czas, paliwo i dzień urlopu." },
+      { q: "Dlaczego laser pikosekundowy jest dostępny tylko w protokołach złożonych?", a: "Obecnie stosuję laser pikosekundowy wyłącznie w procedurach łączonych, ponieważ synergia z innymi technologiami (np. zimna plazma, fototerapia LED) daje wyniki niedostępne dla pojedynczych zabiegów. Skóra otrzymuje pełną regenerację w jednej sesji, a ultrakrótki impuls 350 ps gwarantuje brak rekonwalescencji." },
     ],
   },
   {
