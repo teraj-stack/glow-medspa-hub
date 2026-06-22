@@ -22,6 +22,7 @@ import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
+import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -96,6 +97,11 @@ const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => TechnologieRoute,
 } as any)
+const FormularzTokenRoute = FormularzTokenRouteImport.update({
+  id: '/formularz/$token',
+  path: '/formularz/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
@@ -155,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -178,6 +185,7 @@ export interface FileRoutesByTo {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   '/technologie': typeof TechnologieRouteWithChildren
   '/unsubscribe': typeof UnsubscribeRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
@@ -227,6 +236,7 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/formularz/$token'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -250,6 +260,7 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/formularz/$token'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -273,6 +284,7 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/unsubscribe'
     | '/email/unsubscribe'
+    | '/formularz/$token'
     | '/technologie/$slug'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
@@ -297,6 +309,7 @@ export interface RootRouteChildren {
   TechnologieRoute: typeof TechnologieRouteWithChildren
   UnsubscribeRoute: typeof UnsubscribeRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
+  FormularzTokenRoute: typeof FormularzTokenRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
@@ -399,6 +412,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TechnologieSlugRouteImport
       parentRoute: typeof TechnologieRoute
     }
+    '/formularz/$token': {
+      id: '/formularz/$token'
+      path: '/formularz/$token'
+      fullPath: '/formularz/$token'
+      preLoaderRoute: typeof FormularzTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
       path: '/email/unsubscribe'
@@ -484,6 +504,7 @@ const rootRouteChildren: RootRouteChildren = {
   TechnologieRoute: TechnologieRouteWithChildren,
   UnsubscribeRoute: UnsubscribeRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
+  FormularzTokenRoute: FormularzTokenRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
