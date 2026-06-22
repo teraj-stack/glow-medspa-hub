@@ -22,6 +22,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
 import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
+import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
@@ -97,6 +98,11 @@ const TechnologieIndexRoute = TechnologieIndexRouteImport.update({
 const TechnologiePicokingRoute = TechnologiePicokingRouteImport.update({
   id: '/technologie/picoking',
   path: '/technologie/picoking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologieFusionPlasmaRoute = TechnologieFusionPlasmaRouteImport.update({
+  id: '/technologie/fusion-plasma',
+  path: '/technologie/fusion-plasma',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
@@ -176,6 +182,7 @@ export interface FileRoutesByFullPath {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
+  '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -202,6 +209,7 @@ export interface FileRoutesByTo {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
+  '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -229,6 +237,7 @@ export interface FileRoutesById {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
+  '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -257,6 +266,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
+    | '/technologie/fusion-plasma'
     | '/technologie/picoking'
     | '/technologie/'
     | '/lovable/email/suppression'
@@ -283,6 +293,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
+    | '/technologie/fusion-plasma'
     | '/technologie/picoking'
     | '/technologie'
     | '/lovable/email/suppression'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
+    | '/technologie/fusion-plasma'
     | '/technologie/picoking'
     | '/technologie/'
     | '/lovable/email/suppression'
@@ -336,6 +348,7 @@ export interface RootRouteChildren {
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   FormularzTokenRoute: typeof FormularzTokenRoute
   TechnologieSlugRoute: typeof TechnologieSlugRoute
+  TechnologieFusionPlasmaRoute: typeof TechnologieFusionPlasmaRoute
   TechnologiePicokingRoute: typeof TechnologiePicokingRoute
   TechnologieIndexRoute: typeof TechnologieIndexRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
@@ -440,6 +453,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TechnologiePicokingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/technologie/fusion-plasma': {
+      id: '/technologie/fusion-plasma'
+      path: '/technologie/fusion-plasma'
+      fullPath: '/technologie/fusion-plasma'
+      preLoaderRoute: typeof TechnologieFusionPlasmaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/technologie/$slug': {
       id: '/technologie/$slug'
       path: '/technologie/$slug'
@@ -536,6 +556,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   FormularzTokenRoute: FormularzTokenRoute,
   TechnologieSlugRoute: TechnologieSlugRoute,
+  TechnologieFusionPlasmaRoute: TechnologieFusionPlasmaRoute,
   TechnologiePicokingRoute: TechnologiePicokingRoute,
   TechnologieIndexRoute: TechnologieIndexRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
