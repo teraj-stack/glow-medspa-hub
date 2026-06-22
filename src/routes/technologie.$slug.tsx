@@ -100,6 +100,23 @@ function TechnologyDetail() {
           <div>
             <SectionHeading eyebrow="Mechanizm" title="Jak działa zabieg" />
             <p className="mt-4 text-base text-foreground/85 md:text-lg">{tech.mechanism}</p>
+            {tech.mechanismImage && (
+              <figure className="mt-8 overflow-hidden rounded-lg border border-border bg-alabaster shadow-soft">
+                <img
+                  src={tech.mechanismImage.src}
+                  alt={tech.mechanismImage.alt}
+                  width={1536}
+                  height={1024}
+                  loading="lazy"
+                  className="h-auto w-full"
+                />
+                {tech.mechanismImage.caption && (
+                  <figcaption className="border-t border-border bg-secondary/40 px-5 py-3 text-xs text-muted-foreground md:text-sm">
+                    {tech.mechanismImage.caption}
+                  </figcaption>
+                )}
+              </figure>
+            )}
           </div>
 
           {tech.applicators && tech.applicators.length > 0 && (
