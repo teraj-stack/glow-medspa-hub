@@ -14,6 +14,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/rozwiazania", changefreq: "monthly", priority: "0.8" },
           { path: "/technologie", changefreq: "monthly", priority: "0.9" },
           { path: "/cennik", changefreq: "monthly", priority: "0.8" },
+          { path: "/blog/powiklania-mezoterapia-iglowa", changefreq: "monthly", priority: "0.7" },
           { path: "/polityka-prywatnosci", changefreq: "yearly", priority: "0.3" },
           { path: "/regulamin", changefreq: "yearly", priority: "0.3" },
           ...TECHNOLOGIES.map((t) => ({
