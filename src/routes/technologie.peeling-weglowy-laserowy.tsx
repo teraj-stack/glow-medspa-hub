@@ -15,6 +15,9 @@ import {
   Sun,
 } from "lucide-react";
 import heroAsset from "@/assets/peeling-weglowy-hero.jpg.asset.json";
+import heroAvif from "@/assets/peeling-weglowy-hero.avif.asset.json";
+import heroWebp from "@/assets/peeling-weglowy-hero.webp.asset.json";
+import { HeroPicture } from "@/components/site/HeroPicture";
 
 const TECH_SLUG = "peeling-weglowy-laserowy";
 const PAGE_URL = "https://bmclinics.ai/technologie/peeling-weglowy-laserowy";
