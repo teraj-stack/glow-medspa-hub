@@ -140,6 +140,57 @@ export type Database = {
         }
         Relationships: []
       }
+      doctors: {
+        Row: {
+          active: boolean
+          bio: string | null
+          buffer_minutes: number
+          created_at: string
+          default_price_cents: number | null
+          display_order: number
+          full_name: string
+          google_calendar_id: string | null
+          id: string
+          photo_url: string | null
+          slot_minutes: number
+          slug: string
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          bio?: string | null
+          buffer_minutes?: number
+          created_at?: string
+          default_price_cents?: number | null
+          display_order?: number
+          full_name: string
+          google_calendar_id?: string | null
+          id?: string
+          photo_url?: string | null
+          slot_minutes?: number
+          slug: string
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          bio?: string | null
+          buffer_minutes?: number
+          created_at?: string
+          default_price_cents?: number | null
+          display_order?: number
+          full_name?: string
+          google_calendar_id?: string | null
+          id?: string
+          photo_url?: string | null
+          slot_minutes?: number
+          slug?: string
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
@@ -275,6 +326,41 @@ export type Database = {
         }
         Relationships: []
       }
+      time_off: {
+        Row: {
+          created_at: string
+          doctor_id: string
+          ends_at: string
+          id: string
+          reason: string | null
+          starts_at: string
+        }
+        Insert: {
+          created_at?: string
+          doctor_id: string
+          ends_at: string
+          id?: string
+          reason?: string | null
+          starts_at: string
+        }
+        Update: {
+          created_at?: string
+          doctor_id?: string
+          ends_at?: string
+          id?: string
+          reason?: string | null
+          starts_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "time_off_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       treatment_catalog: {
         Row: {
           area: string | null
@@ -347,6 +433,124 @@ export type Database = {
         }
         Relationships: []
       }
+      visit_bookings: {
+        Row: {
+          amount_cents: number | null
+          cancel_token: string
+          created_at: string
+          currency: string
+          doctor_id: string
+          ends_at: string
+          google_event_id: string | null
+          id: string
+          ip_hash: string | null
+          notes: string | null
+          patient_email: string
+          patient_name: string
+          patient_phone: string
+          payment_status: Database["public"]["Enums"]["visit_payment_status"]
+          rodo_consent: boolean
+          starts_at: string
+          status: Database["public"]["Enums"]["visit_booking_status"]
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string | null
+          treatment_slug: string | null
+          updated_at: string
+          user_agent: string | null
+        }
+        Insert: {
+          amount_cents?: number | null
+          cancel_token?: string
+          created_at?: string
+          currency?: string
+          doctor_id: string
+          ends_at: string
+          google_event_id?: string | null
+          id?: string
+          ip_hash?: string | null
+          notes?: string | null
+          patient_email: string
+          patient_name: string
+          patient_phone: string
+          payment_status?: Database["public"]["Enums"]["visit_payment_status"]
+          rodo_consent?: boolean
+          starts_at: string
+          status?: Database["public"]["Enums"]["visit_booking_status"]
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          treatment_slug?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Update: {
+          amount_cents?: number | null
+          cancel_token?: string
+          created_at?: string
+          currency?: string
+          doctor_id?: string
+          ends_at?: string
+          google_event_id?: string | null
+          id?: string
+          ip_hash?: string | null
+          notes?: string | null
+          patient_email?: string
+          patient_name?: string
+          patient_phone?: string
+          payment_status?: Database["public"]["Enums"]["visit_payment_status"]
+          rodo_consent?: boolean
+          starts_at?: string
+          status?: Database["public"]["Enums"]["visit_booking_status"]
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          treatment_slug?: string | null
+          updated_at?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visit_bookings_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      working_hours: {
+        Row: {
+          created_at: string
+          doctor_id: string
+          end_time: string
+          id: string
+          start_time: string
+          weekday: number
+        }
+        Insert: {
+          created_at?: string
+          doctor_id: string
+          end_time: string
+          id?: string
+          start_time: string
+          weekday: number
+        }
+        Update: {
+          created_at?: string
+          doctor_id?: string
+          end_time?: string
+          id?: string
+          start_time?: string
+          weekday?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "working_hours_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -380,6 +584,13 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      visit_booking_status:
+        | "pending_payment"
+        | "confirmed"
+        | "cancelled"
+        | "completed"
+        | "no_show"
+      visit_payment_status: "unpaid" | "paid" | "refunded" | "failed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -508,6 +719,14 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      visit_booking_status: [
+        "pending_payment",
+        "confirmed",
+        "cancelled",
+        "completed",
+        "no_show",
+      ],
+      visit_payment_status: ["unpaid", "paid", "refunded", "failed"],
     },
   },
 } as const
