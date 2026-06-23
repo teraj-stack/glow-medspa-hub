@@ -16,6 +16,11 @@ function AdminDashboard() {
       title: "Lekarze",
       description: "Zarządzaj lekarzami, godzinami pracy i integracją kalendarza.",
     },
+    {
+      to: "/admin/cennik",
+      title: "Cennik",
+      description: "Ukrywaj i przywracaj pozycje cennika bez usuwania ich z bazy.",
+    },
   ];
   return (
     <div className="space-y-6">
