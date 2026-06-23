@@ -107,7 +107,10 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        { rel: "preload", as: "image", href: heroPosterAvif.url, type: "image/avif", fetchPriority: "high" },
+      ],
       scripts: scripts.length > 0 ? scripts : undefined,
     };
   },
