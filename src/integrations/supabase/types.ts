@@ -326,6 +326,57 @@ export type Database = {
         }
         Relationships: []
       }
+      sitemap_validation_history: {
+        Row: {
+          base_url: string
+          checked_at: string
+          created_at: string
+          details: Json
+          duplicates_count: number
+          expected_count: number
+          extras_count: number
+          fetch_error: string | null
+          fetch_ok: boolean
+          http_error_count: number
+          id: string
+          live_count: number
+          missing_count: number
+          triggered_by: string
+        }
+        Insert: {
+          base_url: string
+          checked_at?: string
+          created_at?: string
+          details?: Json
+          duplicates_count?: number
+          expected_count?: number
+          extras_count?: number
+          fetch_error?: string | null
+          fetch_ok: boolean
+          http_error_count?: number
+          id?: string
+          live_count?: number
+          missing_count?: number
+          triggered_by?: string
+        }
+        Update: {
+          base_url?: string
+          checked_at?: string
+          created_at?: string
+          details?: Json
+          duplicates_count?: number
+          expected_count?: number
+          extras_count?: number
+          fetch_error?: string | null
+          fetch_ok?: boolean
+          http_error_count?: number
+          id?: string
+          live_count?: number
+          missing_count?: number
+          triggered_by?: string
+        }
+        Relationships: []
+      }
       suppressed_emails: {
         Row: {
           created_at: string
