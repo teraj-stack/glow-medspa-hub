@@ -10,6 +10,8 @@ import dzialanieAsset from "@/assets/plasma-dzialanie.png.asset.json";
 import zaawansowanaAsset from "@/assets/plasma-zaawansowana.png.asset.json";
 import heroVideoAsset from "@/assets/plasma-hero.mp4.asset.json";
 import heroPosterAsset from "@/assets/plasma-poster.jpg.asset.json";
+import heroPosterAvif from "@/assets/plasma-poster.avif.asset.json";
+import heroPosterWebp from "@/assets/plasma-poster.webp.asset.json";
 import ba1Before from "@/assets/plasma-ba-1.png.asset.json";
 import ba1After from "@/assets/plasma-ba-1a.png.asset.json";
 import ba2Before from "@/assets/plasma-ba-2.png.asset.json";
