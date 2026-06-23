@@ -143,6 +143,10 @@ function AdminBookingsPage() {
       }),
   });
 
+  useEffect(() => {
+    setSelected(new Set());
+  }, [range, status, sync, sortBy]);
+
   function reportSync(sync: { calendar_sync_status: string; calendar_sync_error: string | null }) {
     if (sync.calendar_sync_status === "synced") {
       toast.success("Kalendarz Google zsynchronizowany");
