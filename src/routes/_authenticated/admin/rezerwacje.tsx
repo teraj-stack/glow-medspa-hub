@@ -144,6 +144,8 @@ function AdminBookingsPage() {
   }
 
   async function retrySync(id: string) {
+    if (isRetrying(id)) return;
+    setRetrying(id, true);
     setPendingId(id);
     // Optimistic: mark badge as "pending" across cached queries
     qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
@@ -171,6 +173,7 @@ function AdminBookingsPage() {
       toast.error(e?.message || "Nie udało się ponowić synchronizacji");
       await qc.invalidateQueries({ queryKey: ["admin-bookings"] });
     } finally {
+      setRetrying(id, false);
       setPendingId(null);
     }
   }
