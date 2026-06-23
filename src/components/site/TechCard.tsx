@@ -23,7 +23,7 @@ export function TechCard({ tech }: { tech: Technology }) {
         </span>
         <ArrowUpRight className="size-4 text-muted-foreground transition group-hover:text-ink" />
       </div>
-      <h3 className="tile-title">{tech.name}</h3>
+      <h3 className="tile-title whitespace-pre-line">{tech.name}</h3>
       <p className="tile-text">{tech.shortDesc}</p>
     </Link>
   );
