@@ -154,7 +154,7 @@ function FusionPlasmaPage() {
             <div className="rounded-lg overflow-hidden bg-white shadow-soft">
               <video
                 src={heroVideoAsset.url}
-                poster={heroPosterAsset.url}
+                poster={heroPosterWebp.url}
                 autoPlay
                 muted
                 loop
