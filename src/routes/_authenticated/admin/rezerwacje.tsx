@@ -278,6 +278,12 @@ function AdminBookingsPage() {
                     Błąd kalendarza: {b.calendar_sync_error}
                   </div>
                 )}
+                {syncStatus === "error" && (
+                  <div className="text-xs text-muted-foreground">
+                    Próby wykonane: {b.calendar_sync_attempts ?? 0}
+                    {b.calendar_sync_next_at && ` · Następna próba: ${formatDateTime(b.calendar_sync_next_at)}`}
+                  </div>
+                )}
                 {b.notes && (
                   <div className="text-xs text-muted-foreground italic">
                     „{b.notes}"
