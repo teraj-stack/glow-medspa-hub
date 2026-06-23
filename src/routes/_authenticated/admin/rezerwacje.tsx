@@ -21,6 +21,14 @@ type Status =
   | "cancelled"
   | "completed"
   | "no_show";
+type SyncStatus =
+  | "all"
+  | "synced"
+  | "error"
+  | "pending"
+  | "skipped"
+  | "not_required";
+type SortBy = "starts_at" | "next_retry";
 
 const STATUS_LABEL: Record<Exclude<Status, "all">, string> = {
   pending_payment: "Oczekuje płatności",
@@ -38,11 +46,17 @@ const PAYMENT_LABEL: Record<string, string> = {
 };
 
 const SYNC_LABEL: Record<string, string> = {
+  all: "Kalendarz: wszystkie",
   synced: "Kalendarz: zsynchronizowano",
   error: "Kalendarz: błąd synchronizacji",
   not_required: "Kalendarz: bez akcji",
   skipped: "Kalendarz: pominięto",
   pending: "Kalendarz: w toku…",
+};
+
+const SORT_LABEL: Record<SortBy, string> = {
+  starts_at: "Data wizyty",
+  next_retry: "Następna próba",
 };
 
 function statusColor(s: string) {
