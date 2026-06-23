@@ -110,6 +110,7 @@ function Sparkline({ values, threshold }: { values: (number | null)[]; threshold
 
 function WebVitalsPanel() {
   const [strategy, setStrategy] = useState<Strategy>("mobile");
+  const [range, setRange] = useState<RangeKey>("12w");
 
   const vitals = useQuery({
     queryKey: ["cwv", strategy],
