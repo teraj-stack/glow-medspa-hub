@@ -18,12 +18,26 @@ export const Route = createFileRoute("/_authenticated/admin/cennik")({
   component: AdminPricing,
 });
 
+type ItemKey = `${string}::${string}`;
+
+function keyFor(slug: string, label: string): ItemKey {
+  return `${slug}::${label}`;
+}
+
+function parseKey(key: ItemKey) {
+  const sep = key.indexOf("::");
+  return { slug: key.slice(0, sep), label: key.slice(sep + 2) };
+}
+
 function AdminPricing() {
   const queryClient = useQueryClient();
   const listFn = useServerFn(listHiddenPricingItems);
   const toggleFn = useServerFn(setPricingItemHidden);
-  const [pending, setPending] = useState<Set<string>>(new Set());
+  const bulkToggleFn = useServerFn(setPricingItemsHidden);
+  const [pending, setPending] = useState<Set<ItemKey>>(new Set());
   const [showHiddenOnly, setShowHiddenOnly] = useState(false);
+  const [selected, setSelected] = useState<Set<ItemKey>>(new Set());
+  const [bulkPending, setBulkPending] = useState(false);
 
   const { data: hidden = [], isLoading } = useQuery({
     queryKey: ["hidden-pricing-items"],
@@ -31,7 +45,7 @@ function AdminPricing() {
   });
 
   const hiddenSet = useMemo(
-    () => new Set(hidden.map((h) => `${h.slug}::${h.label}`)),
+    () => new Set(hidden.map((h) => keyFor(h.slug, h.label))),
     [hidden],
   );
 
@@ -41,7 +55,7 @@ function AdminPricing() {
   );
 
   const toggle = async (slug: string, label: string, hide: boolean) => {
-    const key = `${slug}::${label}`;
+    const key = keyFor(slug, label);
     setPending((p) => new Set(p).add(key));
     try {
       await toggleFn({ data: { slug, label, hidden: hide } });
@@ -55,6 +69,55 @@ function AdminPricing() {
         n.delete(key);
         return n;
       });
+    }
+  };
+
+  const isSelected = (slug: string, label: string) =>
+    selected.has(keyFor(slug, label));
+
+  const toggleSelected = (slug: string, label: string) => {
+    const key = keyFor(slug, label);
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
+
+  const toggleGroup = (slug: string, rows: { label: string }[]) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      const allSelected = rows.every((p) => next.has(keyFor(slug, p.label)));
+      for (const p of rows) {
+        const key = keyFor(slug, p.label);
+        if (allSelected) next.delete(key);
+        else next.add(key);
+      }
+      return next;
+    });
+  };
+
+  const bulkToggle = async (hide: boolean) => {
+    if (selected.size === 0) return;
+    const items = Array.from(selected).map((k) => {
+      const { slug, label } = parseKey(k);
+      return { slug, label, hidden: hide };
+    });
+    setBulkPending(true);
+    try {
+      await bulkToggleFn({ data: { items } });
+      await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
+      setSelected(new Set());
+      toast.success(
+        hide
+          ? `Ukryto ${items.length} pozycji`
+          : `Przywrócono ${items.length} pozycji`,
+      );
+    } catch (e: any) {
+      toast.error(e?.message ?? "Nie udało się zaktualizować pozycji");
+    } finally {
+      setBulkPending(false);
     }
   };
 
