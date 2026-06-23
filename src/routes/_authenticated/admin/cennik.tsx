@@ -148,72 +148,159 @@ function AdminPricing() {
       {isLoading ? (
         <p className="text-sm text-muted-foreground">Wczytywanie…</p>
       ) : (
-        <div className="space-y-8">
-          {groups.map((t) => {
-            const rows = t.pricing.filter((p) =>
-              showHiddenOnly ? hiddenSet.has(`${t.slug}::${p.label}`) : true,
-            );
-            if (rows.length === 0) return null;
-            return (
-              <section key={t.slug}>
-                <h3 className="font-medium text-foreground mb-2">{t.name}</h3>
-                <div className="overflow-hidden rounded-lg border border-border bg-card">
-                  <table className="w-full text-sm">
-                  <tbody>
-                    {rows.map((p) => {
-                      const key = keyFor(t.slug, p.label);
-                      const isHidden = hiddenSet.has(key);
-                      const isPending = pending.has(key);
-                      return (
-                        <tr
-                          key={p.label}
-                          className="border-b border-border last:border-0"
-                        >
-                          <td className="px-4 py-3">
-                            <div className="flex items-center gap-3">
-                              <Switch
-                                checked={!isHidden}
-                                disabled={isPending}
-                                onCheckedChange={(checked) =>
-                                  toggle(t.slug, p.label, !checked)
-                                }
-                                aria-label={
-                                  isHidden ? "Przywróć pozycję" : "Ukryj pozycję"
-                                }
-                              />
-                              <span
-                                className={
-                                  isHidden ? "text-muted-foreground line-through" : ""
-                                }
-                              >
-                                {p.label}
-                              </span>
-                            </div>
-                          </td>
-                          <td className="px-4 py-3">
-                            <span
-                              className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
-                                isHidden
-                                  ? "bg-amber-500/15 text-amber-500"
-                                  : "bg-emerald-500/15 text-emerald-500"
-                              }`}
+        <>
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card p-3">
+            <div className="flex items-center gap-2 text-sm">
+              <Checkbox
+                checked={
+                  selected.size > 0 &&
+                  groups
+                    .flatMap((g) =>
+                      g.pricing
+                        .filter((p) =>
+                          showHiddenOnly ? hiddenSet.has(keyFor(g.slug, p.label)) : true,
+                        )
+                        .map((p) => keyFor(g.slug, p.label)),
+                    )
+                    .every((k) => selected.has(k))
+                }
+                onCheckedChange={(checked) => {
+                  if (checked) {
+                    const next = new Set<ItemKey>();
+                    for (const g of groups) {
+                      for (const p of g.pricing) {
+                        if (showHiddenOnly && !hiddenSet.has(keyFor(g.slug, p.label))) continue;
+                        next.add(keyFor(g.slug, p.label));
+                      }
+                    }
+                    setSelected(next);
+                  } else {
+                    setSelected(new Set());
+                  }
+                }}
+                aria-label="Zaznacz wszystkie pozycje"
+              />
+              <span className="text-muted-foreground">
+                Zaznaczono:{" "}
+                <strong className="text-foreground">{selected.size}</strong>
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={selected.size === 0 || bulkPending}
+                onClick={() => bulkToggle(false)}
+              >
+                {bulkPending ? "…" : "Przywróć zaznaczone"}
+              </Button>
+              <Button
+                size="sm"
+                disabled={selected.size === 0 || bulkPending}
+                onClick={() => bulkToggle(true)}
+              >
+                {bulkPending ? "…" : "Ukryj zaznaczone"}
+              </Button>
+            </div>
+          </div>
+
+          <div className="space-y-8">
+            {groups.map((t) => {
+              const rows = t.pricing.filter((p) =>
+                showHiddenOnly ? hiddenSet.has(keyFor(t.slug, p.label)) : true,
+              );
+              if (rows.length === 0) return null;
+              const groupSelectedCount = rows.filter((p) =>
+                isSelected(t.slug, p.label),
+              ).length;
+              const groupChecked =
+                rows.length > 0 && groupSelectedCount === rows.length;
+              const groupIndeterminate =
+                groupSelectedCount > 0 && groupSelectedCount < rows.length;
+
+              return (
+                <section key={t.slug}>
+                  <div className="mb-2 flex items-center gap-2">
+                    <Checkbox
+                      checked={
+                        groupIndeterminate ? "indeterminate" : groupChecked
+                      }
+                      onCheckedChange={() => toggleGroup(t.slug, rows)}
+                      aria-label={`Zaznacz wszystkie pozycje w ${t.name}`}
+                    />
+                    <h3 className="font-medium text-foreground">{t.name}</h3>
+                  </div>
+                  <div className="overflow-hidden rounded-lg border border-border bg-card">
+                    <table className="w-full text-sm">
+                      <tbody>
+                        {rows.map((p) => {
+                          const key = keyFor(t.slug, p.label);
+                          const isHidden = hiddenSet.has(key);
+                          const isPending = pending.has(key);
+                          return (
+                            <tr
+                              key={p.label}
+                              className="border-b border-border last:border-0"
                             >
-                              {isHidden ? "ukryta" : "widoczna"}
-                            </span>
-                          </td>
-                          <td className="px-4 py-3 text-right text-muted-foreground">
-                            {formatCena(p.price, { prefix: "od" })}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                  </table>
-                </div>
-              </section>
-            );
-          })}
-        </div>
+                              <td className="w-10 px-2 py-3 text-center">
+                                <Checkbox
+                                  checked={isSelected(t.slug, p.label)}
+                                  onCheckedChange={() =>
+                                    toggleSelected(t.slug, p.label)
+                                  }
+                                  aria-label={`Zaznacz ${p.label}`}
+                                />
+                              </td>
+                              <td className="px-4 py-3">
+                                <div className="flex items-center gap-3">
+                                  <Switch
+                                    checked={!isHidden}
+                                    disabled={isPending}
+                                    onCheckedChange={(checked) =>
+                                      toggle(t.slug, p.label, !checked)
+                                    }
+                                    aria-label={
+                                      isHidden
+                                        ? "Przywróć pozycję"
+                                        : "Ukryj pozycję"
+                                    }
+                                  />
+                                  <span
+                                    className={
+                                      isHidden
+                                        ? "text-muted-foreground line-through"
+                                        : ""
+                                    }
+                                  >
+                                    {p.label}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="px-4 py-3">
+                                <span
+                                  className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                                    isHidden
+                                      ? "bg-amber-500/15 text-amber-500"
+                                      : "bg-emerald-500/15 text-emerald-500"
+                                  }`}
+                                >
+                                  {isHidden ? "ukryta" : "widoczna"}
+                                </span>
+                              </td>
+                              <td className="px-4 py-3 text-right text-muted-foreground">
+                                {formatCena(p.price, { prefix: "od" })}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        </>
       )}
     </div>
   );
