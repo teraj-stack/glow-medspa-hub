@@ -311,3 +311,178 @@ function RozwiazaniaPage() {
     </main>
   );
 }
+
+const FAQS: Array<{
+  id: string;
+  tagline: string;
+  title: string;
+  items: Array<{ q: string; a: string }>;
+}> = [
+  {
+    id: "faq-przywrocenie-konturow",
+    tagline: "01 · Lifting i owal",
+    title: "Przywrócenie konturów",
+    items: [
+      {
+        q: "Jak się przygotować?",
+        a: "Na 2 tygodnie przed wizytą odstawiamy retinoidy i silne kwasy oraz unikamy intensywnej ekspozycji na słońce i solarium. W dniu zabiegu przychodzimy z oczyszczoną skórą, bez makijażu. Lekarz na konsultacji zweryfikuje przyjmowane leki i wskaże ewentualne dodatkowe zalecenia.",
+      },
+      {
+        q: "Jak wygląda przebieg?",
+        a: "Sesja trwa zwykle 45–90 minut. Po dokładnej analizie owalu nakładamy znieczulenie miejscowe, a następnie pracujemy sekwencyjnie nad skórą głęboką, powięzią i konturem żuchwy. Odczucia są komfortowe — opisywane jako ciepło i delikatne mikrowibracje. Po zabiegu możliwe jest zaróżowienie skóry, które ustępuje w kilka–kilkanaście godzin.",
+      },
+      {
+        q: "Czy to bezpieczne?",
+        a: "Tak — protokół prowadzi lekarz, parametry dobierane są indywidualnie do fototypu i kondycji skóry. Przeciwwskazaniem są m.in. ciąża, karmienie, aktywne stany zapalne skóry oraz wybrane schorzenia ogólne, które weryfikujemy w wywiadzie. Po wizycie zalecamy ochronę SPF50 i unikanie sauny przez 3–5 dni.",
+      },
+    ],
+  },
+  {
+    id: "faq-tekstura-hd",
+    tagline: "02 · Tekstura « HD »",
+    title: "Redukcja blizn i zmarszczek",
+    items: [
+      {
+        q: "Jak się przygotować?",
+        a: "Na 2–4 tygodnie przed sesją unikamy opalania oraz mocnych preparatów złuszczających. Przy skłonności do opryszczki włączamy profilaktykę przeciwwirusową zaleconą przez lekarza. W dniu zabiegu skóra powinna być czysta, bez kosmetyków i perfum.",
+      },
+      {
+        q: "Jak wygląda przebieg?",
+        a: "Po znieczuleniu w kremie pracujemy frakcyjnie nad teksturą skóry, łącząc kilka technik w jednej sesji, by zoptymalizować przebudowę kolagenu. Bezpośrednio po zabiegu skóra jest zaczerwieniona i ciepła; przez 2–5 dni utrzymuje się delikatne łuszczenie. Pełny efekt rozwija się stopniowo w ciągu 8–12 tygodni.",
+      },
+      {
+        q: "Czy to bezpieczne?",
+        a: "Protokół jest dobrze tolerowany przy odpowiedniej kwalifikacji. Nie wykonujemy go w ciąży, przy aktywnym opalaniu, infekcji skóry czy przyjmowaniu izotretynoiny w ostatnich 6 miesiącach. Po zabiegu obowiązkowa jest pielęgnacja regenerująca i SPF50 przez minimum 4 tygodnie.",
+      },
+    ],
+  },
+  {
+    id: "faq-rewitalizacja-dloni",
+    tagline: "03 · Rewitalizacja dłoni i ciała",
+    title: "Gęstość i jędrność",
+    items: [
+      {
+        q: "Jak się przygotować?",
+        a: "Na tydzień przed wizytą rezygnujemy z silnych peelingów na obszarze planowanej pracy oraz z intensywnej ekspozycji na słońce. Warto być dobrze nawodnioną/nawodnionym i zjeść lekki posiłek przed sesją, zwłaszcza przy pracy nad ciałem.",
+      },
+      {
+        q: "Jak wygląda przebieg?",
+        a: "Sesja trwa od 30 do 90 minut w zależności od obszaru. Pracujemy warstwowo — najpierw nad strukturą głęboką i powięzią, następnie nad jakością skóry. Zabieg jest komfortowy, bez przestoju społecznego. Pierwsze efekty napięcia widać po kilku dniach, pełny rezultat — po serii 3–4 sesji.",
+      },
+      {
+        q: "Czy to bezpieczne?",
+        a: "Tak — pracujemy na parametrach klinicznych, pod nadzorem lekarza. Przeciwwskazania to m.in. ciąża, implanty elektroniczne w obszarze pracy, stany zapalne i aktywne choroby skóry. Po wizycie zalecamy nawodnienie i unikanie intensywnego treningu przez 24 godziny.",
+      },
+    ],
+  },
+  {
+    id: "faq-okolica-oka",
+    tagline: "04 · Okolica oka",
+    title: "Kontur i blask spojrzenia",
+    items: [
+      {
+        q: "Jak się przygotować?",
+        a: "Na wizytę przychodzimy bez makijażu oczu i bez soczewek kontaktowych — najlepiej w okularach. Tydzień przed zabiegiem odstawiamy mocne kosmetyki z retinolem i kwasami w okolicy oczu. Informujemy lekarza o przebytych zabiegach okulistycznych.",
+      },
+      {
+        q: "Jak wygląda przebieg?",
+        a: "Pracujemy bardzo precyzyjnie nad delikatną skórą powiek i okolicą skroni. Sesja trwa 30–60 minut, prowadzona jest w komfortowych warunkach, ze znieczuleniem dopasowanym do techniki. Po zabiegu może pojawić się przejściowy obrzęk lub zaróżowienie, które ustępuje w 1–3 dni.",
+      },
+      {
+        q: "Czy to bezpieczne?",
+        a: "Tak — okolica oka wymaga doświadczenia i właściwego doboru technologii, dlatego zawsze prowadzi ją lekarz. Stosujemy osłony ochronne oka oraz parametry bezpieczne dla cienkiej skóry powiek. Przeciwwskazaniem są m.in. aktywne stany zapalne, ciąża i wybrane schorzenia okulistyczne.",
+      },
+    ],
+  },
+  {
+    id: "faq-modelowanie-sylwetki",
+    tagline: "05 · Modelowanie sylwetki",
+    title: "Body Contour",
+    items: [
+      {
+        q: "Jak się przygotować?",
+        a: "Sesję planujemy 2–3 godziny po lekkim posiłku, dobrze nawodnione/nawodnieni. Na wizytę zakładamy wygodną bieliznę bawełnianą — bez elementów metalowych w obszarze pracy. Informujemy o implantach, rozruszniku serca czy wkładce wewnątrzmacicznej.",
+      },
+      {
+        q: "Jak wygląda przebieg?",
+        a: "Sesja trwa około 30 minut i przypomina intensywny trening — bez wysiłku fizycznego, w pozycji leżącej. Mięśnie pracują w cyklach skurczu i relaksacji, a praca uzupełniana jest komponentem regenerującym. Bez przestoju społecznego — po zabiegu wracamy do codziennych aktywności.",
+      },
+      {
+        q: "Czy to bezpieczne?",
+        a: "Tak — protokół jest dobrze tolerowany i prowadzony pod kontrolą personelu medycznego. Przeciwwskazania to m.in. ciąża, implanty elektroniczne, metalowe implanty w obszarze pracy, przepukliny i wybrane choroby ogólne. Najlepsze efekty osiągamy w serii 4–6 sesji uzupełnionej zdrowym stylem życia.",
+      },
+    ],
+  },
+  {
+    id: "faq-renesans",
+    tagline: "E · Renesans",
+    title: "Konsultacja autorska lek. Jana Bujok",
+    items: [
+      {
+        q: "Jak się przygotować?",
+        a: "Na konsultację warto przyjść z listą oczekiwań, historią dotychczasowych zabiegów oraz informacją o przyjmowanych lekach i suplementach. Mile widziane są zdjęcia archiwalne — pomagają zaprojektować plan szanujący Państwa naturalne rysy.",
+      },
+      {
+        q: "Jak wygląda przebieg?",
+        a: "Spotkanie trwa do 60 minut i obejmuje analizę twarzy oraz sylwetki, omówienie filozofii « Body Longevity » i zaprojektowanie autorskiej sygnatury rozłożonej w czasie. Otrzymują Państwo plan etapów, kosztorys oraz rekomendacje pielęgnacji pomiędzy wizytami.",
+      },
+      {
+        q: "Czy to bezpieczne?",
+        a: "Każdy etap planowany jest przez lekarza w oparciu o pełen wywiad medyczny, z poszanowaniem indywidualnych przeciwwskazań. Sygnatura « Renesans » zakłada sekwencje rozłożone w czasie, by skóra i tkanki regenerowały się w fizjologicznym tempie — bez efektu przerysowania.",
+      },
+    ],
+  },
+];
+
+function FaqSection() {
+  return (
+    <section className="border-t border-border bg-background">
+      <div className="container-luxury py-16 md:py-24">
+        <ScrollReveal>
+          <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+            <div className="text-xs tracking-[0.3em] uppercase text-champagne mb-4 font-body">
+              Najczęstsze pytania
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl text-foreground leading-tight">
+              Przygotowanie, przebieg i bezpieczeństwo
+            </h2>
+            <p className="mt-4 text-muted-foreground font-body">
+              Krótkie odpowiedzi dla każdego z protokołów — szczegóły zawsze
+              omawiamy indywidualnie podczas konsultacji.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+          {FAQS.map((group) => (
+            <ScrollReveal key={group.id}>
+              <article
+                id={group.id}
+                className="h-full rounded-sm border border-champagne/30 bg-card p-6 md:p-8"
+              >
+                <div className="text-xs tracking-[0.3em] uppercase text-champagne font-body">
+                  {group.tagline}
+                </div>
+                <h3 className="font-serif text-2xl md:text-3xl text-foreground mt-2 mb-4 leading-tight">
+                  {group.title}
+                </h3>
+                <Accordion type="single" collapsible className="w-full">
+                  {group.items.map((item, idx) => (
+                    <AccordionItem key={idx} value={`${group.id}-${idx}`}>
+                      <AccordionTrigger className="text-left font-body text-foreground">
+                        {item.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="text-muted-foreground font-body leading-relaxed">
+                        {item.a}
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              </article>
+            </ScrollReveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
