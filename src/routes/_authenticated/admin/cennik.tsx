@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { TECHNOLOGIES } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import {
   listHiddenPricingItems,
   setPricingItemHidden,
