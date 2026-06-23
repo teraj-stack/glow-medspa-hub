@@ -20,6 +20,7 @@ function AdminLayout() {
     { to: "/admin", label: "Pulpit", exact: true },
     { to: "/admin/rezerwacje", label: "Rezerwacje" },
     { to: "/admin/lekarze", label: "Lekarze" },
+    { to: "/admin/cennik", label: "Cennik" },
   ];
   return (
     <div className="min-h-screen bg-background">

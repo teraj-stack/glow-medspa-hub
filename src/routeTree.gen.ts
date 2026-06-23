@@ -38,6 +38,7 @@ import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authentic
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as AuthenticatedAdminRezerwacjeRouteImport } from './routes/_authenticated/admin/rezerwacje'
 import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
+import { Route as AuthenticatedAdminCennikRouteImport } from './routes/_authenticated/admin/cennik'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -195,6 +196,12 @@ const AuthenticatedAdminLekarzeRoute =
     path: '/lekarze',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminCennikRoute =
+  AuthenticatedAdminCennikRouteImport.update({
+    id: '/cennik',
+    path: '/cennik',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -261,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie/': typeof TechnologieIndexRoute
+  '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -297,6 +305,7 @@ export interface FileRoutesByTo {
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie': typeof TechnologieIndexRoute
+  '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -336,6 +345,7 @@ export interface FileRoutesById {
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie/': typeof TechnologieIndexRoute
+  '/_authenticated/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/_authenticated/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
@@ -375,6 +385,7 @@ export interface FileRouteTypes {
     | '/technologie/picoking'
     | '/technologie/terapia-led'
     | '/technologie/'
+    | '/admin/cennik'
     | '/admin/lekarze'
     | '/admin/rezerwacje'
     | '/lovable/email/suppression'
@@ -411,6 +422,7 @@ export interface FileRouteTypes {
     | '/technologie/picoking'
     | '/technologie/terapia-led'
     | '/technologie'
+    | '/admin/cennik'
     | '/admin/lekarze'
     | '/admin/rezerwacje'
     | '/lovable/email/suppression'
@@ -449,6 +461,7 @@ export interface FileRouteTypes {
     | '/technologie/picoking'
     | '/technologie/terapia-led'
     | '/technologie/'
+    | '/_authenticated/admin/cennik'
     | '/_authenticated/admin/lekarze'
     | '/_authenticated/admin/rezerwacje'
     | '/lovable/email/suppression'
@@ -702,6 +715,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminLekarzeRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/cennik': {
+      id: '/_authenticated/admin/cennik'
+      path: '/cennik'
+      fullPath: '/admin/cennik'
+      preLoaderRoute: typeof AuthenticatedAdminCennikRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
       path: '/lovable/email/transactional/send'
@@ -755,6 +775,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedAdminRouteRouteChildren {
+  AuthenticatedAdminCennikRoute: typeof AuthenticatedAdminCennikRoute
   AuthenticatedAdminLekarzeRoute: typeof AuthenticatedAdminLekarzeRoute
   AuthenticatedAdminRezerwacjeRoute: typeof AuthenticatedAdminRezerwacjeRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -762,6 +783,7 @@ interface AuthenticatedAdminRouteRouteChildren {
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
   {
+    AuthenticatedAdminCennikRoute: AuthenticatedAdminCennikRoute,
     AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
     AuthenticatedAdminRezerwacjeRoute: AuthenticatedAdminRezerwacjeRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,

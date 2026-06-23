@@ -278,6 +278,30 @@ export type Database = {
         }
         Relationships: []
       }
+      hidden_pricing_items: {
+        Row: {
+          created_at: string
+          hidden_by: string | null
+          id: string
+          label: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          hidden_by?: string | null
+          id?: string
+          label: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          hidden_by?: string | null
+          id?: string
+          label?: string
+          slug?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string

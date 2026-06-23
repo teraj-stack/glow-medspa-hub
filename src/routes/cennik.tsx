@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { TECHNOLOGIES } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
+import { listHiddenPricingItems } from "@/lib/pricing-visibility.functions";
 
 export const Route = createFileRoute("/cennik")({
   head: () => ({
@@ -21,6 +23,18 @@ export const Route = createFileRoute("/cennik")({
 });
 
 function Pricing() {
+  const { data: hidden = [] } = useQuery({
+    queryKey: ["hidden-pricing-items"],
+    queryFn: () => listHiddenPricingItems(),
+    staleTime: 60_000,
+  });
+  const hiddenSet = new Set(hidden.map((h) => `${h.slug}::${h.label}`));
+
+  const groups = TECHNOLOGIES.map((t) => ({
+    ...t,
+    pricing: t.pricing.filter((p) => !hiddenSet.has(`${t.slug}::${p.label}`)),
+  })).filter((t) => t.pricing.length > 0);
+
   return (
     <>
       <section className="bg-secondary/40 py-16 md:py-24">
@@ -36,7 +50,7 @@ function Pricing() {
 
       <section className="container-luxury py-16 md:py-20">
         <div className="space-y-12">
-          {TECHNOLOGIES.filter((t) => t.pricing.length > 0).map((t) => (
+          {groups.map((t) => (
             <div key={t.slug}>
               <div className="mb-4 flex items-baseline justify-between gap-4">
                 <h2 className="gold-line font-serif text-ink">{t.name}</h2>
@@ -59,6 +73,7 @@ function Pricing() {
           ))}
         </div>
       </section>
+
 
       <section className="bg-secondary/40 py-16 md:py-20">
         <div className="container-luxury text-center">
