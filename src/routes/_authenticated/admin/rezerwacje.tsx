@@ -326,6 +326,48 @@ function AdminBookingsPage() {
         </div>
       )}
 
+      {errorBookingIds.length > 0 && (
+        <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border p-3 bg-card">
+          <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+            <input
+              type="checkbox"
+              className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-primary"
+              checked={selected.size === errorBookingIds.length && errorBookingIds.length > 0}
+              onChange={(e) => {
+                if (e.target.checked) selectAllErrors();
+                else clearSelection();
+              }}
+            />
+            <span className="text-foreground">
+              Zaznaczono {selected.size} z {errorBookingIds.length} z błędem
+            </span>
+          </label>
+          <div className="flex-1" />
+          <ActionButton
+            variant="muted"
+            onClick={selectAllErrors}
+            disabled={bulkRetrying}
+          >
+            Zaznacz wszystkie błędy
+          </ActionButton>
+          <ActionButton
+            variant="muted"
+            onClick={clearSelection}
+            disabled={selected.size === 0 || bulkRetrying}
+          >
+            Wyczyść
+          </ActionButton>
+          <ActionButton
+            onClick={bulkRetry}
+            disabled={selected.size === 0 || bulkRetrying}
+          >
+            {bulkRetrying
+              ? "Ponawianie…"
+              : `Ponów synchronizację (${selected.size})`}
+          </ActionButton>
+        </div>
+      )}
+
       {data && data.length === 0 && (
         <div className="rounded-lg border border-border p-8 text-center text-sm text-muted-foreground">
           Brak rezerwacji w wybranym zakresie.
