@@ -32,7 +32,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
       {
         name: "description",
         content:
-          "Bezpieczeństwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Jak dobieramy parametry laseroterapii i dlaczego zabiegi wymagają nadzoru lekarza.",
+          "Bezpieczeństwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Co zwiększa ryzyko, jak je ograniczyć, kiedy zgłosić się do lekarza oraz jak dobieramy parametry laseroterapii.",
       },
       {
         property: "og:title",
@@ -163,6 +163,63 @@ const AREA_RISKS = [
       "Ryzyko infekcji wzrasta, gdy nie zachowana zostanie odpowiednia higiena lub gdy pacjent zbyt wcześnie wraca do aktywności fizycznej.",
       "Zabiegi w tym obszarze wymagają starannej oceny wszystkich zmian skórnych i fototypu.",
       "Rekonwalescencja wymaga luźnej bielizny, unikania gorącej kąpieli, sauny i depilacji mechanicznej przez czas wskazany przez lekarza.",
+    ],
+  },
+];
+
+const FAQ_AREA_RISKS = [
+  {
+    area: "Twarz",
+    icon: ScanFace,
+    questions: [
+      {
+        q: "Co zwiększa ryzyko powikłań przy zabiegach laserowych na twarz?",
+        a: "Największe znaczenie mają: bardzo cienka skóra w okolicy oczu, nosa i ust, aktywna opryszczka lub jej skłonność, świeża opalenizna lub samoopalacz, leki światłouczulające (np. niektóre antybiotyki, izotretynoina), niedoświadczenie operatora, zbyt agresywne parametry oraz brak odpowiedniej ochrony oczu.",
+      },
+      {
+        q: "Jak ograniczyć ryzyko podczas zabiegów na twarz?",
+        a: "Przed zabiegiem: szczery wywiad, ocena fototypu, unikanie słońca i samoopalaczy przez 4 tygodnie, odstawienie drażniących substancji zgodnie z zaleceniami. W trakcie: testowa aplikacja, konserwatywne parametry na początku, pełna ochrona oczu. Po zabiegu: filtr SPF 50+, łagodna pielęgnacja, nie wycieranie ani drapanie skóry, unikanie makijażu przez czas wskazany przez lekarza.",
+      },
+      {
+        q: "Kiedy zgłosić się do lekarza po zabiegu na twarz?",
+        a: "Natychmiast, gdy pojawi się: silny ból, pęcherze lub kruszki, zauważalne zmiany w pigmentacji, objawy infekcji (ropień, rosnące zaczerwienienie, gorączka), oparzenie, wysiew opryszczki lub powstawanie blizny. Wczesna interwencja lekarza skutecznie zapobiega trwałym zmianom.",
+      },
+    ],
+  },
+  {
+    area: "Ciało",
+    icon: Ruler,
+    questions: [
+      {
+        q: "Co zwiększa ryzyko powikłań przy zabiegach laserowych na ciele?",
+        a: "Do głównych czynników należą: opalenizna przed lub po zabiegu, pocenie się i tarcie ubrań w polu zabiegowym, wykonywanie zabiegu na zbyt dużej powierzchni bez odpowiedniego chłodzenia, zbyt krótkie odstępy między sesjami, zbyt agresywne parametry, a także pielęgnacja z kwasami, retinoidami lub środkami drażniącymi w okresie pozabiegowym.",
+      },
+      {
+        q: "Jak ograniczyć ryzyko podczas zabiegów na ciele?",
+        a: "Kluczowe jest podzielenie dużych powierzchni na segmenty, systematyczne chłodzenie skóry, nawodnienie naskórka, unikanie pocenia się przez 24–48 godzin, noszenie luźnych, przewiewnych ubrań oraz bezwzględne stosowanie ochrony przeciwsłonecznej. Lekarz dobiera też odstępy między zabiegami do tempa regeneracji skóry.",
+      },
+      {
+        q: "Kiedy zgłosić się do lekarza po zabiegu na ciele?",
+        a: "Konsultacja jest konieczna, gdy rumień i obrzęk nie ustępują po 2–3 dniach, pojawiają się pęcherze, bolesne zaczerwienienie, zmiany pigmentacyjne, ropne wydzielanie, gorączka lub pogorszenie stanu skóry po kilku dniach od zabiegu.",
+      },
+    ],
+  },
+  {
+    area: "Bikini",
+    icon: CircleDot,
+    questions: [
+      {
+        q: "Co zwiększa ryzyko powikłań przy zabiegach laserowych w okolicy bikini?",
+        a: "Ryzyko rośnie przy: bardzo cienkiej i wrażliwej skórze, licznych znamionach, wysokim stężeniu melaniny, tarciu bielizny i syntetycznych materiałach, gorących kąpielach, saunie i basenie bez zgody lekarza, zbyt szybkim powrocie do aktywności fizycznej oraz niewłaściwej higienie w okresie pozabiegowym.",
+      },
+      {
+        q: "Jak ograniczyć ryzyko podczas zabiegów w okolicy bikini?",
+        a: "Przed zabiegiem lekarz ocenia wszystkie zmiany skórne i fototyp. Po zabiegu zalecamy: luźną bawełnianą bieliznę, staranną higienę bez agresywnych środków, unikanie gorącej wody i sauny, rezygnację z depilacji mechanicznej przez wskazany czas oraz powstrzymanie się od intensywnego ruchu, który nasila pocenie i tarcie.",
+      },
+      {
+        q: "Kiedy zgłosić się do lekarza po zabiegu w okolicy bikini?",
+        a: "Należy skontaktować się z kliniką w przypadku: silnego bólu, pęcherzy, ropniejących zmian, narastającego zaczerwienienia, gorączki, wyraźnych zmian pigmentacyjnych lub objawów infekcji. Obszar intymny wymaga szczególnej uwagi, dlatego nie warto czekać na samoistne ustąpienie niepokojących objawów.",
+      },
     ],
   },
 ];
@@ -342,6 +399,42 @@ function LaserSafetyPage() {
             </TabsContent>
           ))}
         </Tabs>
+      </section>
+
+      {/* AREA FAQ */}
+      <section className="bg-secondary/40 py-12 md:py-20">
+        <div className="container-luxury">
+          <SectionHeading
+            eyebrow="FAQ"
+            title="Ryzyko w poszczególnych obszarach"
+            description="Poniżej odpowiadamy na najczęstsze pytania o to, co może zwiększać ryzyko powikłań, jak je ograniczyć oraz kiedy po zabiegu należy skontaktować się z lekarzem."
+          />
+          <div className="mt-10 space-y-8">
+            {FAQ_AREA_RISKS.map((area) => (
+              <div
+                key={area.area}
+                className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8"
+              >
+                <div className="flex items-center gap-3 text-champagne">
+                  <area.icon className="size-5" aria-hidden="true" />
+                  <h3 className="font-serif text-xl text-ink">{area.area}</h3>
+                </div>
+                <div className="mt-6 divide-y divide-border rounded-lg border border-border">
+                  {area.questions.map((item) => (
+                    <details key={item.q} className="group p-5 open:bg-secondary/30 md:p-6">
+                      <summary className="cursor-pointer list-none font-serif text-lg text-ink">
+                        {item.q}
+                      </summary>
+                      <p className="mt-3 text-sm leading-relaxed text-foreground/80 md:text-base">
+                        {item.a}
+                      </p>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* REGULATIONS */}
