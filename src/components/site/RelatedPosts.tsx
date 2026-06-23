@@ -27,9 +27,15 @@ export function RelatedPosts({ currentSlug, limit = 3, className }: Props) {
           bezpiecznych zabiegach laserowych i medycynie estetycznej.
         </p>
 
-        <ul className="mt-10 grid gap-6 md:grid-cols-3">
+        <ul
+          className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-4 -mx-4 [scrollbar-width:thin] md:mx-0 md:grid md:snap-none md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0"
+          role="list"
+        >
           {posts.map((post) => (
-            <li key={post.slug}>
+            <li
+              key={post.slug}
+              className="w-[85%] shrink-0 snap-start first:ml-0 last:mr-0 md:w-auto md:shrink md:snap-align-none"
+            >
               <Link
                 to={post.path}
                 className="group flex h-full flex-col rounded-lg border border-border bg-card p-6 transition hover:border-champagne hover:shadow-lg"
@@ -43,23 +49,26 @@ export function RelatedPosts({ currentSlug, limit = 3, className }: Props) {
                 <p className="mt-3 flex-1 text-sm text-foreground/80 leading-relaxed">
                   {post.excerpt}
                 </p>
-                <div className="mt-5 flex items-center justify-between text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-3">
+                <div className="mt-5 flex items-center justify-between gap-3 text-xs text-muted-foreground">
+                  <span className="inline-flex min-w-0 items-center gap-3">
                     <span className="inline-flex items-center gap-1.5">
-                      <Calendar className="size-3.5" />
-                      {formatDate(post.publishedAt)}
+                      <Calendar className="size-3.5 shrink-0" />
+                      <span className="truncate">{formatDate(post.publishedAt)}</span>
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Clock className="size-3.5" />
+                      <Clock className="size-3.5 shrink-0" />
                       {post.readingTime}
                     </span>
                   </span>
-                  <ArrowRight className="size-4 text-champagne transition group-hover:translate-x-1" />
+                  <ArrowRight className="size-4 shrink-0 text-champagne transition group-hover:translate-x-1" />
                 </div>
               </Link>
             </li>
           ))}
         </ul>
+        <p className="mt-3 text-xs text-muted-foreground md:hidden">
+          Przesuń, aby zobaczyć więcej →
+        </p>
       </div>
     </section>
   );
