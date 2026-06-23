@@ -177,7 +177,14 @@ async def main():
     all_failures = []
     async with async_playwright() as pw:
         browser = await pw.chromium.launch(headless=True)
-        context = await browser.new_context(viewport={"width": 1280, "height": 1800})
+        context = await browser.new_context(
+            viewport={"width": 1280, "height": 1800},
+            # The component uses an entrance animation (.rise-in) and CSS
+            # transitions on transform. Force prefers-reduced-motion so the
+            # site disables those (handled in src/styles.css) and our
+            # before/after rects compare a fully-settled layout.
+            reduced_motion="reduce",
+        )
         page = await context.new_page()
 
         url = f"{BASE_URL}{ROUTE}"
