@@ -37,6 +37,7 @@ import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as AuthenticatedAdminWebVitalsRouteImport } from './routes/_authenticated/admin/web-vitals'
 import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
 import { Route as AuthenticatedAdminRezerwacjeRouteImport } from './routes/_authenticated/admin/rezerwacje'
 import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
@@ -193,6 +194,12 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminWebVitalsRoute =
+  AuthenticatedAdminWebVitalsRouteImport.update({
+    id: '/web-vitals',
+    path: '/web-vitals',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminSeoRoute = AuthenticatedAdminSeoRouteImport.update({
   id: '/seo',
   path: '/seo',
@@ -292,6 +299,7 @@ export interface FileRoutesByFullPath {
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
@@ -332,6 +340,7 @@ export interface FileRoutesByTo {
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
@@ -375,6 +384,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/_authenticated/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/_authenticated/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
@@ -418,6 +428,7 @@ export interface FileRouteTypes {
     | '/admin/lekarze'
     | '/admin/rezerwacje'
     | '/admin/seo'
+    | '/admin/web-vitals'
     | '/lovable/email/suppression'
     | '/admin/'
     | '/api/public/bookings/cancel'
@@ -458,6 +469,7 @@ export interface FileRouteTypes {
     | '/admin/lekarze'
     | '/admin/rezerwacje'
     | '/admin/seo'
+    | '/admin/web-vitals'
     | '/lovable/email/suppression'
     | '/admin'
     | '/api/public/bookings/cancel'
@@ -500,6 +512,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/lekarze'
     | '/_authenticated/admin/rezerwacje'
     | '/_authenticated/admin/seo'
+    | '/_authenticated/admin/web-vitals'
     | '/lovable/email/suppression'
     | '/_authenticated/admin/'
     | '/api/public/bookings/cancel'
@@ -747,6 +760,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/web-vitals': {
+      id: '/_authenticated/admin/web-vitals'
+      path: '/web-vitals'
+      fullPath: '/admin/web-vitals'
+      preLoaderRoute: typeof AuthenticatedAdminWebVitalsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/seo': {
       id: '/_authenticated/admin/seo'
       path: '/seo'
@@ -839,6 +859,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminLekarzeRoute: typeof AuthenticatedAdminLekarzeRoute
   AuthenticatedAdminRezerwacjeRoute: typeof AuthenticatedAdminRezerwacjeRoute
   AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
+  AuthenticatedAdminWebVitalsRoute: typeof AuthenticatedAdminWebVitalsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
@@ -848,6 +869,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
     AuthenticatedAdminRezerwacjeRoute: AuthenticatedAdminRezerwacjeRoute,
     AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,
+    AuthenticatedAdminWebVitalsRoute: AuthenticatedAdminWebVitalsRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   }
 
@@ -908,13 +930,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
