@@ -7,6 +7,7 @@ const NAV = [
   { to: "/potrzeby", label: "Potrzeby" },
   { to: "/rozwiazania", label: "Rozwiązania" },
   { to: "/technologie", label: "Technologie" },
+  { to: "/lekarze", label: "Lekarze" },
   { to: "/cennik", label: "Cennik" },
   { to: "/bezpieczenstwo-zabiegow-laserowych", label: "Bezpieczeństwo" },
 ];

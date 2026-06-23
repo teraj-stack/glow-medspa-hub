@@ -434,6 +434,13 @@ export type Database = {
             referencedRelation: "doctors"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "time_off_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "public_doctors"
+            referencedColumns: ["id"]
+          },
         ]
       }
       treatment_catalog: {
@@ -604,6 +611,13 @@ export type Database = {
             referencedRelation: "doctors"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "visit_bookings_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "public_doctors"
+            referencedColumns: ["id"]
+          },
         ]
       }
       working_hours: {
@@ -639,11 +653,56 @@ export type Database = {
             referencedRelation: "doctors"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "working_hours_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "public_doctors"
+            referencedColumns: ["id"]
+          },
         ]
       }
     }
     Views: {
-      [_ in never]: never
+      public_doctors: {
+        Row: {
+          bio: string | null
+          buffer_minutes: number | null
+          default_price_cents: number | null
+          display_order: number | null
+          full_name: string | null
+          id: string | null
+          photo_url: string | null
+          slot_minutes: number | null
+          slug: string | null
+          title: string | null
+        }
+        Insert: {
+          bio?: string | null
+          buffer_minutes?: number | null
+          default_price_cents?: number | null
+          display_order?: number | null
+          full_name?: string | null
+          id?: string | null
+          photo_url?: string | null
+          slot_minutes?: number | null
+          slug?: string | null
+          title?: string | null
+        }
+        Update: {
+          bio?: string | null
+          buffer_minutes?: number | null
+          default_price_cents?: number | null
+          display_order?: number | null
+          full_name?: string | null
+          id?: string | null
+          photo_url?: string | null
+          slot_minutes?: number | null
+          slug?: string | null
+          title?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       delete_email: {

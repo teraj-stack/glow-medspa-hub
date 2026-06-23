@@ -15,6 +15,7 @@ import { Route as RozwiazaniaRouteImport } from './routes/rozwiazania'
 import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as PotrzebyRouteImport } from './routes/potrzeby'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as LekarzeRouteImport } from './routes/lekarze'
 import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-dziekujemy'
 import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
 import { Route as CennikRouteImport } from './routes/cennik'
@@ -80,6 +81,11 @@ const PotrzebyRoute = PotrzebyRouteImport.update({
 const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
   id: '/polityka-prywatnosci',
   path: '/polityka-prywatnosci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LekarzeRoute = LekarzeRouteImport.update({
+  id: '/lekarze',
+  path: '/lekarze',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KonsultacjaDziekujemyRoute = KonsultacjaDziekujemyRouteImport.update({
@@ -283,6 +289,7 @@ export interface FileRoutesByFullPath {
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
+  '/lekarze': typeof LekarzeRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -326,6 +333,7 @@ export interface FileRoutesByTo {
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
+  '/lekarze': typeof LekarzeRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -370,6 +378,7 @@ export interface FileRoutesById {
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
+  '/lekarze': typeof LekarzeRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -415,6 +424,7 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
+    | '/lekarze'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -458,6 +468,7 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
+    | '/lekarze'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -501,6 +512,7 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
+    | '/lekarze'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -546,6 +558,7 @@ export interface RootRouteChildren {
   CennikRoute: typeof CennikRoute
   KonsultacjaRoute: typeof KonsultacjaRoute
   KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
+  LekarzeRoute: typeof LekarzeRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
@@ -618,6 +631,13 @@ declare module '@tanstack/react-router' {
       path: '/polityka-prywatnosci'
       fullPath: '/polityka-prywatnosci'
       preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lekarze': {
+      id: '/lekarze'
+      path: '/lekarze'
+      fullPath: '/lekarze'
+      preLoaderRoute: typeof LekarzeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/konsultacja-dziekujemy': {
@@ -918,6 +938,7 @@ const rootRouteChildren: RootRouteChildren = {
   CennikRoute: CennikRoute,
   KonsultacjaRoute: KonsultacjaRoute,
   KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,
+  LekarzeRoute: LekarzeRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
