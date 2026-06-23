@@ -9,6 +9,14 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   listHiddenPricingItems,
   setPricingItemHidden,
   setPricingItemsHidden,
@@ -38,6 +46,15 @@ function AdminPricing() {
   const [showHiddenOnly, setShowHiddenOnly] = useState(false);
   const [selected, setSelected] = useState<Set<ItemKey>>(new Set());
   const [bulkPending, setBulkPending] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState<{ open: boolean; hide: boolean }>({
+    open: false,
+    hide: true,
+  });
+  const [lastAction, setLastAction] = useState<{
+    items: { slug: string; label: string }[];
+    previousHidden: Map<ItemKey, boolean>;
+  } | null>(null);
+  const [undoPending, setUndoPending] = useState(false);
 
   const { data: hidden = [], isLoading } = useQuery({
     queryKey: ["hidden-pricing-items"],
