@@ -437,7 +437,9 @@ export type Database = {
         Row: {
           amount_cents: number | null
           calendar_sync_at: string | null
+          calendar_sync_attempts: number
           calendar_sync_error: string | null
+          calendar_sync_next_at: string | null
           calendar_sync_status: string | null
           cancel_token: string
           created_at: string
@@ -464,7 +466,9 @@ export type Database = {
         Insert: {
           amount_cents?: number | null
           calendar_sync_at?: string | null
+          calendar_sync_attempts?: number
           calendar_sync_error?: string | null
+          calendar_sync_next_at?: string | null
           calendar_sync_status?: string | null
           cancel_token?: string
           created_at?: string
@@ -491,7 +495,9 @@ export type Database = {
         Update: {
           amount_cents?: number | null
           calendar_sync_at?: string | null
+          calendar_sync_attempts?: number
           calendar_sync_error?: string | null
+          calendar_sync_next_at?: string | null
           calendar_sync_status?: string | null
           cancel_token?: string
           created_at?: string
