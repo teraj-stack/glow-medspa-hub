@@ -5,19 +5,29 @@ import { resolve } from "node:path";
 import type { Technology } from "@/data/technologies";
 
 vi.mock("@tanstack/react-router", () => ({
+  // Mirror TanStack Router's <Link>: build a real href from `to` + `params`
+  // so navigation/keyboard tests can assert on the resolved URL.
   Link: ({
     children,
     className,
+    to = "#",
+    params = {},
   }: {
     children: React.ReactNode;
     className?: string;
     to?: string;
     params?: Record<string, string>;
-  }) => (
-    <a href="#" className={className}>
-      {children}
-    </a>
-  ),
+  }) => {
+    const href = Object.entries(params).reduce(
+      (acc, [k, v]) => acc.replace(`$${k}`, String(v)),
+      to,
+    );
+    return (
+      <a href={href} className={className}>
+        {children}
+      </a>
+    );
+  },
 }));
 
 import { TechCard } from "./TechCard";
