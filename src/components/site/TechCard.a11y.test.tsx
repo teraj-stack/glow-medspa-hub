@@ -124,28 +124,52 @@ describe("a11y: TechCard heading semantics", () => {
   });
 });
 
-describe("a11y: TechCard heading contrast in light and dark themes", () => {
-  // The heading uses .tile-title { color: var(--ink) } over .tile-card
-  // { background: var(--card) }. WCAG 2.1 AA requires ≥ 4.5:1 for normal text.
+describe("a11y: TechCard text contrast in light and dark themes", () => {
+  // TechCard renders three text layers over .tile-card { background: var(--card) }:
+  //   1. category eyebrow  → text-champagne          (var(--champagne))
+  //   2. tile-title h3     → color: var(--ink)
+  //   3. tile-text p       → color: var(--muted-foreground)
+  // The ArrowUpRight icon is decorative (no accessible name) so it is excluded.
+  // WCAG 2.1 AA requires ≥ 4.5:1 for normal body text.
   const AA_NORMAL = 4.5;
 
-  it("meets WCAG AA contrast in light mode (ink on card)", () => {
-    const ink = parseOklch(readVar(cssSource, ":root", "--ink"));
-    const card = parseOklch(readVar(cssSource, ":root", "--card"));
-    const ratio = contrastRatio(
-      oklchToRgb(...ink),
-      oklchToRgb(...card),
-    );
-    expect(ratio).toBeGreaterThanOrEqual(AA_NORMAL);
-  });
+  // [foreground token, label-for-error-output]
+  const FG_TOKENS: Array<[string, string]> = [
+    ["--ink", "tile-title (h3) — var(--ink)"],
+    ["--muted-foreground", "tile-text (p) — var(--muted-foreground)"],
+    ["--champagne", "eyebrow category — var(--champagne)"],
+  ];
 
-  it("meets WCAG AA contrast in dark mode (ink on card)", () => {
-    const ink = parseOklch(readVar(cssSource, "\\.dark", "--ink"));
-    const card = parseOklch(readVar(cssSource, "\\.dark", "--card"));
-    const ratio = contrastRatio(
-      oklchToRgb(...ink),
-      oklchToRgb(...card),
-    );
-    expect(ratio).toBeGreaterThanOrEqual(AA_NORMAL);
+  function ratioFor(theme: ":root" | "\\.dark", fgVar: string) {
+    const fg = parseOklch(readVar(cssSource, theme, fgVar));
+    // --card may be missing in .dark earlier in the file but is defined here;
+    // fall back to --background if a project ever drops --card.
+    const bgVarName = (() => {
+      try {
+        readVar(cssSource, theme, "--card");
+        return "--card";
+      } catch {
+        return "--background";
+      }
+    })();
+    const bg = parseOklch(readVar(cssSource, theme, bgVarName));
+    return contrastRatio(oklchToRgb(...fg), oklchToRgb(...bg));
+  }
+
+  describe.each([
+    [":root" as const, "light"],
+    ["\\.dark" as const, "dark"],
+  ])("%s mode", (selector, label) => {
+    for (const [fgVar, fgLabel] of FG_TOKENS) {
+      it(`${label}: ${fgLabel} meets WCAG AA (≥ ${AA_NORMAL}:1) on --card`, () => {
+        const ratio = ratioFor(selector, fgVar);
+        // Helpful failure message: include the actual ratio rounded.
+        expect(
+          ratio,
+          `expected ≥ ${AA_NORMAL}:1 but got ${ratio.toFixed(2)}:1`,
+        ).toBeGreaterThanOrEqual(AA_NORMAL);
+      });
+    }
   });
 });
+
