@@ -25,11 +25,14 @@ export const Route = createFileRoute("/renasculpt")({
     if (!tech) throw new Error("Renasculpt — brak wpisu w bazie technologii");
     return { tech };
   },
-  head: () => {
+  head: ({ loaderData }) => {
+    const tech = (loaderData as { tech: Technology } | undefined)?.tech ?? getTechnology(TECH_SLUG)!;
     const title =
       "Modelowanie sylwetki HIFEM + EMS + RF — Renasculpt | Beauty & Mind Clinic Siedlce";
     const description =
       "Synchroniczna stymulacja elektromagnetyczna mięśni (HIFEM/EMS) połączona z radiofrekwencją: 30-minutowa sesja, bez nacięć, bez znieczulenia, bez rekonwalescencji. Średnio +16% masy mięśniowej i -19% tkanki tłuszczowej w badaniach klinicznych. Standard premium klinik warszawskich — w Siedlcach.";
+    const keywords =
+      "HIFEM, EMS, RF, radiofrekwencja, modelowanie sylwetki Siedlce, redukcja tkanki tłuszczowej, lifting pośladków bez operacji, mięśnie dna miednicy, diastasis recti, Renasculpt, Beauty & Mind Clinic";
 
     const serviceSchema = {
       "@context": "https://schema.org",
@@ -47,13 +50,17 @@ export const Route = createFileRoute("/renasculpt")({
           addressCountry: "PL",
         },
       },
-      indication: [
-        "wzmocnienie mięśni brzucha",
-        "lifting pośladków",
-        "redukcja lokalnej tkanki tłuszczowej",
-        "rozejście mięśni prostych brzucha (diastasis recti)",
-        "trening mięśni dna miednicy",
-      ],
+      indication: tech.indications,
+    };
+
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: (tech.faq ?? []).map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
     };
 
     const breadcrumbSchema = {
@@ -69,10 +76,15 @@ export const Route = createFileRoute("/renasculpt")({
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "keywords", content: keywords },
+        { name: "author", content: "Beauty & Mind Clinic" },
+        { name: "robots", content: "index, follow, max-image-preview:large" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:url", content: PAGE_URL },
         { property: "og:type", content: "article" },
+        { property: "og:locale", content: "pl_PL" },
+        { property: "og:site_name", content: "Beauty & Mind Clinic" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
@@ -80,6 +92,7 @@ export const Route = createFileRoute("/renasculpt")({
       links: [{ rel: "canonical", href: PAGE_URL }],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify(serviceSchema) },
+        { type: "application/ld+json", children: JSON.stringify(faqSchema) },
         { type: "application/ld+json", children: JSON.stringify(breadcrumbSchema) },
       ],
     };
