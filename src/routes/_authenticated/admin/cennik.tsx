@@ -266,14 +266,17 @@ function AdminPricing() {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              {lastAction && (
+              {undoStack.length > 0 && (
                 <Button
                   size="sm"
                   variant="ghost"
                   disabled={undoPending}
-                  onClick={performUndo}
+                  onClick={() => performUndo()}
+                  title={undoStack[undoStack.length - 1]?.description}
                 >
-                  {undoPending ? "…" : "Cofnij ostatnią akcję"}
+                  {undoPending
+                    ? "…"
+                    : `Cofnij ostatnią akcję (${undoStack.length})`}
                 </Button>
               )}
               <Button
