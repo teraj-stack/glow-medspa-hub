@@ -1,24 +1,116 @@
-## Cel
+# System rezerwacji online — Google Calendar per lekarz
 
-Dodać treść opisową w formie punktów listy pod tytułem kafelka 04 « Okolica oka », analogicznie do kafelków 01–03.
+Konektor **Google Calendar** jest już podłączony do projektu (sekret `GOOGLE_CALENDAR_API_KEY`). Wszystkie kalendarze, które mają być używane, muszą być udostępnione (Settings → Share) na konto Google, którym podłączono konektor — z uprawnieniem **„Make changes to events"**.
 
-## Zmiana
+---
 
-W pliku `src/routes/potrzeby.tsx`, w definicji kafelka `nr: "04"` (tile ze slugiem `okolica-oka`), dodać nowy klucz `bullets` z tablicą obiektów `BulletItem`. Struktura i styl renderowania są już gotowe w komponencie — wystarczy uzupełnić dane.
+## Etap 1 — Fundament (proponuję zacząć teraz)
 
-## Treść punktów (do wstawienia jako `bullets`)
+### 1.1. Schemat bazy (migracja)
 
+```text
+doctors
+  id (uuid, pk)
+  slug (text, unique)            -- np. "anna-kowalska"
+  full_name, title, bio, photo_url
+  google_calendar_id (text)      -- np. "anna@bmclinics.pl"
+  slot_minutes (int, default 30)
+  buffer_minutes (int, default 15)
+  active (bool, default true)
+  created_at, updated_at
+
+working_hours
+  id, doctor_id (fk),
+  weekday (0–6),                 -- 0 = niedziela
+  start_time, end_time           -- np. 09:00 – 17:00
+  (jeden lekarz może mieć kilka bloków dziennie: 9–13, 14–18)
+
+time_off
+  id, doctor_id (fk),
+  starts_at, ends_at, reason
+
+bookings
+  id (uuid),
+  doctor_id (fk),
+  treatment_id (fk → treatment_catalog, nullable na start)
+  patient_name, patient_email, patient_phone, notes
+  starts_at, ends_at (timestamptz)
+  status: pending | confirmed | cancelled | completed | no_show
+  google_event_id (text, nullable)
+  cancel_token (uuid, unique)    -- link cancel/reschedule w mailu
+  rodo_consent (bool)
+  created_at, updated_at
+  UNIQUE (doctor_id, starts_at) WHERE status IN ('pending','confirmed')
 ```
-[
-  { title: "Otwarcie spojrzenia", text: "Zagęszczenie i lifting opadającej powieki górnej." }
-  { title: "plastyka powieki górnej." },
-  { title: "Redukcja obrzęku", text: "Zagęszczenie i poprawa jędrności wiotkiej skóry pod oczami niwelujemy zastoinowe sińce i obrzęki." },
-  { title: "Wygładzenie « kurzych łapek »", text: "Stymulacja kolagenu w cienkiej skórze wokół oczu." },
-]
+
+RLS: pacjent widzi własne (po `cancel_token`), admin widzi wszystko, anon może `INSERT` do `bookings` (publiczny formularz). `working_hours` i `doctors` — publiczny SELECT (tylko `active=true`, bezpieczne kolumny).
+
+### 1.2. Panel admin do zarządzania lekarzami i godzinami
+
+Pod `/_authenticated/admin/lekarze` (rola `admin`):
+- dodawanie lekarza + wklejenie `google_calendar_id`
+- przycisk **„Testuj kalendarz"** — wywołuje gateway `freebusy.query` na ten kalendarz na najbliższe 7 dni; pokazuje OK / błąd (brak udostępnienia, błędny ID)
+- edycja godzin pracy (tabela tygodniowa) i urlopów
+
+### 1.3. Endpoint wolnych terminów
+
+`getAvailableSlots({ doctorId, dateFrom, dateTo, durationMinutes })` — server fn:
+
+```text
+1. Pobierz doctor + working_hours + time_off
+2. Wygeneruj sloty co `slot_minutes` w godzinach pracy w zakresie dat
+3. Odetnij time_off
+4. Odetnij bookings (pending/confirmed) z bufforem
+5. Wywołaj Google Calendar freebusy.query dla doctor.google_calendar_id
+6. Odetnij busy intervals z Google
+7. Zwróć dostępne sloty (ISO timestamps)
 ```
 
-## Weryfikacja
+---
 
-- Kafelek 04 wyświetla listę punktów pod tytułem.
-- Styl (znaczki, typografia, odstępy) jest spójny z kafelkami 01–03.
-- Podgląd w przeglądarce nie zgłasza błędów.
+## Etap 2 — Rezerwacja przez pacjenta
+
+`/rezerwacja` → wybór lekarza → kalendarz → slot → formularz (imię, email, telefon, notatki, RODO) → potwierdzenie.
+
+Server fn `createBooking`:
+1. Walidacja Zod
+2. Re-check slotu (atomowo — UNIQUE constraint zabezpiecza race)
+3. INSERT do `bookings` (status `pending`)
+4. Google Calendar `events.insert` na kalendarz lekarza → zapisz `google_event_id`
+5. Email do pacjenta (potwierdzenie + link cancel) i do kliniki — przez istniejący Resend
+6. Zwróć `{ id, cancel_token }`
+
+Strona `/rezerwacja/{cancel_token}` — pacjent może anulować/przełożyć; backend usuwa/aktualizuje event w Google.
+
+---
+
+## Etap 3 — Płatność (opcjonalna, później)
+
+Jeśli zechcesz wymagać przedpłaty (np. konsultacja 200 zł), wpinamy istniejący Stripe Checkout między krok 3 a 4: rezerwacja staje się `confirmed` dopiero po webhooku `checkout.session.completed`. Bez tego — sloty mogą być blokowane przez „no-show". Decyzja na etap 2/3.
+
+---
+
+## Etap 4 — Panel kliniki
+
+Pod `/_authenticated/admin/rezerwacje`:
+- lista wszystkich rezerwacji (filtry: lekarz, status, zakres dat)
+- ręczne tworzenie/anulowanie (z synchronizacją Google)
+- blokowanie godzin (time_off) bez tworzenia bookingu
+
+---
+
+## Bezpieczeństwo
+- RLS na każdej tabeli
+- Rate limit po hashed IP na `createBooking` (jak w `submitBooking`)
+- `events.insert` wywoływane tylko z server fn — `GOOGLE_CALENDAR_API_KEY` nigdy nie trafia do przeglądarki
+- Walidacja, że wybrany slot mieści się w `working_hours` i nie koliduje z `time_off`
+
+---
+
+## Co potrzebuję od Ciebie do startu Etapu 1
+
+1. **Lista lekarzy** — imię, nazwisko + adres kalendarza Google (np. `anna.kowalska@bmclinics.pl`) **lub** „zaczynamy z jednym, dodam resztę później".
+2. **Domyślna długość wizyty + bufor** (np. konsultacja 60 min, bufor 15 min między pacjentami).
+3. **Potwierdzenie**: czy chcesz teraz wymagać przedpłaty Stripe na rezerwację, czy zostawiamy to na później (rekomendacja: później — najpierw uruchommy sam mechanizm, prepay dodamy gdy zobaczysz no-show).
+
+Po Twojej odpowiedzi tworzę migrację bazy + panel admina do zarządzania lekarzami + endpoint `getAvailableSlots` z testem na żywym kalendarzu.
