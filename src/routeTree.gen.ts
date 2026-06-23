@@ -18,6 +18,7 @@ import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywa
 import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-dziekujemy'
 import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
 import { Route as CennikRouteImport } from './routes/cennik'
+import { Route as BezpieczenstwoZabiegowLaserowychRouteImport } from './routes/bezpieczenstwo-zabiegow-laserowych'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -93,6 +94,12 @@ const CennikRoute = CennikRouteImport.update({
   path: '/cennik',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BezpieczenstwoZabiegowLaserowychRoute =
+  BezpieczenstwoZabiegowLaserowychRouteImport.update({
+    id: '/bezpieczenstwo-zabiegow-laserowych',
+    path: '/bezpieczenstwo-zabiegow-laserowych',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -252,6 +259,7 @@ const ApiPublicBookingsCancelRoute = ApiPublicBookingsCancelRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/bezpieczenstwo-zabiegow-laserowych': typeof BezpieczenstwoZabiegowLaserowychRoute
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
@@ -291,6 +299,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/bezpieczenstwo-zabiegow-laserowych': typeof BezpieczenstwoZabiegowLaserowychRoute
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
@@ -331,6 +340,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/bezpieczenstwo-zabiegow-laserowych': typeof BezpieczenstwoZabiegowLaserowychRoute
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
@@ -372,6 +382,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/bezpieczenstwo-zabiegow-laserowych'
     | '/cennik'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
@@ -411,6 +422,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/bezpieczenstwo-zabiegow-laserowych'
     | '/cennik'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
@@ -450,6 +462,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/bezpieczenstwo-zabiegow-laserowych'
     | '/cennik'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
@@ -491,6 +504,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  BezpieczenstwoZabiegowLaserowychRoute: typeof BezpieczenstwoZabiegowLaserowychRoute
   CennikRoute: typeof CennikRoute
   KonsultacjaRoute: typeof KonsultacjaRoute
   KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
@@ -586,6 +600,13 @@ declare module '@tanstack/react-router' {
       path: '/cennik'
       fullPath: '/cennik'
       preLoaderRoute: typeof CennikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bezpieczenstwo-zabiegow-laserowych': {
+      id: '/bezpieczenstwo-zabiegow-laserowych'
+      path: '/bezpieczenstwo-zabiegow-laserowych'
+      fullPath: '/bezpieczenstwo-zabiegow-laserowych'
+      preLoaderRoute: typeof BezpieczenstwoZabiegowLaserowychRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -829,6 +850,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  BezpieczenstwoZabiegowLaserowychRoute: BezpieczenstwoZabiegowLaserowychRoute,
   CennikRoute: CennikRoute,
   KonsultacjaRoute: KonsultacjaRoute,
   KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,
@@ -865,13 +887,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

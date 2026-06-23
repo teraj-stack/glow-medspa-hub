@@ -17,6 +17,7 @@ export function Footer() {
           <ul className="mt-3 space-y-2 text-sm text-alabaster/80">
             <li><Link to="/technologie">Technologie</Link></li>
             <li><Link to="/cennik">Cennik</Link></li>
+            <li><Link to="/bezpieczenstwo-zabiegow-laserowych">Bezpieczeństwo laseroterapii</Link></li>
           </ul>
         </div>
         <div>

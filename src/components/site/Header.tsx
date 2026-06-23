@@ -8,6 +8,7 @@ const NAV = [
   { to: "/rozwiazania", label: "Rozwiązania" },
   { to: "/technologie", label: "Technologie" },
   { to: "/cennik", label: "Cennik" },
+  { to: "/bezpieczenstwo-zabiegow-laserowych", label: "Bezpieczeństwo" },
 ];
 
 export function Header() {
