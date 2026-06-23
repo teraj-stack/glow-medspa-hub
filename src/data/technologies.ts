@@ -274,14 +274,71 @@ export const TECHNOLOGIES: Technology[] = [
   },
   {
     slug: "renasculpt",
-    name: "EMS + RF — modelowanie sylwetki",
+    name: "HIFEM + EMS + RF — modelowanie sylwetki",
     category: "modelowanie",
-    shortDesc: "Synchroniczna stymulacja elektromagnetyczna mięśni i radiofrekwencja.",
+    shortDesc:
+      "Synchroniczna stymulacja elektromagnetyczna mięśni (HIFEM/EMS) połączona z radiofrekwencją: w jednej 30-minutowej sesji budujemy mięsień i redukujemy tkankę tłuszczową bez nacięć, bez znieczulenia, bez rekonwalescencji.",
     mechanism:
-      "Pole HIFEM wywołuje skurcze supramaksymalne, jednocześnie RF podgrzewa tkankę tłuszczową do progu apoptozy.",
-    indications: ["wzmocnienie mięśni brzucha", "ujędrnienie pośladków", "redukcja tkanki tłuszczowej"],
-    pricing: [{ label: "Sesja 30 min — brzuch", price: 700 }, { label: "Pakiet 4 sesji", price: 2400 }],
-    faq: [],
+      "Pole HIFEM (High-Intensity Focused Electromagnetic) wymusza skurcze supramaksymalne — niemożliwe do wywołania świadomym treningiem — wywołując hipertrofię i hiperplazję włókien mięśniowych. Równolegle aplikowana radiofrekwencja (RF) podgrzewa tkankę podskórną do progu apoptozy adipocytów (~42–45°C), jednocześnie skracając włókna kolagenowe i napinając skórę. Dodatkowa stymulacja EMS niskiej częstotliwości poprawia ukrwienie i ułatwia ewakuację metabolitów. Synergia tych trzech mechanizmów daje w badaniach klinicznych średnio ok. 16% wzrostu masy mięśniowej i ok. 19% redukcji tkanki tłuszczowej w obrębie zabiegowej partii (po pełnym protokole, pomiar po 8–12 tygodniach).",
+    applicators: [
+      "Płaska głowica HIFEM + RF z chłodzeniem wodnym — brzuch, uda, pośladki, plecy",
+      "Wklęsła głowica HIFEM + EMS z chłodzeniem powietrznym — ramiona (biceps, triceps), łydki",
+      "Głowica HIFEM na kark i barki — chłodzenie wodne",
+      "Poduszka HIFEM do treningu mięśni dna miednicy (terapia nietrzymania moczu, rehabilitacja poporodowa)",
+      "4 niezależne kanały — możliwa praca dwustronna i równoczesna na różnych partiach",
+    ],
+    indications: [
+      "wzmocnienie i uwidocznienie mięśni brzucha (efekt „kratki”)",
+      "uniesienie i ujędrnienie pośladków bez wypełniaczy",
+      "redukcja lokalnej tkanki tłuszczowej (brzuch, boczki, uda, ramiona)",
+      "rozejście mięśni prostych brzucha (diastasis recti) po ciąży",
+      "wiotkość ramion, „bingo wings”, brak napięcia łydek",
+      "trening mięśni dna miednicy — wysiłkowe nietrzymanie moczu, regeneracja poporodowa",
+      "uzupełnienie diety i treningu u osób z plateau treningowym",
+    ],
+    contraindications: [
+      "implanty metalowe, elektroniczne (rozrusznik, ICD, pompa insulinowa, neurostymulator) w polu zabiegu",
+      "ciąża i połóg do 3 miesięcy",
+      "wkładka wewnątrzmaciczna (IUD) — przy zabiegach na brzuchu/dnie miednicy",
+      "padaczka, zaburzenia rytmu serca, niewydolność krążenia",
+      "czynna choroba nowotworowa, gorączka, ostre infekcje",
+      "rozległe przepukliny w okolicy zabiegowej, świeże blizny pooperacyjne (do 6 miesięcy)",
+      "ciężka niewyrównana cukrzyca, zaburzenia krzepnięcia",
+    ],
+    pricing: [
+      { label: "Sesja 30 min — jedna partia (brzuch / pośladki / uda)", price: 700 },
+      { label: "Sesja 30 min — ramiona lub łydki (dwustronnie)", price: 600 },
+      { label: "Sesja 30 min — mięśnie dna miednicy", price: 500 },
+      { label: "Pakiet 4 sesji — protokół podstawowy", price: 2400, note: "ok. 15% taniej" },
+      { label: "Pakiet 6 sesji — protokół rozszerzony", price: 3400, note: "rekomendowany przy redukcji tkanki tłuszczowej" },
+      { label: "Sesja podtrzymująca (co 2–3 miesiące)", price: 650 },
+    ],
+    faq: [
+      {
+        q: "Ile sesji potrzebuję i jak szybko zobaczę efekt?",
+        a: "Protokół podstawowy to 4 sesje co 2–3 dni (łącznie ok. 2 tygodnie). Pierwsze napięcie i ujędrnienie skóry pacjentki czują tuż po pierwszej sesji, finalny efekt — wzrost masy mięśniowej i redukcja tłuszczu — narasta przez 8–12 tygodni od zakończenia serii. Przy zaawansowanej redukcji tkanki tłuszczowej rekomenduję 6 sesji.",
+      },
+      {
+        q: "Czy zabieg boli? Jak się go znosi?",
+        a: "Odczucie jest porównywane do bardzo intensywnego treningu — silne, rytmiczne skurcze całej grupy mięśniowej. Intensywność dobieramy stopniowo, w pełni pod kontrolą pacjentki. RF daje przyjemne, równomierne ciepło. Po zabiegu nie ma zakwasów — pole HIFEM równocześnie aktywuje metabolizm kwasu mlekowego.",
+      },
+      {
+        q: "Czy zastąpi to siłownię i dietę?",
+        a: "Nie. To narzędzie do pracy z partiami opornymi na trening (dolny brzuch, wewnętrzna część ramion, mięśnie dna miednicy) i do przełamania plateau. U pacjentek aktywnych daje efekt „rzeźby” trudny do osiągnięcia samym treningiem. U pacjentek po ciąży skutecznie domyka rozejście mięśni prostych. Przy nadwadze powyżej ok. 13 kg ponad normę najpierw pracujemy nad redukcją.",
+      },
+      {
+        q: "Kiedy NIE wykonam zabiegu?",
+        a: "Bezwzględnie: rozrusznik serca, ICD, pompa insulinowa, neurostymulator, ciąża, czynna choroba nowotworowa. Względnie: IUD przy pracy na brzuchu/dnie miednicy, świeże blizny pooperacyjne, duże przepukliny, padeczka. Pełną kwalifikację przeprowadzam podczas konsultacji.",
+      },
+      {
+        q: "Jak długo utrzymują się efekty?",
+        a: "Przyrost masy mięśniowej utrzymuje się tak długo, jak utrzymujesz aktywność fizyczną — analogicznie do efektów siłowni. Redukcja tkanki tłuszczowej (apoptoza adipocytów) jest trwała przy stabilnej wadze. Rekomenduję sesję podtrzymującą co 2–3 miesiące, szczególnie w protokołach na pośladki i mięśnie dna miednicy.",
+      },
+      {
+        q: "Dlaczego cena jest na poziomie warszawskim?",
+        a: "Od 10 lat pracuję wyłącznie w premium klinikach Warszawy. W Siedlcach wprowadzam dokładnie ten sam standard — protokoły, jakość urządzenia, kwalifikację medyczną i bezpieczeństwo. Oszczędzasz natomiast czas dojazdu, paliwo i dzień urlopu, a przy serii 4–6 sesji daje to realnie kilkaset złotych różnicy.",
+      },
+    ],
   },
   {
     slug: "terapia-led",
