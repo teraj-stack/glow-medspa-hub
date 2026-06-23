@@ -40,7 +40,18 @@ export const Route = createFileRoute("/api/public/hooks/sitemap-validate")({
         } catch {
           // empty body is fine
         }
-        const baseUrl = body.baseUrl?.trim() || SITEMAP_BASE_URL;
+        // SSRF guard: only accept allowlisted hosts; fall back to default.
+        let baseUrl = SITEMAP_BASE_URL;
+        if (body.baseUrl?.trim()) {
+          const allowed = assertAllowedBaseUrl(body.baseUrl.trim());
+          if (!allowed) {
+            return new Response(
+              JSON.stringify({ error: "baseUrl not allowed" }),
+              { status: 400, headers: { "Content-Type": "application/json" } },
+            );
+          }
+          baseUrl = allowed;
+        }
         const checkUrls = body.checkUrls ?? true;
         const triggeredBy = body.triggeredBy ?? "cron";
 
