@@ -114,7 +114,7 @@ function RozwiazaniaPage() {
               nr="01"
               id="przywrocenie-konturow"
               iconHref="/technologie#przywrocenie-konturow"
-              iconTooltip="Zobacz technologie liftingu i konturowania owalu"
+              iconTooltip="Przejdź do technologii liftingu i konturowania — umów konsultację, by dobrać odpowiedni protokół."
               tagline="LIFTING I OWAL"
               title="Przywrócenie konturów"
               icon={konturyAsset.url}
@@ -145,7 +145,7 @@ function RozwiazaniaPage() {
               nr="02"
               id="tekstura-hd"
               iconHref="/technologie#tekstura-hd"
-              iconTooltip="Zobacz technologie tekstury HD — blizny, zmarszczki, pory"
+              iconTooltip="Przejdź do technologii tekstury HD — zarezerwuj konsultację, by wygładzić skórę."
               tagline="REDUKCJA BLIZN I ZMARSZCZEK"
               title="Tekstura « HD »"
               icon={sylwetkaAsset.url}
@@ -176,7 +176,7 @@ function RozwiazaniaPage() {
               nr="03"
               id="rewitalizacja-dloni"
               iconHref="/technologie#rewitalizacja-dloni"
-              iconTooltip="Zobacz technologie rewitalizacji dłoni i ciała"
+              iconTooltip="Przejdź do technologii dłoni i ciała — konsultacja pomoże przywrócić gęstość skóry."
               tagline="REWITALIZACJA DŁONI I CIAŁA"
               title="Gęstość, jędrność"
               icon={dlonieCialoAsset.url}
@@ -206,7 +206,7 @@ function RozwiazaniaPage() {
               nr="04"
               id="okolica-oka"
               iconHref="/technologie#okolica-oka"
-              iconTooltip="Zobacz technologie okolicy oka"
+              iconTooltip="Przejdź do technologii okolicy oka — umów wizytę, by odświeżyć spojrzenie."
               tagline="KONTUR OKA · BLASK SPOJRZENIA"
               title="Okolica oka"
               icon={okoAsset.url}
@@ -233,7 +233,7 @@ function RozwiazaniaPage() {
               nr="05"
               id="modelowanie-sylwetki"
               iconHref="/technologie#modelowanie-sylwetki"
-              iconTooltip="Zobacz technologie modelowania sylwetki"
+              iconTooltip="Przejdź do technologii modelowania sylwetki — zarezerwuj konsultację, by zaplanować zmianę."
               tagline="PAKIET D · BODY CONTOUR"
               title="Modelowanie sylwetki"
               icon={bodyContourAsset.url}
@@ -255,7 +255,7 @@ function RozwiazaniaPage() {
                   letter="E"
                   id="renesans"
                   iconHref="#konsultacja"
-                  iconTooltip="Umów konsultację autorską « Renesans » lek. Jana Bujok"
+                  iconTooltip="Przejdź do konsultacji autorskiej « Renesans » — lekarz dobierze sygnaturę Body Longevity."
                   subtitle="Body Longevity · Signature"
                   title="Renesans"
                   imageSrc={renesansAsset.url}
