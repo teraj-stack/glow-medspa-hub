@@ -9,6 +9,14 @@ import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   listHiddenPricingItems,
   setPricingItemHidden,
   setPricingItemsHidden,
@@ -38,6 +46,15 @@ function AdminPricing() {
   const [showHiddenOnly, setShowHiddenOnly] = useState(false);
   const [selected, setSelected] = useState<Set<ItemKey>>(new Set());
   const [bulkPending, setBulkPending] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState<{ open: boolean; hide: boolean }>({
+    open: false,
+    hide: true,
+  });
+  const [lastAction, setLastAction] = useState<{
+    items: { slug: string; label: string }[];
+    previousHidden: Map<ItemKey, boolean>;
+  } | null>(null);
+  const [undoPending, setUndoPending] = useState(false);
 
   const { data: hidden = [], isLoading } = useQuery({
     queryKey: ["hidden-pricing-items"],
@@ -57,10 +74,15 @@ function AdminPricing() {
   const toggle = async (slug: string, label: string, hide: boolean) => {
     const key = keyFor(slug, label);
     setPending((p) => new Set(p).add(key));
+    const previousHidden = new Map<ItemKey, boolean>();
+    previousHidden.set(key, hiddenSet.has(key));
     try {
       await toggleFn({ data: { slug, label, hidden: hide } });
       await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
-      toast.success(hide ? "Pozycja ukryta" : "Pozycja przywrócona");
+      setLastAction({ items: [{ slug, label }], previousHidden });
+      toast.success(hide ? "Pozycja ukryta" : "Pozycja przywrócona", {
+        action: { label: "Cofnij", onClick: performUndo },
+      });
     } catch (e: any) {
       toast.error(e?.message ?? "Nie udało się zaktualizować pozycji");
     } finally {
@@ -98,26 +120,60 @@ function AdminPricing() {
     });
   };
 
-  const bulkToggle = async (hide: boolean) => {
+  const requestBulkToggle = (hide: boolean) => {
     if (selected.size === 0) return;
+    setConfirmDialog({ open: true, hide });
+  };
+
+  const confirmBulkToggle = async () => {
+    if (selected.size === 0) {
+      setConfirmDialog({ open: false, hide: true });
+      return;
+    }
+    const hide = confirmDialog.hide;
     const items = Array.from(selected).map((k) => {
       const { slug, label } = parseKey(k);
       return { slug, label, hidden: hide };
     });
+    const previousHidden = new Map<ItemKey, boolean>();
+    for (const k of selected) previousHidden.set(k, hiddenSet.has(k));
     setBulkPending(true);
+    setConfirmDialog({ open: false, hide });
     try {
       await bulkToggleFn({ data: { items } });
       await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
       setSelected(new Set());
+      setLastAction({ items: items.map(({ slug, label }) => ({ slug, label })), previousHidden });
       toast.success(
         hide
           ? `Ukryto ${items.length} pozycji`
           : `Przywrócono ${items.length} pozycji`,
+        { action: { label: "Cofnij", onClick: performUndo } },
       );
     } catch (e: any) {
       toast.error(e?.message ?? "Nie udało się zaktualizować pozycji");
     } finally {
       setBulkPending(false);
+    }
+  };
+
+  const performUndo = async () => {
+    if (!lastAction || undoPending) return;
+    const items = lastAction.items.map(({ slug, label }) => {
+      const key = keyFor(slug, label);
+      return { slug, label, hidden: lastAction.previousHidden.get(key) ?? false };
+    });
+    setUndoPending(true);
+    try {
+      await bulkToggleFn({ data: { items } });
+      await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
+      setSelected(new Set());
+      setLastAction(null);
+      toast.success("Cofnięto ostatnią akcję");
+    } catch (e: any) {
+      toast.error(e?.message ?? "Nie udało się cofnąć akcji");
+    } finally {
+      setUndoPending(false);
     }
   };
 
@@ -186,20 +242,30 @@ function AdminPricing() {
               </span>
             </div>
             <div className="flex items-center gap-2">
+              {lastAction && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled={undoPending}
+                  onClick={performUndo}
+                >
+                  {undoPending ? "…" : "Cofnij ostatnią akcję"}
+                </Button>
+              )}
               <Button
                 size="sm"
                 variant="outline"
                 disabled={selected.size === 0 || bulkPending}
-                onClick={() => bulkToggle(false)}
+                onClick={() => requestBulkToggle(false)}
               >
-                {bulkPending ? "…" : "Przywróć zaznaczone"}
+                {bulkPending && confirmDialog.hide === false ? "…" : "Przywróć zaznaczone"}
               </Button>
               <Button
                 size="sm"
                 disabled={selected.size === 0 || bulkPending}
-                onClick={() => bulkToggle(true)}
+                onClick={() => requestBulkToggle(true)}
               >
-                {bulkPending ? "…" : "Ukryj zaznaczone"}
+                {bulkPending && confirmDialog.hide === true ? "…" : "Ukryj zaznaczone"}
               </Button>
             </div>
           </div>
@@ -302,6 +368,36 @@ function AdminPricing() {
           </div>
         </>
       )}
+
+      <Dialog
+        open={confirmDialog.open}
+        onOpenChange={(open) => setConfirmDialog((d) => ({ ...d, open }))}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {confirmDialog.hide ? "Ukryj zaznaczone pozycje?" : "Przywróć zaznaczone pozycje?"}
+            </DialogTitle>
+            <DialogDescription>
+              Wybrano {selected.size} pozycji. Czy na pewno chcesz je{" "}
+              {confirmDialog.hide ? "ukryć" : "przywrócić"}?
+              Ukryte pozycje nie będą widoczne na publicznej stronie cennika,
+              ale pozostaną w bazie.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex justify-end gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setConfirmDialog((d) => ({ ...d, open: false }))}
+            >
+              Anuluj
+            </Button>
+            <Button onClick={confirmBulkToggle} disabled={bulkPending}>
+              {bulkPending ? "…" : confirmDialog.hide ? "Ukryj" : "Przywróć"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
