@@ -42,6 +42,7 @@ export const BLOG_POSTS: { slug: string; priority?: string }[] = [
   { slug: "powiklania-mezoterapia-iglowa", priority: "0.7" },
   { slug: "blizny-potradzikowe", priority: "0.7" },
   { slug: "laser-frakcyjny-rekonwalescencja", priority: "0.8" },
+  { slug: "slonce-skora-nowoczesne-technologie", priority: "0.8" },
 ];
 
 // Statyczne strony marketingowe / prawne / utility
