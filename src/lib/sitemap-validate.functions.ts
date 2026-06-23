@@ -5,7 +5,7 @@ import {
   persistValidationResult,
   type SitemapValidationResult,
 } from "@/lib/sitemap-validate-core";
-import { SITEMAP_BASE_URL } from "@/lib/sitemap-entries";
+import { SITEMAP_BASE_URL, assertAllowedBaseUrl } from "@/lib/sitemap-entries";
 
 export type { SitemapValidationResult } from "@/lib/sitemap-validate-core";
 
@@ -27,7 +27,13 @@ export const validateSitemap = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
 
-    const baseUrl = (data.baseUrl?.replace(/\/$/, "") || SITEMAP_BASE_URL).trim();
+    // SSRF guard: only allow fetching from allowlisted hostnames.
+    let baseUrl = SITEMAP_BASE_URL;
+    if (data.baseUrl?.trim()) {
+      const allowed = assertAllowedBaseUrl(data.baseUrl.trim().replace(/\/$/, ""));
+      if (!allowed) throw new Error("baseUrl not allowed");
+      baseUrl = allowed;
+    }
     const result: SitemapValidationResult = await runSitemapValidation({
       baseUrl,
       checkUrls: data.checkUrls ?? false,
