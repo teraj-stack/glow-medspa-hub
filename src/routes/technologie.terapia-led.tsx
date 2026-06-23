@@ -142,7 +142,10 @@ export const Route = createFileRoute("/technologie/terapia-led")({
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: heroAsset.url },
       ],
-      links: [{ rel: "canonical", href: PAGE_URL }],
+      links: [
+        { rel: "canonical", href: PAGE_URL },
+        { rel: "preload", as: "image", href: heroAvif.url, type: "image/avif", fetchPriority: "high" },
+      ],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify(serviceSchema) },
         { type: "application/ld+json", children: JSON.stringify(faqSchema) },
