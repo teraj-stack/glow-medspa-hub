@@ -242,20 +242,30 @@ function AdminPricing() {
               </span>
             </div>
             <div className="flex items-center gap-2">
+              {lastAction && (
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  disabled={undoPending}
+                  onClick={performUndo}
+                >
+                  {undoPending ? "…" : "Cofnij ostatnią akcję"}
+                </Button>
+              )}
               <Button
                 size="sm"
                 variant="outline"
                 disabled={selected.size === 0 || bulkPending}
-                onClick={() => bulkToggle(false)}
+                onClick={() => requestBulkToggle(false)}
               >
-                {bulkPending ? "…" : "Przywróć zaznaczone"}
+                {bulkPending && confirmDialog.hide === false ? "…" : "Przywróć zaznaczone"}
               </Button>
               <Button
                 size="sm"
                 disabled={selected.size === 0 || bulkPending}
-                onClick={() => bulkToggle(true)}
+                onClick={() => requestBulkToggle(true)}
               >
-                {bulkPending ? "…" : "Ukryj zaznaczone"}
+                {bulkPending && confirmDialog.hide === true ? "…" : "Ukryj zaznaczone"}
               </Button>
             </div>
           </div>
