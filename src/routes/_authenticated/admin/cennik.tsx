@@ -7,9 +7,11 @@ import { TECHNOLOGIES } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   listHiddenPricingItems,
   setPricingItemHidden,
+  setPricingItemsHidden,
 } from "@/lib/pricing-visibility.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/cennik")({
