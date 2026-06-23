@@ -7,6 +7,11 @@ export const Route = createFileRoute("/_authenticated/admin/")({
 function AdminDashboard() {
   const cards = [
     {
+      to: "/admin/rezerwacje",
+      title: "Rezerwacje",
+      description: "Przeglądaj i zarządzaj wizytami pacjentów.",
+    },
+    {
       to: "/admin/lekarze",
       title: "Lekarze",
       description: "Zarządzaj lekarzami, godzinami pracy i integracją kalendarza.",
