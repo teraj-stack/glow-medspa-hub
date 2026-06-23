@@ -109,7 +109,7 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
       ],
       links: [
         { rel: "canonical", href: url },
-        { rel: "preload", as: "image", href: heroPosterAvif.url, type: "image/avif", fetchPriority: "high" },
+        { rel: "preload", as: "image", href: heroPosterWebp.url, type: "image/webp", fetchPriority: "high" },
       ],
       scripts: scripts.length > 0 ? scripts : undefined,
     };
