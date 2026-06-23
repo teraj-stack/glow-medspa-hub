@@ -48,6 +48,7 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicHooksSitemapValidateRouteImport } from './routes/api/public/hooks/sitemap-validate'
 import { Route as ApiPublicHooksCalendarSyncRetryRouteImport } from './routes/api/public/hooks/calendar-sync-retry'
 import { Route as ApiPublicBookingsCancelRouteImport } from './routes/api/public/bookings/cancel'
 
@@ -257,6 +258,12 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksSitemapValidateRoute =
+  ApiPublicHooksSitemapValidateRouteImport.update({
+    id: '/api/public/hooks/sitemap-validate',
+    path: '/api/public/hooks/sitemap-validate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksCalendarSyncRetryRoute =
   ApiPublicHooksCalendarSyncRetryRouteImport.update({
     id: '/api/public/hooks/calendar-sync-retry',
@@ -304,6 +311,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
+  '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -345,6 +353,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
+  '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -389,6 +398,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
+  '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -433,6 +443,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
+    | '/api/public/hooks/sitemap-validate'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -474,6 +485,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
+    | '/api/public/hooks/sitemap-validate'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -517,6 +529,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
+    | '/api/public/hooks/sitemap-validate'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -554,6 +567,7 @@ export interface RootRouteChildren {
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBookingsCancelRoute: typeof ApiPublicBookingsCancelRoute
   ApiPublicHooksCalendarSyncRetryRoute: typeof ApiPublicHooksCalendarSyncRetryRoute
+  ApiPublicHooksSitemapValidateRoute: typeof ApiPublicHooksSitemapValidateRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
@@ -837,6 +851,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/sitemap-validate': {
+      id: '/api/public/hooks/sitemap-validate'
+      path: '/api/public/hooks/sitemap-validate'
+      fullPath: '/api/public/hooks/sitemap-validate'
+      preLoaderRoute: typeof ApiPublicHooksSitemapValidateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/calendar-sync-retry': {
       id: '/api/public/hooks/calendar-sync-retry'
       path: '/api/public/hooks/calendar-sync-retry'
@@ -920,6 +941,7 @@ const rootRouteChildren: RootRouteChildren = {
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBookingsCancelRoute: ApiPublicBookingsCancelRoute,
   ApiPublicHooksCalendarSyncRetryRoute: ApiPublicHooksCalendarSyncRetryRoute,
+  ApiPublicHooksSitemapValidateRoute: ApiPublicHooksSitemapValidateRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,

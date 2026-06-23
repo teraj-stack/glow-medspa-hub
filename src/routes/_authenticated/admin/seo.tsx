@@ -9,7 +9,11 @@ import {
   gscDeleteSitemap,
   gscInspectUrl,
 } from "@/lib/seo-gsc.functions";
-import { validateSitemap, type SitemapValidationResult } from "@/lib/sitemap-validate.functions";
+import {
+  validateSitemap,
+  listSitemapValidationHistory,
+  type SitemapValidationResult,
+} from "@/lib/sitemap-validate.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
@@ -461,6 +465,7 @@ function SeoPanel() {
         )}
       </section>
 
+      <SitemapHistorySection />
 
       <div>
         <Button variant="ghost" size="sm" onClick={() => router.invalidate()}>
@@ -468,5 +473,172 @@ function SeoPanel() {
         </Button>
       </div>
     </div>
+  );
+}
+
+function SitemapHistorySection() {
+  const history = useQuery({
+    queryKey: ["sitemap-validation-history"],
+    queryFn: () => listSitemapValidationHistory({ data: { limit: 30 } }),
+    staleTime: 60 * 1000,
+  });
+
+  const rows = history.data?.rows ?? [];
+  const latest = rows[0];
+  const previous = rows[1];
+
+  const issuesOf = (r?: typeof rows[number]) =>
+    r ? r.missing_count + r.extras_count + r.duplicates_count + r.http_error_count : null;
+
+  const currIssues = issuesOf(latest);
+  const prevIssues = issuesOf(previous);
+  const trendDelta =
+    currIssues != null && prevIssues != null ? currIssues - prevIssues : null;
+
+  const maxIssues = Math.max(1, ...rows.map((r) => issuesOf(r) ?? 0));
+
+  return (
+    <section className="rounded-lg border border-border">
+      <div className="border-b border-border px-4 py-3 flex items-center justify-between">
+        <div>
+          <div className="text-sm font-medium">Historia walidacji sitemap (auto, co tydzień)</div>
+          <div className="text-xs text-muted-foreground mt-0.5">
+            Cron uruchamia walidator w poniedziałki 03:15 UTC i zapisuje wynik. Pokazuje trend napraw w czasie.
+          </div>
+        </div>
+        <Button
+          size="sm"
+          variant="outline"
+          onClick={() => history.refetch()}
+          disabled={history.isFetching}
+        >
+          Odśwież
+        </Button>
+      </div>
+
+      {history.isLoading && (
+        <div className="px-4 py-3 text-sm text-muted-foreground">Ładowanie…</div>
+      )}
+
+      {!history.isLoading && rows.length === 0 && (
+        <div className="px-4 py-3 text-sm text-muted-foreground">
+          Brak zapisanych wyników. Pierwszy zapis pojawi się po najbliższym uruchomieniu zadania lub po użyciu „Sprawdź sitemap" z zapisem.
+        </div>
+      )}
+
+      {latest && (
+        <div className="px-4 py-3 border-b border-border grid gap-3 sm:grid-cols-4">
+          <div className="rounded-md border border-border p-3">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground">Ostatnie sprawdzenie</div>
+            <div className="mt-1 text-sm font-medium">
+              {new Date(latest.checked_at).toLocaleString("pl-PL")}
+            </div>
+            <div className="text-xs text-muted-foreground mt-0.5">{latest.triggered_by}</div>
+          </div>
+          <div className="rounded-md border border-border p-3">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground">Problemy łącznie</div>
+            <div className="mt-1 text-2xl font-semibold tabular-nums">{currIssues}</div>
+            {trendDelta != null && trendDelta !== 0 && (
+              <div className={`text-xs mt-0.5 ${trendDelta < 0 ? "text-emerald-500" : "text-red-500"}`}>
+                {trendDelta < 0 ? "▼" : "▲"} {Math.abs(trendDelta)} vs poprzedni
+              </div>
+            )}
+            {trendDelta === 0 && (
+              <div className="text-xs mt-0.5 text-muted-foreground">bez zmian</div>
+            )}
+          </div>
+          <div className="rounded-md border border-border p-3">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground">Brakujące / nadmiarowe</div>
+            <div className="mt-1 text-sm tabular-nums">
+              {latest.missing_count} / {latest.extras_count}
+            </div>
+            <div className="text-xs text-muted-foreground mt-0.5">
+              duplikaty: {latest.duplicates_count}
+            </div>
+          </div>
+          <div className="rounded-md border border-border p-3">
+            <div className="text-xs uppercase tracking-wide text-muted-foreground">URL-e (live / oczek.)</div>
+            <div className="mt-1 text-sm tabular-nums">
+              {latest.live_count} / {latest.expected_count}
+            </div>
+            <div className="text-xs text-muted-foreground mt-0.5">
+              błędów HTTP: {latest.http_error_count}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {rows.length > 0 && (
+        <div className="px-4 py-3 border-b border-border">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+            Trend problemów (od najstarszego do najnowszego)
+          </div>
+          <div className="flex items-end gap-1 h-20">
+            {[...rows].reverse().map((r) => {
+              const v = issuesOf(r) ?? 0;
+              const h = Math.max(2, Math.round((v / maxIssues) * 72));
+              const tone = v === 0
+                ? "bg-emerald-500/60"
+                : v <= 2
+                  ? "bg-amber-500/60"
+                  : "bg-red-500/60";
+              return (
+                <div
+                  key={r.id}
+                  className={`flex-1 min-w-[4px] rounded-sm ${tone}`}
+                  style={{ height: `${h}px` }}
+                  title={`${new Date(r.checked_at).toLocaleString("pl-PL")} — ${v} problemów`}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {rows.length > 0 && (
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead className="text-muted-foreground bg-muted/30">
+              <tr>
+                <th className="text-left px-4 py-2 font-medium">Data</th>
+                <th className="text-left px-4 py-2 font-medium">Źródło</th>
+                <th className="text-right px-4 py-2 font-medium">Brak</th>
+                <th className="text-right px-4 py-2 font-medium">Nadm.</th>
+                <th className="text-right px-4 py-2 font-medium">Dupl.</th>
+                <th className="text-right px-4 py-2 font-medium">HTTP err</th>
+                <th className="text-right px-4 py-2 font-medium">Live / Oczek.</th>
+                <th className="text-left px-4 py-2 font-medium">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {rows.map((r) => (
+                <tr key={r.id}>
+                  <td className="px-4 py-1.5 tabular-nums whitespace-nowrap">
+                    {new Date(r.checked_at).toLocaleString("pl-PL")}
+                  </td>
+                  <td className="px-4 py-1.5 text-muted-foreground">{r.triggered_by}</td>
+                  <td className={`px-4 py-1.5 text-right tabular-nums ${r.missing_count ? "text-red-500" : ""}`}>{r.missing_count}</td>
+                  <td className={`px-4 py-1.5 text-right tabular-nums ${r.extras_count ? "text-amber-500" : ""}`}>{r.extras_count}</td>
+                  <td className={`px-4 py-1.5 text-right tabular-nums ${r.duplicates_count ? "text-red-500" : ""}`}>{r.duplicates_count}</td>
+                  <td className={`px-4 py-1.5 text-right tabular-nums ${r.http_error_count ? "text-red-500" : ""}`}>{r.http_error_count}</td>
+                  <td className="px-4 py-1.5 text-right tabular-nums">
+                    {r.live_count} / {r.expected_count}
+                  </td>
+                  <td className="px-4 py-1.5">
+                    {r.fetch_ok ? (
+                      <span className="text-emerald-500">OK</span>
+                    ) : (
+                      <span className="text-red-500" title={r.fetch_error ?? ""}>
+                        błąd pobrania
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   );
 }
