@@ -22,6 +22,7 @@ export type BlogPostMeta = {
 export const BLOG_POSTS_META: BlogPostMeta[] = [
   {
     slug: "slonce-skora-nowoczesne-technologie",
+    path: "/blog/slonce-skora-nowoczesne-technologie",
     title: "Słońce, skóra i nowoczesne technologie — czy każdy laser „boi się” lata?",
     excerpt:
       "Dlaczego część laserów odkładamy na chłodniejsze miesiące, a inne bezpiecznie pracują również latem.",
@@ -31,6 +32,7 @@ export const BLOG_POSTS_META: BlogPostMeta[] = [
   },
   {
     slug: "laser-frakcyjny-rekonwalescencja",
+    path: "/blog/laser-frakcyjny-rekonwalescencja",
     title: "Laser frakcyjny — dzień po dniu rekonwalescencji",
     excerpt:
       "Trzy lasery frakcyjne, trzy różne mechanizmy gojenia. Czego realnie spodziewać się dzień po dniu.",
@@ -40,6 +42,7 @@ export const BLOG_POSTS_META: BlogPostMeta[] = [
   },
   {
     slug: "blizny-potradzikowe",
+    path: "/blog/blizny-potradzikowe",
     title: "Blizny potrądzikowe — kompletny przewodnik",
     excerpt:
       "Rodzaje blizn, łączone protokoły laserowo-radiofrekwencyjne i realne efekty z badań klinicznych.",
@@ -49,6 +52,7 @@ export const BLOG_POSTS_META: BlogPostMeta[] = [
   },
   {
     slug: "powiklania-mezoterapia-iglowa",
+    path: "/blog/powiklania-mezoterapia-iglowa",
     title: "Powikłania po mezoterapii igłowej — jak ich unikać",
     excerpt:
       "Co jest normalną reakcją, a co sygnałem alarmowym. Przeciwwskazania i praktyczna prewencja.",
