@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export type PakietTileProps = {
   nr: string;
@@ -9,6 +10,9 @@ export type PakietTileProps = {
   bullets: { title?: string; text?: string; boldParts?: string[] }[];
   technologies?: string[];
   protocol?: { label: string; href: string };
+  iconHref?: string;
+  iconTooltip?: string;
+  id?: string;
 };
 
 function renderBoldParts(text: string, boldParts?: string[]) {
@@ -33,9 +37,46 @@ export default function PakietTile({
   bullets,
   technologies,
   protocol,
+  iconHref,
+  iconTooltip,
+  id,
 }: PakietTileProps) {
+  const iconCircle = (
+    <div
+      className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
+      style={{
+        background: "color-mix(in oklab, var(--champagne) 10%, transparent)",
+        borderColor: "color-mix(in oklab, var(--champagne) 30%, transparent)",
+      }}
+    >
+      <img
+        src={icon}
+        alt=""
+        loading="lazy"
+        className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
+      />
+    </div>
+  );
+
+  const iconNode = iconHref ? (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <a
+          href={iconHref}
+          aria-label={iconTooltip ?? title}
+          className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
+        >
+          {iconCircle}
+        </a>
+      </TooltipTrigger>
+      {iconTooltip && <TooltipContent side="top">{iconTooltip}</TooltipContent>}
+    </Tooltip>
+  ) : (
+    <div aria-hidden="true">{iconCircle}</div>
+  );
+
   return (
-    <article className="group relative flex h-full flex-col rounded-sm bg-card p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-lg md:p-8">
+    <article id={id} className="group relative flex h-full flex-col rounded-sm bg-card p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-lg md:p-8">
       {/* Numer w rogu */}
       <div className="absolute right-6 top-6 text-xs uppercase tracking-[0.3em] text-champagne md:right-8 md:top-8">
         {nr}
@@ -43,21 +84,7 @@ export default function PakietTile({
 
       {/* Awatar + tagline */}
       <div className="flex items-center gap-4">
-        <div
-          className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
-          style={{
-            background: "color-mix(in oklab, var(--champagne) 10%, transparent)",
-            borderColor: "color-mix(in oklab, var(--champagne) 30%, transparent)",
-          }}
-          aria-hidden="true"
-        >
-          <img
-            src={icon}
-            alt=""
-            loading="lazy"
-            className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
-          />
-        </div>
+        {iconNode}
         <span className="text-xs uppercase tracking-[0.3em] text-champagne">
           {tagline}
         </span>
