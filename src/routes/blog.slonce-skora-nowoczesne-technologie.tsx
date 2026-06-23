@@ -450,6 +450,8 @@ function SunSkinTechArticle() {
           </div>
         </aside>
       </div>
+
+      <RelatedPosts currentSlug={SLUG} />
     </>
   );
 }

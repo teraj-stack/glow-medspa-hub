@@ -515,6 +515,8 @@ function AcneScarsGuide() {
           </div>
         </aside>
       </div>
+
+      <RelatedPosts currentSlug="blizny-potradzikowe" />
     </>
   );
 }

@@ -478,6 +478,8 @@ function ComplicationsGuide() {
           </div>
         </aside>
       </div>
+
+      <RelatedPosts currentSlug="powiklania-mezoterapia-iglowa" />
     </>
   );
 }

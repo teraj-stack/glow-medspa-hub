@@ -645,6 +645,8 @@ function FractionalLaserRecoveryGuide() {
           </div>
         </aside>
       </div>
+
+      <RelatedPosts currentSlug="laser-frakcyjny-rekonwalescencja" />
     </>
   );
 }
