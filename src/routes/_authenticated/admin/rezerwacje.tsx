@@ -113,6 +113,7 @@ function AdminBookingsPage() {
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [bulkRetrying, setBulkRetrying] = useState(false);
+  const [lastReport, setLastReport] = useState<BulkReport | null>(null);
   const retryingRef = useRef<Set<string>>(new Set());
   const [retryingTick, setRetryingTick] = useState(0);
   const isRetrying = (id: string) => retryingRef.current.has(id);
