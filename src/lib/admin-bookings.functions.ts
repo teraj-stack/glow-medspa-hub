@@ -191,27 +191,58 @@ export const updateBookingStatus = createServerFn({ method: "POST" })
     await assertAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
+// Reads current attempts, runs sync, persists outcome with backoff-aware next_at.
+async function persistSyncOutcome(bookingId: string) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data: prev } = await supabaseAdmin
+    .from("visit_bookings")
+    .select("calendar_sync_attempts")
+    .eq("id", bookingId)
+    .maybeSingle();
+  const previousAttempts = (prev as any)?.calendar_sync_attempts ?? 0;
+
+  const sync = await syncWithCalendar(bookingId);
+  const isError = sync.calendar_sync_status === "error";
+  const attempts = isError ? previousAttempts + 1 : 0;
+  const nextAt = isError ? computeNextRetryAt(attempts) : null;
+
+  const patch: Record<string, unknown> = {
+    calendar_sync_status: sync.calendar_sync_status,
+    calendar_sync_error: sync.calendar_sync_error,
+    calendar_sync_at: sync.calendar_sync_at,
+    calendar_sync_attempts: attempts,
+    calendar_sync_next_at: nextAt,
+    ...(sync.google_event_id !== undefined
+      ? { google_event_id: sync.google_event_id }
+      : {}),
+  };
+  const { error } = await supabaseAdmin
+    .from("visit_bookings")
+    .update(patch)
+    .eq("id", bookingId);
+  if (error) throw new Error(error.message);
+  return { sync, attempts, nextAt };
+}
+
+// ============================================================
+// ADMIN: update booking status (+ trigger calendar sync)
+// ============================================================
+export const updateBookingStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { id: string; status: string }) =>
+    z.object({ id: z.string().uuid(), status: BookingStatus }).parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
     const { error: updErr } = await supabaseAdmin
       .from("visit_bookings")
       .update({ status: data.status })
       .eq("id", data.id);
     if (updErr) throw new Error(updErr.message);
 
-    const sync = await syncWithCalendar(data.id);
-
-    const patch = {
-      calendar_sync_status: sync.calendar_sync_status,
-      calendar_sync_error: sync.calendar_sync_error,
-      calendar_sync_at: sync.calendar_sync_at,
-      ...(sync.google_event_id !== undefined
-        ? { google_event_id: sync.google_event_id }
-        : {}),
-    };
-    const { error: syncErr } = await supabaseAdmin
-      .from("visit_bookings")
-      .update(patch)
-      .eq("id", data.id);
-    if (syncErr) throw new Error(syncErr.message);
+    const { sync } = await persistSyncOutcome(data.id);
 
     const { data: row } = await supabaseAdmin
       .from("visit_bookings")
@@ -234,21 +265,7 @@ export const retryCalendarSync = createServerFn({ method: "POST" })
     await assertAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const sync = await syncWithCalendar(data.id);
-
-    const patch = {
-      calendar_sync_status: sync.calendar_sync_status,
-      calendar_sync_error: sync.calendar_sync_error,
-      calendar_sync_at: sync.calendar_sync_at,
-      ...(sync.google_event_id !== undefined
-        ? { google_event_id: sync.google_event_id }
-        : {}),
-    };
-    const { error } = await supabaseAdmin
-      .from("visit_bookings")
-      .update(patch)
-      .eq("id", data.id);
-    if (error) throw new Error(error.message);
+    const { sync } = await persistSyncOutcome(data.id);
 
     const { data: row } = await supabaseAdmin
       .from("visit_bookings")
@@ -258,3 +275,58 @@ export const retryCalendarSync = createServerFn({ method: "POST" })
 
     return { ok: true as const, booking: row, sync };
   });
+
+// ============================================================
+// INTERNAL: process due automatic retries (called by cron hook)
+// Returns counts so the hook can log/report.
+// ============================================================
+export async function processDueCalendarRetries(limit = 25) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const nowIso = new Date().toISOString();
+
+  const { data: due, error } = await supabaseAdmin
+    .from("visit_bookings")
+    .select("id")
+    .eq("calendar_sync_status", "error")
+    .not("calendar_sync_next_at", "is", null)
+    .lte("calendar_sync_next_at", nowIso)
+    .order("calendar_sync_next_at", { ascending: true })
+    .limit(limit);
+  if (error) throw new Error(error.message);
+
+  const results: Array<{
+    id: string;
+    status: string;
+    attempts: number;
+    nextAt: string | null;
+    error: string | null;
+  }> = [];
+
+  for (const row of due ?? []) {
+    try {
+      const { sync, attempts, nextAt } = await persistSyncOutcome((row as any).id);
+      results.push({
+        id: (row as any).id,
+        status: sync.calendar_sync_status,
+        attempts,
+        nextAt,
+        error: sync.calendar_sync_error,
+      });
+    } catch (e: any) {
+      results.push({
+        id: (row as any).id,
+        status: "exception",
+        attempts: 0,
+        nextAt: null,
+        error: e?.message ?? "unknown error",
+      });
+    }
+  }
+
+  return {
+    processed: results.length,
+    succeeded: results.filter((r) => r.status === "synced" || r.status === "not_required").length,
+    failed: results.filter((r) => r.status === "error" || r.status === "exception").length,
+    results,
+  };
+}
