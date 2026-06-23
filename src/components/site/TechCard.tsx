@@ -15,7 +15,8 @@ export function TechCard({ tech }: { tech: Technology }) {
     <Link
       to="/technologie/$slug"
       params={{ slug: tech.slug }}
-      className="tile-card group rise-in"
+      data-testid="tech-card-link"
+      className="tile-card group rise-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-champagne"
     >
       <div className="flex items-center justify-between">
         <span className="text-xs uppercase tracking-[0.25em] text-champagne">
