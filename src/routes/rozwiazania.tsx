@@ -289,6 +289,9 @@ function RozwiazaniaPage() {
         </div>
       </section>
 
+      {/* FAQ per protokół */}
+      <FaqSection />
+
       {/* CTA */}
       <section className="border-t border-border bg-background">
         <div className="container-luxury py-16 text-center md:py-20">
