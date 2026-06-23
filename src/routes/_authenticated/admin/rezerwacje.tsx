@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import {
   listAdminBookings,
   retryCalendarSync,
+  retryManyCalendarSyncs,
   updateBookingStatus,
 } from "@/lib/admin-bookings.functions";
 
