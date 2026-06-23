@@ -590,9 +590,39 @@ function AdminBookingsPage() {
         </div>
       )}
 
-      {data && data.length === 0 && (
-        <div className="rounded-lg border border-border p-8 text-center text-sm text-muted-foreground">
-          Brak rezerwacji w wybranym zakresie.
+      {data && data.length === 0 && !error && (
+        <div className="rounded-lg border border-border p-8 text-center space-y-3">
+          <div className="text-2xl">📅</div>
+          <h3 className="text-base font-semibold text-foreground">
+            Brak rezerwacji w wybranym zakresie
+          </h3>
+          <p className="text-sm text-muted-foreground max-w-md mx-auto">
+            Zmień filtry powyżej (np. „Zakres: Wszystkie") albo dodaj testową
+            rezerwację w dev, żeby zobaczyć akcje{" "}
+            <span className="text-foreground">Potwierdź</span>,{" "}
+            <span className="text-foreground">Zakończ</span>,{" "}
+            <span className="text-foreground">Nieobecność</span> i{" "}
+            <span className="text-foreground">Anuluj</span>.
+          </p>
+          <details className="text-xs text-muted-foreground max-w-md mx-auto text-left">
+            <summary className="cursor-pointer hover:text-foreground">
+              Jak dodać testową rezerwację w dev?
+            </summary>
+            <pre className="mt-2 p-3 rounded bg-muted overflow-x-auto whitespace-pre-wrap break-words text-[11px]">
+{`insert into visit_bookings (
+  doctor_id, treatment_slug, starts_at, ends_at,
+  patient_name, patient_email, patient_phone,
+  status, payment_status, amount_cents, currency, rodo_consent
+) values (
+  (select id from doctors limit 1),
+  'konsultacja',
+  now() + interval '1 day',
+  now() + interval '1 day 30 minutes',
+  'Jan Testowy', 'test@example.com', '+48500000000',
+  'pending_payment', 'unpaid', 20000, 'PLN', true
+);`}
+            </pre>
+          </details>
         </div>
       )}
 
