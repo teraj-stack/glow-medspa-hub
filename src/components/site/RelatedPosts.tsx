@@ -19,11 +19,9 @@ export function RelatedPosts({ currentSlug, limit = 3, className }: Props) {
       className={`border-t border-border bg-secondary/30 py-16 md:py-24 ${className ?? ""}`}
     >
       <div className="container-luxury">
-        <SectionHeading
-          eyebrow="Polecane artykuły"
-          title="Czytaj dalej"
-          id="related-posts-heading"
-        />
+        <div id="related-posts-heading">
+          <SectionHeading eyebrow="Polecane artykuły" title="Czytaj dalej" />
+        </div>
         <p className="mt-4 max-w-2xl text-sm text-muted-foreground md:text-base">
           Powiązane tematy z bloga kliniki — wybierz kolejny krok w swojej edukacji o
           bezpiecznych zabiegach laserowych i medycynie estetycznej.
@@ -33,8 +31,7 @@ export function RelatedPosts({ currentSlug, limit = 3, className }: Props) {
           {posts.map((post) => (
             <li key={post.slug}>
               <Link
-                to="/blog/$slug"
-                params={{ slug: post.slug }}
+                to={post.path}
                 className="group flex h-full flex-col rounded-lg border border-border bg-card p-6 transition hover:border-champagne hover:shadow-lg"
               >
                 <div className="text-xs uppercase tracking-[0.3em] text-champagne">
