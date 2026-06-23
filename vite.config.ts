@@ -23,15 +23,18 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
+        // htmlparser2@8 imports `entities/lib/decode.js`, but top-level
+        // entities@8 (required by parse5) no longer ships a `lib/` folder.
+        // Redirect those legacy subpaths to the nested entities@4 install
+        // that bun keeps under htmlparser2 for exactly this reason.
         "entities/lib/decode.js": path.resolve(
           process.cwd(),
-          "node_modules/entities/lib/decode.js",
+          "node_modules/htmlparser2/node_modules/entities/lib/esm/decode.js",
         ),
-        "entities/lib/encode.js": path.resolve(
+        "entities/lib/escape.js": path.resolve(
           process.cwd(),
-          "node_modules/entities/lib/encode.js",
+          "node_modules/htmlparser2/node_modules/entities/lib/esm/escape.js",
         ),
-        entities: path.resolve(process.cwd(), "node_modules/entities"),
       },
     },
   },
