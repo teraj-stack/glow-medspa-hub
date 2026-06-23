@@ -2,6 +2,35 @@ import { TECHNOLOGIES } from "@/data/technologies";
 
 export const SITEMAP_BASE_URL = "https://bmclinics.ai";
 
+// Hostnames allowed as `baseUrl` for sitemap validation (prevents SSRF —
+// no internal metadata endpoints, no arbitrary outbound fetches).
+export const SITEMAP_ALLOWED_HOSTS = new Set<string>([
+  "bmclinics.ai",
+  "www.bmclinics.ai",
+  "bmclinics.dev",
+  "www.bmclinics.dev",
+  "bmclinics.org",
+  "www.bmclinics.org",
+  "glow-medspa-hub.lovable.app",
+]);
+
+/**
+ * Returns a normalized base URL when the host is on the allowlist, otherwise null.
+ * Only http(s) is allowed; no userinfo, no IP literals.
+ */
+export function assertAllowedBaseUrl(raw: string): string | null {
+  let u: URL;
+  try {
+    u = new URL(raw);
+  } catch {
+    return null;
+  }
+  if (u.protocol !== "https:" && u.protocol !== "http:") return null;
+  if (u.username || u.password) return null;
+  if (!SITEMAP_ALLOWED_HOSTS.has(u.hostname.toLowerCase())) return null;
+  return `${u.protocol}//${u.host}`;
+}
+
 export interface SitemapEntry {
   path: string;
   changefreq: "always" | "hourly" | "daily" | "weekly" | "monthly" | "yearly" | "never";
