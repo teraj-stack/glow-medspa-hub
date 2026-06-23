@@ -124,6 +124,76 @@ describe("a11y: TechCard heading semantics", () => {
   });
 });
 
+describe("a11y: TechCard click target and in-link text contrast", () => {
+  const AA_NORMAL = 4.5;
+  const MIN_TAP_PX = 44; // WCAG 2.5.5 / mobile UX baseline
+
+  it("exposes the whole card as a single link with all text inside its hit area", () => {
+    render(<TechCard tech={tech} />);
+    const links = screen.getAllByRole("link");
+    expect(links).toHaveLength(1);
+    const link = links[0];
+
+    // All three text layers must be descendants of the link so the entire card
+    // surface is clickable, not just the title.
+    const eyebrow = screen.getByText("Skóra");
+    const heading = screen.getByRole("heading", { level: 3 });
+    const desc = screen.getByText(tech.shortDesc);
+
+    expect(link.contains(eyebrow)).toBe(true);
+    expect(link.contains(heading)).toBe(true);
+    expect(link.contains(desc)).toBe(true);
+
+    // The link must be the focusable element (anchor element, real href).
+    expect(link.tagName).toBe("A");
+    expect(link).toHaveAttribute("href");
+  });
+
+  it("gives the link enough padding to meet a 44×44 tap target on mobile", () => {
+    // jsdom does not run layout, so we cannot read getBoundingClientRect.
+    // Instead, assert the underlying .tile-card utility declares padding ≥ 1rem
+    // (≈ 16px), which together with the heading line-height keeps the hit
+    // surface comfortably above 44×44 on real browsers. Combined with the
+    // previous test (whole card is the link), this proves the click area is
+    // the full padded card, not a thin text run.
+    const tileCardBlock = cssSource.match(
+      /@utility\s+tile-card\s*\{[^}]*padding:\s*([0-9.]+)rem/,
+    );
+    expect(tileCardBlock, ".tile-card must declare padding").toBeTruthy();
+    const paddingRem = parseFloat(tileCardBlock![1]);
+    const paddingPx = paddingRem * 16;
+    // 1.5rem (24px) padding on each side → 48px vertical/horizontal padding
+    // alone, before any content, easily clearing the 44px tap baseline.
+    expect(paddingPx * 2).toBeGreaterThanOrEqual(MIN_TAP_PX);
+  });
+
+  it("keeps every text node inside the link at WCAG AA contrast in both themes", () => {
+    // Map each rendered text element in TechCard to the CSS custom property
+    // that drives its color. The link itself does not set a color, so each
+    // child inherits/declares its own foreground over .tile-card { var(--card) }.
+    const TEXT_LAYERS: Array<{ fgVar: string; label: string }> = [
+      { fgVar: "--champagne", label: "eyebrow category" },
+      { fgVar: "--ink", label: "h3 title" },
+      { fgVar: "--muted-foreground", label: "short description" },
+    ];
+
+    for (const theme of [":root", "\\.dark"] as const) {
+      const bg = parseOklch(readVar(cssSource, theme, "--card"));
+      for (const { fgVar, label } of TEXT_LAYERS) {
+        const fg = parseOklch(readVar(cssSource, theme, fgVar));
+        const ratio = contrastRatio(oklchToRgb(...fg), oklchToRgb(...bg));
+        expect(
+          ratio,
+          `${theme} → ${label} (${fgVar}) inside link: got ${ratio.toFixed(
+            2,
+          )}:1, need ≥ ${AA_NORMAL}:1`,
+        ).toBeGreaterThanOrEqual(AA_NORMAL);
+      }
+    }
+  });
+});
+
+
 describe("a11y: TechCard text contrast in light and dark themes", () => {
   // TechCard renders three text layers over .tile-card { background: var(--card) }:
   //   1. category eyebrow  → text-champagne          (var(--champagne))
