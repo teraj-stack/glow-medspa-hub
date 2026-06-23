@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import {
   listAdminBookings,
   retryCalendarSync,
+  retryManyCalendarSyncs,
   updateBookingStatus,
 } from "@/lib/admin-bookings.functions";
 
@@ -110,6 +111,8 @@ function AdminBookingsPage() {
   const [sync, setSync] = useState<SyncStatus>("all");
   const [sortBy, setSortBy] = useState<SortBy>("starts_at");
   const [pendingId, setPendingId] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [bulkRetrying, setBulkRetrying] = useState(false);
   const retryingRef = useRef<Set<string>>(new Set());
   const [retryingTick, setRetryingTick] = useState(0);
   const isRetrying = (id: string) => retryingRef.current.has(id);
@@ -123,6 +126,7 @@ function AdminBookingsPage() {
   const list = useServerFn(listAdminBookings);
   const update = useServerFn(updateBookingStatus);
   const retry = useServerFn(retryCalendarSync);
+  const retryMany = useServerFn(retryManyCalendarSyncs);
   const qc = useQueryClient();
 
   const queryKey = ["admin-bookings", range, status, sync, sortBy] as const;
@@ -138,6 +142,10 @@ function AdminBookingsPage() {
         },
       }),
   });
+
+  useEffect(() => {
+    setSelected(new Set());
+  }, [range, status, sync, sortBy]);
 
   function reportSync(sync: { calendar_sync_status: string; calendar_sync_error: string | null }) {
     if (sync.calendar_sync_status === "synced") {
@@ -193,6 +201,62 @@ function AdminBookingsPage() {
     } finally {
       setRetrying(id, false);
       setPendingId(null);
+    }
+  }
+
+  const errorBookingIds =
+    data?.filter((b: any) => b.calendar_sync_status === "error").map((b: any) => b.id as string) ?? [];
+
+  function toggleSelect(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function selectAllErrors() {
+    setSelected(new Set(errorBookingIds));
+  }
+
+  function clearSelection() {
+    setSelected(new Set());
+  }
+
+  async function bulkRetry() {
+    if (selected.size === 0 || bulkRetrying) return;
+    setBulkRetrying(true);
+    selected.forEach((id) => setRetrying(id, true));
+    qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
+      if (!Array.isArray(old)) return old;
+      return old.map((b: any) =>
+        selected.has(b.id)
+          ? { ...b, calendar_sync_status: "pending", calendar_sync_error: null }
+          : b,
+      );
+    });
+    try {
+      const res = await retryMany({ data: { ids: Array.from(selected) } });
+      if (res?.bookings?.length) {
+        qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
+          if (!Array.isArray(old)) return old;
+          const updatedById = new Map(res.bookings.map((b: any) => [b.id, b]));
+          return old.map((b: any) => (updatedById.has(b.id) ? { ...b, ...updatedById.get(b.id) } : b));
+        });
+      }
+      setSelected(new Set());
+      toast.success(`Zsynchronizowano ${res.succeeded} z ${res.processed} rezerwacji`);
+      if (res.failed > 0) {
+        toast.error(`${res.failed} rezerwacji nadal z błędem`);
+      }
+      await qc.invalidateQueries({ queryKey: ["admin-bookings"] });
+    } catch (e: any) {
+      toast.error(e?.message || "Nie udało się ponowić synchronizacji wybranych rezerwacji");
+      await qc.invalidateQueries({ queryKey: ["admin-bookings"] });
+    } finally {
+      selected.forEach((id) => setRetrying(id, false));
+      setBulkRetrying(false);
     }
   }
 
@@ -262,6 +326,48 @@ function AdminBookingsPage() {
         </div>
       )}
 
+      {errorBookingIds.length > 0 && (
+        <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border p-3 bg-card">
+          <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+            <input
+              type="checkbox"
+              className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-primary"
+              checked={selected.size === errorBookingIds.length && errorBookingIds.length > 0}
+              onChange={(e) => {
+                if (e.target.checked) selectAllErrors();
+                else clearSelection();
+              }}
+            />
+            <span className="text-foreground">
+              Zaznaczono {selected.size} z {errorBookingIds.length} z błędem
+            </span>
+          </label>
+          <div className="flex-1" />
+          <ActionButton
+            variant="muted"
+            onClick={selectAllErrors}
+            disabled={bulkRetrying}
+          >
+            Zaznacz wszystkie błędy
+          </ActionButton>
+          <ActionButton
+            variant="muted"
+            onClick={clearSelection}
+            disabled={selected.size === 0 || bulkRetrying}
+          >
+            Wyczyść
+          </ActionButton>
+          <ActionButton
+            onClick={bulkRetry}
+            disabled={selected.size === 0 || bulkRetrying}
+          >
+            {bulkRetrying
+              ? "Ponawianie…"
+              : `Ponów synchronizację (${selected.size})`}
+          </ActionButton>
+        </div>
+      )}
+
       {data && data.length === 0 && (
         <div className="rounded-lg border border-border p-8 text-center text-sm text-muted-foreground">
           Brak rezerwacji w wybranym zakresie.
@@ -280,6 +386,16 @@ function AdminBookingsPage() {
             >
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex flex-wrap items-center gap-2">
+                  {syncStatus === "error" && (
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-primary"
+                      checked={selected.has(b.id)}
+                      onChange={() => toggleSelect(b.id)}
+                      disabled={bulkRetrying || isRetrying(b.id)}
+                      aria-label={`Zaznacz rezerwację ${b.patient_name}`}
+                    />
+                  )}
                   <span className="font-medium">
                     {formatDateTime(b.starts_at)}
                   </span>

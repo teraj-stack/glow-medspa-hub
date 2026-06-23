@@ -263,10 +263,9 @@ export const retryCalendarSync = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
     const { sync } = await persistSyncOutcome(data.id);
 
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: row } = await supabaseAdmin
       .from("visit_bookings")
       .select(BOOKING_SELECT)
@@ -274,6 +273,62 @@ export const retryCalendarSync = createServerFn({ method: "POST" })
       .maybeSingle();
 
     return { ok: true as const, booking: row, sync };
+  });
+
+// ============================================================
+// ADMIN: retry calendar sync for many selected bookings
+// ============================================================
+export const retryManyCalendarSyncs = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { ids: string[] }) =>
+    z.object({ ids: z.array(z.string().uuid()).max(100) }).parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
+
+    const results: Array<{
+      id: string;
+      status: string;
+      attempts: number;
+      nextAt: string | null;
+      error: string | null;
+    }> = [];
+
+    for (const id of data.ids) {
+      try {
+        const { sync, attempts, nextAt } = await persistSyncOutcome(id);
+        results.push({
+          id,
+          status: sync.calendar_sync_status,
+          attempts,
+          nextAt,
+          error: sync.calendar_sync_error,
+        });
+      } catch (e: any) {
+        results.push({
+          id,
+          status: "exception",
+          attempts: 0,
+          nextAt: null,
+          error: e?.message ?? "unknown error",
+        });
+      }
+    }
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: rows } = await supabaseAdmin
+      .from("visit_bookings")
+      .select(BOOKING_SELECT)
+      .in("id", data.ids);
+
+    return {
+      ok: true as const,
+      processed: results.length,
+      succeeded: results.filter((r) => r.status === "synced" || r.status === "not_required").length,
+      failed: results.filter((r) => r.status === "error" || r.status === "exception").length,
+      bookings: rows ?? [],
+      results,
+    };
   });
 
 // ============================================================
