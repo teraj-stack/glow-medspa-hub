@@ -161,7 +161,7 @@ function AdminPricing() {
                   <table className="w-full text-sm">
                   <tbody>
                     {rows.map((p) => {
-                      const key = `${t.slug}::${p.label}`;
+                      const key = keyFor(t.slug, p.label);
                       const isHidden = hiddenSet.has(key);
                       const isPending = pending.has(key);
                       return (
