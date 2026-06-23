@@ -23,7 +23,18 @@ async function assertAdmin(userId: string) {
 }
 
 const BOOKING_SELECT =
-  "id, doctor_id, treatment_slug, patient_name, patient_email, patient_phone, notes, starts_at, ends_at, status, payment_status, amount_cents, currency, google_event_id, calendar_sync_status, calendar_sync_error, calendar_sync_at, created_at, doctors(full_name, calendar_id)";
+  "id, doctor_id, treatment_slug, patient_name, patient_email, patient_phone, notes, starts_at, ends_at, status, payment_status, amount_cents, currency, google_event_id, calendar_sync_status, calendar_sync_error, calendar_sync_at, calendar_sync_attempts, calendar_sync_next_at, created_at, doctors(full_name, calendar_id)";
+
+// Backoff schedule (minutes) for automatic retry attempts after a failed sync.
+// After the last entry is exhausted next_at is set to null (manual retry only).
+const RETRY_BACKOFF_MINUTES = [1, 5, 30, 120, 360, 1440] as const;
+
+export function computeNextRetryAt(attempts: number): string | null {
+  // attempts = number of failed attempts so far (including the one that just failed)
+  const idx = attempts - 1;
+  if (idx < 0 || idx >= RETRY_BACKOFF_MINUTES.length) return null;
+  return new Date(Date.now() + RETRY_BACKOFF_MINUTES[idx] * 60_000).toISOString();
+}
 
 // ============================================================
 // ADMIN: list bookings (with optional filters)
@@ -168,6 +179,40 @@ async function syncWithCalendar(bookingId: string): Promise<SyncOutcome> {
   };
 }
 
+
+// Reads current attempts, runs sync, persists outcome with backoff-aware next_at.
+async function persistSyncOutcome(bookingId: string) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data: prev } = await supabaseAdmin
+    .from("visit_bookings")
+    .select("calendar_sync_attempts")
+    .eq("id", bookingId)
+    .maybeSingle();
+  const previousAttempts = (prev as any)?.calendar_sync_attempts ?? 0;
+
+  const sync = await syncWithCalendar(bookingId);
+  const isError = sync.calendar_sync_status === "error";
+  const attempts = isError ? previousAttempts + 1 : 0;
+  const nextAt = isError ? computeNextRetryAt(attempts) : null;
+
+  const patch = {
+    calendar_sync_status: sync.calendar_sync_status,
+    calendar_sync_error: sync.calendar_sync_error,
+    calendar_sync_at: sync.calendar_sync_at,
+    calendar_sync_attempts: attempts,
+    calendar_sync_next_at: nextAt,
+    ...(sync.google_event_id !== undefined
+      ? { google_event_id: sync.google_event_id }
+      : {}),
+  };
+  const { error } = await supabaseAdmin
+    .from("visit_bookings")
+    .update(patch)
+    .eq("id", bookingId);
+  if (error) throw new Error(error.message);
+  return { sync, attempts, nextAt };
+}
+
 // ============================================================
 // ADMIN: update booking status (+ trigger calendar sync)
 // ============================================================
@@ -186,21 +231,7 @@ export const updateBookingStatus = createServerFn({ method: "POST" })
       .eq("id", data.id);
     if (updErr) throw new Error(updErr.message);
 
-    const sync = await syncWithCalendar(data.id);
-
-    const patch = {
-      calendar_sync_status: sync.calendar_sync_status,
-      calendar_sync_error: sync.calendar_sync_error,
-      calendar_sync_at: sync.calendar_sync_at,
-      ...(sync.google_event_id !== undefined
-        ? { google_event_id: sync.google_event_id }
-        : {}),
-    };
-    const { error: syncErr } = await supabaseAdmin
-      .from("visit_bookings")
-      .update(patch)
-      .eq("id", data.id);
-    if (syncErr) throw new Error(syncErr.message);
+    const { sync } = await persistSyncOutcome(data.id);
 
     const { data: row } = await supabaseAdmin
       .from("visit_bookings")
@@ -223,21 +254,7 @@ export const retryCalendarSync = createServerFn({ method: "POST" })
     await assertAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const sync = await syncWithCalendar(data.id);
-
-    const patch = {
-      calendar_sync_status: sync.calendar_sync_status,
-      calendar_sync_error: sync.calendar_sync_error,
-      calendar_sync_at: sync.calendar_sync_at,
-      ...(sync.google_event_id !== undefined
-        ? { google_event_id: sync.google_event_id }
-        : {}),
-    };
-    const { error } = await supabaseAdmin
-      .from("visit_bookings")
-      .update(patch)
-      .eq("id", data.id);
-    if (error) throw new Error(error.message);
+    const { sync } = await persistSyncOutcome(data.id);
 
     const { data: row } = await supabaseAdmin
       .from("visit_bookings")
@@ -247,3 +264,58 @@ export const retryCalendarSync = createServerFn({ method: "POST" })
 
     return { ok: true as const, booking: row, sync };
   });
+
+// ============================================================
+// INTERNAL: process due automatic retries (called by cron hook)
+// Returns counts so the hook can log/report.
+// ============================================================
+export async function processDueCalendarRetries(limit = 25) {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const nowIso = new Date().toISOString();
+
+  const { data: due, error } = await supabaseAdmin
+    .from("visit_bookings")
+    .select("id")
+    .eq("calendar_sync_status", "error")
+    .not("calendar_sync_next_at", "is", null)
+    .lte("calendar_sync_next_at", nowIso)
+    .order("calendar_sync_next_at", { ascending: true })
+    .limit(limit);
+  if (error) throw new Error(error.message);
+
+  const results: Array<{
+    id: string;
+    status: string;
+    attempts: number;
+    nextAt: string | null;
+    error: string | null;
+  }> = [];
+
+  for (const row of due ?? []) {
+    try {
+      const { sync, attempts, nextAt } = await persistSyncOutcome((row as any).id);
+      results.push({
+        id: (row as any).id,
+        status: sync.calendar_sync_status,
+        attempts,
+        nextAt,
+        error: sync.calendar_sync_error,
+      });
+    } catch (e: any) {
+      results.push({
+        id: (row as any).id,
+        status: "exception",
+        attempts: 0,
+        nextAt: null,
+        error: e?.message ?? "unknown error",
+      });
+    }
+  }
+
+  return {
+    processed: results.length,
+    succeeded: results.filter((r) => r.status === "synced" || r.status === "not_required").length,
+    failed: results.filter((r) => r.status === "error" || r.status === "exception").length,
+    results,
+  };
+}
