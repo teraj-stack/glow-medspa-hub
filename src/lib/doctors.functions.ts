@@ -34,14 +34,26 @@ async function assertAdmin(supabase: any, userId: string) {
 // ============================================================
 export const listActiveDoctors = createServerFn({ method: "GET" }).handler(async () => {
   const sb = publicSupabase();
-  const { data, error } = await sb
-    .from("doctors")
+  // Read from the public-safe view (excludes google_calendar_id and other
+  // internal columns; security_invoker keeps RLS active=true policy in effect).
+  const { data, error } = await (sb as any)
+    .from("public_doctors")
     .select("id, slug, full_name, title, bio, photo_url, slot_minutes, buffer_minutes, default_price_cents, display_order")
-    .eq("active", true)
     .order("display_order", { ascending: true })
     .order("full_name", { ascending: true });
   if (error) throw new Error(error.message);
-  return data ?? [];
+  return (data ?? []) as Array<{
+    id: string;
+    slug: string;
+    full_name: string;
+    title: string | null;
+    bio: string | null;
+    photo_url: string | null;
+    slot_minutes: number;
+    buffer_minutes: number;
+    default_price_cents: number | null;
+    display_order: number;
+  }>;
 });
 
 // ============================================================
