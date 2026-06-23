@@ -43,6 +43,36 @@ function DeltaBadge({ value }: { value: number | null }) {
   );
 }
 
+function StatBox({ label, count, tone }: { label: string; count: number; tone: "green" | "red" | "amber" }) {
+  const toneCls =
+    tone === "green"
+      ? "border-emerald-500/30 bg-emerald-500/5 text-emerald-500"
+      : tone === "red"
+        ? "border-red-500/30 bg-red-500/5 text-red-500"
+        : "border-amber-500/30 bg-amber-500/5 text-amber-500";
+  return (
+    <div className={`rounded-md border p-3 ${toneCls}`}>
+      <div className="text-xs uppercase tracking-wide opacity-80">{label}</div>
+      <div className="mt-1 text-2xl font-semibold tabular-nums">{count}</div>
+    </div>
+  );
+}
+
+function DiffList({ title, items, tone }: { title: string; items: string[]; tone: "red" | "amber" }) {
+  const cls = tone === "red" ? "text-red-500" : "text-amber-500";
+  return (
+    <div>
+      <div className={`text-xs uppercase tracking-wide mb-1 ${cls}`}>{title}</div>
+      <div className="rounded-md border border-border divide-y divide-border max-h-60 overflow-auto">
+        {items.map((p) => (
+          <div key={p} className="px-3 py-1.5 text-xs font-mono truncate">
+            {p}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
 function SeoPanel() {
   const router = useRouter();
   const overview = useQuery({
