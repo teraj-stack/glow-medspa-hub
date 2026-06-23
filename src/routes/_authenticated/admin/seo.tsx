@@ -72,6 +72,9 @@ function DiffList({ title, items, tone }: { title: string; items: string[]; tone
       </div>
     </div>
   );
+}
+
+
 
 function SeoPanel() {
   const router = useRouter();
