@@ -112,6 +112,9 @@ function RozwiazaniaPage() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
             <PakietTile
               nr="01"
+              id="przywrocenie-konturow"
+              iconHref="/technologie#przywrocenie-konturow"
+              iconTooltip="Zobacz technologie liftingu i konturowania owalu"
               tagline="LIFTING I OWAL"
               title="Przywrócenie konturów"
               icon={konturyAsset.url}
@@ -137,8 +140,12 @@ function RozwiazaniaPage() {
               ]}
             />
 
+
             <PakietTile
               nr="02"
+              id="tekstura-hd"
+              iconHref="/technologie#tekstura-hd"
+              iconTooltip="Zobacz technologie tekstury HD — blizny, zmarszczki, pory"
               tagline="REDUKCJA BLIZN I ZMARSZCZEK"
               title="Tekstura « HD »"
               icon={sylwetkaAsset.url}
@@ -167,6 +174,9 @@ function RozwiazaniaPage() {
 
             <PakietTile
               nr="03"
+              id="rewitalizacja-dloni"
+              iconHref="/technologie#rewitalizacja-dloni"
+              iconTooltip="Zobacz technologie rewitalizacji dłoni i ciała"
               tagline="REWITALIZACJA DŁONI I CIAŁA"
               title="Gęstość, jędrność"
               icon={dlonieCialoAsset.url}
@@ -194,6 +204,9 @@ function RozwiazaniaPage() {
 
             <PakietTile
               nr="04"
+              id="okolica-oka"
+              iconHref="/technologie#okolica-oka"
+              iconTooltip="Zobacz technologie okolicy oka"
               tagline="KONTUR OKA · BLASK SPOJRZENIA"
               title="Okolica oka"
               icon={okoAsset.url}
@@ -218,6 +231,9 @@ function RozwiazaniaPage() {
 
             <PakietTile
               nr="05"
+              id="modelowanie-sylwetki"
+              iconHref="/technologie#modelowanie-sylwetki"
+              iconTooltip="Zobacz technologie modelowania sylwetki"
               tagline="PAKIET D · BODY CONTOUR"
               title="Modelowanie sylwetki"
               icon={bodyContourAsset.url}
@@ -237,6 +253,9 @@ function RozwiazaniaPage() {
               <ScrollReveal>
                 <PakietETile
                   letter="E"
+                  id="renesans"
+                  iconHref="#konsultacja"
+                  iconTooltip="Umów konsultację autorską « Renesans » lek. Jana Bujok"
                   subtitle="Body Longevity · Signature"
                   title="Renesans"
                   imageSrc={renesansAsset.url}

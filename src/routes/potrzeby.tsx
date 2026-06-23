@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import konturyAsset from "@/assets/kontur-lifting-owal-v2.png.asset.json";
 import teksturaAsset from "@/assets/tekstura-hd-clean.png.asset.json";
 import dlonieAsset from "@/assets/dlonie-cialo.avif.asset.json";
@@ -46,6 +47,8 @@ type Tile = {
   icon: string;
   tagline?: string;
   bullets?: BulletItem[];
+  href: string;
+  tooltip: string;
 };
 
 const TILES: Tile[] = [
@@ -55,6 +58,8 @@ const TILES: Tile[] = [
     title: "Przywrócenie konturów",
     icon: konturyAsset.url,
     tagline: "LIFTING I OWAL",
+    href: "/rozwiazania#przywrocenie-konturow",
+    tooltip: "Zobacz protokoły zabiegowe: lifting i owal",
     bullets: [
       { title: "Nieoperacyjny lifting", text: "redukcja « chomików ».\nWyostrzenie linii żuchwy, która z wiekiem traci swój zarys." },
       {
@@ -67,23 +72,31 @@ const TILES: Tile[] = [
       },
     ],
   },
-  { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", tagline: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url, bullets: [
+  { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", tagline: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url,
+    href: "/rozwiazania#tekstura-hd", tooltip: "Zobacz protokoły zabiegowe: tekstura « HD »",
+    bullets: [
     { title: "Efekt Photoshopa w rzeczywistości", text: "Tekstura skóry staje się jedwabista i gładka." },
     { title: "Zwężenie porów i wyrównanie struktury skóry", text: "cera wygląda nieskazitelnie przez cały dzień, wiele pacjentek z czasem rezygnuje z nakładania makijażu." },
     { text: "Skuteczna redukcja blizn i rozstępów." },
   ]},
-  { nr: "03", slug: "rewitalizacja-dloni", title: "Rewitalizacja dłoni", tagline: "Dłonie", icon: dlonieAsset.url, bullets: [
+  { nr: "03", slug: "rewitalizacja-dloni", title: "Rewitalizacja dłoni", tagline: "Dłonie", icon: dlonieAsset.url,
+    href: "/rozwiazania#rewitalizacja-dloni", tooltip: "Zobacz protokoły zabiegowe: dłonie i ciało",
+    bullets: [
     { text: "Dłonie są wizytówką każdego z nas." },
     { text: "Przywrócenie gęstości skórze dłoni, by odzyskały młody wygląd i nie zdradzały wieku." },
     { text: "Usunięcie plam starczych — redukcja przebarwień i plam pigmentacyjnych na dłoniach i przedramionach przywraca jednolity koloryt skóry." },
   ]},
-  { nr: "04", slug: "okolica-oka", title: "Okolica oka", tagline: "Kontur oka · Blask spojrzenia", icon: okoAsset.url, bullets: [
+  { nr: "04", slug: "okolica-oka", title: "Okolica oka", tagline: "Kontur oka · Blask spojrzenia", icon: okoAsset.url,
+    href: "/rozwiazania#okolica-oka", tooltip: "Zobacz protokoły zabiegowe: okolica oka",
+    bullets: [
     { title: "Otwarcie spojrzenia", text: "Delikatny lifting opadającej powieki — plastyka powieki górnej." },
     { title: "Redukcja obrzęku", text: "Zagęszczenie i poprawa jędrności wiotkiej skóry pod oczami — niwelujemy zastoinowe sińce i obrzęki." },
     { title: "Wygładzenie « kurzych łapek »", text: "Rewitalizacja cienkiej skóry wokół oczu, redukcja zmarszczek." },
     { title: "Plastyka powieki górnej", text: "" },
   ]},
-  { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Każdy z nas je ma, drobne kompleksy odbierające codzienną swobodę:", tagline: "Dyskretne rozwiązania", icon: komfortAsset.url, bullets: [
+  { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Każdy z nas je ma, drobne kompleksy odbierające codzienną swobodę:", tagline: "Dyskretne rozwiązania", icon: komfortAsset.url,
+    href: "/rozwiazania#modelowanie-sylwetki", tooltip: "Zobacz dyskretne rozwiązania: modelowanie sylwetki",
+    bullets: [
     { text: "Rozstępy" },
     { text: "Odstająca dolna partia brzucha" },
     { text: "Wiszący brzuch" },
@@ -138,22 +151,32 @@ function PotrzebyPage() {
                 style={{ animationDelay: `${i * 80}ms` }}
               >
                 <div className="flex items-center gap-4">
-                  <div
-                    className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
-                    style={{
-                      background: "color-mix(in oklab, var(--champagne) 10%, transparent)",
-                      borderColor: "color-mix(in oklab, var(--champagne) 30%, transparent)",
-                    }}
-                    aria-hidden="true"
-                  >
-                    <img
-                      src={t.icon}
-                      alt=""
-                      loading="lazy"
-                      className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
-                      style={{ animationDelay: `${i * 0.4}s` }}
-                    />
-                  </div>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <a
+                        href={t.href}
+                        aria-label={t.tooltip}
+                        className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
+                      >
+                        <div
+                          className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
+                          style={{
+                            background: "color-mix(in oklab, var(--champagne) 10%, transparent)",
+                            borderColor: "color-mix(in oklab, var(--champagne) 30%, transparent)",
+                          }}
+                        >
+                          <img
+                            src={t.icon}
+                            alt=""
+                            loading="lazy"
+                            className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
+                            style={{ animationDelay: `${i * 0.4}s` }}
+                          />
+                        </div>
+                      </a>
+                    </TooltipTrigger>
+                    <TooltipContent side="top">{t.tooltip}</TooltipContent>
+                  </Tooltip>
                   {t.tagline && (
                     <span className="text-xs uppercase tracking-[0.3em] text-champagne">
                       {t.tagline}

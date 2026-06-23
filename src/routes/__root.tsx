@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import {
   Outlet,
   Link,
@@ -121,13 +122,15 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen flex-col">
-        <Header />
-        <main className="flex-1">
-          <Outlet />
-        </main>
-        <Footer />
-      </div>
+      <TooltipProvider delayDuration={150}>
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <Footer />
+        </div>
+      </TooltipProvider>
     </QueryClientProvider>
   );
 }
