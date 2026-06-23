@@ -1,5 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Sparkles } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import ScrollReveal from "@/components/ScrollReveal";
 import PakietTile from "@/components/PakietTile";
 import PakietETile from "@/components/PakietETile";
