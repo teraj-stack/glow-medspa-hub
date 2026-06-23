@@ -9,6 +9,7 @@ import {
   gscDeleteSitemap,
   gscInspectUrl,
 } from "@/lib/seo-gsc.functions";
+import { validateSitemap, type SitemapValidationResult } from "@/lib/sitemap-validate.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
