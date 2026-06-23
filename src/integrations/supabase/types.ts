@@ -436,6 +436,9 @@ export type Database = {
       visit_bookings: {
         Row: {
           amount_cents: number | null
+          calendar_sync_at: string | null
+          calendar_sync_error: string | null
+          calendar_sync_status: string | null
           cancel_token: string
           created_at: string
           currency: string
@@ -460,6 +463,9 @@ export type Database = {
         }
         Insert: {
           amount_cents?: number | null
+          calendar_sync_at?: string | null
+          calendar_sync_error?: string | null
+          calendar_sync_status?: string | null
           cancel_token?: string
           created_at?: string
           currency?: string
@@ -484,6 +490,9 @@ export type Database = {
         }
         Update: {
           amount_cents?: number | null
+          calendar_sync_at?: string | null
+          calendar_sync_error?: string | null
+          calendar_sync_status?: string | null
           cancel_token?: string
           created_at?: string
           currency?: string
