@@ -215,7 +215,7 @@ function TechnologiesPage() {
                     </div>
                   </a>
                 </TooltipTrigger>
-                <TooltipContent side="top">Zobacz rozwiązania: {group.title}</TooltipContent>
+                <TooltipContent side="top">Przejdź do rozwiązań: {group.title} — zarezerwuj konsultację, by omówić protokół.</TooltipContent>
               </Tooltip>
               <div className="flex-1">
                 <div className="flex items-baseline gap-3">
