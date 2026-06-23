@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import {
   listAdminBookings,
+  retryCalendarSync,
   updateBookingStatus,
 } from "@/lib/admin-bookings.functions";
 
@@ -36,6 +37,14 @@ const PAYMENT_LABEL: Record<string, string> = {
   failed: "Błąd płatności",
 };
 
+const SYNC_LABEL: Record<string, string> = {
+  synced: "Kalendarz: zsynchronizowano",
+  error: "Kalendarz: błąd synchronizacji",
+  not_required: "Kalendarz: bez akcji",
+  skipped: "Kalendarz: pominięto",
+  pending: "Kalendarz: w toku…",
+};
+
 function statusColor(s: string) {
   switch (s) {
     case "confirmed":
@@ -48,6 +57,19 @@ function statusColor(s: string) {
       return "bg-blue-500/15 text-blue-700 dark:text-blue-400";
     case "no_show":
       return "bg-zinc-500/15 text-zinc-700 dark:text-zinc-300";
+    default:
+      return "bg-muted text-muted-foreground";
+  }
+}
+
+function syncColor(s: string | null | undefined) {
+  switch (s) {
+    case "synced":
+      return "bg-green-500/15 text-green-700 dark:text-green-400";
+    case "error":
+      return "bg-red-500/15 text-red-700 dark:text-red-400";
+    case "pending":
+      return "bg-amber-500/15 text-amber-700 dark:text-amber-400";
     default:
       return "bg-muted text-muted-foreground";
   }
@@ -71,8 +93,10 @@ function formatDateTime(iso: string) {
 function AdminBookingsPage() {
   const [range, setRange] = useState<Range>("upcoming");
   const [status, setStatus] = useState<Status>("all");
+  const [pendingId, setPendingId] = useState<string | null>(null);
   const list = useServerFn(listAdminBookings);
   const update = useServerFn(updateBookingStatus);
+  const retry = useServerFn(retryCalendarSync);
   const qc = useQueryClient();
 
   const queryKey = ["admin-bookings", range, status] as const;
@@ -87,16 +111,38 @@ function AdminBookingsPage() {
       }),
   });
 
+  function reportSync(sync: { calendar_sync_status: string; calendar_sync_error: string | null }) {
+    if (sync.calendar_sync_status === "synced") {
+      toast.success("Kalendarz Google zsynchronizowany");
+    } else if (sync.calendar_sync_status === "error") {
+      toast.error(`Kalendarz Google: ${sync.calendar_sync_error || "błąd synchronizacji"}`);
+    }
+  }
+
   async function changeStatus(id: string, newStatus: Exclude<Status, "all">) {
+    setPendingId(id);
     try {
       const res = await update({ data: { id, status: newStatus } });
       toast.success(`Status zmieniony: ${STATUS_LABEL[newStatus]}`);
-      if (res?.calendarWarning) {
-        toast.warning(`Kalendarz Google: ${res.calendarWarning}`);
-      }
+      if (res?.sync) reportSync(res.sync);
       qc.invalidateQueries({ queryKey: ["admin-bookings"] });
     } catch (e: any) {
       toast.error(e?.message || "Nie udało się zmienić statusu");
+    } finally {
+      setPendingId(null);
+    }
+  }
+
+  async function retrySync(id: string) {
+    setPendingId(id);
+    try {
+      const res = await retry({ data: { id } });
+      if (res?.sync) reportSync(res.sync);
+      qc.invalidateQueries({ queryKey: ["admin-bookings"] });
+    } catch (e: any) {
+      toast.error(e?.message || "Nie udało się ponowić synchronizacji");
+    } finally {
+      setPendingId(null);
     }
   }
 
@@ -151,81 +197,111 @@ function AdminBookingsPage() {
       )}
 
       <div className="space-y-3">
-        {data?.map((b: any) => (
-          <div
-            key={b.id}
-            className="rounded-lg border border-border p-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
-          >
-            <div className="flex-1 min-w-0 space-y-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="font-medium">
-                  {formatDateTime(b.starts_at)}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  → {new Intl.DateTimeFormat("pl-PL", { timeStyle: "short" }).format(new Date(b.ends_at))}
-                </span>
-                <span
-                  className={`text-xs px-2 py-0.5 rounded-full ${statusColor(b.status)}`}
-                >
-                  {STATUS_LABEL[b.status as keyof typeof STATUS_LABEL] || b.status}
-                </span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
-                  {PAYMENT_LABEL[b.payment_status] || b.payment_status}
-                </span>
-              </div>
-              <div className="text-sm">
-                <span className="font-medium">{b.patient_name}</span>
-                <span className="text-muted-foreground"> · {b.patient_email} · {b.patient_phone}</span>
-              </div>
-              <div className="text-xs text-muted-foreground">
-                Lekarz: {b.doctors?.full_name || "—"}
-                {b.treatment_slug ? ` · Zabieg: ${b.treatment_slug}` : ""}
-                {" · "}
-                {formatPLN(b.amount_cents, b.currency)}
-              </div>
-              {b.notes && (
-                <div className="text-xs text-muted-foreground italic">
-                  „{b.notes}"
+        {data?.map((b: any) => {
+          const busy = pendingId === b.id;
+          const syncStatus = b.calendar_sync_status as string | null;
+          const showSync = !!syncStatus && syncStatus !== "not_required";
+          return (
+            <div
+              key={b.id}
+              className="rounded-lg border border-border p-4 flex flex-col gap-3 md:flex-row md:items-start md:justify-between"
+            >
+              <div className="flex-1 min-w-0 space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-medium">
+                    {formatDateTime(b.starts_at)}
+                  </span>
+                  <span className="text-xs text-muted-foreground">
+                    → {new Intl.DateTimeFormat("pl-PL", { timeStyle: "short" }).format(new Date(b.ends_at))}
+                  </span>
+                  <span
+                    className={`text-xs px-2 py-0.5 rounded-full ${statusColor(b.status)}`}
+                  >
+                    {STATUS_LABEL[b.status as keyof typeof STATUS_LABEL] || b.status}
+                  </span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">
+                    {PAYMENT_LABEL[b.payment_status] || b.payment_status}
+                  </span>
+                  {showSync && (
+                    <span
+                      className={`text-xs px-2 py-0.5 rounded-full ${syncColor(syncStatus)}`}
+                      title={b.calendar_sync_error || undefined}
+                    >
+                      {SYNC_LABEL[syncStatus!] || `Kalendarz: ${syncStatus}`}
+                    </span>
+                  )}
                 </div>
-              )}
-            </div>
+                <div className="text-sm">
+                  <span className="font-medium">{b.patient_name}</span>
+                  <span className="text-muted-foreground"> · {b.patient_email} · {b.patient_phone}</span>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  Lekarz: {b.doctors?.full_name || "—"}
+                  {b.treatment_slug ? ` · Zabieg: ${b.treatment_slug}` : ""}
+                  {" · "}
+                  {formatPLN(b.amount_cents, b.currency)}
+                </div>
+                {syncStatus === "error" && b.calendar_sync_error && (
+                  <div className="text-xs text-red-600">
+                    Błąd kalendarza: {b.calendar_sync_error}
+                  </div>
+                )}
+                {b.notes && (
+                  <div className="text-xs text-muted-foreground italic">
+                    „{b.notes}"
+                  </div>
+                )}
+              </div>
 
-            <div className="flex flex-wrap gap-2 shrink-0">
-              {b.status !== "confirmed" && b.status !== "cancelled" && (
-                <ActionButton onClick={() => changeStatus(b.id, "confirmed")}>
-                  Potwierdź
-                </ActionButton>
-              )}
-              {b.status !== "completed" && b.status !== "cancelled" && (
-                <ActionButton
-                  variant="muted"
-                  onClick={() => changeStatus(b.id, "completed")}
-                >
-                  Zakończ
-                </ActionButton>
-              )}
-              {b.status !== "no_show" && b.status !== "cancelled" && (
-                <ActionButton
-                  variant="muted"
-                  onClick={() => changeStatus(b.id, "no_show")}
-                >
-                  Nieobecność
-                </ActionButton>
-              )}
-              {b.status !== "cancelled" && (
-                <ActionButton
-                  variant="danger"
-                  onClick={() => {
-                    if (confirm("Anulować tę rezerwację? Wydarzenie zostanie usunięte z kalendarza."))
-                      changeStatus(b.id, "cancelled");
-                  }}
-                >
-                  Anuluj
-                </ActionButton>
-              )}
+              <div className="flex flex-wrap gap-2 shrink-0">
+                {b.status !== "confirmed" && b.status !== "cancelled" && (
+                  <ActionButton disabled={busy} onClick={() => changeStatus(b.id, "confirmed")}>
+                    Potwierdź
+                  </ActionButton>
+                )}
+                {b.status !== "completed" && b.status !== "cancelled" && (
+                  <ActionButton
+                    disabled={busy}
+                    variant="muted"
+                    onClick={() => changeStatus(b.id, "completed")}
+                  >
+                    Zakończ
+                  </ActionButton>
+                )}
+                {b.status !== "no_show" && b.status !== "cancelled" && (
+                  <ActionButton
+                    disabled={busy}
+                    variant="muted"
+                    onClick={() => changeStatus(b.id, "no_show")}
+                  >
+                    Nieobecność
+                  </ActionButton>
+                )}
+                {b.status !== "cancelled" && (
+                  <ActionButton
+                    disabled={busy}
+                    variant="danger"
+                    onClick={() => {
+                      if (confirm("Anulować tę rezerwację? Wydarzenie zostanie usunięte z kalendarza."))
+                        changeStatus(b.id, "cancelled");
+                    }}
+                  >
+                    Anuluj
+                  </ActionButton>
+                )}
+                {syncStatus === "error" && (
+                  <ActionButton
+                    disabled={busy}
+                    variant="muted"
+                    onClick={() => retrySync(b.id)}
+                  >
+                    Ponów synchronizację
+                  </ActionButton>
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
@@ -270,10 +346,12 @@ function ActionButton({
   children,
   onClick,
   variant = "primary",
+  disabled,
 }: {
   children: React.ReactNode;
   onClick: () => void;
   variant?: "primary" | "muted" | "danger";
+  disabled?: boolean;
 }) {
   const cls =
     variant === "danger"
@@ -284,7 +362,8 @@ function ActionButton({
   return (
     <button
       onClick={onClick}
-      className={`px-3 py-1.5 rounded-md text-xs transition-colors ${cls}`}
+      disabled={disabled}
+      className={`px-3 py-1.5 rounded-md text-xs transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${cls}`}
     >
       {children}
     </button>
