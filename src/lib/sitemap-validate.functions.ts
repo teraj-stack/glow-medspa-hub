@@ -5,7 +5,7 @@ import {
   persistValidationResult,
   type SitemapValidationResult,
 } from "@/lib/sitemap-validate-core";
-import { SITEMAP_BASE_URL } from "@/lib/sitemap-entries";
+import { SITEMAP_BASE_URL, assertAllowedBaseUrl } from "@/lib/sitemap-entries";
 
 export type { SitemapValidationResult } from "@/lib/sitemap-validate-core";
 
