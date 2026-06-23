@@ -167,6 +167,63 @@ const AREA_RISKS = [
   },
 ];
 
+const FAQ_AREA_RISKS = [
+  {
+    area: "Twarz",
+    icon: ScanFace,
+    questions: [
+      {
+        q: "Co zwiększa ryzyko powikłań przy zabiegach laserowych na twarz?",
+        a: "Największe znaczenie mają: bardzo cienka skóra w okolicy oczu, nosa i ust, aktywna opryszczka lub jej skłonność, świeża opalenizna lub samoopalacz, leki światłouczulające (np. niektóre antybiotyki, izotretynoina), niedoświadczenie operatora, zbyt agresywne parametry oraz brak odpowiedniej ochrony oczu.",
+      },
+      {
+        q: "Jak ograniczyć ryzyko podczas zabiegów na twarz?",
+        a: "Przed zabiegiem: szczery wywiad, ocena fototypu, unikanie słońca i samoopalaczy przez 4 tygodnie, odstawienie drażniących substancji zgodnie z zaleceniami. W trakcie: testowa aplikacja, konserwatywne parametry na początku, pełna ochrona oczu. Po zabiegu: filtr SPF 50+, łagodna pielęgnacja, nie wycieranie ani drapanie skóry, unikanie makijażu przez czas wskazany przez lekarza.",
+      },
+      {
+        q: "Kiedy zgłosić się do lekarza po zabiegu na twarz?",
+        a: "Natychmiast, gdy pojawi się: silny ból, pęcherze lub kruszki, zauważalne zmiany w pigmentacji, objawy infekcji (ropień, rosnące zaczerwienienie, gorączka), oparzenie, wysiew opryszczki lub powstawanie blizny. Wczesna interwencja lekarza skutecznie zapobiega trwałym zmianom.",
+      },
+    ],
+  },
+  {
+    area: "Ciało",
+    icon: Ruler,
+    questions: [
+      {
+        q: "Co zwiększa ryzyko powikłań przy zabiegach laserowych na ciele?",
+        a: "Do głównych czynników należą: opalenizna przed lub po zabiegu, pocenie się i tarcie ubrań w polu zabiegowym, wykonywanie zabiegu na zbyt dużej powierzchni bez odpowiedniego chłodzenia, zbyt krótkie odstępy między sesjami, zbyt agresywne parametry, a także pielęgnacja z kwasami, retinoidami lub środkami drażniącymi w okresie pozabiegowym.",
+      },
+      {
+        q: "Jak ograniczyć ryzyko podczas zabiegów na ciele?",
+        a: "Kluczowe jest podzielenie dużych powierzchni na segmenty, systematyczne chłodzenie skóry, nawodnienie naskórka, unikanie pocenia się przez 24–48 godzin, noszenie luźnych, przewiewnych ubrań oraz bezwzględne stosowanie ochrony przeciwsłonecznej. Lekarz dobiera też odstępy między zabiegami do tempa regeneracji skóry.",
+      },
+      {
+        q: "Kiedy zgłosić się do lekarza po zabiegu na ciele?",
+        a: "Konsultacja jest konieczna, gdy rumień i obrzęk nie ustępują po 2–3 dniach, pojawiają się pęcherze, bolesne zaczerwienienie, zmiany pigmentacyjne, ropne wydzielanie, gorączka lub pogorszenie stanu skóry po kilku dniach od zabiegu.",
+      },
+    ],
+  },
+  {
+    area: "Bikini",
+    icon: CircleDot,
+    questions: [
+      {
+        q: "Co zwiększa ryzyko powikłań przy zabiegach laserowych w okolicy bikini?",
+        a: "Ryzyko rośnie przy: bardzo cienkiej i wrażliwej skórze, licznych znamionach, wysokim stężeniu melaniny, tarciu bielizny i syntetycznych materiałach, gorących kąpielach, saunie i basenie bez zgody lekarza, zbyt szybkim powrocie do aktywności fizycznej oraz niewłaściwej higienie w okresie pozabiegowym.",
+      },
+      {
+        q: "Jak ograniczyć ryzyko podczas zabiegów w okolicy bikini?",
+        a: "Przed zabiegiem lekarz ocenia wszystkie zmiany skórne i fototyp. Po zabiegu zalecamy: luźną bawełnianą bieliznę, staranną higienę bez agresywnych środków, unikanie gorącej wody i sauny, rezygnację z depilacji mechanicznej przez wskazany czas oraz powstrzymanie się od intensywnego ruchu, który nasila pocenie i tarcie.",
+      },
+      {
+        q: "Kiedy zgłosić się do lekarza po zabiegu w okolicy bikini?",
+        a: "Należy skontaktować się z kliniką w przypadku: silnego bólu, pęcherzy, ropniejących zmian, narastającego zaczerwienienia, gorączki, wyraźnych zmian pigmentacyjnych lub objawów infekcji. Obszar intymny wymaga szczególnej uwagi, dlatego nie warto czekać na samoistne ustąpienie niepokojących objawów.",
+      },
+    ],
+  },
+];
+
 const PARAMETER_FACTORS = [
   {
     title: "Fototyp skóry",
