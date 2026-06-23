@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -94,6 +94,16 @@ function AdminBookingsPage() {
   const [range, setRange] = useState<Range>("upcoming");
   const [status, setStatus] = useState<Status>("all");
   const [pendingId, setPendingId] = useState<string | null>(null);
+  const retryingRef = useRef<Set<string>>(new Set());
+  const [retryingTick, setRetryingTick] = useState(0);
+  const isRetrying = (id: string) => retryingRef.current.has(id);
+  const setRetrying = (id: string, active: boolean) => {
+    const next = new Set(retryingRef.current);
+    if (active) next.add(id);
+    else next.delete(id);
+    retryingRef.current = next;
+    setRetryingTick((t) => t + 1);
+  };
   const list = useServerFn(listAdminBookings);
   const update = useServerFn(updateBookingStatus);
   const retry = useServerFn(retryCalendarSync);
@@ -134,6 +144,8 @@ function AdminBookingsPage() {
   }
 
   async function retrySync(id: string) {
+    if (isRetrying(id)) return;
+    setRetrying(id, true);
     setPendingId(id);
     // Optimistic: mark badge as "pending" across cached queries
     qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
@@ -161,6 +173,7 @@ function AdminBookingsPage() {
       toast.error(e?.message || "Nie udało się ponowić synchronizacji");
       await qc.invalidateQueries({ queryKey: ["admin-bookings"] });
     } finally {
+      setRetrying(id, false);
       setPendingId(null);
     }
   }
@@ -310,11 +323,13 @@ function AdminBookingsPage() {
                 )}
                 {(syncStatus === "error" || syncStatus === "pending") && (
                   <ActionButton
-                    disabled={busy || syncStatus === "pending"}
+                    disabled={busy || isRetrying(b.id) || syncStatus === "pending"}
                     variant="muted"
                     onClick={() => retrySync(b.id)}
                   >
-                    {busy || syncStatus === "pending" ? "Ponawianie…" : "Ponów synchronizację"}
+                    {isRetrying(b.id) || syncStatus === "pending"
+                      ? "Ponawianie…"
+                      : "Ponów synchronizację"}
                   </ActionButton>
                 )}
               </div>
