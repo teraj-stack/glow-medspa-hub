@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
@@ -200,6 +200,26 @@ function AdminPricing() {
       setUndoPending(false);
     }
   };
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const isUndo = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z" && !e.shiftKey;
+      if (!isUndo) return;
+      const target = e.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      e.preventDefault();
+      performUndo();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [undoPending, undoStack]);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [importPending, setImportPending] = useState(false);
