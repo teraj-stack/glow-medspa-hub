@@ -374,6 +374,25 @@ function AdminPricing() {
               </span>
             </div>
             <div className="flex items-center gap-2">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".csv,text/csv"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) handleImportFile(f);
+                }}
+              />
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={importPending}
+                onClick={() => fileInputRef.current?.click()}
+                title="CSV z kolumnami: slug, label, hidden"
+              >
+                {importPending ? "Importowanie…" : "Importuj CSV"}
+              </Button>
               {undoStack.length > 0 && (
                 <Button
                   size="sm"
