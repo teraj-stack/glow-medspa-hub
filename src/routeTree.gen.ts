@@ -33,6 +33,8 @@ import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe
 import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
+import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -164,6 +166,16 @@ const BlogBliznyPotradzikoweRoute = BlogBliznyPotradzikoweRouteImport.update({
   path: '/blog/blizny-potradzikowe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
@@ -171,9 +183,9 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
 } as any)
 const AuthenticatedAdminLekarzeRoute =
   AuthenticatedAdminLekarzeRouteImport.update({
-    id: '/admin/lekarze',
-    path: '/admin/lekarze',
-    getParentRoute: () => AuthenticatedRouteRoute,
+    id: '/lekarze',
+    path: '/lekarze',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
@@ -222,6 +234,7 @@ export interface FileRoutesByFullPath {
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
@@ -236,6 +249,7 @@ export interface FileRoutesByFullPath {
   '/technologie/': typeof TechnologieIndexRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -269,6 +283,7 @@ export interface FileRoutesByTo {
   '/technologie': typeof TechnologieIndexRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -290,6 +305,7 @@ export interface FileRoutesById {
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
@@ -304,6 +320,7 @@ export interface FileRoutesById {
   '/technologie/': typeof TechnologieIndexRoute
   '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -325,6 +342,7 @@ export interface FileRouteTypes {
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/admin'
     | '/blog/blizny-potradzikowe'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/powiklania-mezoterapia-iglowa'
@@ -339,6 +357,7 @@ export interface FileRouteTypes {
     | '/technologie/'
     | '/admin/lekarze'
     | '/lovable/email/suppression'
+    | '/admin/'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -372,6 +391,7 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/admin/lekarze'
     | '/lovable/email/suppression'
+    | '/admin'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -392,6 +412,7 @@ export interface FileRouteTypes {
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/_authenticated/admin'
     | '/blog/blizny-potradzikowe'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/powiklania-mezoterapia-iglowa'
@@ -406,6 +427,7 @@ export interface FileRouteTypes {
     | '/technologie/'
     | '/_authenticated/admin/lekarze'
     | '/lovable/email/suppression'
+    | '/_authenticated/admin/'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -618,6 +640,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogBliznyPotradzikoweRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
       path: '/lovable/email/suppression'
@@ -627,10 +663,10 @@ declare module '@tanstack/react-router' {
     }
     '/_authenticated/admin/lekarze': {
       id: '/_authenticated/admin/lekarze'
-      path: '/admin/lekarze'
+      path: '/lekarze'
       fullPath: '/admin/lekarze'
       preLoaderRoute: typeof AuthenticatedAdminLekarzeRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
@@ -677,12 +713,28 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
+interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminLekarzeRoute: typeof AuthenticatedAdminLekarzeRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
+  {
+    AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
+    AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  }
+
+const AuthenticatedAdminRouteRouteWithChildren =
+  AuthenticatedAdminRouteRoute._addFileChildren(
+    AuthenticatedAdminRouteRouteChildren,
+  )
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
+  AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
 }
 
 const AuthenticatedRouteRouteWithChildren =
