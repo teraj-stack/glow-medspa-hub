@@ -18,6 +18,9 @@ import {
   Zap,
 } from "lucide-react";
 import heroAsset from "@/assets/led-hero.jpg.asset.json";
+import heroAvif from "@/assets/led-hero.avif.asset.json";
+import heroWebp from "@/assets/led-hero.webp.asset.json";
+import { HeroPicture } from "@/components/site/HeroPicture";
 
 const TECH_SLUG = "terapia-led";
 const PAGE_URL = "https://bmclinics.ai/technologie/terapia-led";
