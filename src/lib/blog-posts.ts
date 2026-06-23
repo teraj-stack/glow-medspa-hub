@@ -3,8 +3,15 @@
 // Trzymaj w synchronizacji z plikami src/routes/blog.*.tsx oraz BLOG_POSTS
 // w src/lib/sitemap-entries.ts.
 
+export type BlogPostPath =
+  | "/blog/slonce-skora-nowoczesne-technologie"
+  | "/blog/laser-frakcyjny-rekonwalescencja"
+  | "/blog/blizny-potradzikowe"
+  | "/blog/powiklania-mezoterapia-iglowa";
+
 export type BlogPostMeta = {
   slug: string;
+  path: BlogPostPath;
   title: string;
   excerpt: string;
   category: string;
