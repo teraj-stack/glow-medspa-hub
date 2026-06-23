@@ -77,9 +77,15 @@ export const listAdminBookings = createServerFn({ method: "POST" })
     if (data.dateFrom) q = q.gte("starts_at", data.dateFrom);
     if (data.dateTo) q = q.lte("starts_at", data.dateTo);
     if (data.search) {
-      const term = `%${data.search.replace(/[%_]/g, "\\$&")}%`;
-      const orFilter = `patient_name.ilike."${term}",patient_email.ilike."${term}",patient_phone.ilike."${term}",treatment_slug.ilike."${term}"`;
-      q = q.or(orFilter);
+      // Strip characters that have special meaning in PostgREST filter syntax
+      // (",", "(", ")", "\"", "\\") before embedding into the .or() string,
+      // then escape LIKE metacharacters. Prevents filter-injection / breakage.
+      const sanitized = data.search.replace(/["(),\\]/g, "");
+      if (sanitized.length > 0) {
+        const term = `%${sanitized.replace(/[%_]/g, "\\$&")}%`;
+        const orFilter = `patient_name.ilike."${term}",patient_email.ilike."${term}",patient_phone.ilike."${term}",treatment_slug.ilike."${term}"`;
+        q = q.or(orFilter);
+      }
     }
     if (data.sortBy === "next_retry") {
       q = q.order("calendar_sync_next_at", { ascending: true, nullsFirst: false });
