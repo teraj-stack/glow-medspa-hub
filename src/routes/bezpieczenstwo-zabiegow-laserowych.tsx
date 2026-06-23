@@ -1,6 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
-import { Shield, CheckCircle, AlertCircle, FileCheck, Stethoscope, Scale, Clock } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Shield,
+  CheckCircle,
+  AlertCircle,
+  FileCheck,
+  Stethoscope,
+  Scale,
+  Clock,
+  ScanFace,
+  Ruler,
+  CircleDot,
+  SlidersHorizontal,
+} from "lucide-react";
 
 export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
   head: () => ({
