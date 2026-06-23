@@ -1,6 +1,27 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
-import { Shield, CheckCircle, AlertCircle, FileCheck, Stethoscope, Scale, Clock } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Shield,
+  CheckCircle,
+  AlertCircle,
+  FileCheck,
+  Stethoscope,
+  Scale,
+  Clock,
+  ScanFace,
+  Ruler,
+  CircleDot,
+  SlidersHorizontal,
+} from "lucide-react";
 
 export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
   head: () => ({
@@ -11,7 +32,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
       {
         name: "description",
         content:
-          "Dlaczego laseroterapia jest bezpieczna, jakie ryzyko wiąże się z każdą procedurą oraz dlaczego zabiegi laserowe wymagają nadzoru lekarza i ścisłych procedur klinicznych.",
+          "Bezpieczeństwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Jak dobieramy parametry laseroterapii i dlaczego zabiegi wymagają nadzoru lekarza.",
       },
       {
         property: "og:title",
@@ -102,6 +123,83 @@ const REGULATIONS = [
     title: "Odpowiedzialna reklama",
     text: "Zgodnie z polskim prawem oraz wytycznymi reklamy wyrobów medycznych nie obiecujemy wyleczenia, nie używamy nazw handlowych urządzeń w komunikacji publicznej i nie gwarantujemy efektów — opisujemy wyłącznie mechanizmy działania i typowe wskazania.",
   },
+];
+
+const AREA_RISKS = [
+  {
+    id: "twarz",
+    label: "Twarz",
+    icon: ScanFace,
+    summary: "Najwyższa widoczność i precyzja, delikatna skóra, blisko oczu i ust.",
+    points: [
+      "Skóra twarzy jest cienka, dobrze unaczyniona i szybciej reaguje rumieniem.",
+      "Największe ryzyko przebarwień w okolicach ust, nosa i pod oczami, gdzie skóra jest najcieńsza.",
+      "Konieczna jest pełna ochrona oczu pacjenta i operatora oraz wykluczenie aktywnej opryszczki.",
+      "Ewentualne zmiany pigmentacyjne są najbardziej widoczne, dlatego parametry wybiera się konserwatywnie.",
+      "Blizna po nieprawidłowej procedurze na twarzy ma największe znaczenie estetyczne i emocjonalne.",
+    ],
+  },
+  {
+    id: "cialo",
+    label: "Ciało",
+    icon: Ruler,
+    summary: "Większa powierzchnia, grubsza skóra, dłuższy zabieg, ale mniej widoczne ewentualne zmiany.",
+    points: [
+      "Skóra ciała jest zazwyczaj grubsza i mniej wrażliwa niż na twarzy, co pozwala na szerszy zakres parametrów.",
+      "Duża powierzchnia wymaga podzielenia zabiegu na segmenty i systematycznego chłodzenia.",
+      "Ryzyko nierównomiernego efektu wzrasta przy zbyt szybkiej pracy lub niewłaściwym nakładaniu głowicy.",
+      "Zmiany pigmentacyjne są mniej widoczne niż na twarzy, ale mogą pojawić się w miejscach narażonych na tarcie lub słońce (np. ramiona, dekolt).",
+      "Po zabiegach na dużych powierzchniach istotne jest nawodnienie skóry i unikanie pocenia się przez pierwsze 24–48 h.",
+    ],
+  },
+  {
+    id: "bikini",
+    label: "Bikini",
+    icon: CircleDot,
+    summary: "Obszar intymny, wrażliwa skóra, szczególna higiena i ograniczenie tarcia w okresie pozabiegowym.",
+    points: [
+      "Skóra w okolicy bikini jest cienka, elastyczna i często bardziej pigmentowana lub znamionowana.",
+      "Występuje wyższa wrażliwość na ból oraz skłonność do podrażnień mechanicznych od bielizny i tarcia.",
+      "Ryzyko infekcji wzrasta, gdy nie zachowana zostanie odpowiednia higiena lub gdy pacjent zbyt wcześnie wraca do aktywności fizycznej.",
+      "Zabiegi w tym obszarze wymagają starannej oceny wszystkich zmian skórnych i fototypu.",
+      "Rekonwalescencja wymaga luźnej bielizny, unikania gorącej kąpieli, sauny i depilacji mechanicznej przez czas wskazany przez lekarza.",
+    ],
+  },
+];
+
+const PARAMETER_FACTORS = [
+  {
+    title: "Fototyp skóry",
+    desc: "Na podstawie skali Fitzpatricka oceniamy reaktywność skóry na światło. Ciemniejsze fototypy wymagają niższej energii, innej długości fali i dłuższych odstępów między sesjami.",
+  },
+  {
+    title: "Grubość i lokalizacja skóry",
+    desc: "Skóra twarzy i bikini jest cieńsza niż na plecach czy udach. Do każdego obszaru dobieramy inną gęstość energii, wielkość plastra i czas impulsu.",
+  },
+  {
+    title: "Cel zabiegu",
+    desc: "Depilacja, redukcja przebarwień, rewitalizacja czy usuwanie zmian naczyniowych — każdy cel wymaga innego zakresu parametrów i częstotliwości sesji.",
+  },
+  {
+    title: "Stan skóry w dniu zabiegu",
+    desc: "Opalenizna, podrażnienia, stany zapalne, świeże zabiegi chemiczne lub retinoidy mogą zmusić do odroczenia procedury lub obniżenia energii.",
+  },
+  {
+    title: "Historia reakcji",
+    desc: "Jeśli pacjent wcześniej reagował silnym rumieniem, pęcherzami lub przebarwieniami, kolejna sesja rozpoczyna się od niższych parametrów i testowej aplikacji.",
+  },
+];
+
+const PARAMETER_TABLE = [
+  { parameter: "Energia / gęstość energii", role: "Decyduje o sile oddziaływania na docelową strukturę w skórze." },
+  { parameter: "Długość fali", role: "Wybiera głębokość penetracji i selektywność dla barwnika: melanina, hemoglobina czy woda." },
+  {
+    parameter: "Czas trwania impulsu",
+    role: "Krótsze impulsy koncentrują energię precyzyjniej; dłuższe rozpraszają ciepło na większej objętości.",
+  },
+  { parameter: "Rozmiar głowicy / plastra", role: "Wpływa na szybkość zabiegu i równomierność pokrycia dużych powierzchnii." },
+  { parameter: "Chłodzenie skóry", role: "Chroni naskórek przed przegrzaniem, zwiększając komfort i bezpieczeństwo." },
+  { parameter: "Odstępy między sesjami", role: "Dają skórze czas na regenerację i zmniejszają ryzyko przebarwień." },
 ];
 
 const FAQ = [
@@ -196,6 +294,56 @@ function LaserSafetyPage() {
         </div>
       </section>
 
+      {/* AREA RISKS */}
+      <section className="container-luxury py-12 md:py-20">
+        <SectionHeading
+          eyebrow="OBSZARY ZABIEGOWE"
+          title="Porównanie ryzyka: twarz, ciało, bikini"
+          description="To samo światło lasera działa inaczej w zależności od grubości skóry, ukrwienia, narażenia na słońce i wrażliwości pacjenta. Poniżej pokazujemy, na co zwracamy szczególną uwagę w każdym obszarze."
+        />
+        <Tabs defaultValue="twarz" className="mt-10">
+          <TabsList className="mb-6 grid h-auto w-full grid-cols-3 bg-secondary p-1 md:w-fit">
+            {AREA_RISKS.map((area) => (
+              <TabsTrigger
+                key={area.id}
+                value={area.id}
+                className="flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm data-[state=active]:bg-card data-[state=active]:text-ink"
+              >
+                <area.icon className="size-4" aria-hidden="true" />
+                {area.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {AREA_RISKS.map((area) => (
+            <TabsContent
+              key={area.id}
+              value={area.id}
+              className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-champagne/10 text-champagne">
+                  <area.icon className="size-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="font-serif text-xl text-ink">{area.label}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/80 md:text-base">
+                    {area.summary}
+                  </p>
+                </div>
+              </div>
+              <ul className="mt-6 space-y-3">
+                {area.points.map((point, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-foreground/80 md:text-base">
+                    <AlertCircle className="mt-0.5 size-4 shrink-0 text-champagne" aria-hidden="true" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </section>
+
       {/* REGULATIONS */}
       <section className="container-luxury py-12 md:py-20">
         <SectionHeading
@@ -222,6 +370,64 @@ function LaserSafetyPage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* PARAMETERS */}
+      <section className="bg-secondary/40 py-12 md:py-20">
+        <div className="container-luxury">
+          <SectionHeading
+            eyebrow="PARAMETRY"
+            title="Jak dobieramy parametry zabiegu?"
+            description="Nie podajemy nazw handlowych urządzeń ani uniwersalnych „programów”. Każdy protokół powstaje indywidualnie na podstawie fototypu, grubości skóry, celu zabiegu i wcześniejszych reakcji pacjenta."
+          />
+          <div className="mt-10 grid gap-8 lg:grid-cols-2">
+            <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+              <div className="flex items-center gap-3 text-champagne">
+                <SlidersHorizontal className="size-5" aria-hidden="true" />
+                <h3 className="font-serif text-xl text-ink">Czynniki decydujące o parametrach</h3>
+              </div>
+              <ul className="mt-6 space-y-5">
+                {PARAMETER_FACTORS.map((f) => (
+                  <li key={f.title} className="flex flex-col gap-1">
+                    <span className="font-medium text-ink">{f.title}</span>
+                    <span className="text-sm leading-relaxed text-foreground/80 md:text-base">
+                      {f.desc}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+              <div className="flex items-center gap-3 text-champagne">
+                <Shield className="size-5" aria-hidden="true" />
+                <h3 className="font-serif text-xl text-ink">Co składa się na bezpieczny protokół?</h3>
+              </div>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-1/3">Parametr</TableHead>
+                    <TableHead>Zadanie w doborze bezpieczeństwa</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {PARAMETER_TABLE.map((row) => (
+                    <TableRow key={row.parameter}>
+                      <TableCell className="font-medium text-ink">{row.parameter}</TableCell>
+                      <TableCell className="text-foreground/80">{row.role}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+          <p className="mt-8 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            Przy pierwszym kontakcie z nową skórą stosujemy testową aplikację na niewielkim fragmencie
+            pola zabiegowego. Reakcję oceniamy po kilku dniach, dopiero wtedy ustalamy pełny protokół.
+            Każda sesja jest dokumentowana — dzięki temu wiemy, które parametry działają bezpiecznie i
+            skutecznie dla danego pacjenta.
+          </p>
         </div>
       </section>
 

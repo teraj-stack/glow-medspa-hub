@@ -15,6 +15,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/technologie", changefreq: "monthly", priority: "0.9" },
           { path: "/cennik", changefreq: "monthly", priority: "0.8" },
           { path: "/konsultacja", changefreq: "monthly", priority: "0.8" },
+          { path: "/bezpieczenstwo-zabiegow-laserowych", changefreq: "monthly", priority: "0.8" },
           { path: "/konsultacja-dziekujemy", changefreq: "yearly", priority: "0.3" },
           { path: "/auth", changefreq: "yearly", priority: "0.3" },
           { path: "/unsubscribe", changefreq: "yearly", priority: "0.3" },
