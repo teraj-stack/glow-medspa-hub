@@ -36,7 +36,7 @@ function Pricing() {
 
       <section className="container-luxury py-16 md:py-20">
         <div className="space-y-12">
-          {TECHNOLOGIES.map((t) => (
+          {TECHNOLOGIES.filter((t) => t.pricing.length > 0).map((t) => (
             <div key={t.slug}>
               <div className="mb-4 flex items-baseline justify-between gap-4">
                 <h2 className="gold-line font-serif text-ink">{t.name}</h2>
