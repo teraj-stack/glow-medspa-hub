@@ -39,7 +39,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
       {
         name: "description",
         content:
-          "Bezpieczeństwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Co zwiększa ryzyko, jak je ograniczyć, kiedy zgłosić się do lekarza oraz jak dobieramy parametry laseroterapii.",
+          "Bezpieczenstwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Co zwiększa ryzyko, jak je ograniczyć, kiedy zgłosić się do lekarza, jak dobieramy parametry laseroterapii oraz co robić po zabiegu.",
       },
       {
         property: "og:title",
