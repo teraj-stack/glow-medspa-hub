@@ -193,7 +193,13 @@ function AdminPricing() {
       await bulkToggleFn({ data: { items } });
       await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
       setUndoStack((prev) => prev.filter((e) => e.id !== entry.id));
-      toast.success(`Cofnięto: ${entry.description}`);
+      const changedCount = entry.items.length;
+      toast.success(
+        `Cofnięto: ${entry.description}${
+          changedCount > 1 ? ` (${changedCount} zmian)` : ""
+        }`,
+        { duration: 4000 },
+      );
     } catch (e: any) {
       toast.error(e?.message ?? "Nie udało się cofnąć akcji");
     } finally {
