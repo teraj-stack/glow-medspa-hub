@@ -266,6 +266,55 @@ const PARAMETER_TABLE = [
   { parameter: "Odstępy między sesjami", role: "Dają skórze czas na regenerację i zmniejszają ryzyko przebarwień." },
 ];
 
+const POST_PROCEDURE_SYMPTOMS = [
+  {
+    icon: ThermometerSun,
+    title: "Rumień i ciepło",
+    text: "Skóra po zabiegu laserowym jest zazwyczaj zaczerwieniona, ciepła i nieco wrażliwa na dotyk. To naturalna reakcja termiczna naskórka — najczęściej ustępuje w ciągu kilku godzin do 2–3 dni.",
+  },
+  {
+    icon: Droplets,
+    title: "Delikatny obrzęk i ściągnięcie",
+    text: "Lekki obrzęk oraz uczucie ściągnięcia skóry mogą utrzymywać się 24–72 godziny. Pomaga chłodzenie, nawodnienie i łagodna pielęgnacja zalecana przez lekarza.",
+  },
+  {
+    icon: Sun,
+    title: "Łuszczenie i zmiana pigmentacji",
+    text: "Przez kolejne dni może pojawić się drobne łuszczenie naskórka, a w niektórych protokołach — przejściowe ciemniejsze lub jaśniejsze przebarwienia. Ich ustępowanie trwa zwykle od kilku dni do kilku tygodni.",
+  },
+  {
+    icon: AlertCircle,
+    title: "Kruszki lub drobne strupki",
+    text: "Przy głębszych zabiegach mogą powstać drobne kruszki lub strupki. Nie należy ich zdzierać — podrażnia to skórę i zwiększa ryzyko przebarwień oraz blizn.",
+  },
+];
+
+const POST_PROCEDURE_DONT = [
+  "Nie wystawiaj skóry na słońce ani nie korzystaj z solarium przez czas wskazany przez lekarza (zazwyczaj minimum 4 tygodnie).",
+  "Nie używaj na polu zabiegowym kwasów, retinoidów, peelingów mechanicznych ani kosmetyków z alkoholem, dopóki lekarz nie zgodzi się na powrót do rutyny.",
+  "Nie pilinguj, nie drap i nie wycieraj mocno skóry — unikaj tarcia ręcznikiem, gąbką i kosmetycznymi rolkami.",
+  "Nie korzystaj z sauny, gorących kąpieli, basenu i intensywnych ćwiczeń przez pierwsze 24–72 godziny (dłużej w okolicach bikini i twarzy, jeśli zalecono).",
+  "Nie nakładaj makijażu na świeżo podrażnioną skórę twarzy bez zgody lekarza, by nie wprowadzić bakterii i nie nasilić reakcji.",
+];
+
+const CONTACT_STEPS = [
+  {
+    icon: MessageCircle,
+    title: "1. Opisz objawy precyzyjnie",
+    text: "Napisz lub powiedz, kiedy wykonano zabieg, w jakim obszarze występują objawy, jak długo trwają i czy towarzyszy im ból, pęcherz, ropa lub gorączka. Im więcej szczegółów, tym szybciej lekarz oceni sytuację.",
+  },
+  {
+    icon: Phone,
+    title: "2. Skontaktuj się bezpośrednio z kliniką",
+    text: "Nie czekaj na samoistne ustąpienie niepokojących objawów. Zadzwoń lub napisz do Beauty & Mind Clinic — konsultację po zabiegu traktujemy priorytetowo, a nasz personel medyczny oceni, czy konieczna jest wizyta kontrolna.",
+  },
+  {
+    icon: CalendarDays,
+    title: "3. Umów wizytę kontrolną, jeśli zalecono",
+    text: "Po rozmowie lekarz może zaprosić Cię na bezpłatną wizytę kontrolną, by obejrzeć skórę, wdrożyć łagodzącą pielęgnację lub w razie potrzeby rozpocząć leczenie powikłania. Termin dostosowujemy do pilności przypadku.",
+  },
+];
+
 const FAQ = [
   {
     q: "Czy zabiegi laserowe są bezpieczne?",
