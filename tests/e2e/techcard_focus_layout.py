@@ -27,13 +27,18 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 
 async def measure(page, selector):
-    """Return boundingClientRect of selector as a plain dict."""
+    """Return page-relative rect (immune to scroll) of selector as a dict."""
     return await page.evaluate(
         """(sel) => {
             const el = document.querySelector(sel);
             if (!el) return null;
             const r = el.getBoundingClientRect();
-            return { x: r.x, y: r.y, width: r.width, height: r.height };
+            return {
+                x: r.x + window.scrollX,
+                y: r.y + window.scrollY,
+                width: r.width,
+                height: r.height,
+            };
         }""",
         selector,
     )
