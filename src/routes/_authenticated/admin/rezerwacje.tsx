@@ -229,6 +229,28 @@ function AdminBookingsPage() {
             { value: "no_show", label: "Nieobecność" },
           ]}
         />
+        <FilterGroup
+          label="Synchronizacja"
+          value={sync}
+          onChange={(v) => setSync(v as SyncStatus)}
+          options={[
+            { value: "all", label: "Wszystkie" },
+            { value: "error", label: "Błąd" },
+            { value: "pending", label: "W toku" },
+            { value: "synced", label: "Zsynchronizowane" },
+            { value: "skipped", label: "Pominięto" },
+            { value: "not_required", label: "Bez akcji" },
+          ]}
+        />
+        <FilterGroup
+          label="Sortuj według"
+          value={sortBy}
+          onChange={(v) => setSortBy(v as SortBy)}
+          options={[
+            { value: "starts_at", label: "Data wizyty" },
+            { value: "next_retry", label: "Następna próba" },
+          ]}
+        />
       </div>
 
       {isLoading && (
