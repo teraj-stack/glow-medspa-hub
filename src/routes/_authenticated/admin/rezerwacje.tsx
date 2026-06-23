@@ -135,12 +135,31 @@ function AdminBookingsPage() {
 
   async function retrySync(id: string) {
     setPendingId(id);
+    // Optimistic: mark badge as "pending" across cached queries
+    qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
+      if (!Array.isArray(old)) return old;
+      return old.map((b: any) =>
+        b.id === id
+          ? { ...b, calendar_sync_status: "pending", calendar_sync_error: null }
+          : b,
+      );
+    });
     try {
       const res = await retry({ data: { id } });
       if (res?.sync) reportSync(res.sync);
-      qc.invalidateQueries({ queryKey: ["admin-bookings"] });
+      // Patch cache immediately with returned booking so badge flips live
+      if (res?.booking) {
+        qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
+          if (!Array.isArray(old)) return old;
+          return old.map((b: any) =>
+            b.id === id ? { ...b, ...res.booking } : b,
+          );
+        });
+      }
+      await qc.invalidateQueries({ queryKey: ["admin-bookings"] });
     } catch (e: any) {
       toast.error(e?.message || "Nie udało się ponowić synchronizacji");
+      await qc.invalidateQueries({ queryKey: ["admin-bookings"] });
     } finally {
       setPendingId(null);
     }
