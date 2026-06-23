@@ -5,6 +5,9 @@ import { TechCard } from "@/components/site/TechCard";
 import { TECHNOLOGIES } from "@/data/technologies";
 import { Sparkles, Shield, HeartHandshake, ArrowRight } from "lucide-react";
 import bujokAsset from "@/assets/bujok.jpeg.asset.json";
+import bujokAvif from "@/assets/bujok.avif.asset.json";
+import bujokWebp from "@/assets/bujok.webp.asset.json";
+import { HeroPicture } from "@/components/site/HeroPicture";
 
 export const Route = createFileRoute("/")({
   head: () => ({
