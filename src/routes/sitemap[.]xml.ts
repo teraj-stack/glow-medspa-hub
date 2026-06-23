@@ -1,44 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { TECHNOLOGIES } from "@/data/technologies";
-
-const BASE_URL = "https://bmclinics.ai";
+import { SITEMAP_BASE_URL, buildSitemapEntries } from "@/lib/sitemap-entries";
 
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const entries = [
-          { path: "/", changefreq: "weekly", priority: "1.0" },
-          { path: "/potrzeby", changefreq: "monthly", priority: "0.8" },
-          { path: "/rozwiazania", changefreq: "monthly", priority: "0.8" },
-          { path: "/technologie", changefreq: "monthly", priority: "0.9" },
-          { path: "/cennik", changefreq: "monthly", priority: "0.8" },
-          { path: "/konsultacja", changefreq: "monthly", priority: "0.8" },
-          { path: "/bezpieczenstwo-zabiegow-laserowych", changefreq: "monthly", priority: "0.8" },
-          { path: "/konsultacja-dziekujemy", changefreq: "yearly", priority: "0.3" },
-          { path: "/auth", changefreq: "yearly", priority: "0.3" },
-          { path: "/unsubscribe", changefreq: "yearly", priority: "0.3" },
-          { path: "/email/unsubscribe", changefreq: "yearly", priority: "0.3" },
-          { path: "/blog/powiklania-mezoterapia-iglowa", changefreq: "monthly", priority: "0.7" },
-          { path: "/blog/blizny-potradzikowe", changefreq: "monthly", priority: "0.7" },
-          { path: "/blog/laser-frakcyjny-rekonwalescencja", changefreq: "monthly", priority: "0.8" },
-          { path: "/technologie/laser-tulowy", changefreq: "monthly", priority: "0.85" },
-          { path: "/technologie/terapia-led", changefreq: "monthly", priority: "0.85" },
-          { path: "/technologie/peeling-weglowy-laserowy", changefreq: "monthly", priority: "0.85" },
-          { path: "/polityka-prywatnosci", changefreq: "yearly", priority: "0.3" },
-          { path: "/regulamin", changefreq: "yearly", priority: "0.3" },
-          ...TECHNOLOGIES.filter((t) => t.slug !== "laser-tulowy" && t.slug !== "terapia-led" && t.slug !== "peeling-weglowy-laserowy").map((t) => ({
-            path: `/technologie/${t.slug}`,
-            changefreq: "monthly" as const,
-            priority: "0.7",
-          })),
-        ];
+        const entries = buildSitemapEntries();
 
         const urls = entries
           .map(
             (e) =>
-              `  <url>\n    <loc>${BASE_URL}${e.path}</loc>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`,
+              `  <url>\n    <loc>${SITEMAP_BASE_URL}${e.path}</loc>\n    <changefreq>${e.changefreq}</changefreq>\n    <priority>${e.priority}</priority>\n  </url>`,
           )
           .join("\n");
 
