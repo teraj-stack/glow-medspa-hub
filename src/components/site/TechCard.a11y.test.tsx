@@ -253,3 +253,59 @@ describe("a11y: TechCard text contrast in light and dark themes", () => {
   });
 });
 
+describe("a11y: TechCard keyboard navigation", () => {
+  it("is reachable with Tab, shows a visible focus indicator, and opens the right href on Enter", async () => {
+    const userEvent = (await import("@testing-library/user-event")).default;
+    const user = userEvent.setup();
+
+    render(
+      <div>
+        {/* A focusable sentinel before the card so the first Tab press has
+            somewhere to start from — proves Tab actually reaches TechCard. */}
+        <button type="button">before</button>
+        <TechCard tech={tech} />
+      </div>,
+    );
+
+    const link = screen.getByRole("link");
+
+    // Tab once → sentinel button, tab twice → the TechCard link.
+    await user.tab();
+    await user.tab();
+    expect(document.activeElement).toBe(link);
+
+    // Visible focus indicator: TechCard must NOT silently strip the browser
+    // outline (e.g. via `outline-none` / `focus:outline-none`) without
+    // replacing it with a focus-visible style. Component currently relies on
+    // the UA default focus ring, which is acceptable for WCAG 2.4.7.
+    const cls = link.className;
+    expect(cls).not.toMatch(/\boutline-none\b/);
+    expect(cls).not.toMatch(/\bfocus:outline-none\b/);
+    // If the project ever opts out of the UA outline, it MUST add a
+    // focus-visible: ring/outline utility — this regex enforces that pairing.
+    if (/\bfocus-visible:outline-none\b/.test(cls)) {
+      expect(cls).toMatch(
+        /\bfocus-visible:(ring|outline|border|shadow|underline)/,
+      );
+    }
+
+    // Enter on a focused <a href> triggers a click, which fires navigation.
+    // jsdom won't follow the navigation, but it will dispatch the click —
+    // assert via a click listener and via the resolved href value.
+    const clicks: string[] = [];
+    link.addEventListener("click", (e) => {
+      // Stop jsdom from logging "not implemented: navigation" noise.
+      e.preventDefault();
+      clicks.push((e.currentTarget as HTMLAnchorElement).getAttribute("href")!);
+    });
+
+    await user.keyboard("{Enter}");
+
+    expect(clicks).toHaveLength(1);
+    // Route shape: /technologie/$slug with params { slug: "laser-tulowy" }.
+    expect(clicks[0]).toBe(`/technologie/${tech.slug}`);
+    expect(link).toHaveAttribute("href", `/technologie/${tech.slug}`);
+  });
+});
+
+
