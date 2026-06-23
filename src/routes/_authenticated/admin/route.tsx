@@ -21,6 +21,7 @@ function AdminLayout() {
     { to: "/admin/rezerwacje", label: "Rezerwacje" },
     { to: "/admin/lekarze", label: "Lekarze" },
     { to: "/admin/cennik", label: "Cennik" },
+    { to: "/admin/seo", label: "SEO" },
   ];
   return (
     <div className="min-h-screen bg-background">

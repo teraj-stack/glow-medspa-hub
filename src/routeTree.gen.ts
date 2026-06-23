@@ -37,6 +37,7 @@ import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
 import { Route as AuthenticatedAdminRezerwacjeRouteImport } from './routes/_authenticated/admin/rezerwacje'
 import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
 import { Route as AuthenticatedAdminCennikRouteImport } from './routes/_authenticated/admin/cennik'
@@ -192,6 +193,11 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminSeoRoute = AuthenticatedAdminSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedAdminRezerwacjeRoute =
   AuthenticatedAdminRezerwacjeRouteImport.update({
     id: '/rezerwacje',
@@ -285,6 +291,7 @@ export interface FileRoutesByFullPath {
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
+  '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
@@ -324,6 +331,7 @@ export interface FileRoutesByTo {
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
+  '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
@@ -366,6 +374,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/_authenticated/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
+  '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
@@ -408,6 +417,7 @@ export interface FileRouteTypes {
     | '/admin/cennik'
     | '/admin/lekarze'
     | '/admin/rezerwacje'
+    | '/admin/seo'
     | '/lovable/email/suppression'
     | '/admin/'
     | '/api/public/bookings/cancel'
@@ -447,6 +457,7 @@ export interface FileRouteTypes {
     | '/admin/cennik'
     | '/admin/lekarze'
     | '/admin/rezerwacje'
+    | '/admin/seo'
     | '/lovable/email/suppression'
     | '/admin'
     | '/api/public/bookings/cancel'
@@ -488,6 +499,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/cennik'
     | '/_authenticated/admin/lekarze'
     | '/_authenticated/admin/rezerwacje'
+    | '/_authenticated/admin/seo'
     | '/lovable/email/suppression'
     | '/_authenticated/admin/'
     | '/api/public/bookings/cancel'
@@ -735,6 +747,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/seo': {
+      id: '/_authenticated/admin/seo'
+      path: '/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AuthenticatedAdminSeoRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/rezerwacje': {
       id: '/_authenticated/admin/rezerwacje'
       path: '/rezerwacje'
@@ -819,6 +838,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminCennikRoute: typeof AuthenticatedAdminCennikRoute
   AuthenticatedAdminLekarzeRoute: typeof AuthenticatedAdminLekarzeRoute
   AuthenticatedAdminRezerwacjeRoute: typeof AuthenticatedAdminRezerwacjeRoute
+  AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
@@ -827,6 +847,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminCennikRoute: AuthenticatedAdminCennikRoute,
     AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
     AuthenticatedAdminRezerwacjeRoute: AuthenticatedAdminRezerwacjeRoute,
+    AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   }
 
