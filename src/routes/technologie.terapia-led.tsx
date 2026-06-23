@@ -18,6 +18,9 @@ import {
   Zap,
 } from "lucide-react";
 import heroAsset from "@/assets/led-hero.jpg.asset.json";
+import heroAvif from "@/assets/led-hero.avif.asset.json";
+import heroWebp from "@/assets/led-hero.webp.asset.json";
+import { HeroPicture } from "@/components/site/HeroPicture";
 
 const TECH_SLUG = "terapia-led";
 const PAGE_URL = "https://bmclinics.ai/technologie/terapia-led";
@@ -139,7 +142,10 @@ export const Route = createFileRoute("/technologie/terapia-led")({
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: heroAsset.url },
       ],
-      links: [{ rel: "canonical", href: PAGE_URL }],
+      links: [
+        { rel: "canonical", href: PAGE_URL },
+        { rel: "preload", as: "image", href: heroAvif.url, type: "image/avif", fetchPriority: "high" },
+      ],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify(serviceSchema) },
         { type: "application/ld+json", children: JSON.stringify(faqSchema) },
@@ -177,12 +183,16 @@ function TerapiaLedPage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-border/40">
         <div className="absolute inset-0 -z-10">
-          <img
-            src={heroAsset.url}
+          <HeroPicture
+            avifUrl={heroAvif.url}
+            webpUrl={heroWebp.url}
+            fallbackUrl={heroAsset.url}
             alt="Pacjentka podczas sesji terapii LED — wielodiodowa lampa wysokiej mocy"
-            className="h-full w-full object-cover opacity-50"
             width={1600}
             height={1024}
+            eager
+            className="h-full w-full"
+            imgClassName="h-full w-full object-cover opacity-50"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
         </div>

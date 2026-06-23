@@ -9,7 +9,7 @@ import skoraWiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";
 import dzialanieAsset from "@/assets/plasma-dzialanie.png.asset.json";
 import zaawansowanaAsset from "@/assets/plasma-zaawansowana.png.asset.json";
 import heroVideoAsset from "@/assets/plasma-hero.mp4.asset.json";
-import heroPosterAsset from "@/assets/plasma-poster.jpg.asset.json";
+import heroPosterWebp from "@/assets/plasma-poster.webp.asset.json";
 import ba1Before from "@/assets/plasma-ba-1.png.asset.json";
 import ba1After from "@/assets/plasma-ba-1a.png.asset.json";
 import ba2Before from "@/assets/plasma-ba-2.png.asset.json";
@@ -105,7 +105,10 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        { rel: "preload", as: "image", href: heroPosterWebp.url, type: "image/webp", fetchPriority: "high" },
+      ],
       scripts: scripts.length > 0 ? scripts : undefined,
     };
   },
@@ -149,7 +152,7 @@ function FusionPlasmaPage() {
             <div className="rounded-lg overflow-hidden bg-white shadow-soft">
               <video
                 src={heroVideoAsset.url}
-                poster={heroPosterAsset.url}
+                poster={heroPosterWebp.url}
                 autoPlay
                 muted
                 loop

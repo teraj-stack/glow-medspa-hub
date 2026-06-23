@@ -15,6 +15,9 @@ import {
   Sun,
 } from "lucide-react";
 import heroAsset from "@/assets/peeling-weglowy-hero.jpg.asset.json";
+import heroAvif from "@/assets/peeling-weglowy-hero.avif.asset.json";
+import heroWebp from "@/assets/peeling-weglowy-hero.webp.asset.json";
+import { HeroPicture } from "@/components/site/HeroPicture";
 
 const TECH_SLUG = "peeling-weglowy-laserowy";
 const PAGE_URL = "https://bmclinics.ai/technologie/peeling-weglowy-laserowy";
@@ -89,7 +92,10 @@ export const Route = createFileRoute("/technologie/peeling-weglowy-laserowy")({
         { name: "twitter:description", content: description },
         { name: "twitter:image", content: heroAsset.url },
       ],
-      links: [{ rel: "canonical", href: PAGE_URL }],
+      links: [
+        { rel: "canonical", href: PAGE_URL },
+        { rel: "preload", as: "image", href: heroAvif.url, type: "image/avif", fetchPriority: "high" },
+      ],
       scripts: [
         { type: "application/ld+json", children: JSON.stringify(serviceSchema) },
         { type: "application/ld+json", children: JSON.stringify(faqSchema) },
@@ -108,12 +114,16 @@ function PeelingWeglowyPage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-border/40">
         <div className="absolute inset-0 -z-10">
-          <img
-            src={heroAsset.url}
+          <HeroPicture
+            avifUrl={heroAvif.url}
+            webpUrl={heroWebp.url}
+            fallbackUrl={heroAsset.url}
             alt="Peeling węglowy laserowy — aplikacja nanocząsteczkowej pasty węglowej w gabinecie kosmetologii estetycznej"
-            className="h-full w-full object-cover opacity-50"
             width={1600}
             height={1024}
+            eager
+            className="h-full w-full"
+            imgClassName="h-full w-full object-cover opacity-50"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
         </div>
