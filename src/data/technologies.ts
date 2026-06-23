@@ -178,11 +178,7 @@ export const TECHNOLOGIES: Technology[] = [
     shortDesc: "Dwie długości fali do trwałej redukcji owłosienia i zmian naczyniowych.",
     mechanism: "Selektywna absorpcja przez melaninę mieszka włosowego (755 nm) lub hemoglobinę (1064 nm).",
     indications: ["trwała redukcja owłosienia", "naczynka twarzy", "naczynka kończyn dolnych"],
-    pricing: [
-      { label: "Pachy", price: 250 },
-      { label: "Bikini głębokie", price: 450 },
-      { label: "Całe nogi", price: 850 },
-    ],
+    pricing: [],
     faq: [],
   },
   {
