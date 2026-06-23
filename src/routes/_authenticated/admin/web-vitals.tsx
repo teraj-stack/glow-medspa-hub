@@ -271,19 +271,51 @@ function WebVitalsPanel() {
             użytkowników z ostatnich 28 dni. Progi Google: LCP &lt; 2.5 s · INP &lt; 200 ms · CLS &lt; 0.1.
           </p>
         </div>
-        <div className="flex rounded-md border border-border p-0.5">
-          {(["mobile", "desktop"] as Strategy[]).map((s) => (
-            <button
-              key={s}
-              type="button"
-              onClick={() => setStrategy(s)}
-              className={`px-3 py-1 text-sm rounded ${
-                strategy === s ? "bg-primary text-primary-foreground" : "text-muted-foreground"
-              }`}
-            >
-              {s === "mobile" ? "Mobile" : "Desktop"}
-            </button>
-          ))}
+        <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex rounded-md border border-border p-0.5">
+            {(["mobile", "desktop"] as Strategy[]).map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setStrategy(s)}
+                className={`px-3 py-1 text-sm rounded ${
+                  strategy === s ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+                }`}
+              >
+                {s === "mobile" ? "Mobile" : "Desktop"}
+              </button>
+            ))}
+          </div>
+          <div className="flex rounded-md border border-border p-0.5">
+            {(Object.keys(RANGE_LABEL) as RangeKey[]).map((r) => (
+              <button
+                key={r}
+                type="button"
+                onClick={() => setRange(r)}
+                className={`px-3 py-1 text-sm rounded ${
+                  range === r ? "bg-primary text-primary-foreground" : "text-muted-foreground"
+                }`}
+              >
+                {RANGE_LABEL[r]}
+              </button>
+            ))}
+          </div>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={exportCSV}
+            disabled={!exportRows.length}
+          >
+            Eksport CSV
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={exportPDF}
+            disabled={!exportRows.length}
+          >
+            Eksport PDF
+          </Button>
         </div>
       </div>
 
