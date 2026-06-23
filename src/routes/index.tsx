@@ -26,7 +26,7 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: "https://bmclinics.ai/" },
-      { rel: "preload", as: "image", href: bujokAsset.url, fetchPriority: "high" },
+      { rel: "preload", as: "image", href: bujokAvif.url, type: "image/avif", fetchPriority: "high" },
     ],
     scripts: [
       {
