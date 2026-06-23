@@ -373,6 +373,64 @@ function LaserSafetyPage() {
         </div>
       </section>
 
+      {/* PARAMETERS */}
+      <section className="bg-secondary/40 py-12 md:py-20">
+        <div className="container-luxury">
+          <SectionHeading
+            eyebrow="PARAMETRY"
+            title="Jak dobieramy parametry zabiegu?"
+            description="Nie podajemy nazw handlowych urządzeń ani uniwersalnych „programów”. Każdy protokół powstaje indywidualnie na podstawie fototypu, grubości skóry, celu zabiegu i wcześniejszych reakcji pacjenta."
+          />
+          <div className="mt-10 grid gap-8 lg:grid-cols-2">
+            <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+              <div className="flex items-center gap-3 text-champagne">
+                <SlidersHorizontal className="size-5" aria-hidden="true" />
+                <h3 className="font-serif text-xl text-ink">Czynniki decydujące o parametrach</h3>
+              </div>
+              <ul className="mt-6 space-y-5">
+                {PARAMETER_FACTORS.map((f) => (
+                  <li key={f.title} className="flex flex-col gap-1">
+                    <span className="font-medium text-ink">{f.title}</span>
+                    <span className="text-sm leading-relaxed text-foreground/80 md:text-base">
+                      {f.desc}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+              <div className="flex items-center gap-3 text-champagne">
+                <Shield className="size-5" aria-hidden="true" />
+                <h3 className="font-serif text-xl text-ink">Co składa się na bezpieczny protokół?</h3>
+              </div>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-1/3">Parametr</TableHead>
+                    <TableHead>Zadanie w doborze bezpieczeństwa</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {PARAMETER_TABLE.map((row) => (
+                    <TableRow key={row.parameter}>
+                      <TableCell className="font-medium text-ink">{row.parameter}</TableCell>
+                      <TableCell className="text-foreground/80">{row.role}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </div>
+          <p className="mt-8 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            Przy pierwszym kontakcie z nową skórą stosujemy testową aplikację na niewielkim fragmencie
+            pola zabiegowego. Reakcję oceniamy po kilku dniach, dopiero wtedy ustalamy pełny protokół.
+            Każda sesja jest dokumentowana — dzięki temu wiemy, które parametry działają bezpiecznie i
+            skutecznie dla danego pacjenta.
+          </p>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="bg-secondary/40 py-12 md:py-20">
         <div className="container-luxury">
