@@ -32,7 +32,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
       {
         name: "description",
         content:
-          "Dlaczego laseroterapia jest bezpieczna, jakie ryzyko wiąże się z każdą procedurą oraz dlaczego zabiegi laserowe wymagają nadzoru lekarza i ścisłych procedur klinicznych.",
+          "Bezpieczeństwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Jak dobieramy parametry laseroterapii i dlaczego zabiegi wymagają nadzoru lekarza.",
       },
       {
         property: "og:title",
