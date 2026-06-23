@@ -1,0 +1,271 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SectionHeading } from "@/components/site/SectionHeading";
+import { Shield, CheckCircle, AlertCircle, FileCheck, Stethoscope, Scale, Clock } from "lucide-react";
+
+export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
+  head: () => ({
+    meta: [
+      {
+        title: "Bezpieczeństwo zabiegów laserowych — Beauty & Mind Clinic Siedlce",
+      },
+      {
+        name: "description",
+        content:
+          "Dlaczego laseroterapia jest bezpieczna, jakie ryzyko wiąże się z każdą procedurą oraz dlaczego zabiegi laserowe wymagają nadzoru lekarza i ścisłych procedur klinicznych.",
+      },
+      {
+        property: "og:title",
+        content: "Bezpieczeństwo zabiegów laserowych — Beauty & Mind Clinic",
+      },
+      {
+        property: "og:description",
+        content:
+          "Jak dbamy o bezpieczeństwo pacjenta podczas zabiegów laserowych: konsultacja, przeciwwskazania, kwalifikacje personelu i nadzór medyczny.",
+      },
+      { property: "og:url", content: "https://bmclinics.ai/bezpieczenstwo-zabiegow-laserowych" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://bmclinics.ai/bezpieczenstwo-zabiegow-laserowych" },
+    ],
+  }),
+  component: LaserSafetyPage,
+});
+
+const SAFETY_PILLARS = [
+  {
+    icon: Stethoscope,
+    title: "Konsultacja lekarska przed zabiegiem",
+    text: "Każdy protokół zaczynamy od wywiadu medycznego i badania skóry w polu zabiegowym. Lekarz ocenia fototyp, stan ogólny, przyjmowane leki, historię opryszczki oraz wcześniejsze zabiegi. Dopiero na tej podstawie dobieramy technologię, parametry i harmonogram.",
+  },
+  {
+    icon: Shield,
+    title: "Sprzęt medyczny z certyfikacją",
+    text: "W klinice pracujemy wyłącznie na urządzeniach klasy medycznej, zarejestrowanych i dopuszczonych do użytkowania na terenie Polski. Regularny serwis, kalibracja i przeglądy techniczne są obowiązkowym elementem naszej praktyki.",
+  },
+  {
+    icon: FileCheck,
+    title: "Procedury jakościowe",
+    text: "Stosujemy jednolite protokoły bezpieczeństwa: dezynfekcja głowic, jednorazowe elementy aplikatorów, okulary ochronne dla pacjenta i personelu, dokumentację fotograficzną oraz zapis każdej sesji w kartotece.",
+  },
+  {
+    icon: Clock,
+    title: "Czas na skórę",
+    text: "Nie wykonujemy zabiegów 'na siłę'. Odstępy między sesjami dobiera się do regeneracji skóry — zbyt wczesna kolejna procedura to najczęstsza przyczyna przebarwień i podrażnień. Pacjent otrzymuje też pisemne zalecenia pozabiegowe.",
+  },
+];
+
+const RISKS = [
+  {
+    title: "Rumień i obrzęk",
+    desc: "Naturalna, najczęstsza reakcja skóry po laserze — ustępuje zazwyczaj w ciągu kilku godzin do 2–3 dni, w zależności od głębokości i agresywności zabiegu.",
+  },
+  {
+    title: "Przebarwienia pozapalne (PIH)",
+    desc: "Możliwe szczególnie u fototypów III–VI i po ekspozycji słonecznej przed lub po zabiegu. Dlatego tak istotna jest ocena fototypu, wywiad i przestrzeganie zaleceń dotyczących filtrów UV.",
+  },
+  {
+    title: "Pęcherze, kruszki lub zadrażnienie naskórka",
+    desc: "Występują przy zbyt agresywnych parametrach lub nieprawidłowej pielęgnacji po zabiegu. W naszej praktyce konsultacja kwalifikująca i stopniowa eskalacja parametrów minimalizują to ryzyko.",
+  },
+  {
+    title: "Zmiany w pigmentacji",
+    desc: "Zbyt niska lub zbyt wysoka energia, złe dobranie długości fali albo zaniechanie ochrony przeciwsłonecznej mogą prowadzić do przebarwień lub odbarwień. Laseroterapia wymaga precyzji, a nie prędkości.",
+  },
+  {
+    title: "Blizny",
+    desc: "Powikłanie rzadkie, ale możliwe przy zabiegach u osób z tendencją do bliznowacenia (keloidy), nieprawidłowej pielęgnacji rany lub zakażeniu wtórnym. Wywiad skutecznie wyklucza te sytuacje.",
+  },
+  {
+    title: "Odbarwienie lub utrata efektu",
+    desc: "Wyniki zabiegów laserowych zależą od biologii pacjenta, fototypu, stylu życia i przestrzegania zaleceń. Nie każda skóra zareaguje identycznie, dlatego plan leczenia jest zawsze indywidualny.",
+  },
+];
+
+const REGULATIONS = [
+  {
+    icon: Scale,
+    title: "Ustawa o działalności leczniczej",
+    text: "Zabiegi laserowe wykonywane są jako świadczenia zdrowotne lub w ramach działalności leczniczej. Klinika podlega nadzorowi wojewódzkiego inspektoratu weterynarii i inspekcji sanitarno-epidemiologicznej oraz wymogom lokalowym i sanitarnym.",
+  },
+  {
+    icon: CheckCircle,
+    title: "Kwalifikacje personelu",
+    text: "Laseroterapię przeprowadzają osoby z odpowiednimi uprawnieniami i szkoleniami z zakresu laserów medycznych oraz medycyny estetycznej. Lekarz odpowiada medycznie za dobranie technologii i parametrów zabiegu.",
+  },
+  {
+    icon: FileCheck,
+    title: "Rejestracja urządzeń i dokumentacja",
+    text: "Używane lasery są zarejestrowane jako wyroby medyczne lub sprzęt podlegający certyfikacji. Każda procedura jest dokumentowana — od wywiadu, przez zgodę, po zalecenia pozabiegowe i fotografie.",
+  },
+  {
+    icon: AlertCircle,
+    title: "Odpowiedzialna reklama",
+    text: "Zgodnie z polskim prawem oraz wytycznymi reklamy wyrobów medycznych nie obiecujemy wyleczenia, nie używamy nazw handlowych urządzeń w komunikacji publicznej i nie gwarantujemy efektów — opisujemy wyłącznie mechanizmy działania i typowe wskazania.",
+  },
+];
+
+const FAQ = [
+  {
+    q: "Czy zabiegi laserowe są bezpieczne?",
+    a: "Tak, pod warunkiem że są wykonywane przez wykwalifikowany personel na certyfikowanym sprzęcie, po pełnej konsultacji i z zachowaniem procedur pozabiegowych. Bezpieczeństwo to wynik wielu czynników, nie tylko samego urządzenia.",
+  },
+  {
+    q: "Dlaczego zabiegi laserowe muszą być nadzorowane przez lekarza?",
+    a: "Laseroterapia to procedura medyczna o określonym profilu ryzyka. Lekarz ocenia przeciwwskazania, dobiera parametry, rozpoznaje powikłania i decyduje o bezpiecznym łączeniu technologii. Nadzór medyczny jest wymogiem prawnym i standardem odpowiedzialnej praktyki.",
+  },
+  {
+    q: "Czy laser może powodować nowotwory skóry?",
+    a: "Nie ma wiarygodnych dowodów na to, że zabiegi laserowe wykonywane zgodnie z zasadami sztuki medycznej wywołują nowotwory skóry. Stosowane długości fali i parametry są dobierane tak, by działać na docelowe struktury bez uszkadzania DNA komórek.",
+  },
+  {
+    q: "Co zrobić, żeby zmniejszyć ryzyko przebarwień?",
+    a: "Unikać opalania i samoopalaczy przez 4 tygodnie przed i po zabiegu, stosować filtry SPF 50+, nie wycierać i nie drapać skóry, unikać substancji drażniących (kwasy, retinoidy) zgodnie z zaleceniami i pilnować odstępów między sesjami.",
+  },
+  {
+    q: "Kto nie powinien poddawać się zabiegom laserowym?",
+    a: "Przeciwwskazaniami są m.in. ciąża i karmienie, aktywne stany zapalne skóry, opryszczka w fazie wysiewu, świeża opalenizna, leki światłouczulające (np. izotretynoina, niektóre antybiotyki), choroby autoimmunologiczne w zaostrzeniu, skłonność do bliznowacenia oraz niektóre implanty elektryczne w polu zabiegowym.",
+  },
+];
+
+function LaserSafetyPage() {
+  return (
+    <>
+      {/* HERO */}
+      <section className="bg-secondary/40 py-16 md:py-24">
+        <div className="container-luxury">
+          <SectionHeading
+            eyebrow="BEZPIECZEŃSTWO"
+            title="Bezpieczeństwo zabiegów laserowych"
+            description="Laseroterapia to skuteczna, ale precyzyjna procedura medyczna. Bezpieczeństwo pacjenta zależy od wykwalifikowanego personelu, odpowiedniego sprzętu, rzetelnej konsultacji i przestrzegania zaleceń pozabiegowych."
+            as="h1"
+          />
+        </div>
+      </section>
+
+      {/* PILLARS */}
+      <section className="container-luxury py-12 md:py-20">
+        <div className="grid gap-8 md:grid-cols-2">
+          {SAFETY_PILLARS.map((p) => (
+            <div
+              key={p.title}
+              className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-champagne/10 text-champagne">
+                  <p.icon className="size-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <h2 className="font-serif text-xl text-ink">{p.title}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/80 md:text-base">
+                    {p.text}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* RISKS */}
+      <section className="bg-secondary/40 py-12 md:py-20">
+        <div className="container-luxury">
+          <SectionHeading
+            eyebrow="RYZYKO"
+            title="Potencjalne działania niepożądane"
+            description="Każdy zabieg laserowy wiąże się z pewnym ryzykiem. Szanujemy pacjenta, dlatego opisujemy je otwarcie — większość powikłań jest przejściowa i można jej uniknąć dzięki kwalifikacji, odpowiedzialnemu doborowi parametrów i współpracy pacjenta w okresie pozabiegowym."
+          />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {RISKS.map((r) => (
+              <div
+                key={r.title}
+                className="rounded-lg border border-border bg-card p-5 shadow-soft"
+              >
+                <div className="flex items-center gap-2 text-champagne">
+                  <AlertCircle className="size-4" aria-hidden="true" />
+                  <h3 className="font-serif text-lg text-ink">{r.title}</h3>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-foreground/80">{r.desc}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-8 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            Nie wszystkie osoby kwalifikują się do laseroterapii. Podczas konsultacji lekarz
+            omawia indywidualne ryzyko i — jeśli zabieg nie jest bezpieczny dla danego pacjenta —
+            proponuje alternatywne rozwiązania lub odsuwa termin.
+          </p>
+        </div>
+      </section>
+
+      {/* REGULATIONS */}
+      <section className="container-luxury py-12 md:py-20">
+        <SectionHeading
+          eyebrow="NADZÓR I REGULACJE"
+          title="Dlaczego zabiegi laserowe są regulowane?"
+          description="Zabiegi laserowe w medycynie estetycznej nie są zwykłymi zabiegami kosmetycznymi. Wiążą się z działaniem energii na tkanki żywe, dlatego podlegają przepisom prawa medycznego, wymagają nadzoru specjalisty i odpowiednich kwalifikacji personelu."
+        />
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {REGULATIONS.map((r) => (
+            <div
+              key={r.title}
+              className="rounded-lg border border-border bg-card p-6 shadow-soft"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-champagne/10 text-champagne">
+                  <r.icon className="size-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="font-serif text-xl text-ink">{r.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/80 md:text-base">
+                    {r.text}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-secondary/40 py-12 md:py-20">
+        <div className="container-luxury">
+          <SectionHeading eyebrow="FAQ" title="Najczęstsze pytania o bezpieczeństwo" />
+          <div className="mt-8 divide-y divide-border rounded-lg border border-border bg-card">
+            {FAQ.map((item) => (
+              <details key={item.q} className="group p-5 open:bg-secondary/30 md:p-6">
+                <summary className="cursor-pointer list-none font-serif text-lg text-ink">
+                  {item.q}
+                </summary>
+                <p className="mt-3 text-sm leading-relaxed text-foreground/80 md:text-base">
+                  {item.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="container-luxury py-16 md:py-24">
+        <div className="rounded-lg bg-ink p-8 text-alabaster md:p-12">
+          <div className="max-w-2xl">
+            <div className="text-xs uppercase tracking-[0.3em] text-champagne">Konsultacja</div>
+            <h2 className="mt-3 font-serif text-2xl md:text-3xl">
+              Omówmy Twoje pytania o laseroterapię
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-alabaster/85 md:text-base">
+              Jeśli masz wątpliwości co do bezpieczeństwa, przeciwwskazań lub tego, która technologia
+              jest dla Ciebie odpowiednia — umów konsultację. Wstępna ocena jest bezpłatna i
+              niezobowiązująca.
+            </p>
+            <Link
+              to="/konsultacja"
+              className="mt-6 inline-flex h-12 items-center justify-center rounded-md bg-champagne px-8 text-sm font-medium tracking-wide text-accent-foreground transition hover:bg-champagne/90"
+            >
+              Umów bezpłatną konsultację
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
