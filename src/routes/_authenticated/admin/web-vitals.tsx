@@ -1,12 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCoreWebVitals, getCwvTrend } from "@/lib/web-vitals.functions";
 import { Button } from "@/components/ui/button";
+import { jsPDF } from "jspdf";
 
 export const Route = createFileRoute("/_authenticated/admin/web-vitals")({
   component: WebVitalsPanel,
 });
+
+type RangeKey = "4w" | "12w" | "all";
+const RANGE_LABEL: Record<RangeKey, string> = {
+  "4w": "Ostatnie 4 tyg.",
+  "12w": "Ostatnie 12 tyg.",
+  all: "Cały zakres",
+};
+function rangeWeeks(r: RangeKey): number | null {
+  return r === "4w" ? 4 : r === "12w" ? 12 : null;
+}
+
+function csvEscape(v: unknown): string {
+  const s = v == null ? "" : String(v);
+  return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 
 type Strategy = "mobile" | "desktop";
 
