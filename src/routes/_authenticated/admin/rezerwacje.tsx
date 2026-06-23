@@ -523,6 +523,30 @@ function AdminBookingsPage() {
         </div>
       )}
 
+      {lastReport && (
+        <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border p-3 bg-card">
+          <div className="text-sm">
+            <div className="font-medium text-foreground">
+              Raport zbiorczego retry ·{" "}
+              {new Date(lastReport.generatedAt).toLocaleString("pl-PL")}
+            </div>
+            <div className="text-muted-foreground">
+              Przetworzono {lastReport.processed} · Sukcesy {lastReport.succeeded} · Błędy {lastReport.failed}
+            </div>
+          </div>
+          <div className="flex-1" />
+          <ActionButton variant="muted" onClick={() => downloadReportCsv(lastReport)}>
+            Pobierz CSV
+          </ActionButton>
+          <ActionButton variant="muted" onClick={() => downloadReportPdf(lastReport)}>
+            Pobierz PDF
+          </ActionButton>
+          <ActionButton variant="muted" onClick={() => setLastReport(null)}>
+            Ukryj
+          </ActionButton>
+        </div>
+      )}
+
       {data && data.length === 0 && (
         <div className="rounded-lg border border-border p-8 text-center text-sm text-muted-foreground">
           Brak rezerwacji w wybranym zakresie.
