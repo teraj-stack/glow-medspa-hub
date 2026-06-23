@@ -1,3 +1,4 @@
+import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import {
@@ -450,6 +451,8 @@ function SunSkinTechArticle() {
           </div>
         </aside>
       </div>
+
+      <RelatedPosts currentSlug={SLUG} />
     </>
   );
 }

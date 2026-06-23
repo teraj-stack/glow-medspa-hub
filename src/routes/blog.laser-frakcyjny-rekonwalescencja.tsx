@@ -1,3 +1,4 @@
+import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import {
@@ -645,6 +646,8 @@ function FractionalLaserRecoveryGuide() {
           </div>
         </aside>
       </div>
+
+      <RelatedPosts currentSlug="laser-frakcyjny-rekonwalescencja" />
     </>
   );
 }
