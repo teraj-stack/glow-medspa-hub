@@ -22,6 +22,7 @@ function AdminLayout() {
     { to: "/admin/lekarze", label: "Lekarze" },
     { to: "/admin/cennik", label: "Cennik" },
     { to: "/admin/seo", label: "SEO" },
+    { to: "/admin/web-vitals", label: "Web Vitals" },
   ];
   return (
     <div className="min-h-screen bg-background">
