@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
@@ -201,6 +201,114 @@ function AdminPricing() {
     }
   };
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [importPending, setImportPending] = useState(false);
+
+  const parseCsv = (text: string): { slug: string; label: string; hidden: boolean }[] => {
+    const rows: string[][] = [];
+    let cur: string[] = [];
+    let cell = "";
+    let inQuotes = false;
+    for (let i = 0; i < text.length; i++) {
+      const ch = text[i];
+      if (inQuotes) {
+        if (ch === '"' && text[i + 1] === '"') {
+          cell += '"';
+          i++;
+        } else if (ch === '"') {
+          inQuotes = false;
+        } else {
+          cell += ch;
+        }
+      } else if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === "," || ch === ";" || ch === "\t") {
+        cur.push(cell);
+        cell = "";
+      } else if (ch === "\n" || ch === "\r") {
+        if (cell.length || cur.length) {
+          cur.push(cell);
+          rows.push(cur);
+          cur = [];
+          cell = "";
+        }
+        if (ch === "\r" && text[i + 1] === "\n") i++;
+      } else {
+        cell += ch;
+      }
+    }
+    if (cell.length || cur.length) {
+      cur.push(cell);
+      rows.push(cur);
+    }
+    if (rows.length === 0) return [];
+    const header = rows[0].map((h) => h.trim().toLowerCase());
+    const slugIdx = header.indexOf("slug");
+    const labelIdx = header.indexOf("label");
+    const hiddenIdx = header.indexOf("hidden");
+    if (slugIdx === -1 || labelIdx === -1 || hiddenIdx === -1) {
+      throw new Error("CSV musi zawierać kolumny: slug, label, hidden");
+    }
+    const truthy = new Set(["1", "true", "yes", "tak", "ukryta", "ukryty", "hidden"]);
+    return rows.slice(1).filter((r) => r.length > Math.max(slugIdx, labelIdx, hiddenIdx)).map((r) => ({
+      slug: r[slugIdx].trim(),
+      label: r[labelIdx].trim(),
+      hidden: truthy.has(r[hiddenIdx].trim().toLowerCase()),
+    })).filter((r) => r.slug && r.label);
+  };
+
+  const handleImportFile = async (file: File) => {
+    setImportPending(true);
+    try {
+      const text = await file.text();
+      const rows = parseCsv(text);
+      const validKeys = new Set<ItemKey>();
+      for (const g of groups) {
+        for (const p of g.pricing) validKeys.add(keyFor(g.slug, p.label));
+      }
+      const items: { slug: string; label: string; hidden: boolean }[] = [];
+      const previousHidden = new Map<ItemKey, boolean>();
+      let skipped = 0;
+      for (const row of rows) {
+        const key = keyFor(row.slug, row.label);
+        if (!validKeys.has(key)) {
+          skipped++;
+          continue;
+        }
+        const current = hiddenSet.has(key);
+        if (current === row.hidden) continue;
+        previousHidden.set(key, current);
+        items.push(row);
+      }
+      if (items.length === 0) {
+        toast.info(
+          skipped > 0
+            ? `Brak zmian do zastosowania (pominięto ${skipped} nieznanych pozycji).`
+            : "Brak zmian do zastosowania.",
+        );
+        return;
+      }
+      await bulkToggleFn({ data: { items } });
+      await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
+      pushUndo({
+        description: `Import CSV (${items.length} ${items.length === 1 ? "zmiana" : "zmian"})`,
+        items: items.map(({ slug, label }) => ({ slug, label })),
+        previousHidden,
+      });
+      toast.success(
+        `Zaimportowano ${items.length} ${items.length === 1 ? "zmianę" : "zmian"}${
+          skipped > 0 ? ` (pominięto ${skipped} nieznanych)` : ""
+        }`,
+        { action: { label: "Cofnij", onClick: () => performUndo() } },
+      );
+    } catch (e: any) {
+      toast.error(e?.message ?? "Nie udało się zaimportować pliku CSV");
+    } finally {
+      setImportPending(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
@@ -266,6 +374,25 @@ function AdminPricing() {
               </span>
             </div>
             <div className="flex items-center gap-2">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".csv,text/csv"
+                className="hidden"
+                onChange={(e) => {
+                  const f = e.target.files?.[0];
+                  if (f) handleImportFile(f);
+                }}
+              />
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={importPending}
+                onClick={() => fileInputRef.current?.click()}
+                title="CSV z kolumnami: slug, label, hidden"
+              >
+                {importPending ? "Importowanie…" : "Importuj CSV"}
+              </Button>
               {undoStack.length > 0 && (
                 <Button
                   size="sm"
