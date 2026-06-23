@@ -179,17 +179,6 @@ async function syncWithCalendar(bookingId: string): Promise<SyncOutcome> {
   };
 }
 
-// ============================================================
-// ADMIN: update booking status (+ trigger calendar sync)
-// ============================================================
-export const updateBookingStatus = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string; status: string }) =>
-    z.object({ id: z.string().uuid(), status: BookingStatus }).parse(input),
-  )
-  .handler(async ({ data, context }) => {
-    await assertAdmin(context.userId);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
 // Reads current attempts, runs sync, persists outcome with backoff-aware next_at.
 async function persistSyncOutcome(bookingId: string) {
