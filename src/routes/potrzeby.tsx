@@ -59,7 +59,7 @@ const TILES: Tile[] = [
     icon: konturyAsset.url,
     tagline: "LIFTING I OWAL",
     href: "/rozwiazania#przywrocenie-konturow",
-    tooltip: "Zobacz protokoły zabiegowe: lifting i owal",
+    tooltip: "Przejdź do protokołów liftingu i owalu — umów konsultację, by dobrać sekwencję dla Twojego owalu.",
     bullets: [
       { title: "Nieoperacyjny lifting", text: "redukcja « chomików ».\nWyostrzenie linii żuchwy, która z wiekiem traci swój zarys." },
       {
@@ -73,21 +73,21 @@ const TILES: Tile[] = [
     ],
   },
   { nr: "02", slug: "tekstura-hd", title: "Tekstura « HD »", tagline: "Redukcja blizn i zmarszczek", icon: teksturaAsset.url,
-    href: "/rozwiazania#tekstura-hd", tooltip: "Zobacz protokoły zabiegowe: tekstura « HD »",
+    href: "/rozwiazania#tekstura-hd", tooltip: "Przejdź do protokołów tekstury HD — zarezerwuj konsultację, by wygładzić skórę.",
     bullets: [
     { title: "Efekt Photoshopa w rzeczywistości", text: "Tekstura skóry staje się jedwabista i gładka." },
     { title: "Zwężenie porów i wyrównanie struktury skóry", text: "cera wygląda nieskazitelnie przez cały dzień, wiele pacjentek z czasem rezygnuje z nakładania makijażu." },
     { text: "Skuteczna redukcja blizn i rozstępów." },
   ]},
   { nr: "03", slug: "rewitalizacja-dloni", title: "Rewitalizacja dłoni", tagline: "Dłonie", icon: dlonieAsset.url,
-    href: "/rozwiazania#rewitalizacja-dloni", tooltip: "Zobacz protokoły zabiegowe: dłonie i ciało",
+    href: "/rozwiazania#rewitalizacja-dloni", tooltip: "Przejdź do protokołów dłoni i ciała — konsultacja pomoże przywrócić gęstość skóry.",
     bullets: [
     { text: "Dłonie są wizytówką każdego z nas." },
     { text: "Przywrócenie gęstości skórze dłoni, by odzyskały młody wygląd i nie zdradzały wieku." },
     { text: "Usunięcie plam starczych — redukcja przebarwień i plam pigmentacyjnych na dłoniach i przedramionach przywraca jednolity koloryt skóry." },
   ]},
   { nr: "04", slug: "okolica-oka", title: "Okolica oka", tagline: "Kontur oka · Blask spojrzenia", icon: okoAsset.url,
-    href: "/rozwiazania#okolica-oka", tooltip: "Zobacz protokoły zabiegowe: okolica oka",
+    href: "/rozwiazania#okolica-oka", tooltip: "Przejdź do protokołów okolicy oka — umów wizytę, by otworzyć spojrzenie.",
     bullets: [
     { title: "Otwarcie spojrzenia", text: "Delikatny lifting opadającej powieki — plastyka powieki górnej." },
     { title: "Redukcja obrzęku", text: "Zagęszczenie i poprawa jędrności wiotkiej skóry pod oczami — niwelujemy zastoinowe sińce i obrzęki." },
@@ -95,7 +95,7 @@ const TILES: Tile[] = [
     { title: "Plastyka powieki górnej", text: "" },
   ]},
   { nr: "05", slug: "komfort-i-pewnosc-siebie", title: "Komfort i pewność siebie", lead: "Każdy z nas je ma, drobne kompleksy odbierające codzienną swobodę:", tagline: "Dyskretne rozwiązania", icon: komfortAsset.url,
-    href: "/rozwiazania#modelowanie-sylwetki", tooltip: "Zobacz dyskretne rozwiązania: modelowanie sylwetki",
+    href: "/rozwiazania#modelowanie-sylwetki", tooltip: "Przejdź do dyskretnych rozwiązań — modelowanie sylwetki. Zarezerwuj konsultację, by zaplanować zmianę.",
     bullets: [
     { text: "Rozstępy" },
     { text: "Odstająca dolna partia brzucha" },
