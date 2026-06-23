@@ -90,9 +90,13 @@ function AdminPricing() {
     try {
       await toggleFn({ data: { slug, label, hidden: hide } });
       await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
-      setLastAction({ items: [{ slug, label }], previousHidden });
+      pushUndo({
+        description: hide ? `Ukryto „${label}"` : `Przywrócono „${label}"`,
+        items: [{ slug, label }],
+        previousHidden,
+      });
       toast.success(hide ? "Pozycja ukryta" : "Pozycja przywrócona", {
-        action: { label: "Cofnij", onClick: performUndo },
+        action: { label: "Cofnij", onClick: () => performUndo() },
       });
     } catch (e: any) {
       toast.error(e?.message ?? "Nie udało się zaktualizować pozycji");
