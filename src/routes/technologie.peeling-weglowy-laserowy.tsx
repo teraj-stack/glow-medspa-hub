@@ -114,12 +114,16 @@ function PeelingWeglowyPage() {
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-border/40">
         <div className="absolute inset-0 -z-10">
-          <img
-            src={heroAsset.url}
+          <HeroPicture
+            avifUrl={heroAvif.url}
+            webpUrl={heroWebp.url}
+            fallbackUrl={heroAsset.url}
             alt="Peeling węglowy laserowy — aplikacja nanocząsteczkowej pasty węglowej w gabinecie kosmetologii estetycznej"
-            className="h-full w-full object-cover opacity-50"
             width={1600}
             height={1024}
+            eager
+            className="h-full w-full"
+            imgClassName="h-full w-full object-cover opacity-50"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
         </div>
