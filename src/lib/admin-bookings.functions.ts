@@ -23,7 +23,18 @@ async function assertAdmin(userId: string) {
 }
 
 const BOOKING_SELECT =
-  "id, doctor_id, treatment_slug, patient_name, patient_email, patient_phone, notes, starts_at, ends_at, status, payment_status, amount_cents, currency, google_event_id, calendar_sync_status, calendar_sync_error, calendar_sync_at, created_at, doctors(full_name, calendar_id)";
+  "id, doctor_id, treatment_slug, patient_name, patient_email, patient_phone, notes, starts_at, ends_at, status, payment_status, amount_cents, currency, google_event_id, calendar_sync_status, calendar_sync_error, calendar_sync_at, calendar_sync_attempts, calendar_sync_next_at, created_at, doctors(full_name, calendar_id)";
+
+// Backoff schedule (minutes) for automatic retry attempts after a failed sync.
+// After the last entry is exhausted next_at is set to null (manual retry only).
+const RETRY_BACKOFF_MINUTES = [1, 5, 30, 120, 360, 1440] as const;
+
+export function computeNextRetryAt(attempts: number): string | null {
+  // attempts = number of failed attempts so far (including the one that just failed)
+  const idx = attempts - 1;
+  if (idx < 0 || idx >= RETRY_BACKOFF_MINUTES.length) return null;
+  return new Date(Date.now() + RETRY_BACKOFF_MINUTES[idx] * 60_000).toISOString();
+}
 
 // ============================================================
 // ADMIN: list bookings (with optional filters)
