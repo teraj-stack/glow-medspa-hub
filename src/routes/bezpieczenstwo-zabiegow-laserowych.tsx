@@ -39,7 +39,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
       {
         name: "description",
         content:
-          "Bezpieczenstwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Co zwiększa ryzyko, jak je ograniczyć, kiedy zgłosić się do lekarza, jak dobieramy parametry laseroterapii oraz co robić po zabiegu.",
+          "Bezpieczeństwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Co zwiększa ryzyko, jak je ograniczyć, kiedy zgłosić się do lekarza, jak dobieramy parametry laseroterapii oraz co robić po zabiegu.",
       },
       {
         property: "og:title",
@@ -48,7 +48,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
       {
         property: "og:description",
         content:
-          "Jak dbamy o bezpieczeństwo pacjenta podczas zabiegów laserowych: konsultacja, przeciwwskazania, kwalifikacje personelu i nadzór medyczny.",
+          "Jak dbamy o bezpieczeństwo pacjenta podczas zabiegów laserowych: konsultacja, przeciwwskazania, kwalifikacje personelu, nadzór medyczny oraz zalecenia pozabiegowe.",
       },
       { property: "og:url", content: "https://bmclinics.ai/bezpieczenstwo-zabiegow-laserowych" },
     ],
