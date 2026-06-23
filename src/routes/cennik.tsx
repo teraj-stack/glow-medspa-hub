@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { TECHNOLOGIES } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
+import { listHiddenPricingItems } from "@/lib/pricing-visibility.functions";
 
 export const Route = createFileRoute("/cennik")({
   head: () => ({
