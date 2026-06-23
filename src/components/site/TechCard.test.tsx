@@ -53,4 +53,21 @@ describe("TechCard", () => {
       "/laser Er:Yag glass 1550nm",
     ]);
   });
+
+  it("renders a technology name without a newline as a single line on h3", () => {
+    const singleLineTech: Technology = {
+      ...baseTech,
+      name: "Laser frakcyjny",
+    };
+
+    render(<TechCard tech={singleLineTech} />);
+
+    const heading = screen.getByRole("heading", { level: 3 });
+
+    expect(heading.textContent).toBe("Laser frakcyjny");
+    expect(heading.textContent).not.toContain("\n");
+
+    const lines = heading.textContent!.split("\n").filter(Boolean);
+    expect(lines).toEqual(["Laser frakcyjny"]);
+  });
 });
