@@ -43,7 +43,7 @@ export const TECHNOLOGIES: Technology[] = [
   },
   {
     slug: "laser-tulowy",
-    name: "Laser tulowy 1927 nm",
+    name: "Laser tulowy 1927 nm\n/laser Er:Yag glass 1550nm",
     category: "skóra",
     shortDesc:
       "Precyzyjna, powierzchowna fototermoliza frakcyjna do depigmentacji — najbezpieczniejsza opcja dla melasmy i przebarwień.",
