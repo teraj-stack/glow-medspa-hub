@@ -195,7 +195,7 @@ async function persistSyncOutcome(bookingId: string) {
   const attempts = isError ? previousAttempts + 1 : 0;
   const nextAt = isError ? computeNextRetryAt(attempts) : null;
 
-  const patch: Record<string, unknown> = {
+  const patch = {
     calendar_sync_status: sync.calendar_sync_status,
     calendar_sync_error: sync.calendar_sync_error,
     calendar_sync_at: sync.calendar_sync_at,
