@@ -3,12 +3,28 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
+import { format, endOfDay } from "date-fns";
+import { pl } from "date-fns/locale";
+import { CalendarIcon, Search, X } from "lucide-react";
 import {
   listAdminBookings,
   retryCalendarSync,
   retryManyCalendarSyncs,
   updateBookingStatus,
 } from "@/lib/admin-bookings.functions";
+import { listActiveDoctors } from "@/lib/doctors.functions";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/admin/rezerwacje")({
   component: AdminBookingsPage,
@@ -235,6 +251,11 @@ function AdminBookingsPage() {
   const [status, setStatus] = useState<Status>("all");
   const [sync, setSync] = useState<SyncStatus>("all");
   const [sortBy, setSortBy] = useState<SortBy>("starts_at");
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [doctorId, setDoctorId] = useState<string>("all");
+  const [dateFrom, setDateFrom] = useState<Date | undefined>(undefined);
+  const [dateTo, setDateTo] = useState<Date | undefined>(undefined);
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [bulkRetrying, setBulkRetrying] = useState(false);
@@ -253,9 +274,30 @@ function AdminBookingsPage() {
   const update = useServerFn(updateBookingStatus);
   const retry = useServerFn(retryCalendarSync);
   const retryMany = useServerFn(retryManyCalendarSyncs);
+  const listDoctors = useServerFn(listActiveDoctors);
   const qc = useQueryClient();
 
-  const queryKey = ["admin-bookings", range, status, sync, sortBy] as const;
+  useEffect(() => {
+    const t = setTimeout(() => setDebouncedSearch(search.trim()), 300);
+    return () => clearTimeout(t);
+  }, [search]);
+
+  const { data: doctors } = useQuery({
+    queryKey: ["active-doctors"],
+    queryFn: () => listDoctors({ data: undefined }),
+  });
+
+  const queryKey = [
+    "admin-bookings",
+    range,
+    status,
+    sync,
+    sortBy,
+    doctorId,
+    debouncedSearch,
+    dateFrom?.toISOString(),
+    dateTo?.toISOString(),
+  ] as const;
   const { data, isLoading, error } = useQuery({
     queryKey,
     queryFn: () =>
@@ -265,6 +307,10 @@ function AdminBookingsPage() {
           status: status === "all" ? undefined : status,
           sync: sync === "all" ? undefined : sync,
           sortBy,
+          doctorId: doctorId === "all" ? undefined : doctorId,
+          search: debouncedSearch || undefined,
+          dateFrom: dateFrom?.toISOString(),
+          dateTo: dateTo ? endOfDay(dateTo).toISOString() : undefined,
         },
       }),
   });
@@ -424,52 +470,111 @@ function AdminBookingsPage() {
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-3">
-        <FilterGroup
-          label="Zakres"
-          value={range}
-          onChange={(v) => setRange(v as Range)}
-          options={[
-            { value: "upcoming", label: "Nadchodzące" },
-            { value: "past", label: "Minione" },
-            { value: "all", label: "Wszystkie" },
-          ]}
-        />
-        <FilterGroup
-          label="Status"
-          value={status}
-          onChange={(v) => setStatus(v as Status)}
-          options={[
-            { value: "all", label: "Wszystkie" },
-            { value: "pending_payment", label: "Oczekuje płatności" },
-            { value: "confirmed", label: "Potwierdzone" },
-            { value: "cancelled", label: "Anulowane" },
-            { value: "completed", label: "Zakończone" },
-            { value: "no_show", label: "Nieobecność" },
-          ]}
-        />
-        <FilterGroup
-          label="Synchronizacja"
-          value={sync}
-          onChange={(v) => setSync(v as SyncStatus)}
-          options={[
-            { value: "all", label: "Wszystkie" },
-            { value: "error", label: "Błąd" },
-            { value: "pending", label: "W toku" },
-            { value: "synced", label: "Zsynchronizowane" },
-            { value: "skipped", label: "Pominięto" },
-            { value: "not_required", label: "Bez akcji" },
-          ]}
-        />
-        <FilterGroup
-          label="Sortuj według"
-          value={sortBy}
-          onChange={(v) => setSortBy(v as SortBy)}
-          options={[
-            { value: "starts_at", label: "Data wizyty" },
-            { value: "next_retry", label: "Następna próba" },
-          ]}
-        />
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-end gap-3">
+          <div className="relative min-w-[16rem] flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+            <Input
+              type="search"
+              placeholder="Szukaj po imieniu, e-mailu, telefonie lub zabiegu…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="pl-9 pr-9"
+            />
+            {search && (
+              <button
+                type="button"
+                onClick={() => setSearch("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                aria-label="Wyczyść wyszukiwanie"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+
+          <Select value={doctorId} onValueChange={setDoctorId}>
+            <SelectTrigger className="w-[14rem]">
+              <SelectValue placeholder="Wszyscy lekarze" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Wszyscy lekarze</SelectItem>
+              {doctors?.map((d: any) => (
+                <SelectItem key={d.id} value={d.id}>
+                  {d.full_name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+
+          <DatePicker label="Od" value={dateFrom} onChange={setDateFrom} />
+          <DatePicker label="Do" value={dateTo} onChange={setDateTo} />
+
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => {
+              setRange("upcoming");
+              setStatus("all");
+              setSync("all");
+              setSortBy("starts_at");
+              setSearch("");
+              setDoctorId("all");
+              setDateFrom(undefined);
+              setDateTo(undefined);
+            }}
+          >
+            Wyczyść filtry
+          </Button>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <FilterGroup
+            label="Zakres"
+            value={range}
+            onChange={(v) => setRange(v as Range)}
+            options={[
+              { value: "upcoming", label: "Nadchodzące" },
+              { value: "past", label: "Minione" },
+              { value: "all", label: "Wszystkie" },
+            ]}
+          />
+          <FilterGroup
+            label="Status"
+            value={status}
+            onChange={(v) => setStatus(v as Status)}
+            options={[
+              { value: "all", label: "Wszystkie" },
+              { value: "pending_payment", label: "Oczekuje płatności" },
+              { value: "confirmed", label: "Potwierdzone" },
+              { value: "cancelled", label: "Anulowane" },
+              { value: "completed", label: "Zakończone" },
+              { value: "no_show", label: "Nieobecność" },
+            ]}
+          />
+          <FilterGroup
+            label="Synchronizacja"
+            value={sync}
+            onChange={(v) => setSync(v as SyncStatus)}
+            options={[
+              { value: "all", label: "Wszystkie" },
+              { value: "error", label: "Błąd" },
+              { value: "pending", label: "W toku" },
+              { value: "synced", label: "Zsynchronizowane" },
+              { value: "skipped", label: "Pominięto" },
+              { value: "not_required", label: "Bez akcji" },
+            ]}
+          />
+          <FilterGroup
+            label="Sortuj według"
+            value={sortBy}
+            onChange={(v) => setSortBy(v as SortBy)}
+            options={[
+              { value: "starts_at", label: "Data wizyty" },
+              { value: "next_retry", label: "Następna próba" },
+            ]}
+          />
+        </div>
       </div>
 
       {isLoading && (
@@ -752,6 +857,45 @@ function AdminBookingsPage() {
         })}
       </div>
     </div>
+  );
+}
+
+function DatePicker({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: Date | undefined;
+  onChange: (d: Date | undefined) => void;
+}) {
+  return (
+    <Popover>
+      <div className="flex flex-col gap-1">
+        <span className="text-xs uppercase tracking-wider text-muted-foreground">{label}</span>
+        <PopoverTrigger asChild>
+          <Button
+            variant="outline"
+            className={cn(
+              "w-[11rem] justify-start text-left font-normal",
+              !value && "text-muted-foreground",
+            )}
+          >
+            <CalendarIcon className="mr-2 h-4 w-4" />
+            {value ? format(value, "d MMM yyyy", { locale: pl }) : <span>wybierz datę</span>}
+          </Button>
+        </PopoverTrigger>
+      </div>
+      <PopoverContent className="w-auto p-0" align="start">
+        <Calendar
+          mode="single"
+          selected={value}
+          onSelect={onChange}
+          initialFocus
+          className="p-3 pointer-events-auto"
+        />
+      </PopoverContent>
+    </Popover>
   );
 }
 
