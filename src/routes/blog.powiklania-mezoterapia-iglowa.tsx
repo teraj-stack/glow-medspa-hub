@@ -1,3 +1,4 @@
+import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, ShieldAlert, CheckCircle2, Stethoscope } from "lucide-react";
