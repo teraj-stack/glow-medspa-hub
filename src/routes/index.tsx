@@ -109,15 +109,15 @@ function Hero() {
         </div>
 
         <div className="relative">
-          <img
-            src={bujokAsset.url}
+          <HeroPicture
+            avifUrl={bujokAvif.url}
+            webpUrl={bujokWebp.url}
+            fallbackUrl={bujokAsset.url}
             alt="Lekarz Beauty & Mind Clinic w gabinecie"
             width={1200}
             height={1500}
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            className="aspect-[4/5] w-full rounded-lg object-cover shadow-elegant"
+            eager
+            imgClassName="aspect-[4/5] w-full rounded-lg object-cover shadow-elegant"
           />
           <div className="absolute -bottom-6 -left-6 hidden rounded-lg border border-border bg-card p-5 shadow-soft md:block">
             <div className="mt-1 text-lg text-ink">"Najlepsza technologia jest bezwartościowa&nbsp;<br />bez empatii i partnerskiej relacji z pacjentem."</div>
