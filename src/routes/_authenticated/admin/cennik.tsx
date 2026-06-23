@@ -474,7 +474,7 @@ function AdminPricing() {
                       onCheckedChange={() => toggleGroup(t.slug, rows)}
                       aria-label={`Zaznacz wszystkie pozycje w ${t.name}`}
                     />
-                    <h3 className="font-medium text-foreground">{t.name}</h3>
+                    <h3 className="font-medium text-foreground whitespace-pre-line">{t.name}</h3>
                   </div>
                   <div className="overflow-hidden rounded-lg border border-border bg-card">
                     <table className="w-full text-sm">
