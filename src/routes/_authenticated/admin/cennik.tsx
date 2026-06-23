@@ -74,10 +74,15 @@ function AdminPricing() {
   const toggle = async (slug: string, label: string, hide: boolean) => {
     const key = keyFor(slug, label);
     setPending((p) => new Set(p).add(key));
+    const previousHidden = new Map<ItemKey, boolean>();
+    previousHidden.set(key, hiddenSet.has(key));
     try {
       await toggleFn({ data: { slug, label, hidden: hide } });
       await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
-      toast.success(hide ? "Pozycja ukryta" : "Pozycja przywrócona");
+      setLastAction({ items: [{ slug, label }], previousHidden });
+      toast.success(hide ? "Pozycja ukryta" : "Pozycja przywrócona", {
+        action: { label: "Cofnij", onClick: performUndo },
+      });
     } catch (e: any) {
       toast.error(e?.message ?? "Nie udało się zaktualizować pozycji");
     } finally {
@@ -115,26 +120,60 @@ function AdminPricing() {
     });
   };
 
-  const bulkToggle = async (hide: boolean) => {
+  const requestBulkToggle = (hide: boolean) => {
     if (selected.size === 0) return;
+    setConfirmDialog({ open: true, hide });
+  };
+
+  const confirmBulkToggle = async () => {
+    if (selected.size === 0) {
+      setConfirmDialog({ open: false, hide: true });
+      return;
+    }
+    const hide = confirmDialog.hide;
     const items = Array.from(selected).map((k) => {
       const { slug, label } = parseKey(k);
       return { slug, label, hidden: hide };
     });
+    const previousHidden = new Map<ItemKey, boolean>();
+    for (const k of selected) previousHidden.set(k, hiddenSet.has(k));
     setBulkPending(true);
+    setConfirmDialog({ open: false, hide });
     try {
       await bulkToggleFn({ data: { items } });
       await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
       setSelected(new Set());
+      setLastAction({ items: items.map(({ slug, label }) => ({ slug, label })), previousHidden });
       toast.success(
         hide
           ? `Ukryto ${items.length} pozycji`
           : `Przywrócono ${items.length} pozycji`,
+        { action: { label: "Cofnij", onClick: performUndo } },
       );
     } catch (e: any) {
       toast.error(e?.message ?? "Nie udało się zaktualizować pozycji");
     } finally {
       setBulkPending(false);
+    }
+  };
+
+  const performUndo = async () => {
+    if (!lastAction || undoPending) return;
+    const items = lastAction.items.map(({ slug, label }) => {
+      const key = keyFor(slug, label);
+      return { slug, label, hidden: lastAction.previousHidden.get(key) ?? false };
+    });
+    setUndoPending(true);
+    try {
+      await bulkToggleFn({ data: { items } });
+      await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
+      setSelected(new Set());
+      setLastAction(null);
+      toast.success("Cofnięto ostatnią akcję");
+    } catch (e: any) {
+      toast.error(e?.message ?? "Nie udało się cofnąć akcji");
+    } finally {
+      setUndoPending(false);
     }
   };
 
