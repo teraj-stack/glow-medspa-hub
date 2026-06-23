@@ -88,7 +88,9 @@ export const updateBookingStatus = createServerFn({ method: "POST" })
       }
     }
 
-    const patch: Record<string, unknown> = { status: data.status };
+    const patch: { status: typeof data.status; google_event_id?: null } = {
+      status: data.status,
+    };
     if (data.status === "cancelled") patch.google_event_id = null;
 
     const { error: updErr } = await supabaseAdmin
