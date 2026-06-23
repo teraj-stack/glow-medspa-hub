@@ -67,3 +67,52 @@ export const setPricingItemHidden = createServerFn({ method: "POST" })
     }
     return { ok: true, hidden: data.hidden };
   });
+
+export const setPricingItemsHidden = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { items: { slug: string; label: string; hidden: boolean }[] }) => {
+    const items = input?.items ?? [];
+    if (!Array.isArray(items) || items.length === 0) throw new Error("items array is required");
+    for (const item of items) {
+      if (!item?.slug || !item?.label) throw new Error("each item needs slug and label");
+    }
+    return { items };
+  })
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const toHide = data.items.filter((i) => i.hidden);
+    const toShow = data.items.filter((i) => !i.hidden);
+
+    const results = await Promise.allSettled([
+      toHide.length > 0
+        ? supabaseAdmin
+            .from("hidden_pricing_items")
+            .upsert(
+              toHide.map((i) => ({ slug: i.slug, label: i.label, hidden_by: context.userId })),
+              { onConflict: "slug,label" },
+            )
+        : Promise.resolve({ error: null } as any),
+      ...toShow.map((i) =>
+        supabaseAdmin
+          .from("hidden_pricing_items")
+          .delete()
+          .eq("slug", i.slug)
+          .eq("label", i.label),
+      ),
+    ]);
+
+    const errors = results
+      .filter((r): r is PromiseRejectedResult => r.status === "rejected")
+      .map((r) => r.reason?.message ?? String(r.reason));
+    const fulfilledErrors = results
+      .filter((r): r is PromiseFulfilledResult<any> => r.status === "fulfilled")
+      .map((r) => r.value?.error?.message)
+      .filter(Boolean);
+
+    if (errors.length > 0 || fulfilledErrors.length > 0) {
+      throw new Error([...errors, ...fulfilledErrors].join("; "));
+    }
+
+    return { ok: true, count: data.items.length, hidden: toHide.length > 0 };
+  });
