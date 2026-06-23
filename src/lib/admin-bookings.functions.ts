@@ -78,9 +78,8 @@ export const listAdminBookings = createServerFn({ method: "POST" })
     if (data.dateTo) q = q.lte("starts_at", data.dateTo);
     if (data.search) {
       const term = `%${data.search.replace(/[%_]/g, "\\$&")}%`;
-      const orFilter = `patient_name.ilike.${term},patient_email.ilike.${term}`;
-      console.log("[listAdminBookings] search term:", data.search, "or filter:", orFilter);
-      q = q.or(orFilter);
+      console.log("[listAdminBookings] search term:", data.search, "ilike term:", term);
+      q = q.ilike("patient_name", term);
     }
     if (data.sortBy === "next_retry") {
       q = q.order("calendar_sync_next_at", { ascending: true, nullsFirst: false });
