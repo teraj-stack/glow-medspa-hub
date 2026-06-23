@@ -309,6 +309,126 @@ function SeoPanel() {
         )}
       </section>
 
+      <section className="rounded-lg border border-border">
+        <div className="border-b border-border px-4 py-3 text-sm font-medium flex items-center justify-between">
+          <span>Walidacja sitemap.xml</span>
+          {validation && (
+            <span className="text-xs text-muted-foreground">
+              {validation.liveCount} URL-i w live · oczekiwano {validation.expectedCount}
+            </span>
+          )}
+        </div>
+        <div className="px-4 py-3 flex flex-col sm:flex-row gap-2 sm:items-center">
+          <Input
+            value={validateBase}
+            onChange={(e) => setValidateBase(e.target.value)}
+            placeholder="https://bmclinics.ai"
+            className="sm:max-w-md"
+          />
+          <label className="flex items-center gap-2 text-xs text-muted-foreground whitespace-nowrap">
+            <input
+              type="checkbox"
+              checked={validateProbe}
+              onChange={(e) => setValidateProbe(e.target.checked)}
+            />
+            Sprawdź status HTTP każdego URL-a
+          </label>
+          <Button
+            size="sm"
+            disabled={validating}
+            onClick={async () => {
+              setValidating(true);
+              try {
+                const r = await validateFn({
+                  data: { baseUrl: validateBase, checkUrls: validateProbe },
+                });
+                setValidation(r);
+                if (!r.fetchOk) {
+                  toast.error(`Nie udało się pobrać sitemap: ${r.fetchError ?? "błąd"}`);
+                } else if (r.missing.length === 0 && r.extras.length === 0 && r.duplicates.length === 0) {
+                  toast.success("Sitemap zgodna z oczekiwanymi wpisami.");
+                } else {
+                  toast.warning(
+                    `Znaleziono rozbieżności: brak ${r.missing.length}, nadmiarowych ${r.extras.length}, duplikatów ${r.duplicates.length}.`,
+                  );
+                }
+              } catch (e: any) {
+                toast.error(e.message);
+              } finally {
+                setValidating(false);
+              }
+            }}
+          >
+            {validating ? "Sprawdzam…" : "Sprawdź sitemap"}
+          </Button>
+        </div>
+        {validation && (
+          <div className="border-t border-border px-4 py-3 text-sm space-y-4">
+            <div className="text-xs text-muted-foreground">
+              Źródło:{" "}
+              <a href={validation.fetchedFrom} target="_blank" rel="noreferrer" className="hover:underline">
+                {validation.fetchedFrom}
+              </a>{" "}
+              · {new Date(validation.fetchedAt).toLocaleString("pl-PL")}
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3">
+              <StatBox label="Brakujące" count={validation.missing.length} tone={validation.missing.length ? "red" : "green"} />
+              <StatBox label="Nadmiarowe" count={validation.extras.length} tone={validation.extras.length ? "amber" : "green"} />
+              <StatBox label="Duplikaty" count={validation.duplicates.length} tone={validation.duplicates.length ? "red" : "green"} />
+            </div>
+
+            {validation.missing.length > 0 && (
+              <DiffList
+                title="Brakujące w live sitemap"
+                items={validation.missing.map((m) => `${m.path}`)}
+                tone="red"
+              />
+            )}
+            {validation.extras.length > 0 && (
+              <DiffList
+                title="Nadmiarowe (w live, nieoczekiwane)"
+                items={validation.extras}
+                tone="amber"
+              />
+            )}
+            {validation.duplicates.length > 0 && (
+              <DiffList title="Duplikaty" items={validation.duplicates} tone="red" />
+            )}
+
+            {validation.urlChecks.length > 0 && (
+              <div>
+                <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+                  Status HTTP ({validation.urlChecks.length})
+                </div>
+                <div className="rounded-md border border-border divide-y divide-border max-h-80 overflow-auto">
+                  {validation.urlChecks.map((c) => (
+                    <div
+                      key={c.path}
+                      className="px-3 py-1.5 flex items-center justify-between gap-3 text-xs"
+                    >
+                      <span className="truncate font-mono">{c.path}</span>
+                      <span
+                        className={`tabular-nums whitespace-nowrap ${
+                          c.ok
+                            ? "text-emerald-500"
+                            : c.status && c.status >= 300 && c.status < 400
+                              ? "text-amber-500"
+                              : "text-red-500"
+                        }`}
+                      >
+                        {c.status ?? c.error ?? "—"}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </section>
+
+
       <div>
         <Button variant="ghost" size="sm" onClick={() => router.invalidate()}>
           Odśwież wszystkie dane
