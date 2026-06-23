@@ -41,28 +41,39 @@ export function computeNextRetryAt(attempts: number): string | null {
 // ============================================================
 export const listAdminBookings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { status?: string; doctorId?: string; range?: "upcoming" | "past" | "all" }) =>
+  .inputValidator((input: {
+    status?: string;
+    doctorId?: string;
+    range?: "upcoming" | "past" | "all";
+    sync?: "synced" | "error" | "pending" | "skipped" | "not_required";
+    sortBy?: "starts_at" | "next_retry";
+  }) =>
     z
       .object({
         status: BookingStatus.optional(),
         doctorId: z.string().uuid().optional(),
         range: z.enum(["upcoming", "past", "all"]).optional().default("upcoming"),
+        sync: z.enum(["synced", "error", "pending", "skipped", "not_required"]).optional(),
+        sortBy: z.enum(["starts_at", "next_retry"]).optional().default("starts_at"),
       })
       .parse(input),
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    let q = supabaseAdmin
-      .from("visit_bookings")
-      .select(BOOKING_SELECT)
-      .order("starts_at", { ascending: data.range === "past" ? false : true })
-      .limit(500);
+    let q = supabaseAdmin.from("visit_bookings").select(BOOKING_SELECT);
     if (data.status) q = q.eq("status", data.status);
     if (data.doctorId) q = q.eq("doctor_id", data.doctorId);
+    if (data.sync) q = q.eq("calendar_sync_status", data.sync);
     const nowIso = new Date().toISOString();
     if (data.range === "upcoming") q = q.gte("starts_at", nowIso);
     if (data.range === "past") q = q.lt("starts_at", nowIso);
+    if (data.sortBy === "next_retry") {
+      q = q.order("calendar_sync_next_at", { ascending: true, nullsFirst: false });
+    } else {
+      q = q.order("starts_at", { ascending: data.range === "past" ? false : true });
+    }
+    q = q.limit(500);
     const { data: rows, error } = await q;
     if (error) throw new Error(error.message);
     return rows ?? [];

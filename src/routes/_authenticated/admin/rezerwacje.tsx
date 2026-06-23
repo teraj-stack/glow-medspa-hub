@@ -21,6 +21,14 @@ type Status =
   | "cancelled"
   | "completed"
   | "no_show";
+type SyncStatus =
+  | "all"
+  | "synced"
+  | "error"
+  | "pending"
+  | "skipped"
+  | "not_required";
+type SortBy = "starts_at" | "next_retry";
 
 const STATUS_LABEL: Record<Exclude<Status, "all">, string> = {
   pending_payment: "Oczekuje płatności",
@@ -38,11 +46,17 @@ const PAYMENT_LABEL: Record<string, string> = {
 };
 
 const SYNC_LABEL: Record<string, string> = {
+  all: "Kalendarz: wszystkie",
   synced: "Kalendarz: zsynchronizowano",
   error: "Kalendarz: błąd synchronizacji",
   not_required: "Kalendarz: bez akcji",
   skipped: "Kalendarz: pominięto",
   pending: "Kalendarz: w toku…",
+};
+
+const SORT_LABEL: Record<SortBy, string> = {
+  starts_at: "Data wizyty",
+  next_retry: "Następna próba",
 };
 
 function statusColor(s: string) {
@@ -93,6 +107,8 @@ function formatDateTime(iso: string) {
 function AdminBookingsPage() {
   const [range, setRange] = useState<Range>("upcoming");
   const [status, setStatus] = useState<Status>("all");
+  const [sync, setSync] = useState<SyncStatus>("all");
+  const [sortBy, setSortBy] = useState<SortBy>("starts_at");
   const [pendingId, setPendingId] = useState<string | null>(null);
   const retryingRef = useRef<Set<string>>(new Set());
   const [retryingTick, setRetryingTick] = useState(0);
@@ -109,7 +125,7 @@ function AdminBookingsPage() {
   const retry = useServerFn(retryCalendarSync);
   const qc = useQueryClient();
 
-  const queryKey = ["admin-bookings", range, status] as const;
+  const queryKey = ["admin-bookings", range, status, sync, sortBy] as const;
   const { data, isLoading, error } = useQuery({
     queryKey,
     queryFn: () =>
@@ -117,6 +133,8 @@ function AdminBookingsPage() {
         data: {
           range,
           status: status === "all" ? undefined : status,
+          sync: sync === "all" ? undefined : sync,
+          sortBy,
         },
       }),
   });
@@ -209,6 +227,28 @@ function AdminBookingsPage() {
             { value: "cancelled", label: "Anulowane" },
             { value: "completed", label: "Zakończone" },
             { value: "no_show", label: "Nieobecność" },
+          ]}
+        />
+        <FilterGroup
+          label="Synchronizacja"
+          value={sync}
+          onChange={(v) => setSync(v as SyncStatus)}
+          options={[
+            { value: "all", label: "Wszystkie" },
+            { value: "error", label: "Błąd" },
+            { value: "pending", label: "W toku" },
+            { value: "synced", label: "Zsynchronizowane" },
+            { value: "skipped", label: "Pominięto" },
+            { value: "not_required", label: "Bez akcji" },
+          ]}
+        />
+        <FilterGroup
+          label="Sortuj według"
+          value={sortBy}
+          onChange={(v) => setSortBy(v as SortBy)}
+          options={[
+            { value: "starts_at", label: "Data wizyty" },
+            { value: "next_retry", label: "Następna próba" },
           ]}
         />
       </div>
