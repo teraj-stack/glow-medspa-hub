@@ -23,7 +23,7 @@ async function assertAdmin(userId: string) {
 }
 
 const BOOKING_SELECT =
-  "id, doctor_id, treatment_slug, patient_name, patient_email, patient_phone, notes, starts_at, ends_at, status, payment_status, amount_cents, currency, google_event_id, calendar_sync_status, calendar_sync_error, calendar_sync_at, calendar_sync_attempts, calendar_sync_next_at, created_at, doctors(full_name, calendar_id)";
+  "id, doctor_id, treatment_slug, patient_name, patient_email, patient_phone, notes, starts_at, ends_at, status, payment_status, amount_cents, currency, google_event_id, calendar_sync_status, calendar_sync_error, calendar_sync_at, calendar_sync_attempts, calendar_sync_next_at, created_at, doctors(full_name, google_calendar_id)";
 
 // Backoff schedule (minutes) for automatic retry attempts after a failed sync.
 // After the last entry is exhausted next_at is set to null (manual retry only).
@@ -98,14 +98,14 @@ async function syncWithCalendar(bookingId: string): Promise<SyncOutcome> {
   const { data: b, error } = await supabaseAdmin
     .from("visit_bookings")
     .select(
-      "id, status, starts_at, ends_at, patient_name, patient_email, treatment_slug, google_event_id, doctors(full_name, calendar_id)",
+      "id, status, starts_at, ends_at, patient_name, patient_email, treatment_slug, google_event_id, doctors(full_name, google_calendar_id)",
     )
     .eq("id", bookingId)
     .maybeSingle();
   if (error) throw new Error(error.message);
   if (!b) throw new Error("Booking not found");
 
-  const calId = (b as any).doctors?.calendar_id as string | undefined;
+  const calId = (b as any).doctors?.google_calendar_id as string | undefined;
   const status = b.status as string;
 
   // CANCELLED → ensure the event is removed
