@@ -308,13 +308,13 @@ function AdminBookingsPage() {
                     Anuluj
                   </ActionButton>
                 )}
-                {syncStatus === "error" && (
+                {(syncStatus === "error" || syncStatus === "pending") && (
                   <ActionButton
-                    disabled={busy}
+                    disabled={busy || syncStatus === "pending"}
                     variant="muted"
                     onClick={() => retrySync(b.id)}
                   >
-                    Ponów synchronizację
+                    {busy || syncStatus === "pending" ? "Ponawianie…" : "Ponów synchronizację"}
                   </ActionButton>
                 )}
               </div>
