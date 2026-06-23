@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { runSitemapValidation, persistValidationResult } from "@/lib/sitemap-validate-core";
-import { SITEMAP_BASE_URL } from "@/lib/sitemap-entries";
+import { SITEMAP_BASE_URL, assertAllowedBaseUrl } from "@/lib/sitemap-entries";
 
 let cachedSecret: { value: string; expiresAt: number } | null = null;
 
