@@ -368,6 +368,36 @@ function AdminPricing() {
           </div>
         </>
       )}
+
+      <Dialog
+        open={confirmDialog.open}
+        onOpenChange={(open) => setConfirmDialog((d) => ({ ...d, open }))}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {confirmDialog.hide ? "Ukryj zaznaczone pozycje?" : "Przywróć zaznaczone pozycje?"}
+            </DialogTitle>
+            <DialogDescription>
+              Wybrano {selected.size} pozycji. Czy na pewno chcesz je{" "}
+              {confirmDialog.hide ? "ukryć" : "przywrócić"}?
+              Ukryte pozycje nie będą widoczne na publicznej stronie cennika,
+              ale pozostaną w bazie.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex justify-end gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setConfirmDialog((d) => ({ ...d, open: false }))}
+            >
+              Anuluj
+            </Button>
+            <Button onClick={confirmBulkToggle} disabled={bulkPending}>
+              {bulkPending ? "…" : confirmDialog.hide ? "Ukryj" : "Przywróć"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
