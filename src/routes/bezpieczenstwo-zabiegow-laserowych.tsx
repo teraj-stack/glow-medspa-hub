@@ -21,6 +21,13 @@ import {
   Ruler,
   CircleDot,
   SlidersHorizontal,
+  ThermometerSun,
+  Droplets,
+  Sun,
+  Ban,
+  Phone,
+  MessageCircle,
+  CalendarDays,
 } from "lucide-react";
 
 export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
