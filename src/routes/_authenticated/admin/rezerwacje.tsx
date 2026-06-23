@@ -363,7 +363,14 @@ function AdminBookingsPage() {
       );
     });
     try {
-      const res = await retryMany({ data: { ids: Array.from(selected) } });
+      const ids = Array.from(selected);
+      const snapshot = new Map(
+        (Array.isArray(data) ? data : []).map((b: any) => [
+          b.id,
+          { patient_name: b.patient_name as string, starts_at: b.starts_at as string },
+        ]),
+      );
+      const res = await retryMany({ data: { ids } });
       if (res?.bookings?.length) {
         qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
           if (!Array.isArray(old)) return old;
@@ -371,8 +378,30 @@ function AdminBookingsPage() {
           return old.map((b: any) => (updatedById.has(b.id) ? { ...b, ...updatedById.get(b.id) } : b));
         });
       }
+      const updatedById = new Map((res.bookings ?? []).map((b: any) => [b.id, b]));
+      const report: BulkReport = {
+        generatedAt: new Date().toISOString(),
+        processed: res.processed,
+        succeeded: res.succeeded,
+        failed: res.failed,
+        rows: res.results.map((r) => {
+          const snap = snapshot.get(r.id);
+          const updated = updatedById.get(r.id) as any;
+          return {
+            id: r.id,
+            patient_name: snap?.patient_name ?? updated?.patient_name ?? "—",
+            starts_at: snap?.starts_at ?? updated?.starts_at ?? null,
+            status: r.status,
+            attempts: r.attempts,
+            nextAt: r.nextAt,
+            error: r.error,
+          };
+        }),
+      };
+      setLastReport(report);
       setSelected(new Set());
       toast.success(`Zsynchronizowano ${res.succeeded} z ${res.processed} rezerwacji`);
+
       if (res.failed > 0) {
         toast.error(`${res.failed} rezerwacji nadal z błędem`);
       }
