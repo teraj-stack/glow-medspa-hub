@@ -21,6 +21,11 @@ function AdminDashboard() {
       title: "Cennik",
       description: "Ukrywaj i przywracaj pozycje cennika bez usuwania ich z bazy.",
     },
+    {
+      to: "/admin/seo",
+      title: "SEO",
+      description: "Monitoring widoczności w Google, mapy witryny i sprawdzanie indeksacji.",
+    },
   ];
   return (
     <div className="space-y-6">
