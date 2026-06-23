@@ -386,6 +386,16 @@ function AdminBookingsPage() {
             >
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex flex-wrap items-center gap-2">
+                  {syncStatus === "error" && (
+                    <input
+                      type="checkbox"
+                      className="h-4 w-4 rounded border-border bg-background text-primary focus:ring-primary"
+                      checked={selected.has(b.id)}
+                      onChange={() => toggleSelect(b.id)}
+                      disabled={bulkRetrying || isRetrying(b.id)}
+                      aria-label={`Zaznacz rezerwację ${b.patient_name}`}
+                    />
+                  )}
                   <span className="font-medium">
                     {formatDateTime(b.starts_at)}
                   </span>
