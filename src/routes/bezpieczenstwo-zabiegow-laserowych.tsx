@@ -580,6 +580,91 @@ function LaserSafetyPage() {
         </div>
       </section>
 
+      {/* POST-PROCEDURE */}
+      <section className="container-luxury py-12 md:py-20">
+        <SectionHeading
+          eyebrow="PO ZABIEGU"
+          title="Kiedy i co robić po zabiegu"
+          description="Po laseroterapii skóra potrzebuje wsparcia, by zregenerować się bezpiecznie. Poniżej znajdziesz typowe objawy, czynności, których należy unikać, oraz jasne kroki kontaktu z kliniką, gdy coś Cię niepokoi."
+        />
+        <div className="mt-10 grid gap-8 lg:grid-cols-2">
+          <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+            <div className="flex items-center gap-3 text-champagne">
+              <Clock className="size-5" aria-hidden="true" />
+              <h3 className="font-serif text-xl text-ink">Typowe objawy po zabiegu</h3>
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+              Większość poniższych objawów jest przejściowa i ustępuje samoistnie. Ich nasilenie zależy od głębokości i agresywności zabiegu oraz indywidualnej reaktywności skóry.
+            </p>
+            <ul className="mt-6 space-y-5">
+              {POST_PROCEDURE_SYMPTOMS.map((s) => (
+                <li key={s.title} className="flex items-start gap-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-champagne/10 text-champagne">
+                    <s.icon className="size-4" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <span className="font-medium text-ink">{s.title}</span>
+                    <p className="mt-1 text-sm leading-relaxed text-foreground/80 md:text-base">
+                      {s.text}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-8">
+            <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+              <div className="flex items-center gap-3 text-champagne">
+                <Ban className="size-5" aria-hidden="true" />
+                <h3 className="font-serif text-xl text-ink">Czego unikać po zabiegu</h3>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+                Przestrzeganie tych zasad zmniejsza ryzyko przebarwień, podrażnień i opóźnienia regeneracji:
+              </p>
+              <ul className="mt-6 space-y-4">
+                {POST_PROCEDURE_DONT.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-foreground/80 md:text-base">
+                    <AlertCircle className="mt-0.5 size-4 shrink-0 text-champagne" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+              <div className="flex items-center gap-3 text-champagne">
+                <Phone className="size-5" aria-hidden="true" />
+                <h3 className="font-serif text-xl text-ink">Jak skontaktować się z kliniką</h3>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+                Jeśli objawy utrzymują się dłużej niż zalecono, nasilają się lub budzą niepokój — skontaktuj się z nami w trzech prostych krokach:
+              </p>
+              <ol className="mt-6 space-y-5">
+                {CONTACT_STEPS.map((step) => (
+                  <li key={step.title} className="flex items-start gap-4">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-champagne/10 text-champagne">
+                      <step.icon className="size-4" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <span className="font-medium text-ink">{step.title}</span>
+                      <p className="mt-1 text-sm leading-relaxed text-foreground/80 md:text-base">
+                        {step.text}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-8 rounded-lg bg-secondary/40 p-5">
+                <p className="text-sm leading-relaxed text-foreground/80 md:text-base">
+                  <strong className="text-ink">W razie nagłych objawów:</strong> silny ból, pęcherze, ropne wydzielanie, gorączka lub szybko narastające zaczerwienienie — zadzwoń natychmiast lub przyjdź na wizytę kontrolną. Twoje bezpieczeństwo jest dla nas priorytetem.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="bg-secondary/40 py-12 md:py-20">
         <div className="container-luxury">
