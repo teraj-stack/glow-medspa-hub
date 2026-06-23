@@ -434,6 +434,61 @@ const FAQS: Array<{
   },
 ];
 
+// Walidacja treści publicznej FAQ — nie używamy nazw handlowych urządzeń
+// medycznych ani ich producentów (zgodnie z polityką contentową).
+// Lista terminów zakazanych — rozszerzaj w razie potrzeby.
+const FORBIDDEN_FAQ_TERMS = [
+  // Urządzenia / linie sprzętowe
+  "picoking", "pico king", "fusion plasma", "plasmage", "plexr",
+  "morpheus", "morpheus8", "thermage", "ultherapy", "ulthera",
+  "fraxel", "clear + brilliant", "clear and brilliant",
+  "emsculpt", "emsella", "coolsculpting", "cooltone",
+  "hifu", "sofwave", "sylfirm", "secret rf", "vivace",
+  "genius rf", "potenza", "agnes", "intracel",
+  "lumenis", "m22", "stellar", "splendor",
+  "candela", "gentlemax", "gentlelase", "vbeam",
+  "alma", "harmony", "soprano", "accent",
+  "cynosure", "picosure", "picoway", "elite",
+  "syneron", "venus", "exilis", "legend",
+  "fotona", "starwalker", "dynamis",
+  "btl", "inmode", "lutronic", "asclepion",
+  // Toksyny / wypełniacze (marki)
+  "botox", "dysport", "azzalure", "bocouture", "xeomin",
+  "juvederm", "restylane", "belotero", "teosyal", "stylage",
+  "radiesse", "sculptra", "ellanse", "profhilo",
+  // Lasery tulowe (marki)
+  "lasemd", "tulowy 1927",
+];
+
+function validateFaqContent() {
+  const found = new Set<string>();
+  for (const group of FAQS) {
+    const haystack = [
+      group.title,
+      group.tagline,
+      ...group.items.flatMap((i) => [i.q, i.a]),
+    ]
+      .join(" \n ")
+      .toLowerCase();
+    for (const term of FORBIDDEN_FAQ_TERMS) {
+      if (haystack.includes(term)) found.add(term);
+    }
+  }
+  if (found.size > 0) {
+    const list = Array.from(found).join(", ");
+    const msg = `[rozwiazania FAQ] Treść zawiera zakazane nazwy handlowe / producentów: ${list}. Usuń je z FAQS.`;
+    if (import.meta.env.DEV) {
+      throw new Error(msg);
+    } else {
+      console.error(msg);
+    }
+  }
+}
+
+validateFaqContent();
+
+
+
 function FaqSection() {
   return (
     <section className="border-t border-border bg-background">
