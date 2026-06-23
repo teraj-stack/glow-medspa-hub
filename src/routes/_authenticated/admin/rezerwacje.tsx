@@ -94,6 +94,16 @@ function AdminBookingsPage() {
   const [range, setRange] = useState<Range>("upcoming");
   const [status, setStatus] = useState<Status>("all");
   const [pendingId, setPendingId] = useState<string | null>(null);
+  const retryingRef = useRef<Set<string>>(new Set());
+  const [retryingTick, setRetryingTick] = useState(0);
+  const isRetrying = (id: string) => retryingRef.current.has(id);
+  const setRetrying = (id: string, active: boolean) => {
+    const next = new Set(retryingRef.current);
+    if (active) next.add(id);
+    else next.delete(id);
+    retryingRef.current = next;
+    setRetryingTick((t) => t + 1);
+  };
   const list = useServerFn(listAdminBookings);
   const update = useServerFn(updateBookingStatus);
   const retry = useServerFn(retryCalendarSync);
