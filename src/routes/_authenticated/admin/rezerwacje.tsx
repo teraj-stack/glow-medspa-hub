@@ -111,6 +111,8 @@ function AdminBookingsPage() {
   const [sync, setSync] = useState<SyncStatus>("all");
   const [sortBy, setSortBy] = useState<SortBy>("starts_at");
   const [pendingId, setPendingId] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [bulkRetrying, setBulkRetrying] = useState(false);
   const retryingRef = useRef<Set<string>>(new Set());
   const [retryingTick, setRetryingTick] = useState(0);
   const isRetrying = (id: string) => retryingRef.current.has(id);
@@ -124,6 +126,7 @@ function AdminBookingsPage() {
   const list = useServerFn(listAdminBookings);
   const update = useServerFn(updateBookingStatus);
   const retry = useServerFn(retryCalendarSync);
+  const retryMany = useServerFn(retryManyCalendarSyncs);
   const qc = useQueryClient();
 
   const queryKey = ["admin-bookings", range, status, sync, sortBy] as const;
