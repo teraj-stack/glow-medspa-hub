@@ -60,6 +60,131 @@ const SORT_LABEL: Record<SortBy, string> = {
   next_retry: "Następna próba",
 };
 
+type BulkReportRow = {
+  id: string;
+  patient_name: string;
+  starts_at: string | null;
+  status: string;
+  attempts: number;
+  nextAt: string | null;
+  error: string | null;
+};
+
+type BulkReport = {
+  generatedAt: string;
+  processed: number;
+  succeeded: number;
+  failed: number;
+  rows: BulkReportRow[];
+};
+
+function csvCell(v: string | number | null | undefined) {
+  const s = v == null ? "" : String(v);
+  return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function buildReportFilename(report: BulkReport, ext: string) {
+  const ts = report.generatedAt.replace(/[:.]/g, "-");
+  return `calendar-retry-${ts}.${ext}`;
+}
+
+function downloadReportCsv(report: BulkReport) {
+  const header = [
+    "id",
+    "patient_name",
+    "starts_at",
+    "sync_status",
+    "attempts",
+    "next_retry_at",
+    "error",
+  ];
+  const lines = [header.join(",")];
+  for (const r of report.rows) {
+    lines.push(
+      [
+        r.id,
+        r.patient_name,
+        r.starts_at ?? "",
+        r.status,
+        r.attempts,
+        r.nextAt ?? "",
+        r.error ?? "",
+      ]
+        .map(csvCell)
+        .join(","),
+    );
+  }
+  const meta = [
+    `# Wygenerowano: ${report.generatedAt}`,
+    `# Przetworzono: ${report.processed}`,
+    `# Sukcesy: ${report.succeeded}`,
+    `# Błędy: ${report.failed}`,
+    "",
+  ].join("\n");
+  const csv = "\uFEFF" + meta + lines.join("\n") + "\n";
+  downloadBlob(
+    new Blob([csv], { type: "text/csv;charset=utf-8" }),
+    buildReportFilename(report, "csv"),
+  );
+}
+
+async function downloadReportPdf(report: BulkReport) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const margin = 40;
+  let y = margin;
+  doc.setFontSize(14);
+  doc.text("Raport zbiorczego retry Google Calendar", margin, y);
+  y += 20;
+  doc.setFontSize(10);
+  doc.text(`Wygenerowano: ${report.generatedAt}`, margin, y);
+  y += 14;
+  doc.text(
+    `Przetworzono: ${report.processed}    Sukcesy: ${report.succeeded}    Błędy: ${report.failed}`,
+    margin,
+    y,
+  );
+  y += 20;
+  doc.setFontSize(9);
+  const pageHeight = doc.internal.pageSize.getHeight();
+  for (const r of report.rows) {
+    if (y > pageHeight - margin - 60) {
+      doc.addPage();
+      y = margin;
+    }
+    const date = r.starts_at
+      ? new Date(r.starts_at).toLocaleString("pl-PL")
+      : "—";
+    const next = r.nextAt ? new Date(r.nextAt).toLocaleString("pl-PL") : "—";
+    doc.setFont("helvetica", "bold");
+    doc.text(`${r.patient_name} — ${r.status}`, margin, y);
+    y += 12;
+    doc.setFont("helvetica", "normal");
+    doc.text(`ID: ${r.id}`, margin, y);
+    y += 11;
+    doc.text(`Wizyta: ${date}    Próby: ${r.attempts}    Następna: ${next}`, margin, y);
+    y += 11;
+    if (r.error) {
+      const wrapped = doc.splitTextToSize(`Błąd: ${r.error}`, 515);
+      doc.text(wrapped, margin, y);
+      y += wrapped.length * 11;
+    }
+    y += 6;
+  }
+  doc.save(buildReportFilename(report, "pdf"));
+}
+
 function statusColor(s: string) {
   switch (s) {
     case "confirmed":
@@ -113,6 +238,7 @@ function AdminBookingsPage() {
   const [pendingId, setPendingId] = useState<string | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [bulkRetrying, setBulkRetrying] = useState(false);
+  const [lastReport, setLastReport] = useState<BulkReport | null>(null);
   const retryingRef = useRef<Set<string>>(new Set());
   const [retryingTick, setRetryingTick] = useState(0);
   const isRetrying = (id: string) => retryingRef.current.has(id);
@@ -237,7 +363,14 @@ function AdminBookingsPage() {
       );
     });
     try {
-      const res = await retryMany({ data: { ids: Array.from(selected) } });
+      const ids = Array.from(selected);
+      const snapshot = new Map(
+        (Array.isArray(data) ? data : []).map((b: any) => [
+          b.id,
+          { patient_name: b.patient_name as string, starts_at: b.starts_at as string },
+        ]),
+      );
+      const res = await retryMany({ data: { ids } });
       if (res?.bookings?.length) {
         qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
           if (!Array.isArray(old)) return old;
@@ -245,8 +378,30 @@ function AdminBookingsPage() {
           return old.map((b: any) => (updatedById.has(b.id) ? { ...b, ...updatedById.get(b.id) } : b));
         });
       }
+      const updatedById = new Map((res.bookings ?? []).map((b: any) => [b.id, b]));
+      const report: BulkReport = {
+        generatedAt: new Date().toISOString(),
+        processed: res.processed,
+        succeeded: res.succeeded,
+        failed: res.failed,
+        rows: res.results.map((r) => {
+          const snap = snapshot.get(r.id);
+          const updated = updatedById.get(r.id) as any;
+          return {
+            id: r.id,
+            patient_name: snap?.patient_name ?? updated?.patient_name ?? "—",
+            starts_at: snap?.starts_at ?? updated?.starts_at ?? null,
+            status: r.status,
+            attempts: r.attempts,
+            nextAt: r.nextAt,
+            error: r.error,
+          };
+        }),
+      };
+      setLastReport(report);
       setSelected(new Set());
       toast.success(`Zsynchronizowano ${res.succeeded} z ${res.processed} rezerwacji`);
+
       if (res.failed > 0) {
         toast.error(`${res.failed} rezerwacji nadal z błędem`);
       }
@@ -364,6 +519,30 @@ function AdminBookingsPage() {
             {bulkRetrying
               ? "Ponawianie…"
               : `Ponów synchronizację (${selected.size})`}
+          </ActionButton>
+        </div>
+      )}
+
+      {lastReport && (
+        <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border p-3 bg-card">
+          <div className="text-sm">
+            <div className="font-medium text-foreground">
+              Raport zbiorczego retry ·{" "}
+              {new Date(lastReport.generatedAt).toLocaleString("pl-PL")}
+            </div>
+            <div className="text-muted-foreground">
+              Przetworzono {lastReport.processed} · Sukcesy {lastReport.succeeded} · Błędy {lastReport.failed}
+            </div>
+          </div>
+          <div className="flex-1" />
+          <ActionButton variant="muted" onClick={() => downloadReportCsv(lastReport)}>
+            Pobierz CSV
+          </ActionButton>
+          <ActionButton variant="muted" onClick={() => downloadReportPdf(lastReport)}>
+            Pobierz PDF
+          </ActionButton>
+          <ActionButton variant="muted" onClick={() => setLastReport(null)}>
+            Ukryj
           </ActionButton>
         </div>
       )}
