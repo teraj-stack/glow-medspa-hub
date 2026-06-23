@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RozwiazaniaRouteImport } from './routes/rozwiazania'
+import { Route as RenasculptRouteImport } from './routes/renasculpt'
 import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as PotrzebyRouteImport } from './routes/potrzeby'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
@@ -67,6 +68,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RozwiazaniaRoute = RozwiazaniaRouteImport.update({
   id: '/rozwiazania',
   path: '/rozwiazania',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RenasculptRoute = RenasculptRouteImport.update({
+  id: '/renasculpt',
+  path: '/renasculpt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RegulaminRoute = RegulaminRouteImport.update({
@@ -300,6 +306,7 @@ export interface FileRoutesByFullPath {
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
+  '/renasculpt': typeof RenasculptRoute
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
@@ -345,6 +352,7 @@ export interface FileRoutesByTo {
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
+  '/renasculpt': typeof RenasculptRoute
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
@@ -391,6 +399,7 @@ export interface FileRoutesById {
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
+  '/renasculpt': typeof RenasculptRoute
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
@@ -438,6 +447,7 @@ export interface FileRouteTypes {
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
+    | '/renasculpt'
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
@@ -483,6 +493,7 @@ export interface FileRouteTypes {
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
+    | '/renasculpt'
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
@@ -528,6 +539,7 @@ export interface FileRouteTypes {
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
+    | '/renasculpt'
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
@@ -575,6 +587,7 @@ export interface RootRouteChildren {
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
+  RenasculptRoute: typeof RenasculptRoute
   RozwiazaniaRoute: typeof RozwiazaniaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
@@ -624,6 +637,13 @@ declare module '@tanstack/react-router' {
       path: '/rozwiazania'
       fullPath: '/rozwiazania'
       preLoaderRoute: typeof RozwiazaniaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/renasculpt': {
+      id: '/renasculpt'
+      path: '/renasculpt'
+      fullPath: '/renasculpt'
+      preLoaderRoute: typeof RenasculptRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/regulamin': {
@@ -963,6 +983,7 @@ const rootRouteChildren: RootRouteChildren = {
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
+  RenasculptRoute: RenasculptRoute,
   RozwiazaniaRoute: RozwiazaniaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
