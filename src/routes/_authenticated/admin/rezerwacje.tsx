@@ -200,6 +200,62 @@ function AdminBookingsPage() {
     }
   }
 
+  const errorBookingIds =
+    data?.filter((b: any) => b.calendar_sync_status === "error").map((b: any) => b.id as string) ?? [];
+
+  function toggleSelect(id: string) {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function selectAllErrors() {
+    setSelected(new Set(errorBookingIds));
+  }
+
+  function clearSelection() {
+    setSelected(new Set());
+  }
+
+  async function bulkRetry() {
+    if (selected.size === 0 || bulkRetrying) return;
+    setBulkRetrying(true);
+    selected.forEach((id) => setRetrying(id, true));
+    qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
+      if (!Array.isArray(old)) return old;
+      return old.map((b: any) =>
+        selected.has(b.id)
+          ? { ...b, calendar_sync_status: "pending", calendar_sync_error: null }
+          : b,
+      );
+    });
+    try {
+      const res = await retryMany({ data: { ids: Array.from(selected) } });
+      if (res?.bookings?.length) {
+        qc.setQueriesData({ queryKey: ["admin-bookings"] }, (old: any) => {
+          if (!Array.isArray(old)) return old;
+          const updatedById = new Map(res.bookings.map((b: any) => [b.id, b]));
+          return old.map((b: any) => (updatedById.has(b.id) ? { ...b, ...updatedById.get(b.id) } : b));
+        });
+      }
+      setSelected(new Set());
+      toast.success(`Zsynchronizowano ${res.succeeded} z ${res.processed} rezerwacji`);
+      if (res.failed > 0) {
+        toast.error(`${res.failed} rezerwacji nadal z błędem`);
+      }
+      await qc.invalidateQueries({ queryKey: ["admin-bookings"] });
+    } catch (e: any) {
+      toast.error(e?.message || "Nie udało się ponowić synchronizacji wybranych rezerwacji");
+      await qc.invalidateQueries({ queryKey: ["admin-bookings"] });
+    } finally {
+      selected.forEach((id) => setRetrying(id, false));
+      setBulkRetrying(false);
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div>
