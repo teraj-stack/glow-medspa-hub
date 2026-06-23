@@ -413,33 +413,30 @@ function WebVitalsPanel() {
         {trend.data && !trend.data.available && (
           <div className="px-4 py-4 text-sm text-muted-foreground">{trend.data.reason}</div>
         )}
-        {trend.data && trend.data.available && (() => {
-          const trendData = trend.data.trend;
-          return (
-            <div className="grid gap-4 sm:grid-cols-3 px-4 py-4">
-              {(["lcp", "inp", "cls"] as const).map((metric) => {
-                const values = trendData.map((p) => p[metric]);
-                const last = [...values].reverse().find((v) => v != null) ?? null;
-                const c = classify(metric, last);
-                return (
-                  <div key={metric} className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs uppercase tracking-wide text-muted-foreground">
-                        {metric.toUpperCase()}
-                      </span>
-                      <span className={`text-xs ${c.color}`}>{c.label}</span>
-                    </div>
-                    <div className="text-xl font-semibold tabular-nums">{fmtMetric(metric, last)}</div>
-                    <Sparkline values={values} threshold={THRESHOLDS[metric].good} />
-                    <div className="text-[11px] text-muted-foreground">
-                      {trendData[0]?.date} → {trendData[trendData.length - 1]?.date}
-                    </div>
+        {trend.data && trend.data.available && filteredTrend && (
+          <div className="grid gap-4 sm:grid-cols-3 px-4 py-4">
+            {(["lcp", "inp", "cls"] as const).map((metric) => {
+              const values = filteredTrend.map((p) => p[metric]);
+              const last = [...values].reverse().find((v) => v != null) ?? null;
+              const c = classify(metric, last);
+              return (
+                <div key={metric} className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs uppercase tracking-wide text-muted-foreground">
+                      {metric.toUpperCase()}
+                    </span>
+                    <span className={`text-xs ${c.color}`}>{c.label}</span>
                   </div>
-                );
-              })}
-            </div>
-          );
-        })()}
+                  <div className="text-xl font-semibold tabular-nums">{fmtMetric(metric, last)}</div>
+                  <Sparkline values={values} threshold={THRESHOLDS[metric].good} />
+                  <div className="text-[11px] text-muted-foreground">
+                    {filteredTrend[0]?.date} → {filteredTrend[filteredTrend.length - 1]?.date}  ·  {RANGE_LABEL[range]}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </section>
     </div>
   );
