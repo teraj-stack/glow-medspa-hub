@@ -50,11 +50,22 @@ function AdminPricing() {
     open: false,
     hide: true,
   });
-  const [lastAction, setLastAction] = useState<{
+  type UndoEntry = {
+    id: number;
+    description: string;
     items: { slug: string; label: string }[];
     previousHidden: Map<ItemKey, boolean>;
-  } | null>(null);
+  };
+  const UNDO_LIMIT = 10;
+  const [undoStack, setUndoStack] = useState<UndoEntry[]>([]);
   const [undoPending, setUndoPending] = useState(false);
+
+  const pushUndo = (entry: Omit<UndoEntry, "id">) => {
+    setUndoStack((prev) => {
+      const next = [...prev, { ...entry, id: Date.now() + Math.random() }];
+      return next.length > UNDO_LIMIT ? next.slice(next.length - UNDO_LIMIT) : next;
+    });
+  };
 
   const { data: hidden = [], isLoading } = useQuery({
     queryKey: ["hidden-pricing-items"],
@@ -79,9 +90,13 @@ function AdminPricing() {
     try {
       await toggleFn({ data: { slug, label, hidden: hide } });
       await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
-      setLastAction({ items: [{ slug, label }], previousHidden });
+      pushUndo({
+        description: hide ? `Ukryto „${label}"` : `Przywrócono „${label}"`,
+        items: [{ slug, label }],
+        previousHidden,
+      });
       toast.success(hide ? "Pozycja ukryta" : "Pozycja przywrócona", {
-        action: { label: "Cofnij", onClick: performUndo },
+        action: { label: "Cofnij", onClick: () => performUndo() },
       });
     } catch (e: any) {
       toast.error(e?.message ?? "Nie udało się zaktualizować pozycji");
@@ -143,12 +158,18 @@ function AdminPricing() {
       await bulkToggleFn({ data: { items } });
       await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
       setSelected(new Set());
-      setLastAction({ items: items.map(({ slug, label }) => ({ slug, label })), previousHidden });
+      pushUndo({
+        description: hide
+          ? `Ukryto ${items.length} pozycji`
+          : `Przywrócono ${items.length} pozycji`,
+        items: items.map(({ slug, label }) => ({ slug, label })),
+        previousHidden,
+      });
       toast.success(
         hide
           ? `Ukryto ${items.length} pozycji`
           : `Przywrócono ${items.length} pozycji`,
-        { action: { label: "Cofnij", onClick: performUndo } },
+        { action: { label: "Cofnij", onClick: () => performUndo() } },
       );
     } catch (e: any) {
       toast.error(e?.message ?? "Nie udało się zaktualizować pozycji");
@@ -157,19 +178,22 @@ function AdminPricing() {
     }
   };
 
-  const performUndo = async () => {
-    if (!lastAction || undoPending) return;
-    const items = lastAction.items.map(({ slug, label }) => {
+  const performUndo = async (entryId?: number) => {
+    if (undoPending || undoStack.length === 0) return;
+    const entry = entryId
+      ? undoStack.find((e) => e.id === entryId)
+      : undoStack[undoStack.length - 1];
+    if (!entry) return;
+    const items = entry.items.map(({ slug, label }) => {
       const key = keyFor(slug, label);
-      return { slug, label, hidden: lastAction.previousHidden.get(key) ?? false };
+      return { slug, label, hidden: entry.previousHidden.get(key) ?? false };
     });
     setUndoPending(true);
     try {
       await bulkToggleFn({ data: { items } });
       await queryClient.invalidateQueries({ queryKey: ["hidden-pricing-items"] });
-      setSelected(new Set());
-      setLastAction(null);
-      toast.success("Cofnięto ostatnią akcję");
+      setUndoStack((prev) => prev.filter((e) => e.id !== entry.id));
+      toast.success(`Cofnięto: ${entry.description}`);
     } catch (e: any) {
       toast.error(e?.message ?? "Nie udało się cofnąć akcji");
     } finally {
@@ -242,14 +266,17 @@ function AdminPricing() {
               </span>
             </div>
             <div className="flex items-center gap-2">
-              {lastAction && (
+              {undoStack.length > 0 && (
                 <Button
                   size="sm"
                   variant="ghost"
                   disabled={undoPending}
-                  onClick={performUndo}
+                  onClick={() => performUndo()}
+                  title={undoStack[undoStack.length - 1]?.description}
                 >
-                  {undoPending ? "…" : "Cofnij ostatnią akcję"}
+                  {undoPending
+                    ? "…"
+                    : `Cofnij ostatnią akcję (${undoStack.length})`}
                 </Button>
               )}
               <Button
