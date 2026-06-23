@@ -125,6 +125,83 @@ const REGULATIONS = [
   },
 ];
 
+const AREA_RISKS = [
+  {
+    id: "twarz",
+    label: "Twarz",
+    icon: ScanFace,
+    summary: "Najwyższa widoczność i precyzja, delikatna skóra, blisko oczu i ust.",
+    points: [
+      "Skóra twarzy jest cienka, dobrze unaczyniona i szybciej reaguje rumieniem.",
+      "Największe ryzyko przebarwień w okolicach ust, nosa i pod oczami, gdzie skóra jest najcieńsza.",
+      "Konieczna jest pełna ochrona oczu pacjenta i operatora oraz wykluczenie aktywnej opryszczki.",
+      "Ewentualne zmiany pigmentacyjne są najbardziej widoczne, dlatego parametry wybiera się konserwatywnie.",
+      "Blizna po nieprawidłowej procedurze na twarzy ma największe znaczenie estetyczne i emocjonalne.",
+    ],
+  },
+  {
+    id: "cialo",
+    label: "Ciało",
+    icon: Ruler,
+    summary: "Większa powierzchnia, grubsza skóra, dłuższy zabieg, ale mniej widoczne ewentualne zmiany.",
+    points: [
+      "Skóra ciała jest zazwyczaj grubsza i mniej wrażliwa niż na twarzy, co pozwala na szerszy zakres parametrów.",
+      "Duża powierzchnia wymaga podzielenia zabiegu na segmenty i systematycznego chłodzenia.",
+      "Ryzyko nierównomiernego efektu wzrasta przy zbyt szybkiej pracy lub niewłaściwym nakładaniu głowicy.",
+      "Zmiany pigmentacyjne są mniej widoczne niż na twarzy, ale mogą pojawić się w miejscach narażonych na tarcie lub słońce (np. ramiona, dekolt).",
+      "Po zabiegach na dużych powierzchniach istotne jest nawodnienie skóry i unikanie pocenia się przez pierwsze 24–48 h.",
+    ],
+  },
+  {
+    id: "bikini",
+    label: "Bikini",
+    icon: CircleDot,
+    summary: "Obszar intymny, wrażliwa skóra, szczególna higiena i ograniczenie tarcia w okresie pozabiegowym.",
+    points: [
+      "Skóra w okolicy bikini jest cienka, elastyczna i często bardziej pigmentowana lub znamionowana.",
+      "Występuje wyższa wrażliwość na ból oraz skłonność do podrażnień mechanicznych od bielizny i tarcia.",
+      "Ryzyko infekcji wzrasta, gdy nie zachowana zostanie odpowiednia higiena lub gdy pacjent zbyt wcześnie wraca do aktywności fizycznej.",
+      "Zabiegi w tym obszarze wymagają starannej oceny wszystkich zmian skórnych i fototypu.",
+      "Rekonwalescencja wymaga luźnej bielizny, unikania gorącej kąpieli, sauny i depilacji mechanicznej przez czas wskazany przez lekarza.",
+    ],
+  },
+];
+
+const PARAMETER_FACTORS = [
+  {
+    title: "Fototyp skóry",
+    desc: "Na podstawie skali Fitzpatricka oceniamy reaktywność skóry na światło. Ciemniejsze fototypy wymagają niższej energii, innej długości fali i dłuższych odstępów między sesjami.",
+  },
+  {
+    title: "Grubość i lokalizacja skóry",
+    desc: "Skóra twarzy i bikini jest cieńsza niż na plecach czy udach. Do każdego obszaru dobieramy inną gęstość energii, wielkość plastra i czas impulsu.",
+  },
+  {
+    title: "Cel zabiegu",
+    desc: "Depilacja, redukcja przebarwień, rewitalizacja czy usuwanie zmian naczyniowych — każdy cel wymaga innego zakresu parametrów i częstotliwości sesji.",
+  },
+  {
+    title: "Stan skóry w dniu zabiegu",
+    desc: "Opalenizna, podrażnienia, stany zapalne, świeże zabiegi chemiczne lub retinoidy mogą zmusić do odroczenia procedury lub obniżenia energii.",
+  },
+  {
+    title: "Historia reakcji",
+    desc: "Jeśli pacjent wcześniej reagował silnym rumieniem, pęcherzami lub przebarwieniami, kolejna sesja rozpoczyna się od niższych parametrów i testowej aplikacji.",
+  },
+];
+
+const PARAMETER_TABLE = [
+  { parameter: "Energia / gęstość energii", role: "Decyduje o sile oddziaływania na docelową strukturę w skórze." },
+  { parameter: "Długość fali", role: "Wybiera głębokość penetracji i selektywność dla barwnika: melanina, hemoglobina czy woda." },
+  {
+    parameter: "Czas trwania impulsu",
+    role: "Krótsze impulsy koncentrują energię precyzyjniej; dłuższe rozpraszają ciepło na większej objętości.",
+  },
+  { parameter: "Rozmiar głowicy / plastra", role: "Wpływa na szybkość zabiegu i równomierność pokrycia dużych powierzchnii." },
+  { parameter: "Chłodzenie skóry", role: "Chroni naskórek przed przegrzaniem, zwiększając komfort i bezpieczeństwo." },
+  { parameter: "Odstępy między sesjami", role: "Dają skórze czas na regenerację i zmniejszają ryzyko przebarwień." },
+];
+
 const FAQ = [
   {
     q: "Czy zabiegi laserowe są bezpieczne?",
