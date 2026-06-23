@@ -107,6 +107,8 @@ function formatDateTime(iso: string) {
 function AdminBookingsPage() {
   const [range, setRange] = useState<Range>("upcoming");
   const [status, setStatus] = useState<Status>("all");
+  const [sync, setSync] = useState<SyncStatus>("all");
+  const [sortBy, setSortBy] = useState<SortBy>("starts_at");
   const [pendingId, setPendingId] = useState<string | null>(null);
   const retryingRef = useRef<Set<string>>(new Set());
   const [retryingTick, setRetryingTick] = useState(0);
@@ -123,7 +125,7 @@ function AdminBookingsPage() {
   const retry = useServerFn(retryCalendarSync);
   const qc = useQueryClient();
 
-  const queryKey = ["admin-bookings", range, status] as const;
+  const queryKey = ["admin-bookings", range, status, sync, sortBy] as const;
   const { data, isLoading, error } = useQuery({
     queryKey,
     queryFn: () =>
@@ -131,6 +133,8 @@ function AdminBookingsPage() {
         data: {
           range,
           status: status === "all" ? undefined : status,
+          sync: sync === "all" ? undefined : sync,
+          sortBy,
         },
       }),
   });
