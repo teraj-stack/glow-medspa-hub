@@ -50,11 +50,22 @@ function AdminPricing() {
     open: false,
     hide: true,
   });
-  const [lastAction, setLastAction] = useState<{
+  type UndoEntry = {
+    id: number;
+    description: string;
     items: { slug: string; label: string }[];
     previousHidden: Map<ItemKey, boolean>;
-  } | null>(null);
+  };
+  const UNDO_LIMIT = 10;
+  const [undoStack, setUndoStack] = useState<UndoEntry[]>([]);
   const [undoPending, setUndoPending] = useState(false);
+
+  const pushUndo = (entry: Omit<UndoEntry, "id">) => {
+    setUndoStack((prev) => {
+      const next = [...prev, { ...entry, id: Date.now() + Math.random() }];
+      return next.length > UNDO_LIMIT ? next.slice(next.length - UNDO_LIMIT) : next;
+    });
+  };
 
   const { data: hidden = [], isLoading } = useQuery({
     queryKey: ["hidden-pricing-items"],
