@@ -87,6 +87,10 @@
   --sidebar: oklch(0.16 0.005 60);
   --sidebar-foreground: oklch(0.97 0.004 80);
   --sidebar-border: oklch(1 0 0 / 10%);
+  /* In dark mode, --ink must flip to a light value — otherwise utilities like
+     .tile-title (color: var(--ink)) render dark text on a dark surface and
+     fail WCAG AA contrast. */
+  --ink: oklch(0.97 0.004 80);
 }
 
 @theme inline {
