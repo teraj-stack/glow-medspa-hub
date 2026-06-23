@@ -32,6 +32,7 @@ import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologi
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as BlogSlonceSkoraNowoczesneTechnologieRouteImport } from './routes/blog.slonce-skora-nowoczesne-technologie'
 import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
@@ -169,6 +170,12 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   path: '/email/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlonceSkoraNowoczesneTechnologieRoute =
+  BlogSlonceSkoraNowoczesneTechnologieRouteImport.update({
+    id: '/blog/slonce-skora-nowoczesne-technologie',
+    path: '/blog/slonce-skora-nowoczesne-technologie',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogPowiklaniaMezoterapiaIglowaRoute =
   BlogPowiklaniaMezoterapiaIglowaRouteImport.update({
     id: '/blog/powiklania-mezoterapia-iglowa',
@@ -300,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
+  '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
@@ -343,6 +351,7 @@ export interface FileRoutesByTo {
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
+  '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
@@ -389,6 +398,7 @@ export interface FileRoutesById {
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
+  '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
@@ -435,6 +445,7 @@ export interface FileRouteTypes {
     | '/blog/blizny-potradzikowe'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/powiklania-mezoterapia-iglowa'
+    | '/blog/slonce-skora-nowoczesne-technologie'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
@@ -478,6 +489,7 @@ export interface FileRouteTypes {
     | '/blog/blizny-potradzikowe'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/powiklania-mezoterapia-iglowa'
+    | '/blog/slonce-skora-nowoczesne-technologie'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
@@ -523,6 +535,7 @@ export interface FileRouteTypes {
     | '/blog/blizny-potradzikowe'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/powiklania-mezoterapia-iglowa'
+    | '/blog/slonce-skora-nowoczesne-technologie'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/technologie/$slug'
@@ -568,6 +581,7 @@ export interface RootRouteChildren {
   BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
   BlogLaserFrakcyjnyRekonwalescencjaRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   BlogPowiklaniaMezoterapiaIglowaRoute: typeof BlogPowiklaniaMezoterapiaIglowaRoute
+  BlogSlonceSkoraNowoczesneTechnologieRoute: typeof BlogSlonceSkoraNowoczesneTechnologieRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   FormularzTokenRoute: typeof FormularzTokenRoute
   TechnologieSlugRoute: typeof TechnologieSlugRoute
@@ -750,6 +764,13 @@ declare module '@tanstack/react-router' {
       path: '/email/unsubscribe'
       fullPath: '/email/unsubscribe'
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/slonce-skora-nowoczesne-technologie': {
+      id: '/blog/slonce-skora-nowoczesne-technologie'
+      path: '/blog/slonce-skora-nowoczesne-technologie'
+      fullPath: '/blog/slonce-skora-nowoczesne-technologie'
+      preLoaderRoute: typeof BlogSlonceSkoraNowoczesneTechnologieRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/powiklania-mezoterapia-iglowa': {
@@ -949,6 +970,8 @@ const rootRouteChildren: RootRouteChildren = {
   BlogLaserFrakcyjnyRekonwalescencjaRoute:
     BlogLaserFrakcyjnyRekonwalescencjaRoute,
   BlogPowiklaniaMezoterapiaIglowaRoute: BlogPowiklaniaMezoterapiaIglowaRoute,
+  BlogSlonceSkoraNowoczesneTechnologieRoute:
+    BlogSlonceSkoraNowoczesneTechnologieRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   FormularzTokenRoute: FormularzTokenRoute,
   TechnologieSlugRoute: TechnologieSlugRoute,
