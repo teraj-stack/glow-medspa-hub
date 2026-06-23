@@ -26,6 +26,11 @@ function AdminDashboard() {
       title: "SEO",
       description: "Monitoring widoczności w Google, mapy witryny i sprawdzanie indeksacji.",
     },
+    {
+      to: "/admin/web-vitals",
+      title: "Web Vitals",
+      description: "Core Web Vitals (LCP/INP/CLS) kluczowych podstron i trend w czasie.",
+    },
   ];
   return (
     <div className="space-y-6">
