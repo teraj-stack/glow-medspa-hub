@@ -188,14 +188,14 @@ export const updateBookingStatus = createServerFn({ method: "POST" })
 
     const sync = await syncWithCalendar(data.id);
 
-    const patch: Record<string, unknown> = {
+    const patch = {
       calendar_sync_status: sync.calendar_sync_status,
       calendar_sync_error: sync.calendar_sync_error,
       calendar_sync_at: sync.calendar_sync_at,
+      ...(sync.google_event_id !== undefined
+        ? { google_event_id: sync.google_event_id }
+        : {}),
     };
-    if (sync.google_event_id !== undefined) {
-      patch.google_event_id = sync.google_event_id;
-    }
     const { error: syncErr } = await supabaseAdmin
       .from("visit_bookings")
       .update(patch)
