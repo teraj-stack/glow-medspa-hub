@@ -60,6 +60,131 @@ const SORT_LABEL: Record<SortBy, string> = {
   next_retry: "Następna próba",
 };
 
+type BulkReportRow = {
+  id: string;
+  patient_name: string;
+  starts_at: string | null;
+  status: string;
+  attempts: number;
+  nextAt: string | null;
+  error: string | null;
+};
+
+type BulkReport = {
+  generatedAt: string;
+  processed: number;
+  succeeded: number;
+  failed: number;
+  rows: BulkReportRow[];
+};
+
+function csvCell(v: string | number | null | undefined) {
+  const s = v == null ? "" : String(v);
+  return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function downloadBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function buildReportFilename(report: BulkReport, ext: string) {
+  const ts = report.generatedAt.replace(/[:.]/g, "-");
+  return `calendar-retry-${ts}.${ext}`;
+}
+
+function downloadReportCsv(report: BulkReport) {
+  const header = [
+    "id",
+    "patient_name",
+    "starts_at",
+    "sync_status",
+    "attempts",
+    "next_retry_at",
+    "error",
+  ];
+  const lines = [header.join(",")];
+  for (const r of report.rows) {
+    lines.push(
+      [
+        r.id,
+        r.patient_name,
+        r.starts_at ?? "",
+        r.status,
+        r.attempts,
+        r.nextAt ?? "",
+        r.error ?? "",
+      ]
+        .map(csvCell)
+        .join(","),
+    );
+  }
+  const meta = [
+    `# Wygenerowano: ${report.generatedAt}`,
+    `# Przetworzono: ${report.processed}`,
+    `# Sukcesy: ${report.succeeded}`,
+    `# Błędy: ${report.failed}`,
+    "",
+  ].join("\n");
+  const csv = "\uFEFF" + meta + lines.join("\n") + "\n";
+  downloadBlob(
+    new Blob([csv], { type: "text/csv;charset=utf-8" }),
+    buildReportFilename(report, "csv"),
+  );
+}
+
+async function downloadReportPdf(report: BulkReport) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const margin = 40;
+  let y = margin;
+  doc.setFontSize(14);
+  doc.text("Raport zbiorczego retry Google Calendar", margin, y);
+  y += 20;
+  doc.setFontSize(10);
+  doc.text(`Wygenerowano: ${report.generatedAt}`, margin, y);
+  y += 14;
+  doc.text(
+    `Przetworzono: ${report.processed}    Sukcesy: ${report.succeeded}    Błędy: ${report.failed}`,
+    margin,
+    y,
+  );
+  y += 20;
+  doc.setFontSize(9);
+  const pageHeight = doc.internal.pageSize.getHeight();
+  for (const r of report.rows) {
+    if (y > pageHeight - margin - 60) {
+      doc.addPage();
+      y = margin;
+    }
+    const date = r.starts_at
+      ? new Date(r.starts_at).toLocaleString("pl-PL")
+      : "—";
+    const next = r.nextAt ? new Date(r.nextAt).toLocaleString("pl-PL") : "—";
+    doc.setFont("helvetica", "bold");
+    doc.text(`${r.patient_name} — ${r.status}`, margin, y);
+    y += 12;
+    doc.setFont("helvetica", "normal");
+    doc.text(`ID: ${r.id}`, margin, y);
+    y += 11;
+    doc.text(`Wizyta: ${date}    Próby: ${r.attempts}    Następna: ${next}`, margin, y);
+    y += 11;
+    if (r.error) {
+      const wrapped = doc.splitTextToSize(`Błąd: ${r.error}`, 515);
+      doc.text(wrapped, margin, y);
+      y += wrapped.length * 11;
+    }
+    y += 6;
+  }
+  doc.save(buildReportFilename(report, "pdf"));
+}
+
 function statusColor(s: string) {
   switch (s) {
     case "confirmed":
