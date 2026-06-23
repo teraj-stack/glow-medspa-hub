@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { getRelatedPosts } from "@/lib/blog-posts";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { cn } from "@/lib/utils";
 
 type Props = {
   currentSlug: string;
@@ -9,8 +11,48 @@ type Props = {
   className?: string;
 };
 
+type ScrollState = {
+  atStart: boolean;
+  atEnd: boolean;
+};
+
 export function RelatedPosts({ currentSlug, limit = 3, className }: Props) {
   const posts = getRelatedPosts(currentSlug, limit);
+  const carouselRef = useRef<HTMLUListElement>(null);
+  const [scrollState, setScrollState] = useState<ScrollState>({ atStart: true, atEnd: false });
+
+  const updateScrollState = () => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    const atStart = el.scrollLeft <= 1;
+    const atEnd = maxScroll <= 0 || el.scrollLeft >= maxScroll - 1;
+    setScrollState({ atStart, atEnd });
+  };
+
+  useEffect(() => {
+    updateScrollState();
+    const el = carouselRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateScrollState, { passive: true });
+    window.addEventListener("resize", updateScrollState);
+    return () => {
+      el.removeEventListener("scroll", updateScrollState);
+      window.removeEventListener("resize", updateScrollState);
+    };
+  }, []);
+
+  const scrollByCard = (direction: "prev" | "next") => {
+    const el = carouselRef.current;
+    if (!el) return;
+    const cardWidth = el.firstElementChild?.getBoundingClientRect().width ?? 320;
+    const gap = 16;
+    el.scrollBy({
+      left: direction === "next" ? cardWidth + gap : -(cardWidth + gap),
+      behavior: "smooth",
+    });
+  };
+
   if (posts.length === 0) return null;
 
   return (
@@ -28,6 +70,7 @@ export function RelatedPosts({ currentSlug, limit = 3, className }: Props) {
         </p>
 
         <ul
+          ref={carouselRef}
           className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-4 -mx-4 [scrollbar-width:thin] md:mx-0 md:grid md:snap-none md:grid-cols-3 md:gap-6 md:overflow-visible md:px-0 md:pb-0"
           role="list"
         >
@@ -66,9 +109,44 @@ export function RelatedPosts({ currentSlug, limit = 3, className }: Props) {
             </li>
           ))}
         </ul>
-        <p className="mt-3 text-xs text-muted-foreground md:hidden">
-          Przesuń, aby zobaczyć więcej →
-        </p>
+
+        <div className="mt-4 flex items-center justify-between md:hidden">
+          <button
+            type="button"
+            aria-label="Poprzedni artykuł"
+            aria-disabled={scrollState.atStart}
+            disabled={scrollState.atStart}
+            onClick={() => scrollByCard("prev")}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition",
+              scrollState.atStart
+                ? "border-border bg-muted text-muted-foreground cursor-not-allowed"
+                : "border-border bg-card text-foreground hover:border-champagne hover:text-champagne"
+            )}
+          >
+            <ChevronLeft className="size-3.5" />
+            Wstecz
+          </button>
+          <p className="text-xs text-muted-foreground">
+            Przesuń, aby zobaczyć więcej
+          </p>
+          <button
+            type="button"
+            aria-label="Następny artykuł"
+            aria-disabled={scrollState.atEnd}
+            disabled={scrollState.atEnd}
+            onClick={() => scrollByCard("next")}
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition",
+              scrollState.atEnd
+                ? "border-border bg-muted text-muted-foreground cursor-not-allowed"
+                : "border-border bg-card text-foreground hover:border-champagne hover:text-champagne"
+            )}
+          >
+            Dalej
+            <ChevronRight className="size-3.5" />
+          </button>
+        </div>
       </div>
     </section>
   );
