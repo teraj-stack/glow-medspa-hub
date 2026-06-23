@@ -401,6 +401,42 @@ function LaserSafetyPage() {
         </Tabs>
       </section>
 
+      {/* AREA FAQ */}
+      <section className="bg-secondary/40 py-12 md:py-20">
+        <div className="container-luxury">
+          <SectionHeading
+            eyebrow="FAQ"
+            title="Ryzyko w poszczególnych obszarach"
+            description="Poniżej odpowiadamy na najczęstsze pytania o to, co może zwiększać ryzyko powikłań, jak je ograniczyć oraz kiedy po zabiegu należy skontaktować się z lekarzem."
+          />
+          <div className="mt-10 space-y-8">
+            {FAQ_AREA_RISKS.map((area) => (
+              <div
+                key={area.area}
+                className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8"
+              >
+                <div className="flex items-center gap-3 text-champagne">
+                  <area.icon className="size-5" aria-hidden="true" />
+                  <h3 className="font-serif text-xl text-ink">{area.area}</h3>
+                </div>
+                <div className="mt-6 divide-y divide-border rounded-lg border border-border">
+                  {area.questions.map((item) => (
+                    <details key={item.q} className="group p-5 open:bg-secondary/30 md:p-6">
+                      <summary className="cursor-pointer list-none font-serif text-lg text-ink">
+                        {item.q}
+                      </summary>
+                      <p className="mt-3 text-sm leading-relaxed text-foreground/80 md:text-base">
+                        {item.a}
+                      </p>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* REGULATIONS */}
       <section className="container-luxury py-12 md:py-20">
         <SectionHeading
