@@ -475,11 +475,54 @@ function AdminBookingsPage() {
       {isLoading && (
         <div className="text-sm text-muted-foreground">Ładowanie…</div>
       )}
-      {error && (
-        <div className="text-sm text-red-600">
-          {(error as Error).message || "Błąd wczytywania"}
-        </div>
-      )}
+      {error && (() => {
+        const msg = (error as Error).message || "";
+        const isForbidden = /forbidden|admin role|unauthorized|401|403/i.test(msg);
+        if (isForbidden) {
+          return (
+            <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 p-6 space-y-3">
+              <h3 className="text-base font-semibold text-foreground">
+                Brak uprawnień administratora
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Twoje konto jest zalogowane, ale nie ma roli{" "}
+                <code className="px-1 py-0.5 rounded bg-muted text-foreground">admin</code>,
+                wymaganej do zarządzania rezerwacjami.
+              </p>
+              <div className="text-sm text-muted-foreground space-y-1">
+                <p className="font-medium text-foreground">Co zrobić w dev:</p>
+                <ol className="list-decimal pl-5 space-y-1">
+                  <li>
+                    Wyloguj się i zaloguj jako{" "}
+                    <code className="px-1 py-0.5 rounded bg-muted text-foreground">
+                      mlasers0110@gmail.com
+                    </code>{" "}
+                    (hasło w{" "}
+                    <code className="px-1 py-0.5 rounded bg-muted text-foreground">
+                      README.md
+                    </code>
+                    ) — trigger automatycznie nada rolę admina.
+                  </li>
+                  <li>
+                    Albo nadaj rolę swojemu kontu ręcznie w bazie:{" "}
+                    <code className="px-1 py-0.5 rounded bg-muted text-foreground">
+                      insert into user_roles (user_id, role) values
+                      ('&lt;twoj-user-id&gt;', 'admin')
+                    </code>
+                    .
+                  </li>
+                </ol>
+              </div>
+            </div>
+          );
+        }
+        return (
+          <div className="rounded-lg border border-red-500/30 bg-red-500/5 p-4 text-sm text-red-700 dark:text-red-400">
+            <div className="font-medium">Błąd wczytywania rezerwacji</div>
+            <div className="mt-1 text-xs opacity-80">{msg || "Nieznany błąd"}</div>
+          </div>
+        );
+      })()}
 
       {errorBookingIds.length > 0 && (
         <div className="flex flex-wrap items-center gap-3 rounded-lg border border-border p-3 bg-card">
@@ -547,9 +590,39 @@ function AdminBookingsPage() {
         </div>
       )}
 
-      {data && data.length === 0 && (
-        <div className="rounded-lg border border-border p-8 text-center text-sm text-muted-foreground">
-          Brak rezerwacji w wybranym zakresie.
+      {data && data.length === 0 && !error && (
+        <div className="rounded-lg border border-border p-8 text-center space-y-3">
+          <div className="text-2xl">📅</div>
+          <h3 className="text-base font-semibold text-foreground">
+            Brak rezerwacji w wybranym zakresie
+          </h3>
+          <p className="text-sm text-muted-foreground max-w-md mx-auto">
+            Zmień filtry powyżej (np. „Zakres: Wszystkie") albo dodaj testową
+            rezerwację w dev, żeby zobaczyć akcje{" "}
+            <span className="text-foreground">Potwierdź</span>,{" "}
+            <span className="text-foreground">Zakończ</span>,{" "}
+            <span className="text-foreground">Nieobecność</span> i{" "}
+            <span className="text-foreground">Anuluj</span>.
+          </p>
+          <details className="text-xs text-muted-foreground max-w-md mx-auto text-left">
+            <summary className="cursor-pointer hover:text-foreground">
+              Jak dodać testową rezerwację w dev?
+            </summary>
+            <pre className="mt-2 p-3 rounded bg-muted overflow-x-auto whitespace-pre-wrap break-words text-[11px]">
+{`insert into visit_bookings (
+  doctor_id, treatment_slug, starts_at, ends_at,
+  patient_name, patient_email, patient_phone,
+  status, payment_status, amount_cents, currency, rodo_consent
+) values (
+  (select id from doctors limit 1),
+  'konsultacja',
+  now() + interval '1 day',
+  now() + interval '1 day 30 minutes',
+  'Jan Testowy', 'test@example.com', '+48500000000',
+  'pending_payment', 'unpaid', 20000, 'PLN', true
+);`}
+            </pre>
+          </details>
         </div>
       )}
 
