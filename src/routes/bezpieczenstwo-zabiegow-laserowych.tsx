@@ -294,6 +294,56 @@ function LaserSafetyPage() {
         </div>
       </section>
 
+      {/* AREA RISKS */}
+      <section className="container-luxury py-12 md:py-20">
+        <SectionHeading
+          eyebrow="OBSZARY ZABIEGOWE"
+          title="Porównanie ryzyka: twarz, ciało, bikini"
+          description="To samo światło lasera działa inaczej w zależności od grubości skóry, ukrwienia, narażenia na słońce i wrażliwości pacjenta. Poniżej pokazujemy, na co zwracamy szczególną uwagę w każdym obszarze."
+        />
+        <Tabs defaultValue="twarz" className="mt-10">
+          <TabsList className="mb-6 grid h-auto w-full grid-cols-3 bg-secondary p-1 md:w-fit">
+            {AREA_RISKS.map((area) => (
+              <TabsTrigger
+                key={area.id}
+                value={area.id}
+                className="flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm data-[state=active]:bg-card data-[state=active]:text-ink"
+              >
+                <area.icon className="size-4" aria-hidden="true" />
+                {area.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {AREA_RISKS.map((area) => (
+            <TabsContent
+              key={area.id}
+              value={area.id}
+              className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-champagne/10 text-champagne">
+                  <area.icon className="size-5" aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="font-serif text-xl text-ink">{area.label}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground/80 md:text-base">
+                    {area.summary}
+                  </p>
+                </div>
+              </div>
+              <ul className="mt-6 space-y-3">
+                {area.points.map((point, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-foreground/80 md:text-base">
+                    <AlertCircle className="mt-0.5 size-4 shrink-0 text-champagne" aria-hidden="true" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </section>
+
       {/* REGULATIONS */}
       <section className="container-luxury py-12 md:py-20">
         <SectionHeading
