@@ -19,6 +19,7 @@ import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-
 import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
 import { Route as TechnologieTerapiaLedRouteImport } from './routes/technologie.terapia-led'
@@ -33,6 +34,7 @@ import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/bl
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -88,6 +90,10 @@ const CennikRoute = CennikRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -163,6 +169,12 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminLekarzeRoute =
+  AuthenticatedAdminLekarzeRouteImport.update({
+    id: '/admin/lekarze',
+    path: '/admin/lekarze',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -222,6 +234,7 @@ export interface FileRoutesByFullPath {
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie/': typeof TechnologieIndexRoute
+  '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -254,6 +267,7 @@ export interface FileRoutesByTo {
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie': typeof TechnologieIndexRoute
+  '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -265,6 +279,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
@@ -287,6 +302,7 @@ export interface FileRoutesById {
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
   '/technologie/': typeof TechnologieIndexRoute
+  '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
@@ -321,6 +337,7 @@ export interface FileRouteTypes {
     | '/technologie/picoking'
     | '/technologie/terapia-led'
     | '/technologie/'
+    | '/admin/lekarze'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
@@ -353,6 +370,7 @@ export interface FileRouteTypes {
     | '/technologie/picoking'
     | '/technologie/terapia-led'
     | '/technologie'
+    | '/admin/lekarze'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
@@ -363,6 +381,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/auth'
     | '/cennik'
     | '/konsultacja'
@@ -385,6 +404,7 @@ export interface FileRouteTypes {
     | '/technologie/picoking'
     | '/technologie/terapia-led'
     | '/technologie/'
+    | '/_authenticated/admin/lekarze'
     | '/lovable/email/suppression'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
@@ -396,6 +416,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   CennikRoute: typeof CennikRoute
   KonsultacjaRoute: typeof KonsultacjaRoute
@@ -499,6 +520,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -597,6 +625,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/lekarze': {
+      id: '/_authenticated/admin/lekarze'
+      path: '/admin/lekarze'
+      fullPath: '/admin/lekarze'
+      preLoaderRoute: typeof AuthenticatedAdminLekarzeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
       path: '/lovable/email/transactional/send'
@@ -642,8 +677,20 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminLekarzeRoute: typeof AuthenticatedAdminLekarzeRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   CennikRoute: CennikRoute,
   KonsultacjaRoute: KonsultacjaRoute,
@@ -679,13 +726,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
