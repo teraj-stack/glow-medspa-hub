@@ -23,7 +23,7 @@
   /* Brand */
   --ink: oklch(0.16 0.005 60);                  /* #0a0a0a-ish */
   --alabaster: oklch(0.985 0.004 80);
-  --champagne: oklch(0.58 0.075 65);            /* darker bronze for AA contrast */
+  --champagne: oklch(0.57 0.075 65);            /* bronze tuned for AA on white card */
   --champagne-light: oklch(0.86 0.05 78);       /* #d4b896 */
   --gold: oklch(0.82 0.09 80);
 
@@ -77,6 +77,9 @@
   --secondary-foreground: oklch(0.97 0.004 80);
   --muted: oklch(0.22 0.006 60);
   --muted-foreground: oklch(0.7 0.01 65);
+  /* Brighter champagne in dark mode so eyebrow/accent labels stay AA on the
+     dark card surface (oklch(0.16)). */
+  --champagne: oklch(0.72 0.075 65);
   --accent: var(--champagne);
   --accent-foreground: oklch(0.12 0.005 60);
   --destructive: oklch(0.65 0.2 25);
