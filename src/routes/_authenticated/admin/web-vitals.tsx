@@ -124,6 +124,143 @@ function WebVitalsPanel() {
     staleTime: 60 * 60 * 1000,
   });
 
+  const filteredTrend = useMemo(() => {
+    if (!trend.data || !trend.data.available) return null;
+    const n = rangeWeeks(range);
+    const pts = trend.data.trend;
+    return n == null ? pts : pts.slice(-n);
+  }, [trend.data, range]);
+
+  const exportRows = useMemo(() => {
+    const rows: Array<Record<string, string | number | null>> = [];
+    if (vitals.data?.results) {
+      for (const r of vitals.data.results) {
+        rows.push({
+          section: "snapshot",
+          strategy,
+          date: new Date().toISOString().slice(0, 10),
+          label: r.label,
+          url: r.url,
+          source: r.source ?? "",
+          lcp_ms: r.lcp.percentile ?? null,
+          inp_ms: r.inp.percentile ?? null,
+          cls: r.cls.percentile ?? null,
+          lighthouse: r.performance ?? null,
+        });
+      }
+    }
+    if (filteredTrend) {
+      for (const p of filteredTrend) {
+        rows.push({
+          section: "trend",
+          strategy,
+          date: p.date,
+          label: "origin",
+          url: "https://bmclinics.ai",
+          source: "crux-history",
+          lcp_ms: p.lcp ?? null,
+          inp_ms: p.inp ?? null,
+          cls: p.cls ?? null,
+          lighthouse: null,
+        });
+      }
+    }
+    return rows;
+  }, [vitals.data, filteredTrend, strategy]);
+
+  const baseName = `web-vitals_${strategy}_${range}_${new Date().toISOString().slice(0, 10)}`;
+
+  function exportCSV() {
+    const headers = [
+      "section", "strategy", "date", "label", "url", "source",
+      "lcp_ms", "inp_ms", "cls", "lighthouse",
+    ];
+    const lines = [headers.join(",")];
+    for (const r of exportRows) lines.push(headers.map((h) => csvEscape(r[h])).join(","));
+    downloadBlob(new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8" }), `${baseName}.csv`);
+  }
+
+  function exportPDF() {
+    const doc = new jsPDF({ unit: "pt", format: "a4" });
+    const margin = 36;
+    let y = margin;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(14);
+    doc.text("Core Web Vitals — bmclinics.ai", margin, y);
+    y += 18;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(10);
+    doc.text(
+      `Strategia: ${strategy === "mobile" ? "Mobile" : "Desktop"}  ·  Zakres trendu: ${RANGE_LABEL[range]}  ·  Wygenerowano: ${new Date().toLocaleString("pl-PL")}`,
+      margin, y,
+    );
+    y += 16;
+
+    const snapshot = exportRows.filter((r) => r.section === "snapshot");
+    const trendRows = exportRows.filter((r) => r.section === "trend");
+
+    const drawTable = (title: string, cols: { key: string; label: string; w: number; align?: "right" }[], rows: typeof exportRows) => {
+      if (!rows.length) return;
+      if (y > 760) { doc.addPage(); y = margin; }
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(11);
+      doc.text(title, margin, y);
+      y += 12;
+      doc.setFontSize(9);
+      let x = margin;
+      for (const c of cols) {
+        doc.text(c.label, c.align === "right" ? x + c.w - 2 : x, y, { align: c.align === "right" ? "right" : "left" });
+        x += c.w;
+      }
+      y += 4;
+      doc.setDrawColor(200);
+      doc.line(margin, y, margin + cols.reduce((s, c) => s + c.w, 0), y);
+      y += 10;
+      doc.setFont("helvetica", "normal");
+      for (const r of rows) {
+        if (y > 800) { doc.addPage(); y = margin; }
+        let cx = margin;
+        for (const c of cols) {
+          const raw = r[c.key];
+          let txt = raw == null ? "—" : String(raw);
+          if (c.key === "cls" && typeof raw === "number") txt = raw.toFixed(3);
+          if ((c.key === "lcp_ms" || c.key === "inp_ms") && typeof raw === "number") txt = `${Math.round(raw)}`;
+          if (c.key === "label" || c.key === "url") txt = txt.length > 38 ? txt.slice(0, 37) + "…" : txt;
+          doc.text(txt, c.align === "right" ? cx + c.w - 2 : cx, y, { align: c.align === "right" ? "right" : "left" });
+          cx += c.w;
+        }
+        y += 12;
+      }
+      y += 10;
+    };
+
+    drawTable(
+      "Snapshot (PageSpeed Insights / CrUX 28d)",
+      [
+        { key: "label", label: "Strona", w: 150 },
+        { key: "url", label: "URL", w: 180 },
+        { key: "lcp_ms", label: "LCP", w: 50, align: "right" },
+        { key: "inp_ms", label: "INP", w: 50, align: "right" },
+        { key: "cls", label: "CLS", w: 50, align: "right" },
+        { key: "lighthouse", label: "LH", w: 40, align: "right" },
+      ],
+      snapshot,
+    );
+
+    drawTable(
+      `Trend (CrUX History · ${RANGE_LABEL[range]})`,
+      [
+        { key: "date", label: "Tydzień", w: 90 },
+        { key: "lcp_ms", label: "LCP (ms)", w: 80, align: "right" },
+        { key: "inp_ms", label: "INP (ms)", w: 80, align: "right" },
+        { key: "cls", label: "CLS", w: 80, align: "right" },
+      ],
+      trendRows,
+    );
+
+    doc.save(`${baseName}.pdf`);
+  }
+
   return (
     <div className="space-y-8">
       <div className="flex items-start justify-between gap-4 flex-wrap">
