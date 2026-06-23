@@ -47,6 +47,9 @@ export const listAdminBookings = createServerFn({ method: "POST" })
     range?: "upcoming" | "past" | "all";
     sync?: "synced" | "error" | "pending" | "skipped" | "not_required";
     sortBy?: "starts_at" | "next_retry";
+    dateFrom?: string;
+    dateTo?: string;
+    search?: string;
   }) =>
     z
       .object({
@@ -55,6 +58,9 @@ export const listAdminBookings = createServerFn({ method: "POST" })
         range: z.enum(["upcoming", "past", "all"]).optional().default("upcoming"),
         sync: z.enum(["synced", "error", "pending", "skipped", "not_required"]).optional(),
         sortBy: z.enum(["starts_at", "next_retry"]).optional().default("starts_at"),
+        dateFrom: z.string().datetime().optional(),
+        dateTo: z.string().datetime().optional(),
+        search: z.string().trim().max(200).optional(),
       })
       .parse(input),
   )
@@ -68,6 +74,13 @@ export const listAdminBookings = createServerFn({ method: "POST" })
     const nowIso = new Date().toISOString();
     if (data.range === "upcoming") q = q.gte("starts_at", nowIso);
     if (data.range === "past") q = q.lt("starts_at", nowIso);
+    if (data.dateFrom) q = q.gte("starts_at", data.dateFrom);
+    if (data.dateTo) q = q.lte("starts_at", data.dateTo);
+    if (data.search) {
+      const term = `%${data.search.replace(/[%_]/g, "\\$&")}%`;
+      console.log("[listAdminBookings] search term:", data.search, "ilike term:", term);
+      q = q.ilike("patient_name", term);
+    }
     if (data.sortBy === "next_retry") {
       q = q.order("calendar_sync_next_at", { ascending: true, nullsFirst: false });
     } else {
