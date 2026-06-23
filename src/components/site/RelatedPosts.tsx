@@ -1,12 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Clock } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { getRelatedPosts } from "@/lib/blog-posts";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { cn } from "@/lib/utils";
 
 type Props = {
   currentSlug: string;
   limit?: number;
   className?: string;
+};
+
+type ScrollState = {
+  atStart: boolean;
+  atEnd: boolean;
 };
 
 export function RelatedPosts({ currentSlug, limit = 3, className }: Props) {
