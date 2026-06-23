@@ -65,6 +65,12 @@ function SeoPanel() {
   const [inspectResult, setInspectResult] = useState<any>(null);
   const [inspecting, setInspecting] = useState(false);
 
+  const validateFn = useServerFn(validateSitemap);
+  const [validation, setValidation] = useState<SitemapValidationResult | null>(null);
+  const [validating, setValidating] = useState(false);
+  const [validateBase, setValidateBase] = useState("https://bmclinics.ai");
+  const [validateProbe, setValidateProbe] = useState(false);
+
   const t = overview.data?.totals;
   const p = overview.data?.previous;
 
