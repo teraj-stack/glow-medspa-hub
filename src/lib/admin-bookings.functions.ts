@@ -98,14 +98,14 @@ async function syncWithCalendar(bookingId: string): Promise<SyncOutcome> {
   const { data: b, error } = await supabaseAdmin
     .from("visit_bookings")
     .select(
-      "id, status, starts_at, ends_at, patient_name, patient_email, treatment_slug, google_event_id, doctors(full_name, calendar_id)",
+      "id, status, starts_at, ends_at, patient_name, patient_email, treatment_slug, google_event_id, doctors(full_name, google_calendar_id)",
     )
     .eq("id", bookingId)
     .maybeSingle();
   if (error) throw new Error(error.message);
   if (!b) throw new Error("Booking not found");
 
-  const calId = (b as any).doctors?.calendar_id as string | undefined;
+  const calId = (b as any).doctors?.google_calendar_id as string | undefined;
   const status = b.status as string;
 
   // CANCELLED → ensure the event is removed
