@@ -21,6 +21,13 @@ import {
   Ruler,
   CircleDot,
   SlidersHorizontal,
+  ThermometerSun,
+  Droplets,
+  Sun,
+  Ban,
+  Phone,
+  MessageCircle,
+  CalendarDays,
 } from "lucide-react";
 
 export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
@@ -32,7 +39,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
       {
         name: "description",
         content:
-          "Bezpieczeństwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Co zwiększa ryzyko, jak je ograniczyć, kiedy zgłosić się do lekarza oraz jak dobieramy parametry laseroterapii.",
+          "Bezpieczeństwo zabiegów laserowych w zależności od obszaru: twarz, ciało, bikini. Co zwiększa ryzyko, jak je ograniczyć, kiedy zgłosić się do lekarza, jak dobieramy parametry laseroterapii oraz co robić po zabiegu.",
       },
       {
         property: "og:title",
@@ -41,7 +48,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
       {
         property: "og:description",
         content:
-          "Jak dbamy o bezpieczeństwo pacjenta podczas zabiegów laserowych: konsultacja, przeciwwskazania, kwalifikacje personelu i nadzór medyczny.",
+          "Jak dbamy o bezpieczeństwo pacjenta podczas zabiegów laserowych: konsultacja, przeciwwskazania, kwalifikacje personelu, nadzór medyczny oraz zalecenia pozabiegowe.",
       },
       { property: "og:url", content: "https://bmclinics.ai/bezpieczenstwo-zabiegow-laserowych" },
     ],
@@ -257,6 +264,55 @@ const PARAMETER_TABLE = [
   { parameter: "Rozmiar głowicy / plastra", role: "Wpływa na szybkość zabiegu i równomierność pokrycia dużych powierzchnii." },
   { parameter: "Chłodzenie skóry", role: "Chroni naskórek przed przegrzaniem, zwiększając komfort i bezpieczeństwo." },
   { parameter: "Odstępy między sesjami", role: "Dają skórze czas na regenerację i zmniejszają ryzyko przebarwień." },
+];
+
+const POST_PROCEDURE_SYMPTOMS = [
+  {
+    icon: ThermometerSun,
+    title: "Rumień i ciepło",
+    text: "Skóra po zabiegu laserowym jest zazwyczaj zaczerwieniona, ciepła i nieco wrażliwa na dotyk. To naturalna reakcja termiczna naskórka — najczęściej ustępuje w ciągu kilku godzin do 2–3 dni.",
+  },
+  {
+    icon: Droplets,
+    title: "Delikatny obrzęk i ściągnięcie",
+    text: "Lekki obrzęk oraz uczucie ściągnięcia skóry mogą utrzymywać się 24–72 godziny. Pomaga chłodzenie, nawodnienie i łagodna pielęgnacja zalecana przez lekarza.",
+  },
+  {
+    icon: Sun,
+    title: "Łuszczenie i zmiana pigmentacji",
+    text: "Przez kolejne dni może pojawić się drobne łuszczenie naskórka, a w niektórych protokołach — przejściowe ciemniejsze lub jaśniejsze przebarwienia. Ich ustępowanie trwa zwykle od kilku dni do kilku tygodni.",
+  },
+  {
+    icon: AlertCircle,
+    title: "Kruszki lub drobne strupki",
+    text: "Przy głębszych zabiegach mogą powstać drobne kruszki lub strupki. Nie należy ich zdzierać — podrażnia to skórę i zwiększa ryzyko przebarwień oraz blizn.",
+  },
+];
+
+const POST_PROCEDURE_DONT = [
+  "Nie wystawiaj skóry na słońce ani nie korzystaj z solarium przez czas wskazany przez lekarza (zazwyczaj minimum 4 tygodnie).",
+  "Nie używaj na polu zabiegowym kwasów, retinoidów, peelingów mechanicznych ani kosmetyków z alkoholem, dopóki lekarz nie zgodzi się na powrót do rutyny.",
+  "Nie pilinguj, nie drap i nie wycieraj mocno skóry — unikaj tarcia ręcznikiem, gąbką i kosmetycznymi rolkami.",
+  "Nie korzystaj z sauny, gorących kąpieli, basenu i intensywnych ćwiczeń przez pierwsze 24–72 godziny (dłużej w okolicach bikini i twarzy, jeśli zalecono).",
+  "Nie nakładaj makijażu na świeżo podrażnioną skórę twarzy bez zgody lekarza, by nie wprowadzić bakterii i nie nasilić reakcji.",
+];
+
+const CONTACT_STEPS = [
+  {
+    icon: MessageCircle,
+    title: "1. Opisz objawy precyzyjnie",
+    text: "Napisz lub powiedz, kiedy wykonano zabieg, w jakim obszarze występują objawy, jak długo trwają i czy towarzyszy im ból, pęcherz, ropa lub gorączka. Im więcej szczegółów, tym szybciej lekarz oceni sytuację.",
+  },
+  {
+    icon: Phone,
+    title: "2. Skontaktuj się bezpośrednio z kliniką",
+    text: "Nie czekaj na samoistne ustąpienie niepokojących objawów. Zadzwoń lub napisz do Beauty & Mind Clinic — konsultację po zabiegu traktujemy priorytetowo, a nasz personel medyczny oceni, czy konieczna jest wizyta kontrolna.",
+  },
+  {
+    icon: CalendarDays,
+    title: "3. Umów wizytę kontrolną, jeśli zalecono",
+    text: "Po rozmowie lekarz może zaprosić Cię na bezpłatną wizytę kontrolną, by obejrzeć skórę, wdrożyć łagodzącą pielęgnację lub w razie potrzeby rozpocząć leczenie powikłania. Termin dostosowujemy do pilności przypadku.",
+  },
 ];
 
 const FAQ = [
@@ -521,6 +577,91 @@ function LaserSafetyPage() {
             Każda sesja jest dokumentowana — dzięki temu wiemy, które parametry działają bezpiecznie i
             skutecznie dla danego pacjenta.
           </p>
+        </div>
+      </section>
+
+      {/* POST-PROCEDURE */}
+      <section className="container-luxury py-12 md:py-20">
+        <SectionHeading
+          eyebrow="PO ZABIEGU"
+          title="Kiedy i co robić po zabiegu"
+          description="Po laseroterapii skóra potrzebuje wsparcia, by zregenerować się bezpiecznie. Poniżej znajdziesz typowe objawy, czynności, których należy unikać, oraz jasne kroki kontaktu z kliniką, gdy coś Cię niepokoi."
+        />
+        <div className="mt-10 grid gap-8 lg:grid-cols-2">
+          <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+            <div className="flex items-center gap-3 text-champagne">
+              <Clock className="size-5" aria-hidden="true" />
+              <h3 className="font-serif text-xl text-ink">Typowe objawy po zabiegu</h3>
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+              Większość poniższych objawów jest przejściowa i ustępuje samoistnie. Ich nasilenie zależy od głębokości i agresywności zabiegu oraz indywidualnej reaktywności skóry.
+            </p>
+            <ul className="mt-6 space-y-5">
+              {POST_PROCEDURE_SYMPTOMS.map((s) => (
+                <li key={s.title} className="flex items-start gap-4">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-champagne/10 text-champagne">
+                    <s.icon className="size-4" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <span className="font-medium text-ink">{s.title}</span>
+                    <p className="mt-1 text-sm leading-relaxed text-foreground/80 md:text-base">
+                      {s.text}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-8">
+            <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+              <div className="flex items-center gap-3 text-champagne">
+                <Ban className="size-5" aria-hidden="true" />
+                <h3 className="font-serif text-xl text-ink">Czego unikać po zabiegu</h3>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+                Przestrzeganie tych zasad zmniejsza ryzyko przebarwień, podrażnień i opóźnienia regeneracji:
+              </p>
+              <ul className="mt-6 space-y-4">
+                {POST_PROCEDURE_DONT.map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3 text-sm text-foreground/80 md:text-base">
+                    <AlertCircle className="mt-0.5 size-4 shrink-0 text-champagne" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-border bg-card p-6 shadow-soft md:p-8">
+              <div className="flex items-center gap-3 text-champagne">
+                <Phone className="size-5" aria-hidden="true" />
+                <h3 className="font-serif text-xl text-ink">Jak skontaktować się z kliniką</h3>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+                Jeśli objawy utrzymują się dłużej niż zalecono, nasilają się lub budzą niepokój — skontaktuj się z nami w trzech prostych krokach:
+              </p>
+              <ol className="mt-6 space-y-5">
+                {CONTACT_STEPS.map((step) => (
+                  <li key={step.title} className="flex items-start gap-4">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-champagne/10 text-champagne">
+                      <step.icon className="size-4" aria-hidden="true" />
+                    </div>
+                    <div>
+                      <span className="font-medium text-ink">{step.title}</span>
+                      <p className="mt-1 text-sm leading-relaxed text-foreground/80 md:text-base">
+                        {step.text}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-8 rounded-lg bg-secondary/40 p-5">
+                <p className="text-sm leading-relaxed text-foreground/80 md:text-base">
+                  <strong className="text-ink">W razie nagłych objawów:</strong> silny ból, pęcherze, ropne wydzielanie, gorączka lub szybko narastające zaczerwienienie — zadzwoń natychmiast lub przyjdź na wizytę kontrolną. Twoje bezpieczeństwo jest dla nas priorytetem.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
