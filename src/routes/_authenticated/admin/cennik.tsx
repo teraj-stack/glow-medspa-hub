@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { TECHNOLOGIES } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import {
   listHiddenPricingItems,
   setPricingItemHidden,
@@ -93,19 +94,28 @@ function AdminPricing() {
                 <h3 className="font-medium text-foreground mb-2">{t.name}</h3>
                 <div className="overflow-hidden rounded-lg border border-border bg-card">
                   <table className="w-full text-sm">
-                    <tbody>
-                      {rows.map((p) => {
-                        const key = `${t.slug}::${p.label}`;
-                        const isHidden = hiddenSet.has(key);
-                        const isPending = pending.has(key);
-                        return (
-                          <tr
-                            key={p.label}
-                            className={`border-b border-border last:border-0 ${
-                              isHidden ? "bg-muted/40" : ""
-                            }`}
-                          >
-                            <td className="px-4 py-3">
+                  <tbody>
+                    {rows.map((p) => {
+                      const key = `${t.slug}::${p.label}`;
+                      const isHidden = hiddenSet.has(key);
+                      const isPending = pending.has(key);
+                      return (
+                        <tr
+                          key={p.label}
+                          className="border-b border-border last:border-0"
+                        >
+                          <td className="px-4 py-3">
+                            <div className="flex items-center gap-3">
+                              <Switch
+                                checked={!isHidden}
+                                disabled={isPending}
+                                onCheckedChange={(checked) =>
+                                  toggle(t.slug, p.label, !checked)
+                                }
+                                aria-label={
+                                  isHidden ? "Przywróć pozycję" : "Ukryj pozycję"
+                                }
+                              />
                               <span
                                 className={
                                   isHidden ? "text-muted-foreground line-through" : ""
@@ -113,33 +123,26 @@ function AdminPricing() {
                               >
                                 {p.label}
                               </span>
-                              {isHidden && (
-                                <span className="ml-2 inline-flex items-center rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-700">
-                                  ukryte
-                                </span>
-                              )}
-                            </td>
-                            <td className="px-4 py-3 text-right text-muted-foreground">
-                              {formatCena(p.price, { prefix: "od" })}
-                            </td>
-                            <td className="px-4 py-3 text-right">
-                              <Button
-                                size="sm"
-                                variant={isHidden ? "default" : "outline"}
-                                disabled={isPending}
-                                onClick={() => toggle(t.slug, p.label, !isHidden)}
-                              >
-                                {isPending
-                                  ? "…"
-                                  : isHidden
-                                    ? "Przywróć"
-                                    : "Ukryj"}
-                              </Button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3">
+                            <span
+                              className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                                isHidden
+                                  ? "bg-amber-500/15 text-amber-500"
+                                  : "bg-emerald-500/15 text-emerald-500"
+                              }`}
+                            >
+                              {isHidden ? "ukryta" : "widoczna"}
+                            </span>
+                          </td>
+                          <td className="px-4 py-3 text-right text-muted-foreground">
+                            {formatCena(p.price, { prefix: "od" })}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
                   </table>
                 </div>
               </section>
