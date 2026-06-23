@@ -122,7 +122,7 @@ export const Route = createFileRoute("/technologie/picoking")({
       ],
       links: [
         { rel: "canonical", href: url },
-        { rel: "preload", as: "image", href: heroImg, fetchPriority: "high" },
+        { rel: "preload", as: "image", href: heroAvif.url, type: "image/avif", fetchPriority: "high" },
       ],
       scripts: scripts.length > 0 ? scripts : undefined,
     };
