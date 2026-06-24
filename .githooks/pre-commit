@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+# Pre-commit: blokuje commit, gdy treści na /technologie mają błędy
+# typograficzne (urwania, elipsy, proste cudzysłowy, brak polskich znaków).
+#
+# Hook uruchamia się tylko, gdy w commicie są zmiany w plikach
+# src/routes/technologie*.tsx — żeby nie spowalniać niepowiązanych commitów.
+
+set -e
+
+CHANGED=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^src/routes/technologie.*\.tsx$' || true)
+
+if [ -z "$CHANGED" ]; then
+  exit 0
+fi
+
+echo "→ pre-commit: validate:technologie (zmienione: $(echo "$CHANGED" | wc -l | tr -d ' ') plik(ów))"
+
+if ! node scripts/validate-technologie.mjs; then
+  echo ""
+  echo "✗ Commit zablokowany — popraw powyższe błędy typograficzne lub użyj 'git commit --no-verify' (nieodradzane)."
+  exit 1
+fi

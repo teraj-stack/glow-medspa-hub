@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "test": "vitest run",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
