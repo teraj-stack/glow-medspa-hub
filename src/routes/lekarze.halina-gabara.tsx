@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
 import { Watermark } from "@/components/site/Watermark";
+import halinaPortrait from "@/assets/halina-portrait.png.asset.json";
 import geometria640Avif from "@/assets/halina-geometria-640.avif.asset.json";
 import geometria960Avif from "@/assets/halina-geometria-960.avif.asset.json";
 import geometria1280Avif from "@/assets/halina-geometria-1280.avif.asset.json";
@@ -124,12 +125,18 @@ function HalinaGabaraPage() {
         </nav>
 
         <div className="mt-10 grid gap-12 md:mt-14 md:grid-cols-[auto,1fr] md:items-start md:gap-16">
-          <div
-            aria-hidden
-            className="mx-auto flex size-40 items-center justify-center rounded-full bg-secondary font-serif text-4xl text-muted-foreground md:mx-0 md:size-48"
-          >
-            HG
-          </div>
+          <figure className="relative mx-auto w-full max-w-[18rem] overflow-hidden rounded-lg border border-border/60 bg-secondary/30 md:mx-0 md:w-72">
+            <img
+              src={halinaPortrait.url}
+              alt="lek. Halina Gabara — portret wizerunkowy na tle logo Bujok Medical"
+              width={896}
+              height={1184}
+              loading="eager"
+              decoding="async"
+              className="block h-auto w-full"
+            />
+            <Watermark size="sm" />
+          </figure>
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
               Lekarz prowadzący
