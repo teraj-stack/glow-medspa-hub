@@ -88,7 +88,7 @@ export const TECHNOLOGIES: Technology[] = [
     name: "Zimna plazma atmosferyczna (CAP)",
     category: "skóra",
     shortDesc:
-      "Najnowsza, nieablacyjna technologia rewitalizacji — czwarty stan skupienia materii pracujący w temperaturze fizjologicznej (35–40°C). Obecnie najczęściej wybierane narzędzie regeneracyjne na świecie — ponad 1 200 000 pacjentek miesięcznie.",
+      "Najnowsza, nieablacyjna technologia rewitalizacji — czwarty stan skupienia materii pracujący w temperaturze fizjologicznej (35–40°C). Obecnie najczęściej wybierane narzędzie regeneracyjne na świecie — ponad 1 200 000 pacjentek każdego dnia.",
     mechanism:
       "Zjonizowany strumień gazu szlachetnego (hel / argon) dostarcza do skóry kontrolowane stężenia Reaktywnych Form Tlenu i Azotu (RONS). Indukują one tzw. eustres oksydacyjny — fibroblasty zwiększają proliferację i biogenezę mitochondriów, uruchamiając kaskadę TGF-β / SMAD4. Po 12 tygodniach gęstość siatki kolagenowej rośnie średnio o 40%. Równolegle zachodzi plazmoporacja — czasowe rozluźnienie połączeń międzykomórkowych naskórka, które zwiększa przenikalność kosmetyków aktywnych nawet kilkudziesięciokrotnie.",
     applicators: [
@@ -117,7 +117,7 @@ export const TECHNOLOGIES: Technology[] = [
     faq: [
       { q: "Czy to ta sama „plazma” co przy nieoperacyjnej blefaroplastyce?", a: "Nie. Blefaroplastyka plazmowa wykorzystuje mikroskopijny łuk elektryczny (plazma gorąca, sublimacja w 60–65°C) i pozostawia strupki. Zimna plazma atmosferyczna (CAP) pracuje w 35–40°C, nie powoduje koagulacji ani strupów — działa wyłącznie biochemicznie, przez chemię wolnych rodników." },
       { q: "Czy zabieg boli i wymaga rekonwalescencji?", a: "Zabieg jest bezbolesny, bezinwazyjny, bez rekonwalescencji. Skóra po zabiegu wygląda promiennie, można od razu wrócić do codziennych aktywności i nałożyć makijaż." },
-      { q: "Dlaczego stosuję zimną plazmę w każdym protokole rewitalizacyjnym?", a: "To obecnie najnowsza i najczęściej wybierana technologia regeneracyjna na świecie — ponad 1,2 miliona pacjentek miesięcznie. Zwiększa przenikalność substancji aktywnych nawet kilkudziesięciokrotnie, dlatego stanowi pierwszy krok w protokołach złożonych (zimna plazma → laser pikosekundowy → fototerapia LED)." },
+      { q: "Dlaczego stosuję zimną plazmę w każdym protokole rewitalizacyjnym?", a: "To obecnie najnowsza i najczęściej wybierana technologia regeneracyjna na świecie — ponad 1,2 miliona pacjentek każdego dnia. Zwiększa przenikalność substancji aktywnych nawet kilkudziesięciokrotnie, dlatego stanowi pierwszy krok w protokołach złożonych (zimna plazma → laser pikosekundowy → fototerapia LED)." },
       { q: "Czy plazma działa antybakteryjnie?", a: "Tak — strumień plazmy generuje ozon i RONS, które niszczą Cutibacterium acnes przez peroksydację lipidów błony komórkowej. Bakterie nie wytwarzają oporności wtórnej, dlatego CAP jest wykorzystywany w trądziku zapalnym, AZS i wspomaganiu gojenia ran." },
       { q: "Ile zabiegów potrzeba?", a: "Efekt rewitalizujący widać już po pierwszej sesji. Pełna przebudowa kolagenowa rozwija się przez 12 tygodni — rekomendujemy serię 4–6 zabiegów co 2–3 tygodnie." },
     ],
