@@ -65,8 +65,10 @@ type PortraitPickerProps = {
 };
 
 function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPickerProps) {
+  const { data: isAdmin } = useIsAdmin();
   const queryClient = useQueryClient();
   const savePortrait = useServerFn(saveDoctorPortrait);
+
 
   const startingCrop: PortraitCrop = initialCrop
     ? {
