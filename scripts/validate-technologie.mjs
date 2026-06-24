@@ -98,8 +98,7 @@ for (const file of files) {
   }
 }
 
-  }
-}
+
 
 if (issues.length === 0) {
   console.log(`✓ /technologie: ${files.length} plików OK, brak wykrytych problemów`);
