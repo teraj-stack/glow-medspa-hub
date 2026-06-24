@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
-import { getDoctorBySlug } from "@/lib/doctors.functions";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
+import { getDoctorBySlug, saveDoctorPortrait } from "@/lib/doctors.functions";
 import halinaPortrait from "@/assets/halina-portrait.png.asset.json";
 
 type PortraitShape = "circle" | "square" | "portrait45";
