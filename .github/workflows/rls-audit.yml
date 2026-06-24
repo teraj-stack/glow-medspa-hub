@@ -1,0 +1,90 @@
+name: RLS Audit
+
+# Stały audyt Row-Level Security.
+# Wykrywa:
+#   - tabele w public bez RLS,
+#   - brakujące polityki SELECT/INSERT/UPDATE/DELETE,
+#   - zbyt permisywne polityki INSERT/UPDATE/DELETE (USING/WITH CHECK true).
+# Uruchamia się przy zmianach migracji, skryptu audytu lub allowlisty,
+# na każdym pushu do main oraz codziennie rano.
+
+on:
+  pull_request:
+    paths:
+      - "supabase/migrations/**"
+      - "scripts/audit-rls.mjs"
+      - "docs/rls-audit-allowlist.json"
+      - ".github/workflows/rls-audit.yml"
+  push:
+    branches: [main]
+    paths:
+      - "supabase/migrations/**"
+      - "scripts/audit-rls.mjs"
+      - "docs/rls-audit-allowlist.json"
+      - ".github/workflows/rls-audit.yml"
+  schedule:
+    - cron: "0 7 * * *"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    name: RLS audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Cache ~/.npm
+        id: npm-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
+
+      - name: Cache node_modules
+        id: node-modules-cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install JS dependencies
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
+        run: npm ci --prefer-offline --no-audit --no-fund
+
+      - name: Run RLS audit
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          REPORT_DIR: reports
+          RLS_AUDIT_ALLOWLIST: docs/rls-audit-allowlist.json
+        run: node scripts/audit-rls.mjs
+
+      - name: Upload RLS audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rls-audit-report
+          path: reports/rls-audit.*
+          if-no-files-found: error
+
+      - name: Step summary
+        if: always()
+        run: |
+          {
+            echo "## RLS Audit"
+            echo ""
+            if [ -f reports/rls-audit.json ]; then
+              TABLES=$(node -e "console.log(JSON.parse(require('fs').readFileSync('reports/rls-audit.json','utf8')).tables_scanned)")
+              FINDINGS=$(node -e "console.log(JSON.parse(require('fs').readFileSync('reports/rls-audit.json','utf8')).findings_count)")
+              echo "- Przeskanowane tabele: \`$TABLES\`"
+              echo "- Findingi: \`$FINDINGS\`"
+            fi
+            echo "- Artifact: \`rls-audit-report\` (JSON + HTML)"
+          } >> "$GITHUB_STEP_SUMMARY"
