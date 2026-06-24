@@ -1,4 +1,4 @@
-# BM Clinics
+# BMClinics.ai
 
 ## Dev — konto admina
 

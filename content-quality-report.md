@@ -98,7 +98,7 @@ Przeskanowanych plików tras: 37
 
 ### `/polityka-prywatnosci`
 - urwane: "Polityka prywatności"
-- podwójne spacje: "Administratorem Państwa danych osobowych jest BM Clinics z siedzibą w Siedlcach.
+- podwójne spacje: "Administratorem Państwa danych osobowych jest BMClinics.ai z siedzibą w Siedlcach.
  ␣␣ Dane przekazane przez formularz rezerwacyjny przetwarzamy wyłącznie w celu kontaktu w sprawie
  ␣␣ umówienia wizyty, na podstawie art. 6 ust. 1 lit. a RODO."
 - podwójne spacje: "Mają Państwo prawo dostępu do treści swoich danych, ich sprostowania, usunięcia, ograniczenia
@@ -169,7 +169,7 @@ Przeskanowanych plików tras: 37
  ␣␣ Oto co możesz zaobserwować bez obaw:"
 
 ### `/regulamin`
-- podwójne spacje: "Niniejszy regulamin określa zasady korzystania z usług kliniki BM Clinics w Siedlcach,
+- podwójne spacje: "Niniejszy regulamin określa zasady korzystania z usług kliniki BMClinics.ai w Siedlcach,
  ␣␣ w tym warunki rezerwacji wizyt, odwołań i reklamacji."
 - podwójne spacje: "Rezerwacja wizyty następuje poprzez formularz na stronie lub kontakt telefoniczny. Anulowanie
  ␣␣ wizyty na mniej niż 24 godziny przed terminem może wiązać się z opłatą rezerwacyjną."
@@ -239,7 +239,7 @@ Przeskanowanych plików tras: 37
 - urwane: "Wróć na stronę główną"
 - urwane: "width=device-width, initial-scale=1"
 - brak kropki: "ac6x7fhzir3wN2rMsVlD1uTAjpSXJJpy5FKhCTEd1NU"
-- brak kropki: "BM Clinics — Medycyna estetyczna, Siedlce"
+- brak kropki: "BMClinics.ai — Medycyna estetyczna, Siedlce"
 - urwane: "BMClinics.ai"
 
 ### `/auth`
@@ -258,7 +258,7 @@ Przeskanowanych plików tras: 37
 - podwójne spacje: "p.trim()).filter(Boolean)
  ␣␣ : [
  ␣␣ "Ścieżkę zawodową budowałam przez kilkanaście lat, łącząc praktykę w warszawskich klinikach premium z ortodontycznym, analitycznym spojrzeniem na twarz.",
- ␣␣ "W BM Clinics w Siedlcach prowadzę pacjentów w identycznym standardzie — od konsultacji i diagnostyki, przez plan terapii, po opiekę pozabiegową i wizyty kontrolne.",
+ ␣␣ "W BMClinics.ai w Siedlcach prowadzę pacjentów w identycznym standardzie — od konsultacji i diagnostyki, przez plan terapii, po opiekę pozabiegową i wizyty kontrolne.",
  ␣␣ ]);
  ␣␣ const specializations = (doctor?.specializations && doctor.specializations.length)
  ␣␣ ? doctor.specializations
@@ -278,7 +278,7 @@ Przeskanowanych plików tras: 37
  ␣␣ między strukturami głębokimi twarzy a jej powierzchnią."
 - podwójne spacje: "Ta wiedza, łącząca cefalometrię, antropometrię i geometrię
  ␣␣ proporcji, pozwala budować plany zabiegowe na indywidualnej
- ␣␣ anatomii, a nie na gotowych wzorach. W BM Clinics
+ ␣␣ anatomii, a nie na gotowych wzorach. W BMClinics.ai
  ␣␣ tworzymy na tej bazie nowy standard opieki: od precyzyjnej
  ␣␣ diagnostyki, przez dobór technik, po opiekę okołozabiegową."
 
@@ -350,7 +350,7 @@ Przeskanowanych plików tras: 37
  ␣␣ opieki w Siedlcach. Każda terapia projektowana indywidualnie, z naciskiem
  ␣␣ na bezpieczeństwo i przewidywalny efekt."
 - urwane: "Umów konsultację"
-- brak kropki: "Lekarze i specjaliści — BM Clinics Siedlce"
+- brak kropki: "Lekarze i specjaliści — BMClinics.ai Siedlce"
 
 ### `/_authenticated/admin/seo`
 - podwójne spacje: "= 0;
@@ -436,9 +436,9 @@ Przeskanowanych plików tras: 37
 
 ### `/formularz/$token`
 - urwane: "Link jest nieprawidłowy lub wygasł"
-- podwójne spacje: "Wyrażam zgodę na przetwarzanie danych medycznych przez BM Clinics
+- podwójne spacje: "Wyrażam zgodę na przetwarzanie danych medycznych przez BMClinics.ai
  ␣␣ w celu przygotowania konsultacji. *"
-- brak kropki: "Formularz wstępnej diagnostyki | BM Clinics"
+- brak kropki: "Formularz wstępnej diagnostyki | BMClinics.ai"
 
 ### `/cennik`
 - podwójne spacje: "0);

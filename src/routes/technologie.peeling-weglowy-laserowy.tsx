@@ -30,7 +30,7 @@ export const Route = createFileRoute("/technologie/peeling-weglowy-laserowy")({
   },
   head: () => {
     const title =
-      "Peeling węglowy laserowy (Hollywood Peel / Carbon Peel) — efekt glow bez rekonwalescencji | BM Clinics Siedlce";
+      "Peeling węglowy laserowy (Hollywood Peel / Carbon Peel) — efekt glow bez rekonwalescencji | BMClinics.ai Siedlce";
     const description =
       "Laserowy peeling węglowy (Carbon Peel, Hollywood Peel) — natychmiastowy efekt rozświetlenia, zwężenia porów i wygładzenia skóry. Bez bólu, bez rekonwalescencji. Standard premium klinik warszawskich w Siedlcach.";
 
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/technologie/peeling-weglowy-laserowy")({
       url: PAGE_URL,
       provider: {
         "@type": "MedicalBusiness",
-        name: "BM Clinics",
+        name: "BMClinics.ai",
         url: "https://bmclinics.ai",
         address: { "@type": "PostalAddress", addressLocality: "Siedlce", addressCountry: "PL" },
       },

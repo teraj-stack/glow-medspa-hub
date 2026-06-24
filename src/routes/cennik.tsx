@@ -8,12 +8,12 @@ import { listHiddenPricingItems } from "@/lib/pricing-visibility.functions";
 export const Route = createFileRoute("/cennik")({
   head: () => ({
     meta: [
-      { title: "Cennik zabiegów | BM Clinics Siedlce" },
+      { title: "Cennik zabiegów | BMClinics.ai Siedlce" },
       {
         name: "description",
         content: "Orientacyjny cennik zabiegów medycyny estetycznej i laserowej w Siedlcach. Ostateczna cena ustalana na konsultacji.",
       },
-      { property: "og:title", content: "Cennik — BM Clinics" },
+      { property: "og:title", content: "Cennik — BMClinics.ai" },
       { property: "og:description", content: "Przejrzyste ceny, indywidualna wycena protokołu." },
       { property: "og:url", content: "https://bmclinics.ai/cennik" },
     ],

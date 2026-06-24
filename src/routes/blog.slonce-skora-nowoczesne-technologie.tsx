@@ -53,7 +53,7 @@ const FAQ = [
 export const Route = createFileRoute("/blog/slonce-skora-nowoczesne-technologie")({
   head: () => ({
     meta: [
-      { title: `${TITLE} — BM Clinics` },
+      { title: `${TITLE} — BMClinics.ai` },
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
@@ -62,7 +62,7 @@ export const Route = createFileRoute("/blog/slonce-skora-nowoczesne-technologie"
       { property: "og:locale", content: "pl_PL" },
       { property: "article:published_time", content: PUBLISHED },
       { property: "article:modified_time", content: PUBLISHED },
-      { property: "article:author", content: "BM Clinics" },
+      { property: "article:author", content: "BMClinics.ai" },
       { property: "article:section", content: "Medycyna estetyczna" },
       { property: "article:tag", content: "laser pikosekundowy" },
       { property: "article:tag", content: "laser frakcyjny CO2" },
@@ -78,10 +78,10 @@ export const Route = createFileRoute("/blog/slonce-skora-nowoczesne-technologie"
           "@type": "Article",
           headline: TITLE,
           description: DESCRIPTION,
-          author: { "@type": "Organization", name: "BM Clinics" },
+          author: { "@type": "Organization", name: "BMClinics.ai" },
           publisher: {
             "@type": "Organization",
-            name: "BM Clinics",
+            name: "BMClinics.ai",
             logo: {
               "@type": "ImageObject",
               url: "https://bmclinics.ai/favicon.ico",

@@ -28,11 +28,11 @@ export const Route = createFileRoute("/renasculpt")({
   head: ({ loaderData }) => {
     const tech = (loaderData as { tech: Technology } | undefined)?.tech ?? getTechnology(TECH_SLUG)!;
     const title =
-      "Modelowanie sylwetki HIFEM + EMS + RF — Renasculpt | BM Clinics Siedlce";
+      "Modelowanie sylwetki HIFEM + EMS + RF — Renasculpt | BMClinics.ai Siedlce";
     const description =
       "Synchroniczna stymulacja elektromagnetyczna mięśni (HIFEM/EMS) połączona z radiofrekwencją: 30-minutowa sesja, bez nacięć, bez znieczulenia, bez rekonwalescencji. Średnio +16% masy mięśniowej i -19% tkanki tłuszczowej w badaniach klinicznych. Standard premium klinik warszawskich — w Siedlcach.";
     const keywords =
-      "HIFEM, EMS, RF, radiofrekwencja, modelowanie sylwetki Siedlce, redukcja tkanki tłuszczowej, lifting pośladków bez operacji, mięśnie dna miednicy, diastasis recti, Renasculpt, BM Clinics";
+      "HIFEM, EMS, RF, radiofrekwencja, modelowanie sylwetki Siedlce, redukcja tkanki tłuszczowej, lifting pośladków bez operacji, mięśnie dna miednicy, diastasis recti, Renasculpt, BMClinics.ai";
 
     const serviceSchema = {
       "@context": "https://schema.org",
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/renasculpt")({
       url: PAGE_URL,
       provider: {
         "@type": "MedicalBusiness",
-        name: "BM Clinics",
+        name: "BMClinics.ai",
         url: "https://bmclinics.ai",
         address: {
           "@type": "PostalAddress",
@@ -77,14 +77,14 @@ export const Route = createFileRoute("/renasculpt")({
         { title },
         { name: "description", content: description },
         { name: "keywords", content: keywords },
-        { name: "author", content: "BM Clinics" },
+        { name: "author", content: "BMClinics.ai" },
         { name: "robots", content: "index, follow, max-image-preview:large" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:url", content: PAGE_URL },
         { property: "og:type", content: "article" },
         { property: "og:locale", content: "pl_PL" },
-        { property: "og:site_name", content: "BM Clinics" },
+        { property: "og:site_name", content: "BMClinics.ai" },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
