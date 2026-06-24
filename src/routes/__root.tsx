@@ -76,7 +76,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "google-site-verification", content: "ac6x7fhzir3wN2rMsVlD1uTAjpSXJJpy5FKhCTEd1NU" },
       { name: "author", content: "BM Clinics" },
       { name: "theme-color", content: "#0a0a0a" },
-      { name: "test", content: "foo" },
       { property: "og:title", content: "BM Clinics — Medycyna estetyczna, Siedlce" },
       { property: "og:description", content: "Klinika medycyny estetycznej i laserowej w Siedlcach. Naturalny efekt, dyskretna pamięć." },
       { property: "og:type", content: "website" },
