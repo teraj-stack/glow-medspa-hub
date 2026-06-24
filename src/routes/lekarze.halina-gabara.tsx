@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
+import geometriaTwarzyAsset from "@/assets/halina-geometria-twarzy.jpeg.asset.json";
 
 const CANONICAL = "https://bmclinics.ai/lekarze/halina-gabara";
 
