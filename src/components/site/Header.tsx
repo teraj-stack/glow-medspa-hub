@@ -17,7 +17,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
       <div className="container-luxury flex h-16 items-center justify-between md:h-20">
-        <Link to="/" aria-label="Beauty & Mind Clinic — strona główna" className="flex items-center">
+        <Link to="/" aria-label="BM Clinics — strona główna" className="flex items-center">
           <img
             src={logoBmc.url}
             alt="Bujok Medical"

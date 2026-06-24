@@ -74,7 +74,7 @@ export const Route = createFileRoute("/blog/blizny-potradzikowe")({
       { property: "og:type", content: "article" },
       { property: "article:published_time", content: "2026-06-22T10:00:00+02:00" },
       { property: "article:modified_time", content: "2026-06-22T10:00:00+02:00" },
-      { property: "article:author", content: "Beauty & Mind Clinic" },
+      { property: "article:author", content: "BM Clinics" },
       { property: "article:section", content: "Medycyna estetyczna" },
       { property: "article:tag", content: "blizny potrądzikowe" },
       { property: "article:tag", content: "laser pikosekundowy" },
@@ -93,10 +93,10 @@ export const Route = createFileRoute("/blog/blizny-potradzikowe")({
           headline: "Blizny potrądzikowe — jak skutecznie zredukować dziury po trądziku",
           description:
             "Kompletny przewodnik po nowoczesnych metodach usuwania blizn potrądzikowych: laser pikosekundowy, radiofrekwencja mikroigłowa, protokoły łączone.",
-          author: { "@type": "Organization", name: "Beauty & Mind Clinic" },
+          author: { "@type": "Organization", name: "BM Clinics" },
           publisher: {
             "@type": "Organization",
-            name: "Beauty & Mind Clinic",
+            name: "BM Clinics",
             logo: { "@type": "ImageObject", url: "https://bmclinics.ai/favicon.ico" },
           },
           datePublished: "2026-06-22T10:00:00+02:00",
@@ -295,7 +295,7 @@ function AcneScarsGuide() {
               title="Protokół łączony — dlaczego dwie technologie działają lepiej niż jedna"
             />
             <p className="mt-4 text-base text-foreground/85 md:text-lg leading-relaxed">
-              W Beauty &amp; Mind Clinic laser pikosekundowy pracuje wyłącznie w protokołach
+              W BM Clinics laser pikosekundowy pracuje wyłącznie w protokołach
               złożonych. Powód jest prosty: laser świetnie pobudza fibroblasty i wygładza
               powierzchnię, ale radiofrekwencja mikroigłowa sięga głębiej. Połączenie obu technologii
               w jednej sesji daje efekt synergii — kolagen powstaje na dwóch poziomach jednocześnie.

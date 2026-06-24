@@ -124,11 +124,11 @@ export const WelcomeEmail = ({
 }: WelcomeEmailProps) => (
   <Html lang="pl" dir="ltr">
     <Head />
-    <Preview>Witamy w Beauty & Mind Clinic — Twoja podróż z pięknem zaczyna się teraz</Preview>
+    <Preview>Witamy w BM Clinics — Twoja podróż z pięknem zaczyna się teraz</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section>
-          <Text style={siteNameStyle}>Beauty & Mind Clinic</Text>
+          <Text style={siteNameStyle}>BM Clinics</Text>
           <div style={accentLine} />
           <Heading style={heading}>Witamy w klinice</Heading>
           {name ? (
@@ -137,7 +137,7 @@ export const WelcomeEmail = ({
             <Text style={greeting}>Dzień dobry,</Text>
           )}
           <Text style={text}>
-            Dziękujemy za dołączenie do <strong>Beauty & Mind Clinic</strong>. Twoje konto
+            Dziękujemy za dołączenie do <strong>BM Clinics</strong>. Twoje konto
             zostało pomyślnie utworzone i jesteśmy gotowi, by towarzyszyć Ci w podróży
             ku naturalnemu pięknu.
           </Text>
@@ -181,12 +181,12 @@ export const WelcomeEmail = ({
           <Text style={text}>
             Z wyrazami szacunku,
             <br />
-            <strong>Zespół Beauty & Mind Clinic</strong>
+            <strong>Zespół BM Clinics</strong>
           </Text>
         </Section>
 
         <Text style={footer}>
-          Beauty & Mind Clinic · Siedlce
+          BM Clinics · Siedlce
           <br />
           <Link href={siteUrl} style={{ ...linkStyle, fontSize: '12px' }}>
             bmclinics.ai
@@ -199,7 +199,7 @@ export const WelcomeEmail = ({
 
 export const template = {
   component: WelcomeEmail,
-  subject: 'Witamy w Beauty & Mind Clinic',
+  subject: 'Witamy w BM Clinics',
   displayName: 'Wiadomość powitalna',
   previewData: { name: 'Anna' },
 } satisfies TemplateEntry

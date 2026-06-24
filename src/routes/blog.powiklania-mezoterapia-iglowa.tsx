@@ -41,11 +41,11 @@ const FAQ = [
 export const Route = createFileRoute("/blog/powiklania-mezoterapia-iglowa")({
   head: () => ({
     meta: [
-      { title: "Powikłania po mezoterapii igłowej — jak ich unikać | Beauty & Mind Clinic Siedlce" },
+      { title: "Powikłania po mezoterapii igłowej — jak ich unikać | BM Clinics Siedlce" },
       {
         name: "description",
         content:
-          "Kompletny przewodnik po powikłaniach po mezoterapii igłowej: jakie są najczęstsze skutki uboczne, kiedy należy się martwić i jak unikać komplikacji. Beauty & Mind Clinic Siedlce.",
+          "Kompletny przewodnik po powikłaniach po mezoterapii igłowej: jakie są najczęstsze skutki uboczne, kiedy należy się martwić i jak unikać komplikacji. BM Clinics Siedlce.",
       },
       {
         name: "keywords",
@@ -62,7 +62,7 @@ export const Route = createFileRoute("/blog/powiklania-mezoterapia-iglowa")({
       { property: "og:type", content: "article" },
       { property: "article:published_time", content: "2025-06-22T10:00:00+02:00" },
       { property: "article:modified_time", content: "2025-06-22T10:00:00+02:00" },
-      { property: "article:author", content: "Beauty & Mind Clinic" },
+      { property: "article:author", content: "BM Clinics" },
       { property: "article:section", content: "Medycyna estetyczna" },
       { property: "article:tag", content: "mezoterapia igłowa" },
       { property: "article:tag", content: "bezpieczeństwo zabiegów" },
@@ -81,10 +81,10 @@ export const Route = createFileRoute("/blog/powiklania-mezoterapia-iglowa")({
           headline: "Powikłania po mezoterapii igłowej — jakich można się spodziewać i jak ich unikać",
           description:
             "Kompletny przewodnik po powikłaniach po mezoterapii igłowej: jakie są najczęstsze skutki uboczne, kiedy należy się martwić i jak unikać komplikacji.",
-          author: { "@type": "Organization", name: "Beauty & Mind Clinic" },
+          author: { "@type": "Organization", name: "BM Clinics" },
           publisher: {
             "@type": "Organization",
-            name: "Beauty & Mind Clinic",
+            name: "BM Clinics",
             logo: { "@type": "ImageObject", url: "https://bmclinics.ai/favicon.ico" },
           },
           datePublished: "2025-06-22T10:00:00+02:00",
@@ -449,7 +449,7 @@ function ComplicationsGuide() {
           </div>
 
           <div className="rounded-lg border border-champagne/40 bg-secondary/40 p-6">
-            <div className="font-serif text-lg text-ink">Beauty & Mind Clinic</div>
+            <div className="font-serif text-lg text-ink">BM Clinics</div>
             <p className="mt-2 text-sm text-muted-foreground">
               Klinika medycyny estetycznej i laserowej w Siedlcach. Bezpieczeństwo pacjenta jest
               naszym priorytetem — każdy zabieg wykonuje wyłącznie doświadczony lekarz z

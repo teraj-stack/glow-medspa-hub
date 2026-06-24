@@ -10,13 +10,13 @@ import komfortAsset from "@/assets/komfort-szkic.png.asset.json";
 export const Route = createFileRoute("/potrzeby")({
   head: () => ({
     meta: [
-      { title: "Potrzeby — Beauty & Mind Clinic Siedlce" },
+      { title: "Potrzeby — BM Clinics Siedlce" },
       {
         name: "description",
         content:
           "Pięć obszarów, w których pomagamy: kontury twarzy, tekstura skóry, rewitalizacja dłoni, okolica oka oraz komfort i pewność siebie.",
       },
-      { property: "og:title", content: "Potrzeby — Beauty & Mind Clinic" },
+      { property: "og:title", content: "Potrzeby — BM Clinics" },
       { property: "og:description", content: "Na czym się skupiamy — pięć obszarów naszej praktyki." },
       { property: "og:url", content: "https://bmclinics.ai/potrzeby" },
     ],

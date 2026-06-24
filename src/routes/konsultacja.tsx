@@ -9,13 +9,13 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 export const Route = createFileRoute("/konsultacja")({
   head: () => ({
     meta: [
-      { title: "Umów konsultację | Beauty & Mind Clinic" },
+      { title: "Umów konsultację | BM Clinics" },
       {
         name: "description",
         content:
           "Zarezerwuj konsultację online lub w klinice w Siedlcach. Po opłaceniu otrzymasz e-mail z formularzem diagnostycznym.",
       },
-      { property: "og:title", content: "Umów konsultację — Beauty & Mind Clinic" },
+      { property: "og:title", content: "Umów konsultację — BM Clinics" },
       { property: "og:url", content: "https://bmclinics.ai/konsultacja" },
     ],
     links: [{ rel: "canonical", href: "https://bmclinics.ai/konsultacja" }],

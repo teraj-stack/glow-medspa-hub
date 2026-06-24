@@ -16,7 +16,7 @@ export const Route = createFileRoute("/lekarze/jan-bujok")({
       {
         name: "description",
         content:
-          "dr Jan Bujok — chirurg, twórca platformy MySkinCode i marki Bujok Medical. Autorskie protokoły medycyny estetycznej i regeneracyjnej w Beauty & Mind Clinic Siedlce.",
+          "dr Jan Bujok — chirurg, twórca platformy MySkinCode i marki Bujok Medical. Autorskie protokoły medycyny estetycznej i regeneracyjnej w BM Clinics Siedlce.",
       },
       { property: "og:title", content: "dr Jan Bujok — Innowator i Ekspert MedTech" },
       {
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/lekarze/jan-bujok")({
           medicalSpecialty: "Aesthetic Medicine",
           worksFor: {
             "@type": "MedicalClinic",
-            name: "Beauty & Mind Clinic",
+            name: "BM Clinics",
             address: { "@type": "PostalAddress", addressLocality: "Siedlce", addressCountry: "PL" },
           },
           url: CANONICAL,

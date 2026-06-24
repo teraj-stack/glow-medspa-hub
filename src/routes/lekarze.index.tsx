@@ -12,13 +12,13 @@ export const Route = createFileRoute("/lekarze/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(doctorsQuery),
   head: () => ({
     meta: [
-      { title: "Lekarze i specjaliści — Beauty & Mind Clinic Siedlce" },
+      { title: "Lekarze i specjaliści — BM Clinics Siedlce" },
       {
         name: "description",
         content:
-          "Zespół Beauty & Mind Clinic w Siedlcach — lekarze i specjaliści medycyny estetycznej z warszawskim doświadczeniem.",
+          "Zespół BM Clinics w Siedlcach — lekarze i specjaliści medycyny estetycznej z warszawskim doświadczeniem.",
       },
-      { property: "og:title", content: "Lekarze i specjaliści — Beauty & Mind Clinic" },
+      { property: "og:title", content: "Lekarze i specjaliści — BM Clinics" },
       {
         property: "og:description",
         content:

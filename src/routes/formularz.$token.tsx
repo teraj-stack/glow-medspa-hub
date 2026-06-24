@@ -77,7 +77,7 @@ const submitIntake = createServerFn({ method: "POST" })
 export const Route = createFileRoute("/formularz/$token")({
   head: () => ({
     meta: [
-      { title: "Formularz wstępnej diagnostyki | Beauty & Mind Clinic" },
+      { title: "Formularz wstępnej diagnostyki | BM Clinics" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -259,7 +259,7 @@ function IntakeForm() {
               className="mt-1 size-4 rounded border-border"
             />
             <span>
-              Wyrażam zgodę na przetwarzanie danych medycznych przez Beauty & Mind Clinic
+              Wyrażam zgodę na przetwarzanie danych medycznych przez BM Clinics
               w celu przygotowania konsultacji. *
             </span>
           </label>

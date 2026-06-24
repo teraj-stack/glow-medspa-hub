@@ -7,8 +7,8 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
-      { title: "Konto pacjenta | Beauty & Mind Clinic" },
-      { name: "description", content: "Logowanie do panelu pacjenta kliniki Beauty & Mind w Siedlcach." },
+      { title: "Konto pacjenta | BM Clinics" },
+      { name: "description", content: "Logowanie do panelu pacjenta kliniki BM Clinics w Siedlcach." },
     ],
   }),
   component: AuthPage,

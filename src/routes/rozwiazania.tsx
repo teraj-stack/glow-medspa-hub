@@ -22,13 +22,13 @@ import renesansAsset from "@/assets/renesans-v2.png.asset.json";
 export const Route = createFileRoute("/rozwiazania")({
   head: () => ({
     meta: [
-      { title: "Rozwiązania — Beauty & Mind Clinic" },
+      { title: "Rozwiązania — BM Clinics" },
       {
         name: "description",
         content:
           "Pięć obszarów naszej praktyki: lifting i owal, tekstura HD, rewitalizacja dłoni, okolica oka oraz komfort i pewność siebie.",
       },
-      { property: "og:title", content: "Rozwiązania — Beauty & Mind Clinic" },
+      { property: "og:title", content: "Rozwiązania — BM Clinics" },
       { property: "og:description", content: "Pięć obszarów naszej praktyki w estetyce «cichego luksusu»." },
       { property: "og:url", content: "https://bmclinics.ai/rozwiazania" },
     ],
@@ -250,7 +250,7 @@ function RozwiazaniaPage() {
                   boldParts: ["« Body Management 360 »"],
                 },
                 {
-                  text: "Połączenie z fototerapią pozwala odpocząć, odprężyć się i zregenerować — Body Longevity Beauty & Mind.",
+                  text: "Połączenie z fototerapią pozwala odpocząć, odprężyć się i zregenerować — Body Longevity BM Clinics.",
                 },
               ]}
               technologies={["HIFEM+MSF+RF", "Fototerapia"]}
