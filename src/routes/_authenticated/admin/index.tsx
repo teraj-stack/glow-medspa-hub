@@ -31,6 +31,11 @@ function AdminDashboard() {
       title: "Web Vitals",
       description: "Core Web Vitals (LCP/INP/CLS) kluczowych podstron i trend w czasie.",
     },
+    {
+      to: "/admin/audyt",
+      title: "Audyt bezpieczeństwa",
+      description: "Logi akcji admina, dostępu publicznego, auth i webhooków. Alerty 24h.",
+    },
   ];
   return (
     <div className="space-y-6">
