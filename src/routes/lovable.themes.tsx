@@ -21,33 +21,77 @@ export const Route = createFileRoute("/lovable/themes")({
   component: ThemePresetsPage,
 });
 
+type Mode = "light" | "dark";
+
 function ThemePresetsPage() {
   const [active, setActive] = useState<ThemePresetId>(DEFAULT_THEME_PRESET);
   const [preview, setPreview] = useState<ThemePresetId | null>(null);
+  const [mode, setMode] = useState<Mode>("light");
+  const [originalDark, setOriginalDark] = useState(false);
 
   useEffect(() => {
     setActive(getStoredPreset());
+    const isDark = document.documentElement.classList.contains("dark");
+    setOriginalDark(isDark);
+    setMode(isDark ? "dark" : "light");
+    return () => {
+      // Restore original mode on unmount.
+      document.documentElement.classList.toggle("dark", isDark);
+    };
   }, []);
 
-  // Apply preview (or revert to active) live.
+  // Apply preview preset live.
   useEffect(() => {
     applyPreset(preview ?? active);
   }, [preview, active]);
+
+  // Apply preview mode (light/dark) live.
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", mode === "dark");
+  }, [mode]);
 
   function commit(id: ThemePresetId) {
     setStoredPreset(id);
     setActive(id);
     setPreview(null);
+    // Restore the user's original mode after committing the preset.
+    document.documentElement.classList.toggle("dark", originalDark);
+    setMode(originalDark ? "dark" : "light");
   }
 
   const shown = preview ?? active;
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <div className="text-xs uppercase tracking-[0.3em] text-champagne">
-        Panel deweloperski
+      <div className="flex items-start justify-between gap-6">
+        <div>
+          <div className="text-xs uppercase tracking-[0.3em] text-champagne">
+            Panel deweloperski
+          </div>
+          <h1 className="mt-3 font-serif text-4xl text-ink">Presety tła</h1>
+        </div>
+        <div
+          role="group"
+          aria-label="Tryb podglądu"
+          className="flex shrink-0 rounded-md border border-border bg-card p-1"
+        >
+          {(["light", "dark"] as Mode[]).map((m) => (
+            <button
+              key={m}
+              type="button"
+              onClick={() => setMode(m)}
+              className={`rounded px-3 py-1.5 text-[11px] uppercase tracking-widest transition ${
+                mode === m
+                  ? "bg-champagne/15 text-ink"
+                  : "text-muted-foreground hover:text-ink"
+              }`}
+            >
+              {m === "light" ? "Jasny" : "Ciemny"}
+            </button>
+          ))}
+        </div>
       </div>
-      <h1 className="mt-3 font-serif text-4xl text-ink">Presety tła</h1>
+
       <p className="mt-3 text-sm text-muted-foreground">
         Najedź na kafelek, aby zobaczyć preset na żywo na tej stronie. Kliknij
         „Zastosuj”, aby zapisać wybór (localStorage:{" "}
