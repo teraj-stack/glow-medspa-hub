@@ -188,11 +188,11 @@ function HalinaGabaraPage() {
                   className="block h-auto w-full"
                 />
               </picture>
-              <figcaption className="border-t border-border/60 px-4 py-3 text-xs leading-relaxed text-foreground/70 sm:px-5 sm:py-4 sm:text-sm">
+              <figcaption className="border-t border-border/60 px-4 py-3 text-xs leading-relaxed text-muted-foreground sm:px-5 sm:py-4 sm:text-sm">
                 <span className="block font-serif text-sm tracking-tight text-foreground sm:text-base">
                   Geometria trójwymiarowa twarzy
                 </span>
-                <span className="mt-1 block text-foreground/60">
+                <span className="mt-1 block text-muted-foreground">
                   Landmarks, proporcje i płaszczyzny anatomiczne wykorzystywane
                   w planowaniu terapii — fundament analitycznego podejścia
                   w gabinecie lek. Haliny Gabary.
