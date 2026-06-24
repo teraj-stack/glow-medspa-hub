@@ -170,7 +170,84 @@ async def run_theme(page, theme):
             f"info={outline_info} link_before={link_before}"
         )
 
+    # ----- assertion: mouse-click focus and keyboard focus produce identical
+    # rects (no layout shift between input modalities) and text stays inside.
+    await page.evaluate("() => document.activeElement && document.activeElement.blur()")
+    await page.wait_for_timeout(50)
+
+    # Mouse-click path. Suppress the click default so we don't navigate away.
+    await page.evaluate(
+        """(sel) => {
+            const el = document.querySelector(sel);
+            const stop = (e) => { e.preventDefault(); e.stopImmediatePropagation(); };
+            el.addEventListener('click', stop, { capture: true, once: true });
+        }""",
+        link_sel,
+    )
+    box = await page.evaluate(
+        "(sel) => { const r = document.querySelector(sel).getBoundingClientRect();"
+        " return {x: r.x + r.width/2, y: r.y + r.height/2}; }",
+        link_sel,
+    )
+    await page.mouse.click(box["x"], box["y"])
+    await page.wait_for_timeout(50)
+    link_mouse = await measure(page, link_sel)
+    text_mouse = await measure(page, text_sel)
+    await page.screenshot(path=str(OUT / f"{theme}-mouse-focus.png"))
+
+    # Keyboard path. Blur and Tab until our link is the active element.
+    await page.evaluate("() => document.activeElement && document.activeElement.blur()")
+    await page.wait_for_timeout(50)
+    reached = False
+    for _ in range(40):
+        await page.keyboard.press("Tab")
+        if await page.evaluate(
+            "(sel) => document.activeElement === document.querySelector(sel)",
+            link_sel,
+        ):
+            reached = True
+            break
+    if not reached:
+        failures.append(f"[{theme}] could not Tab to the TechCard link")
+        return failures
+    await page.wait_for_timeout(50)
+    link_kbd = await measure(page, link_sel)
+    text_kbd = await measure(page, text_sel)
+    await page.screenshot(path=str(OUT / f"{theme}-keyboard-focus.png"))
+
+    if not approx_equal(link_before, link_mouse):
+        failures.append(
+            f"[{theme}] link rect shifted on mouse focus: "
+            f"before={link_before} mouse={link_mouse}"
+        )
+    if not approx_equal(link_before, link_kbd):
+        failures.append(
+            f"[{theme}] link rect shifted on keyboard focus: "
+            f"before={link_before} kbd={link_kbd}"
+        )
+    if not approx_equal(link_mouse, link_kbd):
+        failures.append(
+            f"[{theme}] link rect differs between mouse and keyboard focus: "
+            f"mouse={link_mouse} kbd={link_kbd}"
+        )
+    if not approx_equal(text_mouse, text_kbd):
+        failures.append(
+            f"[{theme}] h3 rect differs between mouse and keyboard focus: "
+            f"mouse={text_mouse} kbd={text_kbd}"
+        )
+    if not text_inside_link(text_mouse, link_mouse):
+        failures.append(
+            f"[{theme}] h3 overflows link on mouse focus: "
+            f"text={text_mouse} link={link_mouse}"
+        )
+    if not text_inside_link(text_kbd, link_kbd):
+        failures.append(
+            f"[{theme}] h3 overflows link on keyboard focus: "
+            f"text={text_kbd} link={link_kbd}"
+        )
+
     return failures
+
 
 
 async def main():
