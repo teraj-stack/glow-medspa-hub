@@ -102,8 +102,8 @@ function HalinaGabaraPage() {
           <span className="text-foreground/70">lek. Halina Gabara</span>
         </nav>
 
-        <div className="mt-12 max-w-4xl md:mt-16">
-          <div className="min-w-0">
+        <div className="mt-12 grid gap-10 md:mt-16 md:grid-cols-[1.4fr,1fr] md:items-center md:gap-16">
+          <div className="min-w-0 order-2 md:order-1">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
               Lekarz prowadzący
             </p>
@@ -120,6 +120,14 @@ function HalinaGabaraPage() {
               wyglądają naturalnie i są bezpieczne w długim horyzoncie.
             </p>
           </div>
+          <figure className="order-1 md:order-2">
+            <img
+              src={halinaPortrait.url}
+              alt="lek. Halina Gabara — portret"
+              className="w-full rounded-lg object-cover shadow-sm"
+              loading="eager"
+            />
+          </figure>
         </div>
       </section>
 
