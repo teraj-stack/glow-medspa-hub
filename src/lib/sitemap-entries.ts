@@ -54,6 +54,7 @@ export const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/cennik", changefreq: "monthly", priority: "0.8" },
   { path: "/lekarze", changefreq: "monthly", priority: "0.8" },
   { path: "/lekarze/halina-gabara", changefreq: "monthly", priority: "0.8" },
+  { path: "/lekarze/jan-bujok", changefreq: "monthly", priority: "0.8" },
   { path: "/konsultacja", changefreq: "monthly", priority: "0.8" },
   { path: "/bezpieczenstwo-zabiegow-laserowych", changefreq: "monthly", priority: "0.8" },
   { path: "/konsultacja-dziekujemy", changefreq: "yearly", priority: "0.3" },
