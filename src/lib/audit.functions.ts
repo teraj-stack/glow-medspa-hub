@@ -13,6 +13,8 @@ async function assertAdmin(userId: string) {
   if (!data) throw new Error("[FORBIDDEN] Wymagana rola admin.");
 }
 
+type JsonValue = string | number | boolean | null | { [k: string]: JsonValue } | JsonValue[];
+
 export type AuditLogRow = {
   id: number;
   occurred_at: string;
@@ -25,7 +27,7 @@ export type AuditLogRow = {
   resource_id: string | null;
   action: string | null;
   success: boolean;
-  metadata: unknown;
+  metadata: JsonValue;
 };
 
 export type SuspiciousRow = {
