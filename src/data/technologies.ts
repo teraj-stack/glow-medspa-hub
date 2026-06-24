@@ -88,7 +88,7 @@ export const TECHNOLOGIES: Technology[] = [
     name: "Zimna plazma atmosferyczna (CAP)",
     category: "skóra",
     shortDesc:
-      "Najnowsza, nieablacyjna technologia rewitalizacji — czwarty stan skupienia materii pracujący w temperaturze fizjologicznej (35–40°C). Obecnie najczęściej wybierane narzędzie regeneracyjne na świecie — ponad 1 200 000 pacjentek miesięcznie.",
+      "Najnowsza, nieablacyjna technologia rewitalizacji — czwarty stan skupienia materii pracujący w temperaturze fizjologicznej (35–40°C). Obecnie najczęściej wybierane narzędzie regeneracyjne na świecie — ponad 1 200 000 pacjentek każdego dnia.",
     mechanism:
       "Zjonizowany strumień gazu szlachetnego (hel / argon) dostarcza do skóry kontrolowane stężenia Reaktywnych Form Tlenu i Azotu (RONS). Indukują one tzw. eustres oksydacyjny — fibroblasty zwiększają proliferację i biogenezę mitochondriów, uruchamiając kaskadę TGF-β / SMAD4. Po 12 tygodniach gęstość siatki kolagenowej rośnie średnio o 40%. Równolegle zachodzi plazmoporacja — czasowe rozluźnienie połączeń międzykomórkowych naskórka, które zwiększa przenikalność kosmetyków aktywnych nawet kilkudziesięciokrotnie.",
     applicators: [
