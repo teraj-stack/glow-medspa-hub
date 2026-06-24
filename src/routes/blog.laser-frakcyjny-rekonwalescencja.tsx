@@ -488,7 +488,7 @@ function FractionalLaserRecoveryGuide() {
               </div>
 
               <div className="tile-card">
-                <div className="font-serif text-lg text-ink">Wybierz laser frakcyjny CO2, gdy…</div>
+                <div className="font-serif text-lg text-ink">Wybierz laser frakcyjny CO2, gdy:</div>
                 <ul className="mt-3 space-y-2 text-sm text-foreground/85">
                   <li className="flex gap-2">
                     <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-champagne" />
