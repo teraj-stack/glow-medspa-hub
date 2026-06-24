@@ -81,7 +81,8 @@ function extractTexts(src) {
 }
 
 const TRUNCATED_ELLIPSIS = /(\.{3}|…)/;
-const FRAGMENT_ELLIPSIS = /\b[a-ząćęłńóśźż]{1,3}(\.{3}|…)/i;
+// 1–2 znaki + elipsa → "bu…", "po…" (3 znaki częściej trafia w pełne słowa typu "gdy…")
+const FRAGMENT_ELLIPSIS = /\b[a-ząćęłńóśźż]{1,2}(\.{3}|…)/i;
 const STRAIGHT_QUOTES = /"[^"\n]{2,}"/;
 const STRAIGHT_APOS = /\b\w+'\w+/;
 const POLISH_HINT_WORDS =
