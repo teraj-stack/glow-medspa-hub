@@ -2,33 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
-import { Watermark } from "@/components/site/Watermark";
 import halinaPortrait from "@/assets/halina-portrait.png.asset.json";
-import geometria640Avif from "@/assets/halina-geometria-640.avif.asset.json";
-import geometria960Avif from "@/assets/halina-geometria-960.avif.asset.json";
-import geometria1280Avif from "@/assets/halina-geometria-1280.avif.asset.json";
-import geometria1600Avif from "@/assets/halina-geometria-1600.avif.asset.json";
-import geometria640Webp from "@/assets/halina-geometria-640.webp.asset.json";
-import geometria960Webp from "@/assets/halina-geometria-960.webp.asset.json";
-import geometria1280Webp from "@/assets/halina-geometria-1280.webp.asset.json";
-import geometria1600Webp from "@/assets/halina-geometria-1600.webp.asset.json";
-
-const GEOMETRIA_ALT =
-  "Trójwymiarowy szkic kobiecej twarzy z naniesionymi punktami pomiarowymi (landmarks), liniami proporcji i płaszczyznami anatomicznymi — narzędzie planowania zabiegów medycyny estetycznej u lek. Haliny Gabary.";
-const GEOMETRIA_AVIF_SRCSET = [
-  `${geometria640Avif.url} 640w`,
-  `${geometria960Avif.url} 960w`,
-  `${geometria1280Avif.url} 1280w`,
-  `${geometria1600Avif.url} 1600w`,
-].join(", ");
-const GEOMETRIA_WEBP_SRCSET = [
-  `${geometria640Webp.url} 640w`,
-  `${geometria960Webp.url} 960w`,
-  `${geometria1280Webp.url} 1280w`,
-  `${geometria1600Webp.url} 1600w`,
-].join(", ");
-const GEOMETRIA_SIZES =
-  "(min-width: 1024px) 640px, (min-width: 768px) 60vw, 92vw";
 
 const CANONICAL = "https://bmclinics.ai/lekarze/halina-gabara";
 
@@ -175,34 +149,6 @@ function HalinaGabaraPage() {
               marketingowym. Liczy się dobrze postawiona diagnoza, technika
               wykonania i przewidywalny efekt w czasie.
             </p>
-            <figure className="mt-8 overflow-hidden rounded-lg border border-border/60 bg-secondary/30">
-              <div className="relative">
-                <picture>
-                  <source type="image/avif" srcSet={GEOMETRIA_AVIF_SRCSET} sizes={GEOMETRIA_SIZES} />
-                  <source type="image/webp" srcSet={GEOMETRIA_WEBP_SRCSET} sizes={GEOMETRIA_SIZES} />
-                  <img
-                    src={geometria960Webp.url}
-                    alt={GEOMETRIA_ALT}
-                    width={1844}
-                    height={1920}
-                    loading="lazy"
-                    decoding="async"
-                    className="block h-auto w-full"
-                  />
-                </picture>
-                <Watermark size="md" />
-              </div>
-              <figcaption className="border-t border-border/60 px-4 py-3 text-xs leading-relaxed text-muted-foreground sm:px-5 sm:py-4 sm:text-sm">
-                <span className="block font-serif text-sm tracking-tight text-foreground sm:text-base">
-                  Geometria trójwymiarowa twarzy
-                </span>
-                <span className="mt-1 block text-muted-foreground">
-                  Landmarks, proporcje i płaszczyzny anatomiczne wykorzystywane
-                  w planowaniu terapii — fundament analitycznego podejścia
-                  w gabinecie lek. Haliny Gabary.
-                </span>
-              </figcaption>
-            </figure>
           </div>
         </div>
       </section>
