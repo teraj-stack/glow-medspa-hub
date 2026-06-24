@@ -112,7 +112,7 @@ function HalinaGabaraPage() {
               lek. Halina Gabara
             </h1>
             <p className="mt-3 text-sm text-muted-foreground">
-              lekarz medycyny estetycznej · ortodonta
+              {professionalTitle}
             </p>
             <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-foreground/85 md:text-lg">
               Patrzę na twarz analitycznie — jako układ punktów odniesienia,
@@ -161,7 +161,7 @@ function HalinaGabaraPage() {
               Specjalizacje
             </h2>
             <ul className="grid gap-x-10 gap-y-4 sm:grid-cols-2">
-              {SPECJALIZACJE.map((s) => (
+              {specializations.map((s) => (
                 <li
                   key={s}
                   className="flex gap-3 text-sm leading-relaxed text-foreground/85"
@@ -185,16 +185,9 @@ function HalinaGabaraPage() {
             Doświadczenie
           </h2>
           <div className="space-y-5 text-base leading-relaxed text-foreground/85">
-            <p>
-              Ścieżkę zawodową budowałam przez kilkanaście lat, łącząc
-              praktykę w warszawskich klinikach premium z ortodontycznym,
-              analitycznym spojrzeniem na twarz.
-            </p>
-            <p>
-              W Beauty &amp; Mind Clinic w Siedlcach prowadzę pacjentów
-              w identycznym standardzie — od konsultacji i diagnostyki, przez
-              plan terapii, po opiekę pozabiegową i wizyty kontrolne.
-            </p>
+            {experienceParagraphs.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </div>
         </div>
       </section>
@@ -207,7 +200,7 @@ function HalinaGabaraPage() {
               Wykształcenie i certyfikaty
             </h2>
             <ul className="space-y-4">
-              {WYKSZTALCENIE.map((w) => (
+              {education.map((w) => (
                 <li
                   key={w}
                   className="border-l border-border/70 pl-5 text-sm leading-relaxed text-foreground/85"
