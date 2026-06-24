@@ -155,7 +155,7 @@ function RozwiazaniaPage() {
               iconTooltip="Przejdź do technologii tekstury HD — zarezerwuj konsultację, by wygładzić skórę."
               tagline="REDUKCJA BLIZN I ZMARSZCZEK"
               title="Tekstura « HD »"
-              icon={sylwetkaAsset.url}
+              icon={teksturaHdTwarzAsset.url}
               bullets={[
                 {
                   title: "Redukcja blizn i przebarwień",
