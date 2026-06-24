@@ -103,8 +103,9 @@ function HalinaGabaraPage() {
         </nav>
 
         <div className="mt-10 md:mt-12">
-          <div className="grid min-w-0 gap-10 md:grid-cols-[minmax(0,1fr),auto] md:items-center md:gap-12 lg:gap-16">
-            <div>
+          <div className="min-w-0">
+            <div className="grid gap-10 md:grid-cols-[minmax(0,1fr),auto] md:items-center md:gap-12 lg:gap-16">
+              <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                 Lekarz prowadzący
               </p>
@@ -120,15 +121,16 @@ function HalinaGabaraPage() {
                 z indywidualną anatomią pacjenta. Planuję terapie, które
                 wyglądają naturalnie i są bezpieczne w długim horyzoncie.
               </p>
+              </div>
+              <figure className="flex justify-center md:justify-end">
+                <img
+                  src={halinaPortrait.url}
+                  alt="lek. Halina Gabara — portret"
+                  className="h-auto max-h-[320px] w-auto max-w-[280px] rounded-lg object-cover shadow-sm md:max-h-[380px] md:max-w-[340px]"
+                  loading="eager"
+                />
+              </figure>
             </div>
-            <figure className="flex justify-center md:justify-end">
-              <img
-                src={halinaPortrait.url}
-                alt="lek. Halina Gabara — portret"
-                className="h-auto max-h-[320px] w-auto max-w-[280px] rounded-lg object-cover shadow-sm md:max-h-[380px] md:max-w-[340px]"
-                loading="eager"
-              />
-            </figure>
           </div>
         </div>
       </section>
