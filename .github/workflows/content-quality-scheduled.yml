@@ -102,7 +102,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
+
+      - name: Cache ~/.npm (npm cache)
+        id: npm-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
 
       - name: Cache node_modules
         id: node-modules-cache
@@ -113,12 +121,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Log node_modules cache status
+      - name: Log cache status
         run: |
           if [ "${{ steps.node-modules-cache.outputs.cache-hit }}" = "true" ]; then
             echo "✓ node_modules cache HIT — dependencies restored from cache"
           else
             echo "✗ node_modules cache MISS — running npm ci"
+          fi
+          if [ "${{ steps.npm-cache.outputs.cache-hit }}" = "true" ]; then
+            echo "✓ ~/.npm cache HIT — npm download cache restored"
+          else
+            echo "✗ ~/.npm cache MISS (or restored via restore-keys)"
           fi
 
       - uses: actions/setup-python@v5
@@ -131,27 +144,29 @@ jobs:
         id: npm-ci
         run: |
           START=$(date +%s)
-          npm ci
+          npm ci --prefer-offline --no-audit --no-fund
           END=$(date +%s)
           DURATION=$((END - START))
           echo "duration=$DURATION" >> "$GITHUB_OUTPUT"
           echo "npm ci duration: ${DURATION}s"
 
-      - name: Summary — node_modules cache & npm ci
+      - name: Summary — caches & npm ci
         if: always()
         run: |
           {
-            echo "## node_modules cache & npm ci"
+            echo "## caches & npm ci"
             echo ""
             echo "| Item | Value |"
             echo "| ---- | ----- |"
-            echo "| Cache hit | \`${{ steps.node-modules-cache.outputs.cache-hit }}\` |"
+            echo "| node_modules cache hit | \`${{ steps.node-modules-cache.outputs.cache-hit }}\` |"
+            echo "| ~/.npm cache hit | \`${{ steps.npm-cache.outputs.cache-hit }}\` |"
             if [ "${{ steps.node-modules-cache.outputs.cache-hit }}" = "true" ]; then
               echo "| npm ci duration | skipped (cache hit) |"
             else
               echo "| npm ci duration | ${{ steps.npm-ci.outputs.duration }}s |"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
+
 
       - name: Resolve Playwright version
         id: pw
@@ -219,7 +234,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "npm"
+
+      - name: Cache ~/.npm (npm cache)
+        id: npm-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
 
       - name: Cache node_modules
         id: node-modules-cache
@@ -230,12 +253,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Log node_modules cache status
+      - name: Log cache status
         run: |
           if [ "${{ steps.node-modules-cache.outputs.cache-hit }}" = "true" ]; then
             echo "✓ node_modules cache HIT — dependencies restored from cache"
           else
             echo "✗ node_modules cache MISS — running npm ci"
+          fi
+          if [ "${{ steps.npm-cache.outputs.cache-hit }}" = "true" ]; then
+            echo "✓ ~/.npm cache HIT — npm download cache restored"
+          else
+            echo "✗ ~/.npm cache MISS (or restored via restore-keys)"
           fi
 
       - uses: actions/setup-python@v5
@@ -248,27 +276,29 @@ jobs:
         id: npm-ci
         run: |
           START=$(date +%s)
-          npm ci
+          npm ci --prefer-offline --no-audit --no-fund
           END=$(date +%s)
           DURATION=$((END - START))
           echo "duration=$DURATION" >> "$GITHUB_OUTPUT"
           echo "npm ci duration: ${DURATION}s"
 
-      - name: Summary — node_modules cache & npm ci
+      - name: Summary — caches & npm ci
         if: always()
         run: |
           {
-            echo "## node_modules cache & npm ci"
+            echo "## caches & npm ci"
             echo ""
             echo "| Item | Value |"
             echo "| ---- | ----- |"
-            echo "| Cache hit | \`${{ steps.node-modules-cache.outputs.cache-hit }}\` |"
+            echo "| node_modules cache hit | \`${{ steps.node-modules-cache.outputs.cache-hit }}\` |"
+            echo "| ~/.npm cache hit | \`${{ steps.npm-cache.outputs.cache-hit }}\` |"
             if [ "${{ steps.node-modules-cache.outputs.cache-hit }}" = "true" ]; then
               echo "| npm ci duration | skipped (cache hit) |"
             else
               echo "| npm ci duration | ${{ steps.npm-ci.outputs.duration }}s |"
             fi
           } >> "$GITHUB_STEP_SUMMARY"
+
 
       - name: Resolve Playwright version
         id: pw
