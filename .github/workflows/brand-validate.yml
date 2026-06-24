@@ -55,6 +55,112 @@ jobs:
           sarif_file: reports/brand-fix-dist.sarif
           category: brand-validate-dist
 
+      - name: Publish SARIF results as PR inline annotations
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = 'reports/brand-fix-dist.sarif';
+            if (!fs.existsSync(path)) {
+              core.warning(`SARIF file not found at ${path}; skipping inline annotations.`);
+              return;
+            }
+
+            const sarif = JSON.parse(fs.readFileSync(path, 'utf8'));
+            const sha = context.payload.pull_request?.head?.sha ?? context.sha;
+
+            // Map SARIF level → GitHub Checks annotation_level
+            const levelMap = {
+              error: 'failure',
+              warning: 'warning',
+              note: 'notice',
+              none: 'notice',
+            };
+
+            // Flatten all results across runs into Checks annotations.
+            const annotations = [];
+            for (const run of sarif.runs ?? []) {
+              const rules = new Map(
+                (run.tool?.driver?.rules ?? []).map((r) => [r.id, r]),
+              );
+              for (const res of run.results ?? []) {
+                const loc = res.locations?.[0]?.physicalLocation;
+                const uri = loc?.artifactLocation?.uri;
+                const region = loc?.region;
+                if (!uri || !region?.startLine) continue;
+
+                const rule = rules.get(res.ruleId);
+                const ruleName = rule?.shortDescription?.text ?? res.ruleId ?? 'brand';
+                const message =
+                  res.message?.text ??
+                  rule?.fullDescription?.text ??
+                  'Brand validation finding';
+                const snippet = region.snippet?.text;
+
+                annotations.push({
+                  path: uri,
+                  start_line: region.startLine,
+                  end_line: region.endLine ?? region.startLine,
+                  // start_column/end_column are only valid when start_line === end_line
+                  ...(region.startColumn && (!region.endLine || region.endLine === region.startLine)
+                    ? {
+                        start_column: region.startColumn,
+                        end_column: region.endColumn ?? region.startColumn,
+                      }
+                    : {}),
+                  annotation_level: levelMap[res.level] ?? 'warning',
+                  title: `[${res.ruleId ?? 'brand'}] ${ruleName}`,
+                  message: snippet ? `${message}\n\nSnippet:\n${snippet}` : message,
+                });
+              }
+            }
+
+            core.info(`Collected ${annotations.length} SARIF annotations.`);
+
+            const errors = annotations.filter((a) => a.annotation_level === 'failure').length;
+            const warnings = annotations.filter((a) => a.annotation_level === 'warning').length;
+            const notices = annotations.filter((a) => a.annotation_level === 'notice').length;
+
+            // Create a single check run with up to 50 annotations per API call.
+            const { data: check } = await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Brand / SARIF inline annotations',
+              head_sha: sha,
+              status: 'completed',
+              conclusion: errors > 0 ? 'failure' : (warnings > 0 ? 'neutral' : 'success'),
+              output: {
+                title:
+                  annotations.length === 0
+                    ? 'No brand findings'
+                    : `${annotations.length} brand finding(s): ${errors} error, ${warnings} warning, ${notices} notice`,
+                summary:
+                  'Inline annotations generated from `reports/brand-fix-dist.sarif`. ' +
+                  'Open the **Files changed** tab of the PR to see them next to the affected lines, ' +
+                  'or use the **Checks** tab → *Brand / SARIF inline annotations*.',
+                annotations: annotations.slice(0, 50),
+              },
+            });
+
+            // GitHub Checks API caps annotations at 50 per request — send the rest in updates.
+            for (let i = 50; i < annotations.length; i += 50) {
+              await github.rest.checks.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                check_run_id: check.id,
+                output: {
+                  title:
+                    `${annotations.length} brand finding(s): ${errors} error, ${warnings} warning, ${notices} notice`,
+                  summary:
+                    'Inline annotations generated from `reports/brand-fix-dist.sarif`.',
+                  annotations: annotations.slice(i, i + 50),
+                },
+              });
+            }
+
+
+
 
       - name: Upload brand reports
         if: always()
