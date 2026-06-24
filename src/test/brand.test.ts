@@ -40,8 +40,8 @@ describe('Source tree — no legacy "BM Clinics" string', () => {
   const SCAN_DIRS = ['src', 'public', 'scripts']
   const SKIP_DIRS = new Set(['node_modules', 'dist', '.git', 'routeTree.gen.ts'])
   const ALLOW_FILES = new Set<string>([
-    // Allow this test file itself to mention the forbidden pattern.
     resolve(__dirname, 'brand.test.ts'),
+    resolve(ROOT, 'scripts/validate-brand.mjs'),
   ])
   const SCAN_EXT = /\.(tsx?|jsx?|mjs|cjs|css|md|html|txt|json)$/i
 
