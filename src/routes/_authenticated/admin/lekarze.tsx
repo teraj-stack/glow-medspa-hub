@@ -297,6 +297,52 @@ function DoctorForm({
           onChange={(e) => setForm({ ...form, bio: e.target.value })}
         />
       </Field>
+
+      <div className="border-t pt-4 space-y-4">
+        <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+          Profil publiczny
+        </h3>
+        <Field
+          label="Tytuł zawodowy"
+          hint="np. „lekarz medycyny estetycznej · ortodonta”"
+        >
+          <Input
+            value={form.professional_title ?? ""}
+            onChange={(e) => setForm({ ...form, professional_title: e.target.value })}
+          />
+        </Field>
+        <Field
+          label="Lata doświadczenia / opis ścieżki"
+          hint="Akapit prezentowany w sekcji „Doświadczenie” na profilu publicznym."
+        >
+          <Textarea
+            rows={4}
+            value={form.experience_summary ?? ""}
+            onChange={(e) => setForm({ ...form, experience_summary: e.target.value })}
+          />
+        </Field>
+        <Field
+          label="Specjalizacje"
+          hint="Jeden punkt w linii. Wyświetla się jako lista na profilu."
+        >
+          <Textarea
+            rows={6}
+            value={arrayToLines(form.specializations)}
+            onChange={(e) => setForm({ ...form, specializations: linesToArray(e.target.value) })}
+          />
+        </Field>
+        <Field
+          label="Wykształcenie i certyfikaty"
+          hint="Jeden punkt w linii. Wyświetla się jako lista na profilu."
+        >
+          <Textarea
+            rows={6}
+            value={arrayToLines(form.education)}
+            onChange={(e) => setForm({ ...form, education: linesToArray(e.target.value) })}
+          />
+        </Field>
+      </div>
+
       <div className="flex items-center gap-3">
         <label className="flex items-center gap-2 text-sm">
           <input
