@@ -1,22 +1,29 @@
 #!/usr/bin/env sh
-# Pre-commit: blokuje commit, gdy treści na /technologie mają błędy
-# typograficzne (urwania, elipsy, proste cudzysłowy, brak polskich znaków).
+# Pre-commit: blokuje commit, gdy treści w sekcjach (technologie / blog / faq)
+# mają błędy typograficzne (urwania, elipsy, proste cudzysłowy, brak diakrytyków).
 #
-# Hook uruchamia się tylko, gdy w commicie są zmiany w plikach
-# src/routes/technologie*.tsx — żeby nie spowalniać niepowiązanych commitów.
+# Hook uruchamia walidator tylko dla tych sekcji, których pliki są w commicie —
+# żeby nie spowalniać commitów dotyczących innych części aplikacji.
 
 set -e
 
-CHANGED=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^src/routes/technologie.*\.tsx$' || true)
+CHANGED=$(git diff --cached --name-only --diff-filter=ACMR)
+SECTIONS=""
 
-if [ -z "$CHANGED" ]; then
+echo "$CHANGED" | grep -qE '^src/routes/technologie.*\.tsx$' && SECTIONS="${SECTIONS}technologie,"
+echo "$CHANGED" | grep -qE '^src/routes/blog\..*\.tsx$' && SECTIONS="${SECTIONS}blog,"
+echo "$CHANGED" | grep -qE '^src/routes/bezpieczenstwo-zabiegow-laserowych\.tsx$' && SECTIONS="${SECTIONS}faq,"
+
+if [ -z "$SECTIONS" ]; then
   exit 0
 fi
 
-echo "→ pre-commit: validate:technologie (zmienione: $(echo "$CHANGED" | wc -l | tr -d ' ') plik(ów))"
+SECTIONS=${SECTIONS%,}
+echo "→ pre-commit: validate-content (sekcje: $SECTIONS)"
 
-if ! node scripts/validate-technologie.mjs; then
+if ! node scripts/validate-content.mjs --section="$SECTIONS"; then
   echo ""
-  echo "✗ Commit zablokowany — popraw powyższe błędy typograficzne lub użyj 'git commit --no-verify' (nieodradzane)."
+  echo "✗ Commit zablokowany — popraw powyższe błędy lub użyj 'git commit --no-verify' (nieodradzane)."
   exit 1
 fi
+
