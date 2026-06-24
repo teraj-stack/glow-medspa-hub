@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
+import { Watermark } from "@/components/site/Watermark";
 import geometria640Avif from "@/assets/halina-geometria-640.avif.asset.json";
 import geometria960Avif from "@/assets/halina-geometria-960.avif.asset.json";
 import geometria1280Avif from "@/assets/halina-geometria-1280.avif.asset.json";
@@ -175,19 +176,22 @@ function HalinaGabaraPage() {
               wykonania i przewidywalny efekt w czasie.
             </p>
             <figure className="mt-8 overflow-hidden rounded-lg border border-border/60 bg-secondary/30">
-              <picture>
-                <source type="image/avif" srcSet={GEOMETRIA_AVIF_SRCSET} sizes={GEOMETRIA_SIZES} />
-                <source type="image/webp" srcSet={GEOMETRIA_WEBP_SRCSET} sizes={GEOMETRIA_SIZES} />
-                <img
-                  src={geometria960Webp.url}
-                  alt={GEOMETRIA_ALT}
-                  width={1844}
-                  height={1920}
-                  loading="lazy"
-                  decoding="async"
-                  className="block h-auto w-full"
-                />
-              </picture>
+              <div className="relative">
+                <picture>
+                  <source type="image/avif" srcSet={GEOMETRIA_AVIF_SRCSET} sizes={GEOMETRIA_SIZES} />
+                  <source type="image/webp" srcSet={GEOMETRIA_WEBP_SRCSET} sizes={GEOMETRIA_SIZES} />
+                  <img
+                    src={geometria960Webp.url}
+                    alt={GEOMETRIA_ALT}
+                    width={1844}
+                    height={1920}
+                    loading="lazy"
+                    decoding="async"
+                    className="block h-auto w-full"
+                  />
+                </picture>
+                <Watermark size="md" />
+              </div>
               <figcaption className="border-t border-border/60 px-4 py-3 text-xs leading-relaxed text-muted-foreground sm:px-5 sm:py-4 sm:text-sm">
                 <span className="block font-serif text-sm tracking-tight text-foreground sm:text-base">
                   Geometria trójwymiarowa twarzy

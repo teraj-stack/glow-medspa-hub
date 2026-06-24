@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { Watermark } from "@/components/site/Watermark";
 import { BookingForm } from "@/components/site/BookingForm";
 import { getTechnology, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
@@ -149,7 +150,7 @@ function FusionPlasmaPage() {
                 </a>
               </div>
             </div>
-            <div className="rounded-lg overflow-hidden bg-white shadow-soft">
+            <div className="relative rounded-lg overflow-hidden bg-white shadow-soft">
               <video
                 src={heroVideoAsset.url}
                 poster={heroPosterWebp.url}
@@ -161,6 +162,7 @@ function FusionPlasmaPage() {
                 className="w-full h-auto block"
                 aria-label="Zabieg zimnej plazmy — pokaz w gabinecie"
               />
+              <Watermark size="md" />
             </div>
           </div>
         </div>

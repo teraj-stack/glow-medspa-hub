@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Watermark } from "./Watermark";
 
 type Props = {
   beforeSrc: string;
@@ -78,6 +79,7 @@ export function BeforeAfterSlider({
         <div className="pointer-events-none absolute right-3 top-3 rounded bg-champagne/90 px-2 py-1 text-[10px] uppercase tracking-[0.2em] text-ink">
           Po
         </div>
+        <Watermark size="sm" className="!right-2 !top-10 sm:!top-12" />
 
         <div
           className="pointer-events-none absolute inset-y-0"

@@ -1,4 +1,5 @@
 import { ImgHTMLAttributes } from "react";
+import { Watermark } from "./Watermark";
 
 type Props = {
   avifUrl?: string;
@@ -10,14 +11,15 @@ type Props = {
   className?: string;
   imgClassName?: string;
   eager?: boolean;
+  /** Hide the Bujok Medical watermark overlay (default: shown). */
+  noWatermark?: boolean;
+  watermarkSize?: "sm" | "md" | "lg";
 } & Omit<ImgHTMLAttributes<HTMLImageElement>, "src" | "srcSet" | "className">;
 
 /**
  * Optimized hero <picture> with AVIF + WebP sources and JPEG/PNG fallback.
- * Marks the image as the LCP candidate when `eager` is true
- * (`loading="eager"`, `fetchpriority="high"`, `decoding="async"`).
- * Pair with a `<link rel="preload" as="image" type="image/avif" href={avifUrl}>`
- * in the route's `head().links` to shave further ms off LCP.
+ * Marks the image as the LCP candidate when `eager` is true.
+ * Renders a Bujok Medical watermark in the top-right unless `noWatermark` is set.
  */
 export function HeroPicture({
   avifUrl,
@@ -29,23 +31,28 @@ export function HeroPicture({
   className,
   imgClassName,
   eager,
+  noWatermark,
+  watermarkSize = "md",
   ...imgProps
 }: Props) {
   return (
-    <picture className={className}>
-      {avifUrl ? <source srcSet={avifUrl} type="image/avif" /> : null}
-      {webpUrl ? <source srcSet={webpUrl} type="image/webp" /> : null}
-      <img
-        src={fallbackUrl}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={eager ? "eager" : "lazy"}
-        fetchPriority={eager ? "high" : "auto"}
-        decoding="async"
-        className={imgClassName}
-        {...imgProps}
-      />
-    </picture>
+    <div className={`relative ${className ?? ""}`}>
+      <picture>
+        {avifUrl ? <source srcSet={avifUrl} type="image/avif" /> : null}
+        {webpUrl ? <source srcSet={webpUrl} type="image/webp" /> : null}
+        <img
+          src={fallbackUrl}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={eager ? "eager" : "lazy"}
+          fetchPriority={eager ? "high" : "auto"}
+          decoding="async"
+          className={imgClassName}
+          {...imgProps}
+        />
+      </picture>
+      {!noWatermark && <Watermark size={watermarkSize} />}
+    </div>
   );
 }
