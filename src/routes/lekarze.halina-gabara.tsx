@@ -128,20 +128,8 @@ function HalinaGabaraPage() {
           <span className="text-foreground/70">lek. Halina Gabara</span>
         </nav>
 
-        <div className="mt-10 grid gap-12 md:mt-14 md:grid-cols-[auto,1fr] md:items-start md:gap-16">
-          <figure className="relative mx-auto w-full max-w-[18rem] overflow-hidden rounded-lg border border-border/60 bg-secondary/30 md:mx-0 md:w-72">
-            <img
-              src={halinaPortrait.url}
-              alt="lek. Halina Gabara — portret wizerunkowy na tle logo Bujok Medical"
-              width={896}
-              height={1184}
-              loading="eager"
-              decoding="async"
-              className="block h-auto w-full"
-            />
-            <Watermark size="sm" />
-          </figure>
-          <div className="min-w-0">
+        <div className="mt-10 grid gap-12 md:mt-14 md:grid-cols-[1fr,auto] md:items-start md:gap-16">
+          <div className="min-w-0 md:order-1">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
               Lekarz prowadzący
             </p>
@@ -158,8 +146,20 @@ function HalinaGabaraPage() {
               wyglądają naturalnie i są bezpieczne w długim horyzoncie.
             </p>
           </div>
+          <figure className="relative mx-auto w-full max-w-[18rem] overflow-hidden rounded-lg border border-border/60 bg-secondary/30 md:order-2 md:mx-0 md:w-72">
+            <img
+              src={halinaPortrait.url}
+              alt="lek. Halina Gabara — portret wizerunkowy na tle logo Bujok Medical"
+              width={896}
+              height={1184}
+              loading="eager"
+              decoding="async"
+              className="block h-auto w-full"
+            />
+          </figure>
         </div>
       </section>
+
 
       {/* Filozofia pracy */}
       <section className="container-luxury py-16 md:py-24">
