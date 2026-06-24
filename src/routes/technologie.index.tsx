@@ -122,11 +122,11 @@ function TechnologiesPage() {
         </div>
       </section>
 
-      {/* PROTOKÓŁ BAZOWY — UNIWERSALNY */}
+      {/* CZAS REKONWALESCENCJI — BAZOWY */}
       <section className="container-luxury py-12 md:py-16">
         <div className="rounded-lg border border-champagne/40 bg-secondary/30 p-6 md:p-10">
           <span className="text-xs uppercase tracking-[0.3em] text-champagne whitespace-pre-line">
-            {"PROTOKÓŁ BAZOWY\n"}
+            {"CZAS REKONWALESCENCJI\n"}
           </span>
           <h2 className="gold-line mt-2 font-serif text-2xl text-ink md:text-3xl">
             Trzy technologie, które łączymy w większości przypadków
@@ -173,7 +173,7 @@ function TechnologiesPage() {
               Efekt łączenia
             </div>
             <p className="mt-3 text-sm leading-relaxed text-alabaster/85 md:text-base">
-              Po 2 zabiegach laserem pikosekundowym (około 3 tygodniach protokołu) uzyskujemy efekt porównywalny z 6 tygodniami klasycznego protokołu opartego wyłącznie na laserze. Już po 3 tygodniach pracy w protokole bazowym widoczny rezultat jest lepszy niż przy zabiegach prowadzonych pojedynczo, bez łączenia technologii.
+              Po 2 zabiegach laserem pikosekundowym (około 3 tygodniach) uzyskujemy efekt porównywalny z 6 tygodniami klasycznego czasu rekonwalescencji przy zabiegach wyłącznie laserowych. Już po 3 tygodniach pracy w bazowym modelu opieki widoczny rezultat jest lepszy niż przy zabiegach prowadzonych pojedynczo, bez łączenia technologii.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-alabaster/85 md:text-base">
               Dla pacjenta to krótszy, bardziej komfortowy i ekonomicznie korzystniejszy proces. Po zakończeniu fazy wstępnej przechodzimy do zabiegów podtrzymujących i utrwalających rezultat.
