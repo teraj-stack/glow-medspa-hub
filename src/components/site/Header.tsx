@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import logoBmc from "@/assets/bujok-medical-logo.png.asset.json";
+import logoBmc from "@/assets/bujok-medical-logo-dark.jpg.asset.json";
 
 const NAV = [
   { to: "/potrzeby", label: "Potrzeby" },
