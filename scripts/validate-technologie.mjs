@@ -53,14 +53,14 @@ function extractTexts(src) {
   return out;
 }
 
-const TRUNCATED_ELLIPSIS = /(\.{3}|…)\s*$/;
-const TRUNCATED_TAIL = /\b[a-ząćęłńóśźż]{1,2}$/i;
-// proste cudzysłowy w obrębie literału (z wyłączeniem apostrofów w nazwach typu d'Or — rzadkość)
-const STRAIGHT_QUOTES = /(^|[\s(\[])"[^"]{3,}"/;
+const TRUNCATED_ELLIPSIS = /(\.{3}|…)/; // gdziekolwiek w tekście
+const FRAGMENT_ELLIPSIS = /\b[a-ząćęłńóśźż]{1,3}(\.{3}|…)/i; // np. "bu…", "zaaw..."
+// proste cudzysłowy w obrębie literału
+const STRAIGHT_QUOTES = /"[^"\n]{2,}"/;
 const STRAIGHT_APOS = /\b\w+'\w+/; // np. it's — w polskich treściach niepotrzebne
-// słowa, które prawie zawsze mają polski znak
+// słowa, które prawie zawsze mają polski znak (bez "siedlc" — kolizja z nazwą miasta w brandzie)
 const POLISH_HINT_WORDS =
-  /\b(mozliwo|bezpiecze|skutecz|zabieg|pielegnac|leczeni|swiat|piek|sredni|warszaw|siedlc|cwicz|cwartek|wiek|naskor|przebar|niedostat|jakos|wlasn|bedzi|moze|ktor|wszystk|zadn|cwiartk|miesi[ae]c|tydzie|polsk|rownie|rozni|wiecej|laczy|wlacz|miekk|gladk|szybk|naturaln|estetycz|kosmetolog|leczeni|tlumacz|opieki|opiek)/i;
+  /\b(mozliwosc|bezpieczen|skutecznos|pielegnacj|leczeni[ea]|swiat[ł]|sredni[oc]|cwicz|naskor|przebar|niedostat|jakosc|wlasn[ae]|bedzi[ae]|mozesz|ktor[ay]|wszystk[oi]|zadn[ae]|miesia?c|tydzie|polsk[ai]|rownie|rozni[ace]|wiecej|miekk|gladk|naturaln[ae]|estetyczn|kosmetolog|tlumacz)/i;
 const POLISH_DIACRITICS = /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]/;
 
 /** @type {{file:string;line:number;rule:string;text:string}[]} */
@@ -70,17 +70,12 @@ for (const file of files) {
   const src = readFileSync(file, "utf8");
   const texts = extractTexts(src);
   for (const { text, line } of texts) {
-    // 1. urwane zakończenie
-    if (TRUNCATED_ELLIPSIS.test(text)) {
-      issues.push({ file, line, rule: "truncated-ellipsis", text });
-    } else if (
-      text.length > 25 &&
-      TRUNCATED_TAIL.test(text.trim()) &&
-      !/[.!?:)]$/.test(text.trim()) &&
-      // pomijamy całe pojedyncze słowa typu "PL", "v2"
-      !/^\S+$/.test(text.trim())
-    ) {
-      issues.push({ file, line, rule: "truncated-tail", text });
+    // 1. urwane zakończenie — wszystko z elipsą jest podejrzane,
+    //    "bu…" / "zaaw…" = twardy błąd
+    if (FRAGMENT_ELLIPSIS.test(text)) {
+      issues.push({ file, line, rule: "truncated-fragment", text });
+    } else if (TRUNCATED_ELLIPSIS.test(text)) {
+      issues.push({ file, line, rule: "ellipsis", text });
     }
 
     // 2. cudzysłowy
@@ -93,14 +88,16 @@ for (const file of files) {
 
     // 3. brak polskich znaków w "polskim" tekście
     if (
-      text.length > 25 &&
+      text.length > 30 &&
       POLISH_HINT_WORDS.test(text) &&
       !POLISH_DIACRITICS.test(text) &&
-      // pomiń CAPSY (nagłówki sekcji często bez diakrytyków świadomie, ale tu wymagamy)
-      !/^[A-Z0-9 .,\-–—]+$/.test(text)
+      !/^[A-Z0-9 .,\-–—&|]+$/.test(text) // nagłówki/brandy
     ) {
       issues.push({ file, line, rule: "missing-polish-diacritics", text });
     }
+  }
+}
+
   }
 }
 
