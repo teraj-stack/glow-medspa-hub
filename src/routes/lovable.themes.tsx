@@ -205,6 +205,108 @@ function ThemePresetsPage() {
           aktualizują się od razu.
         </p>
       </div>
+
+      <CompareSideBySide initialPreset={shown} />
+    </div>
+  );
+}
+
+function CompareSideBySide({ initialPreset }: { initialPreset: ThemePresetId }) {
+  const [presetId, setPresetId] = useState<ThemePresetId>(initialPreset);
+  const [path, setPath] = useState("/");
+  const [nonce, setNonce] = useState(0);
+
+  useEffect(() => {
+    setPresetId(initialPreset);
+  }, [initialPreset]);
+
+  const paths = [
+    { value: "/", label: "Strona główna" },
+    { value: "/lekarze", label: "Lekarze" },
+    { value: "/cennik", label: "Cennik" },
+    { value: "/technologie", label: "Technologie" },
+  ];
+
+  function buildSrc(mode: "light" | "dark") {
+    const sep = path.includes("?") ? "&" : "?";
+    return `${path}${sep}themePreview=${presetId}&themeMode=${mode}&_n=${nonce}`;
+  }
+
+  return (
+    <div className="mt-10 rounded-xl border border-border bg-card p-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <div className="text-[10px] uppercase tracking-widest text-muted-foreground">
+            Porównaj jasny i ciemny
+          </div>
+          <h2 className="mt-2 font-serif text-2xl text-ink">
+            Preset obok siebie
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Wybrany preset renderowany niezależnie w obu trybach. Nic nie jest
+            zapisywane do bazowego motywu, dopóki nie klikniesz „Zastosuj”.
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setNonce((n) => n + 1)}
+          className="rounded-md border border-border px-3 py-1.5 text-[11px] uppercase tracking-widest text-muted-foreground hover:text-ink"
+        >
+          Odśwież podgląd
+        </button>
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-center gap-4">
+        <label className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
+          Preset
+          <select
+            value={presetId}
+            onChange={(e) => setPresetId(e.target.value as ThemePresetId)}
+            className="rounded-md border border-border bg-background px-2 py-1.5 text-xs normal-case tracking-normal text-ink"
+          >
+            {Object.values(THEME_PRESETS).map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="flex items-center gap-2 text-xs uppercase tracking-widest text-muted-foreground">
+          Strona
+          <select
+            value={path}
+            onChange={(e) => setPath(e.target.value)}
+            className="rounded-md border border-border bg-background px-2 py-1.5 text-xs normal-case tracking-normal text-ink"
+          >
+            {paths.map((p) => (
+              <option key={p.value} value={p.value}>
+                {p.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
+      <div className="mt-5 grid gap-4 lg:grid-cols-2">
+        {(["light", "dark"] as const).map((mode) => (
+          <div
+            key={mode}
+            className="overflow-hidden rounded-lg border border-border bg-background"
+          >
+            <div className="flex items-center justify-between border-b border-border px-3 py-2 text-[10px] uppercase tracking-widest text-muted-foreground">
+              <span>{mode === "light" ? "Jasny" : "Ciemny"}</span>
+              <span>{THEME_PRESETS[presetId].label}</span>
+            </div>
+            <iframe
+              key={`${mode}-${presetId}-${path}-${nonce}`}
+              title={`Podgląd ${mode}`}
+              src={buildSrc(mode)}
+              className="h-[520px] w-full border-0 bg-background"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

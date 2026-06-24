@@ -37,7 +37,18 @@ export function setStoredPreset(id: ThemePresetId) {
 
 export function ThemePresetApplier() {
   useEffect(() => {
-    applyPreset(getStoredPreset());
+    // URL-driven preview (used by side-by-side compare iframes).
+    const params = new URLSearchParams(window.location.search);
+    const previewParam = params.get("themePreview");
+    const modeParam = params.get("themeMode");
+    if (previewParam && isThemePresetId(previewParam)) {
+      applyPreset(previewParam);
+    } else {
+      applyPreset(getStoredPreset());
+    }
+    if (modeParam === "dark" || modeParam === "light") {
+      document.documentElement.classList.toggle("dark", modeParam === "dark");
+    }
   }, []);
   return null;
 }
