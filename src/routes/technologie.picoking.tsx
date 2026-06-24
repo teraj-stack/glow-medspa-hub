@@ -468,7 +468,7 @@ function PikosekundowyPage() {
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">Rękojeść 585 nm</strong> — naczyniaki (hemangiomy), rumień, drobne teleangiektazje.</span></li>
             </ul>
             <p className="mt-6 text-sm text-champagne-light">
-              Rękojeść frakcyjna = podstawowe działanie długości fali + bonusowy efekt odmłodzenia i wyrównania tekstury skóry. Dlatego warszawskie kliniki nazywają te zabiegi "Total look" lub "Baby face lift".
+              Rękojeść frakcyjna = podstawowe działanie długości fali + bonusowy efekt odmłodzenia i wyrównania tekstury skóry. Dlatego warszawskie kliniki nazywają te zabiegi „Total look” lub „Baby face lift”.
             </p>
           </div>
           <div className="overflow-hidden rounded-lg border border-champagne/20">
