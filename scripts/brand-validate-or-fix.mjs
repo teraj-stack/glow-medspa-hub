@@ -9,6 +9,12 @@
  *   4. Re-run validate:brand:dist; propagate its exit code.
  *
  * This runs AFTER `vite build` and BEFORE `report:content` in the build scripts.
+ *
+ * Exit codes:
+ *   0 — success (no "BM Clinics" in dist, or fixed and strict mode is off)
+ *   1 — strict mode: safe replacements were made in dist (legacy brand leaked into build)
+ *   2 — validation still failing after auto-fix (unsafe/risky content remains)
+ *   3 — auto-fix script itself failed
  */
 import { spawnSync } from 'node:child_process'
 import { readFileSync, existsSync } from 'node:fs'
