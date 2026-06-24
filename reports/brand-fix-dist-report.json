@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-06-24T21:27:19.052Z",
+  "mode": "apply",
+  "dist": "dist",
+  "filesScanned": 1,
+  "filesWithMatches": 1,
+  "filesChanged": 1,
+  "totalReplacements": 2,
+  "totalSkips": 0,
+  "perFile": [
+    {
+      "file": "dist/index.html",
+      "replacements": [
+        {
+          "line": 1,
+          "col": 35,
+          "match": "BM Clinics",
+          "snippet": "<!DOCTYPE html><html><head><title>BM Clinics</title></head><body><p>Welcome to BM Clinics and BMClinics."
+        },
+        {
+          "line": 1,
+          "col": 80,
+          "match": "BM Clinics",
+          "snippet": "l><head><title>BM Clinics</title></head><body><p>Welcome to BM Clinics and BMClinics.ai</p></body></html>"
+        }
+      ],
+      "skips": [],
+      "changed": true,
+      "newContent": "<!DOCTYPE html><html><head><title>BMClinics.ai</title></head><body><p>Welcome to BMClinics.ai and BMClinics.ai</p></body></html>\n"
+    }
+  ]
+}
