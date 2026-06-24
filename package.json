@@ -11,7 +11,7 @@
     "validate:content": "node scripts/validate-content.mjs --section=all",
     "validate:technologie": "node scripts/validate-content.mjs --section=technologie",
     "validate:blog": "node scripts/validate-content.mjs --section=blog",
-    "validate:faq": "node scripts/validate-content.mjs --section=faq",
+    "audit:rls": "node scripts/audit-rls.mjs",
     "validate:content:report": "node scripts/validate-content.mjs --section=all --json=reports/content-quality.json --html=reports/content-quality.html",
     "test:e2e:technologie": "python3 tests/e2e/technologie_content_quality.py",
     "test:e2e:content": "python3 tests/e2e/content_quality.py",
