@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Watermark } from "./Watermark";
 
 type Props = {
   beforeSrc: string;
