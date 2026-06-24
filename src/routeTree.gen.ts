@@ -32,6 +32,7 @@ import { Route as TechnologiePeelingWeglowyLaserowyRouteImport } from './routes/
 import { Route as TechnologieLaserTulowyRouteImport } from './routes/technologie.laser-tulowy'
 import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
+import { Route as LekarzeJanBujokRouteImport } from './routes/lekarze.jan-bujok'
 import { Route as LekarzeHalinaGabaraRouteImport } from './routes/lekarze.halina-gabara'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
@@ -172,6 +173,11 @@ const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
   id: '/technologie/$slug',
   path: '/technologie/$slug',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LekarzeJanBujokRoute = LekarzeJanBujokRouteImport.update({
+  id: '/jan-bujok',
+  path: '/jan-bujok',
+  getParentRoute: () => LekarzeRoute,
 } as any)
 const LekarzeHalinaGabaraRoute = LekarzeHalinaGabaraRouteImport.update({
   id: '/halina-gabara',
@@ -330,6 +336,7 @@ export interface FileRoutesByFullPath {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
+  '/lekarze/jan-bujok': typeof LekarzeJanBujokRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
@@ -376,6 +383,7 @@ export interface FileRoutesByTo {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
+  '/lekarze/jan-bujok': typeof LekarzeJanBujokRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
@@ -426,6 +434,7 @@ export interface FileRoutesById {
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
+  '/lekarze/jan-bujok': typeof LekarzeJanBujokRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
@@ -476,6 +485,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/lekarze/halina-gabara'
+    | '/lekarze/jan-bujok'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
@@ -522,6 +532,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/lekarze/halina-gabara'
+    | '/lekarze/jan-bujok'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
@@ -571,6 +582,7 @@ export interface FileRouteTypes {
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/lekarze/halina-gabara'
+    | '/lekarze/jan-bujok'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
@@ -801,6 +813,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TechnologieSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lekarze/jan-bujok': {
+      id: '/lekarze/jan-bujok'
+      path: '/jan-bujok'
+      fullPath: '/lekarze/jan-bujok'
+      preLoaderRoute: typeof LekarzeJanBujokRouteImport
+      parentRoute: typeof LekarzeRoute
+    }
     '/lekarze/halina-gabara': {
       id: '/lekarze/halina-gabara'
       path: '/halina-gabara'
@@ -1009,11 +1028,13 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface LekarzeRouteChildren {
   LekarzeHalinaGabaraRoute: typeof LekarzeHalinaGabaraRoute
+  LekarzeJanBujokRoute: typeof LekarzeJanBujokRoute
   LekarzeIndexRoute: typeof LekarzeIndexRoute
 }
 
 const LekarzeRouteChildren: LekarzeRouteChildren = {
   LekarzeHalinaGabaraRoute: LekarzeHalinaGabaraRoute,
+  LekarzeJanBujokRoute: LekarzeJanBujokRoute,
   LekarzeIndexRoute: LekarzeIndexRoute,
 }
 
