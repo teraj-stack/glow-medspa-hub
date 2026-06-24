@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
+import geometriaTwarzyAsset from "@/assets/halina-geometria-twarzy.jpeg.asset.json";
 
 const CANONICAL = "https://bmclinics.ai/lekarze/halina-gabara";
 
@@ -149,6 +150,19 @@ function HalinaGabaraPage() {
               marketingowym. Liczy się dobrze postawiona diagnoza, technika
               wykonania i przewidywalny efekt w czasie.
             </p>
+            <figure className="mt-8 overflow-hidden rounded-lg border border-border/60 bg-background">
+              <img
+                src={geometriaTwarzyAsset.url}
+                alt="Geometria trójwymiarowa i zależności strukturalne twarzy — schemat punktów pomiarowych (landmarks), proporcji i płaszczyzn anatomicznych wykorzystywanych w planowaniu zabiegów."
+                loading="lazy"
+                className="h-auto w-full"
+              />
+              <figcaption className="border-t border-border/60 px-4 py-3 text-xs leading-relaxed text-foreground/60">
+                Geometria trójwymiarowa i zależności strukturalne twarzy —
+                landmarks, proporcje i płaszczyzny anatomiczne wykorzystywane
+                w planowaniu terapii.
+              </figcaption>
+            </figure>
           </div>
         </div>
       </section>
