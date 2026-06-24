@@ -119,7 +119,7 @@ function HalinaGabaraPage() {
   return (
     <main className="bg-background">
       {/* Hero */}
-      <section className="container-luxury pt-16 md:pt-24">
+      <section className="container-luxury pt-20 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32">
         <nav aria-label="Okruszki" className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
           <Link to="/lekarze" className="transition-colors hover:text-foreground">
             Zespół kliniki
@@ -128,18 +128,18 @@ function HalinaGabaraPage() {
           <span className="text-foreground/70">lek. Halina Gabara</span>
         </nav>
 
-        <div className="mt-10 max-w-3xl">
+        <div className="mt-12 max-w-4xl md:mt-16">
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
               Lekarz prowadzący
             </p>
-            <h1 className="mt-3 font-serif text-4xl tracking-tight text-foreground md:text-5xl">
+            <h1 className="mt-4 font-serif text-4xl tracking-tight text-foreground md:mt-5 md:text-5xl">
               lek. Halina Gabara
             </h1>
-            <p className="mt-3 text-sm text-muted-foreground">
+            <p className="mt-4 text-sm text-muted-foreground md:mt-5">
               {professionalTitle}
             </p>
-            <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-foreground/85 md:text-lg">
+            <p className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-foreground/85 md:mt-10 md:text-lg">
               Patrzę na twarz analitycznie — jako układ punktów odniesienia,
               odległości i kątów, w których klasyczna harmonia łączy się
               z indywidualną anatomią pacjenta. Planuję terapie, które
