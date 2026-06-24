@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Public can view active doctors" ON public.doctors;
