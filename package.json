@@ -14,6 +14,7 @@
     "brand:fix:dist:apply": "node scripts/fix-brand-dist.mjs --apply",
     "brand:validate-or-fix:dist": "node scripts/brand-validate-or-fix.mjs",
     "brand:validate-or-fix:dist:strict": "node scripts/brand-validate-or-fix.mjs --strict",
+    "brand:report:sarif": "node scripts/brand-report-sarif.mjs",
     "validate:content": "node scripts/validate-content.mjs --section=all",
     "validate:technologie": "node scripts/validate-content.mjs --section=technologie",
     "validate:blog": "node scripts/validate-content.mjs --section=blog",
