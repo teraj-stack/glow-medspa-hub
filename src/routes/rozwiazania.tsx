@@ -290,8 +290,12 @@ function RozwiazaniaPage() {
         </div>
       </section>
 
+      {/* Protokół LADD */}
+      <LaddProtocolSection />
+
       {/* FAQ per protokół */}
       <FaqSection />
+
 
       {/* CTA */}
       <section className="border-t border-border bg-background">
