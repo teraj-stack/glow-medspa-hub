@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-06-24T17:05:53.005Z",
+  "generated_at": "2026-06-24T17:06:10.767Z",
   "tables_scanned": 15,
-  "findings_count": 28,
+  "findings_count": 12,
   "findings": [
     {
       "type": "missing_policy",
@@ -42,38 +42,6 @@
       "operation": "DELETE",
       "message": "Brak polityki RLS dla DELETE na tabeli public.email_send_log.",
       "remediation": "Dodaj politykę DELETE dla public.email_send_log lub dodaj \"email_send_log.DELETE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "email_send_state",
-      "operation": "SELECT",
-      "message": "Brak polityki RLS dla SELECT na tabeli public.email_send_state.",
-      "remediation": "Dodaj politykę SELECT dla public.email_send_state lub dodaj \"email_send_state.SELECT\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "email_send_state",
-      "operation": "INSERT",
-      "message": "Brak polityki RLS dla INSERT na tabeli public.email_send_state.",
-      "remediation": "Dodaj politykę INSERT dla public.email_send_state lub dodaj \"email_send_state.INSERT\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "email_send_state",
-      "operation": "UPDATE",
-      "message": "Brak polityki RLS dla UPDATE na tabeli public.email_send_state.",
-      "remediation": "Dodaj politykę UPDATE dla public.email_send_state lub dodaj \"email_send_state.UPDATE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "email_send_state",
-      "operation": "DELETE",
-      "message": "Brak polityki RLS dla DELETE na tabeli public.email_send_state.",
-      "remediation": "Dodaj politykę DELETE dla public.email_send_state lub dodaj \"email_send_state.DELETE\" do allowlisty, jeśli brak jest celowy."
     },
     {
       "type": "missing_policy",
@@ -130,102 +98,6 @@
       "operation": "DELETE",
       "message": "Brak polityki RLS dla DELETE na tabeli public.suppressed_emails.",
       "remediation": "Dodaj politykę DELETE dla public.suppressed_emails lub dodaj \"suppressed_emails.DELETE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "time_off",
-      "operation": "INSERT",
-      "message": "Brak polityki RLS dla INSERT na tabeli public.time_off.",
-      "remediation": "Dodaj politykę INSERT dla public.time_off lub dodaj \"time_off.INSERT\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "time_off",
-      "operation": "UPDATE",
-      "message": "Brak polityki RLS dla UPDATE na tabeli public.time_off.",
-      "remediation": "Dodaj politykę UPDATE dla public.time_off lub dodaj \"time_off.UPDATE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "time_off",
-      "operation": "DELETE",
-      "message": "Brak polityki RLS dla DELETE na tabeli public.time_off.",
-      "remediation": "Dodaj politykę DELETE dla public.time_off lub dodaj \"time_off.DELETE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "treatment_catalog",
-      "operation": "INSERT",
-      "message": "Brak polityki RLS dla INSERT na tabeli public.treatment_catalog.",
-      "remediation": "Dodaj politykę INSERT dla public.treatment_catalog lub dodaj \"treatment_catalog.INSERT\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "treatment_catalog",
-      "operation": "UPDATE",
-      "message": "Brak polityki RLS dla UPDATE na tabeli public.treatment_catalog.",
-      "remediation": "Dodaj politykę UPDATE dla public.treatment_catalog lub dodaj \"treatment_catalog.UPDATE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "treatment_catalog",
-      "operation": "DELETE",
-      "message": "Brak polityki RLS dla DELETE na tabeli public.treatment_catalog.",
-      "remediation": "Dodaj politykę DELETE dla public.treatment_catalog lub dodaj \"treatment_catalog.DELETE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "visit_bookings",
-      "operation": "SELECT",
-      "message": "Brak polityki RLS dla SELECT na tabeli public.visit_bookings.",
-      "remediation": "Dodaj politykę SELECT dla public.visit_bookings lub dodaj \"visit_bookings.SELECT\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "visit_bookings",
-      "operation": "UPDATE",
-      "message": "Brak polityki RLS dla UPDATE na tabeli public.visit_bookings.",
-      "remediation": "Dodaj politykę UPDATE dla public.visit_bookings lub dodaj \"visit_bookings.UPDATE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "visit_bookings",
-      "operation": "DELETE",
-      "message": "Brak polityki RLS dla DELETE na tabeli public.visit_bookings.",
-      "remediation": "Dodaj politykę DELETE dla public.visit_bookings lub dodaj \"visit_bookings.DELETE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "working_hours",
-      "operation": "INSERT",
-      "message": "Brak polityki RLS dla INSERT na tabeli public.working_hours.",
-      "remediation": "Dodaj politykę INSERT dla public.working_hours lub dodaj \"working_hours.INSERT\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "working_hours",
-      "operation": "UPDATE",
-      "message": "Brak polityki RLS dla UPDATE na tabeli public.working_hours.",
-      "remediation": "Dodaj politykę UPDATE dla public.working_hours lub dodaj \"working_hours.UPDATE\" do allowlisty, jeśli brak jest celowy."
-    },
-    {
-      "type": "missing_policy",
-      "severity": "high",
-      "table": "working_hours",
-      "operation": "DELETE",
-      "message": "Brak polityki RLS dla DELETE na tabeli public.working_hours.",
-      "remediation": "Dodaj politykę DELETE dla public.working_hours lub dodaj \"working_hours.DELETE\" do allowlisty, jeśli brak jest celowy."
     }
   ],
   "tables_without_rls": [],
@@ -255,11 +127,10 @@
       "DELETE": false
     },
     "email_send_state": {
-      "SELECT": false,
-      "INSERT": false,
-      "UPDATE": false,
-      "DELETE": false,
-      "ALL": true
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
     },
     "email_unsubscribe_tokens": {
       "SELECT": true,
@@ -293,17 +164,15 @@
     },
     "time_off": {
       "SELECT": true,
-      "INSERT": false,
-      "UPDATE": false,
-      "DELETE": false,
-      "ALL": true
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
     },
     "treatment_catalog": {
       "SELECT": true,
-      "INSERT": false,
-      "UPDATE": false,
-      "DELETE": false,
-      "ALL": true
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
     },
     "user_roles": {
       "SELECT": true,
@@ -312,18 +181,16 @@
       "DELETE": true
     },
     "visit_bookings": {
-      "SELECT": false,
+      "SELECT": true,
       "INSERT": true,
-      "UPDATE": false,
-      "DELETE": false,
-      "ALL": true
+      "UPDATE": true,
+      "DELETE": true
     },
     "working_hours": {
       "SELECT": true,
-      "INSERT": false,
-      "UPDATE": false,
-      "DELETE": false,
-      "ALL": true
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
     }
   }
 }
