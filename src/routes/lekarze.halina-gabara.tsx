@@ -169,10 +169,31 @@ function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPic
       queryClient.invalidateQueries({ queryKey: ["doctor", slug] });
     },
     onError: (err: unknown) => {
-      const msg = err instanceof Error ? err.message : String(err);
-      setStatus(`Błąd zapisu: ${msg}`);
+      const raw = err instanceof Error ? err.message : String(err);
+      // Server function middleware throws Response('Unauthorized', { status: 401 })
+      // which surfaces here as an Error with message containing "Unauthorized".
+      let friendly: string;
+      if (/unauthorized|401|no authorization header/i.test(raw)) {
+        friendly = "Sesja wygasła — zaloguj się ponownie.";
+      } else if (raw.startsWith("[FORBIDDEN]") || /403|forbidden/i.test(raw)) {
+        friendly = "Brak uprawnień — wymagana rola admin.";
+      } else if (raw.startsWith("[VALIDATION]")) {
+        friendly = `Nieprawidłowe dane kadru: ${raw.replace("[VALIDATION]", "").trim()}`;
+      } else if (raw.startsWith("[NOT_FOUND]")) {
+        friendly = raw.replace("[NOT_FOUND]", "").trim();
+      } else if (raw.startsWith("[UPLOAD]")) {
+        friendly = `Nie udało się wgrać zdjęcia: ${raw.replace("[UPLOAD]", "").trim()}`;
+      } else if (raw.startsWith("[DB]")) {
+        friendly = "Błąd bazy danych. Spróbuj ponownie za chwilę.";
+      } else if (/network|fetch|failed to fetch/i.test(raw)) {
+        friendly = "Brak połączenia z serwerem. Sprawdź internet i spróbuj ponownie.";
+      } else {
+        friendly = "Nie udało się zapisać kadru. Spróbuj ponownie.";
+      }
+      console.warn("[saveDoctorPortrait] mutation error", { raw });
+      setStatus(friendly);
+      toast.error(friendly);
     },
-  });
 
   function save() {
     setStatus(null);
