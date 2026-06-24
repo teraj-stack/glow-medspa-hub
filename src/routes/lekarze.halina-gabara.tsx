@@ -49,6 +49,10 @@ export const Route = createFileRoute("/lekarze/halina-gabara")({
       },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: CANONICAL },
+      { property: "og:image", content: halinaPortrait.url },
+      { name: "twitter:title", content: "lek. Halina Gabara — Beauty & Mind Clinic" },
+      { name: "twitter:description", content: "Profil lekarza prowadzącego w Beauty & Mind Clinic Siedlce — specjalizacje, podejście do pacjenta i ścieżka kliniczna." },
+      { name: "twitter:image", content: halinaPortrait.url },
     ],
     links: [{ rel: "canonical", href: CANONICAL }],
     scripts: [
