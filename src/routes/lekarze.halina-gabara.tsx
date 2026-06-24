@@ -2,16 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
-import { Watermark } from "@/components/site/Watermark";
 import halinaPortrait from "@/assets/halina-portrait.png.asset.json";
-import geometria640Avif from "@/assets/halina-geometria-640.avif.asset.json";
-import geometria960Avif from "@/assets/halina-geometria-960.avif.asset.json";
-import geometria1280Avif from "@/assets/halina-geometria-1280.avif.asset.json";
-import geometria1600Avif from "@/assets/halina-geometria-1600.avif.asset.json";
-import geometria640Webp from "@/assets/halina-geometria-640.webp.asset.json";
-import geometria960Webp from "@/assets/halina-geometria-960.webp.asset.json";
-import geometria1280Webp from "@/assets/halina-geometria-1280.webp.asset.json";
-import geometria1600Webp from "@/assets/halina-geometria-1600.webp.asset.json";
 
 const GEOMETRIA_ALT =
   "Trójwymiarowy szkic kobiecej twarzy z naniesionymi punktami pomiarowymi (landmarks), liniami proporcji i płaszczyznami anatomicznymi — narzędzie planowania zabiegów medycyny estetycznej u lek. Haliny Gabary.";
