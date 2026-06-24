@@ -25,7 +25,7 @@ from PIL import Image, ImageChops
 from playwright.async_api import async_playwright
 
 BASE_URL = os.environ.get("E2E_BASE_URL", "https://glow-medspa-hub.lovable.app").rstrip("/")
-ROUTE = "/" + quote("rozwiązania")
+ROUTE = os.environ.get("E2E_ROUTE", "/rozwiazania")
 SELECTOR = "#tekstura-hd"
 TOLERANCE = float(os.environ.get("DIFF_TOLERANCE", "0.5"))  # percent
 UPDATE = os.environ.get("UPDATE_BASELINES") == "1"
