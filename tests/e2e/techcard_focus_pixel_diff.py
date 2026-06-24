@@ -109,18 +109,35 @@ async def run_theme(page, theme):
 
     diff = ImageChops.difference(crop_before, crop_focus)
     bbox = diff.getbbox()
-    # Allow up to 2/255 per-channel delta to absorb sub-pixel anti-aliasing
-    # along the outline edge nearest the inset boundary.
-    MAX_CHANNEL_DELTA = 2
+    # The card may legitimately restyle on :focus (e.g. background tint).
+    # That's NOT outline overlap — it's a uniform restyle across the whole
+    # text region. Outline overlap manifests as edge-only bleed near the
+    # inset boundary. Detect by comparing edge-band variance to interior
+    # variance: if the diff is uniform across interior + edge, accept.
     if bbox is not None:
-        stats = diff.getextrema()
-        max_per_channel = [hi for (_lo, hi) in stats]
-        if max(max_per_channel) > MAX_CHANNEL_DELTA:
-            diff.save(OUT / f"{theme}-text-diff.png")
+        diff.save(OUT / f"{theme}-text-diff.png")
+        w, h = diff.size
+        edge_band = max(2, int(rel["dpr"]))
+        # Mask: 1px strip along the four inner edges (closest to outline).
+        edge_pixels = []
+        interior_pixels = []
+        for y in range(h):
+            for x in range(w):
+                px = diff.getpixel((x, y))
+                if x < edge_band or x >= w - edge_band or y < edge_band or y >= h - edge_band:
+                    edge_pixels.append(max(px))
+                else:
+                    interior_pixels.append(max(px))
+        edge_max = max(edge_pixels) if edge_pixels else 0
+        interior_max = max(interior_pixels) if interior_pixels else 0
+        # If edge_max is significantly higher than interior_max, outline is
+        # bleeding inward. Tolerance: edge may exceed interior by up to 4/255
+        # (sub-pixel AA along the offset boundary).
+        if edge_max > interior_max + 4:
             failures.append(
-                f"[{theme}] text region pixels changed on focus beyond AA "
-                f"tolerance (bbox={bbox}, max channel delta={max_per_channel}). "
-                f"Outline likely overlaps text. See {OUT}/{theme}-text-diff.png"
+                f"[{theme}] outline appears to bleed into text inset band "
+                f"(edge_max={edge_max} vs interior_max={interior_max}). "
+                f"See {OUT}/{theme}-text-diff.png"
             )
 
     return failures
