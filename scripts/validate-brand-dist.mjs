@@ -9,8 +9,8 @@
  *
  * Wired into `build` and `build:dev` after `vite build`.
  */
-import { readdirSync, readFileSync, statSync, existsSync, mkdirSync, writeFileSync, relative } from 'node:fs'
-import { join, resolve, extname, dirname, relative as relPath } from 'node:path'
+import { readdirSync, readFileSync, statSync, existsSync, mkdirSync, writeFileSync } from 'node:fs'
+import { join, resolve, extname, relative as relPath } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
