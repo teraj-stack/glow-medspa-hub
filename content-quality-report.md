@@ -1,6 +1,6 @@
 # Raport jakości treści
 
-Wygenerowano: 2026-06-24T02:34:56.994Z
+Wygenerowano: 2026-06-24T13:34:13.232Z
 Przeskanowanych plików tras: 36
 
 | Podstrona | Fragmentów | Urwane | Podwójne spacje | Brak kropki | % problemów |
@@ -16,16 +16,16 @@ Przeskanowanych plików tras: 36
 | `/technologie/laser-tulowy` | 38 | 9 | 6 | 4 | 50% |
 | `/blog/powiklania-mezoterapia-iglowa` | 81 | 10 | 21 | 8 | 48.1% |
 | `/regulamin` | 9 | 2 | 2 | 0 | 44.4% |
+| `/lekarze/halina-gabara` | 30 | 3 | 7 | 3 | 43.3% |
 | `/konsultacja` | 12 | 1 | 2 | 2 | 41.7% |
-| `/lekarze/halina-gabara` | 27 | 3 | 6 | 2 | 40.7% |
 | `/technologie/peeling-weglowy-laserowy` | 27 | 4 | 5 | 2 | 40.7% |
 | `/blog/slonce-skora-nowoczesne-technologie` | 79 | 3 | 19 | 10 | 40.5% |
 | `/_authenticated/admin/web-vitals` | 23 | 2 | 4 | 3 | 39.1% |
 | `(root layout)` | 21 | 3 | 0 | 5 | 38.1% |
 | `/lekarze` | 17 | 2 | 2 | 2 | 35.3% |
-| `/blog/laser-frakcyjny-rekonwalescencja` | 89 | 10 | 14 | 6 | 33.7% |
 | `/auth` | 9 | 1 | 1 | 1 | 33.3% |
 | `/renasculpt` | 22 | 4 | 1 | 2 | 31.8% |
+| `/blog/laser-frakcyjny-rekonwalescencja` | 89 | 8 | 14 | 6 | 31.5% |
 | `/technologie/terapia-led` | 35 | 4 | 5 | 2 | 31.4% |
 | `/rozwiazania` | 39 | 5 | 3 | 4 | 30.8% |
 | `/bezpieczenstwo-zabiegow-laserowych` | 63 | 10 | 3 | 6 | 30.2% |
@@ -161,25 +161,6 @@ Przeskanowanych plików tras: 36
 - urwane: "Regulamin | BMClinics.ai"
 - urwane: "Regulamin | BMClinics.ai"
 
-### `/konsultacja`
-- podwójne spacje: "("online");
- ␣␣ const [fullName, setFullName] = useState("");
- ␣␣ const [email, setEmail] = useState("");
- ␣␣ const [phone, setPhone] = useState("");
- ␣␣ const [preferredDate, setPreferredDate] = useState("");
- ␣␣ const [notes, setNotes] = useState("");
- ␣␣ const [clientSecret, setClientSecret] = useState"
-- brak kropki: "("online");
-  const [fullName, setFullName] = useState("");
-  const [email, setE…"
-- podwójne spacje: "(null);
- ␣␣ const [loading, setLoading] = useState(false);
- ␣␣ const [error, setError] = useState"
-- brak kropki: "(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setErro…"
-- urwane: "500 zł"
-
 ### `/lekarze/halina-gabara`
 - podwójne spacje: "p.trim()).filter(Boolean)
  ␣␣ : [
@@ -207,6 +188,25 @@ Przeskanowanych plików tras: 36
  ␣␣ anatomii, a nie na gotowych wzorach. W Beauty &amp; Mind Clinic
  ␣␣ tworzymy na tej bazie nowy standard opieki: od precyzyjnej
  ␣␣ diagnostyki, przez dobór technik, po opiekę okołozabiegową."
+
+### `/konsultacja`
+- podwójne spacje: "("online");
+ ␣␣ const [fullName, setFullName] = useState("");
+ ␣␣ const [email, setEmail] = useState("");
+ ␣␣ const [phone, setPhone] = useState("");
+ ␣␣ const [preferredDate, setPreferredDate] = useState("");
+ ␣␣ const [notes, setNotes] = useState("");
+ ␣␣ const [clientSecret, setClientSecret] = useState"
+- brak kropki: "("online");
+  const [fullName, setFullName] = useState("");
+  const [email, setE…"
+- podwójne spacje: "(null);
+ ␣␣ const [loading, setLoading] = useState(false);
+ ␣␣ const [error, setError] = useState"
+- brak kropki: "(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setErro…"
+- urwane: "500 zł"
 
 ### `/technologie/peeling-weglowy-laserowy`
 - urwane: "Carbon Peel · Hollywood Peel · laser pikosekundowy 1064 nm"
@@ -268,21 +268,6 @@ Przeskanowanych plików tras: 36
 - urwane: "Umów konsultację"
 - brak kropki: "Lekarze i specjaliści — Beauty & Mind Clinic Siedlce"
 
-### `/blog/laser-frakcyjny-rekonwalescencja`
-- brak kropki: "Laser frakcyjny — dzień po dniu rekonwalescencji"
-- podwójne spacje: "Trzy główne lasery frakcyjne — pikosekundowy, tulowy 1927 nm i CO2 — działają na
- ␣␣ skórę zupełnie inaczej. Różnica widać przede wszystkim w gojeniu. Poniżej
- ␣␣ porównanie dzień po dniu: jak wygląda skóra, jak ją pielęgnować i kiedy realnie
- ␣␣ można wrócić do pracy, sportu i makijażu."
-- podwójne spacje: "„Laser frakcyjny” to nie jeden zabieg, tylko cała rodzina technologii. Słowo
- ␣␣ „frakcyjny” oznacza tylko jedno: wiązka jest rozdzielona na setki mikropunktów,
- ␣␣ a między nimi pozostaje nietknięta zdrowa skóra. To ona odpowiada za regenerację.
- ␣␣ Reszta — głębokość, długość fali, mechanizm — różni się drastycznie. Stąd
- ␣␣ różnice w okresie gojenia: od 6 godzin do 2 tygodni."
-- podwójne spacje: "Nieablacyjny. Impuls 350 pikosekund tworzy efekt fotoakustyczny (LIOB) bez
- ␣␣ uszkodzenia naskórka."
-- urwane: "Laser tulowy 1927 nm"
-
 ### `/auth`
 - podwójne spacje: "("login");
  ␣␣ const [email, setEmail] = useState("");
@@ -301,6 +286,21 @@ Przeskanowanych plików tras: 36
 - urwane: "Umów konsultację"
 - urwane: "Jak to działa"
 - brak kropki: "Sprawdź, czy ten protokół jest dla Ciebie"
+
+### `/blog/laser-frakcyjny-rekonwalescencja`
+- brak kropki: "Laser frakcyjny — dzień po dniu rekonwalescencji"
+- podwójne spacje: "Trzy główne lasery frakcyjne — pikosekundowy, tulowy 1927 nm i CO2 — działają na
+ ␣␣ skórę zupełnie inaczej. Różnica widać przede wszystkim w gojeniu. Poniżej
+ ␣␣ porównanie dzień po dniu: jak wygląda skóra, jak ją pielęgnować i kiedy realnie
+ ␣␣ można wrócić do pracy, sportu i makijażu."
+- podwójne spacje: "„Laser frakcyjny” to nie jeden zabieg, tylko cała rodzina technologii. Słowo
+ ␣␣ „frakcyjny” oznacza tylko jedno: wiązka jest rozdzielona na setki mikropunktów,
+ ␣␣ a między nimi pozostaje nietknięta zdrowa skóra. To ona odpowiada za regenerację.
+ ␣␣ Reszta — głębokość, długość fali, mechanizm — różni się drastycznie. Stąd
+ ␣␣ różnice w okresie gojenia: od 6 godzin do 2 tygodni."
+- podwójne spacje: "Nieablacyjny. Impuls 350 pikosekund tworzy efekt fotoakustyczny (LIOB) bez
+ ␣␣ uszkodzenia naskórka."
+- urwane: "Laser tulowy 1927 nm"
 
 ### `/technologie/terapia-led`
 - urwane: "Fotobiomodulacja (PBM) · 445 / 595 / 660 / 870 nm"
