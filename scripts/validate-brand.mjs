@@ -46,7 +46,8 @@ function walk(dir, out = []) {
 const offenders = []
 for (const d of SCAN_DIRS) {
   for (const file of walk(resolve(ROOT, d))) {
-    if (ALLOW.has(file)) continue
+    const normalized = resolve(normalize(file))
+    if (ALLOW.has(normalized)) continue
     const content = readFileSync(file, 'utf8')
     if (!FORBIDDEN.test(content)) continue
     content.split('\n').forEach((line, i) => {
