@@ -2,7 +2,31 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
-import geometriaTwarzyAsset from "@/assets/halina-geometria-twarzy.jpeg.asset.json";
+import geometria640Avif from "@/assets/halina-geometria-640.avif.asset.json";
+import geometria960Avif from "@/assets/halina-geometria-960.avif.asset.json";
+import geometria1280Avif from "@/assets/halina-geometria-1280.avif.asset.json";
+import geometria1600Avif from "@/assets/halina-geometria-1600.avif.asset.json";
+import geometria640Webp from "@/assets/halina-geometria-640.webp.asset.json";
+import geometria960Webp from "@/assets/halina-geometria-960.webp.asset.json";
+import geometria1280Webp from "@/assets/halina-geometria-1280.webp.asset.json";
+import geometria1600Webp from "@/assets/halina-geometria-1600.webp.asset.json";
+
+const GEOMETRIA_ALT =
+  "Trójwymiarowy szkic kobiecej twarzy z naniesionymi punktami pomiarowymi (landmarks), liniami proporcji i płaszczyznami anatomicznymi — narzędzie planowania zabiegów medycyny estetycznej u lek. Haliny Gabary.";
+const GEOMETRIA_AVIF_SRCSET = [
+  `${geometria640Avif.url} 640w`,
+  `${geometria960Avif.url} 960w`,
+  `${geometria1280Avif.url} 1280w`,
+  `${geometria1600Avif.url} 1600w`,
+].join(", ");
+const GEOMETRIA_WEBP_SRCSET = [
+  `${geometria640Webp.url} 640w`,
+  `${geometria960Webp.url} 960w`,
+  `${geometria1280Webp.url} 1280w`,
+  `${geometria1600Webp.url} 1600w`,
+].join(", ");
+const GEOMETRIA_SIZES =
+  "(min-width: 1024px) 640px, (min-width: 768px) 60vw, 92vw";
 
 const CANONICAL = "https://bmclinics.ai/lekarze/halina-gabara";
 
