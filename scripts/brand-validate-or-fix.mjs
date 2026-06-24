@@ -31,6 +31,30 @@ function run(cmd, args, label) {
   return res.status ?? 1
 }
 
+// Maximum locations to print per file in the console summary. Full data
+// is always available in reports/brand-fix-dist-report.{json,md}.
+const MAX_LOCATIONS_PER_FILE = 10
+const SNIPPET_MAX = 100
+
+function truncate(s, n) {
+  if (!s) return ''
+  return s.length > n ? `${s.slice(0, n - 1)}…` : s
+}
+
+function printLocationList(label, items) {
+  if (!items.length) return
+  console.log(`\n  ${label} (${items.length}):`)
+  const shown = items.slice(0, MAX_LOCATIONS_PER_FILE)
+  for (const it of shown) {
+    const loc = `L${it.line}:C${it.col}`
+    const extra = it.reason ? ` — ${it.reason}` : ''
+    console.log(`    • ${loc}  "${it.match}"${extra}`)
+    if (it.snippet) console.log(`        > ${truncate(it.snippet, SNIPPET_MAX)}`)
+  }
+  const rest = items.length - shown.length
+  if (rest > 0) console.log(`    … and ${rest} more (see reports/brand-fix-dist-report.md)`)
+}
+
 function printSummary(header) {
   const bar = '─'.repeat(64)
   console.log(`\n${bar}\n${header}\n${bar}`)
@@ -47,19 +71,32 @@ function printSummary(header) {
     console.log(bar)
     return
   }
-  const changedFiles = (report.perFile || []).filter((f) => f.changed)
+  const perFile = report.perFile || []
+  const changedFiles = perFile.filter((f) => f.changed)
+  const filesWithSkips = perFile.filter((f) => (f.skips || []).length > 0)
   console.log(`Mode:          ${report.mode}`)
   console.log(`Files scanned: ${report.filesScanned}`)
   console.log(`Replacements:  ${report.totalReplacements}  ("BM Clinics" → "BMClinics.ai")`)
   console.log(`Skipped:       ${report.totalSkips}  (unsafe — manual review)`)
   console.log(`Files changed: ${changedFiles.length}`)
+
   if (changedFiles.length) {
-    console.log('\nChanged files:')
+    console.log('\nChanged files — replacement locations:')
     for (const f of changedFiles) {
-      console.log(`  • ${f.file}  (+${f.replacements.length} replacement${f.replacements.length === 1 ? '' : 's'})`)
+      console.log(`\n  • ${f.file}  (+${f.replacements.length} replacement${f.replacements.length === 1 ? '' : 's'})`)
+      printLocationList('Replacements', f.replacements || [])
     }
   }
-  console.log(`\nFull report: reports/brand-fix-dist-report.md`)
+
+  if (filesWithSkips.length) {
+    console.log('\nFiles with skipped (unsafe) occurrences — needs manual review:')
+    for (const f of filesWithSkips) {
+      console.log(`\n  • ${f.file}  (${f.skips.length} skipped)`)
+      printLocationList('Skipped', f.skips || [])
+    }
+  }
+
+  console.log(`\nFull report: reports/brand-fix-dist-report.md  (JSON: reports/brand-fix-dist-report.json)`)
   console.log(bar)
 }
 
