@@ -21,7 +21,7 @@ export const Route = createFileRoute("/technologie/$slug")({
           url: `https://bmclinics.ai/technologie/${params.slug}`,
           provider: {
             "@type": "MedicalBusiness",
-            name: "Beauty & Mind Clinic",
+            name: "BM Clinics",
             url: "https://bmclinics.ai",
           },
           indication: loaderData.tech.indications,
@@ -48,13 +48,13 @@ export const Route = createFileRoute("/technologie/$slug")({
     return {
       meta: loaderData
         ? [
-            { title: `${loaderData.tech.name} — Beauty & Mind Clinic` },
+            { title: `${loaderData.tech.name} — BM Clinics` },
             { name: "description", content: loaderData.tech.shortDesc },
-            { property: "og:title", content: `${loaderData.tech.name} — Beauty & Mind Clinic` },
+            { property: "og:title", content: `${loaderData.tech.name} — BM Clinics` },
             { property: "og:description", content: loaderData.tech.shortDesc },
             { property: "og:url", content: `https://bmclinics.ai/technologie/${params.slug}` },
           ]
-        : [{ title: "Technologia — Beauty & Mind Clinic" }],
+        : [{ title: "Technologia — BM Clinics" }],
       links: [{ rel: "canonical", href: `https://bmclinics.ai/technologie/${params.slug}` }],
       scripts: scripts.length > 0 ? scripts : undefined,
     };

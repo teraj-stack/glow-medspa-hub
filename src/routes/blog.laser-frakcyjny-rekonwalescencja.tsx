@@ -213,7 +213,7 @@ export const Route = createFileRoute("/blog/laser-frakcyjny-rekonwalescencja")({
       { property: "og:type", content: "article" },
       { property: "article:published_time", content: "2026-06-22T12:00:00+02:00" },
       { property: "article:modified_time", content: "2026-06-22T12:00:00+02:00" },
-      { property: "article:author", content: "Beauty & Mind Clinic" },
+      { property: "article:author", content: "BM Clinics" },
       { property: "article:section", content: "Medycyna estetyczna" },
       { property: "article:tag", content: "laser frakcyjny" },
       { property: "article:tag", content: "rekonwalescencja" },
@@ -237,10 +237,10 @@ export const Route = createFileRoute("/blog/laser-frakcyjny-rekonwalescencja")({
             "Laser frakcyjny — dzień po dniu rekonwalescencji (pikosekundowy, tulowy, CO2)",
           description:
             "Porównanie gojenia po trzech rodzajach lasera frakcyjnego: pikosekundowym, tulowym 1927 nm i frakcyjnym CO2. Pełen przewodnik dzień po dniu.",
-          author: { "@type": "Organization", name: "Beauty & Mind Clinic" },
+          author: { "@type": "Organization", name: "BM Clinics" },
           publisher: {
             "@type": "Organization",
-            name: "Beauty & Mind Clinic",
+            name: "BM Clinics",
             logo: { "@type": "ImageObject", url: "https://bmclinics.ai/favicon.ico" },
           },
           datePublished: "2026-06-22T12:00:00+02:00",

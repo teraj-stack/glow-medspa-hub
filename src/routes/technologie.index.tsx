@@ -12,13 +12,13 @@ import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
 export const Route = createFileRoute("/technologie/")({
   head: () => ({
     meta: [
-      { title: "Technologie | Beauty & Mind Clinic Siedlce" },
+      { title: "Technologie | BM Clinics Siedlce" },
       {
         name: "description",
         content:
           "Park technologii uporządkowany według potrzeb pacjenta — od liftingu HIFU, przez teksturę HD, po modelowanie sylwetki. Kontynuacja sekcji Potrzeby i Rozwiązania.",
       },
-      { property: "og:title", content: "Technologie — Beauty & Mind Clinic" },
+      { property: "og:title", content: "Technologie — BM Clinics" },
       { property: "og:description", content: "Technologie dobrane do pięciu obszarów naszej praktyki." },
       { property: "og:url", content: "https://bmclinics.ai/technologie" },
     ],

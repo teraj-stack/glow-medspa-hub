@@ -12,13 +12,13 @@ import { HeroPicture } from "@/components/site/HeroPicture";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Beauty & Mind Clinic — Medycyna estetyczna, Siedlce" },
+      { title: "BM Clinics — Medycyna estetyczna, Siedlce" },
       {
         name: "description",
         content:
           "Klinika medycyny estetycznej i laserowej w Siedlcach. Dyskretne protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
       },
-      { property: "og:title", content: "Beauty & Mind Clinic — Siedlce" },
+      { property: "og:title", content: "BM Clinics — Siedlce" },
       { property: "og:description", content: "Naturalny efekt. Dyskretna pamięć. Klinika medycyny estetycznej i laserowej w Siedlcach." },
       { property: "og:url", content: "https://bmclinics.ai/" },
       { property: "og:image", content: bujokAsset.url },
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "BMClinics.ai",
-          alternateName: "Beauty & Mind Clinic",
+          alternateName: "BM Clinics",
           url: "https://bmclinics.ai/",
           logo: "https://bmclinics.ai/favicon.ico",
         }),
@@ -46,7 +46,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "MedicalBusiness",
           "@id": "https://bmclinics.ai/#clinic",
-          name: "Beauty & Mind Clinic",
+          name: "BM Clinics",
           url: "https://bmclinics.ai/",
           image: bujokAsset.url,
           priceRange: "$$",
@@ -80,7 +80,7 @@ function Hero() {
     <section className="relative overflow-hidden bg-alabaster">
       <div className="container-luxury grid items-center gap-12 py-20 md:grid-cols-2 md:py-32">
         <div className="rise-in">
-          <div className="text-xs uppercase tracking-[0.3em] text-champagne">Beauty &amp; Mind Clinic · Siedlce</div>
+          <div className="text-xs uppercase tracking-[0.3em] text-champagne">BM Clinics · Siedlce</div>
           <h1 className="mt-6 font-serif text-ink">
             Piękno nie potrzebuje hałasu. Potrzebuje{" "}
             <span className="bg-gradient-to-r from-champagne-light via-gold to-champagne bg-clip-text text-transparent">
@@ -113,7 +113,7 @@ function Hero() {
             avifUrl={bujokAvif.url}
             webpUrl={bujokWebp.url}
             fallbackUrl={bujokAsset.url}
-            alt="Lekarz Beauty & Mind Clinic w gabinecie"
+            alt="Lekarz BM Clinics w gabinecie"
             width={1200}
             height={1500}
             eager

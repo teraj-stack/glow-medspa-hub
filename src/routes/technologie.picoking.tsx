@@ -65,7 +65,7 @@ export const Route = createFileRoute("/technologie/picoking")({
   },
   head: ({ loaderData }) => {
     const url = "https://bmclinics.ai/technologie/picoking";
-    const title = "Laser pikosekundowy — Siedlce | Beauty & Mind Clinic";
+    const title = "Laser pikosekundowy — Siedlce | BM Clinics";
     const description =
       "Laser pikosekundowy 350 ps w Siedlcach: melasma, blizny potrądzikowe, przebarwienia, tatuaże, fotoodmładzanie. Standard premium klinik warszawskich.";
 
@@ -79,7 +79,7 @@ export const Route = createFileRoute("/technologie/picoking")({
           url,
           provider: {
             "@type": "MedicalBusiness",
-            name: "Beauty & Mind Clinic",
+            name: "BM Clinics",
             url: "https://bmclinics.ai",
             address: {
               "@type": "PostalAddress",
