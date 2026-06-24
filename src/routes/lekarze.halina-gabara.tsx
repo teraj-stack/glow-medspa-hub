@@ -85,6 +85,31 @@ function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPic
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Sync state when server data arrives/changes (only if user hasn't made unsaved edits)
+  useEffect(() => {
+    if (!initialCrop) return;
+    const normalized: PortraitCrop = {
+      shape: SHAPE_OPTIONS.some((o) => o.id === initialCrop.shape) ? initialCrop.shape : DEFAULT_CROP.shape,
+      zoom: Math.min(4, Math.max(1, initialCrop.zoom)),
+      offsetX: Math.min(100, Math.max(0, initialCrop.offsetX)),
+      offsetY: Math.min(100, Math.max(0, initialCrop.offsetY)),
+    };
+    setSavedCrop((prev) => (cropsEqual(prev, normalized) ? prev : normalized));
+    setDraftCrop((prev) => (cropsEqual(prev, savedCrop) ? normalized : prev));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialCrop?.shape, initialCrop?.zoom, initialCrop?.offsetX, initialCrop?.offsetY]);
+
+  useEffect(() => {
+    if (!initialPhotoUrl) return;
+    setSavedPhotoUrl((prev) => {
+      // If draft is currently mirroring saved (no unsaved photo change), update both
+      setDraftPhotoUrl((d) => (d === prev && !pendingFile ? initialPhotoUrl : d));
+      return initialPhotoUrl;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialPhotoUrl]);
+
+
   const dirty = !cropsEqual(draftCrop, savedCrop) || draftPhotoUrl !== savedPhotoUrl || pendingFile !== null;
 
   const mutation = useMutation({
