@@ -14,10 +14,6 @@ function publicSupabase() {
 }
 
 async function assertAdmin(supabase: any, userId: string) {
-  // user_roles is locked; query via a security-definer helper isn't exposed,
-  // so do an explicit check against has_role using a service-role round-trip.
-  // We can't call private.has_role from anon/auth; instead, read user_roles
-  // through service role.
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await supabaseAdmin
     .from("user_roles")
@@ -25,8 +21,14 @@ async function assertAdmin(supabase: any, userId: string) {
     .eq("user_id", userId)
     .eq("role", "admin")
     .maybeSingle();
-  if (error) throw new Error(error.message);
-  if (!data) throw new Error("Forbidden: admin role required");
+  if (error) {
+    console.error("[saveDoctorPortrait][assertAdmin] DB error", { userId, error });
+    throw new Error("[DB] " + error.message);
+  }
+  if (!data) {
+    console.warn("[saveDoctorPortrait][assertAdmin] forbidden", { userId });
+    throw new Error("[FORBIDDEN] Wymagana rola admin.");
+  }
 }
 
 // ============================================================
@@ -98,14 +100,21 @@ const PortraitCropSchema = z.object({
 
 export const saveDoctorPortrait = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: unknown) =>
-    z.object({
+  .inputValidator((input: unknown) => {
+    const schema = z.object({
       slug: z.string().min(1).max(120),
       crop: PortraitCropSchema,
       photoBase64: z.string().max(15_000_000).optional(),
       photoContentType: z.string().regex(/^image\/(png|jpe?g|webp|avif)$/).optional(),
-    }).parse(input),
-  )
+    });
+    const parsed = schema.safeParse(input);
+    if (!parsed.success) {
+      const issues = parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join("; ");
+      console.warn("[saveDoctorPortrait] validation failed", issues);
+      throw new Error(`[VALIDATION] ${issues}`);
+    }
+    return parsed.data;
+  })
   .handler(async ({ data, context }) => {
     await assertAdmin(context.supabase, context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -115,8 +124,14 @@ export const saveDoctorPortrait = createServerFn({ method: "POST" })
       .select("id, photo_url")
       .eq("slug", data.slug)
       .maybeSingle();
-    if (docErr) throw new Error(docErr.message);
-    if (!doc) throw new Error("Doctor not found");
+    if (docErr) {
+      console.error("[saveDoctorPortrait] DB select error", { slug: data.slug, error: docErr });
+      throw new Error(`[DB] ${docErr.message}`);
+    }
+    if (!doc) {
+      console.warn("[saveDoctorPortrait] doctor not found", { slug: data.slug });
+      throw new Error(`[NOT_FOUND] Nie znaleziono lekarki o slugu "${data.slug}".`);
+    }
 
     const patch: Record<string, unknown> = { portrait_crop: data.crop };
 
@@ -127,11 +142,17 @@ export const saveDoctorPortrait = createServerFn({ method: "POST" })
       const { error: upErr } = await supabaseAdmin.storage
         .from("doctor-portraits")
         .upload(path, buf, { contentType: data.photoContentType, upsert: false });
-      if (upErr) throw new Error(`Upload failed: ${upErr.message}`);
+      if (upErr) {
+        console.error("[saveDoctorPortrait] storage upload failed", { path, error: upErr });
+        throw new Error(`[UPLOAD] ${upErr.message}`);
+      }
       const { data: signed, error: signErr } = await supabaseAdmin.storage
         .from("doctor-portraits")
         .createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
-      if (signErr || !signed) throw new Error(`Sign failed: ${signErr?.message ?? "unknown"}`);
+      if (signErr || !signed) {
+        console.error("[saveDoctorPortrait] sign url failed", { path, error: signErr });
+        throw new Error(`[UPLOAD] Nie udało się wygenerować linku do zdjęcia.`);
+      }
       patch.photo_url = signed.signedUrl;
     }
 
@@ -141,7 +162,11 @@ export const saveDoctorPortrait = createServerFn({ method: "POST" })
       .eq("id", doc.id)
       .select("photo_url, portrait_crop")
       .single();
-    if (updErr) throw new Error(updErr.message);
+    if (updErr) {
+      console.error("[saveDoctorPortrait] DB update error", { id: doc.id, error: updErr });
+      throw new Error(`[DB] ${updErr.message}`);
+    }
+    console.info("[saveDoctorPortrait] saved", { slug: data.slug, userId: context.userId, photoUpdated: !!patch.photo_url });
     return updated;
   });
 
