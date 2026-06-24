@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import logoBmc from "@/assets/bmclinics-logo.png.asset.json";
+import logoBmc from "@/assets/bujok-medical-logo.png.asset.json";
 
 const NAV = [
   { to: "/potrzeby", label: "Potrzeby" },
@@ -20,7 +20,7 @@ export function Header() {
         <Link to="/" aria-label="Beauty & Mind Clinic — strona główna" className="flex items-center">
           <img
             src={logoBmc.url}
-            alt="Beauty & Mind Clinic"
+            alt="Bujok Medical"
             className="h-12 w-auto drop-shadow-sm md:h-16"
             width={160}
             height={160}
