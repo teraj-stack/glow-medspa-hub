@@ -34,7 +34,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
   head: () => ({
     meta: [
       {
-        title: "Bezpieczeństwo zabiegów laserowych — BM Clinics Siedlce",
+        title: "Bezpieczeństwo zabiegów laserowych — BMClinics.ai Siedlce",
       },
       {
         name: "description",
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
       },
       {
         property: "og:title",
-        content: "Bezpieczeństwo zabiegów laserowych — BM Clinics",
+        content: "Bezpieczeństwo zabiegów laserowych — BMClinics.ai",
       },
       {
         property: "og:description",
@@ -306,7 +306,7 @@ const CONTACT_STEPS = [
   {
     icon: Phone,
     title: "2. Skontaktuj się bezpośrednio z kliniką",
-    text: "Nie czekaj na samoistne ustąpienie niepokojących objawów. Zadzwoń lub napisz do BM Clinics — konsultację po zabiegu traktujemy priorytetowo, a nasz personel medyczny oceni, czy konieczna jest wizyta kontrolna.",
+    text: "Nie czekaj na samoistne ustąpienie niepokojących objawów. Zadzwoń lub napisz do BMClinics.ai — konsultację po zabiegu traktujemy priorytetowo, a nasz personel medyczny oceni, czy konieczna jest wizyta kontrolna.",
   },
   {
     icon: CalendarDays,

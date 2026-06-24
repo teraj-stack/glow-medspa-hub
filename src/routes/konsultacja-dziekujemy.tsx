@@ -6,7 +6,7 @@ export const Route = createFileRoute("/konsultacja-dziekujemy")({
   }),
   head: () => ({
     meta: [
-      { title: "Dziękujemy za rezerwację | BM Clinics" },
+      { title: "Dziękujemy za rezerwację | BMClinics.ai" },
       { name: "robots", content: "noindex" },
     ],
   }),

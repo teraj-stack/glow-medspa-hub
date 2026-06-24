@@ -161,7 +161,7 @@ export const ConsultationIntakeEmail = ({
     <Body style={main}>
       <Container style={container}>
         <Section>
-          <Text style={siteNameStyle}>BM Clinics</Text>
+          <Text style={siteNameStyle}>BMClinics.ai</Text>
           <div style={accentLine} />
           <Heading style={heading}>Dziękujemy za zakup konsultacji</Heading>
           {name ? (
@@ -237,12 +237,12 @@ export const ConsultationIntakeEmail = ({
           <Text style={text}>
             Do zobaczenia,
             <br />
-            <strong>Zespół BM Clinics</strong>
+            <strong>Zespół BMClinics.ai</strong>
           </Text>
         </Section>
 
         <Text style={footer}>
-          BM Clinics · Siedlce
+          BMClinics.ai · Siedlce
           <br />
           <Link href={siteUrl} style={{ ...linkStyle, fontSize: '12px' }}>
             bmclinics.ai
@@ -255,7 +255,7 @@ export const ConsultationIntakeEmail = ({
 
 export const template = {
   component: ConsultationIntakeEmail,
-  subject: 'Wypełnij formularz przed konsultacją — BM Clinics',
+  subject: 'Wypełnij formularz przed konsultacją — BMClinics.ai',
   displayName: 'Po zakupie konsultacji — formularz diagnostyczny',
   previewData: {
     name: 'Anna',

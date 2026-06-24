@@ -77,7 +77,7 @@ const submitIntake = createServerFn({ method: "POST" })
 export const Route = createFileRoute("/formularz/$token")({
   head: () => ({
     meta: [
-      { title: "Formularz wstępnej diagnostyki | BM Clinics" },
+      { title: "Formularz wstępnej diagnostyki | BMClinics.ai" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -259,7 +259,7 @@ function IntakeForm() {
               className="mt-1 size-4 rounded border-border"
             />
             <span>
-              Wyrażam zgodę na przetwarzanie danych medycznych przez BM Clinics
+              Wyrażam zgodę na przetwarzanie danych medycznych przez BMClinics.ai
               w celu przygotowania konsultacji. *
             </span>
           </label>

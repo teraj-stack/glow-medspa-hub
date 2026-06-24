@@ -33,7 +33,7 @@ export const Route = createFileRoute("/technologie/terapia-led")({
   },
   head: () => {
     const title =
-      "Terapia LED (fotobiomodulacja PBM) — wielodiodowa lampa wysokiej mocy 445/595/660/870 nm | BM Clinics Siedlce";
+      "Terapia LED (fotobiomodulacja PBM) — wielodiodowa lampa wysokiej mocy 445/595/660/870 nm | BMClinics.ai Siedlce";
     const description =
       "Fotobiomodulacja (PBM / LED Therapy) — nieinwazyjna terapia światłem widzialnym i bliską podczerwienią. Przyspiesza gojenie, stymuluje kolagen, wycisza rumień, niszczy bakterie trądziku i grzyby Malassezia. Idealna jako finisz po laserze.";
 
@@ -45,7 +45,7 @@ export const Route = createFileRoute("/technologie/terapia-led")({
       url: PAGE_URL,
       provider: {
         "@type": "MedicalBusiness",
-        name: "BM Clinics",
+        name: "BMClinics.ai",
         url: "https://bmclinics.ai",
         address: {
           "@type": "PostalAddress",
@@ -640,7 +640,7 @@ function TerapiaLedPage() {
             />
             <p className="text-sm text-muted-foreground">
               <Droplet className="mr-1 inline h-4 w-4 text-champagne" />
-              BM Clinics Siedlce · 10 lat doświadczenia w klinikach premium Warszawy ·
+              BMClinics.ai Siedlce · 10 lat doświadczenia w klinikach premium Warszawy ·
               ten sam sprzęt, ten sam standard, lokalnie.
             </p>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">

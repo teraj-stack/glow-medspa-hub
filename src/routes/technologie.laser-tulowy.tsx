@@ -44,7 +44,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
   },
   head: () => {
     const title =
-      "Laser tulowy 1927 nm — melasma, przebarwienia, depigmentacja | BM Clinics Siedlce";
+      "Laser tulowy 1927 nm — melasma, przebarwienia, depigmentacja | BMClinics.ai Siedlce";
     const description =
       "Laser tulowy 1927 nm — najbezpieczniejsza technologia w leczeniu melasmy i przebarwień posłonecznych. Precyzyjna depigmentacja bez wpływu na głębsze warstwy skóry. Standard premium klinik warszawskich w Siedlcach.";
 
@@ -56,7 +56,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
       url: PAGE_URL,
       provider: {
         "@type": "MedicalBusiness",
-        name: "BM Clinics",
+        name: "BMClinics.ai",
         url: "https://bmclinics.ai",
         address: {
           "@type": "PostalAddress",
@@ -609,7 +609,7 @@ function LaserTulowyPage() {
               description="Wypełnij formularz — oddzwaniamy w ciągu 24 godzin, by ustalić termin konsultacji i odpowiedzieć na wszystkie pytania."
             />
             <p className="text-sm text-muted-foreground">
-              BM Clinics Siedlce · 10 lat doświadczenia w klinikach premium Warszawy ·
+              BMClinics.ai Siedlce · 10 lat doświadczenia w klinikach premium Warszawy ·
               ten sam sprzęt, ten sam standard, lokalnie.
             </p>
           </div>

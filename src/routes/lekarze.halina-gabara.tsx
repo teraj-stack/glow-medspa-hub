@@ -363,23 +363,23 @@ const CANONICAL = "https://bmclinics.ai/lekarze/halina-gabara";
 export const Route = createFileRoute("/lekarze/halina-gabara")({
   head: () => ({
     meta: [
-      { title: "lek. Halina Gabara — BM Clinics Siedlce" },
+      { title: "lek. Halina Gabara — BMClinics.ai Siedlce" },
       {
         name: "description",
         content:
           "lek. Halina Gabara — medycyna estetyczna w Siedlcach. Doświadczenie z warszawskich klinik premium, indywidualnie planowane terapie, bezpieczeństwo i przewidywalny efekt.",
       },
-      { property: "og:title", content: "lek. Halina Gabara — BM Clinics" },
+      { property: "og:title", content: "lek. Halina Gabara — BMClinics.ai" },
       {
         property: "og:description",
         content:
-          "Profil lekarza prowadzącego w BM Clinics Siedlce — specjalizacje, podejście do pacjenta i ścieżka kliniczna.",
+          "Profil lekarza prowadzącego w BMClinics.ai Siedlce — specjalizacje, podejście do pacjenta i ścieżka kliniczna.",
       },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: CANONICAL },
       { property: "og:image", content: halinaPortrait.url },
-      { name: "twitter:title", content: "lek. Halina Gabara — BM Clinics" },
-      { name: "twitter:description", content: "Profil lekarza prowadzącego w BM Clinics Siedlce — specjalizacje, podejście do pacjenta i ścieżka kliniczna." },
+      { name: "twitter:title", content: "lek. Halina Gabara — BMClinics.ai" },
+      { name: "twitter:description", content: "Profil lekarza prowadzącego w BMClinics.ai Siedlce — specjalizacje, podejście do pacjenta i ścieżka kliniczna." },
       { name: "twitter:image", content: halinaPortrait.url },
     ],
     links: [{ rel: "canonical", href: CANONICAL }],
@@ -393,7 +393,7 @@ export const Route = createFileRoute("/lekarze/halina-gabara")({
           medicalSpecialty: "Aesthetic Medicine",
           worksFor: {
             "@type": "MedicalClinic",
-            name: "BM Clinics",
+            name: "BMClinics.ai",
             address: { "@type": "PostalAddress", addressLocality: "Siedlce", addressCountry: "PL" },
           },
           url: CANONICAL,
@@ -436,7 +436,7 @@ function HalinaGabaraPage() {
     ? doctor!.experience_summary!.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
     : [
         "Ścieżkę zawodową budowałam przez kilkanaście lat, łącząc praktykę w warszawskich klinikach premium z ortodontycznym, analitycznym spojrzeniem na twarz.",
-        "W BM Clinics w Siedlcach prowadzę pacjentów w identycznym standardzie — od konsultacji i diagnostyki, przez plan terapii, po opiekę pozabiegową i wizyty kontrolne.",
+        "W BMClinics.ai w Siedlcach prowadzę pacjentów w identycznym standardzie — od konsultacji i diagnostyki, przez plan terapii, po opiekę pozabiegową i wizyty kontrolne.",
       ]);
   const specializations = (doctor?.specializations && doctor.specializations.length)
     ? doctor.specializations
@@ -503,7 +503,7 @@ function HalinaGabaraPage() {
             <p>
               Ta wiedza, łącząca cefalometrię, antropometrię i geometrię
               proporcji, pozwala budować plany zabiegowe na indywidualnej
-              anatomii, a nie na gotowych wzorach. W BM Clinics
+              anatomii, a nie na gotowych wzorach. W BMClinics.ai
               tworzymy na tej bazie nowy standard opieki: od precyzyjnej
               diagnostyki, przez dobór technik, po opiekę okołozabiegową.
             </p>
