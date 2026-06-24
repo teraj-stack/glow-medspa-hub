@@ -7,7 +7,15 @@ import halinaPortrait from "@/assets/halina-portrait.png.asset.json";
 
 type PortraitShape = "circle" | "square" | "portrait45";
 
-const SHAPE_STORAGE_KEY = "halina-portrait-shape";
+type PortraitCrop = {
+  shape: PortraitShape;
+  zoom: number; // 1 = fit, >1 = zoomed in
+  offsetX: number; // 0-100 (object-position x %)
+  offsetY: number; // 0-100 (object-position y %)
+};
+
+const CROP_STORAGE_KEY = "halina-portrait-crop";
+const DEFAULT_CROP: PortraitCrop = { shape: "circle", zoom: 1, offsetX: 50, offsetY: 15 };
 const SHAPE_OPTIONS: Array<{ id: PortraitShape; label: string }> = [
   { id: "circle", label: "Okrąg" },
   { id: "square", label: "Kwadrat" },
@@ -26,41 +34,65 @@ function shapeClasses(shape: PortraitShape): string {
   }
 }
 
+function cropsEqual(a: PortraitCrop, b: PortraitCrop): boolean {
+  return a.shape === b.shape && a.zoom === b.zoom && a.offsetX === b.offsetX && a.offsetY === b.offsetY;
+}
+
 function PortraitShapePicker() {
-  const [savedShape, setSavedShape] = useState<PortraitShape>("circle");
-  const [draftShape, setDraftShape] = useState<PortraitShape>("circle");
+  const [savedCrop, setSavedCrop] = useState<PortraitCrop>(DEFAULT_CROP);
+  const [draftCrop, setDraftCrop] = useState<PortraitCrop>(DEFAULT_CROP);
 
   useEffect(() => {
     try {
-      const stored = window.localStorage.getItem(SHAPE_STORAGE_KEY) as PortraitShape | null;
-      if (stored && SHAPE_OPTIONS.some((o) => o.id === stored)) {
-        setSavedShape(stored);
-        setDraftShape(stored);
-      }
+      const raw = window.localStorage.getItem(CROP_STORAGE_KEY);
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as Partial<PortraitCrop>;
+      const next: PortraitCrop = {
+        shape: SHAPE_OPTIONS.some((o) => o.id === parsed.shape) ? (parsed.shape as PortraitShape) : DEFAULT_CROP.shape,
+        zoom: typeof parsed.zoom === "number" ? Math.min(2, Math.max(1, parsed.zoom)) : DEFAULT_CROP.zoom,
+        offsetX: typeof parsed.offsetX === "number" ? Math.min(100, Math.max(0, parsed.offsetX)) : DEFAULT_CROP.offsetX,
+        offsetY: typeof parsed.offsetY === "number" ? Math.min(100, Math.max(0, parsed.offsetY)) : DEFAULT_CROP.offsetY,
+      };
+      setSavedCrop(next);
+      setDraftCrop(next);
     } catch {
       /* ignore */
     }
   }, []);
 
-  const dirty = draftShape !== savedShape;
+  const dirty = !cropsEqual(draftCrop, savedCrop);
 
   function save() {
     try {
-      window.localStorage.setItem(SHAPE_STORAGE_KEY, draftShape);
+      window.localStorage.setItem(CROP_STORAGE_KEY, JSON.stringify(draftCrop));
     } catch {
       /* ignore */
     }
-    setSavedShape(draftShape);
+    setSavedCrop(draftCrop);
   }
+
+  function reset() {
+    setDraftCrop(savedCrop);
+  }
+
+  const update = <K extends keyof PortraitCrop>(key: K, value: PortraitCrop[K]) =>
+    setDraftCrop((c) => ({ ...c, [key]: value }));
 
   return (
     <figure className="flex flex-col items-center gap-4 md:items-end">
-      <img
-        src={halinaPortrait.url}
-        alt="lek. Halina Gabara — podgląd portretu"
-        className={`w-48 object-cover object-top shadow-sm md:w-56 ${shapeClasses(draftShape)}`}
-        loading="eager"
-      />
+      <div className={`relative w-48 overflow-hidden shadow-sm md:w-56 ${shapeClasses(draftCrop.shape)}`}>
+        <img
+          src={halinaPortrait.url}
+          alt="lek. Halina Gabara — podgląd kadru"
+          className="absolute inset-0 size-full object-cover"
+          style={{
+            objectPosition: `${draftCrop.offsetX}% ${draftCrop.offsetY}%`,
+            transform: `scale(${draftCrop.zoom})`,
+            transformOrigin: `${draftCrop.offsetX}% ${draftCrop.offsetY}%`,
+          }}
+          loading="eager"
+        />
+      </div>
       <figcaption className="w-full max-w-[14rem] space-y-3 md:max-w-[16rem]">
         <div
           role="radiogroup"
@@ -68,18 +100,16 @@ function PortraitShapePicker() {
           className="flex items-center justify-center gap-1 rounded-full border border-border bg-muted/40 p-1 md:justify-end"
         >
           {SHAPE_OPTIONS.map((opt) => {
-            const active = draftShape === opt.id;
+            const active = draftCrop.shape === opt.id;
             return (
               <button
                 key={opt.id}
                 type="button"
                 role="radio"
                 aria-checked={active}
-                onClick={() => setDraftShape(opt.id)}
+                onClick={() => update("shape", opt.id)}
                 className={`flex-1 rounded-full px-3 py-1 text-xs uppercase tracking-[0.15em] transition-colors ${
-                  active
-                    ? "bg-foreground text-background"
-                    : "text-muted-foreground hover:text-foreground"
+                  active ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {opt.label}
@@ -87,14 +117,67 @@ function PortraitShapePicker() {
             );
           })}
         </div>
-        <button
-          type="button"
-          onClick={save}
-          disabled={!dirty}
-          className="w-full rounded-full border border-foreground/80 bg-foreground px-4 py-2 text-xs uppercase tracking-[0.2em] text-background transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          {dirty ? "Zapisz kształt" : "Zapisano"}
-        </button>
+
+        <div className="space-y-2 text-xs text-muted-foreground">
+          <label className="flex items-center justify-between gap-2">
+            <span className="uppercase tracking-[0.15em]">Zoom</span>
+            <input
+              type="range"
+              min={1}
+              max={2}
+              step={0.05}
+              value={draftCrop.zoom}
+              onChange={(e) => update("zoom", Number(e.target.value))}
+              className="flex-1 accent-foreground"
+              aria-label="Powiększenie kadru"
+            />
+          </label>
+          <label className="flex items-center justify-between gap-2">
+            <span className="uppercase tracking-[0.15em]">Poz. X</span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={1}
+              value={draftCrop.offsetX}
+              onChange={(e) => update("offsetX", Number(e.target.value))}
+              className="flex-1 accent-foreground"
+              aria-label="Pozycja pozioma kadru"
+            />
+          </label>
+          <label className="flex items-center justify-between gap-2">
+            <span className="uppercase tracking-[0.15em]">Poz. Y</span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              step={1}
+              value={draftCrop.offsetY}
+              onChange={(e) => update("offsetY", Number(e.target.value))}
+              className="flex-1 accent-foreground"
+              aria-label="Pozycja pionowa kadru"
+            />
+          </label>
+        </div>
+
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={reset}
+            disabled={!dirty}
+            className="flex-1 rounded-full border border-border px-3 py-2 text-xs uppercase tracking-[0.2em] text-muted-foreground transition-opacity hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            Cofnij
+          </button>
+          <button
+            type="button"
+            onClick={save}
+            disabled={!dirty}
+            className="flex-1 rounded-full border border-foreground/80 bg-foreground px-3 py-2 text-xs uppercase tracking-[0.2em] text-background transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {dirty ? "Zapisz kadr" : "Zapisano"}
+          </button>
+        </div>
       </figcaption>
     </figure>
   );
