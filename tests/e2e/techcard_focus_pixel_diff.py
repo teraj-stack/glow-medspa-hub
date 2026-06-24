@@ -109,17 +109,19 @@ async def run_theme(page, theme):
 
     diff = ImageChops.difference(crop_before, crop_focus)
     bbox = diff.getbbox()
+    # Allow up to 2/255 per-channel delta to absorb sub-pixel anti-aliasing
+    # along the outline edge nearest the inset boundary.
+    MAX_CHANNEL_DELTA = 2
     if bbox is not None:
-        # Save the diff for inspection.
-        diff.save(OUT / f"{theme}-text-diff.png")
-        # Quantify: how many pixels actually differ, and by how much.
         stats = diff.getextrema()
         max_per_channel = [hi for (_lo, hi) in stats]
-        failures.append(
-            f"[{theme}] text region pixels changed on focus "
-            f"(bbox={bbox}, max channel delta={max_per_channel}). "
-            f"Outline likely overlaps text. See {OUT}/{theme}-text-diff.png"
-        )
+        if max(max_per_channel) > MAX_CHANNEL_DELTA:
+            diff.save(OUT / f"{theme}-text-diff.png")
+            failures.append(
+                f"[{theme}] text region pixels changed on focus beyond AA "
+                f"tolerance (bbox={bbox}, max channel delta={max_per_channel}). "
+                f"Outline likely overlaps text. See {OUT}/{theme}-text-diff.png"
+            )
 
     return failures
 
