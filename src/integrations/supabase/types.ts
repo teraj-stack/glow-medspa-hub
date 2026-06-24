@@ -727,6 +727,39 @@ export type Database = {
         }
         Relationships: []
       }
+      public_time_off: {
+        Row: {
+          doctor_id: string | null
+          ends_at: string | null
+          starts_at: string | null
+        }
+        Insert: {
+          doctor_id?: string | null
+          ends_at?: string | null
+          starts_at?: string | null
+        }
+        Update: {
+          doctor_id?: string | null
+          ends_at?: string | null
+          starts_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "time_off_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "doctors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "time_off_doctor_id_fkey"
+            columns: ["doctor_id"]
+            isOneToOne: false
+            referencedRelation: "public_doctors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       delete_email: {
