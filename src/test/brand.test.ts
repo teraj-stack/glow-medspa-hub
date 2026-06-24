@@ -42,6 +42,7 @@ describe('Source tree — no legacy "BM Clinics" string', () => {
   const ALLOW_FILES = new Set<string>([
     resolve(__dirname, 'brand.test.ts'),
     resolve(ROOT, 'scripts/validate-brand.mjs'),
+    resolve(ROOT, 'scripts/validate-brand-dist.mjs'),
   ])
   const SCAN_EXT = /\.(tsx?|jsx?|mjs|cjs|css|md|html|txt|json)$/i
 
