@@ -31,16 +31,27 @@ TAB_PRESSES = 12
 INSTALL_OBSERVER = """
 () => {
   window.__cls = { entries: [], total: 0 };
+  // Only count shifts whose source nodes live inside a TechCard subtree —
+  // this is a focus-shift metric, not a page-wide CLS. Other entrance
+  // animations on the page (hero, reveal sections) must not pollute it.
+  const inTechCard = (node) => {
+    while (node) {
+      if (node.nodeType === 1 && node.matches && node.matches('[data-testid="tech-card-link"], [data-testid="tech-card-link"] *')) return true;
+      node = node.parentNode || (node.host || null);
+    }
+    return false;
+  };
   const po = new PerformanceObserver((list) => {
     for (const e of list.getEntries()) {
-      // Spec: ignore shifts attributed to recent user input.
       if (e.hadRecentInput) continue;
+      const srcs = (e.sources || []);
+      const techShift = srcs.some(s => s.node && inTechCard(s.node));
       window.__cls.entries.push({
-        value: e.value,
-        startTime: e.startTime,
-        sources: (e.sources || []).map(s => s.node ? (s.node.tagName || '?') : '?'),
+        value: e.value, startTime: e.startTime,
+        sources: srcs.map(s => s.node ? (s.node.tagName || '?') : '?'),
+        techShift,
       });
-      window.__cls.total += e.value;
+      if (techShift) window.__cls.total += e.value;
     }
   });
   po.observe({ type: 'layout-shift', buffered: true });
