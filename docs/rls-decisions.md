@@ -101,6 +101,22 @@ kontekstem (token, podpis webhooka, autentykowana sesja admina).
 
 ---
 
+## Stały audyt RLS w CI
+
+Projekt uruchamia automatyczny audyt RLS w GitHub Actions (`.github/workflows/rls-audit.yml`):
+
+- **Co sprawdza:**
+  - czy RLS jest włącony na każdej tabeli w schemacie `public`,
+  - czy dla każdej tabeli istnieją polityki SELECT / INSERT / UPDATE / DELETE,
+  - czy polityki INSERT / UPDATE / DELETE nie używają wyrażenia `true` (zbyt permisywne).
+- **Kiedy się uruchamia:** przy każdej zmianie w `supabase/migrations/`, `scripts/audit-rls.mjs`, `docs/rls-audit-allowlist.json` lub samym workflow, na pushu do `main` oraz codziennie o 07:00 UTC.
+- **Wyniki:** raport JSON + HTML w artifactach joba. Przy nowych findingach job failuje, tworząc alert.
+- **Allowlista:** celowe braki polityk (np. brak DELETE, bo usuwanie odbywa się wyłącznie przez `service_role`) są dokumentowane w `docs/rls-audit-allowlist.json` i nie powodują faila.
+
+Kiedy dodajesz nową tabelę lub zmieniasz jej polityki, upewnij się że audyt pozostaje zielony — albo zaktualizuj allowlistę z uzasadnieniem.
+
+---
+
 ## Kiedy zaktualizować ten dokument
 
 - Dodanie nowej tabeli w schemacie `public`.
