@@ -93,7 +93,7 @@ function HalinaGabaraPage() {
   return (
     <main className="bg-background">
       {/* Hero */}
-      <section className="container-luxury pt-20 pb-16 md:pt-32 md:pb-24 lg:pt-40 lg:pb-32">
+      <section className="container-luxury pt-16 pb-12 md:pt-24 md:pb-20 lg:pt-28 lg:pb-24">
         <nav aria-label="Okruszki" className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
           <Link to="/lekarze" className="transition-colors hover:text-foreground">
             Zespół kliniki
@@ -102,7 +102,7 @@ function HalinaGabaraPage() {
           <span className="text-foreground/70">lek. Halina Gabara</span>
         </nav>
 
-        <div className="mt-12 grid gap-10 md:mt-16 md:grid-cols-[1.4fr,1fr] md:items-center md:gap-16">
+        <div className="mt-10 grid gap-10 md:mt-12 md:grid-cols-[1.5fr,0.85fr] md:items-center md:gap-12 lg:gap-16">
           <div className="min-w-0 order-2 md:order-1">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
               Lekarz prowadzący
@@ -120,11 +120,11 @@ function HalinaGabaraPage() {
               wyglądają naturalnie i są bezpieczne w długim horyzoncie.
             </p>
           </div>
-          <figure className="order-1 md:order-2">
+          <figure className="order-1 md:order-2 flex justify-center md:justify-end">
             <img
               src={halinaPortrait.url}
               alt="lek. Halina Gabara — portret"
-              className="w-full rounded-lg object-cover shadow-sm"
+              className="h-auto max-h-[420px] w-full max-w-[360px] rounded-lg object-cover shadow-sm md:max-h-[520px] md:max-w-[420px]"
               loading="eager"
             />
           </figure>
