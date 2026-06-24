@@ -122,11 +122,11 @@ function TechnologiesPage() {
         </div>
       </section>
 
-      {/* PROTOKÓŁ BAZOWY — UNIWERSALNY */}
+      {/* CZAS REKONWALESCENCJI — BAZOWY */}
       <section className="container-luxury py-12 md:py-16">
         <div className="rounded-lg border border-champagne/40 bg-secondary/30 p-6 md:p-10">
           <span className="text-xs uppercase tracking-[0.3em] text-champagne whitespace-pre-line">
-            {"PROTOKÓŁ BAZOWY\n"}
+            {"CZAS REKONWALESCENCJI\n"}
           </span>
           <h2 className="gold-line mt-2 font-serif text-2xl text-ink md:text-3xl">
             Trzy technologie, które łączymy w większości przypadków
