@@ -173,7 +173,7 @@ function TechnologiesPage() {
               Efekt łączenia
             </div>
             <p className="mt-3 text-sm leading-relaxed text-alabaster/85 md:text-base">
-              Po 2 zabiegach laserem pikosekundowym (około 3 tygodniach protokołu) uzyskujemy efekt porównywalny z 6 tygodniami klasycznego protokołu opartego wyłącznie na laserze. Już po 3 tygodniach pracy w protokole bazowym widoczny rezultat jest lepszy niż przy zabiegach prowadzonych pojedynczo, bez łączenia technologii.
+              Po 2 zabiegach laserem pikosekundowym (około 3 tygodniach) uzyskujemy efekt porównywalny z 6 tygodniami klasycznego czasu rekonwalescencji przy zabiegach wyłącznie laserowych. Już po 3 tygodniach pracy w bazowym modelu opieki widoczny rezultat jest lepszy niż przy zabiegach prowadzonych pojedynczo, bez łączenia technologii.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-alabaster/85 md:text-base">
               Dla pacjenta to krótszy, bardziej komfortowy i ekonomicznie korzystniejszy proces. Po zakończeniu fazy wstępnej przechodzimy do zabiegów podtrzymujących i utrwalających rezultat.
