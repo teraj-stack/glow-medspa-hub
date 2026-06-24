@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import logoLight from "@/assets/bujok-medical-logo.png.asset.json";
-import logoDark from "@/assets/bujok-medical-logo-dark.jpg.asset.json";
+import logoLightMode from "@/assets/bujok-medical-logo-dark.jpg.asset.json";
+import logoDarkMode from "@/assets/bujok-medical-logo.png.asset.json";
+
 
 
 const NAV = [
