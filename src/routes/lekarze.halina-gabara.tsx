@@ -194,6 +194,9 @@ function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPic
       setStatus(friendly);
       toast.error(friendly);
     },
+  });
+
+
 
   function save() {
     setStatus(null);
