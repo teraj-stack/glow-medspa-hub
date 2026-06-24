@@ -1,80 +1,108 @@
 name: Content Quality (scheduled)
 
 # Cykliczna re-walidacja treści bloga i FAQ.
-# Uruchamia się codziennie o 05:30 UTC (07:30 w PL latem, 06:30 zimą),
-# nawet jeśli pliki źródłowe nie zostały zmienione.
-# Wykrywa regresje typograficzne pojawiające się np. po zmianach reguł
-# walidatora, aktualizacji zależności lub edycjach contentu na innej gałęzi.
+# Uruchamia się codziennie o 05:30 UTC, nawet jeśli pliki źródłowe się
+# nie zmieniły. Każda sekcja (blog, faq) ma własne, niezależne joby:
+#   - validate-<section>  → statyczny walidator scripts/validate-content.mjs
+#   - e2e-<section>       → Playwright (Python) na uruchomionym dev serverze
+# Dzięki temu w UI Actions widać dokładnie, która sekcja i która warstwa
+# (static / e2e) zgłosiła problem.
 
 on:
   schedule:
     - cron: "30 5 * * *"
-  workflow_dispatch:
-    inputs:
-      section:
-        description: "Sekcja do walidacji (all | blog | faq | technologie)"
-        required: false
-        default: "blog,faq"
+  workflow_dispatch: {}
 
 jobs:
-  validate:
-    name: Static validator (blog + faq, scheduled)
+  # ─────────────────────────── STATIC ───────────────────────────
+
+  validate-blog:
+    name: Static · blog
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
 
-      - name: Determine sections
-        id: sections
-        run: |
-          SECTIONS="${{ github.event.inputs.section }}"
-          if [ -z "$SECTIONS" ]; then
-            SECTIONS="blog,faq"
-          fi
-          echo "value=$SECTIONS" >> "$GITHUB_OUTPUT"
-
-      - name: Run validator (blog + faq)
+      - name: Validate blog
         run: |
           mkdir -p reports
           node scripts/validate-content.mjs \
-            --section=${{ steps.sections.outputs.value }} \
-            --json=reports/content-quality-scheduled.json \
-            --html=reports/content-quality-scheduled.html \
+            --section=blog \
+            --json=reports/content-quality-blog.json \
+            --html=reports/content-quality-blog.html \
             --warn
 
-      - name: Upload report artifact
+      - name: Upload blog report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: content-quality-scheduled-report
-          path: reports/
+          name: content-quality-blog
+          path: |
+            reports/content-quality-blog.json
+            reports/content-quality-blog.html
           if-no-files-found: error
 
-      - name: Fail job if issues detected
+      - name: Fail if blog has issues
         run: |
-          ISSUES=$(node -e "console.log(JSON.parse(require('fs').readFileSync('reports/content-quality-scheduled.json','utf8')).findings.length)")
-          echo "Problemów: $ISSUES"
+          ISSUES=$(node -e "console.log(JSON.parse(require('fs').readFileSync('reports/content-quality-blog.json','utf8')).findings.length)")
+          echo "Problemów (blog): $ISSUES"
           if [ "$ISSUES" -gt 0 ]; then
-            echo "✗ Cykliczna walidacja blog/FAQ wykryła problemy — zobacz artifact 'content-quality-scheduled-report'."
+            echo "✗ Statyczna walidacja BLOG — szczegóły w artifact 'content-quality-blog'."
             exit 1
           fi
 
-  e2e:
-    name: E2E re-validation (blog + faq, scheduled)
+  validate-faq:
+    name: Static · faq
     runs-on: ubuntu-latest
-    needs: validate
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate faq
+        run: |
+          mkdir -p reports
+          node scripts/validate-content.mjs \
+            --section=faq \
+            --json=reports/content-quality-faq.json \
+            --html=reports/content-quality-faq.html \
+            --warn
+
+      - name: Upload faq report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: content-quality-faq
+          path: |
+            reports/content-quality-faq.json
+            reports/content-quality-faq.html
+          if-no-files-found: error
+
+      - name: Fail if faq has issues
+        run: |
+          ISSUES=$(node -e "console.log(JSON.parse(require('fs').readFileSync('reports/content-quality-faq.json','utf8')).findings.length)")
+          echo "Problemów (faq): $ISSUES"
+          if [ "$ISSUES" -gt 0 ]; then
+            echo "✗ Statyczna walidacja FAQ — szczegóły w artifact 'content-quality-faq'."
+            exit 1
+          fi
+
+  # ─────────────────────────── E2E ───────────────────────────
+
+  e2e-blog:
+    name: E2E · blog
+    runs-on: ubuntu-latest
+    needs: validate-blog
     if: ${{ always() }}
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -95,15 +123,13 @@ jobs:
             curl -sfo /dev/null http://127.0.0.1:8080/ && exit 0
             sleep 1
           done
-          echo "Dev server nie wystartował"
-          tail -100 /tmp/dev.log
-          exit 1
+          echo "Dev server nie wystartował"; tail -100 /tmp/dev.log; exit 1
 
-      - name: Run e2e content quality
+      - name: Run e2e (blog)
         env:
           E2E_BASE_URL: http://127.0.0.1:8080
-          E2E_SECTIONS: "blog,faq"
-          REPORT_JSON: reports/e2e-content-quality-scheduled.json
+          E2E_SECTIONS: "blog"
+          REPORT_JSON: reports/e2e-content-quality-blog.json
         run: |
           mkdir -p reports
           python3 tests/e2e/content_quality.py
@@ -112,12 +138,68 @@ jobs:
         if: always()
         run: kill "$(cat /tmp/dev.pid)" 2>/dev/null || true
 
-      - name: Upload e2e report
+      - name: Upload e2e blog report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-content-quality-scheduled-report
+          name: e2e-content-quality-blog
           path: |
-            reports/e2e-content-quality-scheduled.json
+            reports/e2e-content-quality-blog.json
+            /tmp/browser/content-quality/last.png
+          if-no-files-found: ignore
+
+  e2e-faq:
+    name: E2E · faq
+    runs-on: ubuntu-latest
+    needs: validate-faq
+    if: ${{ always() }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install JS dependencies
+        run: npm ci
+
+      - name: Install Playwright (Python)
+        run: |
+          python -m pip install --no-cache-dir playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Start dev server
+        run: |
+          npm run dev -- --port 8080 --host 127.0.0.1 > /tmp/dev.log 2>&1 &
+          echo $! > /tmp/dev.pid
+          for i in $(seq 1 60); do
+            curl -sfo /dev/null http://127.0.0.1:8080/ && exit 0
+            sleep 1
+          done
+          echo "Dev server nie wystartował"; tail -100 /tmp/dev.log; exit 1
+
+      - name: Run e2e (faq)
+        env:
+          E2E_BASE_URL: http://127.0.0.1:8080
+          E2E_SECTIONS: "faq"
+          REPORT_JSON: reports/e2e-content-quality-faq.json
+        run: |
+          mkdir -p reports
+          python3 tests/e2e/content_quality.py
+
+      - name: Stop dev server
+        if: always()
+        run: kill "$(cat /tmp/dev.pid)" 2>/dev/null || true
+
+      - name: Upload e2e faq report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-content-quality-faq
+          path: |
+            reports/e2e-content-quality-faq.json
             /tmp/browser/content-quality/last.png
           if-no-files-found: ignore
