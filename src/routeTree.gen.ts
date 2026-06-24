@@ -25,6 +25,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
+import { Route as LekarzeIndexRouteImport } from './routes/lekarze.index'
 import { Route as TechnologieTerapiaLedRouteImport } from './routes/technologie.terapia-led'
 import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
 import { Route as TechnologiePeelingWeglowyLaserowyRouteImport } from './routes/technologie.peeling-weglowy-laserowy'
@@ -135,6 +136,11 @@ const TechnologieIndexRoute = TechnologieIndexRouteImport.update({
   id: '/technologie/',
   path: '/technologie/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LekarzeIndexRoute = LekarzeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LekarzeRoute,
 } as any)
 const TechnologieTerapiaLedRoute = TechnologieTerapiaLedRouteImport.update({
   id: '/technologie/terapia-led',
@@ -330,6 +336,7 @@ export interface FileRoutesByFullPath {
   '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
+  '/lekarze/': typeof LekarzeIndexRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
@@ -355,7 +362,6 @@ export interface FileRoutesByTo {
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
-  '/lekarze': typeof LekarzeRouteWithChildren
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -376,6 +382,7 @@ export interface FileRoutesByTo {
   '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
+  '/lekarze': typeof LekarzeIndexRoute
   '/technologie': typeof TechnologieIndexRoute
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
@@ -425,6 +432,7 @@ export interface FileRoutesById {
   '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
+  '/lekarze/': typeof LekarzeIndexRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/_authenticated/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
@@ -474,6 +482,7 @@ export interface FileRouteTypes {
     | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
+    | '/lekarze/'
     | '/technologie/'
     | '/admin/cennik'
     | '/admin/lekarze'
@@ -499,7 +508,6 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
-    | '/lekarze'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -520,6 +528,7 @@ export interface FileRouteTypes {
     | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
+    | '/lekarze'
     | '/technologie'
     | '/admin/cennik'
     | '/admin/lekarze'
@@ -568,6 +577,7 @@ export interface FileRouteTypes {
     | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
+    | '/lekarze/'
     | '/technologie/'
     | '/_authenticated/admin/cennik'
     | '/_authenticated/admin/lekarze'
@@ -741,6 +751,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/technologie/'
       preLoaderRoute: typeof TechnologieIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/lekarze/': {
+      id: '/lekarze/'
+      path: '/'
+      fullPath: '/lekarze/'
+      preLoaderRoute: typeof LekarzeIndexRouteImport
+      parentRoute: typeof LekarzeRoute
     }
     '/technologie/terapia-led': {
       id: '/technologie/terapia-led'
@@ -992,10 +1009,12 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface LekarzeRouteChildren {
   LekarzeHalinaGabaraRoute: typeof LekarzeHalinaGabaraRoute
+  LekarzeIndexRoute: typeof LekarzeIndexRoute
 }
 
 const LekarzeRouteChildren: LekarzeRouteChildren = {
   LekarzeHalinaGabaraRoute: LekarzeHalinaGabaraRoute,
+  LekarzeIndexRoute: LekarzeIndexRoute,
 }
 
 const LekarzeRouteWithChildren =
