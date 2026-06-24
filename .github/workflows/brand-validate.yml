@@ -10,6 +10,7 @@ permissions:
   contents: read
   checks: write
   statuses: write
+  security-events: write   # required for github/codeql-action/upload-sarif
 
 jobs:
   brand-validate:
@@ -43,6 +44,17 @@ jobs:
           echo "brand:validate-or-fix:dist:strict exit code = $RC"
           # Don't fail the step here — the interpret step decides job status.
           exit 0
+      - name: Export brand validation results to SARIF
+        if: always()
+        run: npm run brand:report:sarif
+
+      - name: Upload SARIF to GitHub Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: reports/brand-fix-dist.sarif
+          category: brand-validate-dist
+
 
       - name: Upload brand reports
         if: always()
@@ -52,6 +64,7 @@ jobs:
           path: |
             reports/brand-fix-dist-report.json
             reports/brand-fix-dist-report.md
+            reports/brand-fix-dist.sarif
           if-no-files-found: ignore
 
       - name: Publish per-exit-code GitHub checks
