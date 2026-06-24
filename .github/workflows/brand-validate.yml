@@ -1,0 +1,94 @@
+name: Brand validate (dist)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  brand-validate:
+    name: Validate "BM Clinics" in dist
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Pre-build brand validation (source)
+        run: npm run validate:brand
+
+      - name: Build (Vite only, no post-build brand step)
+        run: npx vite build
+
+      - name: Brand validate-or-fix in dist (strict)
+        id: brand
+        continue-on-error: true
+        run: npm run brand:validate-or-fix:dist:strict
+
+      - name: Upload brand reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: brand-reports
+          path: |
+            reports/brand-fix-dist-report.json
+            reports/brand-fix-dist-report.md
+          if-no-files-found: ignore
+
+      - name: Interpret exit code & annotate
+        if: always()
+        env:
+          BRAND_EXIT: ${{ steps.brand.outcome == 'success' && '0' || steps.brand.outputs.exit_code || '1' }}
+        run: |
+          CODE="${{ steps.brand.outcome }}"
+          # Re-run silently to capture real exit code (continue-on-error masks it)
+          set +e
+          npm run brand:validate-or-fix:dist:strict >/dev/null 2>&1
+          RC=$?
+          set -e
+          echo "brand:validate-or-fix:dist:strict exit code = $RC"
+
+          SUMMARY="$GITHUB_STEP_SUMMARY"
+          echo "## Brand validation (dist)" >> "$SUMMARY"
+          echo "" >> "$SUMMARY"
+          echo "Exit code: \`$RC\`" >> "$SUMMARY"
+          echo "" >> "$SUMMARY"
+
+          case "$RC" in
+            0)
+              echo "::notice title=Brand OK::No \"BM Clinics\" occurrences in dist."
+              echo "✅ **Clean** — no \"BM Clinics\" occurrences in dist." >> "$SUMMARY"
+              exit 0
+              ;;
+            1)
+              echo "::warning title=Brand auto-fix applied::Safe replacements of \"BM Clinics\" → \"BMClinics.ai\" were applied in dist. Review reports/brand-fix-dist-report.md and update source."
+              echo "⚠️ **Auto-fix applied (exit 1)** — safe replacements were made in dist. Strict mode treats this as a failure so the underlying source can be cleaned up." >> "$SUMMARY"
+              echo "" >> "$SUMMARY"
+              echo "See artifact \`brand-reports\` → \`brand-fix-dist-report.md\`." >> "$SUMMARY"
+              exit 1
+              ;;
+            2)
+              echo "::error title=Brand validation failed after fix::Unsafe \"BM Clinics\" occurrences remain in dist (URLs, identifiers, or other risky contexts). Manual cleanup required."
+              echo "❌ **Validation still failing after auto-fix (exit 2)** — risky \"BM Clinics\" occurrences remain (URLs / identifiers / unsafe contexts). Manual cleanup required." >> "$SUMMARY"
+              echo "" >> "$SUMMARY"
+              echo "See artifact \`brand-reports\` for the list of unsafe matches." >> "$SUMMARY"
+              exit 1
+              ;;
+            3)
+              echo "::error title=Brand auto-fix script failed::scripts/fix-brand-dist.mjs exited with a non-recoverable error. Check the job log."
+              echo "💥 **Auto-fix script crashed (exit 3)** — \`scripts/fix-brand-dist.mjs\` failed. Investigate the script logs above." >> "$SUMMARY"
+              exit 1
+              ;;
+            *)
+              echo "::error title=Brand validation: unknown exit code::Unexpected exit code $RC from brand:validate-or-fix:dist:strict."
+              echo "❓ **Unknown exit code $RC** — update \`.github/workflows/brand-validate.yml\` to handle it." >> "$SUMMARY"
+              exit 1
+              ;;
+          esac
