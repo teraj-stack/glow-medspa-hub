@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
+import { Watermark } from "@/components/site/Watermark";
 import geometria640Avif from "@/assets/halina-geometria-640.avif.asset.json";
 import geometria960Avif from "@/assets/halina-geometria-960.avif.asset.json";
 import geometria1280Avif from "@/assets/halina-geometria-1280.avif.asset.json";
