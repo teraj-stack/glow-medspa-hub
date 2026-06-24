@@ -42,20 +42,22 @@ export const Route = createFileRoute("/lekarze/halina-gabara")({
   component: HalinaGabaraPage,
 });
 
-const SPECJALIZACJE = [
-  "Konsultacje medycyny estetycznej i planowanie terapii",
-  "Toksyna botulinowa — leczenie mimicznych zmarszczek",
-  "Wolumetria i modelowanie konturu twarzy kwasem hialuronowym",
-  "Mezoterapia rewitalizacyjna i biostymulatory tkankowe",
-  "Terapie przebarwień i melasmy",
-  "Programy poprawy jakości i napięcia skóry",
-];
-
+// TODO: uzupełnić faktyczne uczelnię, dyplom i certyfikaty lek. Haliny Gabary
 const WYKSZTALCENIE = [
   "Dyplom lekarza, Uniwersytet Medyczny",
   "Szkolenia certyfikowane z toksyny botulinowej i wypełniaczy HA",
   "Kursy zaawansowanej wolumetrii i pełnotwarzowego modelowania",
   "Cykliczne szkolenia z zakresu bezpieczeństwa zabiegów iniekcyjnych",
+];
+
+const SPECJALIZACJE = [
+  "Konsultacje i analityczne planowanie terapii",
+  "Toksyna botulinowa — leczenie mimicznych zmarszczek",
+  "Wolumetria i modelowanie konturu twarzy kwasem hialuronowym",
+  "Pikosekundowy laser — terapie pigmentacyjne i poprawa tekstury skóry",
+  "Fuzja plazmy — resurfacing i regeneracja",
+  "Fototerapia i fotobiomodulacja LED",
+  "HiFu — lifting i remodeling tkanek bezinwazyjny",
 ];
 
 function HalinaGabaraPage() {
@@ -86,12 +88,13 @@ function HalinaGabaraPage() {
               lek. Halina Gabara
             </h1>
             <p className="mt-3 text-sm text-muted-foreground">
-              Lekarz medycyny estetycznej
+              lekarz medycyny estetycznej · ortodonta
             </p>
             <p className="mt-6 max-w-xl text-balance text-base leading-relaxed text-foreground/85 md:text-lg">
-              Pracuję tak, jak nauczyłam się w warszawskich klinikach premium —
-              z uważnością na proporcje twarzy, bezpieczeństwo pacjenta i wynik,
-              który nie zdradza, że był efektem zabiegu.
+              Patrzę na twarz analitycznie — jako układ punktów odniesienia,
+              odległości i kątów, w których klasyczna harmonia łączy się
+              z indywidualną anatomią pacjenta. Planuję terapie, które
+              wyglądają naturalnie i są bezpieczne w długim horyzoncie.
             </p>
           </div>
         </div>
@@ -105,22 +108,22 @@ function HalinaGabaraPage() {
           </h2>
           <div className="space-y-5 text-base leading-relaxed text-foreground/85">
             <p>
-              Medycyna estetyczna jest dla mnie procesem, a nie pojedynczym
-              zabiegiem. Każdą terapię zaczynam od pełnej konsultacji, w której
-              rozumiemy, co rzeczywiście jest celem pacjenta — często okazuje
-              się, że jest to coś innego niż początkowa prośba o konkretny
-              zabieg.
+              Moim fundamentem jest twarde, analityczne spojrzenie na twarz.
+              Zajmuję się oznaczaniem stałych, powtarzalnych punktów
+              pomiarowych — landmarks — oraz analizą odległości, kątów i osi
+              między strukturami głębokimi twarzy a jej powierzchnią.
             </p>
             <p>
-              Plan układam stopniowo, w horyzoncie miesięcy, łącząc techniki,
-              które wspierają się nawzajem. Zależy mi na efekcie spójnym
-              z twarzą pacjenta — dyskretnym, naturalnym i powtarzalnym
-              w czasie.
+              Ta wiedza, łącząca cefalometrię, antropometrię i geometrię
+              proporcji, pozwala budować plany zabiegowe na indywidualnej
+              anatomii, a nie na gotowych wzorach. W Beauty &amp; Mind Clinic
+              tworzymy na tej bazie nowy standard opieki: od precyzyjnej
+              diagnostyki, przez dobór technik, po opiekę okołozabiegową.
             </p>
             <p>
               Nie pracuję z nazwami handlowymi urządzeń jako argumentem
               marketingowym. Liczy się dobrze postawiona diagnoza, technika
-              wykonania i opieka pozabiegowa — to one decydują o jakości.
+              wykonania i przewidywalny efekt w czasie.
             </p>
           </div>
         </div>
@@ -159,14 +162,14 @@ function HalinaGabaraPage() {
           </h2>
           <div className="space-y-5 text-base leading-relaxed text-foreground/85">
             <p>
-              Ścieżkę zawodową budowałam przez lata pracy w klinikach
-              warszawskich, gdzie standard opieki i tempo wprowadzania nowych
-              technik wyznaczają poziom polskiej medycyny estetycznej.
+              Ścieżkę zawodową budowałam przez kilkanaście lat, łącząc
+              praktykę w warszawskich klinikach premium z ortodontycznym,
+              analitycznym spojrzeniem na twarz.
             </p>
             <p>
               W Beauty &amp; Mind Clinic w Siedlcach prowadzę pacjentów
-              w identycznym standardzie — od konsultacji, przez plan terapii,
-              po opiekę pozabiegową i wizyty kontrolne.
+              w identycznym standardzie — od konsultacji i diagnostyki, przez
+              plan terapii, po opiekę pozabiegową i wizyty kontrolne.
             </p>
           </div>
         </div>
