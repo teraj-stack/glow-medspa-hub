@@ -7,7 +7,7 @@ import {
   type ThemePresetId,
 } from "@/config/theme-presets";
 
-function applyPreset(id: ThemePresetId) {
+export function applyPreset(id: ThemePresetId) {
   const root = document.documentElement;
   // Czyścimy wszystkie zmienne ze wszystkich presetów, żeby przełączanie
   // nie zostawiało starych nadpisań.
