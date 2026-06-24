@@ -64,6 +64,7 @@ jobs:
           path: |
             reports/brand-fix-dist-report.json
             reports/brand-fix-dist-report.md
+            reports/brand-fix-dist.sarif
           if-no-files-found: ignore
 
       - name: Publish per-exit-code GitHub checks
