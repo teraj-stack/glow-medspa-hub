@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import logoBmc from "@/assets/bujok-medical-logo-dark.jpg.asset.json";
+import logoLight from "@/assets/bujok-medical-logo.png.asset.json";
+import logoDark from "@/assets/bujok-medical-logo-dark.jpg.asset.json";
+
 
 const NAV = [
   { to: "/potrzeby", label: "Potrzeby" },
@@ -18,14 +20,17 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
       <div className="container-luxury flex h-16 items-center justify-between md:h-20">
         <Link to="/" aria-label="BM Clinics — strona główna" className="flex items-center">
-          <img
-            src={logoBmc.url}
-            alt="Bujok Medical"
-            className="h-12 w-auto drop-shadow-sm md:h-16"
-            width={160}
-            height={160}
-            decoding="async"
-          />
+          <picture>
+            <source srcSet={logoDark.url} media="(prefers-color-scheme: dark)" />
+            <img
+              src={logoLight.url}
+              alt="Bujok Medical"
+              className="h-12 w-auto drop-shadow-sm md:h-16"
+              width={160}
+              height={160}
+              decoding="async"
+            />
+          </picture>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
