@@ -1,13 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-// `bujok-medical-logo-dark.jpg` is the dark-on-light logo; the PNG is the
-// light-on-dark variant despite its generic name.
-import logoForLightMode from "@/assets/bujok-medical-logo-dark.jpg.asset.json";
-import logoForDarkMode from "@/assets/bujok-medical-logo.png.asset.json";
-
-
-
+import logoBmc from "@/assets/bujok-medical-logo-dark.jpg.asset.json";
 
 const NAV = [
   { to: "/potrzeby", label: "Potrzeby" },
@@ -24,17 +18,14 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur">
       <div className="container-luxury flex h-16 items-center justify-between md:h-20">
         <Link to="/" aria-label="BM Clinics — strona główna" className="flex items-center">
-          <picture>
-            <source srcSet={logoForDarkMode.url} media="(prefers-color-scheme: dark)" />
-            <img
-              src={logoForLightMode.url}
-              alt="Bujok Medical"
-              className="h-12 w-auto drop-shadow-sm md:h-16"
-              width={160}
-              height={160}
-              decoding="async"
-            />
-          </picture>
+          <img
+            src={logoBmc.url}
+            alt="Bujok Medical"
+            className="h-12 w-auto drop-shadow-sm md:h-16"
+            width={160}
+            height={160}
+            decoding="async"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

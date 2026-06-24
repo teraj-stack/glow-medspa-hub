@@ -97,12 +97,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap",
       },
     ],
-    scripts: [
-      {
-        type: "text/javascript",
-        children: `(function(){try{var m=window.matchMedia('(prefers-color-scheme: dark)');function s(){document.documentElement.classList.toggle('dark',m.matches);}s();m.addEventListener('change',s);}catch(e){}})();`,
-      },
-    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -112,7 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="pl" suppressHydrationWarning>
+    <html lang="pl">
       <head>
         <HeadContent />
       </head>
