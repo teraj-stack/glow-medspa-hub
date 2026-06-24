@@ -7,7 +7,7 @@
  * Wired into `build` and `build:dev` scripts in package.json.
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs'
-import { join, resolve } from 'node:path'
+import { join, resolve, normalize } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
@@ -18,13 +18,13 @@ const SCAN_DIRS = ['src', 'public', 'scripts']
 const SKIP_DIRS = new Set(['node_modules', 'dist', '.git'])
 const SCAN_EXT = /\.(tsx?|jsx?|mjs|cjs|css|md|html|txt|json)$/i
 const ALLOW = new Set([
-  resolve(ROOT, 'scripts/validate-brand.mjs'),
-  resolve(ROOT, 'scripts/validate-brand-dist.mjs'),
-  resolve(ROOT, 'scripts/fix-brand-dist.mjs'),
-  resolve(ROOT, 'scripts/brand-validate-or-fix.mjs'),
-  resolve(ROOT, 'scripts/brand-report-sarif.mjs'),
-  resolve(ROOT, 'src/test/brand.test.ts'),
-])
+  'scripts/validate-brand.mjs',
+  'scripts/validate-brand-dist.mjs',
+  'scripts/fix-brand-dist.mjs',
+  'scripts/brand-validate-or-fix.mjs',
+  'scripts/brand-report-sarif.mjs',
+  'src/test/brand.test.ts',
+].map(p => resolve(normalize(ROOT + '/' + p))))
 
 function walk(dir, out = []) {
   let entries
