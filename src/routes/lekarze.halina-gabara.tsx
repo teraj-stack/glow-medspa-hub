@@ -78,7 +78,7 @@ function HalinaGabaraPage() {
             aria-hidden
             className="mx-auto flex size-40 items-center justify-center rounded-full bg-secondary font-serif text-4xl text-muted-foreground md:mx-0 md:size-48"
           >
-            lH
+            HG
           </div>
           <div className="min-w-0">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">

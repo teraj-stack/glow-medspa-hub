@@ -46,6 +46,7 @@ export const Route = createFileRoute("/lekarze/")({
 
 function DoctorCard({ doctor }: { doctor: { id: string; slug: string; full_name: string; title: string | null; bio: string | null; photo_url: string | null } }) {
   const initials = doctor.full_name
+    .replace(/^(dr|lek|prof)\.?\s+/i, "")
     .split(" ")
     .map((s) => s[0])
     .slice(0, 2)
