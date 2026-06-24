@@ -11,14 +11,11 @@ const { Client } = pg;
 
 const DB_URL = process.env.SUPABASE_DB_URL || process.env.DATABASE_URL;
 const REPORT_DIR = process.env.REPORT_DIR || "reports";
-const ALLOWLIST_PATH =
-  process.env.RLS_AUDIT_ALLOWLIST || "docs/rls-audit-allowlist.json";
+const ALLOWLIST_PATH = process.env.RLS_AUDIT_ALLOWLIST || "docs/rls-audit-allowlist.json";
 const WARN_MODE = process.argv.includes("--warn");
 
 if (!DB_URL) {
-  console.error(
-    "❌ Missing SUPABASE_DB_URL or DATABASE_URL environment variable."
-  );
+  console.error("❌ Missing SUPABASE_DB_URL or DATABASE_URL environment variable.");
   process.exit(2);
 }
 
@@ -174,9 +171,7 @@ function loadAllowlist(allowlistPath) {
   try {
     const raw = fs.readFileSync(allowlistPath, "utf8");
     const data = JSON.parse(raw);
-    return Object.fromEntries(
-      Object.entries(data).filter(([_, v]) => v === true)
-    );
+    return Object.fromEntries(Object.entries(data).filter(([_, v]) => v === true));
   } catch (err) {
     console.error(`⚠️  Could not parse allowlist ${allowlistPath}:`, err.message);
     return {};
@@ -208,7 +203,7 @@ function generateHtml(report) {
         <td>${escapeHtml(f.message)}</td>
         <td>${escapeHtml(f.remediation)}</td>
       </tr>
-    `
+    `,
     )
     .join("");
 
@@ -242,7 +237,9 @@ function generateHtml(report) {
     <div><div class="num">${report.findings_count}</div><div>Findingów</div></div>
     <div><div class="num">${report.tables_without_rls.length}</div><div>Bez RLS</div></div>
   </div>
-  ${report.findings_count > 0 ? `
+  ${
+    report.findings_count > 0
+      ? `
   <table>
     <thead>
       <tr>
@@ -257,7 +254,9 @@ function generateHtml(report) {
     </thead>
     <tbody>${rows}</tbody>
   </table>
-  ` : "<p>✅ Brak findingów — wszystkie tabele spełniają obecne reguły audytu.</p>"}
+  `
+      : "<p>✅ Brak findingów — wszystkie tabele spełniają obecne reguły audytu.</p>"
+  }
 </body>
 </html>`;
 }
