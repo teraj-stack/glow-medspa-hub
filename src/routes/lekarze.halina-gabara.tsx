@@ -3,7 +3,27 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
 import { getDoctorBySlug, saveDoctorPortrait } from "@/lib/doctors.functions";
+import { checkIsAdmin } from "@/lib/admin.functions";
+import { supabase } from "@/integrations/supabase/client";
 import halinaPortrait from "@/assets/halina-portrait.png.asset.json";
+
+function useIsAdmin() {
+  return useQuery({
+    queryKey: ["is-admin-halina-picker"],
+    queryFn: async () => {
+      const { data } = await supabase.auth.getSession();
+      if (!data.session) return false;
+      try {
+        const res = await checkIsAdmin();
+        return !!res.isAdmin;
+      } catch {
+        return false;
+      }
+    },
+    staleTime: 60_000,
+    retry: false,
+  });
+}
 
 type PortraitShape = "circle" | "square" | "portrait45";
 
