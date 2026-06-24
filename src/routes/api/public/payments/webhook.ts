@@ -103,13 +103,16 @@ export const Route = createFileRoute("/api/public/payments/webhook")({
         const rawEnv = new URL(request.url).searchParams.get("env");
         if (rawEnv !== "sandbox" && rawEnv !== "live") {
           console.error("[webhook] invalid env query parameter:", rawEnv);
+          await logAuditEvent({ event_type: "webhook.hit", action: "stripe", success: false, severity: "warning", metadata: { reason: "invalid_env", rawEnv } }, request);
           return Response.json({ received: true, ignored: "invalid env" });
         }
         try {
           await handleWebhook(request, rawEnv);
+          await logAuditEvent({ event_type: "webhook.hit", action: "stripe", resource_type: "stripe", metadata: { env: rawEnv } }, request);
           return Response.json({ received: true });
         } catch (e) {
           console.error("[webhook] error", e);
+          await logAuditEvent({ event_type: "webhook.hit", action: "stripe", success: false, severity: "warning", metadata: { env: rawEnv, error: String(e) } }, request);
           return new Response("Webhook error", { status: 400 });
         }
       },
