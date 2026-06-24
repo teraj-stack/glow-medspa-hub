@@ -6,6 +6,11 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+  checks: write
+  statuses: write
+
 jobs:
   brand-validate:
     name: Validate "BM Clinics" in dist
@@ -30,7 +35,14 @@ jobs:
       - name: Brand validate-or-fix in dist (strict)
         id: brand
         continue-on-error: true
-        run: npm run brand:validate-or-fix:dist:strict
+        run: |
+          set +e
+          npm run brand:validate-or-fix:dist:strict
+          RC=$?
+          echo "exit_code=$RC" >> "$GITHUB_OUTPUT"
+          echo "brand:validate-or-fix:dist:strict exit code = $RC"
+          # Don't fail the step here — the interpret step decides job status.
+          exit 0
 
       - name: Upload brand reports
         if: always()
@@ -42,23 +54,111 @@ jobs:
             reports/brand-fix-dist-report.md
           if-no-files-found: ignore
 
-      - name: Interpret exit code & annotate
+      - name: Publish per-exit-code GitHub checks
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          BRAND_EXIT: ${{ steps.brand.outputs.exit_code }}
+        with:
+          script: |
+            const rc = parseInt(process.env.BRAND_EXIT ?? '', 10);
+            const sha = context.payload.pull_request?.head?.sha ?? context.sha;
+
+            // Each entry becomes its own check run on the commit, so every
+            // exit code shows up as a discrete line in the commit's checks
+            // list. Exactly one is "success" (the active one); the others
+            // are "neutral" (informational, not failing).
+            const checks = [
+              {
+                code: 0,
+                name: 'Brand / 0 · Clean (no "BM Clinics" in dist)',
+                title: 'No occurrences of "BM Clinics" in dist',
+                summary: 'Build artifacts are clean. Nothing to fix.',
+              },
+              {
+                code: 1,
+                name: 'Brand / 1 · Auto-fix applied (strict fail)',
+                title: 'Safe replacements applied in dist',
+                summary:
+                  'Safe replacements of `BM Clinics` → `BMClinics.ai` were applied to dist. ' +
+                  'Strict mode fails the build so the underlying **source** can be cleaned up. ' +
+                  'See artifact `brand-reports` → `brand-fix-dist-report.md`.',
+              },
+              {
+                code: 2,
+                name: 'Brand / 2 · Validation still failing after fix',
+                title: 'Unsafe "BM Clinics" occurrences remain',
+                summary:
+                  'Risky occurrences remain in dist (URLs, identifiers, or other unsafe contexts) ' +
+                  'that the auto-fix refused to touch. **Manual cleanup required.** ' +
+                  'See artifact `brand-reports` for the list of unsafe matches.',
+              },
+              {
+                code: 3,
+                name: 'Brand / 3 · Auto-fix script crashed',
+                title: 'scripts/fix-brand-dist.mjs failed',
+                summary:
+                  'The auto-fix script itself errored out. Investigate the job log for ' +
+                  '`brand:validate-or-fix:dist:strict`.',
+              },
+            ];
+
+            const isUnknown = !checks.some((c) => c.code === rc);
+
+            for (const c of checks) {
+              const active = c.code === rc;
+              // Active code that means "all good" → success.
+              // Active code that means a real failure → failure.
+              // Inactive codes → neutral (informational placeholder).
+              const conclusion = active
+                ? (c.code === 0 ? 'success' : 'failure')
+                : 'neutral';
+
+              await github.rest.checks.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: c.name,
+                head_sha: sha,
+                status: 'completed',
+                conclusion,
+                output: {
+                  title: active ? `▶ ${c.title}` : `(inactive) ${c.title}`,
+                  summary: active
+                    ? `**This is the outcome for this build (exit code ${rc}).**\n\n${c.summary}`
+                    : `Not the outcome for this build. Shown for visibility so every possible exit code has a slot in the commit's check list.\n\n${c.summary}`,
+                },
+              });
+            }
+
+            if (isUnknown) {
+              await github.rest.checks.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: `Brand / ${rc} · Unknown exit code`,
+                head_sha: sha,
+                status: 'completed',
+                conclusion: 'failure',
+                output: {
+                  title: `Unknown exit code ${rc}`,
+                  summary:
+                    `\`brand:validate-or-fix:dist:strict\` returned an exit code ` +
+                    `(${rc}) that the workflow does not recognize. Update ` +
+                    '`.github/workflows/brand-validate.yml` to handle it.',
+                },
+              });
+            }
+
+      - name: Interpret exit code & set job status
         if: always()
         env:
-          BRAND_EXIT: ${{ steps.brand.outcome == 'success' && '0' || steps.brand.outputs.exit_code || '1' }}
+          RC: ${{ steps.brand.outputs.exit_code }}
         run: |
-          CODE="${{ steps.brand.outcome }}"
-          # Re-run silently to capture real exit code (continue-on-error masks it)
-          set +e
-          npm run brand:validate-or-fix:dist:strict >/dev/null 2>&1
-          RC=$?
-          set -e
-          echo "brand:validate-or-fix:dist:strict exit code = $RC"
-
           SUMMARY="$GITHUB_STEP_SUMMARY"
           echo "## Brand validation (dist)" >> "$SUMMARY"
           echo "" >> "$SUMMARY"
           echo "Exit code: \`$RC\`" >> "$SUMMARY"
+          echo "" >> "$SUMMARY"
+          echo "Per-exit-code GitHub checks were published on this commit — see the **Checks** tab." >> "$SUMMARY"
           echo "" >> "$SUMMARY"
 
           case "$RC" in
@@ -70,20 +170,16 @@ jobs:
             1)
               echo "::warning title=Brand auto-fix applied::Safe replacements of \"BM Clinics\" → \"BMClinics.ai\" were applied in dist. Review reports/brand-fix-dist-report.md and update source."
               echo "⚠️ **Auto-fix applied (exit 1)** — safe replacements were made in dist. Strict mode treats this as a failure so the underlying source can be cleaned up." >> "$SUMMARY"
-              echo "" >> "$SUMMARY"
-              echo "See artifact \`brand-reports\` → \`brand-fix-dist-report.md\`." >> "$SUMMARY"
               exit 1
               ;;
             2)
               echo "::error title=Brand validation failed after fix::Unsafe \"BM Clinics\" occurrences remain in dist (URLs, identifiers, or other risky contexts). Manual cleanup required."
-              echo "❌ **Validation still failing after auto-fix (exit 2)** — risky \"BM Clinics\" occurrences remain (URLs / identifiers / unsafe contexts). Manual cleanup required." >> "$SUMMARY"
-              echo "" >> "$SUMMARY"
-              echo "See artifact \`brand-reports\` for the list of unsafe matches." >> "$SUMMARY"
+              echo "❌ **Validation still failing after auto-fix (exit 2)** — risky \"BM Clinics\" occurrences remain. Manual cleanup required." >> "$SUMMARY"
               exit 1
               ;;
             3)
               echo "::error title=Brand auto-fix script failed::scripts/fix-brand-dist.mjs exited with a non-recoverable error. Check the job log."
-              echo "💥 **Auto-fix script crashed (exit 3)** — \`scripts/fix-brand-dist.mjs\` failed. Investigate the script logs above." >> "$SUMMARY"
+              echo "💥 **Auto-fix script crashed (exit 3)** — investigate the script logs above." >> "$SUMMARY"
               exit 1
               ;;
             *)
