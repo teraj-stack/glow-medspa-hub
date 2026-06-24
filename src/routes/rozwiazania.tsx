@@ -317,6 +317,125 @@ function RozwiazaniaPage() {
   );
 }
 
+function LaddProtocolSection() {
+  return (
+    <section className="border-t border-border bg-background">
+      <div className="container-luxury py-16 md:py-24">
+        <ScrollReveal>
+          <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+            <div className="text-xs tracking-[0.3em] uppercase text-champagne mb-4 font-body">
+              Autorski protokół Body Longevity
+            </div>
+            <h2 className="font-serif text-3xl md:text-5xl text-foreground leading-tight mb-6">
+              Autorski Protokół LADD: Plazma + PRP + DEP
+            </h2>
+            <p className="text-muted-foreground text-lg font-body leading-relaxed">
+              Inżynieria tkankowa oparta na Twojej własnej biologii. W procesie głębokiej regeneracji skóry najpotężniejszym narzędziem, jakim dysponujemy, jest Twój własny organizm. Protokół LADD to synergia zaawansowanej technologii i medycyny regeneracyjnej, w której kluczową rolę odgrywa osocze bogatopłytkowe (PRP). Nie maskujemy tu objawów starzenia — dostarczamy Twojej skórze biologicznych instrukcji do całkowitej przebudowy.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <div className="mb-12 md:mb-16">
+            <h3 className="font-serif text-2xl md:text-3xl text-foreground text-center mb-8">
+              Jak działa ten proces?
+            </h3>
+            <p className="text-center text-muted-foreground font-body max-w-2xl mx-auto mb-10">
+              Twoje własne płytki krwi to naturalne magazyny życiodajnych substancji, które na co dzień odpowiadają za gojenie i naprawę tkanek. W trakcie procedury uwalniamy ich ukryty potencjał, w tym:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              <article className="rounded-sm border border-champagne/30 bg-card p-6 md:p-8">
+                <div className="text-xs tracking-[0.3em] uppercase text-champagne font-body mb-4">
+                  01 · Komunikatory komórkowe
+                </div>
+                <h4 className="font-serif text-xl text-foreground mb-3">
+                  Skoncentrowane czynniki wzrostu
+                </h4>
+                <p className="text-muted-foreground font-body leading-relaxed">
+                  Białka sygnałowe (m.in. PDGF, VEGF, TGF) działają jak komunikatory. Nakazują one uśpionym komórkom skóry natychmiastowe podziały, stymulując tworzenie nowych naczyń krwionośnych i wzmacniając strukturę tkanki.
+                </p>
+              </article>
+
+              <article className="rounded-sm border border-champagne/30 bg-card p-6 md:p-8">
+                <div className="text-xs tracking-[0.3em] uppercase text-champagne font-body mb-4">
+                  02 · Paliwo dla komórek
+                </div>
+                <h4 className="font-serif text-xl text-foreground mb-3">
+                  Witalna energia komórkowa
+                </h4>
+                <p className="text-muted-foreground font-body leading-relaxed">
+                  Związki takie jak ATP i ADP dostarczają komórkom „paliwa” niezbędnego do intensywnej produkcji nowego kolagenu, kwasu hialuronowego i elastyny.
+                </p>
+              </article>
+
+              <article className="rounded-sm border border-champagne/30 bg-card p-6 md:p-8">
+                <div className="text-xs tracking-[0.3em] uppercase text-champagne font-body mb-4">
+                  03 · Rusztowanie nowej skóry
+                </div>
+                <h4 className="font-serif text-xl text-foreground mb-3">
+                  Naturalne białka adhezyjne
+                </h4>
+                <p className="text-muted-foreground font-body leading-relaxed">
+                  Elementy takie jak fibronektyna tworzą stabilne rusztowanie, wokół którego formuje się nowa, napięta skóra.
+                </p>
+              </article>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <div className="rounded-sm border border-champagne/30 bg-gradient-to-b from-card via-background to-card p-8 md:p-12">
+            <h3 className="font-serif text-2xl md:text-3xl text-foreground text-center mb-4">
+              Siła potrójnej synergii
+            </h3>
+            <p className="text-center text-muted-foreground font-body max-w-2xl mx-auto mb-10">
+              Samo osocze to zaledwie początek. Aby w pełni wykorzystać jego potencjał medyczny bez konieczności inwazyjnego nakłuwania, opracowałem sekwencję technologiczną:
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              <div className="relative">
+                <div className="text-xs tracking-[0.3em] uppercase text-champagne font-body mb-3">
+                  Krok 1
+                </div>
+                <h4 className="font-serif text-xl text-foreground mb-3">Zimna Plazma</h4>
+                <p className="text-muted-foreground font-body leading-relaxed">
+                  Otwiera mikroskopijne kanały w warstwie rogowej naskórka i sterylizuje środowisko, przygotowując tkankę na przyjęcie substancji aktywnych.
+                </p>
+              </div>
+
+              <div className="relative">
+                <div className="text-xs tracking-[0.3em] uppercase text-champagne font-body mb-3">
+                  Krok 2
+                </div>
+                <h4 className="font-serif text-xl text-foreground mb-3">PRP (Osocze bogatopłytkowe)</h4>
+                <p className="text-muted-foreground font-body leading-relaxed">
+                  Dostarcza wysoce skoncentrowane, autologiczne składniki odżywcze.
+                </p>
+              </div>
+
+              <div className="relative">
+                <div className="text-xs tracking-[0.3em] uppercase text-champagne font-body mb-3">
+                  Krok 3
+                </div>
+                <h4 className="font-serif text-xl text-foreground mb-3">DEP (DermoElectroPoration)</h4>
+                <p className="text-muted-foreground font-body leading-relaxed">
+                  Wykorzystując bezpieczne impulsy elektryczne, bezboleśnie wtłacza czynniki wzrostu z osocza głęboko do skóry właściwej – dokładnie tam, gdzie są najbardziej potrzebne.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-10 max-w-3xl mx-auto text-center">
+              <p className="text-muted-foreground font-body leading-relaxed">
+                To rozwiązanie stworzone z myślą o najwyższym komforcie i absolutnym bezpieczeństwie. Zapewnia spektakularne odżywienie, wyrównanie tekstury i głęboki blask, wykorzystując w 100% naturalne procesy Twojego ciała.
+              </p>
+            </div>
+          </div>
+        </ScrollReveal>
+      </div>
+    </section>
+  );
+}
+
 const FAQS: Array<{
   id: string;
   tagline: string;
