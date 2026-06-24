@@ -1,8 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import logoLightMode from "@/assets/bujok-medical-logo-dark.jpg.asset.json";
-import logoDarkMode from "@/assets/bujok-medical-logo.png.asset.json";
+// `bujok-medical-logo-dark.jpg` is the dark-on-light logo; the PNG is the
+// light-on-dark variant despite its generic name.
+import logoForLightMode from "@/assets/bujok-medical-logo-dark.jpg.asset.json";
+import logoForDarkMode from "@/assets/bujok-medical-logo.png.asset.json";
+
 
 
 
