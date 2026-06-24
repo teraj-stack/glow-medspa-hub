@@ -132,7 +132,7 @@ function TechnologiesPage() {
             Trzy technologie, które łączymy w większości przypadków
           </h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Z mojego doświadczenia kolejność zimna plazma → laser pikosekundowy → fototerapia LED to podstawowe, uniwersalne rozwiązanie dla większości pacjentek. Łączenie tych trzech narzędzi pozwala uzyskać efekt, który wcześniej wymagał dwukrotnie dłuższego protokołu.
+            Z mojego doświadczenia kolejność zimna plazma → laser pikosekundowy → fototerapia LED to podstawowe, uniwersalne rozwiązanie dla większości pacjentek. Łączenie tych trzech narzędzi pozwala uzyskać efekt, który wcześniej wymagał dwukrotnie dłuższego czasu rekonwalescencji.
           </p>
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
