@@ -454,7 +454,7 @@ function PikosekundowyPage() {
             <div className="text-xs uppercase tracking-[0.3em] text-champagne-light">Wymienne głowice</div>
             <h2 className="mt-4 font-serif text-3xl md:text-4xl">Siedem niezależnych narzędzi — jeden cel: Twoja skóra</h2>
             <p className="mt-4 text-alabaster/80">
-              Dla każdej z trzech głównych długości fali (1064 / 755 / 532 nm) mamy zarówno rękojeść z jednorodną plamką, jak i rękojeść frakcyjną. Ta druga oprócz dedykowanych funkcji (usuwanie pigmentu, melasma, przebarwienia) dodatkowo poprawia teksturę skóry i rewitalizuje — efekt znany w warszawskich klinikach jako "Total look" lub "Baby face lift".
+              Dla każdej z trzech głównych długości fali (1064 / 755 / 532 nm) mamy zarówno rękojeść z jednorodną plamką, jak i rękojeść frakcyjną. Ta druga oprócz dedykowanych funkcji (usuwanie pigmentu, melasma, przebarwienia) dodatkowo poprawia teksturę skóry i rewitalizuje — efekt znany w warszawskich klinikach jako „Total look” lub „Baby face lift”.
             </p>
             <ul className="mt-8 space-y-3 text-alabaster/85">
               <li className="flex items-start gap-3"><Check className="mt-1 size-4 shrink-0 text-champagne" /><span><strong className="text-alabaster">1064 nm — jednorodna plamka</strong> — tatuaże czarne/granatowe, toning, zmiany głębokie.</span></li>
