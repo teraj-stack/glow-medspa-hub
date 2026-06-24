@@ -218,6 +218,7 @@ function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPic
           loading="eager"
         />
       </div>
+      {isAdmin && (
       <figcaption className="w-full max-w-[14rem] space-y-3 md:max-w-[16rem]">
         <div
           role="radiogroup"
