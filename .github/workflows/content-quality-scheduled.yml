@@ -128,7 +128,30 @@ jobs:
 
       - name: Install JS dependencies
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
-        run: npm ci
+        id: npm-ci
+        run: |
+          START=$(date +%s)
+          npm ci
+          END=$(date +%s)
+          DURATION=$((END - START))
+          echo "duration=$DURATION" >> "$GITHUB_OUTPUT"
+          echo "npm ci duration: ${DURATION}s"
+
+      - name: Summary — node_modules cache & npm ci
+        if: always()
+        run: |
+          {
+            echo "## node_modules cache & npm ci"
+            echo ""
+            echo "| Item | Value |"
+            echo "| ---- | ----- |"
+            echo "| Cache hit | \`${{ steps.node-modules-cache.outputs.cache-hit }}\` |"
+            if [ "${{ steps.node-modules-cache.outputs.cache-hit }}" = "true" ]; then
+              echo "| npm ci duration | skipped (cache hit) |"
+            else
+              echo "| npm ci duration | ${{ steps.npm-ci.outputs.duration }}s |"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Resolve Playwright version
         id: pw
@@ -222,7 +245,30 @@ jobs:
 
       - name: Install JS dependencies
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
-        run: npm ci
+        id: npm-ci
+        run: |
+          START=$(date +%s)
+          npm ci
+          END=$(date +%s)
+          DURATION=$((END - START))
+          echo "duration=$DURATION" >> "$GITHUB_OUTPUT"
+          echo "npm ci duration: ${DURATION}s"
+
+      - name: Summary — node_modules cache & npm ci
+        if: always()
+        run: |
+          {
+            echo "## node_modules cache & npm ci"
+            echo ""
+            echo "| Item | Value |"
+            echo "| ---- | ----- |"
+            echo "| Cache hit | \`${{ steps.node-modules-cache.outputs.cache-hit }}\` |"
+            if [ "${{ steps.node-modules-cache.outputs.cache-hit }}" = "true" ]; then
+              echo "| npm ci duration | skipped (cache hit) |"
+            else
+              echo "| npm ci duration | ${{ steps.npm-ci.outputs.duration }}s |"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Resolve Playwright version
         id: pw
