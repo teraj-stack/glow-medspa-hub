@@ -154,6 +154,7 @@ export type Database = {
           google_calendar_id: string | null
           id: string
           photo_url: string | null
+          portrait_crop: Json | null
           professional_title: string | null
           slot_minutes: number
           slug: string
@@ -174,6 +175,7 @@ export type Database = {
           google_calendar_id?: string | null
           id?: string
           photo_url?: string | null
+          portrait_crop?: Json | null
           professional_title?: string | null
           slot_minutes?: number
           slug: string
@@ -194,6 +196,7 @@ export type Database = {
           google_calendar_id?: string | null
           id?: string
           photo_url?: string | null
+          portrait_crop?: Json | null
           professional_title?: string | null
           slot_minutes?: number
           slug?: string
