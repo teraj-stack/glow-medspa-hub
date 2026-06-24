@@ -4,23 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
 import halinaPortrait from "@/assets/halina-portrait.png.asset.json";
 
-const GEOMETRIA_ALT =
-  "Trójwymiarowy szkic kobiecej twarzy z naniesionymi punktami pomiarowymi (landmarks), liniami proporcji i płaszczyznami anatomicznymi — narzędzie planowania zabiegów medycyny estetycznej u lek. Haliny Gabary.";
-const GEOMETRIA_AVIF_SRCSET = [
-  `${geometria640Avif.url} 640w`,
-  `${geometria960Avif.url} 960w`,
-  `${geometria1280Avif.url} 1280w`,
-  `${geometria1600Avif.url} 1600w`,
-].join(", ");
-const GEOMETRIA_WEBP_SRCSET = [
-  `${geometria640Webp.url} 640w`,
-  `${geometria960Webp.url} 960w`,
-  `${geometria1280Webp.url} 1280w`,
-  `${geometria1600Webp.url} 1600w`,
-].join(", ");
-const GEOMETRIA_SIZES =
-  "(min-width: 1024px) 640px, (min-width: 768px) 60vw, 92vw";
-
 const CANONICAL = "https://bmclinics.ai/lekarze/halina-gabara";
 
 export const Route = createFileRoute("/lekarze/halina-gabara")({
