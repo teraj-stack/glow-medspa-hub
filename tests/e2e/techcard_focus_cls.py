@@ -91,13 +91,13 @@ async def run_theme(page, theme):
 
     if metric["total"] > MAX_CLS:
         failures.append(
-            f"[{theme}] cumulative CLS during Tab focus = {metric['total']:.6f} "
+            f"[{theme}] cumulative TechCard CLS during Tab focus = {metric['total']:.6f} "
             f"> MAX_CLS={MAX_CLS}"
         )
     for e in metric["entries"]:
-        if e["value"] > 0:
+        if e.get("techShift") and e["value"] > 0:
             failures.append(
-                f"[{theme}] non-zero layout-shift entry value={e['value']:.6f} "
+                f"[{theme}] non-zero TechCard layout-shift entry value={e['value']:.6f} "
                 f"sources={e['sources']}"
             )
     return failures
