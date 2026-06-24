@@ -31,6 +31,7 @@ import { Route as TechnologiePeelingWeglowyLaserowyRouteImport } from './routes/
 import { Route as TechnologieLaserTulowyRouteImport } from './routes/technologie.laser-tulowy'
 import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
+import { Route as LekarzeHalinaGabaraRouteImport } from './routes/lekarze.halina-gabara'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as BlogSlonceSkoraNowoczesneTechnologieRouteImport } from './routes/blog.slonce-skora-nowoczesne-technologie'
@@ -165,6 +166,11 @@ const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
   id: '/technologie/$slug',
   path: '/technologie/$slug',
   getParentRoute: () => rootRouteImport,
+} as any)
+const LekarzeHalinaGabaraRoute = LekarzeHalinaGabaraRouteImport.update({
+  id: '/halina-gabara',
+  path: '/halina-gabara',
+  getParentRoute: () => LekarzeRoute,
 } as any)
 const FormularzTokenRoute = FormularzTokenRouteImport.update({
   id: '/formularz/$token',
@@ -302,7 +308,7 @@ export interface FileRoutesByFullPath {
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
-  '/lekarze': typeof LekarzeRoute
+  '/lekarze': typeof LekarzeRouteWithChildren
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -317,6 +323,7 @@ export interface FileRoutesByFullPath {
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
+  '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
@@ -348,7 +355,7 @@ export interface FileRoutesByTo {
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
-  '/lekarze': typeof LekarzeRoute
+  '/lekarze': typeof LekarzeRouteWithChildren
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -362,6 +369,7 @@ export interface FileRoutesByTo {
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
+  '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
@@ -395,7 +403,7 @@ export interface FileRoutesById {
   '/cennik': typeof CennikRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
-  '/lekarze': typeof LekarzeRoute
+  '/lekarze': typeof LekarzeRouteWithChildren
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -410,6 +418,7 @@ export interface FileRoutesById {
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
+  '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
@@ -458,6 +467,7 @@ export interface FileRouteTypes {
     | '/blog/slonce-skora-nowoczesne-technologie'
     | '/email/unsubscribe'
     | '/formularz/$token'
+    | '/lekarze/halina-gabara'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
@@ -503,6 +513,7 @@ export interface FileRouteTypes {
     | '/blog/slonce-skora-nowoczesne-technologie'
     | '/email/unsubscribe'
     | '/formularz/$token'
+    | '/lekarze/halina-gabara'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
@@ -550,6 +561,7 @@ export interface FileRouteTypes {
     | '/blog/slonce-skora-nowoczesne-technologie'
     | '/email/unsubscribe'
     | '/formularz/$token'
+    | '/lekarze/halina-gabara'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
@@ -583,7 +595,7 @@ export interface RootRouteChildren {
   CennikRoute: typeof CennikRoute
   KonsultacjaRoute: typeof KonsultacjaRoute
   KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
-  LekarzeRoute: typeof LekarzeRoute
+  LekarzeRoute: typeof LekarzeRouteWithChildren
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
@@ -771,6 +783,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/technologie/$slug'
       preLoaderRoute: typeof TechnologieSlugRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/lekarze/halina-gabara': {
+      id: '/lekarze/halina-gabara'
+      path: '/halina-gabara'
+      fullPath: '/lekarze/halina-gabara'
+      preLoaderRoute: typeof LekarzeHalinaGabaraRouteImport
+      parentRoute: typeof LekarzeRoute
     }
     '/formularz/$token': {
       id: '/formularz/$token'
@@ -971,6 +990,17 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface LekarzeRouteChildren {
+  LekarzeHalinaGabaraRoute: typeof LekarzeHalinaGabaraRoute
+}
+
+const LekarzeRouteChildren: LekarzeRouteChildren = {
+  LekarzeHalinaGabaraRoute: LekarzeHalinaGabaraRoute,
+}
+
+const LekarzeRouteWithChildren =
+  LekarzeRoute._addFileChildren(LekarzeRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -979,7 +1009,7 @@ const rootRouteChildren: RootRouteChildren = {
   CennikRoute: CennikRoute,
   KonsultacjaRoute: KonsultacjaRoute,
   KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,
-  LekarzeRoute: LekarzeRoute,
+  LekarzeRoute: LekarzeRouteWithChildren,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
