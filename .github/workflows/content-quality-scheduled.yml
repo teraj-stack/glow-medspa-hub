@@ -113,6 +113,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
+      - name: Log node_modules cache status
+        run: |
+          if [ "${{ steps.node-modules-cache.outputs.cache-hit }}" = "true" ]; then
+            echo "✓ node_modules cache HIT — dependencies restored from cache"
+          else
+            echo "✗ node_modules cache MISS — running npm ci"
+          fi
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -198,6 +206,14 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
+      - name: Log node_modules cache status
+        run: |
+          if [ "${{ steps.node-modules-cache.outputs.cache-hit }}" = "true" ]; then
+            echo "✓ node_modules cache HIT — dependencies restored from cache"
+          else
+            echo "✗ node_modules cache MISS — running npm ci"
+          fi
 
       - uses: actions/setup-python@v5
         with:
