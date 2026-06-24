@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { logAuditEvent } from "@/lib/audit/log.server";
 import type { Database } from "@/integrations/supabase/types";
 
 // Public, read-only Supabase client (anon key, respects RLS).
@@ -72,6 +73,13 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
       .eq("slug", data.slug)
       .maybeSingle();
     if (error) throw new Error(error.message);
+    void logAuditEvent({
+      event_type: "public.read",
+      action: "READ",
+      resource_type: "public_doctors",
+      resource_id: data.slug,
+      success: !error,
+    });
     return row as null | {
       id: string;
       slug: string;

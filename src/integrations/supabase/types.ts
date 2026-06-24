@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      audit_log: {
+        Row: {
+          action: string | null
+          actor_ip: unknown
+          actor_ua: string | null
+          actor_user_id: string | null
+          event_type: string
+          id: number
+          metadata: Json
+          occurred_at: string
+          resource_id: string | null
+          resource_type: string | null
+          severity: Database["public"]["Enums"]["audit_severity"]
+          success: boolean
+        }
+        Insert: {
+          action?: string | null
+          actor_ip?: unknown
+          actor_ua?: string | null
+          actor_user_id?: string | null
+          event_type: string
+          id?: number
+          metadata?: Json
+          occurred_at?: string
+          resource_id?: string | null
+          resource_type?: string | null
+          severity?: Database["public"]["Enums"]["audit_severity"]
+          success?: boolean
+        }
+        Update: {
+          action?: string | null
+          actor_ip?: unknown
+          actor_ua?: string | null
+          actor_user_id?: string | null
+          event_type?: string
+          id?: number
+          metadata?: Json
+          occurred_at?: string
+          resource_id?: string | null
+          resource_type?: string | null
+          severity?: Database["public"]["Enums"]["audit_severity"]
+          success?: boolean
+        }
+        Relationships: []
+      }
       bookings: {
         Row: {
           consent_rodo: boolean
@@ -760,6 +805,18 @@ export type Database = {
           },
         ]
       }
+      suspicious_activity: {
+        Row: {
+          actor_ip: unknown
+          actor_user_id: string | null
+          event_type: string | null
+          failures: number | null
+          hits: number | null
+          minute: string | null
+          reason: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       delete_email: {
@@ -768,6 +825,20 @@ export type Database = {
       }
       enqueue_email: {
         Args: { payload: Json; queue_name: string }
+        Returns: number
+      }
+      log_audit_event: {
+        Args: {
+          _action: string
+          _actor_ip?: string
+          _actor_ua?: string
+          _event_type: string
+          _metadata?: Json
+          _resource_id?: string
+          _resource_type?: string
+          _severity?: Database["public"]["Enums"]["audit_severity"]
+          _success?: boolean
+        }
         Returns: number
       }
       move_to_dlq: {
@@ -779,6 +850,7 @@ export type Database = {
         }
         Returns: number
       }
+      purge_old_audit_log: { Args: never; Returns: undefined }
       read_email_batch: {
         Args: { batch_size: number; queue_name: string; vt: number }
         Returns: {
@@ -790,6 +862,7 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
+      audit_severity: "info" | "warning" | "critical"
       visit_booking_status:
         | "pending_payment"
         | "confirmed"
@@ -925,6 +998,7 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "moderator", "user"],
+      audit_severity: ["info", "warning", "critical"],
       visit_booking_status: [
         "pending_payment",
         "confirmed",
