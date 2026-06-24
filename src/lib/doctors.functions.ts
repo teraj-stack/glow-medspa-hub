@@ -137,7 +137,7 @@ export const saveDoctorPortrait = createServerFn({ method: "POST" })
 
     const { data: updated, error: updErr } = await supabaseAdmin
       .from("doctors")
-      .update(patch)
+      .update(patch as never)
       .eq("id", doc.id)
       .select("photo_url, portrait_crop")
       .single();
