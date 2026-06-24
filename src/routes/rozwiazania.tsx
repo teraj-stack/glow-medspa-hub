@@ -11,6 +11,7 @@ import PakietTile from "@/components/PakietTile";
 import PakietETile from "@/components/PakietETile";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 import sylwetkaAsset from "@/assets/sylwetka-back-v3.png.asset.json";
+import teksturaHdTwarzAsset from "@/assets/tekstura-hd-twarz.png.asset.json";
 import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
 import okoAsset from "@/assets/oko-szkic-v2.png.asset.json";
 import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
@@ -154,7 +155,7 @@ function RozwiazaniaPage() {
               iconTooltip="Przejdź do technologii tekstury HD — zarezerwuj konsultację, by wygładzić skórę."
               tagline="REDUKCJA BLIZN I ZMARSZCZEK"
               title="Tekstura « HD »"
-              icon={sylwetkaAsset.url}
+              icon={teksturaHdTwarzAsset.url}
               bullets={[
                 {
                   title: "Redukcja blizn i przebarwień",
