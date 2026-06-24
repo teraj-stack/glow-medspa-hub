@@ -40,6 +40,70 @@ export const Route = createFileRoute("/lekarze")({
   ),
 });
 
+function DoctorCard({ doctor }: { doctor: { id: string; slug: string; full_name: string; title: string | null; bio: string | null; photo_url: string | null } }) {
+  const initials = doctor.full_name
+    .split(" ")
+    .map((s) => s[0])
+    .slice(0, 2)
+    .join("");
+
+  const cardInner = (
+    <div className="flex flex-col gap-6 md:flex-row md:items-start">
+      <div className="shrink-0">
+        {doctor.photo_url ? (
+          <img
+            src={doctor.photo_url}
+            alt={doctor.full_name}
+            width={128}
+            height={128}
+            loading="lazy"
+            decoding="async"
+            className="size-28 rounded-full object-cover ring-1 ring-border md:size-32"
+          />
+        ) : (
+          <div
+            aria-hidden
+            className="flex size-28 items-center justify-center rounded-full bg-secondary text-2xl font-serif text-muted-foreground md:size-32"
+          >
+            {initials}
+          </div>
+        )}
+      </div>
+      <div className="min-w-0 flex-1">
+        <h2 className="font-serif text-2xl tracking-tight text-foreground">
+          {doctor.full_name}
+        </h2>
+        {doctor.title && (
+          <p className="mt-1 text-sm text-muted-foreground">{doctor.title}</p>
+        )}
+        {doctor.bio && (
+          <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-foreground/85">
+            {doctor.bio}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+
+  if (doctor.slug === "halina-gabara") {
+    return (
+      <Link
+        to="/lekarze/halina-gabara"
+        className="group block rounded-2xl border border-border/60 bg-card p-6 transition-shadow hover:shadow-md md:p-8"
+        aria-label={`Profil lek. Haliny Gabary`}
+      >
+        {cardInner}
+      </Link>
+    );
+  }
+
+  return (
+    <div className="group rounded-2xl border border-border/60 bg-card p-6 md:p-8">
+      {cardInner}
+    </div>
+  );
+}
+
 function LekarzePage() {
   const { data: doctors } = useSuspenseQuery(doctorsQuery);
 
@@ -67,49 +131,8 @@ function LekarzePage() {
         ) : (
           <ul className="mt-14 grid gap-10 md:mt-20 md:grid-cols-2 lg:gap-14">
             {doctors.map((d) => (
-              <li
-                key={d.id}
-                className="group rounded-2xl border border-border/60 bg-card p-6 transition-shadow hover:shadow-md md:p-8"
-              >
-                <div className="flex flex-col gap-6 md:flex-row md:items-start">
-                  <div className="shrink-0">
-                    {d.photo_url ? (
-                      <img
-                        src={d.photo_url}
-                        alt={d.full_name}
-                        width={128}
-                        height={128}
-                        loading="lazy"
-                        decoding="async"
-                        className="size-28 rounded-full object-cover ring-1 ring-border md:size-32"
-                      />
-                    ) : (
-                      <div
-                        aria-hidden
-                        className="flex size-28 items-center justify-center rounded-full bg-secondary text-2xl font-serif text-muted-foreground md:size-32"
-                      >
-                        {d.full_name
-                          .split(" ")
-                          .map((s) => s[0])
-                          .slice(0, 2)
-                          .join("")}
-                      </div>
-                    )}
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h2 className="font-serif text-2xl tracking-tight text-foreground">
-                      {d.full_name}
-                    </h2>
-                    {d.title && (
-                      <p className="mt-1 text-sm text-muted-foreground">{d.title}</p>
-                    )}
-                    {d.bio && (
-                      <p className="mt-4 whitespace-pre-line text-sm leading-relaxed text-foreground/85">
-                        {d.bio}
-                      </p>
-                    )}
-                  </div>
-                </div>
+              <li key={d.id}>
+                <DoctorCard doctor={d} />
               </li>
             ))}
           </ul>
