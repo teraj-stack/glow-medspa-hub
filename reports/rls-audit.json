@@ -1,0 +1,99 @@
+{
+  "generated_at": "2026-06-24T17:11:56.607Z",
+  "tables_scanned": 15,
+  "findings_count": 0,
+  "findings": [],
+  "tables_without_rls": [],
+  "policy_summary": {
+    "bookings": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": false
+    },
+    "consultation_orders": {
+      "SELECT": true,
+      "INSERT": false,
+      "UPDATE": false,
+      "DELETE": false
+    },
+    "doctors": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
+    },
+    "email_send_log": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": false
+    },
+    "email_send_state": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
+    },
+    "email_unsubscribe_tokens": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": false
+    },
+    "hidden_pricing_items": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
+    },
+    "profiles": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": false
+    },
+    "sitemap_validation_history": {
+      "SELECT": true,
+      "INSERT": false,
+      "UPDATE": false,
+      "DELETE": false
+    },
+    "suppressed_emails": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": false,
+      "DELETE": false
+    },
+    "time_off": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
+    },
+    "treatment_catalog": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
+    },
+    "user_roles": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
+    },
+    "visit_bookings": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
+    },
+    "working_hours": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true
+    }
+  }
+}

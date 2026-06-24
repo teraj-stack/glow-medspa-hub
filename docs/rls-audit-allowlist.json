@@ -1,0 +1,14 @@
+{
+  "bookings.DELETE": true,
+  "consultation_orders.INSERT": true,
+  "consultation_orders.UPDATE": true,
+  "consultation_orders.DELETE": true,
+  "email_send_log.DELETE": true,
+  "email_unsubscribe_tokens.DELETE": true,
+  "profiles.DELETE": true,
+  "sitemap_validation_history.INSERT": true,
+  "sitemap_validation_history.UPDATE": true,
+  "sitemap_validation_history.DELETE": true,
+  "suppressed_emails.UPDATE": true,
+  "suppressed_emails.DELETE": true
+}

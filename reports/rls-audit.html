@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RLS Audit Report</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; margin: 2rem; background: #0f172a; color: #e2e8f0; }
+    h1 { color: #f8fafc; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+    th, td { padding: 0.75rem; border: 1px solid #334155; text-align: left; vertical-align: top; }
+    th { background: #1e293b; color: #94a3b8; }
+    tr:nth-child(even) { background: #162032; }
+    code { background: #1e293b; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.85rem; }
+    .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 999px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; }
+    .badge.critical { background: #7f1d1d; color: #fecaca; }
+    .badge.high { background: #7c2d12; color: #fed7aa; }
+    .summary { display: flex; gap: 1rem; margin: 1rem 0; }
+    .summary > div { background: #1e293b; padding: 1rem; border-radius: 0.5rem; min-width: 8rem; }
+    .summary .num { font-size: 1.5rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>RLS Audit Report</h1>
+  <p>Wygenerowano: 24.06.2026, 17:11:56</p>
+  <div class="summary">
+    <div><div class="num">15</div><div>Tabel</div></div>
+    <div><div class="num">0</div><div>Findingów</div></div>
+    <div><div class="num">0</div><div>Bez RLS</div></div>
+  </div>
+  <p>✅ Brak findingów — wszystkie tabele spełniają obecne reguły audytu.</p>
+</body>
+</html>
