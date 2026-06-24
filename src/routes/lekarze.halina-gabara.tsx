@@ -126,7 +126,7 @@ function HalinaGabaraPage() {
                 <img
                   src={halinaPortrait.url}
                   alt="lek. Halina Gabara — portret"
-                  className="h-auto max-h-[320px] w-auto max-w-[280px] rounded-lg object-cover shadow-sm md:max-h-[380px] md:max-w-[340px]"
+                  className="size-48 rounded-full object-cover object-top shadow-sm md:size-56"
                   loading="eager"
                 />
               </figure>
