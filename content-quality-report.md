@@ -1,6 +1,6 @@
 # Raport jakości treści
 
-Wygenerowano: 2026-06-24T16:36:07.302Z
+Wygenerowano: 2026-06-24T16:44:49.243Z
 Przeskanowanych plików tras: 37
 
 | Podstrona | Fragmentów | Urwane | Podwójne spacje | Brak kropki | % problemów |
@@ -8,38 +8,38 @@ Przeskanowanych plików tras: 37
 | `/lovable/email/queue/process` | 1 | 0 | 1 | 1 | 200% |
 | `/_authenticated/admin/cennik` | 12 | 1 | 5 | 4 | 83.3% |
 | `/sitemap[/]xml` | 6 | 4 | 1 | 0 | 83.3% |
-| `/konsultacja-dziekujemy` | 4 | 2 | 0 | 1 | 75% |
 | `/_authenticated/admin/rezerwacje` | 45 | 11 | 12 | 10 | 73.3% |
 | `/polityka-prywatnosci` | 10 | 3 | 2 | 2 | 70% |
 | `/unsubscribe` | 5 | 1 | 1 | 1 | 60% |
 | `/lekarze/jan-bujok` | 27 | 4 | 7 | 4 | 55.6% |
 | `/blog/blizny-potradzikowe` | 74 | 8 | 25 | 5 | 51.4% |
+| `/konsultacja-dziekujemy` | 4 | 2 | 0 | 0 | 50% |
 | `/technologie/laser-tulowy` | 38 | 9 | 6 | 4 | 50% |
 | `/blog/powiklania-mezoterapia-iglowa` | 81 | 10 | 21 | 8 | 48.1% |
 | `/regulamin` | 9 | 2 | 2 | 0 | 44.4% |
-| `/lekarze/halina-gabara` | 28 | 3 | 6 | 3 | 42.9% |
 | `/konsultacja` | 12 | 1 | 2 | 2 | 41.7% |
 | `/technologie/peeling-weglowy-laserowy` | 27 | 4 | 5 | 2 | 40.7% |
 | `/blog/slonce-skora-nowoczesne-technologie` | 79 | 3 | 19 | 10 | 40.5% |
 | `/_authenticated/admin/web-vitals` | 23 | 2 | 4 | 3 | 39.1% |
 | `(root layout)` | 21 | 3 | 0 | 5 | 38.1% |
-| `/lekarze` | 17 | 2 | 2 | 2 | 35.3% |
 | `/auth` | 9 | 1 | 1 | 1 | 33.3% |
+| `/lekarze/halina-gabara` | 28 | 3 | 6 | 0 | 32.1% |
 | `/renasculpt` | 22 | 4 | 1 | 2 | 31.8% |
 | `/blog/laser-frakcyjny-rekonwalescencja` | 89 | 8 | 14 | 6 | 31.5% |
 | `/technologie/terapia-led` | 35 | 4 | 5 | 2 | 31.4% |
-| `/rozwiazania` | 39 | 5 | 3 | 4 | 30.8% |
 | `/bezpieczenstwo-zabiegow-laserowych` | 63 | 10 | 3 | 6 | 30.2% |
 | `/` | 34 | 4 | 4 | 2 | 29.4% |
+| `/lekarze` | 17 | 2 | 2 | 1 | 29.4% |
 | `/_authenticated/admin/seo` | 62 | 10 | 5 | 3 | 29% |
-| `/technologie` | 29 | 4 | 1 | 3 | 27.6% |
-| `/cennik` | 11 | 1 | 1 | 1 | 27.3% |
+| `/rozwiazania` | 65 | 9 | 3 | 5 | 26.2% |
 | `/potrzeby` | 27 | 4 | 1 | 2 | 25.9% |
 | `/_authenticated/admin/lekarze` | 24 | 2 | 3 | 1 | 25% |
 | `/technologie/picoking` | 90 | 18 | 0 | 4 | 24.4% |
 | `/technologie/fusion-plasma` | 54 | 7 | 0 | 6 | 24.1% |
+| `/technologie` | 29 | 4 | 1 | 2 | 24.1% |
 | `/formularz/$token` | 13 | 1 | 1 | 1 | 23.1% |
-| `/technologie/$slug` | 25 | 1 | 0 | 2 | 12% |
+| `/cennik` | 11 | 1 | 1 | 0 | 18.2% |
+| `/technologie/$slug` | 25 | 1 | 0 | 0 | 4% |
 | `/_authenticated/admin/index` | 12 | 0 | 0 | 0 | 0% |
 | `/_authenticated/admin/route` | 1 | 0 | 0 | 0 | 0% |
 
@@ -83,11 +83,6 @@ Przeskanowanych plików tras: 37
  ␣␣ .join("\n");
 
  ␣␣ const xml = `"
-
-### `/konsultacja-dziekujemy`
-- urwane: "Dziękujemy za rezerwację"
-- urwane: "Wróć na stronę główną"
-- brak kropki: "Dziękujemy za rezerwację | BM Clinics"
 
 ### `/_authenticated/admin/rezerwacje`
 - podwójne spacje: "("upcoming");
@@ -148,6 +143,10 @@ Przeskanowanych plików tras: 37
 - podwójne spacje: "Szersze blizny o ostrych, pionowych brzegach — przypominają ślady po ospie.
  ␣␣ Reagują bardzo dobrze na laser pikosekundowy z soczewką Honeycomb."
 
+### `/konsultacja-dziekujemy`
+- urwane: "Dziękujemy za rezerwację"
+- urwane: "Wróć na stronę główną"
+
 ### `/technologie/laser-tulowy`
 - urwane: "Laser frakcyjny tulowy · 1927 nm"
 - urwane: "Laser, który zamyka temat melasmy i przebarwień"
@@ -176,34 +175,6 @@ Przeskanowanych plików tras: 37
  ␣␣ wizyty na mniej niż 24 godziny przed terminem może wiązać się z opłatą rezerwacyjną."
 - urwane: "Regulamin | BMClinics.ai"
 - urwane: "Regulamin | BMClinics.ai"
-
-### `/lekarze/halina-gabara`
-- podwójne spacje: "p.trim()).filter(Boolean)
- ␣␣ : [
- ␣␣ "Ścieżkę zawodową budowałam przez kilkanaście lat, łącząc praktykę w warszawskich klinikach premium z ortodontycznym, analitycznym spojrzeniem na twarz.",
- ␣␣ "W BM Clinics w Siedlcach prowadzę pacjentów w identycznym standardzie — od konsultacji i diagnostyki, przez plan terapii, po opiekę pozabiegową i wizyty kontrolne.",
- ␣␣ ]);
- ␣␣ const specializations = (doctor?.specializations && doctor.specializations.length)
- ␣␣ ? doctor.specializations
- ␣␣ : SPECJALIZACJE;
- ␣␣ const education = (doctor?.education && doctor.education.length)
- ␣␣ ? doctor.education
- ␣␣ : WYKSZTALCENIE;
- ␣␣ return ("
-- urwane: "Lekarz prowadzący"
-- podwójne spacje: "Patrzę na twarz analitycznie — jako układ punktów odniesienia,
- ␣␣ odległości i kątów, w których klasyczna harmonia łączy się
- ␣␣ z indywidualną anatomią pacjenta. Planuję terapie, które
- ␣␣ wyglądają naturalnie i są bezpieczne w długim horyzoncie."
-- podwójne spacje: "Moim fundamentem jest twarde, analityczne spojrzenie na twarz.
- ␣␣ Zajmuję się oznaczaniem stałych, powtarzalnych punktów
- ␣␣ pomiarowych — landmarks — oraz analizą odległości, kątów i osi
- ␣␣ między strukturami głębokimi twarzy a jej powierzchnią."
-- podwójne spacje: "Ta wiedza, łącząca cefalometrię, antropometrię i geometrię
- ␣␣ proporcji, pozwala budować plany zabiegowe na indywidualnej
- ␣␣ anatomii, a nie na gotowych wzorach. W BM Clinics
- ␣␣ tworzymy na tej bazie nowy standard opieki: od precyzyjnej
- ␣␣ diagnostyki, przez dobór technik, po opiekę okołozabiegową."
 
 ### `/konsultacja`
 - podwójne spacje: "("online");
@@ -271,19 +242,6 @@ Przeskanowanych plików tras: 37
 - brak kropki: "BM Clinics — Medycyna estetyczna, Siedlce"
 - urwane: "BMClinics.ai"
 
-### `/lekarze`
-- podwójne spacje: "s[0])
- ␣␣ .slice(0, 2)
- ␣␣ .join("");
-
- ␣␣ const cardInner = ("
-- urwane: "Lekarze i specjaliści"
-- podwójne spacje: "Dziesięć lat doświadczenia w premium klinikach Warszawy — ten sam standard
- ␣␣ opieki w Siedlcach. Każda terapia projektowana indywidualnie, z naciskiem
- ␣␣ na bezpieczeństwo i przewidywalny efekt."
-- urwane: "Umów konsultację"
-- brak kropki: "Lekarze i specjaliści — BM Clinics Siedlce"
-
 ### `/auth`
 - podwójne spacje: "("login");
  ␣␣ const [email, setEmail] = useState("");
@@ -295,6 +253,34 @@ Przeskanowanych plików tras: 37
   const [email, setEmail] = useState("");
   const [password, setPassw…"
 - urwane: "Hasło"
+
+### `/lekarze/halina-gabara`
+- podwójne spacje: "p.trim()).filter(Boolean)
+ ␣␣ : [
+ ␣␣ "Ścieżkę zawodową budowałam przez kilkanaście lat, łącząc praktykę w warszawskich klinikach premium z ortodontycznym, analitycznym spojrzeniem na twarz.",
+ ␣␣ "W BM Clinics w Siedlcach prowadzę pacjentów w identycznym standardzie — od konsultacji i diagnostyki, przez plan terapii, po opiekę pozabiegową i wizyty kontrolne.",
+ ␣␣ ]);
+ ␣␣ const specializations = (doctor?.specializations && doctor.specializations.length)
+ ␣␣ ? doctor.specializations
+ ␣␣ : SPECJALIZACJE;
+ ␣␣ const education = (doctor?.education && doctor.education.length)
+ ␣␣ ? doctor.education
+ ␣␣ : WYKSZTALCENIE;
+ ␣␣ return ("
+- urwane: "Lekarz prowadzący"
+- podwójne spacje: "Patrzę na twarz analitycznie — jako układ punktów odniesienia,
+ ␣␣ odległości i kątów, w których klasyczna harmonia łączy się
+ ␣␣ z indywidualną anatomią pacjenta. Planuję terapie, które
+ ␣␣ wyglądają naturalnie i są bezpieczne w długim horyzoncie."
+- podwójne spacje: "Moim fundamentem jest twarde, analityczne spojrzenie na twarz.
+ ␣␣ Zajmuję się oznaczaniem stałych, powtarzalnych punktów
+ ␣␣ pomiarowych — landmarks — oraz analizą odległości, kątów i osi
+ ␣␣ między strukturami głębokimi twarzy a jej powierzchnią."
+- podwójne spacje: "Ta wiedza, łącząca cefalometrię, antropometrię i geometrię
+ ␣␣ proporcji, pozwala budować plany zabiegowe na indywidualnej
+ ␣␣ anatomii, a nie na gotowych wzorach. W BM Clinics
+ ␣␣ tworzymy na tej bazie nowy standard opieki: od precyzyjnej
+ ␣␣ diagnostyki, przez dobór technik, po opiekę okołozabiegową."
 
 ### `/renasculpt`
 - urwane: "HIFEM · EMS · RF · 4 kanały"
@@ -327,20 +313,6 @@ Przeskanowanych plików tras: 37
  ␣␣ Nieinwazyjnie pobudza komórki do regeneracji, wycisza stan zapalny, niszczy bakterie
  ␣␣ trądziku i odbudowuje kolagen — bez bólu, bez igły, bez rekonwalescencji."
 
-### `/rozwiazania`
-- brak kropki: "Body Longevity · Inteligentny Dobór Terapii"
-- brak kropki: "Twój personalny plan «&nbsp;Body Longevity&nbsp;» w 60 sekund"
-- podwójne spacje: "Autorska metoda lek. Jana Bujok komponuje optymalne sekwencje «&nbsp;Body Longevity&nbsp;»
- ␣␣ z naszego parku technologii na podstawie dokładnej diagnozy w gabinecie.
- ␣␣ Koniec z metodą prób i błędów — Twój plan terapeutyczny jest
- ␣␣ oparty na faktach, precyzyjnych danych i wieloletnim doświadczeniu klinicznym."
-- podwójne spacje: "Ciało to wielowarstwowa struktura — a piękno to harmonia jego warstw.
- ␣␣ Lasery pracują nad skórą, HIFU zagęszcza i wzmacnia skórę głęboką
- ␣␣ i powięź SMAS nad, a HIFEM nad mięśniami pod obszarem. Komponujemy
- ␣␣ te elementy w autorskie sekwencje&nbsp;« Body Longevity », które
- ␣␣ pracują razem na Twój wynik równocześnie."
-- urwane: "Umów konsultację"
-
 ### `/bezpieczenstwo-zabiegow-laserowych`
 - podwójne spacje: "Nie wszystkie osoby kwalifikują się do laseroterapii. Podczas konsultacji lekarz
  ␣␣ omawia indywidualne ryzyko i — jeśli zabieg nie jest bezpieczny dla danego pacjenta —
@@ -367,6 +339,19 @@ Przeskanowanych plików tras: 37
 - podwójne spacje: "Każdą technologię dobieram jak nutę w kompozycji — nie jak produkt z katalogu.
  ␣␣ Buduję tę opiekę tak, by była spójna, bezpieczna i osobista od pierwszego wdrożenia."
 
+### `/lekarze`
+- podwójne spacje: "s[0])
+ ␣␣ .slice(0, 2)
+ ␣␣ .join("");
+
+ ␣␣ const cardInner = ("
+- urwane: "Lekarze i specjaliści"
+- podwójne spacje: "Dziesięć lat doświadczenia w premium klinikach Warszawy — ten sam standard
+ ␣␣ opieki w Siedlcach. Każda terapia projektowana indywidualnie, z naciskiem
+ ␣␣ na bezpieczeństwo i przewidywalny efekt."
+- urwane: "Umów konsultację"
+- brak kropki: "Lekarze i specjaliści — BM Clinics Siedlce"
+
 ### `/_authenticated/admin/seo`
 - podwójne spacje: "= 0;
  ␣␣ return ("
@@ -390,22 +375,19 @@ Przeskanowanych plików tras: 37
  ␣␣ return ("
 - urwane: "SEO & widoczność"
 
-### `/technologie`
-- podwójne spacje: "!usedSlugs.has(t.slug));
- ␣␣ const standalone = STANDALONE_SLUGS.map(getTech).filter(Boolean) as Technology[];
-
- ␣␣ return ("
-- urwane: "Trzy technologie, które łączymy w większości przypadków"
-- brak kropki: "Trzy technologie, które łączymy w większości przypadków"
-- urwane: "Rekomendacja #1"
-- brak kropki: "Trwała redukcja owłosienia i zmiany naczyniowe"
-
-### `/cennik`
-- podwójne spacje: "0);
-
- ␣␣ return ("
-- urwane: "Umów konsultację — 500 zł"
-- brak kropki: "Cennik zabiegów | BM Clinics Siedlce"
+### `/rozwiazania`
+- brak kropki: "Body Longevity · Inteligentny Dobór Terapii"
+- brak kropki: "Twój personalny plan «&nbsp;Body Longevity&nbsp;» w 60 sekund"
+- podwójne spacje: "Autorska metoda lek. Jana Bujok komponuje optymalne sekwencje «&nbsp;Body Longevity&nbsp;»
+ ␣␣ z naszego parku technologii na podstawie dokładnej diagnozy w gabinecie.
+ ␣␣ Koniec z metodą prób i błędów — Twój plan terapeutyczny jest
+ ␣␣ oparty na faktach, precyzyjnych danych i wieloletnim doświadczeniu klinicznym."
+- podwójne spacje: "Ciało to wielowarstwowa struktura — a piękno to harmonia jego warstw.
+ ␣␣ Lasery pracują nad skórą, HIFU zagęszcza i wzmacnia skórę głęboką
+ ␣␣ i powięź SMAS nad, a HIFEM nad mięśniami pod obszarem. Komponujemy
+ ␣␣ te elementy w autorskie sekwencje&nbsp;« Body Longevity », które
+ ␣␣ pracują razem na Twój wynik równocześnie."
+- urwane: "Umów konsultację"
 
 ### `/potrzeby`
 - podwójne spacje: ";
@@ -442,13 +424,27 @@ Przeskanowanych plików tras: 37
 - urwane: "Zobacz jak działa"
 - urwane: "kobiet wykonuje zabieg zimną plazmą każdego miesiąca"
 
+### `/technologie`
+- podwójne spacje: "!usedSlugs.has(t.slug));
+ ␣␣ const standalone = STANDALONE_SLUGS.map(getTech).filter(Boolean) as Technology[];
+
+ ␣␣ return ("
+- urwane: "Trzy technologie, które łączymy w większości przypadków"
+- brak kropki: "Trzy technologie, które łączymy w większości przypadków"
+- urwane: "Rekomendacja #1"
+- brak kropki: "Trwała redukcja owłosienia i zmiany naczyniowe"
+
 ### `/formularz/$token`
 - urwane: "Link jest nieprawidłowy lub wygasł"
 - podwójne spacje: "Wyrażam zgodę na przetwarzanie danych medycznych przez BM Clinics
  ␣␣ w celu przygotowania konsultacji. *"
 - brak kropki: "Formularz wstępnej diagnostyki | BM Clinics"
 
+### `/cennik`
+- podwójne spacje: "0);
+
+ ␣␣ return ("
+- urwane: "Umów konsultację — 500 zł"
+
 ### `/technologie/$slug`
 - urwane: "Umów konsultację"
-- brak kropki: "${loaderData.tech.name} — BM Clinics"
-- brak kropki: "${loaderData.tech.name} — BM Clinics"
