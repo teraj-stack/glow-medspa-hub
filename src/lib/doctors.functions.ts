@@ -38,7 +38,7 @@ export const listActiveDoctors = createServerFn({ method: "GET" }).handler(async
   // internal columns; security_invoker keeps RLS active=true policy in effect).
   const { data, error } = await (sb as any)
     .from("public_doctors")
-    .select("id, slug, full_name, title, bio, photo_url, slot_minutes, buffer_minutes, default_price_cents, display_order")
+    .select("id, slug, full_name, title, bio, photo_url, slot_minutes, buffer_minutes, default_price_cents, display_order, professional_title, experience_summary, specializations, education")
     .order("display_order", { ascending: true })
     .order("full_name", { ascending: true });
   if (error) throw new Error(error.message);
@@ -53,8 +53,43 @@ export const listActiveDoctors = createServerFn({ method: "GET" }).handler(async
     buffer_minutes: number;
     default_price_cents: number | null;
     display_order: number;
+    professional_title: string | null;
+    experience_summary: string | null;
+    specializations: string[] | null;
+    education: string[] | null;
   }>;
 });
+
+// ============================================================
+// PUBLIC: read a single doctor profile by slug (for /lekarze/[slug])
+// ============================================================
+export const getDoctorBySlug = createServerFn({ method: "GET" })
+  .inputValidator((input: unknown) => z.object({ slug: z.string().min(1).max(120) }).parse(input))
+  .handler(async ({ data }) => {
+    const sb = publicSupabase();
+    const { data: row, error } = await (sb as any)
+      .from("public_doctors")
+      .select("id, slug, full_name, title, bio, photo_url, slot_minutes, buffer_minutes, default_price_cents, display_order, professional_title, experience_summary, specializations, education")
+      .eq("slug", data.slug)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    return row as null | {
+      id: string;
+      slug: string;
+      full_name: string;
+      title: string | null;
+      bio: string | null;
+      photo_url: string | null;
+      slot_minutes: number;
+      buffer_minutes: number;
+      default_price_cents: number | null;
+      display_order: number;
+      professional_title: string | null;
+      experience_summary: string | null;
+      specializations: string[] | null;
+      education: string[] | null;
+    };
+  });
 
 // ============================================================
 // ADMIN: list all doctors
@@ -88,6 +123,10 @@ const DoctorInput = z.object({
   default_price_cents: z.number().int().min(0).max(10_000_000).optional().nullable(),
   active: z.boolean().default(true),
   display_order: z.number().int().default(0),
+  professional_title: z.string().max(200).optional().nullable(),
+  experience_summary: z.string().max(4000).optional().nullable(),
+  specializations: z.array(z.string().min(1).max(300)).max(40).optional(),
+  education: z.array(z.string().min(1).max(300)).max(40).optional(),
 });
 
 export const createDoctor = createServerFn({ method: "POST" })
