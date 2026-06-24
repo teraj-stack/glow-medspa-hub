@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && npm run report:content",
-    "build:dev": "vite build --mode development && npm run report:content",
+    "build": "npm run validate:technologie && vite build && npm run report:content",
+    "build:dev": "npm run validate:technologie && vite build --mode development && npm run report:content",
     "report:content": "node scripts/content-quality-report.mjs",
+    "validate:technologie": "node scripts/validate-technologie.mjs",
+    "test:e2e:technologie": "python3 tests/e2e/technologie_content_quality.py",
     "preview": "vite preview",
     "lint": "eslint .",
     "test": "vitest run",
