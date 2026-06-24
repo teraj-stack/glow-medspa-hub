@@ -10,6 +10,8 @@
     "report:content": "node scripts/content-quality-report.mjs",
     "validate:brand": "node scripts/validate-brand.mjs",
     "validate:brand:dist": "node scripts/validate-brand-dist.mjs",
+    "brand:fix:dist": "node scripts/fix-brand-dist.mjs",
+    "brand:fix:dist:apply": "node scripts/fix-brand-dist.mjs --apply",
     "validate:content": "node scripts/validate-content.mjs --section=all",
     "validate:technologie": "node scripts/validate-content.mjs --section=technologie",
     "validate:blog": "node scripts/validate-content.mjs --section=blog",
