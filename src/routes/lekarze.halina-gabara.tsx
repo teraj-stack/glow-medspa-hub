@@ -102,32 +102,36 @@ function HalinaGabaraPage() {
           <span className="text-foreground/70">lek. Halina Gabara</span>
         </nav>
 
-        <div className="mt-10 grid gap-10 md:mt-12 md:grid-cols-[1fr,auto] md:items-center md:gap-12 lg:gap-16">
-          <div className="min-w-0 order-2 md:order-1">
-            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Lekarz prowadzący
-            </p>
-            <h1 className="mt-4 font-serif text-4xl tracking-tight text-foreground md:mt-5 md:text-5xl">
-              lek. Halina Gabara
-            </h1>
-            <p className="mt-4 text-sm text-muted-foreground md:mt-5">
-              {professionalTitle}
-            </p>
-            <p className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-foreground/85 md:mt-10 md:text-lg">
-              Patrzę na twarz analitycznie — jako układ punktów odniesienia,
-              odległości i kątów, w których klasyczna harmonia łączy się
-              z indywidualną anatomią pacjenta. Planuję terapie, które
-              wyglądają naturalnie i są bezpieczne w długim horyzoncie.
-            </p>
+        <div className="mt-10 md:mt-12">
+          <div className="min-w-0">
+            <div className="grid gap-10 md:grid-cols-[minmax(0,1fr),auto] md:items-center md:gap-12 lg:gap-16">
+              <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                Lekarz prowadzący
+              </p>
+              <h1 className="mt-4 font-serif text-4xl tracking-tight text-foreground md:mt-5 md:text-5xl">
+                lek. Halina Gabara
+              </h1>
+              <p className="mt-4 text-sm text-muted-foreground md:mt-5">
+                {professionalTitle}
+              </p>
+              <p className="mt-8 max-w-2xl text-balance text-base leading-relaxed text-foreground/85 md:mt-10 md:text-lg">
+                Patrzę na twarz analitycznie — jako układ punktów odniesienia,
+                odległości i kątów, w których klasyczna harmonia łączy się
+                z indywidualną anatomią pacjenta. Planuję terapie, które
+                wyglądają naturalnie i są bezpieczne w długim horyzoncie.
+              </p>
+              </div>
+              <figure className="flex justify-center md:justify-end">
+                <img
+                  src={halinaPortrait.url}
+                  alt="lek. Halina Gabara — portret"
+                  className="h-auto max-h-[320px] w-auto max-w-[280px] rounded-lg object-cover shadow-sm md:max-h-[380px] md:max-w-[340px]"
+                  loading="eager"
+                />
+              </figure>
+            </div>
           </div>
-          <figure className="order-1 md:order-2 flex justify-center md:justify-end">
-            <img
-              src={halinaPortrait.url}
-              alt="lek. Halina Gabara — portret"
-              className="h-auto max-h-[320px] w-auto max-w-[280px] rounded-lg object-cover shadow-sm md:max-h-[380px] md:max-w-[340px]"
-              loading="eager"
-            />
-          </figure>
         </div>
       </section>
 
