@@ -328,6 +328,7 @@ function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPic
           </p>
         ) : null}
       </figcaption>
+      )}
     </figure>
   );
 }
