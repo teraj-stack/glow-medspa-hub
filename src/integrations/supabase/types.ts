@@ -680,8 +680,6 @@ export type Database = {
         Row: {
           active: boolean | null
           bio: string | null
-          buffer_minutes: number | null
-          default_price_cents: number | null
           display_order: number | null
           education: string[] | null
           experience_summary: string | null
@@ -689,7 +687,6 @@ export type Database = {
           id: string | null
           photo_url: string | null
           professional_title: string | null
-          slot_minutes: number | null
           slug: string | null
           specializations: string[] | null
           title: string | null
@@ -697,8 +694,6 @@ export type Database = {
         Insert: {
           active?: boolean | null
           bio?: string | null
-          buffer_minutes?: number | null
-          default_price_cents?: number | null
           display_order?: number | null
           education?: string[] | null
           experience_summary?: string | null
@@ -706,7 +701,6 @@ export type Database = {
           id?: string | null
           photo_url?: string | null
           professional_title?: string | null
-          slot_minutes?: number | null
           slug?: string | null
           specializations?: string[] | null
           title?: string | null
@@ -714,8 +708,6 @@ export type Database = {
         Update: {
           active?: boolean | null
           bio?: string | null
-          buffer_minutes?: number | null
-          default_price_cents?: number | null
           display_order?: number | null
           education?: string[] | null
           experience_summary?: string | null
@@ -723,7 +715,6 @@ export type Database = {
           id?: string | null
           photo_url?: string | null
           professional_title?: string | null
-          slot_minutes?: number | null
           slug?: string | null
           specializations?: string[] | null
           title?: string | null
