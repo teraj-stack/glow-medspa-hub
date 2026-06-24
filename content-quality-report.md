@@ -1,7 +1,7 @@
 # Raport jakości treści
 
-Wygenerowano: 2026-06-24T13:34:13.232Z
-Przeskanowanych plików tras: 36
+Wygenerowano: 2026-06-24T16:36:07.302Z
+Przeskanowanych plików tras: 37
 
 | Podstrona | Fragmentów | Urwane | Podwójne spacje | Brak kropki | % problemów |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -12,11 +12,12 @@ Przeskanowanych plików tras: 36
 | `/_authenticated/admin/rezerwacje` | 45 | 11 | 12 | 10 | 73.3% |
 | `/polityka-prywatnosci` | 10 | 3 | 2 | 2 | 70% |
 | `/unsubscribe` | 5 | 1 | 1 | 1 | 60% |
+| `/lekarze/jan-bujok` | 27 | 4 | 7 | 4 | 55.6% |
 | `/blog/blizny-potradzikowe` | 74 | 8 | 25 | 5 | 51.4% |
 | `/technologie/laser-tulowy` | 38 | 9 | 6 | 4 | 50% |
 | `/blog/powiklania-mezoterapia-iglowa` | 81 | 10 | 21 | 8 | 48.1% |
 | `/regulamin` | 9 | 2 | 2 | 0 | 44.4% |
-| `/lekarze/halina-gabara` | 30 | 3 | 7 | 3 | 43.3% |
+| `/lekarze/halina-gabara` | 28 | 3 | 6 | 3 | 42.9% |
 | `/konsultacja` | 12 | 1 | 2 | 2 | 41.7% |
 | `/technologie/peeling-weglowy-laserowy` | 27 | 4 | 5 | 2 | 40.7% |
 | `/blog/slonce-skora-nowoczesne-technologie` | 79 | 3 | 19 | 10 | 40.5% |
@@ -118,6 +119,21 @@ Przeskanowanych plików tras: 36
 
   const [status, setStatus] = useState"
 - urwane: "Weryfikacja linku…"
+
+### `/lekarze/jan-bujok`
+- podwójne spacje: "Jestem chirurgiem i twórcą technologicznym, którego pasją jest projektowanie nowoczesnych rozwiązań
+ ␣␣ dla medycyny estetycznej i regeneracyjnej. Moja działalność opiera się na bezkompromisowym łączeniu
+ ␣␣ kunsztu operacyjnego z zaawansowaną inżynierią biomedyczną."
+- podwójne spacje: "Jestem chirurgiem i twórcą technologicznym, którego pasją jest projektowanie nowoczesnych rozwiązań
+ ␣␣ dla medycyny estetycznej i regeneracyjnej. Moja działalność opiera się na bezkompromisowym łączeniu
+ ␣␣ kunsztu operacyjnego z zaawansowaną inżynierią biomedyczną."
+- podwójne spacje: "Twórca platformy MySkinCode – zaawansowanego systemu SaaS wykorzystującego autorski silnik sztucznej
+ ␣␣ inteligencji (AI engine) do tworzenia spersonalizowanych, wielotechnologicznych protokołów zabiegowych,
+ ␣␣ dedykowanych nowoczesnym centrom estetycznym hi-tech."
+- podwójne spacje: "Inicjator projektu Mazowieckie Centrum Medycyny Laserowej – autorskiej koncepcji, która redefiniuje
+ ␣␣ standardy wczesnej opieki pooperacyjnej i prehabilitacji tkankowej."
+- podwójne spacje: "Twórca i dystrybutor marki Bujok Medical – autorskiej linii certyfikowanych urządzeń medycznych i
+ ␣␣ platform zabiegowych hi-tech."
 
 ### `/blog/blizny-potradzikowe`
 - brak kropki: "Blizny potrądzikowe — jak skutecznie zredukować dziury po trądziku"
