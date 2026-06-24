@@ -150,7 +150,7 @@ function FusionPlasmaPage() {
                 </a>
               </div>
             </div>
-            <div className="rounded-lg overflow-hidden bg-white shadow-soft">
+            <div className="relative rounded-lg overflow-hidden bg-white shadow-soft">
               <video
                 src={heroVideoAsset.url}
                 poster={heroPosterWebp.url}
@@ -162,6 +162,7 @@ function FusionPlasmaPage() {
                 className="w-full h-auto block"
                 aria-label="Zabieg zimnej plazmy — pokaz w gabinecie"
               />
+              <Watermark size="md" />
             </div>
           </div>
         </div>
