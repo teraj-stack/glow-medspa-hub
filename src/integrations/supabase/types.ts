@@ -148,12 +148,16 @@ export type Database = {
           created_at: string
           default_price_cents: number | null
           display_order: number
+          education: string[]
+          experience_summary: string | null
           full_name: string
           google_calendar_id: string | null
           id: string
           photo_url: string | null
+          professional_title: string | null
           slot_minutes: number
           slug: string
+          specializations: string[]
           title: string | null
           updated_at: string
         }
@@ -164,12 +168,16 @@ export type Database = {
           created_at?: string
           default_price_cents?: number | null
           display_order?: number
+          education?: string[]
+          experience_summary?: string | null
           full_name: string
           google_calendar_id?: string | null
           id?: string
           photo_url?: string | null
+          professional_title?: string | null
           slot_minutes?: number
           slug: string
+          specializations?: string[]
           title?: string | null
           updated_at?: string
         }
@@ -180,12 +188,16 @@ export type Database = {
           created_at?: string
           default_price_cents?: number | null
           display_order?: number
+          education?: string[]
+          experience_summary?: string | null
           full_name?: string
           google_calendar_id?: string | null
           id?: string
           photo_url?: string | null
+          professional_title?: string | null
           slot_minutes?: number
           slug?: string
+          specializations?: string[]
           title?: string | null
           updated_at?: string
         }
@@ -666,39 +678,54 @@ export type Database = {
     Views: {
       public_doctors: {
         Row: {
+          active: boolean | null
           bio: string | null
           buffer_minutes: number | null
           default_price_cents: number | null
           display_order: number | null
+          education: string[] | null
+          experience_summary: string | null
           full_name: string | null
           id: string | null
           photo_url: string | null
+          professional_title: string | null
           slot_minutes: number | null
           slug: string | null
+          specializations: string[] | null
           title: string | null
         }
         Insert: {
+          active?: boolean | null
           bio?: string | null
           buffer_minutes?: number | null
           default_price_cents?: number | null
           display_order?: number | null
+          education?: string[] | null
+          experience_summary?: string | null
           full_name?: string | null
           id?: string | null
           photo_url?: string | null
+          professional_title?: string | null
           slot_minutes?: number | null
           slug?: string | null
+          specializations?: string[] | null
           title?: string | null
         }
         Update: {
+          active?: boolean | null
           bio?: string | null
           buffer_minutes?: number | null
           default_price_cents?: number | null
           display_order?: number | null
+          education?: string[] | null
+          experience_summary?: string | null
           full_name?: string | null
           id?: string | null
           photo_url?: string | null
+          professional_title?: string | null
           slot_minutes?: number | null
           slug?: string | null
+          specializations?: string[] | null
           title?: string | null
         }
         Relationships: []
