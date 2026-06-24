@@ -149,34 +149,6 @@ function HalinaGabaraPage() {
               marketingowym. Liczy się dobrze postawiona diagnoza, technika
               wykonania i przewidywalny efekt w czasie.
             </p>
-            <figure className="mt-8 overflow-hidden rounded-lg border border-border/60 bg-secondary/30">
-              <div className="relative">
-                <picture>
-                  <source type="image/avif" srcSet={GEOMETRIA_AVIF_SRCSET} sizes={GEOMETRIA_SIZES} />
-                  <source type="image/webp" srcSet={GEOMETRIA_WEBP_SRCSET} sizes={GEOMETRIA_SIZES} />
-                  <img
-                    src={geometria960Webp.url}
-                    alt={GEOMETRIA_ALT}
-                    width={1844}
-                    height={1920}
-                    loading="lazy"
-                    decoding="async"
-                    className="block h-auto w-full"
-                  />
-                </picture>
-                <Watermark size="md" />
-              </div>
-              <figcaption className="border-t border-border/60 px-4 py-3 text-xs leading-relaxed text-muted-foreground sm:px-5 sm:py-4 sm:text-sm">
-                <span className="block font-serif text-sm tracking-tight text-foreground sm:text-base">
-                  Geometria trójwymiarowa twarzy
-                </span>
-                <span className="mt-1 block text-muted-foreground">
-                  Landmarks, proporcje i płaszczyzny anatomiczne wykorzystywane
-                  w planowaniu terapii — fundament analitycznego podejścia
-                  w gabinecie lek. Haliny Gabary.
-                </span>
-              </figcaption>
-            </figure>
           </div>
         </div>
       </section>
