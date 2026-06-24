@@ -1,0 +1,1 @@
+REVOKE SELECT (cancel_token) ON public.visit_bookings FROM anon, authenticated;
