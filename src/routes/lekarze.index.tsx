@@ -90,12 +90,14 @@ function DoctorCard({ doctor }: { doctor: { id: string; slug: string; full_name:
     </div>
   );
 
-  if (doctor.slug === "halina-gabara") {
+  const hasProfilePage = doctor.slug === "halina-gabara" || doctor.slug === "jan-bujok";
+
+  if (hasProfilePage) {
     return (
       <Link
-        to="/lekarze/halina-gabara"
+        to={`/lekarze/${doctor.slug}`}
         className="group block rounded-2xl border border-border/60 bg-card p-6 transition-shadow hover:shadow-md md:p-8"
-        aria-label="Profil lek. Haliny Gabary"
+        aria-label={`Profil ${doctor.full_name}`}
       >
         {cardInner}
       </Link>
@@ -107,6 +109,7 @@ function DoctorCard({ doctor }: { doctor: { id: string; slug: string; full_name:
       {cardInner}
     </div>
   );
+
 }
 
 function LekarzePage() {
