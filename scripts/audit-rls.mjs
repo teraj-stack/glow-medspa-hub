@@ -90,7 +90,7 @@ async function main() {
 
   for (const p of policies.rows) {
     if (!policyMap[p.tablename]) continue;
-    if (p.cmd === "*") {
+    if (p.cmd === "ALL") {
       for (const op of ["SELECT", "INSERT", "UPDATE", "DELETE"]) {
         policyMap[p.tablename][op] = true;
       }
