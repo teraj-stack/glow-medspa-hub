@@ -73,6 +73,13 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
       .eq("slug", data.slug)
       .maybeSingle();
     if (error) throw new Error(error.message);
+    void logAuditEvent({
+      event_type: "public.read",
+      action: "READ",
+      resource_type: "public_doctors",
+      resource_id: data.slug,
+      success: !error,
+    });
     return row as null | {
       id: string;
       slug: string;
