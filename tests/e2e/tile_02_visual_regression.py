@@ -1,7 +1,7 @@
 """
 Visual regression test for tile 02 ("Tekstura « HD »") on /rozwiązania.
 
-Robi screenshot kafla `#tekstura-hd` na trzech viewportach (mobile, tablet,
+desktop) i porównuje go z baseline'em zapisanym w
 desktop) i porównuje go z baseline'em zapisanym w
 `tests/e2e/__baselines__/tile-02/<viewport>.png`.
 
