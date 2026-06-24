@@ -107,10 +107,12 @@ const RULES = [
     label: "Brak polskich znaków",
     test: (t) =>
       t.length > 30 &&
+      !/(https?:\/\/|www\.|\/[a-z0-9-]+\/|\.(?:com|ai|pl|org|dev|io))/i.test(t) && // pomiń URL-e i ścieżki
       POLISH_HINT_WORDS.test(t) &&
       !POLISH_DIACRITICS.test(t) &&
       !/^[A-Z0-9 .,\-–—&|]+$/.test(t),
   },
+
 ];
 
 /** @type {{section:string;file:string;line:number;rule:string;label:string;text:string}[]} */
