@@ -59,8 +59,8 @@ async function main() {
       permissive,
       roles,
       cmd,
-      pg_get_expr(qual, qualrelid) AS qual,
-      pg_get_expr(with_check, qualrelid) AS with_check
+      qual::text AS qual,
+      with_check::text AS with_check
     FROM pg_policies
     WHERE schemaname = 'public'
     ORDER BY tablename, cmd, policyname;
