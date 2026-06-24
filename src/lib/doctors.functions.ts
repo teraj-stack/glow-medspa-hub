@@ -66,7 +66,7 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
     const sb = publicSupabase();
     const { data: row, error } = await (sb as any)
       .from("public_doctors")
-      .select("id, slug, full_name, title, bio, photo_url, display_order, professional_title, experience_summary, specializations, education")
+      .select("id, slug, full_name, title, bio, photo_url, display_order, professional_title, experience_summary, specializations, education, portrait_crop")
       .eq("slug", data.slug)
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -82,7 +82,67 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
       experience_summary: string | null;
       specializations: string[] | null;
       education: string[] | null;
+      portrait_crop: { shape: string; zoom: number; offsetX: number; offsetY: number } | null;
     };
+  });
+
+// ============================================================
+// ADMIN: save portrait crop (and optionally upload a new photo) by slug
+// ============================================================
+const PortraitCropSchema = z.object({
+  shape: z.enum(["circle", "square", "portrait45"]),
+  zoom: z.number().min(1).max(4),
+  offsetX: z.number().min(0).max(100),
+  offsetY: z.number().min(0).max(100),
+});
+
+export const saveDoctorPortrait = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) =>
+    z.object({
+      slug: z.string().min(1).max(120),
+      crop: PortraitCropSchema,
+      photoBase64: z.string().max(15_000_000).optional(),
+      photoContentType: z.string().regex(/^image\/(png|jpe?g|webp|avif)$/).optional(),
+    }).parse(input),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.supabase, context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const { data: doc, error: docErr } = await supabaseAdmin
+      .from("doctors")
+      .select("id, photo_url")
+      .eq("slug", data.slug)
+      .maybeSingle();
+    if (docErr) throw new Error(docErr.message);
+    if (!doc) throw new Error("Doctor not found");
+
+    const patch: Record<string, unknown> = { portrait_crop: data.crop };
+
+    if (data.photoBase64 && data.photoContentType) {
+      const ext = data.photoContentType.split("/")[1].replace("jpeg", "jpg");
+      const path = `${data.slug}/${Date.now()}.${ext}`;
+      const buf = Buffer.from(data.photoBase64, "base64");
+      const { error: upErr } = await supabaseAdmin.storage
+        .from("doctor-portraits")
+        .upload(path, buf, { contentType: data.photoContentType, upsert: false });
+      if (upErr) throw new Error(`Upload failed: ${upErr.message}`);
+      const { data: signed, error: signErr } = await supabaseAdmin.storage
+        .from("doctor-portraits")
+        .createSignedUrl(path, 60 * 60 * 24 * 365 * 10);
+      if (signErr || !signed) throw new Error(`Sign failed: ${signErr?.message ?? "unknown"}`);
+      patch.photo_url = signed.signedUrl;
+    }
+
+    const { data: updated, error: updErr } = await supabaseAdmin
+      .from("doctors")
+      .update(patch as never)
+      .eq("id", doc.id)
+      .select("photo_url, portrait_crop")
+      .single();
+    if (updErr) throw new Error(updErr.message);
+    return updated;
   });
 
 // ============================================================
