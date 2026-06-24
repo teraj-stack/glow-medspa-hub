@@ -122,17 +122,20 @@ function TechnologiesPage() {
         </div>
       </section>
 
-      {/* CZAS REKONWALESCENCJI — BAZOWY */}
+      {/* MySkinCode.ai — silnik AI koordynujący opiekę */}
       <section className="container-luxury py-12 md:py-16">
         <div className="rounded-lg border border-champagne/40 bg-secondary/30 p-6 md:p-10">
           <span className="text-xs uppercase tracking-[0.3em] text-champagne whitespace-pre-line">
-            {"CZAS REKONWALESCENCJI\n"}
+            {"MySkinCode.ai\n"}
           </span>
           <h2 className="gold-line mt-2 font-serif text-2xl text-ink md:text-3xl">
             Trzy technologie, które łączymy w większości przypadków
           </h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Z mojego doświadczenia kolejność zimna plazma → laser pikosekundowy → fototerapia LED to podstawowe, uniwersalne rozwiązanie dla większości pacjentek. Łączenie tych trzech narzędzi pozwala uzyskać efekt, który wcześniej wymagał dwukrotnie dłuższego czasu rekonwalescencji.
+            Z mojego doświadczenia kolejność zimna plazma → laser pikosekundowy → fototerapia LED to podstawowe, uniwersalne rozwiązanie dla większości pacjentek. Łączenie tych trzech narzędzi pozwala uzyskać efekt, który wcześniej wymagał dwukrotnie dłuższego czasu rekonwalescencji. Całą sekwencję planuje i koordynuje MySkinCode.ai — silnik AI, który umożliwia zespołowi wspólną opiekę nad pacjentem.
+          </p>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            Dzięki MySkinCode.ai buduję zespół, który szybko zdobywa wiedzę i umiejętności, ujednolica poziom biegłości w najnowszych technologiach laserowych oraz hi-tech, a jednocześnie daje pacjentowi i każdemu członkowi zespołu poczucie bezpieczeństwa. Narzędzie, które miało wyjściowo zastępować 10-letnie doświadczenie zawodowe, stało się systemem, który kształci i rozwija — umożliwiając ustalenie planu zabiegowego nawet na 3–6 miesięcy.
           </p>
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
