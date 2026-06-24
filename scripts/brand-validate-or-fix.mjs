@@ -9,6 +9,12 @@
  *   4. Re-run validate:brand:dist; propagate its exit code.
  *
  * This runs AFTER `vite build` and BEFORE `report:content` in the build scripts.
+ *
+ * Exit codes:
+ *   0 — success (no "BM Clinics" in dist, or fixed and strict mode is off)
+ *   1 — strict mode: safe replacements were made in dist (legacy brand leaked into build)
+ *   2 — validation still failing after auto-fix (unsafe/risky content remains)
+ *   3 — auto-fix script itself failed
  */
 import { spawnSync } from 'node:child_process'
 import { readFileSync, existsSync } from 'node:fs'
@@ -88,25 +94,26 @@ if (code === 0) {
 }
 
 console.warn('\n⚠ validate:brand:dist failed — running brand:fix:dist:apply to auto-rewrite safe occurrences in dist/.')
-if (STRICT) console.warn('  Strict mode is ON: build will fail if any replacements were made.')
+if (STRICT) console.warn('  Strict mode is ON: build will fail with exit code 1 if any replacements were made.')
 const applyCode = run(node, apply, 'brand:fix:dist:apply')
 if (applyCode !== 0) {
   printSummary('Brand post-build summary — auto-fix FAILED')
-  console.error('\n✗ brand:fix:dist:apply exited non-zero. Aborting.')
-  process.exit(applyCode)
+  console.error('\n✗ brand:fix:dist:apply exited non-zero. Aborting (exit code 3).')
+  process.exit(3)
 }
 
 console.log('\n→ Re-running validate:brand:dist after auto-fix…')
 code = run(node, validate, 'validate:brand:dist (post-fix)')
 printSummary('Brand post-build summary — after auto-fix')
 if (code !== 0) {
-  console.error('\n✗ Brand check (dist) still failing after auto-fix — manual review required (see reports/brand-dist-report.md).')
-  process.exit(code)
+  console.error('\n✗ Brand check (dist) still failing after auto-fix — manual review required (exit code 2).')
+  console.error('  See reports/brand-dist-report.md for the list of remaining offenders.')
+  process.exit(2)
 }
 
 const replacements = reportReplacements()
 if (STRICT && replacements > 0) {
-  console.error(`\n✗ Strict brand mode: ${replacements} "BM Clinics" replacement(s) were made in dist/.`)
+  console.error(`\n✗ Strict brand mode: ${replacements} "BM Clinics" replacement(s) were made in dist/ (exit code 1).`)
   console.error('  The build is considered risky because legacy brand text was emitted into the output.')
   console.error('  Remove "BM Clinics" from the source so it does not appear in dist/.')
   process.exit(1)
