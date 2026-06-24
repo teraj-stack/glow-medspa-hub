@@ -38,7 +38,7 @@ export const listActiveDoctors = createServerFn({ method: "GET" }).handler(async
   // internal columns; security_invoker keeps RLS active=true policy in effect).
   const { data, error } = await (sb as any)
     .from("public_doctors")
-    .select("id, slug, full_name, title, bio, photo_url, slot_minutes, buffer_minutes, default_price_cents, display_order, professional_title, experience_summary, specializations, education")
+    .select("id, slug, full_name, title, bio, photo_url, display_order, professional_title, experience_summary, specializations, education")
     .order("display_order", { ascending: true })
     .order("full_name", { ascending: true });
   if (error) throw new Error(error.message);
@@ -49,9 +49,6 @@ export const listActiveDoctors = createServerFn({ method: "GET" }).handler(async
     title: string | null;
     bio: string | null;
     photo_url: string | null;
-    slot_minutes: number;
-    buffer_minutes: number;
-    default_price_cents: number | null;
     display_order: number;
     professional_title: string | null;
     experience_summary: string | null;
@@ -69,7 +66,7 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
     const sb = publicSupabase();
     const { data: row, error } = await (sb as any)
       .from("public_doctors")
-      .select("id, slug, full_name, title, bio, photo_url, slot_minutes, buffer_minutes, default_price_cents, display_order, professional_title, experience_summary, specializations, education")
+      .select("id, slug, full_name, title, bio, photo_url, display_order, professional_title, experience_summary, specializations, education")
       .eq("slug", data.slug)
       .maybeSingle();
     if (error) throw new Error(error.message);
@@ -80,9 +77,6 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
       title: string | null;
       bio: string | null;
       photo_url: string | null;
-      slot_minutes: number;
-      buffer_minutes: number;
-      default_price_cents: number | null;
       display_order: number;
       professional_title: string | null;
       experience_summary: string | null;
