@@ -32,6 +32,7 @@ import { Route as TechnologiePeelingWeglowyLaserowyRouteImport } from './routes/
 import { Route as TechnologieLaserTulowyRouteImport } from './routes/technologie.laser-tulowy'
 import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
+import { Route as LovableThemesRouteImport } from './routes/lovable.themes'
 import { Route as LekarzeJanBujokRouteImport } from './routes/lekarze.jan-bujok'
 import { Route as LekarzeHalinaGabaraRouteImport } from './routes/lekarze.halina-gabara'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
@@ -172,6 +173,11 @@ const TechnologieFusionPlasmaRoute = TechnologieFusionPlasmaRouteImport.update({
 const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
   id: '/technologie/$slug',
   path: '/technologie/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableThemesRoute = LovableThemesRouteImport.update({
+  id: '/lovable/themes',
+  path: '/lovable/themes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LekarzeJanBujokRoute = LekarzeJanBujokRouteImport.update({
@@ -337,6 +343,7 @@ export interface FileRoutesByFullPath {
   '/formularz/$token': typeof FormularzTokenRoute
   '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
   '/lekarze/jan-bujok': typeof LekarzeJanBujokRoute
+  '/lovable/themes': typeof LovableThemesRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
@@ -384,6 +391,7 @@ export interface FileRoutesByTo {
   '/formularz/$token': typeof FormularzTokenRoute
   '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
   '/lekarze/jan-bujok': typeof LekarzeJanBujokRoute
+  '/lovable/themes': typeof LovableThemesRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
@@ -435,6 +443,7 @@ export interface FileRoutesById {
   '/formularz/$token': typeof FormularzTokenRoute
   '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
   '/lekarze/jan-bujok': typeof LekarzeJanBujokRoute
+  '/lovable/themes': typeof LovableThemesRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
@@ -486,6 +495,7 @@ export interface FileRouteTypes {
     | '/formularz/$token'
     | '/lekarze/halina-gabara'
     | '/lekarze/jan-bujok'
+    | '/lovable/themes'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
@@ -533,6 +543,7 @@ export interface FileRouteTypes {
     | '/formularz/$token'
     | '/lekarze/halina-gabara'
     | '/lekarze/jan-bujok'
+    | '/lovable/themes'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
@@ -583,6 +594,7 @@ export interface FileRouteTypes {
     | '/formularz/$token'
     | '/lekarze/halina-gabara'
     | '/lekarze/jan-bujok'
+    | '/lovable/themes'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
     | '/technologie/laser-tulowy'
@@ -631,6 +643,7 @@ export interface RootRouteChildren {
   BlogSlonceSkoraNowoczesneTechnologieRoute: typeof BlogSlonceSkoraNowoczesneTechnologieRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   FormularzTokenRoute: typeof FormularzTokenRoute
+  LovableThemesRoute: typeof LovableThemesRoute
   TechnologieSlugRoute: typeof TechnologieSlugRoute
   TechnologieFusionPlasmaRoute: typeof TechnologieFusionPlasmaRoute
   TechnologieLaserTulowyRoute: typeof TechnologieLaserTulowyRoute
@@ -811,6 +824,13 @@ declare module '@tanstack/react-router' {
       path: '/technologie/$slug'
       fullPath: '/technologie/$slug'
       preLoaderRoute: typeof TechnologieSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/themes': {
+      id: '/lovable/themes'
+      path: '/lovable/themes'
+      fullPath: '/lovable/themes'
+      preLoaderRoute: typeof LovableThemesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lekarze/jan-bujok': {
@@ -1065,6 +1085,7 @@ const rootRouteChildren: RootRouteChildren = {
     BlogSlonceSkoraNowoczesneTechnologieRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   FormularzTokenRoute: FormularzTokenRoute,
+  LovableThemesRoute: LovableThemesRoute,
   TechnologieSlugRoute: TechnologieSlugRoute,
   TechnologieFusionPlasmaRoute: TechnologieFusionPlasmaRoute,
   TechnologieLaserTulowyRoute: TechnologieLaserTulowyRoute,
