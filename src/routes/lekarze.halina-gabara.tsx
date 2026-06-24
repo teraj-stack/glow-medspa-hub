@@ -38,41 +38,119 @@ function cropsEqual(a: PortraitCrop, b: PortraitCrop): boolean {
   return a.shape === b.shape && a.zoom === b.zoom && a.offsetX === b.offsetX && a.offsetY === b.offsetY;
 }
 
-function PortraitShapePicker() {
-  const [savedCrop, setSavedCrop] = useState<PortraitCrop>(DEFAULT_CROP);
-  const [draftCrop, setDraftCrop] = useState<PortraitCrop>(DEFAULT_CROP);
+type PortraitPickerProps = {
+  slug: string;
+  initialPhotoUrl: string;
+  initialCrop: PortraitCrop | null;
+};
+
+function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPickerProps) {
+  const queryClient = useQueryClient();
+  const savePortrait = useServerFn(saveDoctorPortrait);
+
+  const startingCrop: PortraitCrop = initialCrop
+    ? {
+        shape: SHAPE_OPTIONS.some((o) => o.id === initialCrop.shape) ? initialCrop.shape : DEFAULT_CROP.shape,
+        zoom: Math.min(4, Math.max(1, initialCrop.zoom)),
+        offsetX: Math.min(100, Math.max(0, initialCrop.offsetX)),
+        offsetY: Math.min(100, Math.max(0, initialCrop.offsetY)),
+      }
+    : DEFAULT_CROP;
+
+  const [savedCrop, setSavedCrop] = useState<PortraitCrop>(startingCrop);
+  const [draftCrop, setDraftCrop] = useState<PortraitCrop>(startingCrop);
+  const [savedPhotoUrl, setSavedPhotoUrl] = useState<string>(initialPhotoUrl);
+  const [draftPhotoUrl, setDraftPhotoUrl] = useState<string>(initialPhotoUrl);
+  const [pendingFile, setPendingFile] = useState<File | null>(null);
+  const [status, setStatus] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     try {
       const raw = window.localStorage.getItem(CROP_STORAGE_KEY);
       if (!raw) return;
       const parsed = JSON.parse(raw) as Partial<PortraitCrop>;
+      // Only use localStorage if server has no saved crop yet
+      if (initialCrop) return;
       const next: PortraitCrop = {
         shape: SHAPE_OPTIONS.some((o) => o.id === parsed.shape) ? (parsed.shape as PortraitShape) : DEFAULT_CROP.shape,
         zoom: typeof parsed.zoom === "number" ? Math.min(2, Math.max(1, parsed.zoom)) : DEFAULT_CROP.zoom,
         offsetX: typeof parsed.offsetX === "number" ? Math.min(100, Math.max(0, parsed.offsetX)) : DEFAULT_CROP.offsetX,
         offsetY: typeof parsed.offsetY === "number" ? Math.min(100, Math.max(0, parsed.offsetY)) : DEFAULT_CROP.offsetY,
       };
-      setSavedCrop(next);
       setDraftCrop(next);
     } catch {
       /* ignore */
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const dirty = !cropsEqual(draftCrop, savedCrop);
+  const dirty = !cropsEqual(draftCrop, savedCrop) || draftPhotoUrl !== savedPhotoUrl || pendingFile !== null;
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      let photoBase64: string | undefined;
+      let photoContentType: string | undefined;
+      if (pendingFile) {
+        photoContentType = pendingFile.type;
+        const buf = await pendingFile.arrayBuffer();
+        const bytes = new Uint8Array(buf);
+        let binary = "";
+        const chunk = 0x8000;
+        for (let i = 0; i < bytes.length; i += chunk) {
+          binary += String.fromCharCode.apply(null, Array.from(bytes.subarray(i, i + chunk)));
+        }
+        photoBase64 = btoa(binary);
+      }
+      return savePortrait({
+        data: { slug, crop: draftCrop, photoBase64, photoContentType },
+      });
+    },
+    onSuccess: (result) => {
+      setSavedCrop(draftCrop);
+      const newUrl = (result as { photo_url?: string | null } | null)?.photo_url ?? draftPhotoUrl;
+      setSavedPhotoUrl(newUrl);
+      setDraftPhotoUrl(newUrl);
+      setPendingFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      setStatus("Zapisano w bazie.");
+      try {
+        window.localStorage.setItem(CROP_STORAGE_KEY, JSON.stringify(draftCrop));
+      } catch {
+        /* ignore */
+      }
+      queryClient.invalidateQueries({ queryKey: ["doctor", slug] });
+    },
+    onError: (err: unknown) => {
+      const msg = err instanceof Error ? err.message : String(err);
+      setStatus(`Błąd zapisu: ${msg}`);
+    },
+  });
 
   function save() {
-    try {
-      window.localStorage.setItem(CROP_STORAGE_KEY, JSON.stringify(draftCrop));
-    } catch {
-      /* ignore */
-    }
-    setSavedCrop(draftCrop);
+    setStatus(null);
+    mutation.mutate();
   }
 
   function reset() {
     setDraftCrop(savedCrop);
+    setDraftPhotoUrl(savedPhotoUrl);
+    setPendingFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    setStatus(null);
+  }
+
+  function onPickFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0] ?? null;
+    if (!file) return;
+    if (file.size > 10 * 1024 * 1024) {
+      setStatus("Plik za duży (max 10 MB).");
+      return;
+    }
+    setPendingFile(file);
+    const url = URL.createObjectURL(file);
+    setDraftPhotoUrl(url);
+    setStatus(null);
   }
 
   const update = <K extends keyof PortraitCrop>(key: K, value: PortraitCrop[K]) =>
@@ -82,7 +160,7 @@ function PortraitShapePicker() {
     <figure className="flex flex-col items-center gap-4 md:items-end">
       <div className={`relative w-48 overflow-hidden shadow-sm md:w-56 ${shapeClasses(draftCrop.shape)}`}>
         <img
-          src={halinaPortrait.url}
+          src={draftPhotoUrl}
           alt="lek. Halina Gabara — podgląd kadru"
           className="absolute inset-0 size-full object-cover"
           style={{
@@ -160,11 +238,25 @@ function PortraitShapePicker() {
           </label>
         </div>
 
+        <div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/png,image/jpeg,image/webp,image/avif"
+            onChange={onPickFile}
+            className="block w-full text-xs text-muted-foreground file:mr-3 file:rounded-full file:border file:border-border file:bg-background file:px-3 file:py-1 file:text-xs file:uppercase file:tracking-[0.15em] file:text-foreground hover:file:bg-muted"
+            aria-label="Nowe zdjęcie portretowe"
+          />
+          {pendingFile ? (
+            <p className="mt-1 text-[11px] text-muted-foreground">Wybrano: {pendingFile.name}</p>
+          ) : null}
+        </div>
+
         <div className="flex gap-2">
           <button
             type="button"
             onClick={reset}
-            disabled={!dirty}
+            disabled={!dirty || mutation.isPending}
             className="flex-1 rounded-full border border-border px-3 py-2 text-xs uppercase tracking-[0.2em] text-muted-foreground transition-opacity hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
           >
             Cofnij
@@ -172,12 +264,21 @@ function PortraitShapePicker() {
           <button
             type="button"
             onClick={save}
-            disabled={!dirty}
+            disabled={!dirty || mutation.isPending}
             className="flex-1 rounded-full border border-foreground/80 bg-foreground px-3 py-2 text-xs uppercase tracking-[0.2em] text-background transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
           >
-            {dirty ? "Zapisz kadr" : "Zapisano"}
+            {mutation.isPending ? "Zapisuję…" : dirty ? "Zapisz kadr" : "Zapisano"}
           </button>
         </div>
+
+        {status ? (
+          <p
+            role="status"
+            className={`text-[11px] ${status.startsWith("Błąd") ? "text-destructive" : "text-muted-foreground"}`}
+          >
+            {status}
+          </p>
+        ) : null}
       </figcaption>
     </figure>
   );
