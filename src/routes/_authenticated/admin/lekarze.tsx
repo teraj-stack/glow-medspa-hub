@@ -376,6 +376,10 @@ function DoctorForm({
                     default_price_cents: form.default_price_cents ?? null,
                     active: form.active ?? true,
                     display_order: form.display_order ?? 0,
+                    professional_title: form.professional_title || null,
+                    experience_summary: form.experience_summary || null,
+                    specializations: form.specializations ?? [],
+                    education: form.education ?? [],
                   },
                 });
                 toast.success("Dodano lekarza");
@@ -394,6 +398,10 @@ function DoctorForm({
                     default_price_cents: form.default_price_cents ?? null,
                     active: form.active,
                     display_order: form.display_order,
+                    professional_title: form.professional_title || null,
+                    experience_summary: form.experience_summary || null,
+                    specializations: form.specializations ?? [],
+                    education: form.education ?? [],
                   },
                 });
                 toast.success("Zapisano");
