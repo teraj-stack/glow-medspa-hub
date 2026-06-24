@@ -19,7 +19,6 @@ import asyncio
 import os
 import sys
 from pathlib import Path
-from urllib.parse import quote
 
 from PIL import Image, ImageChops
 from playwright.async_api import async_playwright
