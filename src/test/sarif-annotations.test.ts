@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
-// @ts-expect-error - plain .mjs helper, no type declarations
 import {
   mapSarifLevel,
   sarifToAnnotations,
   chunkAnnotations,
   SARIF_LEVEL_TO_ANNOTATION,
   DEFAULT_ANNOTATION_LEVEL,
+  // @ts-expect-error - plain .mjs helper, no type declarations
 } from '../../scripts/sarif-annotations.mjs';
 
 describe('mapSarifLevel', () => {
