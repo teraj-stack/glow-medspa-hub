@@ -53,6 +53,7 @@ export const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/technologie", changefreq: "monthly", priority: "0.9" },
   { path: "/cennik", changefreq: "monthly", priority: "0.8" },
   { path: "/lekarze", changefreq: "monthly", priority: "0.8" },
+  { path: "/lekarze/halina-gabara", changefreq: "monthly", priority: "0.8" },
   { path: "/konsultacja", changefreq: "monthly", priority: "0.8" },
   { path: "/bezpieczenstwo-zabiegow-laserowych", changefreq: "monthly", priority: "0.8" },
   { path: "/konsultacja-dziekujemy", changefreq: "yearly", priority: "0.3" },
