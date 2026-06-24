@@ -63,7 +63,11 @@ const apply = ['scripts/fix-brand-dist.mjs', '--apply']
 
 let code = run(node, validate, 'validate:brand:dist')
 if (code === 0) {
-  printSummary('Brand post-build summary — no auto-fix needed')
+  const bar = '─'.repeat(64)
+  console.log(`\n${bar}\nBrand post-build summary\n${bar}`)
+  console.log('Replacements: 0  (no "BM Clinics" found in dist/)')
+  console.log('Files changed: 0')
+  console.log(bar)
   console.log('\n✓ Brand check (dist) passed — no auto-fix needed.')
   process.exit(0)
 }
