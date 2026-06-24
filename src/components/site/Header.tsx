@@ -22,9 +22,9 @@ export function Header() {
       <div className="container-luxury flex h-16 items-center justify-between md:h-20">
         <Link to="/" aria-label="BM Clinics — strona główna" className="flex items-center">
           <picture>
-            <source srcSet={logoDark.url} media="(prefers-color-scheme: dark)" />
+            <source srcSet={logoDarkMode.url} media="(prefers-color-scheme: dark)" />
             <img
-              src={logoLight.url}
+              src={logoLightMode.url}
               alt="Bujok Medical"
               className="h-12 w-auto drop-shadow-sm md:h-16"
               width={160}
