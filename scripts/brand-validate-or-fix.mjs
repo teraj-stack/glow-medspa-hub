@@ -61,18 +61,34 @@ const node = process.execPath
 const validate = ['scripts/validate-brand-dist.mjs']
 const apply = ['scripts/fix-brand-dist.mjs', '--apply']
 
+const STRICT =
+  process.argv.includes('--strict') ||
+  process.env.BRAND_STRICT === '1' ||
+  process.env.BRAND_STRICT === 'true'
+
+function reportReplacements() {
+  if (!existsSync(REPORT_JSON)) return 0
+  try {
+    return JSON.parse(readFileSync(REPORT_JSON, 'utf8')).totalReplacements || 0
+  } catch {
+    return 0
+  }
+}
+
 let code = run(node, validate, 'validate:brand:dist')
 if (code === 0) {
   const bar = '─'.repeat(64)
   console.log(`\n${bar}\nBrand post-build summary\n${bar}`)
   console.log('Replacements: 0  (no "BM Clinics" found in dist/)')
   console.log('Files changed: 0')
+  if (STRICT) console.log('Strict mode:   enabled (any replacement would fail the build)')
   console.log(bar)
   console.log('\n✓ Brand check (dist) passed — no auto-fix needed.')
   process.exit(0)
 }
 
 console.warn('\n⚠ validate:brand:dist failed — running brand:fix:dist:apply to auto-rewrite safe occurrences in dist/.')
+if (STRICT) console.warn('  Strict mode is ON: build will fail if any replacements were made.')
 const applyCode = run(node, apply, 'brand:fix:dist:apply')
 if (applyCode !== 0) {
   printSummary('Brand post-build summary — auto-fix FAILED')
@@ -83,10 +99,19 @@ if (applyCode !== 0) {
 console.log('\n→ Re-running validate:brand:dist after auto-fix…')
 code = run(node, validate, 'validate:brand:dist (post-fix)')
 printSummary('Brand post-build summary — after auto-fix')
-if (code === 0) {
-  console.log('\n✓ Brand check (dist) passed after auto-fix.')
-} else {
+if (code !== 0) {
   console.error('\n✗ Brand check (dist) still failing after auto-fix — manual review required (see reports/brand-dist-report.md).')
+  process.exit(code)
 }
-process.exit(code)
+
+const replacements = reportReplacements()
+if (STRICT && replacements > 0) {
+  console.error(`\n✗ Strict brand mode: ${replacements} "BM Clinics" replacement(s) were made in dist/.`)
+  console.error('  The build is considered risky because legacy brand text was emitted into the output.')
+  console.error('  Remove "BM Clinics" from the source so it does not appear in dist/.')
+  process.exit(1)
+}
+
+console.log('\n✓ Brand check (dist) passed after auto-fix.')
+process.exit(0)
 
