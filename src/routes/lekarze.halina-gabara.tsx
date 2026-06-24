@@ -218,14 +218,7 @@ function HalinaGabaraPage() {
                 wyglądają naturalnie i są bezpieczne w długim horyzoncie.
               </p>
               </div>
-              <figure className="flex justify-center md:justify-end">
-                <img
-                  src={halinaPortrait.url}
-                  alt="lek. Halina Gabara — portret"
-                  className="size-48 rounded-full object-cover object-top shadow-sm md:size-56"
-                  loading="eager"
-                />
-              </figure>
+              <PortraitShapePicker />
             </div>
           </div>
         </div>
