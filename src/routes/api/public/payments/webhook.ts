@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createClient } from "@supabase/supabase-js";
 import { type StripeEnv, verifyWebhook } from "@/lib/stripe.server";
 import { internalSendEmail } from "@/lib/email/internal-send.server";
+import { logAuditEvent } from "@/lib/audit/log.server";
 import type { Database } from "@/integrations/supabase/types";
 
 const SITE_URL = "https://bmclinics.ai";
