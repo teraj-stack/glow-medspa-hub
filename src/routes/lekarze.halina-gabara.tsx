@@ -1,8 +1,104 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import { getDoctorBySlug } from "@/lib/doctors.functions";
 import halinaPortrait from "@/assets/halina-portrait.png.asset.json";
+
+type PortraitShape = "circle" | "square" | "portrait45";
+
+const SHAPE_STORAGE_KEY = "halina-portrait-shape";
+const SHAPE_OPTIONS: Array<{ id: PortraitShape; label: string }> = [
+  { id: "circle", label: "Okrąg" },
+  { id: "square", label: "Kwadrat" },
+  { id: "portrait45", label: "4:5" },
+];
+
+function shapeClasses(shape: PortraitShape): string {
+  switch (shape) {
+    case "square":
+      return "aspect-square rounded-none";
+    case "portrait45":
+      return "aspect-[4/5] rounded-xl";
+    case "circle":
+    default:
+      return "aspect-square rounded-full";
+  }
+}
+
+function PortraitShapePicker() {
+  const [savedShape, setSavedShape] = useState<PortraitShape>("circle");
+  const [draftShape, setDraftShape] = useState<PortraitShape>("circle");
+
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(SHAPE_STORAGE_KEY) as PortraitShape | null;
+      if (stored && SHAPE_OPTIONS.some((o) => o.id === stored)) {
+        setSavedShape(stored);
+        setDraftShape(stored);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  const dirty = draftShape !== savedShape;
+
+  function save() {
+    try {
+      window.localStorage.setItem(SHAPE_STORAGE_KEY, draftShape);
+    } catch {
+      /* ignore */
+    }
+    setSavedShape(draftShape);
+  }
+
+  return (
+    <figure className="flex flex-col items-center gap-4 md:items-end">
+      <img
+        src={halinaPortrait.url}
+        alt="lek. Halina Gabara — podgląd portretu"
+        className={`w-48 object-cover object-top shadow-sm md:w-56 ${shapeClasses(draftShape)}`}
+        loading="eager"
+      />
+      <figcaption className="w-full max-w-[14rem] space-y-3 md:max-w-[16rem]">
+        <div
+          role="radiogroup"
+          aria-label="Kształt zdjęcia"
+          className="flex items-center justify-center gap-1 rounded-full border border-border bg-muted/40 p-1 md:justify-end"
+        >
+          {SHAPE_OPTIONS.map((opt) => {
+            const active = draftShape === opt.id;
+            return (
+              <button
+                key={opt.id}
+                type="button"
+                role="radio"
+                aria-checked={active}
+                onClick={() => setDraftShape(opt.id)}
+                className={`flex-1 rounded-full px-3 py-1 text-xs uppercase tracking-[0.15em] transition-colors ${
+                  active
+                    ? "bg-foreground text-background"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {opt.label}
+              </button>
+            );
+          })}
+        </div>
+        <button
+          type="button"
+          onClick={save}
+          disabled={!dirty}
+          className="w-full rounded-full border border-foreground/80 bg-foreground px-4 py-2 text-xs uppercase tracking-[0.2em] text-background transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {dirty ? "Zapisz kształt" : "Zapisano"}
+        </button>
+      </figcaption>
+    </figure>
+  );
+}
 
 const CANONICAL = "https://bmclinics.ai/lekarze/halina-gabara";
 
@@ -122,14 +218,7 @@ function HalinaGabaraPage() {
                 wyglądają naturalnie i są bezpieczne w długim horyzoncie.
               </p>
               </div>
-              <figure className="flex justify-center md:justify-end">
-                <img
-                  src={halinaPortrait.url}
-                  alt="lek. Halina Gabara — portret"
-                  className="size-48 rounded-full object-cover object-top shadow-sm md:size-56"
-                  loading="eager"
-                />
-              </figure>
+              <PortraitShapePicker />
             </div>
           </div>
         </div>
