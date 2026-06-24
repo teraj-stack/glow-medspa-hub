@@ -102,7 +102,7 @@ function HalinaGabaraPage() {
           <span className="text-foreground/70">lek. Halina Gabara</span>
         </nav>
 
-        <div className="mt-10 grid gap-10 md:mt-12 md:grid-cols-[1.5fr,0.85fr] md:items-center md:gap-12 lg:gap-16">
+        <div className="mt-10 grid gap-10 md:mt-12 md:grid-cols-[1fr,auto] md:items-center md:gap-12 lg:gap-16">
           <div className="min-w-0 order-2 md:order-1">
             <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
               Lekarz prowadzący
@@ -124,7 +124,7 @@ function HalinaGabaraPage() {
             <img
               src={halinaPortrait.url}
               alt="lek. Halina Gabara — portret"
-              className="h-auto max-h-[420px] w-full max-w-[360px] rounded-lg object-cover shadow-sm md:max-h-[520px] md:max-w-[420px]"
+              className="h-auto max-h-[320px] w-auto max-w-[280px] rounded-lg object-cover shadow-sm md:max-h-[380px] md:max-w-[340px]"
               loading="eager"
             />
           </figure>
