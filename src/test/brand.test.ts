@@ -44,6 +44,7 @@ describe('Source tree — no legacy "BM Clinics" string', () => {
     resolve(ROOT, 'scripts/validate-brand.mjs'),
     resolve(ROOT, 'scripts/validate-brand-dist.mjs'),
     resolve(ROOT, 'scripts/fix-brand-dist.mjs'),
+    resolve(ROOT, 'scripts/brand-validate-or-fix.mjs'),
   ])
   const SCAN_EXT = /\.(tsx?|jsx?|mjs|cjs|css|md|html|txt|json)$/i
 

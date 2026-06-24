@@ -21,6 +21,7 @@ const ALLOW = new Set([
   resolve(ROOT, 'scripts/validate-brand.mjs'),
   resolve(ROOT, 'scripts/validate-brand-dist.mjs'),
   resolve(ROOT, 'scripts/fix-brand-dist.mjs'),
+  resolve(ROOT, 'scripts/brand-validate-or-fix.mjs'),
   resolve(ROOT, 'src/test/brand.test.ts'),
 ])
 
