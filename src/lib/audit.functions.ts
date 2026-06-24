@@ -25,7 +25,7 @@ export type AuditLogRow = {
   resource_id: string | null;
   action: string | null;
   success: boolean;
-  metadata: Record<string, unknown>;
+  metadata: unknown;
 };
 
 export type SuspiciousRow = {
