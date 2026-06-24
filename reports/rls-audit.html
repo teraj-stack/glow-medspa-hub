@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RLS Audit Report</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; margin: 2rem; background: #0f172a; color: #e2e8f0; }
+    h1 { color: #f8fafc; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+    th, td { padding: 0.75rem; border: 1px solid #334155; text-align: left; vertical-align: top; }
+    th { background: #1e293b; color: #94a3b8; }
+    tr:nth-child(even) { background: #162032; }
+    code { background: #1e293b; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-size: 0.85rem; }
+    .badge { display: inline-block; padding: 0.2rem 0.5rem; border-radius: 999px; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; }
+    .badge.critical { background: #7f1d1d; color: #fecaca; }
+    .badge.high { background: #7c2d12; color: #fed7aa; }
+    .summary { display: flex; gap: 1rem; margin: 1rem 0; }
+    .summary > div { background: #1e293b; padding: 1rem; border-radius: 0.5rem; min-width: 8rem; }
+    .summary .num { font-size: 1.5rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <h1>RLS Audit Report</h1>
+  <p>Wygenerowano: 24.06.2026, 17:05:53</p>
+  <div class="summary">
+    <div><div class="num">15</div><div>Tabel</div></div>
+    <div><div class="num">28</div><div>Findingów</div></div>
+    <div><div class="num">0</div><div>Bez RLS</div></div>
+  </div>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Priorytet</th>
+        <th>Typ</th>
+        <th>Tabela</th>
+        <th>Operacja</th>
+        <th>Opis</th>
+        <th>Rekomendacja</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>bookings</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.bookings.</td>
+        <td>Dodaj politykę DELETE dla public.bookings lub dodaj &quot;bookings.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>2</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>consultation_orders</code></td>
+        <td>INSERT</td>
+        <td>Brak polityki RLS dla INSERT na tabeli public.consultation_orders.</td>
+        <td>Dodaj politykę INSERT dla public.consultation_orders lub dodaj &quot;consultation_orders.INSERT&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>3</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>consultation_orders</code></td>
+        <td>UPDATE</td>
+        <td>Brak polityki RLS dla UPDATE na tabeli public.consultation_orders.</td>
+        <td>Dodaj politykę UPDATE dla public.consultation_orders lub dodaj &quot;consultation_orders.UPDATE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>4</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>consultation_orders</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.consultation_orders.</td>
+        <td>Dodaj politykę DELETE dla public.consultation_orders lub dodaj &quot;consultation_orders.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>5</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>email_send_log</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.email_send_log.</td>
+        <td>Dodaj politykę DELETE dla public.email_send_log lub dodaj &quot;email_send_log.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>6</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>email_send_state</code></td>
+        <td>SELECT</td>
+        <td>Brak polityki RLS dla SELECT na tabeli public.email_send_state.</td>
+        <td>Dodaj politykę SELECT dla public.email_send_state lub dodaj &quot;email_send_state.SELECT&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>7</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>email_send_state</code></td>
+        <td>INSERT</td>
+        <td>Brak polityki RLS dla INSERT na tabeli public.email_send_state.</td>
+        <td>Dodaj politykę INSERT dla public.email_send_state lub dodaj &quot;email_send_state.INSERT&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>8</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>email_send_state</code></td>
+        <td>UPDATE</td>
+        <td>Brak polityki RLS dla UPDATE na tabeli public.email_send_state.</td>
+        <td>Dodaj politykę UPDATE dla public.email_send_state lub dodaj &quot;email_send_state.UPDATE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>9</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>email_send_state</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.email_send_state.</td>
+        <td>Dodaj politykę DELETE dla public.email_send_state lub dodaj &quot;email_send_state.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>10</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>email_unsubscribe_tokens</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.email_unsubscribe_tokens.</td>
+        <td>Dodaj politykę DELETE dla public.email_unsubscribe_tokens lub dodaj &quot;email_unsubscribe_tokens.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>11</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>profiles</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.profiles.</td>
+        <td>Dodaj politykę DELETE dla public.profiles lub dodaj &quot;profiles.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>12</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>sitemap_validation_history</code></td>
+        <td>INSERT</td>
+        <td>Brak polityki RLS dla INSERT na tabeli public.sitemap_validation_history.</td>
+        <td>Dodaj politykę INSERT dla public.sitemap_validation_history lub dodaj &quot;sitemap_validation_history.INSERT&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>13</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>sitemap_validation_history</code></td>
+        <td>UPDATE</td>
+        <td>Brak polityki RLS dla UPDATE na tabeli public.sitemap_validation_history.</td>
+        <td>Dodaj politykę UPDATE dla public.sitemap_validation_history lub dodaj &quot;sitemap_validation_history.UPDATE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>14</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>sitemap_validation_history</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.sitemap_validation_history.</td>
+        <td>Dodaj politykę DELETE dla public.sitemap_validation_history lub dodaj &quot;sitemap_validation_history.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>15</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>suppressed_emails</code></td>
+        <td>UPDATE</td>
+        <td>Brak polityki RLS dla UPDATE na tabeli public.suppressed_emails.</td>
+        <td>Dodaj politykę UPDATE dla public.suppressed_emails lub dodaj &quot;suppressed_emails.UPDATE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>16</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>suppressed_emails</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.suppressed_emails.</td>
+        <td>Dodaj politykę DELETE dla public.suppressed_emails lub dodaj &quot;suppressed_emails.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>17</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>time_off</code></td>
+        <td>INSERT</td>
+        <td>Brak polityki RLS dla INSERT na tabeli public.time_off.</td>
+        <td>Dodaj politykę INSERT dla public.time_off lub dodaj &quot;time_off.INSERT&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>18</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>time_off</code></td>
+        <td>UPDATE</td>
+        <td>Brak polityki RLS dla UPDATE na tabeli public.time_off.</td>
+        <td>Dodaj politykę UPDATE dla public.time_off lub dodaj &quot;time_off.UPDATE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>19</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>time_off</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.time_off.</td>
+        <td>Dodaj politykę DELETE dla public.time_off lub dodaj &quot;time_off.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>20</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>treatment_catalog</code></td>
+        <td>INSERT</td>
+        <td>Brak polityki RLS dla INSERT na tabeli public.treatment_catalog.</td>
+        <td>Dodaj politykę INSERT dla public.treatment_catalog lub dodaj &quot;treatment_catalog.INSERT&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>21</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>treatment_catalog</code></td>
+        <td>UPDATE</td>
+        <td>Brak polityki RLS dla UPDATE na tabeli public.treatment_catalog.</td>
+        <td>Dodaj politykę UPDATE dla public.treatment_catalog lub dodaj &quot;treatment_catalog.UPDATE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>22</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>treatment_catalog</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.treatment_catalog.</td>
+        <td>Dodaj politykę DELETE dla public.treatment_catalog lub dodaj &quot;treatment_catalog.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>23</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>visit_bookings</code></td>
+        <td>SELECT</td>
+        <td>Brak polityki RLS dla SELECT na tabeli public.visit_bookings.</td>
+        <td>Dodaj politykę SELECT dla public.visit_bookings lub dodaj &quot;visit_bookings.SELECT&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>24</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>visit_bookings</code></td>
+        <td>UPDATE</td>
+        <td>Brak polityki RLS dla UPDATE na tabeli public.visit_bookings.</td>
+        <td>Dodaj politykę UPDATE dla public.visit_bookings lub dodaj &quot;visit_bookings.UPDATE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>25</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>visit_bookings</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.visit_bookings.</td>
+        <td>Dodaj politykę DELETE dla public.visit_bookings lub dodaj &quot;visit_bookings.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>26</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>working_hours</code></td>
+        <td>INSERT</td>
+        <td>Brak polityki RLS dla INSERT na tabeli public.working_hours.</td>
+        <td>Dodaj politykę INSERT dla public.working_hours lub dodaj &quot;working_hours.INSERT&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>27</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>working_hours</code></td>
+        <td>UPDATE</td>
+        <td>Brak polityki RLS dla UPDATE na tabeli public.working_hours.</td>
+        <td>Dodaj politykę UPDATE dla public.working_hours lub dodaj &quot;working_hours.UPDATE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    
+      <tr>
+        <td>28</td>
+        <td><span class="badge high">high</span></td>
+        <td>missing_policy</td>
+        <td><code>working_hours</code></td>
+        <td>DELETE</td>
+        <td>Brak polityki RLS dla DELETE na tabeli public.working_hours.</td>
+        <td>Dodaj politykę DELETE dla public.working_hours lub dodaj &quot;working_hours.DELETE&quot; do allowlisty, jeśli brak jest celowy.</td>
+      </tr>
+    </tbody>
+  </table>
+  
+</body>
+</html>
