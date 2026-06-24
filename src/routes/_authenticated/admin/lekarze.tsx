@@ -37,7 +37,18 @@ type Doctor = {
   default_price_cents: number | null;
   active: boolean;
   display_order: number;
+  professional_title: string | null;
+  experience_summary: string | null;
+  specializations: string[] | null;
+  education: string[] | null;
 };
+
+function linesToArray(s: string): string[] {
+  return s.split("\n").map((l) => l.trim()).filter(Boolean);
+}
+function arrayToLines(a: string[] | null | undefined): string {
+  return (a ?? []).join("\n");
+}
 
 function AdminDoctorsPage() {
   const list = useServerFn(listAllDoctors);
