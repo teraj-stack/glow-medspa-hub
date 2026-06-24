@@ -14,10 +14,6 @@ function publicSupabase() {
 }
 
 async function assertAdmin(supabase: any, userId: string) {
-  // user_roles is locked; query via a security-definer helper isn't exposed,
-  // so do an explicit check against has_role using a service-role round-trip.
-  // We can't call private.has_role from anon/auth; instead, read user_roles
-  // through service role.
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data, error } = await supabaseAdmin
     .from("user_roles")
@@ -25,8 +21,14 @@ async function assertAdmin(supabase: any, userId: string) {
     .eq("user_id", userId)
     .eq("role", "admin")
     .maybeSingle();
-  if (error) throw new Error(error.message);
-  if (!data) throw new Error("Forbidden: admin role required");
+  if (error) {
+    console.error("[saveDoctorPortrait][assertAdmin] DB error", { userId, error });
+    throw new Error("[DB] " + error.message);
+  }
+  if (!data) {
+    console.warn("[saveDoctorPortrait][assertAdmin] forbidden", { userId });
+    throw new Error("[FORBIDDEN] Wymagana rola admin.");
+  }
 }
 
 // ============================================================
