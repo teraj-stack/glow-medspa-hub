@@ -44,6 +44,17 @@ jobs:
           echo "brand:validate-or-fix:dist:strict exit code = $RC"
           # Don't fail the step here — the interpret step decides job status.
           exit 0
+      - name: Export brand validation results to SARIF
+        if: always()
+        run: npm run brand:report:sarif
+
+      - name: Upload SARIF to GitHub Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: reports/brand-fix-dist.sarif
+          category: brand-validate-dist
+
 
       - name: Upload brand reports
         if: always()
