@@ -15,6 +15,7 @@
     "validate:content:report": "node scripts/validate-content.mjs --section=all --json=reports/content-quality.json --html=reports/content-quality.html",
     "test:e2e:technologie": "python3 tests/e2e/technologie_content_quality.py",
     "test:e2e:content": "python3 tests/e2e/content_quality.py",
+    "test:e2e:tile02-visual": "python3 tests/e2e/tile_02_visual_regression.py",
     "preview": "vite preview",
     "lint": "eslint .",
     "test": "vitest run",
