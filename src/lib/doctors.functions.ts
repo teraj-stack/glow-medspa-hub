@@ -36,12 +36,14 @@ async function assertAdmin(supabase: any, userId: string) {
 // PUBLIC: list active doctors
 // ============================================================
 export const listActiveDoctors = createServerFn({ method: "GET" }).handler(async () => {
-  const sb = publicSupabase();
-  // Read from the public-safe view (excludes google_calendar_id and other
-  // internal columns; security_invoker keeps RLS active=true policy in effect).
-  const { data, error } = await (sb as any)
-    .from("public_doctors")
+  // Czytamy bezpośrednio po stronie serwera z service-role — anon nie ma
+  // żadnego dostępu do tabeli ani widoku, a my projektujemy WYŁĄCZNIE
+  // bezpieczne kolumny (bez google_calendar_id, default_price_cents itd.).
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await supabaseAdmin
+    .from("doctors")
     .select("id, slug, full_name, title, bio, photo_url, display_order, professional_title, experience_summary, specializations, education")
+    .eq("active", true)
     .order("display_order", { ascending: true })
     .order("full_name", { ascending: true });
   if (error) throw new Error(error.message);
