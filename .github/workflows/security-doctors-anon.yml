@@ -1,0 +1,51 @@
+name: Security — Doctors anon access
+
+# Weryfikuje, że anonimowy klient (anon key) nie może odczytać tabeli `doctors`
+# ani widoku `public_doctors`, oraz że publiczny endpoint /lekarze zwraca
+# wyłącznie pola z białej listy (bez google_calendar_id, default_price_cents
+# itp.). Testy idą po realnej bazie Lovable Cloud — anon key jest publiczny.
+
+on:
+  pull_request:
+    paths:
+      - "supabase/migrations/**"
+      - "src/lib/doctors.functions.ts"
+      - "src/routes/lekarze*.tsx"
+      - "src/test/security/doctors-anon-access.test.ts"
+      - ".github/workflows/security-doctors-anon.yml"
+  push:
+    branches: [main]
+    paths:
+      - "supabase/migrations/**"
+      - "src/lib/doctors.functions.ts"
+      - "src/routes/lekarze*.tsx"
+      - "src/test/security/doctors-anon-access.test.ts"
+      - ".github/workflows/security-doctors-anon.yml"
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: anon nie ma dostępu do doctors
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --no-fund
+
+      - name: Run security tests
+        env:
+          # Anon key jest publiczny — bezpieczny w env CI.
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL || secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY || secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          # Pełny URL server-fn listActiveDoctors (opcjonalnie). Jeśli pusty,
+          # test białej listy pól zostaje pominięty.
+          PUBLIC_DOCTORS_ENDPOINT: ${{ vars.PUBLIC_DOCTORS_ENDPOINT }}
+        run: npx vitest run src/test/security/doctors-anon-access.test.ts --reporter=verbose
