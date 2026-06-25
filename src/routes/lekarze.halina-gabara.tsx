@@ -556,11 +556,6 @@ function HalinaGabaraPage() {
                 wyglądają naturalnie i są bezpieczne w długim horyzoncie.
               </p>
               </div>
-              <PortraitShapePicker
-                slug="halina-gabara"
-                initialPhotoUrl={doctor?.photo_url || halinaPortrait.url}
-                initialCrop={(doctor?.portrait_crop as PortraitCrop | null) ?? null}
-              />
             </div>
           </div>
         </div>
