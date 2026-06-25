@@ -470,7 +470,6 @@ function BookingCard({
   onCancel?: () => void;
   cancelling?: boolean;
 }) {
-
   const cancellable = onCancel && canCancelClientSide(booking);
   return (
     <li className="rounded-lg border border-border/70 bg-background p-5">
