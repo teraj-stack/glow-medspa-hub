@@ -45,6 +45,19 @@ export const listActiveDoctors = createServerFn({ method: "GET" }).handler(async
     .order("display_order", { ascending: true })
     .order("full_name", { ascending: true });
   if (error) throw new Error(error.message);
+
+  // CDN/przeglądarka mogą trzymać odpowiedź 5 min, a serwować nieświeżą do 1h
+  // podczas rewalidacji w tle. Lista lekarzy zmienia się bardzo rzadko.
+  try {
+    const { setResponseHeader } = await import("@tanstack/react-start/server");
+    setResponseHeader(
+      "cache-control",
+      "public, max-age=60, s-maxage=300, stale-while-revalidate=3600",
+    );
+  } catch {
+    /* poza kontekstem żądania (np. wywołanie wewnętrzne) — pomijamy */
+  }
+
   return (data ?? []) as Array<{
     id: string;
     slug: string;
