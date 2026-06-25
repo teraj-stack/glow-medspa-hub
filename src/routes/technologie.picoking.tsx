@@ -273,7 +273,7 @@ function PikosekundowyPage() {
             </figure>
             <figure className="overflow-hidden rounded-lg border border-white/10 bg-white">
               <img
-                src={pico532Img.url}
+                src={pico532Img}
                 alt="Model anatomiczny — frakcyjny picolaser 532 nm: pole mikro-kawitacji fotoakustycznej, fragmentacja pigmentu i mikro-przerwy w naczyniach bez termicznego oparzenia tkanki"
                 width={1920}
                 height={1440}
