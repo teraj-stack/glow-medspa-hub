@@ -52,6 +52,77 @@ const STEP_LABELS = [
   "Podgląd protokołu",
 ];
 
+const STORAGE_KEY = "postepowanie-pozabiegowe-draft";
+
+type SavedDraft = {
+  step: Step;
+  selected: LaserKey[];
+  otherName: string;
+  routeSlug: string;
+  audience: string;
+  contraindications: string;
+  h48Goals: string;
+  h48Do: string;
+  h48Dont: string;
+  h48Flags: string;
+  d14Phases: string;
+  d14Care: string;
+  d14Checklist: string;
+  panelFeatures: string;
+  panelIntegrations: string;
+};
+
+const defaultDraft: SavedDraft = {
+  step: 0,
+  selected: [],
+  otherName: "",
+  routeSlug: "laser/postepowanie-pozabiegowe",
+  audience: "pacjent po zabiegu, język PL, ton spokojny, klinicystyczny",
+  contraindications:
+    "ciąża, aktywna infekcja skóry, opalenizna <4 tyg., izotretynoina <6 mies., choroby autoimmunologiczne w fazie zaostrzenia",
+  h48Goals: "redukcja rumienia i obrzęku, ochrona bariery, profilaktyka infekcji, brak PIH",
+  h48Do:
+    "zimne okłady 10 min co 2h (pierwsze 6h), emolient barierowy 4-6×/dobę, sen na plecach z uniesioną głową, SPF 50+ mineralny od 24h",
+  h48Dont: "makijaż, sauna, basen, alkohol, intensywny wysiłek, retinoidy, kwasy AHA/BHA, peelingi mechaniczne",
+  h48Flags:
+    "ból >6/10 mimo paracetamolu, pęcherze, sączenie ropne, gorączka >38°C, rozprzestrzeniający się rumień",
+  d14Phases:
+    "Dni 1-3: gojenie naskórka. Dni 4-7: złuszczanie fizjologiczne. Dni 8-14: remodeling, powrót do pielęgnacji aktywnej.",
+  d14Care:
+    "delikatne mycie syndetem, ceramidy + pantenol 2×/d, SPF 50+ codziennie, od dnia 8 niacynamid 5%, od dnia 14 retinal w małym stężeniu",
+  d14Checklist:
+    "checklista dzienna z polem 'zrobione', przypomnienia e-mail/SMS, eksport do .ics, zdjęcia kontrolne dzień 1/3/7/14",
+  panelFeatures:
+    "logowanie magic-link, kalendarz zaleceń, biblioteka PDF (karta zabiegu, zgody, faktura), formularz objawów z eskalacją do kliniki, galeria zdjęć przed/po z timestampem",
+  panelIntegrations: "ICS export, e-mail, SMS opcjonalnie, webhook do CRM kliniki",
+};
+
+function loadDraft(): SavedDraft {
+  if (typeof window === "undefined") return defaultDraft;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultDraft;
+    const parsed = JSON.parse(raw) as Partial<SavedDraft>;
+    return { ...defaultDraft, ...parsed };
+  } catch {
+    return defaultDraft;
+  }
+}
+
+function saveDraft(draft: SavedDraft) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
+  } catch {
+    // ignore quota errors
+  }
+}
+
+function clearDraft() {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem(STORAGE_KEY);
+}
+
 function PostTreatmentCreator() {
   const [step, setStep] = useState<Step>(0);
 
