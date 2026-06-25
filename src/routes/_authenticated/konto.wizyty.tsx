@@ -312,30 +312,40 @@ function PortalPage() {
           />
           {bookingsQuery.isLoading ? (
             <p className="mt-4 text-sm text-foreground/70">Ładuję…</p>
-          ) : upcoming.length === 0 ? (
+          ) : upcomingTotal === 0 ? (
             <p className="mt-4 text-sm text-foreground/70">
               {upcomingStatus !== "all" || upcomingPayment !== "all" || upcomingTreatment !== "all"
                 ? "Brak nadchodzących wizyt spełniających wybrane filtry."
                 : "Brak nadchodzących wizyt powiązanych z Twoim kontem."}
             </p>
           ) : (
-            <ul className="mt-4 space-y-4">
-              {upcoming.map((b) => (
-                <BookingCard
-                  key={b.id}
-                  booking={b}
-                  onCancel={() => {
-                    setCancelMsg(null);
-                    if (!b.cancel_token) return;
-                    cancelMutation.mutate({ booking_id: b.id, cancel_token: b.cancel_token });
-                  }}
-                  cancelling={cancelMutation.isPending}
-                />
-              ))}
-            </ul>
+            <>
+              <ul className="mt-4 space-y-4">
+                {upcomingPaged.map((b) => (
+                  <BookingCard
+                    key={b.id}
+                    booking={b}
+                    onCancel={() => {
+                      setCancelMsg(null);
+                      if (!b.cancel_token) return;
+                      cancelMutation.mutate({ booking_id: b.id, cancel_token: b.cancel_token });
+                    }}
+                    cancelling={cancelMutation.isPending}
+                  />
+                ))}
+              </ul>
+              <Pagination
+                page={upcomingPageSafe}
+                totalPages={upcomingTotalPages}
+                totalItems={upcomingTotal}
+                pageSize={upcomingPageSize}
+                pageSizeOptions={PAGE_SIZE_OPTIONS}
+                onPageChange={setUpcomingPage}
+                onPageSizeChange={setUpcomingPageSize}
+              />
+            </>
           )}
         </div>
-
 
         {/* Past */}
         <div className="mt-12">
@@ -353,18 +363,29 @@ function PortalPage() {
           />
           {bookingsQuery.isLoading ? (
             <p className="mt-4 text-sm text-foreground/70">Ładuję…</p>
-          ) : past.length === 0 ? (
+          ) : pastTotal === 0 ? (
             <p className="mt-4 text-sm text-foreground/70">
               {pastStatus !== "all" || pastPayment !== "all" || pastTreatment !== "all"
                 ? "Brak wizyt w historii spełniających wybrane filtry."
                 : "Brak wizyt w historii."}
             </p>
           ) : (
-            <ul className="mt-4 space-y-4">
-              {past.map((b) => (
-                <BookingCard key={b.id} booking={b} />
-              ))}
-            </ul>
+            <>
+              <ul className="mt-4 space-y-4">
+                {pastPaged.map((b) => (
+                  <BookingCard key={b.id} booking={b} />
+                ))}
+              </ul>
+              <Pagination
+                page={pastPageSafe}
+                totalPages={pastTotalPages}
+                totalItems={pastTotal}
+                pageSize={pastPageSize}
+                pageSizeOptions={PAGE_SIZE_OPTIONS}
+                onPageChange={setPastPage}
+                onPageSizeChange={setPastPageSize}
+              />
+            </>
           )}
         </div>
 
