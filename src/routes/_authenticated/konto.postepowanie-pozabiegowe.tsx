@@ -77,6 +77,7 @@ type SavedDraft = {
   d14Checklist: string;
   panelFeatures: string;
   panelIntegrations: string;
+  updatedAt?: string;
 };
 
 const defaultDraft: SavedDraft = {
@@ -130,6 +131,17 @@ function clearDraft() {
   window.localStorage.removeItem(STORAGE_KEY);
 }
 
+function formatStamp(d: Date | null): string {
+  if (!d) return "—";
+  return d.toLocaleString("pl-PL", {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
+
 const DRAFT_KEY = "postepowanie-pozabiegowe";
 
 function PostTreatmentCreator() {
@@ -139,8 +151,16 @@ function PostTreatmentCreator() {
   const removeDraft = useServerFn(deleteCreatorDraft);
 
   const [step, setStep] = useState<Step>(initial.step);
-  const [savedAt, setSavedAt] = useState<Date | null>(null);
+  const [localSavedAt, setLocalSavedAt] = useState<Date | null>(
+    initial.updatedAt ? new Date(initial.updatedAt) : null,
+  );
+  const [cloudSavedAt, setCloudSavedAt] = useState<Date | null>(null);
   const [syncState, setSyncState] = useState<"idle" | "syncing" | "synced" | "error">("idle");
+  const [conflict, setConflict] = useState<{
+    chosen: "local" | "cloud";
+    other: SavedDraft;
+    otherAt: Date;
+  } | null>(null);
 
   const [selected, setSelected] = useState<LaserKey[]>(initial.selected);
   const [otherName, setOtherName] = useState(initial.otherName);
@@ -163,35 +183,59 @@ function PostTreatmentCreator() {
 
   const hydratedRef = useRef(false);
   const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingDraftRef = useRef<SavedDraft | null>(null);
 
-  // Hydrate from Supabase on mount — server wins (cross-device).
+  const applyDraft = (d: SavedDraft) => {
+    setStep(d.step);
+    setSelected(d.selected);
+    setOtherName(d.otherName);
+    setRouteSlug(d.routeSlug);
+    setAudience(d.audience);
+    setContraindications(d.contraindications);
+    setH48Goals(d.h48Goals);
+    setH48Do(d.h48Do);
+    setH48Dont(d.h48Dont);
+    setH48Flags(d.h48Flags);
+    setD14Phases(d.d14Phases);
+    setD14Care(d.d14Care);
+    setD14Checklist(d.d14Checklist);
+    setPanelFeatures(d.panelFeatures);
+    setPanelIntegrations(d.panelIntegrations);
+  };
+
+  // Hydrate from Supabase on mount — resolve conflicts by updatedAt.
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
         const res = await fetchDraft({ data: { draftKey: DRAFT_KEY } });
-        if (cancelled || !res?.data) {
-          hydratedRef.current = true;
-          return;
+        if (cancelled) return;
+        const cloudDraft = res?.data
+          ? ({ ...defaultDraft, ...(res.data as Partial<SavedDraft>) } as SavedDraft)
+          : null;
+        const cloudAt = res?.updatedAt ? new Date(res.updatedAt) : null;
+        const localAt = initial.updatedAt ? new Date(initial.updatedAt) : null;
+        const hasLocal = Boolean(initial.updatedAt);
+
+        if (cloudDraft && cloudAt) setCloudSavedAt(cloudAt);
+
+        if (cloudDraft && cloudAt && hasLocal && localAt) {
+          const diffMs = Math.abs(cloudAt.getTime() - localAt.getTime());
+          if (diffMs > 2000) {
+            // Conflict — pick newer, expose the other for one-click switch.
+            if (cloudAt.getTime() > localAt.getTime()) {
+              applyDraft(cloudDraft);
+              setConflict({ chosen: "cloud", other: initial, otherAt: localAt });
+            } else {
+              // Local is newer; keep current state, surface cloud as alternative.
+              setConflict({ chosen: "local", other: cloudDraft, otherAt: cloudAt });
+            }
+          } else if (cloudAt.getTime() >= localAt.getTime()) {
+            applyDraft(cloudDraft);
+          }
+        } else if (cloudDraft) {
+          applyDraft(cloudDraft);
         }
-        const r = res.data as Partial<SavedDraft>;
-        const merged: SavedDraft = { ...defaultDraft, ...r };
-        setStep(merged.step);
-        setSelected(merged.selected);
-        setOtherName(merged.otherName);
-        setRouteSlug(merged.routeSlug);
-        setAudience(merged.audience);
-        setContraindications(merged.contraindications);
-        setH48Goals(merged.h48Goals);
-        setH48Do(merged.h48Do);
-        setH48Dont(merged.h48Dont);
-        setH48Flags(merged.h48Flags);
-        setD14Phases(merged.d14Phases);
-        setD14Care(merged.d14Care);
-        setD14Checklist(merged.d14Checklist);
-        setPanelFeatures(merged.panelFeatures);
-        setPanelIntegrations(merged.panelIntegrations);
-        if (res.updatedAt) setSavedAt(new Date(res.updatedAt));
       } catch {
         // ignore — fallback to local draft
       } finally {
@@ -204,7 +248,21 @@ function PostTreatmentCreator() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const flushSave = async (draft: SavedDraft) => {
+    setSyncState("syncing");
+    try {
+      const res = await persistDraft({
+        data: { draftKey: DRAFT_KEY, data: draft as unknown as Record<string, never> },
+      });
+      setSyncState("synced");
+      if (res?.savedAt) setCloudSavedAt(new Date(res.savedAt));
+    } catch {
+      setSyncState("error");
+    }
+  };
+
   useEffect(() => {
+    const now = new Date();
     const draft: SavedDraft = {
       step,
       selected,
@@ -221,23 +279,18 @@ function PostTreatmentCreator() {
       d14Checklist,
       panelFeatures,
       panelIntegrations,
+      updatedAt: now.toISOString(),
     };
     saveDraft(draft);
-    setSavedAt(new Date());
+    setLocalSavedAt(now);
+    pendingDraftRef.current = draft;
 
     // Debounced cloud sync — only after we've hydrated from server.
     if (!hydratedRef.current) return;
     if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
     setSyncState("syncing");
-    saveTimerRef.current = setTimeout(async () => {
-      try {
-        await persistDraft({
-          data: { draftKey: DRAFT_KEY, data: draft as unknown as Record<string, never> },
-        });
-        setSyncState("synced");
-      } catch {
-        setSyncState("error");
-      }
+    saveTimerRef.current = setTimeout(() => {
+      void flushSave(draft);
     }, 800);
   }, [
     step,
@@ -255,32 +308,56 @@ function PostTreatmentCreator() {
     d14Checklist,
     panelFeatures,
     panelIntegrations,
-    persistDraft,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   ]);
 
-  const reset = async () => {
+  const saveNow = async () => {
+    if (saveTimerRef.current) {
+      clearTimeout(saveTimerRef.current);
+      saveTimerRef.current = null;
+    }
+    const draft = pendingDraftRef.current;
+    if (!draft) return;
+    await flushSave(draft);
+  };
+
+  const resetToDefaults = () => {
+    applyDraft({ ...defaultDraft });
+    setConflict(null);
+  };
+
+  const deleteEverywhere = async () => {
+    if (typeof window !== "undefined") {
+      const ok = window.confirm(
+        "Usunąć zapisany draft z tego urządzenia i z konta? Tej operacji nie da się cofnąć.",
+      );
+      if (!ok) return;
+    }
+    if (saveTimerRef.current) {
+      clearTimeout(saveTimerRef.current);
+      saveTimerRef.current = null;
+    }
     clearDraft();
     try {
       await removeDraft({ data: { draftKey: DRAFT_KEY } });
     } catch {
       // ignore
     }
-    setStep(0);
-    setSelected([]);
-    setOtherName("");
-    setRouteSlug(defaultDraft.routeSlug);
-    setAudience(defaultDraft.audience);
-    setContraindications(defaultDraft.contraindications);
-    setH48Goals(defaultDraft.h48Goals);
-    setH48Do(defaultDraft.h48Do);
-    setH48Dont(defaultDraft.h48Dont);
-    setH48Flags(defaultDraft.h48Flags);
-    setD14Phases(defaultDraft.d14Phases);
-    setD14Care(defaultDraft.d14Care);
-    setD14Checklist(defaultDraft.d14Checklist);
-    setPanelFeatures(defaultDraft.panelFeatures);
-    setPanelIntegrations(defaultDraft.panelIntegrations);
+    setCloudSavedAt(null);
+    setLocalSavedAt(null);
+    setSyncState("idle");
+    resetToDefaults();
   };
+
+  const switchToOtherVersion = async () => {
+    if (!conflict) return;
+    applyDraft(conflict.other);
+    setConflict(null);
+    // The effect above will autosave the newly-applied version to local + cloud.
+  };
+
+  const reset = deleteEverywhere;
+
 
 
   const laserList = useMemo(() => {
@@ -505,7 +582,34 @@ ${panelIntegrations}
             </section>
           )}
 
-          <div className="mt-8 flex justify-between border-t border-border pt-4">
+          {conflict && (
+            <div className="mt-6 rounded-md border border-amber-500/50 bg-amber-500/10 p-4 text-sm">
+              <p className="font-medium text-foreground">
+                Wykryto inną wersję draftu na {conflict.chosen === "cloud" ? "tym urządzeniu" : "Twoim koncie"}.
+              </p>
+              <p className="mt-1 text-muted-foreground">
+                Aktualnie pokazujemy nowszą wersję ({conflict.chosen === "cloud" ? "z chmury" : "z tego urządzenia"})
+                z {formatStamp(conflict.chosen === "cloud" ? cloudSavedAt : localSavedAt)}.
+                Druga wersja pochodzi z {formatStamp(conflict.otherAt)}.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  onClick={switchToOtherVersion}
+                  className="rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium"
+                >
+                  Załaduj wersję z {formatStamp(conflict.otherAt)}
+                </button>
+                <button
+                  onClick={() => setConflict(null)}
+                  className="rounded-md px-3 py-1.5 text-xs text-muted-foreground"
+                >
+                  Zachowaj obecną
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="mt-8 flex flex-wrap justify-between gap-2 border-t border-border pt-4">
             <button
               disabled={step === 0}
               onClick={() => setStep((s) => Math.max(0, s - 1) as Step)}
@@ -513,32 +617,53 @@ ${panelIntegrations}
             >
               ← Wstecz
             </button>
-            {step < 5 ? (
+            <div className="flex flex-wrap gap-2">
               <button
-                disabled={!canNext()}
-                onClick={() => setStep((s) => Math.min(5, s + 1) as Step)}
-                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-40"
+                onClick={saveNow}
+                disabled={syncState === "syncing"}
+                className="rounded-md border border-border px-4 py-2 text-sm disabled:opacity-50"
+                title="Wymuś natychmiastową synchronizację z kontem"
               >
-                Dalej →
+                Zapisz teraz
               </button>
-            ) : (
               <button
-                onClick={reset}
-                className="rounded-md border border-border px-4 py-2 text-sm"
+                onClick={deleteEverywhere}
+                className="rounded-md border border-destructive/60 px-4 py-2 text-sm text-destructive"
+                title="Usuń draft z tego urządzenia i z konta"
               >
-                Zacznij od nowa
+                Usuń zapis
               </button>
-            )}
+              {step < 5 ? (
+                <button
+                  disabled={!canNext()}
+                  onClick={() => setStep((s) => Math.min(5, s + 1) as Step)}
+                  className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-40"
+                >
+                  Dalej →
+                </button>
+              ) : (
+                <button
+                  onClick={reset}
+                  className="rounded-md border border-border px-4 py-2 text-sm"
+                >
+                  Zacznij od nowa
+                </button>
+              )}
+            </div>
           </div>
-          <p className="mt-2 text-right text-xs text-muted-foreground">
-            {savedAt ? `Ostatni autosave: ${savedAt.toLocaleTimeString("pl-PL")}` : "Autosave włączony"}
-            {" · "}
-            {syncState === "syncing" && "synchronizacja z chmurą…"}
-            {syncState === "synced" && "zsynchronizowano z kontem"}
-            {syncState === "error" && "błąd synchronizacji (zapisano lokalnie)"}
-            {syncState === "idle" && "tylko lokalnie"}
+          <div className="mt-2 flex flex-wrap justify-end gap-x-3 text-right text-xs text-muted-foreground">
+            <span>Lokalnie: {formatStamp(localSavedAt)}</span>
+            <span>·</span>
+            <span>Na koncie: {formatStamp(cloudSavedAt)}</span>
+            <span>·</span>
+            <span>
+              {syncState === "syncing" && "synchronizacja z chmurą…"}
+              {syncState === "synced" && "zsynchronizowano"}
+              {syncState === "error" && "błąd synchronizacji (zapisano lokalnie)"}
+              {syncState === "idle" && (cloudSavedAt ? "w synchronizacji" : "tylko lokalnie")}
+            </span>
+          </div>
 
-          </p>
         </div>
       </div>
     </div>
