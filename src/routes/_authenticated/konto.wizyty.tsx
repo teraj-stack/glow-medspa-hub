@@ -82,6 +82,13 @@ function PortalPage() {
   const [claimMsg, setClaimMsg] = useState<string | null>(null);
   const [cancelMsg, setCancelMsg] = useState<string | null>(null);
 
+  // Filters / sort
+  const [upcomingFilter, setUpcomingFilter] = useState<"all" | PortalVisitBooking["status"]>("all");
+  const [upcomingSort, setUpcomingSort] = useState<"asc" | "desc">("asc");
+  const [pastFilter, setPastFilter] = useState<"all" | PortalVisitBooking["status"]>("all");
+  const [pastSort, setPastSort] = useState<"asc" | "desc">("desc");
+
+
   // Pull current user email for greeting
   useEffect(() => {
     let alive = true;
