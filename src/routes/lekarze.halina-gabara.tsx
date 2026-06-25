@@ -7,6 +7,9 @@ import { getDoctorBySlug, saveDoctorPortrait } from "@/lib/doctors.functions";
 import { checkIsAdmin } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
 import halinaPortrait from "@/assets/halina-portrait-960.webp.asset.json";
+import halaTloMp4 from "@/assets/hala-tlo.mp4.asset.json";
+import halaTloWebm from "@/assets/hala-tlo.webm.asset.json";
+import halaTloPoster from "@/assets/hala-tlo-poster.jpg.asset.json";
 
 function useIsAdmin() {
   return useQuery({
@@ -513,6 +516,21 @@ function HalinaGabaraPage() {
               marketingowym. Liczy się dobrze postawiona diagnoza, technika
               wykonania i przewidywalny efekt w czasie.
             </p>
+            <div className="pt-4">
+              <video
+                className="aspect-square w-full max-w-md rounded-2xl bg-muted object-cover shadow-sm"
+                poster={halaTloPoster.url}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="none"
+                aria-label="Halina Gabara — wideo prezentacyjne"
+              >
+                <source src={halaTloWebm.url} type="video/webm" />
+                <source src={halaTloMp4.url} type="video/mp4" />
+              </video>
+            </div>
           </div>
         </div>
       </section>
