@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { getDoctorBySlug, saveDoctorPortrait } from "@/lib/doctors.functions";
 import { checkIsAdmin } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
-import halinaPortrait from "@/assets/halina-portrait.png.asset.json";
+import halinaPortrait from "@/assets/halina-portrait-960.webp.asset.json";
 
 function useIsAdmin() {
   return useQuery({
