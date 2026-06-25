@@ -164,6 +164,10 @@
   h2 { font-size: clamp(1.875rem, 3vw + 0.5rem, 3rem); line-height: 1.15; }
   h3 { font-size: clamp(1.375rem, 1.5vw + 0.5rem, 1.875rem); line-height: 1.25; }
   ::selection { background: var(--champagne); color: var(--ink); }
+  /* On dark surfaces (bg-ink, footer, .dark) the bronze champagne fails AA at
+     small sizes — rebind it to the lighter variant so eyebrow/uppercase labels
+     keep ≥4.5:1 contrast without changing the visual identity. */
+  .bg-ink, footer, .dark { --champagne: var(--champagne-on-dark); }
 }
 
 /* ===== Komponenty utylitarne ===== */
