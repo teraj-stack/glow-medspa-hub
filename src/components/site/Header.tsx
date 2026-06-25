@@ -58,6 +58,22 @@ export function Header() {
               {n.label}
             </Link>
           ))}
+          {isAuthed ? (
+            <Link
+              to="/konto/wizyty"
+              className="text-sm tracking-wide text-foreground/80 transition-colors hover:text-foreground"
+              activeProps={{ className: "text-foreground" }}
+            >
+              Moje wizyty
+            </Link>
+          ) : (
+            <Link
+              to="/auth"
+              className="text-sm tracking-wide text-foreground/80 transition-colors hover:text-foreground"
+            >
+              Zaloguj
+            </Link>
+          )}
           <Link
             to="/konsultacja"
             className="inline-flex h-10 items-center justify-center rounded-md bg-ink px-5 text-sm tracking-wide text-alabaster transition hover:bg-ink/90"
