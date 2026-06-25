@@ -168,6 +168,7 @@ function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPic
         /* ignore */
       }
       queryClient.invalidateQueries({ queryKey: ["doctor", slug] });
+      queryClient.invalidateQueries({ queryKey: ["public-doctors"] });
     },
     onError: (err: unknown) => {
       const raw = err instanceof Error ? err.message : String(err);
