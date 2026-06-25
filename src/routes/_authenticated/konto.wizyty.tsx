@@ -87,16 +87,27 @@ function PortalPage() {
   const [upcomingTreatment, setUpcomingTreatment] = useState<string>("all");
   const [upcomingSort, setUpcomingSort] = useState<"asc" | "desc">("asc");
   const [upcomingPage, setUpcomingPage] = useState(1);
-  const [upcomingPageSize, setUpcomingPageSize] = useState(10);
 
   const [pastStatus, setPastStatus] = useState<string>("all");
   const [pastPayment, setPastPayment] = useState<string>("all");
   const [pastTreatment, setPastTreatment] = useState<string>("all");
   const [pastSort, setPastSort] = useState<"asc" | "desc">("desc");
   const [pastPage, setPastPage] = useState(1);
-  const [pastPageSize, setPastPageSize] = useState(10);
 
+  const PAGE_SIZE_STORAGE_KEY = "bmclinics-portal-page-size";
   const PAGE_SIZE_OPTIONS = [5, 10, 25, 50];
+  const [pageSize, setPageSize] = useState(() => {
+    if (typeof window === "undefined") return 10;
+    const raw = window.localStorage.getItem(PAGE_SIZE_STORAGE_KEY);
+    const n = raw ? Number.parseInt(raw, 10) : 10;
+    return PAGE_SIZE_OPTIONS.includes(n) ? n : 10;
+  });
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem(PAGE_SIZE_STORAGE_KEY, String(pageSize));
+    }
+  }, [pageSize]);
+
 
   useEffect(() => {
     let alive = true;
