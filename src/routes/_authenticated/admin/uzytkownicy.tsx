@@ -24,6 +24,7 @@ import {
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/admin/uzytkownicy")({
+  codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
   beforeLoad: async () => {
     try {
       const { isAdmin } = await checkAdminPanelAccess();

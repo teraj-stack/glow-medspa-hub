@@ -21,6 +21,7 @@ import {
 } from "@/lib/visit-bookings.functions";
 
 export const Route = createFileRoute("/_authenticated/konto/wizyty")({
+  codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
   head: () => ({
     meta: [
       { title: "Moje wizyty | BMClinics.ai" },
