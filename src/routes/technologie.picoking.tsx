@@ -259,7 +259,7 @@ function PikosekundowyPage() {
           <div className="mt-12 grid gap-8 md:grid-cols-2">
             <figure className="overflow-hidden rounded-lg border border-white/10 bg-white">
               <img
-                src={pico1064Img.url}
+                src={pico1064Img}
                 alt="Model anatomiczny — frakcyjny picolaser 1064 nm: punktowe mikro-rozpady fotoakustyczne (LIOB) w skórze właściwej, bez strefy termicznego oparzenia"
                 width={1920}
                 height={1440}
