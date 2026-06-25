@@ -2,6 +2,7 @@ import { createFileRoute, Outlet, Link, redirect, useRouterState } from "@tansta
 import { checkAdminPanelAccess } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin")({
+  codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
   beforeLoad: async () => {
     try {
       const { hasAccess } = await checkAdminPanelAccess();

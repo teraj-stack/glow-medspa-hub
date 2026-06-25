@@ -27,6 +27,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated/admin/rezerwacje")({
+  codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
   component: AdminBookingsPage,
 });
 

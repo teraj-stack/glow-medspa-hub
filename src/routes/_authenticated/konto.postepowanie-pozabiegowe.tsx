@@ -9,6 +9,7 @@ import {
 
 
 export const Route = createFileRoute("/_authenticated/konto/postepowanie-pozabiegowe")({
+  codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
   component: PostTreatmentCreator,
   head: () => ({
     meta: [

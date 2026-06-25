@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { jsPDF } from "jspdf";
 
 export const Route = createFileRoute("/_authenticated/admin/web-vitals")({
+  codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
   component: WebVitalsPanel,
 });
 

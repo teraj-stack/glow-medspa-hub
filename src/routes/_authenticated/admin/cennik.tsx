@@ -23,6 +23,7 @@ import {
 } from "@/lib/pricing-visibility.functions";
 
 export const Route = createFileRoute("/_authenticated/admin/cennik")({
+  codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
   component: AdminPricing,
 });
 
