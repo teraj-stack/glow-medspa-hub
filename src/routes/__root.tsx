@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { CRITICAL_CSS } from "../lib/critical-css";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ThemePresetApplier } from "@/components/ThemePresetApplier";
@@ -89,7 +90,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9694039e-10cf-47cf-b1da-44821ea89022/id-preview-85c1e743--7c40afc9-5d62-4e26-8703-fb0c05436327.lovable.app-1782055168987.png" },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
+      // Main Tailwind stylesheet loaded non-blocking via the print-media swap
+      // so first paint can use the inlined CRITICAL_CSS below. A <noscript>
+      // fallback in RootShell guarantees the stylesheet for users without JS.
+      { rel: "preload", as: "style", href: appCss },
+      {
+        rel: "stylesheet",
+        href: appCss,
+        media: "print",
+        "data-async-css": "true",
+      } as { rel: string; href: string },
       { rel: "icon", href: "/favicon.ico" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -110,7 +120,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       {
         children:
-          "document.querySelectorAll('link[data-async-font]').forEach(function(l){l.media='all'});",
+          "document.querySelectorAll('link[data-async-css],link[data-async-font]').forEach(function(l){l.media='all'});",
       },
     ],
   }),
@@ -125,6 +135,18 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="pl">
       <head>
         <HeadContent />
+        {/* Inlined above-the-fold CSS so first paint doesn't block on the
+            full Tailwind sheet (which is preloaded + async-swapped above). */}
+        <style dangerouslySetInnerHTML={{ __html: CRITICAL_CSS }} />
+        {/* Fallback for users without JS: the print-media swap won't run,
+            so render the full stylesheet synchronously inside <noscript>. */}
+        <noscript>
+          <link rel="stylesheet" href={appCss} />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap"
+          />
+        </noscript>
       </head>
       <body>
         {children}
