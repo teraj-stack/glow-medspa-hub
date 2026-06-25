@@ -20,7 +20,6 @@ import {
   type PortalVisitBooking,
 } from "@/lib/visit-bookings.functions";
 
-
 export const Route = createFileRoute("/_authenticated/konto/wizyty")({
   head: () => ({
     meta: [
@@ -83,10 +82,16 @@ function PortalPage() {
   const [cancelMsg, setCancelMsg] = useState<string | null>(null);
 
   // Filters / sort
-  const [upcomingFilter, setUpcomingFilter] = useState<"all" | PortalVisitBooking["status"]>("all");
+  const [upcomingStatus, setUpcomingStatus] = useState<string>("all");
+  const [upcomingPayment, setUpcomingPayment] = useState<string>("all");
+  const [upcomingTreatment, setUpcomingTreatment] = useState<string>("all");
   const [upcomingSort, setUpcomingSort] = useState<"asc" | "desc">("asc");
-  const [pastFilter, setPastFilter] = useState<"all" | PortalVisitBooking["status"]>("all");
+
+  const [pastStatus, setPastStatus] = useState<string>("all");
+  const [pastPayment, setPastPayment] = useState<string>("all");
+  const [pastTreatment, setPastTreatment] = useState<string>("all");
   const [pastSort, setPastSort] = useState<"asc" | "desc">("desc");
+
 
 
   // Pull current user email for greeting
@@ -145,20 +150,53 @@ function PortalPage() {
     onError: () => setCancelMsg("Nie udało się odwołać wizyty. Spróbuj ponownie."),
   });
 
+  const treatments = useMemo(() => {
+    const set = new Set<string>();
+    (bookingsQuery.data ?? []).forEach((b) => {
+      if (b.treatment_slug) set.add(b.treatment_slug);
+    });
+    return Array.from(set).sort((a, b) => a.localeCompare(b, "pl"));
+  }, [bookingsQuery.data]);
+
+  function isUpcoming(b: PortalVisitBooking) {
+    return new Date(b.starts_at).getTime() > Date.now() && b.status !== "cancelled";
+  }
+
+  function matchesFilters(
+    b: PortalVisitBooking,
+    status: string,
+    payment: string,
+    treatment: string,
+  ) {
+    if (status !== "all" && b.status !== status) return false;
+    if (payment !== "all" && b.payment_status !== payment) return false;
+    if (treatment !== "all" && b.treatment_slug !== treatment) return false;
+    return true;
+  }
+
   const upcoming = useMemo(
     () =>
       (bookingsQuery.data ?? [])
-        .filter((b) => new Date(b.starts_at).getTime() > Date.now() && b.status !== "cancelled")
-        .sort((a, b) => new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime()),
-    [bookingsQuery.data],
+        .filter((b) => isUpcoming(b))
+        .filter((b) => matchesFilters(b, upcomingStatus, upcomingPayment, upcomingTreatment))
+        .sort((a, b) => {
+          const diff = new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime();
+          return upcomingSort === "asc" ? diff : -diff;
+        }),
+    [bookingsQuery.data, upcomingStatus, upcomingPayment, upcomingTreatment, upcomingSort],
   );
   const past = useMemo(
     () =>
       (bookingsQuery.data ?? [])
-        .filter((b) => !(new Date(b.starts_at).getTime() > Date.now() && b.status !== "cancelled"))
-        .sort((a, b) => new Date(b.starts_at).getTime() - new Date(a.starts_at).getTime()),
-    [bookingsQuery.data],
+        .filter((b) => !isUpcoming(b))
+        .filter((b) => matchesFilters(b, pastStatus, pastPayment, pastTreatment))
+        .sort((a, b) => {
+          const diff = new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime();
+          return pastSort === "asc" ? diff : -diff;
+        }),
+    [bookingsQuery.data, pastStatus, pastPayment, pastTreatment, pastSort],
   );
+
 
   async function onSignOut() {
     await supabase.auth.signOut();
@@ -232,11 +270,24 @@ function PortalPage() {
         {/* Upcoming */}
         <div className="mt-10">
           <h2 className="text-lg font-medium">Nadchodzące wizyty</h2>
+          <FilterBar
+            status={upcomingStatus}
+            onStatusChange={setUpcomingStatus}
+            payment={upcomingPayment}
+            onPaymentChange={setUpcomingPayment}
+            treatment={upcomingTreatment}
+            onTreatmentChange={setUpcomingTreatment}
+            treatments={treatments}
+            sort={upcomingSort}
+            onSortChange={setUpcomingSort}
+          />
           {bookingsQuery.isLoading ? (
             <p className="mt-4 text-sm text-foreground/70">Ładuję…</p>
           ) : upcoming.length === 0 ? (
             <p className="mt-4 text-sm text-foreground/70">
-              Brak nadchodzących wizyt powiązanych z Twoim kontem.
+              {upcomingStatus !== "all" || upcomingPayment !== "all" || upcomingTreatment !== "all"
+                ? "Brak nadchodzących wizyt spełniających wybrane filtry."
+                : "Brak nadchodzących wizyt powiązanych z Twoim kontem."}
             </p>
           ) : (
             <ul className="mt-4 space-y-4">
@@ -256,23 +307,157 @@ function PortalPage() {
           )}
         </div>
 
+
         {/* Past */}
-        {past.length > 0 && (
-          <div className="mt-12">
-            <h2 className="text-lg font-medium">Historia</h2>
+        <div className="mt-12">
+          <h2 className="text-lg font-medium">Historia</h2>
+          <FilterBar
+            status={pastStatus}
+            onStatusChange={setPastStatus}
+            payment={pastPayment}
+            onPaymentChange={setPastPayment}
+            treatment={pastTreatment}
+            onTreatmentChange={setPastTreatment}
+            treatments={treatments}
+            sort={pastSort}
+            onSortChange={setPastSort}
+          />
+          {bookingsQuery.isLoading ? (
+            <p className="mt-4 text-sm text-foreground/70">Ładuję…</p>
+          ) : past.length === 0 ? (
+            <p className="mt-4 text-sm text-foreground/70">
+              {pastStatus !== "all" || pastPayment !== "all" || pastTreatment !== "all"
+                ? "Brak wizyt w historii spełniających wybrane filtry."
+                : "Brak wizyt w historii."}
+            </p>
+          ) : (
             <ul className="mt-4 space-y-4">
               {past.map((b) => (
                 <BookingCard key={b.id} booking={b} />
               ))}
             </ul>
-          </div>
-        )}
+          )}
+        </div>
 
         <p className="mt-12 text-xs text-foreground/60">
           Wizytę z portalu można odwołać najpóźniej {CANCEL_MIN_HOURS}h przed terminem. W pilnych przypadkach prosimy o kontakt z recepcją.
         </p>
       </div>
     </section>
+  );
+}
+
+function formatTreatmentSlug(slug: string) {
+  return slug
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function FilterBar({
+  status,
+  onStatusChange,
+  payment,
+  onPaymentChange,
+  treatment,
+  onTreatmentChange,
+  treatments,
+  sort,
+  onSortChange,
+}: {
+  status: string;
+  onStatusChange: (v: string) => void;
+  payment: string;
+  onPaymentChange: (v: string) => void;
+  treatment: string;
+  onTreatmentChange: (v: string) => void;
+  treatments: string[];
+  sort: "asc" | "desc";
+  onSortChange: (v: "asc" | "desc") => void;
+}) {
+  const hasFilters = status !== "all" || payment !== "all" || treatment !== "all";
+  return (
+    <div className="mt-4 flex flex-col gap-3 rounded-lg border border-border/70 bg-secondary/40 p-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:flex-wrap">
+        <label className="flex flex-col gap-1.5 text-xs font-medium text-foreground/70">
+          Status
+          <Select value={status} onValueChange={onStatusChange}>
+            <SelectTrigger className="h-9 w-full min-w-[10rem] bg-background sm:w-44">
+              <SelectValue placeholder="Wszystkie" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Wszystkie</SelectItem>
+              {Object.keys(STATUS_LABEL).map((key) => (
+                <SelectItem key={key} value={key}>
+                  {STATUS_LABEL[key]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </label>
+
+        <label className="flex flex-col gap-1.5 text-xs font-medium text-foreground/70">
+          Płatność
+          <Select value={payment} onValueChange={onPaymentChange}>
+            <SelectTrigger className="h-9 w-full min-w-[10rem] bg-background sm:w-44">
+              <SelectValue placeholder="Wszystkie" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Wszystkie</SelectItem>
+              {Object.keys(PAYMENT_LABEL).map((key) => (
+                <SelectItem key={key} value={key}>
+                  {PAYMENT_LABEL[key]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </label>
+
+        {treatments.length > 0 && (
+          <label className="flex flex-col gap-1.5 text-xs font-medium text-foreground/70">
+            Zabieg
+            <Select value={treatment} onValueChange={onTreatmentChange}>
+              <SelectTrigger className="h-9 w-full min-w-[10rem] bg-background sm:w-52">
+                <SelectValue placeholder="Wszystkie" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Wszystkie</SelectItem>
+                {treatments.map((t) => (
+                  <SelectItem key={t} value={t}>
+                    {formatTreatmentSlug(t)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </label>
+        )}
+
+        <button
+          type="button"
+          disabled={!hasFilters}
+          onClick={() => {
+            onStatusChange("all");
+            onPaymentChange("all");
+            onTreatmentChange("all");
+          }}
+          className="inline-flex h-9 items-center justify-center rounded-md border border-border px-3 text-sm text-foreground/80 hover:bg-background disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Wyczyść filtry
+        </button>
+      </div>
+
+      <label className="flex flex-col gap-1.5 text-xs font-medium text-foreground/70 sm:text-right">
+        Sortowanie
+        <Select value={sort} onValueChange={(v) => onSortChange(v as "asc" | "desc")}>
+          <SelectTrigger className="h-9 w-full bg-background sm:w-44">
+            <SelectValue placeholder="Data" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="asc">Od najwcześniejszej</SelectItem>
+            <SelectItem value="desc">Od najpóźniejszej</SelectItem>
+          </SelectContent>
+        </Select>
+      </label>
+    </div>
   );
 }
 
