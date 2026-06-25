@@ -1,5 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import {
+  getCreatorDraft,
+  saveCreatorDraft,
+  deleteCreatorDraft,
+} from "@/lib/creator-drafts.functions";
+
 
 export const Route = createFileRoute("/_authenticated/konto/postepowanie-pozabiegowe")({
   component: PostTreatmentCreator,
