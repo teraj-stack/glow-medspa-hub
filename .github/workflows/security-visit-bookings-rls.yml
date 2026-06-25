@@ -1,0 +1,45 @@
+name: Security — visit_bookings RLS
+
+# Weryfikuje, że anonimowy klient (anon key) nie ma żadnego dostępu do tabeli
+# `visit_bookings` (SELECT/UPDATE/DELETE), w tym do wrażliwych kolumn
+# (cancel_token, patient_email, stripe_*). Łapie też regresję polegającą na
+# dodaniu polityki SELECT bez scope na user_id.
+
+on:
+  pull_request:
+    paths:
+      - "supabase/migrations/**"
+      - "src/lib/visit-bookings.functions.ts"
+      - "src/test/security/visit-bookings-rls.test.ts"
+      - ".github/workflows/security-visit-bookings-rls.yml"
+  push:
+    branches: [main]
+    paths:
+      - "supabase/migrations/**"
+      - "src/lib/visit-bookings.functions.ts"
+      - "src/test/security/visit-bookings-rls.test.ts"
+      - ".github/workflows/security-visit-bookings-rls.yml"
+  schedule:
+    - cron: "15 6 * * *"
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: anon nie ma dostępu do visit_bookings
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit --no-fund
+
+      - name: Run security tests
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL || secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY || secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+        run: npx vitest run src/test/security/visit-bookings-rls.test.ts --reporter=verbose
