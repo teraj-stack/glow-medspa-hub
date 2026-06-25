@@ -45,6 +45,7 @@ import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as AuthenticatedAdminWebVitalsRouteImport } from './routes/_authenticated/admin/web-vitals'
+import { Route as AuthenticatedAdminUzytkownicyRouteImport } from './routes/_authenticated/admin/uzytkownicy'
 import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
 import { Route as AuthenticatedAdminRezerwacjeRouteImport } from './routes/_authenticated/admin/rezerwacje'
 import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
@@ -245,6 +246,12 @@ const AuthenticatedAdminWebVitalsRoute =
     path: '/web-vitals',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminUzytkownicyRoute =
+  AuthenticatedAdminUzytkownicyRouteImport.update({
+    id: '/uzytkownicy',
+    path: '/uzytkownicy',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminSeoRoute = AuthenticatedAdminSeoRouteImport.update({
   id: '/seo',
   path: '/seo',
@@ -363,6 +370,7 @@ export interface FileRoutesByFullPath {
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -412,6 +420,7 @@ export interface FileRoutesByTo {
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -465,6 +474,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/_authenticated/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/_authenticated/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/_authenticated/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -518,6 +528,7 @@ export interface FileRouteTypes {
     | '/admin/lekarze'
     | '/admin/rezerwacje'
     | '/admin/seo'
+    | '/admin/uzytkownicy'
     | '/admin/web-vitals'
     | '/lovable/email/suppression'
     | '/admin/'
@@ -567,6 +578,7 @@ export interface FileRouteTypes {
     | '/admin/lekarze'
     | '/admin/rezerwacje'
     | '/admin/seo'
+    | '/admin/uzytkownicy'
     | '/admin/web-vitals'
     | '/lovable/email/suppression'
     | '/admin'
@@ -619,6 +631,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/lekarze'
     | '/_authenticated/admin/rezerwacje'
     | '/_authenticated/admin/seo'
+    | '/_authenticated/admin/uzytkownicy'
     | '/_authenticated/admin/web-vitals'
     | '/lovable/email/suppression'
     | '/_authenticated/admin/'
@@ -929,6 +942,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminWebVitalsRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/uzytkownicy': {
+      id: '/_authenticated/admin/uzytkownicy'
+      path: '/uzytkownicy'
+      fullPath: '/admin/uzytkownicy'
+      preLoaderRoute: typeof AuthenticatedAdminUzytkownicyRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/seo': {
       id: '/_authenticated/admin/seo'
       path: '/seo'
@@ -1036,6 +1056,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminLekarzeRoute: typeof AuthenticatedAdminLekarzeRoute
   AuthenticatedAdminRezerwacjeRoute: typeof AuthenticatedAdminRezerwacjeRoute
   AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
+  AuthenticatedAdminUzytkownicyRoute: typeof AuthenticatedAdminUzytkownicyRoute
   AuthenticatedAdminWebVitalsRoute: typeof AuthenticatedAdminWebVitalsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
@@ -1047,6 +1068,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
     AuthenticatedAdminRezerwacjeRoute: AuthenticatedAdminRezerwacjeRoute,
     AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,
+    AuthenticatedAdminUzytkownicyRoute: AuthenticatedAdminUzytkownicyRoute,
     AuthenticatedAdminWebVitalsRoute: AuthenticatedAdminWebVitalsRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   }
