@@ -107,6 +107,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         "data-async-font": "true",
       } as { rel: string; href: string },
     ],
+    scripts: [
+      {
+        children:
+          "document.querySelectorAll('link[data-async-font]').forEach(function(l){l.media='all'});",
+      },
+    ],
+  }),
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
