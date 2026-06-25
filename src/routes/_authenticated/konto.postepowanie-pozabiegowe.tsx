@@ -445,13 +445,16 @@ ${panelIntegrations}
               </button>
             ) : (
               <button
-                onClick={() => setStep(0)}
+                onClick={reset}
                 className="rounded-md border border-border px-4 py-2 text-sm"
               >
                 Zacznij od nowa
               </button>
             )}
           </div>
+          <p className="mt-2 text-right text-xs text-muted-foreground">
+            {savedAt ? `Ostatni autosave: ${savedAt.toLocaleTimeString("pl-PL")}` : "Autosave włączony"}
+          </p>
         </div>
       </div>
     </div>
