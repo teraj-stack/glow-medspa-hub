@@ -106,6 +106,15 @@ function PortalPage() {
     return () => { alive = false; };
   }, []);
 
+  // Reset pagination when filters/sort change
+  useEffect(() => {
+    setUpcomingPage(1);
+  }, [upcomingStatus, upcomingPayment, upcomingTreatment, upcomingSort]);
+  useEffect(() => {
+    setPastPage(1);
+  }, [pastStatus, pastPayment, pastTreatment, pastSort]);
+
+
   // Auto-claim by email once on mount, then load bookings
   const autoClaim = useMutation({
     mutationFn: () => claimByEmailFn(),
