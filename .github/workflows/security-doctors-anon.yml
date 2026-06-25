@@ -3,7 +3,8 @@ name: Security — Doctors anon access
 # Weryfikuje, że anonimowy klient (anon key) nie może odczytać tabeli `doctors`
 # ani widoku `public_doctors`, oraz że publiczny endpoint /lekarze zwraca
 # wyłącznie pola z białej listy (bez google_calendar_id, default_price_cents
-# itp.). Testy idą po realnej bazie Lovable Cloud — anon key jest publiczny.
+# itp.). URL server-fn `listActiveDoctors` jest pobierany AUTOMATYCZNIE
+# z manifestu buildu — bez ręcznego wklejania hash-ID.
 
 on:
   pull_request:
@@ -12,6 +13,7 @@ on:
       - "src/lib/doctors.functions.ts"
       - "src/routes/lekarze*.tsx"
       - "src/test/security/doctors-anon-access.test.ts"
+      - "scripts/resolve-server-fn-url.mjs"
       - ".github/workflows/security-doctors-anon.yml"
   push:
     branches: [main]
@@ -20,6 +22,7 @@ on:
       - "src/lib/doctors.functions.ts"
       - "src/routes/lekarze*.tsx"
       - "src/test/security/doctors-anon-access.test.ts"
+      - "scripts/resolve-server-fn-url.mjs"
       - ".github/workflows/security-doctors-anon.yml"
   schedule:
     - cron: "0 6 * * *"
@@ -40,12 +43,29 @@ jobs:
       - name: Install dependencies
         run: npm ci --prefer-offline --no-audit --no-fund
 
-      - name: Run security tests
+      # Build produkuje `dist/server/__*tanstack-start-server-fn-resolver*.mjs`
+      # z mapą hash-ID → nazwa server-fn. Skrypt rozwiązujący URL czyta z niej.
+      - name: Build (produces server-fn manifest)
+        run: npm run build:dev
         env:
-          # Anon key jest publiczny — bezpieczny w env CI.
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL || secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY || secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
-          # Pełny URL server-fn listActiveDoctors (opcjonalnie). Jeśli pusty,
-          # test białej listy pól zostaje pominięty.
-          PUBLIC_DOCTORS_ENDPOINT: ${{ vars.PUBLIC_DOCTORS_ENDPOINT }}
+
+      # Rozwiązuje URL automatycznie i ZAPISUJE go do $GITHUB_ENV jako
+      # PUBLIC_DOCTORS_ENDPOINT — kolejne kroki widzą go bez ręcznej konfiguracji.
+      # Hash-ID jest deterministyczny dla danej rewizji kodu, więc URL pasuje
+      # do aktualnie opublikowanego builda main (sync GitHub ↔ Lovable).
+      - name: Resolve listActiveDoctors URL
+        run: |
+          node scripts/resolve-server-fn-url.mjs listActiveDoctors \
+            --base "${PUBLISHED_BASE_URL:-https://www.bmclinics.dev}" \
+            --env PUBLIC_DOCTORS_ENDPOINT
+        env:
+          PUBLISHED_BASE_URL: ${{ vars.PUBLISHED_BASE_URL }}
+
+      - name: Run security tests
+        env:
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL || secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY || secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          # PUBLIC_DOCTORS_ENDPOINT odziedziczone z poprzedniego kroku przez $GITHUB_ENV.
         run: npx vitest run src/test/security/doctors-anon-access.test.ts --reporter=verbose
