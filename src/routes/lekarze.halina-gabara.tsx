@@ -7,6 +7,9 @@ import { getDoctorBySlug, saveDoctorPortrait } from "@/lib/doctors.functions";
 import { checkIsAdmin } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
 import halinaPortrait from "@/assets/halina-portrait-960.webp.asset.json";
+import halaVideoMp4 from "@/assets/hala-tlo.mp4.asset.json";
+import halaVideoWebm from "@/assets/hala-tlo.webm.asset.json";
+import halaVideoPoster from "@/assets/hala-tlo-poster.jpg.asset.json";
 
 function useIsAdmin() {
   return useQuery({
@@ -448,7 +451,31 @@ function HalinaGabaraPage() {
   return (
     <main className="bg-background">
       {/* Hero */}
-      <section className="container-luxury pt-16 pb-12 md:pt-24 md:pb-20 lg:pt-28 lg:pb-24">
+      <section className="relative isolate overflow-hidden pt-16 pb-12 md:pt-24 md:pb-20 lg:pt-28 lg:pb-24">
+        <video
+          className="pointer-events-none absolute inset-0 -z-20 size-full object-cover motion-reduce:hidden"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          poster={halaVideoPoster.url}
+          aria-hidden="true"
+        >
+          <source src={halaVideoWebm.url} type="video/webm" />
+          <source src={halaVideoMp4.url} type="video/mp4" />
+        </video>
+        <img
+          src={halaVideoPoster.url}
+          alt=""
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-20 hidden size-full object-cover motion-reduce:block"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-background/95 via-background/85 to-background/60"
+        />
+        <div className="container-luxury">
         <nav aria-label="Okruszki" className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
           <Link to="/lekarze" className="transition-colors hover:text-foreground">
             Zespół kliniki
@@ -484,6 +511,7 @@ function HalinaGabaraPage() {
               />
             </div>
           </div>
+        </div>
         </div>
       </section>
 
