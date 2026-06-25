@@ -209,6 +209,23 @@ function PortalPage() {
     [bookingsQuery.data, pastStatus, pastPayment, pastTreatment, pastSort],
   );
 
+  const upcomingTotal = upcoming.length;
+  const upcomingTotalPages = Math.max(1, Math.ceil(upcomingTotal / upcomingPageSize));
+  const upcomingPageSafe = Math.min(upcomingPage, upcomingTotalPages);
+  const upcomingPaged = upcoming.slice(
+    (upcomingPageSafe - 1) * upcomingPageSize,
+    upcomingPageSafe * upcomingPageSize,
+  );
+
+  const pastTotal = past.length;
+  const pastTotalPages = Math.max(1, Math.ceil(pastTotal / pastPageSize));
+  const pastPageSafe = Math.min(pastPage, pastTotalPages);
+  const pastPaged = past.slice(
+    (pastPageSafe - 1) * pastPageSize,
+    pastPageSafe * pastPageSize,
+  );
+
+
 
   async function onSignOut() {
     await supabase.auth.signOut();
