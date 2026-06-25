@@ -217,7 +217,12 @@ function DoctorCard({ doctor }: { doctor: { id: string; slug: string; full_name:
 }
 
 function LekarzePage() {
-  const { data: doctors } = useSuspenseQuery(doctorsQuery);
+  const { data: allDoctors } = useSuspenseQuery(doctorsQuery);
+  const doctors = allDoctors.filter(
+    (d) => d.slug !== "anna-bujok" && !/anna\s+bujok/i.test(d.full_name),
+  );
+
+
 
   return (
     <main className="bg-background">

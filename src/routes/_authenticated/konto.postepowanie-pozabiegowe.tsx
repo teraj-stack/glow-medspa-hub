@@ -1,5 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import {
+  getCreatorDraft,
+  saveCreatorDraft,
+  deleteCreatorDraft,
+} from "@/lib/creator-drafts.functions";
+
 
 export const Route = createFileRoute("/_authenticated/konto/postepowanie-pozabiegowe")({
   component: PostTreatmentCreator,
@@ -123,11 +130,17 @@ function clearDraft() {
   window.localStorage.removeItem(STORAGE_KEY);
 }
 
+const DRAFT_KEY = "postepowanie-pozabiegowe";
+
 function PostTreatmentCreator() {
   const initial = useMemo(() => loadDraft(), []);
+  const fetchDraft = useServerFn(getCreatorDraft);
+  const persistDraft = useServerFn(saveCreatorDraft);
+  const removeDraft = useServerFn(deleteCreatorDraft);
 
   const [step, setStep] = useState<Step>(initial.step);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
+  const [syncState, setSyncState] = useState<"idle" | "syncing" | "synced" | "error">("idle");
 
   const [selected, setSelected] = useState<LaserKey[]>(initial.selected);
   const [otherName, setOtherName] = useState(initial.otherName);
@@ -147,6 +160,49 @@ function PostTreatmentCreator() {
 
   const [panelFeatures, setPanelFeatures] = useState(initial.panelFeatures);
   const [panelIntegrations, setPanelIntegrations] = useState(initial.panelIntegrations);
+
+  const hydratedRef = useRef(false);
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Hydrate from Supabase on mount — server wins (cross-device).
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetchDraft({ data: { draftKey: DRAFT_KEY } });
+        if (cancelled || !res?.data) {
+          hydratedRef.current = true;
+          return;
+        }
+        const r = res.data as Partial<SavedDraft>;
+        const merged: SavedDraft = { ...defaultDraft, ...r };
+        setStep(merged.step);
+        setSelected(merged.selected);
+        setOtherName(merged.otherName);
+        setRouteSlug(merged.routeSlug);
+        setAudience(merged.audience);
+        setContraindications(merged.contraindications);
+        setH48Goals(merged.h48Goals);
+        setH48Do(merged.h48Do);
+        setH48Dont(merged.h48Dont);
+        setH48Flags(merged.h48Flags);
+        setD14Phases(merged.d14Phases);
+        setD14Care(merged.d14Care);
+        setD14Checklist(merged.d14Checklist);
+        setPanelFeatures(merged.panelFeatures);
+        setPanelIntegrations(merged.panelIntegrations);
+        if (res.updatedAt) setSavedAt(new Date(res.updatedAt));
+      } catch {
+        // ignore — fallback to local draft
+      } finally {
+        hydratedRef.current = true;
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const draft: SavedDraft = {
@@ -168,6 +224,21 @@ function PostTreatmentCreator() {
     };
     saveDraft(draft);
     setSavedAt(new Date());
+
+    // Debounced cloud sync — only after we've hydrated from server.
+    if (!hydratedRef.current) return;
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    setSyncState("syncing");
+    saveTimerRef.current = setTimeout(async () => {
+      try {
+        await persistDraft({
+          data: { draftKey: DRAFT_KEY, data: draft as unknown as Record<string, never> },
+        });
+        setSyncState("synced");
+      } catch {
+        setSyncState("error");
+      }
+    }, 800);
   }, [
     step,
     selected,
@@ -184,10 +255,16 @@ function PostTreatmentCreator() {
     d14Checklist,
     panelFeatures,
     panelIntegrations,
+    persistDraft,
   ]);
 
-  const reset = () => {
+  const reset = async () => {
     clearDraft();
+    try {
+      await removeDraft({ data: { draftKey: DRAFT_KEY } });
+    } catch {
+      // ignore
+    }
     setStep(0);
     setSelected([]);
     setOtherName("");
@@ -204,6 +281,7 @@ function PostTreatmentCreator() {
     setPanelFeatures(defaultDraft.panelFeatures);
     setPanelIntegrations(defaultDraft.panelIntegrations);
   };
+
 
   const laserList = useMemo(() => {
     return selected
@@ -454,6 +532,12 @@ ${panelIntegrations}
           </div>
           <p className="mt-2 text-right text-xs text-muted-foreground">
             {savedAt ? `Ostatni autosave: ${savedAt.toLocaleTimeString("pl-PL")}` : "Autosave włączony"}
+            {" · "}
+            {syncState === "syncing" && "synchronizacja z chmurą…"}
+            {syncState === "synced" && "zsynchronizowano z kontem"}
+            {syncState === "error" && "błąd synchronizacji (zapisano lokalnie)"}
+            {syncState === "idle" && "tylko lokalnie"}
+
           </p>
         </div>
       </div>
