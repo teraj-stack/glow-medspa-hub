@@ -45,6 +45,7 @@ import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authentic
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as AuthenticatedKontoWizytyRouteImport } from './routes/_authenticated/konto.wizyty'
+import { Route as AuthenticatedKontoPostepowaniePozabiegoweRouteImport } from './routes/_authenticated/konto.postepowanie-pozabiegowe'
 import { Route as AuthenticatedAdminWebVitalsRouteImport } from './routes/_authenticated/admin/web-vitals'
 import { Route as AuthenticatedAdminUzytkownicyRouteImport } from './routes/_authenticated/admin/uzytkownicy'
 import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
@@ -247,6 +248,12 @@ const AuthenticatedKontoWizytyRoute =
     path: '/konto/wizyty',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedKontoPostepowaniePozabiegoweRoute =
+  AuthenticatedKontoPostepowaniePozabiegoweRouteImport.update({
+    id: '/konto/postepowanie-pozabiegowe',
+    path: '/konto/postepowanie-pozabiegowe',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminWebVitalsRoute =
   AuthenticatedAdminWebVitalsRouteImport.update({
     id: '/web-vitals',
@@ -379,6 +386,7 @@ export interface FileRoutesByFullPath {
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
+  '/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
@@ -430,6 +438,7 @@ export interface FileRoutesByTo {
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
+  '/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
@@ -485,6 +494,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/_authenticated/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/_authenticated/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
+  '/_authenticated/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   '/_authenticated/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
@@ -540,6 +550,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/uzytkownicy'
     | '/admin/web-vitals'
+    | '/konto/postepowanie-pozabiegowe'
     | '/konto/wizyty'
     | '/lovable/email/suppression'
     | '/admin/'
@@ -591,6 +602,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/uzytkownicy'
     | '/admin/web-vitals'
+    | '/konto/postepowanie-pozabiegowe'
     | '/konto/wizyty'
     | '/lovable/email/suppression'
     | '/admin'
@@ -645,6 +657,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/seo'
     | '/_authenticated/admin/uzytkownicy'
     | '/_authenticated/admin/web-vitals'
+    | '/_authenticated/konto/postepowanie-pozabiegowe'
     | '/_authenticated/konto/wizyty'
     | '/lovable/email/suppression'
     | '/_authenticated/admin/'
@@ -955,6 +968,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedKontoWizytyRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/konto/postepowanie-pozabiegowe': {
+      id: '/_authenticated/konto/postepowanie-pozabiegowe'
+      path: '/konto/postepowanie-pozabiegowe'
+      fullPath: '/konto/postepowanie-pozabiegowe'
+      preLoaderRoute: typeof AuthenticatedKontoPostepowaniePozabiegoweRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/web-vitals': {
       id: '/_authenticated/admin/web-vitals'
       path: '/web-vitals'
@@ -1100,11 +1120,14 @@ const AuthenticatedAdminRouteRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
+  AuthenticatedKontoPostepowaniePozabiegoweRoute: typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   AuthenticatedKontoWizytyRoute: typeof AuthenticatedKontoWizytyRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
+  AuthenticatedKontoPostepowaniePozabiegoweRoute:
+    AuthenticatedKontoPostepowaniePozabiegoweRoute,
   AuthenticatedKontoWizytyRoute: AuthenticatedKontoWizytyRoute,
 }
 
