@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
-import { BookingForm } from "@/components/site/BookingForm";
+import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { getTechnology, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check, MapPin, Sparkles, ShieldCheck, Clock, Heart } from "lucide-react";
@@ -585,7 +585,7 @@ function PikosekundowyPage() {
               <div>· Zalecenia pre- i post-procedure</div>
             </div>
           </div>
-          <BookingForm defaultTechnology={TECH_SLUG} />
+          <BookingFormLazy defaultTechnology={TECH_SLUG} />
         </div>
       </section>
     </>
