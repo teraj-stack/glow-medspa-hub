@@ -1,6 +1,6 @@
 # Raport jakości treści
 
-Wygenerowano: 2026-06-25T01:15:39.238Z
+Wygenerowano: 2026-06-25T01:16:07.928Z
 Przeskanowanych plików tras: 41
 
 | Podstrona | Fragmentów | Urwane | Podwójne spacje | Brak kropki | % problemów |
