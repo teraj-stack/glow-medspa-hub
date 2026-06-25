@@ -604,6 +604,7 @@ export type Database = {
           treatment_slug: string | null
           updated_at: string
           user_agent: string | null
+          user_id: string | null
         }
         Insert: {
           amount_cents?: number | null
@@ -633,6 +634,7 @@ export type Database = {
           treatment_slug?: string | null
           updated_at?: string
           user_agent?: string | null
+          user_id?: string | null
         }
         Update: {
           amount_cents?: number | null
@@ -662,6 +664,7 @@ export type Database = {
           treatment_slug?: string | null
           updated_at?: string
           user_agent?: string | null
+          user_id?: string | null
         }
         Relationships: [
           {
