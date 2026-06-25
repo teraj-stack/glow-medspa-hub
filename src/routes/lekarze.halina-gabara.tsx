@@ -516,6 +516,21 @@ function HalinaGabaraPage() {
               marketingowym. Liczy się dobrze postawiona diagnoza, technika
               wykonania i przewidywalny efekt w czasie.
             </p>
+            <div className="pt-4">
+              <video
+                className="aspect-square w-full max-w-md rounded-2xl bg-muted object-cover shadow-sm"
+                poster={halaTloPoster.url}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="none"
+                aria-label="Halina Gabara — wideo prezentacyjne"
+              >
+                <source src={halaTloWebm.url} type="video/webm" />
+                <source src={halaTloMp4.url} type="video/mp4" />
+              </video>
+            </div>
           </div>
         </div>
       </section>
