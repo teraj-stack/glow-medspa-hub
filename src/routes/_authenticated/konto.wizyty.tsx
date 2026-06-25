@@ -220,20 +220,21 @@ function PortalPage() {
   );
 
   const upcomingTotal = upcoming.length;
-  const upcomingTotalPages = Math.max(1, Math.ceil(upcomingTotal / upcomingPageSize));
+  const upcomingTotalPages = Math.max(1, Math.ceil(upcomingTotal / pageSize));
   const upcomingPageSafe = Math.min(upcomingPage, upcomingTotalPages);
   const upcomingPaged = upcoming.slice(
-    (upcomingPageSafe - 1) * upcomingPageSize,
-    upcomingPageSafe * upcomingPageSize,
+    (upcomingPageSafe - 1) * pageSize,
+    upcomingPageSafe * pageSize,
   );
 
   const pastTotal = past.length;
-  const pastTotalPages = Math.max(1, Math.ceil(pastTotal / pastPageSize));
+  const pastTotalPages = Math.max(1, Math.ceil(pastTotal / pageSize));
   const pastPageSafe = Math.min(pastPage, pastTotalPages);
   const pastPaged = past.slice(
-    (pastPageSafe - 1) * pastPageSize,
-    pastPageSafe * pastPageSize,
+    (pastPageSafe - 1) * pageSize,
+    pastPageSafe * pageSize,
   );
+
 
   async function onSignOut() {
     await supabase.auth.signOut();
