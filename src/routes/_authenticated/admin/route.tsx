@@ -1,11 +1,12 @@
 import { createFileRoute, Outlet, Link, redirect, useRouterState } from "@tanstack/react-router";
-import { checkIsAdmin } from "@/lib/admin.functions";
+import { checkAdminPanelAccess } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   beforeLoad: async () => {
     try {
-      const { isAdmin } = await checkIsAdmin();
-      if (!isAdmin) throw redirect({ to: "/" });
+      const { hasAccess } = await checkAdminPanelAccess();
+      if (!hasAccess) throw redirect({ to: "/" });
+      return { adminAccess: true };
     } catch (e: any) {
       if (e?.isRedirect) throw e;
       throw redirect({ to: "/" });
@@ -23,6 +24,7 @@ function AdminLayout() {
     { to: "/admin/cennik", label: "Cennik" },
     { to: "/admin/seo", label: "SEO" },
     { to: "/admin/web-vitals", label: "Web Vitals" },
+    { to: "/admin/audyt", label: "Audyt" },
   ];
   return (
     <div className="min-h-screen bg-background">
