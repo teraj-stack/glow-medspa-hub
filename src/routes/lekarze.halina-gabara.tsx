@@ -597,7 +597,9 @@ function HalinaGabaraPage() {
             <LazyVideo
               className="aspect-square w-full max-w-md rounded-2xl bg-muted object-cover shadow-sm"
               poster={halaTloPoster.url}
-              ariaLabel="Halina Gabara — wideo prezentacyjne"
+              ariaLabel="Wideo prezentacyjne dr Haliny Gabary"
+              description="Krótki, wyciszony klip prezentujący dr Halinę Gabarę w gabinecie zabiegowym kliniki w Siedlcach. Materiał nie zawiera ścieżki dźwiękowej ani istotnych informacji tekstowych."
+              caption="Wideo bez dźwięku. Użyj przycisku odtwarzania (Spacja lub Enter), aby uruchomić materiał."
               sources={[
                 { src: halaTloWebm.url, type: "video/webm" },
                 { src: halaTloMp4.url, type: "video/mp4" },
