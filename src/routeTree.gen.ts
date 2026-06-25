@@ -44,6 +44,7 @@ import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as AuthenticatedKontoWizytyRouteImport } from './routes/_authenticated/konto.wizyty'
 import { Route as AuthenticatedAdminWebVitalsRouteImport } from './routes/_authenticated/admin/web-vitals'
 import { Route as AuthenticatedAdminUzytkownicyRouteImport } from './routes/_authenticated/admin/uzytkownicy'
 import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
@@ -240,6 +241,12 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedKontoWizytyRoute =
+  AuthenticatedKontoWizytyRouteImport.update({
+    id: '/konto/wizyty',
+    path: '/konto/wizyty',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedAdminWebVitalsRoute =
   AuthenticatedAdminWebVitalsRouteImport.update({
     id: '/web-vitals',
@@ -372,6 +379,7 @@ export interface FileRoutesByFullPath {
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
+  '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
@@ -422,6 +430,7 @@ export interface FileRoutesByTo {
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
+  '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
@@ -476,6 +485,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
   '/_authenticated/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/_authenticated/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
+  '/_authenticated/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
@@ -530,6 +540,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/uzytkownicy'
     | '/admin/web-vitals'
+    | '/konto/wizyty'
     | '/lovable/email/suppression'
     | '/admin/'
     | '/api/public/bookings/cancel'
@@ -580,6 +591,7 @@ export interface FileRouteTypes {
     | '/admin/seo'
     | '/admin/uzytkownicy'
     | '/admin/web-vitals'
+    | '/konto/wizyty'
     | '/lovable/email/suppression'
     | '/admin'
     | '/api/public/bookings/cancel'
@@ -633,6 +645,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/seo'
     | '/_authenticated/admin/uzytkownicy'
     | '/_authenticated/admin/web-vitals'
+    | '/_authenticated/konto/wizyty'
     | '/lovable/email/suppression'
     | '/_authenticated/admin/'
     | '/api/public/bookings/cancel'
@@ -935,6 +948,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/konto/wizyty': {
+      id: '/_authenticated/konto/wizyty'
+      path: '/konto/wizyty'
+      fullPath: '/konto/wizyty'
+      preLoaderRoute: typeof AuthenticatedKontoWizytyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/web-vitals': {
       id: '/_authenticated/admin/web-vitals'
       path: '/web-vitals'
@@ -1080,10 +1100,12 @@ const AuthenticatedAdminRouteRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRouteRoute: typeof AuthenticatedAdminRouteRouteWithChildren
+  AuthenticatedKontoWizytyRoute: typeof AuthenticatedKontoWizytyRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRouteRoute: AuthenticatedAdminRouteRouteWithChildren,
+  AuthenticatedKontoWizytyRoute: AuthenticatedKontoWizytyRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

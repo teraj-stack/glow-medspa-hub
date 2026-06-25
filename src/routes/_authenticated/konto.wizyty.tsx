@@ -156,7 +156,7 @@ function PortalPage() {
         <SectionHeading
           eyebrow="Portal pacjenta"
           title="Moje wizyty"
-          subtitle={email ? `Zalogowano jako ${email}` : undefined}
+          description={email ? `Zalogowano jako ${email}` : undefined}
         />
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
