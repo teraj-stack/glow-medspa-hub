@@ -104,6 +104,7 @@ function AdminDoctorsPage() {
           onClose={() => setEditing(null)}
           onSaved={() => {
             qc.invalidateQueries({ queryKey: ["admin", "doctors"] });
+            qc.invalidateQueries({ queryKey: ["public-doctors"] });
             setEditing(null);
           }}
         />
