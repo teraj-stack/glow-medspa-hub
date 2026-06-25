@@ -106,6 +106,23 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
+            {isAuthed ? (
+              <Link
+                to="/konto/wizyty"
+                onClick={() => setOpen(false)}
+                className="rounded-md px-2 py-3 text-base text-foreground/90 hover:bg-secondary"
+              >
+                Moje wizyty
+              </Link>
+            ) : (
+              <Link
+                to="/auth"
+                onClick={() => setOpen(false)}
+                className="rounded-md px-2 py-3 text-base text-foreground/90 hover:bg-secondary"
+              >
+                Zaloguj
+              </Link>
+            )}
             <Link
               to="/konsultacja"
               onClick={() => setOpen(false)}
