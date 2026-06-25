@@ -389,10 +389,10 @@ function PortalPage() {
                 page={pastPageSafe}
                 totalPages={pastTotalPages}
                 totalItems={pastTotal}
-                pageSize={pastPageSize}
+                pageSize={pageSize}
                 pageSizeOptions={PAGE_SIZE_OPTIONS}
                 onPageChange={setPastPage}
-                onPageSizeChange={setPastPageSize}
+                onPageSizeChange={setPageSize}
               />
             </>
           )}
