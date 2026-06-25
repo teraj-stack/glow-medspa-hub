@@ -198,6 +198,7 @@ function DoctorRow({ doctor, onEdit }: { doctor: Doctor; onEdit: () => void }) {
               try {
                 await del({ data: { id: doctor.id } });
                 qc.invalidateQueries({ queryKey: ["admin", "doctors"] });
+                qc.invalidateQueries({ queryKey: ["public-doctors"] });
                 toast.success("Usunięto");
               } catch (e: any) {
                 toast.error(e?.message ?? "Błąd usuwania");
