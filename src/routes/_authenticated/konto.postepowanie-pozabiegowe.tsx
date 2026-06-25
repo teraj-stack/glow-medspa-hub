@@ -582,7 +582,34 @@ ${panelIntegrations}
             </section>
           )}
 
-          <div className="mt-8 flex justify-between border-t border-border pt-4">
+          {conflict && (
+            <div className="mt-6 rounded-md border border-amber-500/50 bg-amber-500/10 p-4 text-sm">
+              <p className="font-medium text-foreground">
+                Wykryto inną wersję draftu na {conflict.chosen === "cloud" ? "tym urządzeniu" : "Twoim koncie"}.
+              </p>
+              <p className="mt-1 text-muted-foreground">
+                Aktualnie pokazujemy nowszą wersję ({conflict.chosen === "cloud" ? "z chmury" : "z tego urządzenia"})
+                z {formatStamp(conflict.chosen === "cloud" ? cloudSavedAt : localSavedAt)}.
+                Druga wersja pochodzi z {formatStamp(conflict.otherAt)}.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  onClick={switchToOtherVersion}
+                  className="rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium"
+                >
+                  Załaduj wersję z {formatStamp(conflict.otherAt)}
+                </button>
+                <button
+                  onClick={() => setConflict(null)}
+                  className="rounded-md px-3 py-1.5 text-xs text-muted-foreground"
+                >
+                  Zachowaj obecną
+                </button>
+              </div>
+            </div>
+          )}
+
+          <div className="mt-8 flex flex-wrap justify-between gap-2 border-t border-border pt-4">
             <button
               disabled={step === 0}
               onClick={() => setStep((s) => Math.max(0, s - 1) as Step)}
@@ -590,32 +617,53 @@ ${panelIntegrations}
             >
               ← Wstecz
             </button>
-            {step < 5 ? (
+            <div className="flex flex-wrap gap-2">
               <button
-                disabled={!canNext()}
-                onClick={() => setStep((s) => Math.min(5, s + 1) as Step)}
-                className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-40"
+                onClick={saveNow}
+                disabled={syncState === "syncing"}
+                className="rounded-md border border-border px-4 py-2 text-sm disabled:opacity-50"
+                title="Wymuś natychmiastową synchronizację z kontem"
               >
-                Dalej →
+                Zapisz teraz
               </button>
-            ) : (
               <button
-                onClick={reset}
-                className="rounded-md border border-border px-4 py-2 text-sm"
+                onClick={deleteEverywhere}
+                className="rounded-md border border-destructive/60 px-4 py-2 text-sm text-destructive"
+                title="Usuń draft z tego urządzenia i z konta"
               >
-                Zacznij od nowa
+                Usuń zapis
               </button>
-            )}
+              {step < 5 ? (
+                <button
+                  disabled={!canNext()}
+                  onClick={() => setStep((s) => Math.min(5, s + 1) as Step)}
+                  className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-40"
+                >
+                  Dalej →
+                </button>
+              ) : (
+                <button
+                  onClick={reset}
+                  className="rounded-md border border-border px-4 py-2 text-sm"
+                >
+                  Zacznij od nowa
+                </button>
+              )}
+            </div>
           </div>
-          <p className="mt-2 text-right text-xs text-muted-foreground">
-            {savedAt ? `Ostatni autosave: ${savedAt.toLocaleTimeString("pl-PL")}` : "Autosave włączony"}
-            {" · "}
-            {syncState === "syncing" && "synchronizacja z chmurą…"}
-            {syncState === "synced" && "zsynchronizowano z kontem"}
-            {syncState === "error" && "błąd synchronizacji (zapisano lokalnie)"}
-            {syncState === "idle" && "tylko lokalnie"}
+          <div className="mt-2 flex flex-wrap justify-end gap-x-3 text-right text-xs text-muted-foreground">
+            <span>Lokalnie: {formatStamp(localSavedAt)}</span>
+            <span>·</span>
+            <span>Na koncie: {formatStamp(cloudSavedAt)}</span>
+            <span>·</span>
+            <span>
+              {syncState === "syncing" && "synchronizacja z chmurą…"}
+              {syncState === "synced" && "zsynchronizowano"}
+              {syncState === "error" && "błąd synchronizacji (zapisano lokalnie)"}
+              {syncState === "idle" && (cloudSavedAt ? "w synchronizacji" : "tylko lokalnie")}
+            </span>
+          </div>
 
-          </p>
         </div>
       </div>
     </div>
