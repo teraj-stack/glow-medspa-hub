@@ -271,11 +271,24 @@ function PortalPage() {
         {/* Upcoming */}
         <div className="mt-10">
           <h2 className="text-lg font-medium">Nadchodzące wizyty</h2>
+          <FilterBar
+            status={upcomingStatus}
+            onStatusChange={setUpcomingStatus}
+            payment={upcomingPayment}
+            onPaymentChange={setUpcomingPayment}
+            treatment={upcomingTreatment}
+            onTreatmentChange={setUpcomingTreatment}
+            treatments={treatments}
+            sort={upcomingSort}
+            onSortChange={setUpcomingSort}
+          />
           {bookingsQuery.isLoading ? (
             <p className="mt-4 text-sm text-foreground/70">Ładuję…</p>
           ) : upcoming.length === 0 ? (
             <p className="mt-4 text-sm text-foreground/70">
-              Brak nadchodzących wizyt powiązanych z Twoim kontem.
+              {upcomingStatus !== "all" || upcomingPayment !== "all" || upcomingTreatment !== "all"
+                ? "Brak nadchodzących wizyt spełniających wybrane filtry."
+                : "Brak nadchodzących wizyt powiązanych z Twoim kontem."}
             </p>
           ) : (
             <ul className="mt-4 space-y-4">
@@ -294,6 +307,7 @@ function PortalPage() {
             </ul>
           )}
         </div>
+
 
         {/* Past */}
         {past.length > 0 && (
