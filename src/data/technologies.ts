@@ -2,9 +2,27 @@
  * Katalog technologii — opisy WYŁĄCZNIE techniczne (zgodność z prawem reklamy
  * wyrobów medycznych). Nie używamy nazw handlowych urządzeń w treści publicznej.
  */
-import hifuMechanizmImg from "@/assets/hifu-mechanizm.jpg";
+import hifuAvif640 from "@/assets/hifu-mechanizm-640.avif.asset.json";
+import hifuAvif960 from "@/assets/hifu-mechanizm-960.avif.asset.json";
+import hifuAvif1280 from "@/assets/hifu-mechanizm-1280.avif.asset.json";
+import hifuWebp640 from "@/assets/hifu-mechanizm-640.webp.asset.json";
+import hifuWebp960 from "@/assets/hifu-mechanizm-960.webp.asset.json";
+import hifuWebp1280 from "@/assets/hifu-mechanizm-1280.webp.asset.json";
+import hifuJpg1280 from "@/assets/hifu-mechanizm-1280.jpg.asset.json";
+
 export type PricingItem = { label: string; price: number | null; note?: string };
 export type FaqItem = { q: string; a: string };
+
+export type ResponsiveImage = {
+  avifSrcSet: string;
+  webpSrcSet: string;
+  fallbackSrc: string;
+  width: number;
+  height: number;
+  sizes: string;
+  alt: string;
+  caption?: string;
+};
 
 export type Technology = {
   slug: string;
@@ -12,7 +30,7 @@ export type Technology = {
   category: "twarz" | "ciało" | "intymność" | "skóra" | "modelowanie";
   shortDesc: string;
   mechanism: string;       // jak działa
-  mechanismImage?: { src: string; alt: string; caption?: string };
+  mechanismImage?: ResponsiveImage;
   applicators?: string[];  // głowice / tryby
   indications: string[];
   contraindications?: string[];
