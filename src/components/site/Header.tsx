@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import logoBmc from "@/assets/bujok-medical-logo.png.asset.json";
+import logoBmcUrl from "@/assets/bujok-medical-logo.webp";
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
