@@ -39,7 +39,7 @@ const SENSITIVE_COLUMNS = [
   "user_id",
 ];
 
-function headers() {
+function headers(extra: Record<string, string> = {}) {
   if (!SUPABASE_URL || !ANON_KEY) {
     throw new Error("Missing VITE_SUPABASE_URL / VITE_SUPABASE_PUBLISHABLE_KEY env");
   }
@@ -48,6 +48,7 @@ function headers() {
     Authorization: `Bearer ${ANON_KEY}`,
     Accept: "application/json",
     "Content-Type": "application/json",
+    ...extra,
   };
 }
 
@@ -55,6 +56,7 @@ async function anonRequest(
   method: "GET" | "POST" | "PATCH" | "DELETE",
   path: string,
   body?: unknown,
+  extraHeaders: Record<string, string> = {},
 ) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     method,
