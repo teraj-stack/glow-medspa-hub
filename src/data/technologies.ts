@@ -151,7 +151,12 @@ export const TECHNOLOGIES: Technology[] = [
       "Pacjenci z Siedlec i okolic często pytają o tę metodę, dlatego warto jasno opisać wszystkie możliwości urządzenia. Posiadana sonda umożliwia wykonanie zabiegu identycznego z implantacją nici pod skórę — działa w tej samej płaszczyźnie, natychmiast podtrzymuje kontur twarzy i wywołuje długotrwałe ujędrnienie. Dzięki temu HIFU nie tylko liftinguje owal i linię żuchwy, ale także kompleksowo rewitalizuje skórę, poprawia jej gęstość i opóźnia procesy starzenia. " +
       "Procedura jest w pełni bezinwazyjna — skóra pozostaje nieprzekłuta i nieuszkodzona, nie powstają strupy, opuchlizna ani okres rekonwalescencji. Dlatego latem nie ma przeciwwskazań do wykonywania zabiegu; pacjentka może wrócić do codziennych aktywności i stosować standardową ochronę przeciwsłoneczną. Efekt utrzymuje się 2–3 lata — wystarczy jedna sesja, by przez lata cieszyć się wyraźnie młodszą, bardziej napiętą i promienną skórą. To właśnie dlatego, pomimo upływu lat i pojawiania się nowszych technologii, HIFU pozostaje najskuteczniejszym narzędziem rewitalizującym i anti-aging.",
     mechanismImage: {
-      src: hifuMechanizmImg,
+      avifSrcSet: `${hifuAvif640.url} 640w, ${hifuAvif960.url} 960w, ${hifuAvif1280.url} 1280w`,
+      webpSrcSet: `${hifuWebp640.url} 640w, ${hifuWebp960.url} 960w, ${hifuWebp1280.url} 1280w`,
+      fallbackSrc: hifuJpg1280.url,
+      width: 1280,
+      height: 853,
+      sizes: "(min-width: 1024px) 720px, (min-width: 768px) 66vw, 100vw",
       alt: "Przekrój skóry twarzy z głowicą HIFU — skupione wiązki ultradźwiękowe docierają do trzech głębokości (1,5 mm, 3,0 mm, 4,5 mm) tworząc punktowe ogniska termicznej koagulacji w warstwie SMAS.",
       caption: "Skupione wiązki ultradźwiękowe konwergują w precyzyjnych ogniskach na głębokościach 1,5 / 3,0 / 4,5 mm — od skóry właściwej po warstwę SMAS — bez naruszenia naskórka.",
     },
