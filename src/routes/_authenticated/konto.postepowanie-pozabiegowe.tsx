@@ -77,6 +77,7 @@ type SavedDraft = {
   d14Checklist: string;
   panelFeatures: string;
   panelIntegrations: string;
+  updatedAt?: string;
 };
 
 const defaultDraft: SavedDraft = {
@@ -129,6 +130,17 @@ function clearDraft() {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(STORAGE_KEY);
 }
+
+function formatStamp(d: Date | null): string {
+  if (!d) return "—";
+  return d.toLocaleString("pl-PL", {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}
+
 
 const DRAFT_KEY = "postepowanie-pozabiegowe";
 
