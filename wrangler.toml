@@ -1,0 +1,34 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "bmclinics"
+main = ".output/server/index.mjs"
+compatibility_date = "2025-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Nitro (preset = cloudflare-module, ustawiany przez NITRO_PRESET w buildzie)
+# emituje statyczne assety do .output/public — Wrangler serwuje je z edge.
+assets = { directory = ".output/public", binding = "ASSETS" }
+
+# Workers Logs — diagnostyka SSR i server functions
+[observability]
+enabled = true
+
+# ───────── Środowiska ─────────
+# Sekrety (SUPABASE_*, LOVABLE_API_KEY, STRIPE_*) ustawiasz przez:
+#   wrangler secret put NAZWA --env production
+# albo w Cloudflare Dashboard → Workers & Pages → Settings → Variables.
+# NIE wrzucaj ich do tego pliku.
+
+[env.production]
+name = "bmclinics"
+# routes = [{ pattern = "bmclinics.ai/*", custom_domain = true }]
+
+[env.production.vars]
+# Tylko wartości publiczne (klient) — wszystkie VITE_* muszą być też w build env.
+# Sekrety idą przez `wrangler secret put`.
+NODE_ENV = "production"
+
+[env.preview]
+name = "bmclinics-preview"
+
+[env.preview.vars]
+NODE_ENV = "production"
