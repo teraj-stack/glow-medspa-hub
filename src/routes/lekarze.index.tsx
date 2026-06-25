@@ -5,11 +5,20 @@ import { listActiveDoctors } from "@/lib/doctors.functions";
 const doctorsQuery = queryOptions({
   queryKey: ["public-doctors"],
   queryFn: () => listActiveDoctors(),
-  staleTime: 5 * 60_000,
+  // Cache dłużej — lista zmienia się rzadko; Query trzyma w pamięci 30 min
+  // i odświeża w tle przy ponownym wejściu (stale-while-revalidate).
+  staleTime: 10 * 60_000,
+  gcTime: 30 * 60_000,
+  refetchOnWindowFocus: false,
+  refetchOnReconnect: false,
 });
 
 export const Route = createFileRoute("/lekarze/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(doctorsQuery),
+  // Router SWR — przez 10 min loader nie blokuje nawigacji, dane są cache'owane;
+  // po godzinie wpis jest usuwany z pamięci routera.
+  staleTime: 10 * 60_000,
+  gcTime: 60 * 60_000,
   head: () => ({
     meta: [
       { title: "Lekarze i specjaliści — BMClinics.ai Siedlce" },
