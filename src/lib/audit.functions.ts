@@ -125,7 +125,7 @@ export const listAuditLog = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => ListInput.parse(input ?? {}))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.userId);
+    await assertAuditAccess(context.userId, "audit_log");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const page = data.page ?? 1;
     const pageSize = data.pageSize ?? 50;
@@ -149,7 +149,7 @@ export const exportAuditLogCsv = createServerFn({ method: "GET" })
       .parse(input ?? {}),
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.userId);
+    await assertAuditAccess(context.userId, "audit_log");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: rows, error } = await buildQuery(supabaseAdmin, data).limit(10_000);
     if (error) throw new Error(error.message);
@@ -162,7 +162,7 @@ export const exportAuditLogCsv = createServerFn({ method: "GET" })
 export const listSuspiciousActivity = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.userId);
+    await assertAuditAccess(context.userId, "audit_log");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await (supabaseAdmin as any)
       .from("suspicious_activity")
@@ -175,7 +175,7 @@ export const listSuspiciousActivity = createServerFn({ method: "GET" })
 export const exportSuspiciousCsv = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.userId);
+    await assertAuditAccess(context.userId, "audit_log");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await (supabaseAdmin as any)
       .from("suspicious_activity")
