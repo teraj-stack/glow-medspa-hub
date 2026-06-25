@@ -1,17 +1,65 @@
 import { createServerFn } from "@tanstack/react-start";
+import { getRequest } from "@tanstack/start-server-core";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { logAuditEvent } from "@/lib/audit/log.server";
 
-async function assertAdmin(userId: string) {
+// Read-access to audit log is granted to admin OR moderator (a.k.a. Manager).
+// Unauthorized attempts are logged to audit_log at `warning` severity.
+async function assertAuditAccess(userId: string, resource: string) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data } = await supabaseAdmin
     .from("user_roles")
     .select("role")
     .eq("user_id", userId)
-    .eq("role", "admin")
-    .maybeSingle();
-  if (!data) throw new Error("[FORBIDDEN] Wymagana rola admin.");
+    .in("role", ["admin", "moderator"]);
+  const role = data?.[0]?.role ?? null;
+  if (!role) {
+    let request: Request | undefined;
+    try { request = getRequest(); } catch { /* not in request scope */ }
+    await logAuditEvent(
+      {
+        event_type: "auth.event",
+        action: "AUDIT_ACCESS_DENIED",
+        resource_type: resource,
+        severity: "warning",
+        success: false,
+        metadata: { user_id: userId, required_roles: ["admin", "moderator"] },
+      },
+      request,
+    );
+    throw new Error("[FORBIDDEN] Wymagana rola admin lub manager.");
+  }
+  return role as "admin" | "moderator";
 }
+
+export const checkAuditAccess = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId)
+      .in("role", ["admin", "moderator"]);
+    const role = (data?.[0]?.role ?? null) as "admin" | "moderator" | null;
+    if (!role) {
+      let request: Request | undefined;
+      try { request = getRequest(); } catch { /* noop */ }
+      await logAuditEvent(
+        {
+          event_type: "auth.event",
+          action: "AUDIT_ACCESS_DENIED",
+          resource_type: "admin.audyt",
+          severity: "warning",
+          success: false,
+          metadata: { user_id: context.userId, required_roles: ["admin", "moderator"] },
+        },
+        request,
+      );
+    }
+    return { hasAccess: !!role, role };
+  });
 
 type JsonValue = string | number | boolean | null | { [k: string]: JsonValue } | JsonValue[];
 
@@ -77,7 +125,7 @@ export const listAuditLog = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => ListInput.parse(input ?? {}))
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.userId);
+    await assertAuditAccess(context.userId, "audit_log");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const page = data.page ?? 1;
     const pageSize = data.pageSize ?? 50;
@@ -101,7 +149,7 @@ export const exportAuditLogCsv = createServerFn({ method: "GET" })
       .parse(input ?? {}),
   )
   .handler(async ({ data, context }) => {
-    await assertAdmin(context.userId);
+    await assertAuditAccess(context.userId, "audit_log");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: rows, error } = await buildQuery(supabaseAdmin, data).limit(10_000);
     if (error) throw new Error(error.message);
@@ -114,7 +162,7 @@ export const exportAuditLogCsv = createServerFn({ method: "GET" })
 export const listSuspiciousActivity = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.userId);
+    await assertAuditAccess(context.userId, "audit_log");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await (supabaseAdmin as any)
       .from("suspicious_activity")
@@ -127,7 +175,7 @@ export const listSuspiciousActivity = createServerFn({ method: "GET" })
 export const exportSuspiciousCsv = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    await assertAdmin(context.userId);
+    await assertAuditAccess(context.userId, "audit_log");
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data, error } = await (supabaseAdmin as any)
       .from("suspicious_activity")

@@ -1,4 +1,4 @@
-import { createFileRoute, useRouter } from "@tanstack/react-router";
+import { createFileRoute, useRouter, redirect } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -7,6 +7,7 @@ import {
   listSuspiciousActivity,
   exportAuditLogCsv,
   exportSuspiciousCsv,
+  checkAuditAccess,
   type AuditLogRow,
   type SuspiciousRow,
 } from "@/lib/audit.functions";
@@ -17,6 +18,15 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export const Route = createFileRoute("/_authenticated/admin/audyt")({
+  beforeLoad: async () => {
+    try {
+      const { hasAccess } = await checkAuditAccess();
+      if (!hasAccess) throw redirect({ to: "/admin" });
+    } catch (e: any) {
+      if (e?.isRedirect) throw e;
+      throw redirect({ to: "/admin" });
+    }
+  },
   component: AuditPage,
   errorComponent: ({ error }) => (
     <div className="p-8 text-destructive">{(error as Error).message}</div>
