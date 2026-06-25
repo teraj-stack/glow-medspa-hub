@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { toast } from "sonner";
 import { getDoctorBySlug, saveDoctorPortrait } from "@/lib/doctors.functions";
 import { checkIsAdmin } from "@/lib/admin.functions";
@@ -38,14 +38,19 @@ function LazyVideo({
   sources,
   className,
   ariaLabel,
+  description,
+  caption,
 }: {
   poster: string;
   sources: VideoSource[];
   className?: string;
-  ariaLabel?: string;
+  ariaLabel: string;
+  description: string;
+  caption?: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [shouldLoad, setShouldLoad] = useState(false);
+  const descId = useId();
 
   useEffect(() => {
     const video = videoRef.current;
@@ -71,30 +76,32 @@ function LazyVideo({
     if (!video) return;
 
     video.load();
-    const handleMetadata = () => {
-      video.play().catch(() => {
-        // Autoplay may be blocked by browser policy; user can still click play.
-      });
-    };
-    video.addEventListener("loadedmetadata", handleMetadata, { once: true });
-    return () => {
-      video.removeEventListener("loadedmetadata", handleMetadata);
-    };
+    // No autoplay: user activates playback via native controls (keyboard/mouse/touch).
   }, [shouldLoad]);
 
   return (
-    <video
-      ref={videoRef}
-      className={className}
-      poster={poster}
-      muted
-      loop
-      playsInline
-      preload="none"
-      aria-label={ariaLabel}
-    >
-      {shouldLoad && sources.map((s) => <source key={s.src} src={s.src} type={s.type} />)}
-    </video>
+    <figure className="m-0">
+      <video
+        ref={videoRef}
+        className={className}
+        poster={poster}
+        controls
+        muted
+        loop
+        playsInline
+        preload="none"
+        aria-label={ariaLabel}
+        aria-describedby={descId}
+      >
+        {shouldLoad && sources.map((s) => <source key={s.src} src={s.src} type={s.type} />)}
+        <p>
+          Twoja przeglądarka nie obsługuje odtwarzania wideo. {description}
+        </p>
+      </video>
+      <figcaption id={descId} className="mt-2 text-sm text-muted-foreground">
+        {caption ?? description}
+      </figcaption>
+    </figure>
   );
 }
 
@@ -590,7 +597,9 @@ function HalinaGabaraPage() {
             <LazyVideo
               className="aspect-square w-full max-w-md rounded-2xl bg-muted object-cover shadow-sm"
               poster={halaTloPoster.url}
-              ariaLabel="Halina Gabara — wideo prezentacyjne"
+              ariaLabel="Wideo prezentacyjne dr Haliny Gabary"
+              description="Krótki, wyciszony klip prezentujący dr Halinę Gabarę w gabinecie zabiegowym kliniki w Siedlcach. Materiał nie zawiera ścieżki dźwiękowej ani istotnych informacji tekstowych."
+              caption="Wideo bez dźwięku. Użyj przycisku odtwarzania (Spacja lub Enter), aby uruchomić materiał."
               sources={[
                 { src: halaTloWebm.url, type: "video/webm" },
                 { src: halaTloMp4.url, type: "video/mp4" },
