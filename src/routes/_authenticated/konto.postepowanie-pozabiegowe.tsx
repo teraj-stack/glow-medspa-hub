@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export const Route = createFileRoute("/_authenticated/konto/postepowanie-pozabiegowe")({
   component: PostTreatmentCreator,
@@ -52,49 +52,158 @@ const STEP_LABELS = [
   "Podgląd protokołu",
 ];
 
-function PostTreatmentCreator() {
-  const [step, setStep] = useState<Step>(0);
+const STORAGE_KEY = "postepowanie-pozabiegowe-draft";
 
-  const [selected, setSelected] = useState<LaserKey[]>([]);
-  const [otherName, setOtherName] = useState("");
+type SavedDraft = {
+  step: Step;
+  selected: LaserKey[];
+  otherName: string;
+  routeSlug: string;
+  audience: string;
+  contraindications: string;
+  h48Goals: string;
+  h48Do: string;
+  h48Dont: string;
+  h48Flags: string;
+  d14Phases: string;
+  d14Care: string;
+  d14Checklist: string;
+  panelFeatures: string;
+  panelIntegrations: string;
+};
 
-  const [routeSlug, setRouteSlug] = useState("laser/postepowanie-pozabiegowe");
-  const [audience, setAudience] = useState(
-    "pacjent po zabiegu, język PL, ton spokojny, klinicystyczny",
-  );
-  const [contraindications, setContraindications] = useState(
+const defaultDraft: SavedDraft = {
+  step: 0,
+  selected: [],
+  otherName: "",
+  routeSlug: "laser/postepowanie-pozabiegowe",
+  audience: "pacjent po zabiegu, język PL, ton spokojny, klinicystyczny",
+  contraindications:
     "ciąża, aktywna infekcja skóry, opalenizna <4 tyg., izotretynoina <6 mies., choroby autoimmunologiczne w fazie zaostrzenia",
-  );
-
-  const [h48Goals, setH48Goals] = useState(
-    "redukcja rumienia i obrzęku, ochrona bariery, profilaktyka infekcji, brak PIH",
-  );
-  const [h48Do, setH48Do] = useState(
+  h48Goals: "redukcja rumienia i obrzęku, ochrona bariery, profilaktyka infekcji, brak PIH",
+  h48Do:
     "zimne okłady 10 min co 2h (pierwsze 6h), emolient barierowy 4-6×/dobę, sen na plecach z uniesioną głową, SPF 50+ mineralny od 24h",
-  );
-  const [h48Dont, setH48Dont] = useState(
-    "makijaż, sauna, basen, alkohol, intensywny wysiłek, retinoidy, kwasy AHA/BHA, peelingi mechaniczne",
-  );
-  const [h48Flags, setH48Flags] = useState(
+  h48Dont: "makijaż, sauna, basen, alkohol, intensywny wysiłek, retinoidy, kwasy AHA/BHA, peelingi mechaniczne",
+  h48Flags:
     "ból >6/10 mimo paracetamolu, pęcherze, sączenie ropne, gorączka >38°C, rozprzestrzeniający się rumień",
-  );
-
-  const [d14Phases, setD14Phases] = useState(
+  d14Phases:
     "Dni 1-3: gojenie naskórka. Dni 4-7: złuszczanie fizjologiczne. Dni 8-14: remodeling, powrót do pielęgnacji aktywnej.",
-  );
-  const [d14Care, setD14Care] = useState(
+  d14Care:
     "delikatne mycie syndetem, ceramidy + pantenol 2×/d, SPF 50+ codziennie, od dnia 8 niacynamid 5%, od dnia 14 retinal w małym stężeniu",
-  );
-  const [d14Checklist, setD14Checklist] = useState(
+  d14Checklist:
     "checklista dzienna z polem 'zrobione', przypomnienia e-mail/SMS, eksport do .ics, zdjęcia kontrolne dzień 1/3/7/14",
-  );
-
-  const [panelFeatures, setPanelFeatures] = useState(
+  panelFeatures:
     "logowanie magic-link, kalendarz zaleceń, biblioteka PDF (karta zabiegu, zgody, faktura), formularz objawów z eskalacją do kliniki, galeria zdjęć przed/po z timestampem",
-  );
-  const [panelIntegrations, setPanelIntegrations] = useState(
-    "ICS export, e-mail, SMS opcjonalnie, webhook do CRM kliniki",
-  );
+  panelIntegrations: "ICS export, e-mail, SMS opcjonalnie, webhook do CRM kliniki",
+};
+
+function loadDraft(): SavedDraft {
+  if (typeof window === "undefined") return defaultDraft;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return defaultDraft;
+    const parsed = JSON.parse(raw) as Partial<SavedDraft>;
+    return { ...defaultDraft, ...parsed };
+  } catch {
+    return defaultDraft;
+  }
+}
+
+function saveDraft(draft: SavedDraft) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
+  } catch {
+    // ignore quota errors
+  }
+}
+
+function clearDraft() {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem(STORAGE_KEY);
+}
+
+function PostTreatmentCreator() {
+  const initial = useMemo(() => loadDraft(), []);
+
+  const [step, setStep] = useState<Step>(initial.step);
+  const [savedAt, setSavedAt] = useState<Date | null>(null);
+
+  const [selected, setSelected] = useState<LaserKey[]>(initial.selected);
+  const [otherName, setOtherName] = useState(initial.otherName);
+
+  const [routeSlug, setRouteSlug] = useState(initial.routeSlug);
+  const [audience, setAudience] = useState(initial.audience);
+  const [contraindications, setContraindications] = useState(initial.contraindications);
+
+  const [h48Goals, setH48Goals] = useState(initial.h48Goals);
+  const [h48Do, setH48Do] = useState(initial.h48Do);
+  const [h48Dont, setH48Dont] = useState(initial.h48Dont);
+  const [h48Flags, setH48Flags] = useState(initial.h48Flags);
+
+  const [d14Phases, setD14Phases] = useState(initial.d14Phases);
+  const [d14Care, setD14Care] = useState(initial.d14Care);
+  const [d14Checklist, setD14Checklist] = useState(initial.d14Checklist);
+
+  const [panelFeatures, setPanelFeatures] = useState(initial.panelFeatures);
+  const [panelIntegrations, setPanelIntegrations] = useState(initial.panelIntegrations);
+
+  useEffect(() => {
+    const draft: SavedDraft = {
+      step,
+      selected,
+      otherName,
+      routeSlug,
+      audience,
+      contraindications,
+      h48Goals,
+      h48Do,
+      h48Dont,
+      h48Flags,
+      d14Phases,
+      d14Care,
+      d14Checklist,
+      panelFeatures,
+      panelIntegrations,
+    };
+    saveDraft(draft);
+    setSavedAt(new Date());
+  }, [
+    step,
+    selected,
+    otherName,
+    routeSlug,
+    audience,
+    contraindications,
+    h48Goals,
+    h48Do,
+    h48Dont,
+    h48Flags,
+    d14Phases,
+    d14Care,
+    d14Checklist,
+    panelFeatures,
+    panelIntegrations,
+  ]);
+
+  const reset = () => {
+    clearDraft();
+    setStep(0);
+    setSelected([]);
+    setOtherName("");
+    setRouteSlug(defaultDraft.routeSlug);
+    setAudience(defaultDraft.audience);
+    setContraindications(defaultDraft.contraindications);
+    setH48Goals(defaultDraft.h48Goals);
+    setH48Do(defaultDraft.h48Do);
+    setH48Dont(defaultDraft.h48Dont);
+    setH48Flags(defaultDraft.h48Flags);
+    setD14Phases(defaultDraft.d14Phases);
+    setD14Care(defaultDraft.d14Care);
+    setD14Checklist(defaultDraft.d14Checklist);
+    setPanelFeatures(defaultDraft.panelFeatures);
+    setPanelIntegrations(defaultDraft.panelIntegrations);
+  };
 
   const laserList = useMemo(() => {
     return selected
@@ -336,13 +445,16 @@ ${panelIntegrations}
               </button>
             ) : (
               <button
-                onClick={() => setStep(0)}
+                onClick={reset}
                 className="rounded-md border border-border px-4 py-2 text-sm"
               >
                 Zacznij od nowa
               </button>
             )}
           </div>
+          <p className="mt-2 text-right text-xs text-muted-foreground">
+            {savedAt ? `Ostatni autosave: ${savedAt.toLocaleTimeString("pl-PL")}` : "Autosave włączony"}
+          </p>
         </div>
       </div>
     </div>
