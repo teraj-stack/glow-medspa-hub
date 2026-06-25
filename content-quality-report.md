@@ -1,6 +1,6 @@
 # Raport jakości treści
 
-Wygenerowano: 2026-06-25T01:19:22.236Z
+Wygenerowano: 2026-06-25T01:22:55.506Z
 Przeskanowanych plików tras: 41
 
 | Podstrona | Fragmentów | Urwane | Podwójne spacje | Brak kropki | % problemów |
@@ -14,7 +14,7 @@ Przeskanowanych plików tras: 41
 | `/lekarze/halina-gabara` | 38 | 7 | 12 | 6 | 65.8% |
 | `/unsubscribe` | 5 | 1 | 1 | 1 | 60% |
 | `/konsultacja` | 12 | 3 | 2 | 2 | 58.3% |
-| `/_authenticated/konto/wizyty` | 43 | 5 | 10 | 10 | 58.1% |
+| `/_authenticated/konto/wizyty` | 51 | 7 | 11 | 11 | 56.9% |
 | `/lekarze/jan-bujok` | 27 | 4 | 7 | 4 | 55.6% |
 | `/blog/blizny-potradzikowe` | 74 | 9 | 25 | 5 | 52.7% |
 | `/blog/powiklania-mezoterapia-iglowa` | 81 | 12 | 21 | 8 | 50.6% |
@@ -168,7 +168,7 @@ Przeskanowanych plików tras: 41
   const [cancelMsg, setCancelMsg] = useState"
 - podwójne spacje: "(null);
 
- ␣␣ // Filters / sort
+ ␣␣ // Filters / sort / pagination
  ␣␣ const [upcomingStatus, setUpcomingStatus] = useState"
 
 ### `/lekarze/jan-bujok`

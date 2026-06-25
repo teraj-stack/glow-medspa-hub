@@ -81,20 +81,23 @@ function PortalPage() {
   const [claimMsg, setClaimMsg] = useState<string | null>(null);
   const [cancelMsg, setCancelMsg] = useState<string | null>(null);
 
-  // Filters / sort
+  // Filters / sort / pagination
   const [upcomingStatus, setUpcomingStatus] = useState<string>("all");
   const [upcomingPayment, setUpcomingPayment] = useState<string>("all");
   const [upcomingTreatment, setUpcomingTreatment] = useState<string>("all");
   const [upcomingSort, setUpcomingSort] = useState<"asc" | "desc">("asc");
+  const [upcomingPage, setUpcomingPage] = useState(1);
+  const [upcomingPageSize, setUpcomingPageSize] = useState(10);
 
   const [pastStatus, setPastStatus] = useState<string>("all");
   const [pastPayment, setPastPayment] = useState<string>("all");
   const [pastTreatment, setPastTreatment] = useState<string>("all");
   const [pastSort, setPastSort] = useState<"asc" | "desc">("desc");
+  const [pastPage, setPastPage] = useState(1);
+  const [pastPageSize, setPastPageSize] = useState(10);
 
+  const PAGE_SIZE_OPTIONS = [5, 10, 25, 50];
 
-
-  // Pull current user email for greeting
   useEffect(() => {
     let alive = true;
     supabase.auth.getUser().then(({ data }) => {
@@ -102,6 +105,14 @@ function PortalPage() {
     });
     return () => { alive = false; };
   }, []);
+
+  // Reset pagination when filters/sort change
+  useEffect(() => {
+    setUpcomingPage(1);
+  }, [upcomingStatus, upcomingPayment, upcomingTreatment, upcomingSort]);
+  useEffect(() => {
+    setPastPage(1);
+  }, [pastStatus, pastPayment, pastTreatment, pastSort]);
 
   // Auto-claim by email once on mount, then load bookings
   const autoClaim = useMutation({
@@ -197,6 +208,21 @@ function PortalPage() {
     [bookingsQuery.data, pastStatus, pastPayment, pastTreatment, pastSort],
   );
 
+  const upcomingTotal = upcoming.length;
+  const upcomingTotalPages = Math.max(1, Math.ceil(upcomingTotal / upcomingPageSize));
+  const upcomingPageSafe = Math.min(upcomingPage, upcomingTotalPages);
+  const upcomingPaged = upcoming.slice(
+    (upcomingPageSafe - 1) * upcomingPageSize,
+    upcomingPageSafe * upcomingPageSize,
+  );
+
+  const pastTotal = past.length;
+  const pastTotalPages = Math.max(1, Math.ceil(pastTotal / pastPageSize));
+  const pastPageSafe = Math.min(pastPage, pastTotalPages);
+  const pastPaged = past.slice(
+    (pastPageSafe - 1) * pastPageSize,
+    pastPageSafe * pastPageSize,
+  );
 
   async function onSignOut() {
     await supabase.auth.signOut();
@@ -283,30 +309,40 @@ function PortalPage() {
           />
           {bookingsQuery.isLoading ? (
             <p className="mt-4 text-sm text-foreground/70">Ładuję…</p>
-          ) : upcoming.length === 0 ? (
+          ) : upcomingTotal === 0 ? (
             <p className="mt-4 text-sm text-foreground/70">
               {upcomingStatus !== "all" || upcomingPayment !== "all" || upcomingTreatment !== "all"
                 ? "Brak nadchodzących wizyt spełniających wybrane filtry."
                 : "Brak nadchodzących wizyt powiązanych z Twoim kontem."}
             </p>
           ) : (
-            <ul className="mt-4 space-y-4">
-              {upcoming.map((b) => (
-                <BookingCard
-                  key={b.id}
-                  booking={b}
-                  onCancel={() => {
-                    setCancelMsg(null);
-                    if (!b.cancel_token) return;
-                    cancelMutation.mutate({ booking_id: b.id, cancel_token: b.cancel_token });
-                  }}
-                  cancelling={cancelMutation.isPending}
-                />
-              ))}
-            </ul>
+            <>
+              <ul className="mt-4 space-y-4">
+                {upcomingPaged.map((b) => (
+                  <BookingCard
+                    key={b.id}
+                    booking={b}
+                    onCancel={() => {
+                      setCancelMsg(null);
+                      if (!b.cancel_token) return;
+                      cancelMutation.mutate({ booking_id: b.id, cancel_token: b.cancel_token });
+                    }}
+                    cancelling={cancelMutation.isPending}
+                  />
+                ))}
+              </ul>
+              <Pagination
+                page={upcomingPageSafe}
+                totalPages={upcomingTotalPages}
+                totalItems={upcomingTotal}
+                pageSize={upcomingPageSize}
+                pageSizeOptions={PAGE_SIZE_OPTIONS}
+                onPageChange={setUpcomingPage}
+                onPageSizeChange={setUpcomingPageSize}
+              />
+            </>
           )}
         </div>
-
 
         {/* Past */}
         <div className="mt-12">
@@ -324,18 +360,29 @@ function PortalPage() {
           />
           {bookingsQuery.isLoading ? (
             <p className="mt-4 text-sm text-foreground/70">Ładuję…</p>
-          ) : past.length === 0 ? (
+          ) : pastTotal === 0 ? (
             <p className="mt-4 text-sm text-foreground/70">
               {pastStatus !== "all" || pastPayment !== "all" || pastTreatment !== "all"
                 ? "Brak wizyt w historii spełniających wybrane filtry."
                 : "Brak wizyt w historii."}
             </p>
           ) : (
-            <ul className="mt-4 space-y-4">
-              {past.map((b) => (
-                <BookingCard key={b.id} booking={b} />
-              ))}
-            </ul>
+            <>
+              <ul className="mt-4 space-y-4">
+                {pastPaged.map((b) => (
+                  <BookingCard key={b.id} booking={b} />
+                ))}
+              </ul>
+              <Pagination
+                page={pastPageSafe}
+                totalPages={pastTotalPages}
+                totalItems={pastTotal}
+                pageSize={pastPageSize}
+                pageSizeOptions={PAGE_SIZE_OPTIONS}
+                onPageChange={setPastPage}
+                onPageSizeChange={setPastPageSize}
+              />
+            </>
           )}
         </div>
 
@@ -457,6 +504,132 @@ function FilterBar({
           </SelectContent>
         </Select>
       </label>
+    </div>
+  );
+}
+
+function Pagination({
+  page,
+  totalPages,
+  totalItems,
+  pageSize,
+  pageSizeOptions,
+  onPageChange,
+  onPageSizeChange,
+}: {
+  page: number;
+  totalPages: number;
+  totalItems: number;
+  pageSize: number;
+  pageSizeOptions: number[];
+  onPageChange: (p: number) => void;
+  onPageSizeChange: (size: number) => void;
+}) {
+  const start = totalItems === 0 ? 0 : (page - 1) * pageSize + 1;
+  const end = Math.min(page * pageSize, totalItems);
+
+  function pageRange() {
+    const pages: (number | "ellipsis")[] = [];
+    const maxVisible = 5;
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+      return pages;
+    }
+    pages.push(1);
+    let left = Math.max(2, page - 1);
+    let right = Math.min(totalPages - 1, page + 1);
+    if (page <= 3) {
+      left = 2;
+      right = Math.min(totalPages - 1, maxVisible - 1);
+    } else if (page >= totalPages - 2) {
+      left = Math.max(2, totalPages - maxVisible + 2);
+      right = totalPages - 1;
+    }
+    if (left > 2) pages.push("ellipsis");
+    for (let i = left; i <= right; i++) pages.push(i);
+    if (right < totalPages - 1) pages.push("ellipsis");
+    pages.push(totalPages);
+    return pages;
+  }
+
+  return (
+    <div className="mt-6 flex flex-col gap-3 rounded-lg border border-border/70 bg-secondary/40 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="text-sm text-foreground/70">
+        {start === 0 ? (
+          "Brak wyników"
+        ) : (
+          <>
+            {start}–{end} z {totalItems}
+          </>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <label className="flex items-center gap-2 text-sm text-foreground/70">
+          Na stronie:
+          <Select
+            value={String(pageSize)}
+            onValueChange={(v) => {
+              onPageSizeChange(Number(v));
+              onPageChange(1);
+            }}
+          >
+            <SelectTrigger className="h-8 w-20 bg-background">
+              <SelectValue placeholder={String(pageSize)} />
+            </SelectTrigger>
+            <SelectContent>
+              {pageSizeOptions.map((size) => (
+                <SelectItem key={size} value={String(size)}>
+                  {size}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </label>
+
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            disabled={page <= 1}
+            onClick={() => onPageChange(page - 1)}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-sm hover:bg-background disabled:cursor-not-allowed disabled:opacity-50"
+            aria-label="Poprzednia strona"
+          >
+            ‹
+          </button>
+          {pageRange().map((p, i) =>
+            p === "ellipsis" ? (
+              <span key={`ellipsis-${i}`} className="px-2 text-sm text-foreground/60">
+                …
+              </span>
+            ) : (
+              <button
+                key={p}
+                type="button"
+                onClick={() => onPageChange(p)}
+                className={`inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition ${
+                  p === page
+                    ? "bg-ink text-alabaster"
+                    : "border border-border hover:bg-background"
+                }`}
+                aria-label={`Strona ${p}`}
+                aria-current={p === page ? "page" : undefined}
+              >
+                {p}
+              </button>
+            ),
+          )}
+          <button
+            type="button"
+            disabled={page >= totalPages}
+            onClick={() => onPageChange(page + 1)}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-sm hover:bg-background disabled:cursor-not-allowed disabled:opacity-50"
+            aria-label="Następna strona"
+          >
+            ›
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
