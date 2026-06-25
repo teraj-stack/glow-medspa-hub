@@ -13,7 +13,7 @@ import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 import sylwetkaAsset from "@/assets/sylwetka-back-v3.png.asset.json";
 import teksturaHdTwarzAsset from "@/assets/tekstura-hd-twarz.png.asset.json";
 import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
-import okoAsset from "@/assets/oko-szkic-v2.png.asset.json";
+import okoAsset from "@/assets/oko-szkic-v2.webp";
 import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
 import renesansAsset from "@/assets/renesans-v2.png.asset.json";
 
@@ -235,7 +235,7 @@ function RozwiazaniaPage() {
               iconTooltip="Przejdź do technologii okolicy oka — umów wizytę, by odświeżyć spojrzenie."
               tagline="KONTUR OKA · BLASK SPOJRZENIA"
               title="Okolica oka"
-              icon={okoAsset.url}
+              icon={okoAsset}
               bullets={[
                 {
                   title: "Zmarszczki mimiczne",

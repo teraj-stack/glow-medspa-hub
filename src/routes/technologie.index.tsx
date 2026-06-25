@@ -6,7 +6,7 @@ import { TECHNOLOGIES, type Technology } from "@/data/technologies";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 import teksturaAsset from "@/assets/tekstura-hd-clean.png.asset.json";
 import dlonieAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
-import okoAsset from "@/assets/oko-szkic-v2.png.asset.json";
+import okoAsset from "@/assets/oko-szkic-v2.webp";
 import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
 
 export const Route = createFileRoute("/technologie/")({
@@ -76,7 +76,7 @@ const GROUPS: NeedGroup[] = [
     slug: "okolica-oka",
     tagline: "KONTUR OKA · BLASK SPOJRZENIA",
     title: "Okolica oka",
-    icon: okoAsset.url,
+    icon: okoAsset,
     lead:
       "Cienka skóra powieki wymaga technologii precyzyjnych i bezpiecznych. HIFU z dedykowaną sondą podnosi opadającą powiekę i pracuje na strukturze podporowej, a RF mikroigłowa z głowicą do okolicy oka zagęszcza skórę i redukuje « kurze łapki ».",
     highlight: "hifu",
