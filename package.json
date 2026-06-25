@@ -125,9 +125,14 @@
     "vite": "^8.0.16",
     "vitest": "^4.1.9"
   },
+  "overrides": {
+    "js-yaml": "^4.1.1",
+    "brace-expansion": "^2.0.2"
+  },
   "pnpm": {
     "overrides": {
       "entities": "4.5.0"
     }
   }
 }
+
