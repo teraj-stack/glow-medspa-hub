@@ -532,6 +532,12 @@ ${panelIntegrations}
           </div>
           <p className="mt-2 text-right text-xs text-muted-foreground">
             {savedAt ? `Ostatni autosave: ${savedAt.toLocaleTimeString("pl-PL")}` : "Autosave włączony"}
+            {" · "}
+            {syncState === "syncing" && "synchronizacja z chmurą…"}
+            {syncState === "synced" && "zsynchronizowano z kontem"}
+            {syncState === "error" && "błąd synchronizacji (zapisano lokalnie)"}
+            {syncState === "idle" && "tylko lokalnie"}
+
           </p>
         </div>
       </div>
