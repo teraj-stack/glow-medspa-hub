@@ -81,20 +81,23 @@ function PortalPage() {
   const [claimMsg, setClaimMsg] = useState<string | null>(null);
   const [cancelMsg, setCancelMsg] = useState<string | null>(null);
 
-  // Filters / sort
+  // Filters / sort / pagination
   const [upcomingStatus, setUpcomingStatus] = useState<string>("all");
   const [upcomingPayment, setUpcomingPayment] = useState<string>("all");
   const [upcomingTreatment, setUpcomingTreatment] = useState<string>("all");
   const [upcomingSort, setUpcomingSort] = useState<"asc" | "desc">("asc");
+  const [upcomingPage, setUpcomingPage] = useState(1);
+  const [upcomingPageSize, setUpcomingPageSize] = useState(10);
 
   const [pastStatus, setPastStatus] = useState<string>("all");
   const [pastPayment, setPastPayment] = useState<string>("all");
   const [pastTreatment, setPastTreatment] = useState<string>("all");
   const [pastSort, setPastSort] = useState<"asc" | "desc">("desc");
+  const [pastPage, setPastPage] = useState(1);
+  const [pastPageSize, setPastPageSize] = useState(10);
 
+  const PAGE_SIZE_OPTIONS = [5, 10, 25, 50];
 
-
-  // Pull current user email for greeting
   useEffect(() => {
     let alive = true;
     supabase.auth.getUser().then(({ data }) => {
