@@ -1,7 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import type { Database } from "@/integrations/supabase/types";
+
 
 export type HiddenPricingItem = {
   slug: string;
@@ -9,24 +8,21 @@ export type HiddenPricingItem = {
   created_at: string;
 };
 
-function publicClient() {
-  return createClient<Database>(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_PUBLISHABLE_KEY!,
-    { auth: { storage: undefined, persistSession: false, autoRefreshToken: false } },
-  );
-}
-
 export const listHiddenPricingItems = createServerFn({ method: "GET" }).handler(
   async (): Promise<HiddenPricingItem[]> => {
-    const supabase = publicClient();
-    const { data, error } = await supabase
+    // Table is admin-only at the RLS layer. The public pricing page still
+    // needs to know which (slug,label) pairs to hide; the server reads them
+    // with the service-role client and returns just the keys needed to
+    // filter the static technologies catalog client-side.
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
       .from("hidden_pricing_items")
       .select("slug,label,created_at");
     if (error) throw new Error(error.message);
     return (data ?? []) as HiddenPricingItem[];
   },
 );
+
 
 async function assertAdmin(userId: string) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
