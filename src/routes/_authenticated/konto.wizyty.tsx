@@ -151,20 +151,53 @@ function PortalPage() {
     onError: () => setCancelMsg("Nie udało się odwołać wizyty. Spróbuj ponownie."),
   });
 
+  const treatments = useMemo(() => {
+    const set = new Set<string>();
+    (bookingsQuery.data ?? []).forEach((b) => {
+      if (b.treatment_slug) set.add(b.treatment_slug);
+    });
+    return Array.from(set).sort((a, b) => a.localeCompare(b, "pl"));
+  }, [bookingsQuery.data]);
+
+  function isUpcoming(b: PortalVisitBooking) {
+    return new Date(b.starts_at).getTime() > Date.now() && b.status !== "cancelled";
+  }
+
+  function matchesFilters(
+    b: PortalVisitBooking,
+    status: string,
+    payment: string,
+    treatment: string,
+  ) {
+    if (status !== "all" && b.status !== status) return false;
+    if (payment !== "all" && b.payment_status !== payment) return false;
+    if (treatment !== "all" && b.treatment_slug !== treatment) return false;
+    return true;
+  }
+
   const upcoming = useMemo(
     () =>
       (bookingsQuery.data ?? [])
-        .filter((b) => new Date(b.starts_at).getTime() > Date.now() && b.status !== "cancelled")
-        .sort((a, b) => new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime()),
-    [bookingsQuery.data],
+        .filter((b) => isUpcoming(b))
+        .filter((b) => matchesFilters(b, upcomingStatus, upcomingPayment, upcomingTreatment))
+        .sort((a, b) => {
+          const diff = new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime();
+          return upcomingSort === "asc" ? diff : -diff;
+        }),
+    [bookingsQuery.data, upcomingStatus, upcomingPayment, upcomingTreatment, upcomingSort],
   );
   const past = useMemo(
     () =>
       (bookingsQuery.data ?? [])
-        .filter((b) => !(new Date(b.starts_at).getTime() > Date.now() && b.status !== "cancelled"))
-        .sort((a, b) => new Date(b.starts_at).getTime() - new Date(a.starts_at).getTime()),
-    [bookingsQuery.data],
+        .filter((b) => !isUpcoming(b))
+        .filter((b) => matchesFilters(b, pastStatus, pastPayment, pastTreatment))
+        .sort((a, b) => {
+          const diff = new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime();
+          return pastSort === "asc" ? diff : -diff;
+        }),
+    [bookingsQuery.data, pastStatus, pastPayment, pastTreatment, pastSort],
   );
+
 
   async function onSignOut() {
     await supabase.auth.signOut();
