@@ -63,9 +63,39 @@ export const listActiveDoctors = createServerFn({ method: "GET" }).handler(async
 // ============================================================
 // PUBLIC: read a single doctor profile by slug (for /lekarze/[slug])
 // ============================================================
+const SAFE_SLUG = /^[a-z0-9-]{1,80}$/;
+
+function classifySlug(raw: string): { suspicious: boolean; reasons: string[] } {
+  const reasons: string[] = [];
+  if (raw.length > 80) reasons.push("length>80");
+  if (!SAFE_SLUG.test(raw)) reasons.push("charset");
+  if (/[%<>"'`;()]|--|\/\*|\\x|union\s+select|or\s+1=1/i.test(raw)) reasons.push("injection-pattern");
+  if (/\.\.|\/|\\/.test(raw)) reasons.push("path-traversal");
+  return { suspicious: reasons.length > 0, reasons };
+}
+
 export const getDoctorBySlug = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) => z.object({ slug: z.string().min(1).max(120) }).parse(input))
   .handler(async ({ data }) => {
+    const { getRequest } = await import("@tanstack/react-start/server");
+    let request: Request | undefined;
+    try { request = getRequest(); } catch { /* not in request scope */ }
+
+    const verdict = classifySlug(data.slug);
+    if (verdict.suspicious) {
+      void logAuditEvent({
+        event_type: "public.read",
+        action: "READ_SUSPICIOUS",
+        resource_type: "public_doctors",
+        resource_id: data.slug.slice(0, 120),
+        severity: "warning",
+        success: false,
+        metadata: { reasons: verdict.reasons, raw_slug: data.slug.slice(0, 200) },
+      }, request);
+      // Don't even hit the DB with suspicious input.
+      return null;
+    }
+
     const sb = publicSupabase();
     const { data: row, error } = await (sb as any)
       .from("public_doctors")
@@ -78,8 +108,10 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
       action: "READ",
       resource_type: "public_doctors",
       resource_id: data.slug,
+      severity: "info",
       success: !error,
-    });
+      metadata: { found: !!row },
+    }, request);
     return row as null | {
       id: string;
       slug: string;
