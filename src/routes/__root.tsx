@@ -93,7 +93,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon.ico" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      // Non-blocking Google Fonts: load as print stylesheet, then swap to all on load.
+      // Non-blocking Google Fonts: preload + load as `print` stylesheet, then
+      // swap to `all` via an inline script in `scripts` (see below).
       {
         rel: "preload",
         as: "style",
@@ -103,12 +104,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap",
         media: "print",
-        // Swap to all media after the browser fires load on this <link>.
-        // Using string onLoad so it serializes to a raw HTML attribute in SSR head.
-        onLoad: "this.media='all'",
-      } as unknown as { rel: string; href: string },
+        "data-async-font": "true",
+      } as { rel: string; href: string },
     ],
-  }),
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
