@@ -102,14 +102,19 @@ function TechnologyDetail() {
             <p className="mt-4 text-base text-foreground/85 md:text-lg">{tech.mechanism}</p>
             {tech.mechanismImage && (
               <figure className="mt-8 overflow-hidden rounded-lg border border-border bg-alabaster shadow-soft">
-                <img
-                  src={tech.mechanismImage.src}
-                  alt={tech.mechanismImage.alt}
-                  width={1536}
-                  height={1024}
-                  loading="lazy"
-                  className="h-auto w-full"
-                />
+                <picture>
+                  <source type="image/avif" srcSet={tech.mechanismImage.avifSrcSet} sizes={tech.mechanismImage.sizes} />
+                  <source type="image/webp" srcSet={tech.mechanismImage.webpSrcSet} sizes={tech.mechanismImage.sizes} />
+                  <img
+                    src={tech.mechanismImage.fallbackSrc}
+                    alt={tech.mechanismImage.alt}
+                    width={tech.mechanismImage.width}
+                    height={tech.mechanismImage.height}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-auto w-full"
+                  />
+                </picture>
                 {tech.mechanismImage.caption && (
                   <figcaption className="border-t border-border bg-secondary/40 px-5 py-3 text-xs text-muted-foreground md:text-sm">
                     {tech.mechanismImage.caption}
