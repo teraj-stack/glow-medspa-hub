@@ -61,17 +61,24 @@ if (!resolverFile) {
 const source = readFileSync(join(serverDir, resolverFile), "utf8");
 const handlerName = `${fnName}_createServerFn_handler`;
 
-// Match: "<hash>": { functionName: "<handlerName>", ... }
-const re = new RegExp(
-  `"([a-f0-9]{32,})"\\s*:\\s*\\{[\\s\\S]*?functionName:\\s*"${handlerName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`,
-);
-const match = source.match(re);
-if (!match) {
+// Iterate every `"<hash>": { ... }` entry and find the one whose functionName matches.
+// The manifest is a flat object literal, so each entry is bounded by the next hash key
+// or the closing brace of `manifest`. We don't need full JS parsing — a focused regex
+// per entry is robust enough and avoids cross-entry lazy-match bugs.
+const entryRe = /"([a-f0-9]{32,})"\s*:\s*\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g;
+let id = null;
+for (const m of source.matchAll(entryRe)) {
+  const [, hash, body] = m;
+  const nameMatch = body.match(/functionName:\s*"([^"]+)"/);
+  if (nameMatch && nameMatch[1] === handlerName) {
+    id = hash;
+    break;
+  }
+}
+if (!id) {
   console.error(`[resolve-server-fn] Function "${fnName}" not found in resolver manifest (${resolverFile}).`);
   process.exit(1);
 }
-
-const id = match[1];
 const url = opts.base ? `${opts.base}/_serverFn/${id}` : `/_serverFn/${id}`;
 console.log(url);
 
