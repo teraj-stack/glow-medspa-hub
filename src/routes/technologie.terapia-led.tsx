@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
-import { BookingForm } from "@/components/site/BookingForm";
+import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { getTechnology, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import {
@@ -648,7 +648,7 @@ function TerapiaLedPage() {
               Sesja LED dokupiona do innego zabiegu — promocyjnie 100 zł.
             </div>
           </div>
-          <BookingForm />
+          <BookingFormLazy />
         </div>
       </section>
     </article>

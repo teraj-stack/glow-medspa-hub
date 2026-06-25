@@ -1,6 +1,6 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
-import { BookingForm } from "@/components/site/BookingForm";
+import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { getTechnology, TECHNOLOGIES, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check } from "lucide-react";
@@ -227,7 +227,7 @@ function TechnologyDetail() {
               </ul>
             </div>
           </div>
-          <BookingForm defaultTechnology={tech.slug} />
+          <BookingFormLazy defaultTechnology={tech.slug} />
         </div>
       </section>
     </>

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Watermark } from "@/components/site/Watermark";
-import { BookingForm } from "@/components/site/BookingForm";
+import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { getTechnology, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check, Sparkles, ShieldCheck, Clock, Heart, Users } from "lucide-react";
@@ -403,7 +403,7 @@ function FusionPlasmaPage() {
               Każdy zabieg zaczynamy od rozmowy — bez presji, bez sprzedaży. Wspólnie ustalimy, czy zimna plazma to najlepszy wybór dla Twojej skóry.
             </p>
           </div>
-          <BookingForm defaultTechnology={tech.slug} />
+          <BookingFormLazy defaultTechnology={tech.slug} />
         </div>
       </section>
     </>
