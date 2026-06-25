@@ -1,0 +1,1 @@
+GRANT UPDATE ON public.visit_bookings TO authenticated;
