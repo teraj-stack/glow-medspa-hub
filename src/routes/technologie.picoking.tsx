@@ -51,9 +51,6 @@ const BA_GALLERY = [
 ];
 
 const heroImg = heroAsset.url;
-const comparisonImg = comparisonAsset.url;
-const skinImg = skinAsset.url;
-const applicatorsImg = applicatorsAsset.url;
 
 const TECH_SLUG = "picoking";
 
