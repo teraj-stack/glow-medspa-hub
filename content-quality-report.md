@@ -1,7 +1,7 @@
 # Raport jakości treści
 
-Wygenerowano: 2026-06-25T01:27:48.585Z
-Przeskanowanych plików tras: 41
+Wygenerowano: 2026-06-25T05:14:34.422Z
+Przeskanowanych plików tras: 42
 
 | Podstrona | Fragmentów | Urwane | Podwójne spacje | Brak kropki | % problemów |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -28,6 +28,7 @@ Przeskanowanych plików tras: 41
 | `/renasculpt` | 22 | 6 | 1 | 2 | 40.9% |
 | `/technologie/peeling-weglowy-laserowy` | 27 | 4 | 5 | 2 | 40.7% |
 | `/_authenticated/admin/web-vitals` | 23 | 2 | 4 | 3 | 39.1% |
+| `/_authenticated/konto/postepowanie-pozabiegowe` | 25 | 2 | 3 | 4 | 36% |
 | `/_authenticated/admin/audyt` | 48 | 8 | 4 | 4 | 33.3% |
 | `/blog/laser-frakcyjny-rekonwalescencja` | 89 | 9 | 14 | 6 | 32.6% |
 | `/bezpieczenstwo-zabiegow-laserowych` | 63 | 11 | 3 | 6 | 31.7% |
@@ -313,6 +314,21 @@ Przeskanowanych plików tras: 41
 - podwójne spacje: "Dane CrUX (Chrome User Experience Report) z PageSpeed Insights — pomiary rzeczywistych
  ␣␣ użytkowników z ostatnich 28 dni. Progi Google: LCP &lt; 2.5 s · INP &lt; 200 ms · CLS &lt; 0.1."
 - brak kropki: "Działa bez klucza API (limit ~25 zapytań/dzień). Dodaj sekret"
+
+### `/_authenticated/konto/postepowanie-pozabiegowe`
+- podwójne spacje: "loadDraft(), []);
+
+ ␣␣ const [step, setStep] = useState"
+- brak kropki: "loadDraft(), []);
+
+  const [step, setStep] = useState"
+- podwójne spacje: "(initial.step);
+ ␣␣ const [savedAt, setSavedAt] = useState"
+- brak kropki: "(initial.step);
+  const [savedAt, setSavedAt] = useState"
+- podwójne spacje: "(null);
+
+ ␣␣ const [selected, setSelected] = useState"
 
 ### `/_authenticated/admin/audyt`
 - podwójne spacje: "("all");

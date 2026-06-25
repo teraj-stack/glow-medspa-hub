@@ -1,8 +1,8 @@
 # Brand check report (dist)
 
-- Generated: 2026-06-25T01:27:48.488Z
+- Generated: 2026-06-25T05:14:34.300Z
 - Dist: `dist`
-- Files scanned: **307** (.js:113 .css:1 .txt:2 .json:4 .mjs:187)
+- Files scanned: **310** (.js:114 .css:1 .txt:2 .json:4 .mjs:189)
 - "BMClinics.ai" present in: **44** HTML/JS/CSS files
 - "BM Clinics" occurrences: **0** in **0** file(s)
 
