@@ -23,8 +23,10 @@
   /* Brand */
   --ink: oklch(0.16 0.005 60);                  /* #0a0a0a-ish */
   --alabaster: oklch(0.985 0.004 80);
-  --champagne: oklch(0.57 0.075 65);            /* bronze tuned for AA on white card */
+  --champagne: oklch(0.54 0.078 65);            /* bronze tuned for WCAG AA 4.5:1 on light surfaces */
   --champagne-light: oklch(0.86 0.05 78);       /* #d4b896 */
+  /* Lighter champagne for use on dark surfaces (bg-ink) to keep AA contrast. */
+  --champagne-on-dark: oklch(0.74 0.075 65);
   --gold: oklch(0.82 0.09 80);
 
   --primary: var(--ink);
