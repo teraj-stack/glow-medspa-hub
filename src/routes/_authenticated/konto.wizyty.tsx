@@ -20,7 +20,6 @@ import {
   type PortalVisitBooking,
 } from "@/lib/visit-bookings.functions";
 
-
 export const Route = createFileRoute("/_authenticated/konto/wizyty")({
   head: () => ({
     meta: [
