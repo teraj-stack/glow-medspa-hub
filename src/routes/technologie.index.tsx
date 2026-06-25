@@ -16,7 +16,7 @@ export const Route = createFileRoute("/technologie/")({
       {
         name: "description",
         content:
-          "Park technologii uporządkowany według potrzeb pacjenta — od liftingu HIFU, przez teksturę HD, po modelowanie sylwetki. Kontynuacja sekcji Potrzeby i Rozwiązania.",
+          "Park technologii uporządkowany według potrzeb pacjenta — od liftingu, przez teksturę HD, po modelowanie sylwetki. Kontynuacja sekcji Rozwiązania.",
       },
       { property: "og:title", content: "Technologie — BMClinics.ai" },
       { property: "og:description", content: "Technologie dobrane do pięciu obszarów naszej praktyki." },
