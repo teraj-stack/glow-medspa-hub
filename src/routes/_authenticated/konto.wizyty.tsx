@@ -224,8 +224,6 @@ function PortalPage() {
     pastPageSafe * pastPageSize,
   );
 
-
-
   async function onSignOut() {
     await supabase.auth.signOut();
     window.location.href = "/";
