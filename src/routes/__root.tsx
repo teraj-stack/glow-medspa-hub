@@ -135,6 +135,18 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="pl">
       <head>
         <HeadContent />
+        {/* Inlined above-the-fold CSS so first paint doesn't block on the
+            full Tailwind sheet (which is preloaded + async-swapped above). */}
+        <style dangerouslySetInnerHTML={{ __html: CRITICAL_CSS }} />
+        {/* Fallback for users without JS: the print-media swap won't run,
+            so render the full stylesheet synchronously inside <noscript>. */}
+        <noscript>
+          <link rel="stylesheet" href={appCss} />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500&display=swap"
+          />
+        </noscript>
       </head>
       <body>
         {children}
