@@ -159,17 +159,20 @@ function PikosekundowyPage() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden bg-ink text-alabaster">
-        <HeroPicture
-          avifUrl={heroAvif.url}
-          webpUrl={heroWebp.url}
-          fallbackUrl={heroImg}
-          alt="Impuls pikosekundowy rozbijający pigment falą fotoakustyczną"
-          width={1600}
-          height={900}
-          eager
-          className="absolute inset-0 h-full w-full"
-          imgClassName="h-full w-full object-cover opacity-60"
-        />
+        <div className="absolute inset-0 -z-10">
+          <HeroPicture
+            avifUrl={heroAvif.url}
+            webpUrl={heroWebp.url}
+            fallbackUrl={heroImg}
+            alt="Impuls pikosekundowy rozbijający pigment falą fotoakustyczną"
+            width={1600}
+            height={900}
+            eager
+            className="h-full w-full"
+            imgClassName="h-full w-full object-cover opacity-60"
+          />
+        </div>
+
         <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/80 to-transparent" />
         <div className="container-luxury relative py-20 md:py-32">
           <Link to="/technologie" className="inline-flex items-center gap-2 text-sm text-alabaster/70 hover:text-champagne">
