@@ -340,12 +340,125 @@ function PortalPage() {
           )}
         </div>
 
-
         <p className="mt-12 text-xs text-foreground/60">
           Wizytę z portalu można odwołać najpóźniej {CANCEL_MIN_HOURS}h przed terminem. W pilnych przypadkach prosimy o kontakt z recepcją.
         </p>
       </div>
     </section>
+  );
+}
+
+function formatTreatmentSlug(slug: string) {
+  return slug
+    .replace(/-/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function FilterBar({
+  status,
+  onStatusChange,
+  payment,
+  onPaymentChange,
+  treatment,
+  onTreatmentChange,
+  treatments,
+  sort,
+  onSortChange,
+}: {
+  status: string;
+  onStatusChange: (v: string) => void;
+  payment: string;
+  onPaymentChange: (v: string) => void;
+  treatment: string;
+  onTreatmentChange: (v: string) => void;
+  treatments: string[];
+  sort: "asc" | "desc";
+  onSortChange: (v: "asc" | "desc") => void;
+}) {
+  const hasFilters = status !== "all" || payment !== "all" || treatment !== "all";
+  return (
+    <div className="mt-4 flex flex-col gap-3 rounded-lg border border-border/70 bg-secondary/40 p-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:flex-wrap">
+        <label className="flex flex-col gap-1.5 text-xs font-medium text-foreground/70">
+          Status
+          <Select value={status} onValueChange={onStatusChange}>
+            <SelectTrigger className="h-9 w-full min-w-[10rem] bg-background sm:w-44">
+              <SelectValue placeholder="Wszystkie" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Wszystkie</SelectItem>
+              {Object.keys(STATUS_LABEL).map((key) => (
+                <SelectItem key={key} value={key}>
+                  {STATUS_LABEL[key]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </label>
+
+        <label className="flex flex-col gap-1.5 text-xs font-medium text-foreground/70">
+          Płatność
+          <Select value={payment} onValueChange={onPaymentChange}>
+            <SelectTrigger className="h-9 w-full min-w-[10rem] bg-background sm:w-44">
+              <SelectValue placeholder="Wszystkie" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">Wszystkie</SelectItem>
+              {Object.keys(PAYMENT_LABEL).map((key) => (
+                <SelectItem key={key} value={key}>
+                  {PAYMENT_LABEL[key]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </label>
+
+        {treatments.length > 0 && (
+          <label className="flex flex-col gap-1.5 text-xs font-medium text-foreground/70">
+            Zabieg
+            <Select value={treatment} onValueChange={onTreatmentChange}>
+              <SelectTrigger className="h-9 w-full min-w-[10rem] bg-background sm:w-52">
+                <SelectValue placeholder="Wszystkie" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Wszystkie</SelectItem>
+                {treatments.map((t) => (
+                  <SelectItem key={t} value={t}>
+                    {formatTreatmentSlug(t)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </label>
+        )}
+
+        <button
+          type="button"
+          disabled={!hasFilters}
+          onClick={() => {
+            onStatusChange("all");
+            onPaymentChange("all");
+            onTreatmentChange("all");
+          }}
+          className="inline-flex h-9 items-center justify-center rounded-md border border-border px-3 text-sm text-foreground/80 hover:bg-background disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Wyczyść filtry
+        </button>
+      </div>
+
+      <label className="flex flex-col gap-1.5 text-xs font-medium text-foreground/70 sm:text-right">
+        Sortowanie
+        <Select value={sort} onValueChange={(v) => onSortChange(v as "asc" | "desc")}>
+          <SelectTrigger className="h-9 w-full bg-background sm:w-44">
+            <SelectValue placeholder="Data" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="asc">Od najwcześniejszej</SelectItem>
+            <SelectItem value="desc">Od najpóźniejszej</SelectItem>
+          </SelectContent>
+        </Select>
+      </label>
+    </div>
   );
 }
 
@@ -358,6 +471,7 @@ function BookingCard({
   onCancel?: () => void;
   cancelling?: boolean;
 }) {
+
   const cancellable = onCancel && canCancelClientSide(booking);
   return (
     <li className="rounded-lg border border-border/70 bg-background p-5">
