@@ -53,11 +53,11 @@ const FAQ = [
 export const Route = createFileRoute("/blog/blizny-potradzikowe")({
   head: () => ({
     meta: [
-      { title: "Blizny potrądzikowe — usuwanie, dziury po trądziku, zabiegi | BMC Siedlce" },
+      { title: "Blizny potrądzikowe — usuwanie i zabiegi | BMC Siedlce" },
       {
         name: "description",
         content:
-          "Usuwanie blizn potrądzikowych w Siedlcach: laser pikosekundowy i radiofrekwencja mikroigłowa. Przewodnik po metodach, efektach i bezpieczeństwie zabiegów na dziury po trądziku.",
+          "Usuwanie blizn potrądzikowych w Siedlcach: laser pikosekundowy i radiofrekwencja mikroigłowa — metody, efekty, bezpieczeństwo zabiegów.",
       },
       {
         name: "keywords",
