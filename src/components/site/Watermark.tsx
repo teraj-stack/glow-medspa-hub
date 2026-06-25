@@ -38,7 +38,7 @@ export function Watermark({
   };
   return (
     <img
-      src={watermarkAsset.url}
+      src={watermarkUrl}
       alt=""
       aria-hidden="true"
       draggable={false}
