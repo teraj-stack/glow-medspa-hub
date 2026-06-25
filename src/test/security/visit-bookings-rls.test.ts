@@ -141,21 +141,24 @@ describe.skipIf(!SUPABASE_URL || !ANON_KEY)(
       expectBlockedOrEmpty(status, body, "SELECT user_id IS NULL");
     });
 
-    it("anon próbuje UPDATE statusu/płatności — odrzucone", async () => {
+    it("anon próbuje UPDATE statusu/płatności — odrzucone lub bez efektu", async () => {
       const { status, body } = await anonRequest(
         "PATCH",
-        "visit_bookings?id=eq.00000000-0000-0000-0000-000000000000",
+        "visit_bookings?id=neq.00000000-0000-0000-0000-000000000000",
         { status: "confirmed", payment_status: "paid", amount_cents: 0 },
+        { Prefer: "return=representation" },
       );
-      expectMutationBlocked(status, body, "PATCH status/payment");
+      expectMutationAffectedNothing(status, body, "PATCH status/payment");
     });
 
-    it("anon próbuje DELETE — odrzucone", async () => {
+    it("anon próbuje DELETE — odrzucone lub bez efektu", async () => {
       const { status, body } = await anonRequest(
         "DELETE",
-        "visit_bookings?id=eq.00000000-0000-0000-0000-000000000000",
+        "visit_bookings?id=neq.00000000-0000-0000-0000-000000000000",
+        undefined,
+        { Prefer: "return=representation" },
       );
-      expectMutationBlocked(status, body, "DELETE");
+      expectMutationAffectedNothing(status, body, "DELETE");
     });
   },
 );
