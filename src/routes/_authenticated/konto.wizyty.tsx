@@ -511,6 +511,132 @@ function FilterBar({
   );
 }
 
+function Pagination({
+  page,
+  totalPages,
+  totalItems,
+  pageSize,
+  pageSizeOptions,
+  onPageChange,
+  onPageSizeChange,
+}: {
+  page: number;
+  totalPages: number;
+  totalItems: number;
+  pageSize: number;
+  pageSizeOptions: number[];
+  onPageChange: (p: number) => void;
+  onPageSizeChange: (size: number) => void;
+}) {
+  const start = totalItems === 0 ? 0 : (page - 1) * pageSize + 1;
+  const end = Math.min(page * pageSize, totalItems);
+
+  function pageRange() {
+    const pages: (number | "ellipsis")[] = [];
+    const maxVisible = 5;
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+      return pages;
+    }
+    pages.push(1);
+    let left = Math.max(2, page - 1);
+    let right = Math.min(totalPages - 1, page + 1);
+    if (page <= 3) {
+      left = 2;
+      right = Math.min(totalPages - 1, maxVisible - 1);
+    } else if (page >= totalPages - 2) {
+      left = Math.max(2, totalPages - maxVisible + 2);
+      right = totalPages - 1;
+    }
+    if (left > 2) pages.push("ellipsis");
+    for (let i = left; i <= right; i++) pages.push(i);
+    if (right < totalPages - 1) pages.push("ellipsis");
+    pages.push(totalPages);
+    return pages;
+  }
+
+  return (
+    <div className="mt-6 flex flex-col gap-3 rounded-lg border border-border/70 bg-secondary/40 p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="text-sm text-foreground/70">
+        {start === 0 ? (
+          "Brak wyników"
+        ) : (
+          <>
+            {start}–{end} z {totalItems}
+          </>
+        )}
+      </div>
+
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+        <label className="flex items-center gap-2 text-sm text-foreground/70">
+          Na stronie:
+          <Select
+            value={String(pageSize)}
+            onValueChange={(v) => {
+              onPageSizeChange(Number(v));
+              onPageChange(1);
+            }}
+          >
+            <SelectTrigger className="h-8 w-20 bg-background">
+              <SelectValue placeholder={String(pageSize)} />
+            </SelectTrigger>
+            <SelectContent>
+              {pageSizeOptions.map((size) => (
+                <SelectItem key={size} value={String(size)}>
+                  {size}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </label>
+
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            disabled={page <= 1}
+            onClick={() => onPageChange(page - 1)}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-sm hover:bg-background disabled:cursor-not-allowed disabled:opacity-50"
+            aria-label="Poprzednia strona"
+          >
+            ‹
+          </button>
+          {pageRange().map((p, i) =>
+            p === "ellipsis" ? (
+              <span key={`ellipsis-${i}`} className="px-2 text-sm text-foreground/60">
+                …
+              </span>
+            ) : (
+              <button
+                key={p}
+                type="button"
+                onClick={() => onPageChange(p)}
+                className={`inline-flex h-8 w-8 items-center justify-center rounded-md text-sm transition ${
+                  p === page
+                    ? "bg-ink text-alabaster"
+                    : "border border-border hover:bg-background"
+                }`}
+                aria-label={`Strona ${p}`}
+                aria-current={p === page ? "page" : undefined}
+              >
+                {p}
+              </button>
+            ),
+          )}
+          <button
+            type="button"
+            disabled={page >= totalPages}
+            onClick={() => onPageChange(page + 1)}
+            className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-border text-sm hover:bg-background disabled:cursor-not-allowed disabled:opacity-50"
+            aria-label="Następna strona"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function BookingCard({
   booking,
   onCancel,
