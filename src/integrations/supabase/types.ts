@@ -830,22 +830,6 @@ export type Database = {
         Args: { payload: Json; queue_name: string }
         Returns: number
       }
-      get_active_doctors: {
-        Args: never
-        Returns: {
-          bio: string
-          display_order: number
-          education: string[]
-          experience_summary: string
-          full_name: string
-          id: string
-          photo_url: string
-          professional_title: string
-          slug: string
-          specializations: string[]
-          title: string
-        }[]
-      }
       log_audit_event: {
         Args: {
           _action: string
