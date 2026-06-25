@@ -111,11 +111,13 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
       return null;
     }
 
-    const sb = publicSupabase();
-    const { data: row, error } = await (sb as any)
-      .from("public_doctors")
+    // Service-role + biała lista bezpiecznych pól (anon nie ma dostępu do tabeli).
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row, error } = await supabaseAdmin
+      .from("doctors")
       .select("id, slug, full_name, title, bio, photo_url, display_order, professional_title, experience_summary, specializations, education, portrait_crop")
       .eq("slug", data.slug)
+      .eq("active", true)
       .maybeSingle();
     if (error) throw new Error(error.message);
     void logAuditEvent({
