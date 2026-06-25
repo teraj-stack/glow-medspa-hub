@@ -368,7 +368,7 @@ export const Route = createFileRoute("/lekarze/halina-gabara")({
       {
         name: "description",
         content:
-          "lek. Halina Gabara — medycyna estetyczna w Siedlcach. Doświadczenie z warszawskich klinik premium, indywidualnie planowane terapie, bezpieczeństwo i przewidywalny efekt.",
+          "lek. Halina Gabara — medycyna estetyczna w Siedlcach. Doświadczenie z klinik premium, planowane terapie, bezpieczeństwo i przewidywalny efekt.",
       },
       { property: "og:title", content: "lek. Halina Gabara — BMClinics.ai" },
       {
