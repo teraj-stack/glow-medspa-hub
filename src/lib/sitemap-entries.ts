@@ -48,6 +48,7 @@ export const BLOG_POSTS: { slug: string; priority?: string }[] = [
 // Statyczne strony marketingowe / prawne / utility
 export const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/renasculpt", changefreq: "monthly", priority: "0.85" },
   { path: "/potrzeby", changefreq: "monthly", priority: "0.8" },
   { path: "/rozwiazania", changefreq: "monthly", priority: "0.8" },
   { path: "/technologie", changefreq: "monthly", priority: "0.9" },
