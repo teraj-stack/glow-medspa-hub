@@ -5,6 +5,13 @@ import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   listMyVisitBookings,
   claimMyVisitBookingsByEmail,
   claimVisitBookingByToken,
@@ -12,6 +19,7 @@ import {
   CANCEL_MIN_HOURS,
   type PortalVisitBooking,
 } from "@/lib/visit-bookings.functions";
+
 
 export const Route = createFileRoute("/_authenticated/konto/wizyty")({
   head: () => ({
@@ -73,6 +81,13 @@ function PortalPage() {
   const [tokenInput, setTokenInput] = useState("");
   const [claimMsg, setClaimMsg] = useState<string | null>(null);
   const [cancelMsg, setCancelMsg] = useState<string | null>(null);
+
+  // Filters / sort
+  const [upcomingFilter, setUpcomingFilter] = useState<"all" | PortalVisitBooking["status"]>("all");
+  const [upcomingSort, setUpcomingSort] = useState<"asc" | "desc">("asc");
+  const [pastFilter, setPastFilter] = useState<"all" | PortalVisitBooking["status"]>("all");
+  const [pastSort, setPastSort] = useState<"asc" | "desc">("desc");
+
 
   // Pull current user email for greeting
   useEffect(() => {
