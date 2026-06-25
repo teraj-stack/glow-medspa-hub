@@ -29,6 +29,75 @@ function useIsAdmin() {
   });
 }
 
+const VIDEO_ROOT_MARGIN = "200px";
+
+type VideoSource = { src: string; type: string };
+
+function LazyVideo({
+  poster,
+  sources,
+  className,
+  ariaLabel,
+}: {
+  poster: string;
+  sources: VideoSource[];
+  className?: string;
+  ariaLabel?: string;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: VIDEO_ROOT_MARGIN, threshold: 0 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoad) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.load();
+    const handleMetadata = () => {
+      video.play().catch(() => {
+        // Autoplay may be blocked by browser policy; user can still click play.
+      });
+    };
+    video.addEventListener("loadedmetadata", handleMetadata, { once: true });
+    return () => {
+      video.removeEventListener("loadedmetadata", handleMetadata);
+    };
+  }, [shouldLoad]);
+
+  return (
+    <video
+      ref={videoRef}
+      className={className}
+      poster={poster}
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-label={ariaLabel}
+    >
+      {shouldLoad && sources.map((s) => <source key={s.src} src={s.src} type={s.type} />)}
+    </video>
+  );
+}
+
 type PortraitShape = "circle" | "square" | "portrait45";
 
 type PortraitCrop = {
@@ -518,19 +587,15 @@ function HalinaGabaraPage() {
             </p>
           </div>
           <div className="col-start-2 pt-4">
-            <video
+            <LazyVideo
               className="aspect-square w-full max-w-md rounded-2xl bg-muted object-cover shadow-sm"
               poster={halaTloPoster.url}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="none"
-              aria-label="Halina Gabara — wideo prezentacyjne"
-            >
-              <source src={halaTloWebm.url} type="video/webm" />
-              <source src={halaTloMp4.url} type="video/mp4" />
-            </video>
+              ariaLabel="Halina Gabara — wideo prezentacyjne"
+              sources={[
+                { src: halaTloWebm.url, type: "video/webm" },
+                { src: halaTloMp4.url, type: "video/mp4" },
+              ]}
+            />
           </div>
         </div>
       </section>
