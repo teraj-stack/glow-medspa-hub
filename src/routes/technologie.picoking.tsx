@@ -8,11 +8,11 @@ import heroAsset from "@/assets/picoking-hero.jpg.asset.json";
 import heroAvif from "@/assets/picoking-hero.avif.asset.json";
 import heroWebp from "@/assets/picoking-hero.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
-import comparisonAsset from "@/assets/picoking-comparison.jpg.asset.json";
-import skinAsset from "@/assets/picoking-skin-cross-section.jpg.asset.json";
-import pico532Img from "@/assets/pico-532-fractional.jpeg.asset.json";
-import pico1064Img from "@/assets/pico-1064-fractional.jpeg.asset.json";
-import applicatorsAsset from "@/assets/picoking-applicators.jpg.asset.json";
+import comparisonImg from "@/assets/picoking-comparison.webp";
+import skinImg from "@/assets/picoking-skin-cross-section.webp";
+import pico532Img from "@/assets/pico-532-fractional.webp";
+import pico1064Img from "@/assets/pico-1064-fractional.webp";
+import applicatorsImg from "@/assets/picoking-applicators.webp";
 import { BeforeAfterSlider } from "@/components/site/BeforeAfterSlider";
 import ba5 from "@/assets/piko-ba-5.webp.asset.json";
 import ba5a from "@/assets/piko-ba-5a.webp.asset.json";
@@ -51,9 +51,6 @@ const BA_GALLERY = [
 ];
 
 const heroImg = heroAsset.url;
-const comparisonImg = comparisonAsset.url;
-const skinImg = skinAsset.url;
-const applicatorsImg = applicatorsAsset.url;
 
 const TECH_SLUG = "picoking";
 
@@ -262,7 +259,7 @@ function PikosekundowyPage() {
           <div className="mt-12 grid gap-8 md:grid-cols-2">
             <figure className="overflow-hidden rounded-lg border border-white/10 bg-white">
               <img
-                src={pico1064Img.url}
+                src={pico1064Img}
                 alt="Model anatomiczny — frakcyjny picolaser 1064 nm: punktowe mikro-rozpady fotoakustyczne (LIOB) w skórze właściwej, bez strefy termicznego oparzenia"
                 width={1920}
                 height={1440}
@@ -276,7 +273,7 @@ function PikosekundowyPage() {
             </figure>
             <figure className="overflow-hidden rounded-lg border border-white/10 bg-white">
               <img
-                src={pico532Img.url}
+                src={pico532Img}
                 alt="Model anatomiczny — frakcyjny picolaser 532 nm: pole mikro-kawitacji fotoakustycznej, fragmentacja pigmentu i mikro-przerwy w naczyniach bez termicznego oparzenia tkanki"
                 width={1920}
                 height={1440}

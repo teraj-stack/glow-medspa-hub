@@ -5,10 +5,10 @@ import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { getTechnology, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check, Sparkles, ShieldCheck, Clock, Heart, Users } from "lucide-react";
-import skoraZdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
+import skoraZdrowaImg from "@/assets/plasma-skora-zdrowa.webp";
 import skoraWiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";
-import dzialanieAsset from "@/assets/plasma-dzialanie.png.asset.json";
-import zaawansowanaAsset from "@/assets/plasma-zaawansowana.png.asset.json";
+import dzialanieImg from "@/assets/plasma-dzialanie.webp";
+import zaawansowanaImg from "@/assets/plasma-zaawansowana.webp";
 import heroVideoAsset from "@/assets/plasma-hero.mp4.asset.json";
 import heroPosterWebp from "@/assets/plasma-poster.webp.asset.json";
 import ba1Before from "@/assets/plasma-ba-1.png.asset.json";
@@ -102,7 +102,7 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:url", content: url },
-        { property: "og:image", content: dzialanieAsset.url },
+        { property: "og:image", content: dzialanieImg },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
@@ -199,7 +199,7 @@ function FusionPlasmaPage() {
           </p>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             <figure className="rounded-lg overflow-hidden border border-border bg-white shadow-soft">
-              <img src={skoraZdrowaAsset.url} alt="Model skóry zdrowej — gęsta siatka kolagenu, mieszki włosowe, naczynia krwionośne" className="w-full h-auto" />
+              <img src={skoraZdrowaImg} alt="Model skóry zdrowej — gęsta siatka kolagenu, mieszki włosowe, naczynia krwionośne" className="w-full h-auto" />
               <figcaption className="p-5">
                 <div className="text-xs uppercase tracking-[0.3em] text-champagne">Skóra zdrowa</div>
                 <h3 className="mt-2 font-serif text-xl text-ink">Gęsta, elastyczna, ukrwiona</h3>
@@ -227,7 +227,7 @@ function FusionPlasmaPage() {
         <SectionHeading eyebrow="Jak to działa" title="Zimna plazma budzi skórę do pracy" />
         <div className="mt-10 grid gap-12 md:grid-cols-[1fr_1.2fr] md:items-center">
           <figure className="rounded-lg overflow-hidden bg-white shadow-soft border border-border">
-            <img src={zaawansowanaAsset.url} alt="Strumień zimnej plazmy aktywujący odbudowę kolagenu w głębi skóry" className="w-full h-auto" />
+            <img src={zaawansowanaImg} alt="Strumień zimnej plazmy aktywujący odbudowę kolagenu w głębi skóry" className="w-full h-auto" />
           </figure>
           <div className="space-y-6">
             <p className="text-foreground/85 md:text-lg">

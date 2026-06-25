@@ -1,5 +1,5 @@
 import { CSSProperties } from "react";
-import watermarkAsset from "@/assets/bujok-watermark.png.asset.json";
+import watermarkUrl from "@/assets/bujok-watermark.webp";
 
 type Size = "sm" | "md" | "lg";
 
@@ -38,7 +38,7 @@ export function Watermark({
   };
   return (
     <img
-      src={watermarkAsset.url}
+      src={watermarkUrl}
       alt=""
       aria-hidden="true"
       draggable={false}

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import logoBmc from "@/assets/bujok-medical-logo.png.asset.json";
+import logoBmcUrl from "@/assets/bujok-medical-logo.webp";
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
@@ -38,7 +38,7 @@ export function Header() {
       <div className="container-luxury flex h-16 items-center justify-between md:h-20">
         <Link to="/" aria-label="BMClinics.ai — strona główna" className="flex items-center">
           <img
-            src={logoBmc.url}
+            src={logoBmcUrl}
             alt="Bujok Medical"
             className="h-12 w-auto drop-shadow-sm md:h-16"
             width={160}

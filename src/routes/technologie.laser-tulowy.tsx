@@ -19,7 +19,7 @@ import heroAsset from "@/assets/tulowy-hero.jpg.asset.json";
 import heroAvif from "@/assets/tulowy-hero.avif.asset.json";
 import heroWebp from "@/assets/tulowy-hero.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
-import mechanizmAsset from "@/assets/tulowy-mechanizm.png.asset.json";
+import mechanizmImg from "@/assets/tulowy-mechanizm.webp";
 import ba1Before from "@/assets/tulowy-ba-1.png.asset.json";
 import ba1After from "@/assets/tulowy-ba-1a.png.asset.json";
 import ba2Before from "@/assets/tulowy-ba-2.png.asset.json";
@@ -272,7 +272,7 @@ function LaserTulowyPage() {
         />
         <div className="mt-12 grid gap-10 lg:grid-cols-[1fr,1fr] lg:items-center">
           <img
-            src={mechanizmAsset.url}
+            src={mechanizmImg}
             alt="Schemat działania lasera tulowego 1927 nm w skórze — kontrolowana koagulacja w warstwie pigmentowej, kolumna MTZ i efekt halo"
             loading="lazy"
             width={1600}
@@ -345,7 +345,7 @@ function LaserTulowyPage() {
             </div>
           </div>
           <img
-            src={mechanizmAsset.url}
+            src={mechanizmImg}
             alt="Schemat frakcyjnej fototermolizy lasera tulowego — kolumny MTZ, nienaruszone wyspy skóry i strefa koagulacji halo"
             loading="lazy"
             width={1600}
