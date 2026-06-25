@@ -310,16 +310,36 @@ function PortalPage() {
 
 
         {/* Past */}
-        {past.length > 0 && (
-          <div className="mt-12">
-            <h2 className="text-lg font-medium">Historia</h2>
+        <div className="mt-12">
+          <h2 className="text-lg font-medium">Historia</h2>
+          <FilterBar
+            status={pastStatus}
+            onStatusChange={setPastStatus}
+            payment={pastPayment}
+            onPaymentChange={setPastPayment}
+            treatment={pastTreatment}
+            onTreatmentChange={setPastTreatment}
+            treatments={treatments}
+            sort={pastSort}
+            onSortChange={setPastSort}
+          />
+          {bookingsQuery.isLoading ? (
+            <p className="mt-4 text-sm text-foreground/70">Ładuję…</p>
+          ) : past.length === 0 ? (
+            <p className="mt-4 text-sm text-foreground/70">
+              {pastStatus !== "all" || pastPayment !== "all" || pastTreatment !== "all"
+                ? "Brak wizyt w historii spełniających wybrane filtry."
+                : "Brak wizyt w historii."}
+            </p>
+          ) : (
             <ul className="mt-4 space-y-4">
               {past.map((b) => (
                 <BookingCard key={b.id} booking={b} />
               ))}
             </ul>
-          </div>
-        )}
+          )}
+        </div>
+
 
         <p className="mt-12 text-xs text-foreground/60">
           Wizytę z portalu można odwołać najpóźniej {CANCEL_MIN_HOURS}h przed terminem. W pilnych przypadkach prosimy o kontakt z recepcją.
