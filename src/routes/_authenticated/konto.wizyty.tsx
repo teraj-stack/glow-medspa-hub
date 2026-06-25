@@ -114,7 +114,6 @@ function PortalPage() {
     setPastPage(1);
   }, [pastStatus, pastPayment, pastTreatment, pastSort]);
 
-
   // Auto-claim by email once on mount, then load bookings
   const autoClaim = useMutation({
     mutationFn: () => claimByEmailFn(),
