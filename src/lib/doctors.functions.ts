@@ -1,18 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { createClient } from "@supabase/supabase-js";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { logAuditEvent } from "@/lib/audit/log.server";
-import type { Database } from "@/integrations/supabase/types";
 
-// Public, read-only Supabase client (anon key, respects RLS).
-function publicSupabase() {
-  return createClient<Database>(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_PUBLISHABLE_KEY!,
-    { auth: { storage: undefined, persistSession: false, autoRefreshToken: false } },
-  );
-}
 
 async function assertAdmin(supabase: any, userId: string) {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -36,12 +26,14 @@ async function assertAdmin(supabase: any, userId: string) {
 // PUBLIC: list active doctors
 // ============================================================
 export const listActiveDoctors = createServerFn({ method: "GET" }).handler(async () => {
-  const sb = publicSupabase();
-  // Read from the public-safe view (excludes google_calendar_id and other
-  // internal columns; security_invoker keeps RLS active=true policy in effect).
-  const { data, error } = await (sb as any)
-    .from("public_doctors")
+  // Czytamy bezpośrednio po stronie serwera z service-role — anon nie ma
+  // żadnego dostępu do tabeli ani widoku, a my projektujemy WYŁĄCZNIE
+  // bezpieczne kolumny (bez google_calendar_id, default_price_cents itd.).
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { data, error } = await supabaseAdmin
+    .from("doctors")
     .select("id, slug, full_name, title, bio, photo_url, display_order, professional_title, experience_summary, specializations, education")
+    .eq("active", true)
     .order("display_order", { ascending: true })
     .order("full_name", { ascending: true });
   if (error) throw new Error(error.message);
@@ -109,11 +101,13 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
       return null;
     }
 
-    const sb = publicSupabase();
-    const { data: row, error } = await (sb as any)
-      .from("public_doctors")
+    // Service-role + biała lista bezpiecznych pól (anon nie ma dostępu do tabeli).
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row, error } = await supabaseAdmin
+      .from("doctors")
       .select("id, slug, full_name, title, bio, photo_url, display_order, professional_title, experience_summary, specializations, education, portrait_crop")
       .eq("slug", data.slug)
+      .eq("active", true)
       .maybeSingle();
     if (error) throw new Error(error.message);
     void logAuditEvent({
