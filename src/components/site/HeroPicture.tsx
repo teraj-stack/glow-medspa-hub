@@ -1,4 +1,5 @@
 import { ImgHTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 import { Watermark } from "./Watermark";
 
 type Props = {
@@ -36,7 +37,7 @@ export function HeroPicture({
   ...imgProps
 }: Props) {
   return (
-    <div className={`relative ${className ?? ""}`}>
+    <div className={cn("relative", className)}>
       <picture>
         {avifUrl ? <source srcSet={avifUrl} type="image/avif" /> : null}
         {webpUrl ? <source srcSet={webpUrl} type="image/webp" /> : null}
