@@ -90,7 +90,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9694039e-10cf-47cf-b1da-44821ea89022/id-preview-85c1e743--7c40afc9-5d62-4e26-8703-fb0c05436327.lovable.app-1782055168987.png" },
     ],
     links: [
-      { rel: "stylesheet", href: appCss },
+      // Main Tailwind stylesheet loaded non-blocking via the print-media swap
+      // so first paint can use the inlined CRITICAL_CSS below. A <noscript>
+      // fallback in RootShell guarantees the stylesheet for users without JS.
+      { rel: "preload", as: "style", href: appCss },
+      {
+        rel: "stylesheet",
+        href: appCss,
+        media: "print",
+        "data-async-css": "true",
+      } as { rel: string; href: string },
       { rel: "icon", href: "/favicon.ico" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -111,7 +120,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     scripts: [
       {
         children:
-          "document.querySelectorAll('link[data-async-font]').forEach(function(l){l.media='all'});",
+          "document.querySelectorAll('link[data-async-css],link[data-async-font]').forEach(function(l){l.media='all'});",
       },
     ],
   }),
