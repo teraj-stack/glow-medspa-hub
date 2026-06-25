@@ -347,10 +347,10 @@ function PortalPage() {
                 page={upcomingPageSafe}
                 totalPages={upcomingTotalPages}
                 totalItems={upcomingTotal}
-                pageSize={upcomingPageSize}
+                pageSize={pageSize}
                 pageSizeOptions={PAGE_SIZE_OPTIONS}
                 onPageChange={setUpcomingPage}
-                onPageSizeChange={setUpcomingPageSize}
+                onPageSizeChange={setPageSize}
               />
             </>
           )}
