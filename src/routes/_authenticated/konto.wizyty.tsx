@@ -83,10 +83,16 @@ function PortalPage() {
   const [cancelMsg, setCancelMsg] = useState<string | null>(null);
 
   // Filters / sort
-  const [upcomingFilter, setUpcomingFilter] = useState<"all" | PortalVisitBooking["status"]>("all");
+  const [upcomingStatus, setUpcomingStatus] = useState<string>("all");
+  const [upcomingPayment, setUpcomingPayment] = useState<string>("all");
+  const [upcomingTreatment, setUpcomingTreatment] = useState<string>("all");
   const [upcomingSort, setUpcomingSort] = useState<"asc" | "desc">("asc");
-  const [pastFilter, setPastFilter] = useState<"all" | PortalVisitBooking["status"]>("all");
+
+  const [pastStatus, setPastStatus] = useState<string>("all");
+  const [pastPayment, setPastPayment] = useState<string>("all");
+  const [pastTreatment, setPastTreatment] = useState<string>("all");
   const [pastSort, setPastSort] = useState<"asc" | "desc">("desc");
+
 
 
   // Pull current user email for greeting
