@@ -60,7 +60,7 @@ async function anonRequest(
 ) {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     method,
-    headers: headers(),
+    headers: headers(extraHeaders),
     body: body ? JSON.stringify(body) : undefined,
   });
   return { status: res.status, body: await res.text() };
@@ -87,18 +87,26 @@ function expectBlockedOrEmpty(status: number, body: string, label: string) {
   }
 }
 
-function expectMutationBlocked(status: number, body: string, label: string) {
-  // Mutacja anon-owa musi się rozjechać — PostgREST zwraca 401/403/404,
-  // ewentualnie 405 jeśli metoda jest odcięta na poziomie GRANT.
-  // 200/201/204 = wpis się udał = krytyczna regresja.
-  expect(
-    [401, 403, 404, 405],
-    `${label}: nieoczekiwany status ${status}, body=${body.slice(0, 200)}`,
-  ).toContain(status);
-  expect(
-    [200, 201, 204],
-    `${label}: anon zmodyfikował wiersz (status ${status})`,
-  ).not.toContain(status);
+function expectMutationAffectedNothing(status: number, body: string, label: string) {
+  // Z `Prefer: return=representation` PostgREST zwraca dotknięte wiersze.
+  // RLS blokująca mutację -> pusta tablica (200) albo 401/403/404/405.
+  // Dotknięty którykolwiek wiersz = krytyczna regresja.
+  if (status === 200 || status === 201) {
+    const parsed = JSON.parse(body) as unknown[];
+    expect(
+      Array.isArray(parsed),
+      `${label}: oczekiwana lista, otrzymano ${body.slice(0, 200)}`,
+    ).toBe(true);
+    expect(
+      parsed,
+      `${label}: anon zmodyfikował wiersze: ${body.slice(0, 300)}`,
+    ).toHaveLength(0);
+  } else {
+    expect(
+      [401, 403, 404, 405],
+      `${label}: nieoczekiwany status ${status}, body=${body.slice(0, 200)}`,
+    ).toContain(status);
+  }
 }
 
 describe.skipIf(!SUPABASE_URL || !ANON_KEY)(
