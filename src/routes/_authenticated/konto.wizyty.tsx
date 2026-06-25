@@ -5,6 +5,13 @@ import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   listMyVisitBookings,
   claimMyVisitBookingsByEmail,
   claimVisitBookingByToken,
@@ -12,6 +19,7 @@ import {
   CANCEL_MIN_HOURS,
   type PortalVisitBooking,
 } from "@/lib/visit-bookings.functions";
+
 
 export const Route = createFileRoute("/_authenticated/konto/wizyty")({
   head: () => ({
