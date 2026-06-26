@@ -539,7 +539,7 @@ function HalinaGabaraPage() {
         <div className="mt-10 md:mt-12">
           <div className="min-w-0">
             <div className="grid gap-10 md:grid-cols-[minmax(0,1fr),auto] md:items-center md:gap-12 lg:gap-16">
-              <div>
+              <div className="md:max-w-3xl">
               <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                 Lekarz prowadzący
               </p>
