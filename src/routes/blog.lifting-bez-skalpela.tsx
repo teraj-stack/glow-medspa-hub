@@ -157,7 +157,7 @@ function NonSurgicalArticle() {
               </li>
               <li className="flex gap-3">
                 <Sparkles className="mt-1 size-4 shrink-0 text-champagne" />
-                <span><strong>Krok 2 — proporcje:</strong> precyzyjna wolumetria w głębokich kompartmentach (kość jarzmowa, brodaJ, kąt żuchwy). Nie wypełniamy bruzd — odbudowujemy szkielet.</span>
+                <span><strong>Krok 2 — proporcje:</strong> precyzyjna wolumetria w głębokich kompartmentach (kość jarzmowa, broda, kąt żuchwy). Nie wypełniamy bruzd — odbudowujemy szkielet.</span>
               </li>
               <li className="flex gap-3">
                 <Sparkles className="mt-1 size-4 shrink-0 text-champagne" />
