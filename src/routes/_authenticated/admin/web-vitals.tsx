@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getCoreWebVitals, getCwvTrend } from "@/lib/web-vitals.functions";
 import { Button } from "@/components/ui/button";
-import { jsPDF } from "jspdf";
+
 
 export const Route = createFileRoute("/_authenticated/admin/web-vitals")({
   codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
@@ -181,7 +181,8 @@ function WebVitalsPanel() {
     downloadBlob(new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8" }), `${baseName}.csv`);
   }
 
-  function exportPDF() {
+  async function exportPDF() {
+    const { jsPDF } = await import("jspdf");
     const doc = new jsPDF({ unit: "pt", format: "a4" });
     const margin = 36;
     let y = margin;
