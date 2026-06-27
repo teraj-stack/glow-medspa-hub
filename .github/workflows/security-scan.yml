@@ -178,6 +178,7 @@ jobs:
           name: npm-audit-report
           path: npm-audit.json
           if-no-files-found: ignore
+          retention-days: ${{ github.event_name == 'pull_request' && 14 || 90 }}
 
   sca-trivy:
     name: SCA · Trivy (fs + secrets + misconfig)
