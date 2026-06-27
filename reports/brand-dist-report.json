@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-06-27T03:29:36.331Z",
+  "generatedAt": "2026-06-27T05:41:31.785Z",
   "dist": "dist",
-  "filesScanned": 312,
+  "filesScanned": 329,
   "scannedByExt": {
-    ".js": 115,
+    ".js": 123,
     ".css": 1,
     ".txt": 2,
     ".json": 4,
-    ".mjs": 190
+    ".mjs": 199
   },
   "requiredHits": 46,
   "forbiddenPattern": "BM[\\s\\u00A0]+Clinics",
