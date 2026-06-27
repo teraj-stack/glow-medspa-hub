@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Layers } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
 import szkicAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
+import etapyAsset from "@/assets/ptoza-wektory-etapy.jpg.asset.json";
 
 export const Route = createFileRoute("/blog/ptoza-tkanek-twarzy")({
   head: () => ({
