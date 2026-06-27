@@ -121,8 +121,8 @@ function MechanismsArticle() {
               </figure>
             </div>
             <figure id="mapowanie-procesu-starzenia" className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
-              <img src={fazyAsset.url} alt="Trzy fazy przebudowy skóry — zarys i struktura, zagęszczenie sieci, harmonia i gładkość" loading="lazy" decoding="async" className="w-full object-cover" />
-              <figcaption className="px-4 py-3 text-sm text-muted-foreground">Trzy fazy odbudowy skóry — od zarysu i struktury, przez zagęszczenie sieci kolagenowej, po końcową harmonię i gładkość.</figcaption>
+              <img src={fazyAsset.url} alt="Przyczyny starzenia się skóry — trzy główne problemy: redukcja kwasu hialuronowego (GAGs), nadmierna produkcja proteaz (MMPs), spadek regeneracji (HSPS) oraz zjawiska dodatkowe — stres oksydacyjny i glikacja" loading="lazy" decoding="async" className="w-full object-cover" />
+              <figcaption className="px-4 py-3 text-sm text-muted-foreground">Przyczyny starzenia się skóry — trzy główne problemy: redukcja GAGs, nadmierna produkcja MMPs i spadek regeneracji (HSPS), uzupełnione o stres oksydacyjny i glikację.</figcaption>
             </figure>
           </section>
 
