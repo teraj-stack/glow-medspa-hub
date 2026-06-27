@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { listActiveDoctors } from "@/lib/doctors.functions";
+import { cfImage, cfImageSrcSet } from "@/lib/cf-image";
 
 const doctorsQuery = queryOptions({
   queryKey: ["public-doctors"],
