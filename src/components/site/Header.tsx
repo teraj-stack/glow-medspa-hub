@@ -41,8 +41,8 @@ export function Header() {
             src={logoBmcUrl}
             alt="Bujok Medical"
             className="h-9 w-auto drop-shadow-sm md:h-11"
-            width={160}
-            height={160}
+            width={44}
+            height={44}
             decoding="async"
           />
         </Link>
