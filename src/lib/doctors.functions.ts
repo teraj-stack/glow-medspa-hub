@@ -110,6 +110,13 @@ export const getDoctorBySlug = createServerFn({ method: "GET" })
       .eq("active", true)
       .maybeSingle();
     if (error) throw new Error(error.message);
+    try {
+      const { setResponseHeader } = await import("@tanstack/react-start/server");
+      setResponseHeader(
+        "cache-control",
+        "public, max-age=60, s-maxage=300, stale-while-revalidate=3600",
+      );
+    } catch { /* poza request scope */ }
     void logAuditEvent({
       event_type: "public.read",
       action: "READ",
