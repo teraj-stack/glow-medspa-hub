@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { getDoctorBySlug, saveDoctorPortrait } from "@/lib/doctors.functions";
 import { checkIsAdmin } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
+import { cfImage, cfImageSrcSet } from "@/lib/cf-image";
 import halinaPortrait from "@/assets/halina-portrait-960.webp.asset.json";
 import halaTloMp4 from "@/assets/hala-tlo.mp4.asset.json";
 import halaTloWebm from "@/assets/hala-tlo.webm.asset.json";
