@@ -208,6 +208,12 @@ function PtosisArticle() {
                 Wektory ptozy — kierunki opadania tkanek pomagają planować odwrotne wektory zabiegowe.
               </figcaption>
             </figure>
+            <figure className="mt-6 overflow-hidden rounded-lg border border-border bg-card">
+              <img src={etapyAsset.url} alt="Etapy planowania leczenia ptozy — analiza potrzeb 50+, przebudowa skosowa i wektory siły, odzyskana harmonia 35+" loading="lazy" decoding="async" className="w-full object-cover" />
+              <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+                Plan leczenia w trzech etapach: analiza wektorów napięcia (50+), celowana regeneracja i ułożenie włókien, efekt odzyskanej harmonii (wizualnie 35+).
+              </figcaption>
+            </figure>
           </section>
 
           <section className="rounded-lg border border-border bg-secondary/30 p-6 md:p-8">
