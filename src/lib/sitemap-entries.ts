@@ -43,6 +43,10 @@ export const BLOG_POSTS: { slug: string; priority?: string }[] = [
   { slug: "blizny-potradzikowe", priority: "0.7" },
   { slug: "laser-frakcyjny-rekonwalescencja", priority: "0.8" },
   { slug: "slonce-skora-nowoczesne-technologie", priority: "0.8" },
+  { slug: "starzenie-skory-ptoza-tkanek", priority: "0.9" },
+  { slug: "mechanizmy-starzenia-skory", priority: "0.7" },
+  { slug: "ptoza-tkanek-twarzy", priority: "0.7" },
+  { slug: "lifting-bez-skalpela", priority: "0.8" },
 ];
 
 // Statyczne strony marketingowe / prawne / utility
