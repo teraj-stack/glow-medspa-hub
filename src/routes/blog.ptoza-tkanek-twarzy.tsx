@@ -96,7 +96,17 @@ function PtosisArticle() {
               kąt żuchwy.
             </p>
             <figure className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
-              <img src={szkicAsset.url} alt="Portret starszej kobiety — widoczne zmarszczki i postępująca ptoza tkanek twarzy" loading="lazy" decoding="async" className="w-full object-cover" />
+              <img
+                src={cfImage(szkicAsset.url, { width: 1024, fit: "cover" })}
+                srcSet={portraitSrcSet}
+                sizes={portraitSizes}
+                alt="Portret starszej kobiety — widoczne zmarszczki i postępująca ptoza tkanek twarzy"
+                loading="lazy"
+                decoding="async"
+                width={1600}
+                height={1067}
+                className="w-full h-auto object-cover"
+              />
               <figcaption className="px-4 py-3 text-sm text-muted-foreground">
                 Schemat anatomiczny — granice estetyczne twarzy, na których widać postępującą ptozę.
               </figcaption>
