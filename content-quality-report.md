@@ -1,7 +1,7 @@
 # Raport jakości treści
 
-Wygenerowano: 2026-06-27T03:29:36.422Z
-Przeskanowanych plików tras: 43
+Wygenerowano: 2026-06-27T05:41:31.879Z
+Przeskanowanych plików tras: 47
 
 | Podstrona | Fragmentów | Urwane | Podwójne spacje | Brak kropki | % problemów |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -16,10 +16,13 @@ Przeskanowanych plików tras: 43
 | `/unsubscribe` | 5 | 1 | 1 | 1 | 60% |
 | `/konsultacja` | 12 | 3 | 2 | 2 | 58.3% |
 | `/_authenticated/konto/wizyty` | 51 | 7 | 11 | 11 | 56.9% |
+| `/blog/mechanizmy-starzenia-skory` | 48 | 6 | 13 | 8 | 56.3% |
 | `/lekarze/jan-bujok` | 27 | 4 | 7 | 4 | 55.6% |
 | `/blog/blizny-potradzikowe` | 74 | 9 | 25 | 5 | 52.7% |
 | `/blog/powiklania-mezoterapia-iglowa` | 81 | 12 | 21 | 8 | 50.6% |
 | `/technologie/laser-tulowy` | 38 | 9 | 6 | 4 | 50% |
+| `/blog/lifting-bez-skalpela` | 57 | 6 | 13 | 8 | 47.4% |
+| `/blog/ptoza-tkanek-twarzy` | 51 | 5 | 12 | 7 | 47.1% |
 | `/lekarze` | 26 | 7 | 4 | 1 | 46.2% |
 | `/_authenticated/admin/dns` | 37 | 5 | 7 | 5 | 45.9% |
 | `/auth` | 9 | 2 | 1 | 1 | 44.4% |
@@ -31,6 +34,7 @@ Przeskanowanych plików tras: 43
 | `/technologie/peeling-weglowy-laserowy` | 27 | 4 | 5 | 2 | 40.7% |
 | `/_authenticated/admin/web-vitals` | 23 | 2 | 4 | 3 | 39.1% |
 | `/_authenticated/admin/audyt` | 48 | 8 | 4 | 4 | 33.3% |
+| `/blog/starzenie-skory-ptoza-tkanek` | 102 | 11 | 17 | 6 | 33.3% |
 | `/blog/laser-frakcyjny-rekonwalescencja` | 89 | 9 | 14 | 6 | 32.6% |
 | `/bezpieczenstwo-zabiegow-laserowych` | 63 | 11 | 3 | 6 | 31.7% |
 | `/technologie/terapia-led` | 35 | 4 | 5 | 2 | 31.4% |
@@ -192,6 +196,21 @@ Przeskanowanych plików tras: 43
  ␣␣ // Filters / sort / pagination
  ␣␣ const [upcomingStatus, setUpcomingStatus] = useState"
 
+### `/blog/mechanizmy-starzenia-skory`
+- urwane: "Mechanizmy starzenia skóry — co dzieje się pod powierzchnią"
+- brak kropki: "Mechanizmy starzenia skóry — co dzieje się pod powierzchnią"
+- podwójne spacje: "Zanim porozmawiamy o ptozie i zabiegach, warto zrozumieć, co dokładnie zmienia się
+ ␣␣ w skórze z każdą dekadą. To biologia, którą można spowolnić — jeśli wiemy, na co patrzymy."
+- podwójne spacje: "Kolagen typu I i III stanowi 70–80% suchej masy skóry właściwej. To on nadaje jej
+ ␣␣ gęstość, sprężystość i pełność. Fibroblasty produkują go aktywnie do około 25. roku
+ ␣␣ życia — potem produkcja spada średnio o 1% rocznie. Po 50. r.ż. skóra ma o 25–30% mniej
+ ␣␣ kolagenu niż w wieku 25 lat, a po menopauzie tempo utraty przyspiesza dodatkowo
+ ␣␣ o 30% w ciągu pierwszych 5 lat po jej rozpoczęciu."
+- podwójne spacje: "Równolegle do spadku produkcji rośnie aktywność enzymów rozkładających kolagen —
+ ␣␣ metaloproteinaz macierzy (MMP-1, MMP-3, MMP-9). UV jest ich najsilniejszym aktywatorem:
+ ␣␣ już 15 minut intensywnego słońca podnosi poziom MMP-1 w skórze 4-krotnie na kilka dni.
+ ␣␣ To dlatego fotoprotekcja działa nie tylko prewencyjnie, ale również terapeutycznie."
+
 ### `/lekarze/jan-bujok`
 - podwójne spacje: "Jestem chirurgiem i twórcą technologicznym, którego pasją jest projektowanie nowoczesnych rozwiązań
  ␣␣ dla medycyny estetycznej i regeneracyjnej. Moja działalność opiera się na bezkompromisowym łączeniu
@@ -240,6 +259,36 @@ Przeskanowanych plików tras: 43
  ␣␣ Działa na powierzchni skóry — około 0,1 mm — dlatego nie zakłóca efektów
  ␣␣ zabiegów z toksyną botulinową. Standard premium klinik warszawskich — w Siedlcach."
 - urwane: "Umów konsultację"
+
+### `/blog/lifting-bez-skalpela`
+- urwane: "Część 2"
+- urwane: "Lifting bez skalpela — co realnie odwraca ptozę"
+- brak kropki: "Lifting bez skalpela — co realnie odwraca ptozę"
+- podwójne spacje: "Nie istnieje jeden zabieg, który „cofa czas”. Istnieje sekwencja dobrana do stopnia
+ ␣␣ ptozy i jakości skóry — to ona daje efekt naturalny, trwały i niemożliwy do osiągnięcia
+ ␣␣ jednym wypełniaczem czy jedną serią nici."
+- podwójne spacje: "Energia ultradźwiękowa skupiona dokładnie w warstwie SMAS (3–4,5 mm) lub w skórze
+ ␣␣ właściwej (1,5–3 mm) podgrzewa tkankę do 65–70°C, wywołując punktową koagulację.
+ ␣␣ Powięź obkurcza się natychmiast, a w ciągu 3–6 miesięcy zachodzi neokolageneza.
+ ␣␣ Złoty standard dla ptozy II/III stopnia. Efekt utrzymuje się 12–18 miesięcy."
+
+### `/blog/ptoza-tkanek-twarzy`
+- urwane: "Część 1"
+- podwójne spacje: "Twarz po 45. roku życia zmienia się nie z powodu „obwisłej skóry” — to skutek
+ ␣␣ głębszych procesów w trzech warstwach pod nią. Bez ich zrozumienia żaden zabieg
+ ␣␣ liftingujący nie daje trwałego efektu."
+- podwójne spacje: "— opadanie) to anatomiczne przesunięcie tkanek miękkich
+ ␣␣ twarzy w dół pod wpływem grawitacji. Dotyczy wszystkich warstw — skóry, tkanki
+ ␣␣ tłuszczowej, mięśni mimicznych i powięzi SMAS — choć każda opada w innym tempie i
+ ␣␣ w innym kierunku. Efektem są charakterystyczne zmiany konturu: opadające policzki,
+ ␣␣ pogłębione bruzdy nosowo-wargowe, „chomiki” (jowls), podwójny podbródek, zatarty
+ ␣␣ kąt żuchwy."
+- urwane: "Kość szczęki, jarzmowa, brzeg oczodołu i żuchwa stopniowo tracą masę po 40. r.ż.
+                      Brzeg oczodołu cofa się o 1–2 mm na dekadę, co odsłania kompartment tłuszczowy
+                      pod oczami (zarysowuje się"
+- podwójne spacje: "Kość szczęki, jarzmowa, brzeg oczodołu i żuchwa stopniowo tracą masę po 40. r.ż.
+ ␣␣ Brzeg oczodołu cofa się o 1–2 mm na dekadę, co odsłania kompartment tłuszczowy
+ ␣␣ pod oczami (zarysowuje się"
 
 ### `/lekarze`
 - urwane: "Lekarze i specjaliści"
@@ -360,6 +409,26 @@ Przeskanowanych plików tras: 43
   const [success, setSuccess] = useState"
 - podwójne spacje: "("all");
  ␣␣ const [search, setSearch] = useState"
+
+### `/blog/starzenie-skory-ptoza-tkanek`
+- brak kropki: "Jak starzeje się skóra i dlaczego dochodzi do ptozy tkanek"
+- podwójne spacje: "Twarz nie „opada” z dnia na dzień. To suma trzech procesów rozłożonych na 20–30 lat —
+ ␣␣ jeśli rozumiemy ich kolejność, możemy skutecznie ją odwrócić, zanim wymaga skalpela.
+ ␣␣ Poniżej kompletny przewodnik dla pacjentki, która chce świadomie zaplanować dekadę
+ ␣␣ po 35."
+- podwójne spacje: "(photoaging
+ ␣␣ i tzw. exposome) wynika z UV, zanieczyszczeń, palenia i diety — i to ono odpowiada za
+ ␣␣ 80–90% tego, co widzimy w lustrze. Większość zmian, którym przypisujemy „wiek”, w istocie
+ ␣␣ jest do uniknięcia."
+- podwójne spacje: "Po 25. roku życia fibroblasty zwalniają produkcję kolagenu o około 1% rocznie. Włókna
+ ␣␣ elastyny, które dają skórze sprężystość, ulegają fragmentacji pod wpływem
+ ␣␣ metaloproteinaz (MMP-1) aktywowanych przez UV. Kwas hialuronowy w macierzy zewnątrz­komórkowej
+ ␣␣ wiąże coraz mniej wody. Proces glikacji — łączenia cukrów z białkami — usztywnia
+ ␣␣ włókna kolagenu (zjawisko AGEs, Advanced Glycation End-products), przez co skóra
+ ␣␣ traci sprężystość i nabiera żółtawego odcienia."
+- podwójne spacje: "Ptoza tkanek twarzy nie jest „obwisaniem skóry”. To efekt trzech równoległych
+ ␣␣ procesów w głębszych strukturach — i właśnie dlatego sam lifting skóry (chirurgiczny
+ ␣␣ czy nici) nigdy nie daje długotrwałego efektu, jeśli pomija fundament."
 
 ### `/blog/laser-frakcyjny-rekonwalescencja`
 - brak kropki: "Laser frakcyjny — dzień po dniu rekonwalescencji"

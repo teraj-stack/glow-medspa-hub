@@ -81,13 +81,13 @@ export default function PakietTile({
 
   return (
     <article id={id} className="group relative flex h-full flex-col rounded-sm bg-card p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-lg md:p-8">
-      {/* Rząd ikon przy górnej krawędzi */}
+      {/* Rząd ikon przy górnej krawędzi — responsywne dla telefonów i tabletów */}
       {topIcons && topIcons.length > 0 && (
-        <div className="-mx-2 mb-6 flex flex-wrap items-start justify-center gap-3 md:gap-4" aria-hidden="true">
+        <div className="mb-5 flex flex-nowrap items-start justify-center gap-2 sm:gap-3 md:mb-6 md:gap-4" aria-hidden="true">
           {topIcons.map((ic, i) => (
             <div
               key={i}
-              className="flex h-12 w-12 items-center justify-center rounded-full border md:h-14 md:w-14"
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border sm:h-11 sm:w-11 md:h-12 md:w-12"
               style={{
                 background: "color-mix(in oklab, var(--champagne) 8%, transparent)",
                 borderColor: "color-mix(in oklab, var(--champagne) 25%, transparent)",
