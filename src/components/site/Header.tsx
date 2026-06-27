@@ -40,10 +40,11 @@ export function Header() {
           <img
             src={logoBmcUrl}
             alt="Bujok Medical"
-            className="h-9 w-auto drop-shadow-sm md:h-11"
-            width={160}
-            height={160}
+            className="h-[36px] w-auto drop-shadow-sm md:h-[44px]"
+            width={44}
+            height={44}
             decoding="async"
+            style={{ height: "36px", width: "auto" }}
           />
         </Link>
 
