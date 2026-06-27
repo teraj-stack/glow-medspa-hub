@@ -10,7 +10,7 @@ h1{font-size:clamp(2.5rem,5vw + 1rem,5rem);line-height:1.05}
 h2{font-size:clamp(1.875rem,3vw + 0.5rem,3rem);line-height:1.15}
 p{margin:0}
 a{color:inherit;text-decoration:none}
-img,svg,video{display:block;max-width:100%;height:auto}
+img,svg,video{display:block;max-width:100%}
 .flex{display:flex}
 .flex-col{flex-direction:column}
 .flex-1{flex:1 1 0%}
