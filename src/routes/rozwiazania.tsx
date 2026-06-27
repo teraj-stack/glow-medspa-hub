@@ -10,6 +10,11 @@ import ScrollReveal from "@/components/ScrollReveal";
 import PakietTile from "@/components/PakietTile";
 import PakietETile from "@/components/PakietETile";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
+import iconProfilSzyja from "@/assets/profil-szyja-icon.png.asset.json";
+import iconTwarzBok from "@/assets/twarz-bok-icon.png.asset.json";
+import iconTwarzDlon from "@/assets/twarz-dlon-icon.png.asset.json";
+import iconSzyjaDekolt from "@/assets/szyja-dekolt-icon.png.asset.json";
+import iconUstaSzyja from "@/assets/usta-szyja-icon.png.asset.json";
 import sylwetkaAsset from "@/assets/sylwetka-back-v3.png.asset.json";
 import teksturaHdTwarzAsset from "@/assets/tekstura-hd-twarz.png.asset.json";
 import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
@@ -144,6 +149,13 @@ function RozwiazaniaPage() {
               tagline="LIFTING I OWAL"
               title="Przywrócenie konturów"
               icon={konturyAsset.url}
+              topIcons={[
+                { src: iconTwarzBok.url, alt: "Profil twarzy" },
+                { src: iconTwarzDlon.url, alt: "Twarz i dłoń" },
+                { src: iconProfilSzyja.url, alt: "Profil szyi" },
+                { src: iconSzyjaDekolt.url, alt: "Szyja i dekolt" },
+                { src: iconUstaSzyja.url, alt: "Usta, szyja i dekolt" },
+              ]}
               bullets={[
                 {
                   title: "Nieoperacyjny lifting",

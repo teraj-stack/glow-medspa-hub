@@ -13,7 +13,9 @@ export type PakietTileProps = {
   iconHref?: string;
   iconTooltip?: string;
   id?: string;
+  topIcons?: { src: string; alt: string }[];
 };
+
 
 function renderBoldParts(text: string, boldParts?: string[]) {
   if (!boldParts || boldParts.length === 0) return <span>{text}</span>;
@@ -40,7 +42,9 @@ export default function PakietTile({
   iconHref,
   iconTooltip,
   id,
+  topIcons,
 }: PakietTileProps) {
+
   const iconCircle = (
     <div
       className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
@@ -77,10 +81,35 @@ export default function PakietTile({
 
   return (
     <article id={id} className="group relative flex h-full flex-col rounded-sm bg-card p-6 transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-lg md:p-8">
+      {/* Rząd ikon przy górnej krawędzi */}
+      {topIcons && topIcons.length > 0 && (
+        <div className="-mx-2 mb-6 flex flex-wrap items-start justify-center gap-3 md:gap-4" aria-hidden="true">
+          {topIcons.map((ic, i) => (
+            <div
+              key={i}
+              className="flex h-12 w-12 items-center justify-center rounded-full border md:h-14 md:w-14"
+              style={{
+                background: "color-mix(in oklab, var(--champagne) 8%, transparent)",
+                borderColor: "color-mix(in oklab, var(--champagne) 25%, transparent)",
+              }}
+            >
+              <img
+                src={ic.src}
+                alt={ic.alt}
+                loading="lazy"
+                className="h-full w-full object-contain p-1.5 motion-safe:animate-[float_6s_ease-in-out_infinite]"
+                style={{ animationDelay: `${i * 0.4}s` }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Numer w rogu */}
       <div className="absolute right-6 top-6 text-xs uppercase tracking-[0.3em] text-champagne md:right-8 md:top-8">
         {nr}
       </div>
+
 
       {/* Awatar + tagline */}
       <div className="flex items-center gap-4">
