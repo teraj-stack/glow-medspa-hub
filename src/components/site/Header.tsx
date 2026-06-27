@@ -40,7 +40,7 @@ export function Header() {
           <img
             src={logoBmcUrl}
             alt="Bujok Medical"
-            className="h-12 w-auto drop-shadow-sm md:h-16"
+            className="h-9 w-auto drop-shadow-sm md:h-11"
             width={160}
             height={160}
             decoding="async"
