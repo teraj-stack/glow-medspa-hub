@@ -269,6 +269,9 @@ function DnsStatusPage() {
   const [autoRefresh, setAutoRefresh] = useState(false);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [compareA, setCompareA] = useState<{ name: string; data: HistoryEntry } | null>(null);
+  const [compareB, setCompareB] = useState<{ name: string; data: HistoryEntry } | null>(null);
+  const [compareError, setCompareError] = useState<string | null>(null);
 
   const checks = useMemo(() => buildChecks(domain.trim(), selector.trim() || "google"), [domain, selector]);
 
