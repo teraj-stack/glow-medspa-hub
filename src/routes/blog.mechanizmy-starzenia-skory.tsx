@@ -120,7 +120,7 @@ function MechanismsArticle() {
                 <figcaption className="px-4 py-3 text-sm text-muted-foreground">Skóra dojrzała — elastoza, fragmentacja, utrata podparcia.</figcaption>
               </figure>
             </div>
-            <figure className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
+            <figure id="mapowanie-procesu-starzenia" className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
               <img src={fazyAsset.url} alt="Trzy fazy przebudowy skóry — zarys i struktura, zagęszczenie sieci, harmonia i gładkość" loading="lazy" decoding="async" className="w-full object-cover" />
               <figcaption className="px-4 py-3 text-sm text-muted-foreground">Trzy fazy odbudowy skóry — od zarysu i struktury, przez zagęszczenie sieci kolagenowej, po końcową harmonię i gładkość.</figcaption>
             </figure>
