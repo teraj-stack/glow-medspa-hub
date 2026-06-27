@@ -51,6 +51,7 @@ import { Route as AuthenticatedAdminUzytkownicyRouteImport } from './routes/_aut
 import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
 import { Route as AuthenticatedAdminRezerwacjeRouteImport } from './routes/_authenticated/admin/rezerwacje'
 import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
+import { Route as AuthenticatedAdminDnsRouteImport } from './routes/_authenticated/admin/dns'
 import { Route as AuthenticatedAdminCennikRouteImport } from './routes/_authenticated/admin/cennik'
 import { Route as AuthenticatedAdminAudytRouteImport } from './routes/_authenticated/admin/audyt'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
@@ -283,6 +284,11 @@ const AuthenticatedAdminLekarzeRoute =
     path: '/lekarze',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminDnsRoute = AuthenticatedAdminDnsRouteImport.update({
+  id: '/dns',
+  path: '/dns',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedAdminCennikRoute =
   AuthenticatedAdminCennikRouteImport.update({
     id: '/cennik',
@@ -381,6 +387,7 @@ export interface FileRoutesByFullPath {
   '/technologie/': typeof TechnologieIndexRoute
   '/admin/audyt': typeof AuthenticatedAdminAudytRoute
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
+  '/admin/dns': typeof AuthenticatedAdminDnsRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
@@ -433,6 +440,7 @@ export interface FileRoutesByTo {
   '/technologie': typeof TechnologieIndexRoute
   '/admin/audyt': typeof AuthenticatedAdminAudytRoute
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
+  '/admin/dns': typeof AuthenticatedAdminDnsRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRoute
@@ -489,6 +497,7 @@ export interface FileRoutesById {
   '/technologie/': typeof TechnologieIndexRoute
   '/_authenticated/admin/audyt': typeof AuthenticatedAdminAudytRoute
   '/_authenticated/admin/cennik': typeof AuthenticatedAdminCennikRoute
+  '/_authenticated/admin/dns': typeof AuthenticatedAdminDnsRoute
   '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/_authenticated/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
@@ -545,6 +554,7 @@ export interface FileRouteTypes {
     | '/technologie/'
     | '/admin/audyt'
     | '/admin/cennik'
+    | '/admin/dns'
     | '/admin/lekarze'
     | '/admin/rezerwacje'
     | '/admin/seo'
@@ -597,6 +607,7 @@ export interface FileRouteTypes {
     | '/technologie'
     | '/admin/audyt'
     | '/admin/cennik'
+    | '/admin/dns'
     | '/admin/lekarze'
     | '/admin/rezerwacje'
     | '/admin/seo'
@@ -652,6 +663,7 @@ export interface FileRouteTypes {
     | '/technologie/'
     | '/_authenticated/admin/audyt'
     | '/_authenticated/admin/cennik'
+    | '/_authenticated/admin/dns'
     | '/_authenticated/admin/lekarze'
     | '/_authenticated/admin/rezerwacje'
     | '/_authenticated/admin/seo'
@@ -1010,6 +1022,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminLekarzeRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/dns': {
+      id: '/_authenticated/admin/dns'
+      path: '/dns'
+      fullPath: '/admin/dns'
+      preLoaderRoute: typeof AuthenticatedAdminDnsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/cennik': {
       id: '/_authenticated/admin/cennik'
       path: '/cennik'
@@ -1093,6 +1112,7 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAudytRoute: typeof AuthenticatedAdminAudytRoute
   AuthenticatedAdminCennikRoute: typeof AuthenticatedAdminCennikRoute
+  AuthenticatedAdminDnsRoute: typeof AuthenticatedAdminDnsRoute
   AuthenticatedAdminLekarzeRoute: typeof AuthenticatedAdminLekarzeRoute
   AuthenticatedAdminRezerwacjeRoute: typeof AuthenticatedAdminRezerwacjeRoute
   AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
@@ -1105,6 +1125,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
   {
     AuthenticatedAdminAudytRoute: AuthenticatedAdminAudytRoute,
     AuthenticatedAdminCennikRoute: AuthenticatedAdminCennikRoute,
+    AuthenticatedAdminDnsRoute: AuthenticatedAdminDnsRoute,
     AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
     AuthenticatedAdminRezerwacjeRoute: AuthenticatedAdminRezerwacjeRoute,
     AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,

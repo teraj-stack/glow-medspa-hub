@@ -37,6 +37,11 @@ function AdminDashboard() {
       title: "Audyt bezpieczeństwa",
       description: "Logi akcji admina, dostępu publicznego, auth i webhooków. Alerty 24h.",
     },
+    {
+      to: "/admin/dns",
+      title: "Status DNS",
+      description: "Weryfikacja MX, SPF, DKIM, DMARC oraz delegacji notify.* dla domeny.",
+    },
   ];
   return (
     <div className="space-y-6">
