@@ -149,6 +149,13 @@ function RozwiazaniaPage() {
               tagline="LIFTING I OWAL"
               title="Przywrócenie konturów"
               icon={konturyAsset.url}
+              topIcons={[
+                { src: iconTwarzBok.url, alt: "Profil twarzy" },
+                { src: iconTwarzDlon.url, alt: "Twarz i dłoń" },
+                { src: iconProfilSzyja.url, alt: "Profil szyi" },
+                { src: iconSzyjaDekolt.url, alt: "Szyja i dekolt" },
+                { src: iconUstaSzyja.url, alt: "Usta, szyja i dekolt" },
+              ]}
               bullets={[
                 {
                   title: "Nieoperacyjny lifting",
