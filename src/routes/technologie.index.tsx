@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { TechCard } from "@/components/site/TechCard";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { TECHNOLOGIES, type Technology } from "@/data/technologies";
 import konturyAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
 import teksturaAsset from "@/assets/tekstura-hd-clean.png.asset.json";
@@ -111,7 +110,7 @@ function TechnologiesPage() {
 
   return (
     <>
-      <section className="bg-secondary/40 py-16 md:py-24">
+      <section className="bg-secondary/40 py-10 md:py-24">
         <div className="container-luxury">
           <SectionHeading
             eyebrow="TECHNOLOGIE"
@@ -195,31 +194,29 @@ function TechnologiesPage() {
             className="container-luxury py-12 md:py-16"
           >
             <div className="group mb-8 flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <a
-                    href={`/rozwiazania#${group.slug}`}
-                    aria-label={`Zobacz rozwiązania: ${group.title}`}
-                    className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
-                  >
-                    <div
-                      className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
-                      style={{
-                        background: "color-mix(in oklab, var(--champagne) 10%, transparent)",
-                        borderColor: "color-mix(in oklab, var(--champagne) 30%, transparent)",
-                      }}
-                    >
-                      <img
-                        src={group.icon}
-                        alt=""
-                        loading="lazy"
-                        className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
-                      />
-                    </div>
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent side="top">Przejdź do rozwiązań: {group.title} — zarezerwuj konsultację, by omówić protokół.</TooltipContent>
-              </Tooltip>
+              <a
+                href={`/rozwiazania#${group.slug}`}
+                aria-label={`Zobacz rozwiązania: ${group.title}`}
+                title={`Przejdź do rozwiązań: ${group.title}`}
+                className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-champagne"
+              >
+                <div
+                  className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
+                  style={{
+                    background: "color-mix(in oklab, var(--champagne) 10%, transparent)",
+                    borderColor: "color-mix(in oklab, var(--champagne) 30%, transparent)",
+                  }}
+                >
+                  <img
+                    src={group.icon}
+                    alt=""
+                    loading="lazy"
+                    width={84}
+                    height={84}
+                    className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
+                  />
+                </div>
+              </a>
               <div className="flex-1">
                 <div className="flex items-baseline gap-3">
                   <span className="text-xs uppercase tracking-[0.3em] text-champagne">

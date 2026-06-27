@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-27T05:41:31.785Z",
+  "generatedAt": "2026-06-27T10:07:14.708Z",
   "dist": "dist",
-  "filesScanned": 329,
+  "filesScanned": 328,
   "scannedByExt": {
-    ".js": 123,
+    ".js": 122,
     ".css": 1,
     ".txt": 2,
     ".json": 4,
