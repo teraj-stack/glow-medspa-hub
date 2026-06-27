@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Sparkles, ShieldCheck } from "lucide-react";
 import zdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
 import wiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";
+import fazyAsset from "@/assets/starzenie-fazy-struktura.jpg.asset.json";
 
 export const Route = createFileRoute("/blog/mechanizmy-starzenia-skory")({
   head: () => ({
@@ -119,6 +120,10 @@ function MechanismsArticle() {
                 <figcaption className="px-4 py-3 text-sm text-muted-foreground">Skóra dojrzała — elastoza, fragmentacja, utrata podparcia.</figcaption>
               </figure>
             </div>
+            <figure className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
+              <img src={fazyAsset.url} alt="Trzy fazy przebudowy skóry — zarys i struktura, zagęszczenie sieci, harmonia i gładkość" loading="lazy" decoding="async" className="w-full object-cover" />
+              <figcaption className="px-4 py-3 text-sm text-muted-foreground">Trzy fazy odbudowy skóry — od zarysu i struktury, przez zagęszczenie sieci kolagenowej, po końcową harmonię i gładkość.</figcaption>
+            </figure>
           </section>
 
           <section>

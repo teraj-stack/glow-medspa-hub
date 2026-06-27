@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Layers } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
 import szkicAsset from "@/assets/szkic-twarz-kontur.png.asset.json";
+import etapyAsset from "@/assets/ptoza-wektory-etapy.jpg.asset.json";
 
 export const Route = createFileRoute("/blog/ptoza-tkanek-twarzy")({
   head: () => ({
@@ -205,6 +206,12 @@ function PtosisArticle() {
               <img src={konturAsset.url} alt="Wektory opadania tkanek twarzy" loading="lazy" decoding="async" className="w-full object-cover" />
               <figcaption className="px-4 py-3 text-sm text-muted-foreground">
                 Wektory ptozy — kierunki opadania tkanek pomagają planować odwrotne wektory zabiegowe.
+              </figcaption>
+            </figure>
+            <figure className="mt-6 overflow-hidden rounded-lg border border-border bg-card">
+              <img src={etapyAsset.url} alt="Etapy planowania leczenia ptozy — analiza potrzeb 50+, przebudowa skosowa i wektory siły, odzyskana harmonia 35+" loading="lazy" decoding="async" className="w-full object-cover" />
+              <figcaption className="px-4 py-3 text-sm text-muted-foreground">
+                Plan leczenia w trzech etapach: analiza wektorów napięcia (50+), celowana regeneracja i ułożenie włókien, efekt odzyskanej harmonii (wizualnie 35+).
               </figcaption>
             </figure>
           </section>
