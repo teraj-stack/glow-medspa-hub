@@ -494,6 +494,13 @@ function DnsStatusPage() {
               Eksport CSV
             </button>
             <button
+              onClick={handleExportJson}
+              disabled={!history.length}
+              className="px-3 py-1.5 text-sm rounded border border-border hover:bg-muted disabled:opacity-50"
+            >
+              Eksport JSON
+            </button>
+            <button
               onClick={() => void handleExportPdf()}
               disabled={!history.length}
               className="px-3 py-1.5 text-sm rounded border border-border hover:bg-muted disabled:opacity-50"
