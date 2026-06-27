@@ -37,8 +37,12 @@ import { Route as LekarzeJanBujokRouteImport } from './routes/lekarze.jan-bujok'
 import { Route as LekarzeHalinaGabaraRouteImport } from './routes/lekarze.halina-gabara'
 import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as BlogStarzenieSkoryPtozaTkanekRouteImport } from './routes/blog.starzenie-skory-ptoza-tkanek'
 import { Route as BlogSlonceSkoraNowoczesneTechnologieRouteImport } from './routes/blog.slonce-skora-nowoczesne-technologie'
+import { Route as BlogPtozaTkanekTwarzyRouteImport } from './routes/blog.ptoza-tkanek-twarzy'
 import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
+import { Route as BlogMechanizmyStarzeniaSkoryRouteImport } from './routes/blog.mechanizmy-starzenia-skory'
+import { Route as BlogLiftingBezSkalpelaRouteImport } from './routes/blog.lifting-bez-skalpela'
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
@@ -205,18 +209,40 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   path: '/email/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogStarzenieSkoryPtozaTkanekRoute =
+  BlogStarzenieSkoryPtozaTkanekRouteImport.update({
+    id: '/blog/starzenie-skory-ptoza-tkanek',
+    path: '/blog/starzenie-skory-ptoza-tkanek',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogSlonceSkoraNowoczesneTechnologieRoute =
   BlogSlonceSkoraNowoczesneTechnologieRouteImport.update({
     id: '/blog/slonce-skora-nowoczesne-technologie',
     path: '/blog/slonce-skora-nowoczesne-technologie',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogPtozaTkanekTwarzyRoute = BlogPtozaTkanekTwarzyRouteImport.update({
+  id: '/blog/ptoza-tkanek-twarzy',
+  path: '/blog/ptoza-tkanek-twarzy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogPowiklaniaMezoterapiaIglowaRoute =
   BlogPowiklaniaMezoterapiaIglowaRouteImport.update({
     id: '/blog/powiklania-mezoterapia-iglowa',
     path: '/blog/powiklania-mezoterapia-iglowa',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogMechanizmyStarzeniaSkoryRoute =
+  BlogMechanizmyStarzeniaSkoryRouteImport.update({
+    id: '/blog/mechanizmy-starzenia-skory',
+    path: '/blog/mechanizmy-starzenia-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogLiftingBezSkalpelaRoute = BlogLiftingBezSkalpelaRouteImport.update({
+  id: '/blog/lifting-bez-skalpela',
+  path: '/blog/lifting-bez-skalpela',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogLaserFrakcyjnyRekonwalescencjaRoute =
   BlogLaserFrakcyjnyRekonwalescencjaRouteImport.update({
     id: '/blog/laser-frakcyjny-rekonwalescencja',
@@ -370,8 +396,12 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
+  '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
+  '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
+  '/blog/ptoza-tkanek-twarzy': typeof BlogPtozaTkanekTwarzyRoute
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
+  '/blog/starzenie-skory-ptoza-tkanek': typeof BlogStarzenieSkoryPtozaTkanekRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
@@ -423,8 +453,12 @@ export interface FileRoutesByTo {
   '/unsubscribe': typeof UnsubscribeRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
+  '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
+  '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
+  '/blog/ptoza-tkanek-twarzy': typeof BlogPtozaTkanekTwarzyRoute
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
+  '/blog/starzenie-skory-ptoza-tkanek': typeof BlogStarzenieSkoryPtozaTkanekRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
@@ -480,8 +514,12 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
+  '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
+  '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
+  '/blog/ptoza-tkanek-twarzy': typeof BlogPtozaTkanekTwarzyRoute
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
+  '/blog/starzenie-skory-ptoza-tkanek': typeof BlogStarzenieSkoryPtozaTkanekRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/formularz/$token': typeof FormularzTokenRoute
   '/lekarze/halina-gabara': typeof LekarzeHalinaGabaraRoute
@@ -537,8 +575,12 @@ export interface FileRouteTypes {
     | '/admin'
     | '/blog/blizny-potradzikowe'
     | '/blog/laser-frakcyjny-rekonwalescencja'
+    | '/blog/lifting-bez-skalpela'
+    | '/blog/mechanizmy-starzenia-skory'
     | '/blog/powiklania-mezoterapia-iglowa'
+    | '/blog/ptoza-tkanek-twarzy'
     | '/blog/slonce-skora-nowoczesne-technologie'
+    | '/blog/starzenie-skory-ptoza-tkanek'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/lekarze/halina-gabara'
@@ -590,8 +632,12 @@ export interface FileRouteTypes {
     | '/unsubscribe'
     | '/blog/blizny-potradzikowe'
     | '/blog/laser-frakcyjny-rekonwalescencja'
+    | '/blog/lifting-bez-skalpela'
+    | '/blog/mechanizmy-starzenia-skory'
     | '/blog/powiklania-mezoterapia-iglowa'
+    | '/blog/ptoza-tkanek-twarzy'
     | '/blog/slonce-skora-nowoczesne-technologie'
+    | '/blog/starzenie-skory-ptoza-tkanek'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/lekarze/halina-gabara'
@@ -646,8 +692,12 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/blog/blizny-potradzikowe'
     | '/blog/laser-frakcyjny-rekonwalescencja'
+    | '/blog/lifting-bez-skalpela'
+    | '/blog/mechanizmy-starzenia-skory'
     | '/blog/powiklania-mezoterapia-iglowa'
+    | '/blog/ptoza-tkanek-twarzy'
     | '/blog/slonce-skora-nowoczesne-technologie'
+    | '/blog/starzenie-skory-ptoza-tkanek'
     | '/email/unsubscribe'
     | '/formularz/$token'
     | '/lekarze/halina-gabara'
@@ -702,8 +752,12 @@ export interface RootRouteChildren {
   UnsubscribeRoute: typeof UnsubscribeRoute
   BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
   BlogLaserFrakcyjnyRekonwalescencjaRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
+  BlogLiftingBezSkalpelaRoute: typeof BlogLiftingBezSkalpelaRoute
+  BlogMechanizmyStarzeniaSkoryRoute: typeof BlogMechanizmyStarzeniaSkoryRoute
   BlogPowiklaniaMezoterapiaIglowaRoute: typeof BlogPowiklaniaMezoterapiaIglowaRoute
+  BlogPtozaTkanekTwarzyRoute: typeof BlogPtozaTkanekTwarzyRoute
   BlogSlonceSkoraNowoczesneTechnologieRoute: typeof BlogSlonceSkoraNowoczesneTechnologieRoute
+  BlogStarzenieSkoryPtozaTkanekRoute: typeof BlogStarzenieSkoryPtozaTkanekRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   FormularzTokenRoute: typeof FormularzTokenRoute
   LovableThemesRoute: typeof LovableThemesRoute
@@ -924,6 +978,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/starzenie-skory-ptoza-tkanek': {
+      id: '/blog/starzenie-skory-ptoza-tkanek'
+      path: '/blog/starzenie-skory-ptoza-tkanek'
+      fullPath: '/blog/starzenie-skory-ptoza-tkanek'
+      preLoaderRoute: typeof BlogStarzenieSkoryPtozaTkanekRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/slonce-skora-nowoczesne-technologie': {
       id: '/blog/slonce-skora-nowoczesne-technologie'
       path: '/blog/slonce-skora-nowoczesne-technologie'
@@ -931,11 +992,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlonceSkoraNowoczesneTechnologieRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/ptoza-tkanek-twarzy': {
+      id: '/blog/ptoza-tkanek-twarzy'
+      path: '/blog/ptoza-tkanek-twarzy'
+      fullPath: '/blog/ptoza-tkanek-twarzy'
+      preLoaderRoute: typeof BlogPtozaTkanekTwarzyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/powiklania-mezoterapia-iglowa': {
       id: '/blog/powiklania-mezoterapia-iglowa'
       path: '/blog/powiklania-mezoterapia-iglowa'
       fullPath: '/blog/powiklania-mezoterapia-iglowa'
       preLoaderRoute: typeof BlogPowiklaniaMezoterapiaIglowaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/mechanizmy-starzenia-skory': {
+      id: '/blog/mechanizmy-starzenia-skory'
+      path: '/blog/mechanizmy-starzenia-skory'
+      fullPath: '/blog/mechanizmy-starzenia-skory'
+      preLoaderRoute: typeof BlogMechanizmyStarzeniaSkoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/lifting-bez-skalpela': {
+      id: '/blog/lifting-bez-skalpela'
+      path: '/blog/lifting-bez-skalpela'
+      fullPath: '/blog/lifting-bez-skalpela'
+      preLoaderRoute: typeof BlogLiftingBezSkalpelaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/laser-frakcyjny-rekonwalescencja': {
@@ -1189,9 +1271,13 @@ const rootRouteChildren: RootRouteChildren = {
   BlogBliznyPotradzikoweRoute: BlogBliznyPotradzikoweRoute,
   BlogLaserFrakcyjnyRekonwalescencjaRoute:
     BlogLaserFrakcyjnyRekonwalescencjaRoute,
+  BlogLiftingBezSkalpelaRoute: BlogLiftingBezSkalpelaRoute,
+  BlogMechanizmyStarzeniaSkoryRoute: BlogMechanizmyStarzeniaSkoryRoute,
   BlogPowiklaniaMezoterapiaIglowaRoute: BlogPowiklaniaMezoterapiaIglowaRoute,
+  BlogPtozaTkanekTwarzyRoute: BlogPtozaTkanekTwarzyRoute,
   BlogSlonceSkoraNowoczesneTechnologieRoute:
     BlogSlonceSkoraNowoczesneTechnologieRoute,
+  BlogStarzenieSkoryPtozaTkanekRoute: BlogStarzenieSkoryPtozaTkanekRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   FormularzTokenRoute: FormularzTokenRoute,
   LovableThemesRoute: LovableThemesRoute,
