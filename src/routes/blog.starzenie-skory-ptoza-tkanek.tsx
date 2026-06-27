@@ -2,7 +2,7 @@ import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Layers, Clock, Sparkles, ShieldCheck, AlertCircle } from "lucide-react";
-import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
+import konturAsset from "@/assets/mapowanie-procesu-starzenia.jpeg.asset.json";
 import wiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";
 import zdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
 import zaawAsset from "@/assets/plasma-zaawansowana.png.asset.json";
@@ -283,13 +283,13 @@ function AgingPillarArticle() {
             <figure className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
               <img
                 src={konturAsset.url}
-                alt="Schemat liftingu konturu owalu twarzy — wektory działania ptozy"
+                alt="Mapowanie procesu starzenia się — wizualizacja opadania tkanek w trzech etapach: pełna harmonia (30 lat), początek opadania i zmiany wektorów, zaawansowane opadanie (70 lat)"
                 loading="lazy"
                 decoding="async"
                 className="w-full object-cover"
               />
               <figcaption className="px-4 py-3 text-sm text-muted-foreground">
-                Wektory ptozy — kierunki, w których tkanki opadają, i odwrotne wektory pracy podczas zabiegów liftingujących.
+                Mapowanie procesu starzenia — trzy etapy opadania tkanek twarzy, ze wskazaniem kierunków wektorów ptozy i dezorganizacji struktury skóry.
               </figcaption>
             </figure>
           </section>
