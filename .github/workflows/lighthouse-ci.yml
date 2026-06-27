@@ -74,8 +74,18 @@ jobs:
             const manifestPath = path.join(dir, 'manifest.json');
             if (!fs.existsSync(manifestPath)) {
               core.setFailed(`Manifest missing at ${manifestPath} — Lighthouse run did not produce output.`);
-              core.setOutput('summary', `❌ **Lighthouse (${profile})** — brak raportu (build/run failed).`);
-              core.setOutput('passed', 'false');
+              const summary = {
+                profile,
+                targetPath,
+                passed: false,
+                error: 'Manifest missing — Lighthouse run did not produce output.',
+                thresholds,
+                metrics: {},
+                artifactUrl: '',
+                htmlPath: '',
+                reportHtmlNote: '',
+              };
+              fs.writeFileSync(`.lighthouseci/summary-${profile}.json`, JSON.stringify(summary, null, 2));
               return;
             }
             const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
@@ -86,9 +96,28 @@ jobs:
             });
             const picked = matches.filter(m => m.isRepresentativeRun);
             const runs = (picked.length ? picked : matches);
+
+            const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}#artifacts`;
+            const htmlPath = runs[0]?.htmlPath
+              ? path.relative(`.lighthouseci/${profile}`, runs[0].htmlPath)
+              : '';
+            const reportHtmlNote = htmlPath
+              ? `Pełny raport HTML po rozpakowaniu: \`${htmlPath}\``
+              : 'Pełny raport HTML dostępny w artefaktach powyżej.';
+
             if (!runs.length) {
-              core.setOutput('summary', `⚠️ **Lighthouse (${profile})** — brak pomiarów dla \`${targetPath}\`.`);
-              core.setOutput('passed', 'false');
+              const summary = {
+                profile,
+                targetPath,
+                passed: false,
+                error: `Brak pomiarów dla \`${targetPath}\`.`,
+                thresholds,
+                metrics: {},
+                artifactUrl,
+                htmlPath,
+                reportHtmlNote,
+              };
+              fs.writeFileSync(`.lighthouseci/summary-${profile}.json`, JSON.stringify(summary, null, 2));
               return;
             }
 
@@ -109,97 +138,50 @@ jobs:
               rows.push({ lcp, cls, fcp, tbt, perfScore, lcpOk, clsOk, perfOk });
             }
 
-            const fmt = (n, unit = 'ms') => Number.isFinite(n) ? `${(n).toFixed(unit === 'ms' ? 0 : 3)}${unit === 'ms' ? ' ms' : ''}` : 'n/a';
             const r = rows[0]; // representative
+            const summary = {
+              profile,
+              targetPath,
+              passed: allPassed,
+              thresholds,
+              metrics: {
+                lcp: r.lcp,
+                cls: r.cls,
+                fcp: r.fcp,
+                tbt: r.tbt,
+                perfScore: r.perfScore,
+                lcpOk: r.lcpOk,
+                clsOk: r.clsOk,
+                perfOk: r.perfOk,
+              },
+              artifactUrl,
+              htmlPath,
+              reportHtmlNote,
+              runCount: runs.length,
+            };
+
+            fs.writeFileSync(`.lighthouseci/summary-${profile}.json`, JSON.stringify(summary, null, 2));
+
+            const fmtMs = (n) => Number.isFinite(n) ? `${Math.round(n)} ms` : 'n/a';
+            const fmtCls = (n) => Number.isFinite(n) ? n.toFixed(3) : 'n/a';
             const icon = (ok) => ok ? '✅' : '❌';
-
-            const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}#artifacts`;
-            const htmlPath = runs[0]?.htmlPath
-              ? path.relative(`.lighthouseci/${profile}`, runs[0].htmlPath)
-              : '';
-            const reportHtmlNote = htmlPath
-              ? `Pełny raport HTML po rozpakowaniu: \`${htmlPath}\``
-              : 'Pełny raport HTML dostępny w artefaktach powyżej.';
-
-            const summary = [
-              `### ${icon(allPassed)} Lighthouse (${profile}) — \`${targetPath}\``,
+            const body = [
+              `### ${icon(allPassed)} ${profile === 'mobile' ? '📱 Mobile' : '💻 Desktop'} — \`${targetPath}\``,
               ``,
               `| Metryka | Wynik | Próg | Status |`,
               `| --- | ---: | ---: | :---: |`,
               `| Performance | ${(r.perfScore * 100).toFixed(0)} | ≥ ${(thresholds.perf * 100).toFixed(0)} | ${icon(r.perfOk)} |`,
-              `| **LCP** | **${fmt(r.lcp)}** | < ${thresholds.lcp} ms | ${icon(r.lcpOk)} |`,
-              `| **CLS** | **${r.cls.toFixed(3)}** | < ${thresholds.cls} | ${icon(r.clsOk)} |`,
-              `| FCP | ${fmt(r.fcp)} | — | – |`,
-              `| TBT | ${fmt(r.tbt)} | — | – |`,
+              `| **LCP** | **${fmtMs(r.lcp)}** | < ${thresholds.lcp} ms | ${icon(r.lcpOk)} |`,
+              `| **CLS** | **${fmtCls(r.cls)}** | < ${thresholds.cls} | ${icon(r.clsOk)} |`,
+              `| FCP | ${fmtMs(r.fcp)} | — | – |`,
+              `| TBT | ${fmtMs(r.tbt)} | — | – |`,
               ``,
               `_Reprezentatywny przebieg z ${runs.length} pomiaru/ów. [Pobierz artefakty \`lhci-${profile}-${context.runId}\`](${artifactUrl}). ${reportHtmlNote}_`,
             ].join('\n');
 
-            core.setOutput('summary', summary);
+            core.setOutput('summary', body);
             core.setOutput('passed', allPassed ? 'true' : 'false');
-            core.setOutput('artifactUrl', artifactUrl);
-            core.setOutput('htmlPath', htmlPath);
-            core.setOutput('reportHtmlNote', reportHtmlNote);
-            await core.summary.addRaw(summary).write();
-
-      - name: Comment Lighthouse results on PR
-        if: always() && github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        env:
-          PROFILE: ${{ matrix.profile }}
-          BODY: ${{ steps.metrics.outputs.summary }}
-          ARTIFACT_URL: ${{ steps.metrics.outputs.artifactUrl }}
-          HTML_PATH: ${{ steps.metrics.outputs.htmlPath }}
-          REPORT_NOTE: ${{ steps.metrics.outputs.reportHtmlNote }}
-        with:
-          script: |
-            const profile = process.env.PROFILE;
-            const body = process.env.BODY;
-            const artifactUrl = process.env.ARTIFACT_URL;
-            const htmlPath = process.env.HTML_PATH;
-            const reportNote = process.env.REPORT_NOTE;
-            if (!body) return;
-            const marker = `<!-- lhci-comment:${profile}:/technologie -->`;
-
-            const { owner, repo } = context.repo;
-            const issue_number = context.payload.pull_request.number;
-
-            // Resolve a direct link to the uploaded artifact if available
-            const artifactName = `lhci-${profile}-${context.runId}`;
-            let directArtifactUrl = artifactUrl;
-            try {
-              const { data: runArtifacts } = await github.rest.actions.listWorkflowRunArtifacts({
-                owner, repo, run_id: context.runId,
-              });
-              const artifact = runArtifacts.artifacts.find(a => a.name === artifactName);
-              if (artifact) {
-                directArtifactUrl = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}/artifacts/${artifact.id}`;
-              }
-            } catch (e) {
-              core.warning(`Could not resolve direct artifact URL: ${e.message}`);
-            }
-
-            const footerLines = [
-              '',
-              '---',
-              `📦 [Artefakty Lighthouse \`${artifactName}\`](${directArtifactUrl})`,
-            ];
-            if (htmlPath) {
-              footerLines.push(`📄 [Pełny raport HTML dla \`/technologie\`](${directArtifactUrl}) — po rozpakowaniu: \`${htmlPath}\``);
-            }
-            footerLines.push('', `> ${reportNote}`);
-            const footer = footerLines.join('\n');
-            const fullBody = `${marker}\n${body}${footer}`;
-
-            const { data: comments } = await github.rest.issues.listComments({
-              owner, repo, issue_number, per_page: 100,
-            });
-            const existing = comments.find(c => c.body && c.body.includes(marker));
-            if (existing) {
-              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body: fullBody });
-            } else {
-              await github.rest.issues.createComment({ owner, repo, issue_number, body: fullBody });
-            }
+            await core.summary.addRaw(body).write();
 
       - name: Enforce thresholds
         if: always()
@@ -216,3 +198,126 @@ jobs:
           name: lhci-${{ matrix.profile }}-${{ github.run_id }}
           path: .lighthouseci/${{ matrix.profile }}
           retention-days: ${{ github.ref == 'refs/heads/main' && 90 || 14 }}
+
+      - name: Upload summary artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lhci-summary-${{ matrix.profile }}
+          path: .lighthouseci/summary-${{ matrix.profile }}.json
+          retention-days: 1
+          overwrite: true
+
+  comment:
+    name: Comment combined Lighthouse results
+    needs: [lighthouse]
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      actions: read
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: lhci-summary-mobile
+          path: summaries
+        continue-on-error: true
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: lhci-summary-desktop
+          path: summaries
+        continue-on-error: true
+
+      - name: Build combined PR comment
+        id: build
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const summariesDir = 'summaries';
+
+            const profiles = ['mobile', 'desktop'];
+            const profileEmoji = { mobile: '📱 Mobile', desktop: '💻 Desktop' };
+            const fmtMs = (n) => Number.isFinite(n) ? `${Math.round(n)} ms` : 'n/a';
+            const fmtCls = (n) => Number.isFinite(n) ? n.toFixed(3) : 'n/a';
+            const icon = (ok) => ok ? '✅' : '❌';
+
+            let allPassed = true;
+            const sections = [];
+            const artifactLines = [];
+
+            for (const profile of profiles) {
+              const filePath = path.join(summariesDir, `summary-${profile}.json`);
+              if (!fs.existsSync(filePath)) {
+                sections.push(`### ❌ ${profileEmoji[profile]} — brak danych\n\nLighthouse (${profile}) nie wygenerował raportu.`);
+                allPassed = false;
+                continue;
+              }
+              const s = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+              if (s.error) {
+                sections.push(`### ❌ ${profileEmoji[profile]} — ${s.error}`);
+                allPassed = false;
+                continue;
+              }
+
+              const m = s.metrics || {};
+              if (!s.passed) allPassed = false;
+
+              sections.push([
+                `### ${icon(s.passed)} ${profileEmoji[profile]} — \`${s.targetPath}\``,
+                ``,
+                `| Metryka | Wynik | Próg | Status |`,
+                `| --- | ---: | ---: | :---: |`,
+                `| Performance | ${(m.perfScore * 100).toFixed(0)} | ≥ ${(s.thresholds.perf * 100).toFixed(0)} | ${icon(m.perfOk)} |`,
+                `| **LCP** | **${fmtMs(m.lcp)}** | < ${s.thresholds.lcp} ms | ${icon(m.lcpOk)} |`,
+                `| **CLS** | **${fmtCls(m.cls)}** | < ${s.thresholds.cls} | ${icon(m.clsOk)} |`,
+                `| FCP | ${fmtMs(m.fcp)} | — | – |`,
+                `| TBT | ${fmtMs(m.tbt)} | — | – |`,
+                ``,
+                `_Reprezentatywny przebieg z ${s.runCount ?? '?'} pomiaru/ów. ${s.reportHtmlNote}_`,
+              ].join('\n'));
+
+              artifactLines.push(`- 📦 \`lhci-${profile}-${context.runId}\`: ${s.artifactUrl || 'n/a'}`);
+              if (s.htmlPath) {
+                artifactLines.push(`  - 📄 Pełny raport HTML po rozpakowaniu: \`${s.htmlPath}\``);
+              }
+            }
+
+            const body = [
+              `## ${icon(allPassed)} Lighthouse — \`/technologie\``,
+              ``,
+              sections.join('\n\n'),
+              ``,
+              `---`,
+              `**Progi:** LCP < 2500 ms (mobile) / < 2000 ms (desktop), CLS < 0.1, Performance ≥ 90.`,
+              ``,
+              `### Artefakty Lighthouse`,
+              ...artifactLines,
+            ].join('\n');
+
+            core.setOutput('body', body);
+
+      - name: Post or update PR comment
+        uses: actions/github-script@v7
+        env:
+          BODY: ${{ steps.build.outputs.body }}
+        with:
+          script: |
+            const body = process.env.BODY;
+            if (!body) return;
+            const marker = '<!-- lhci-comment:/technologie -->';
+            const { owner, repo } = context.repo;
+            const issue_number = context.payload.pull_request.number;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner, repo, issue_number, per_page: 100,
+            });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+            const fullBody = `${marker}\n${body}`;
+            if (existing) {
+              await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body: fullBody });
+            } else {
+              await github.rest.issues.createComment({ owner, repo, issue_number, body: fullBody });
+            }
