@@ -25,10 +25,10 @@ export type CfImageOptions = {
 };
 
 const ENABLED =
-  // Włączone tylko w produkcyjnym buildzie i tylko w przeglądarce —
-  // w SSR nie znamy origin, więc bezpieczniej zwrócić oryginalny URL.
-  typeof window !== "undefined" &&
-  (import.meta.env.PROD || import.meta.env.VITE_CF_IMAGES === "1");
+  // Włączone w produkcyjnym buildzie (na CF) lub gdy VITE_CF_IMAGES=1.
+  // Decyzja deterministyczna — identyczna w SSR i CSR, żeby uniknąć
+  // hydration mismatch i podwójnego pobierania obrazu.
+  import.meta.env.PROD || import.meta.env.VITE_CF_IMAGES === "1";
 
 function buildOptions(o: CfImageOptions): string {
   const parts = [
