@@ -194,9 +194,10 @@ function TechnologiesPage() {
         </div>
       </section>
 
-      {GROUPS.map((group) => {
+      {GROUPS.map((group, groupIdx) => {
         const techs = group.techSlugs.map(getTech).filter(Boolean) as Technology[];
         if (!techs.length) return null;
+        const isFirstGroup = groupIdx === 0;
         return (
           <section
             key={group.slug}
@@ -220,13 +221,16 @@ function TechnologiesPage() {
                   <img
                     src={group.icon}
                     alt=""
-                    loading="lazy"
+                    loading={isFirstGroup ? "eager" : "lazy"}
+                    {...(isFirstGroup ? { fetchPriority: "high" as const } : { fetchPriority: "low" as const })}
+                    decoding={isFirstGroup ? "sync" : "async"}
                     width={84}
                     height={84}
                     className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
                   />
                 </div>
               </a>
+
               <div className="flex-1">
                 <div className="flex items-baseline gap-3">
                   <span className="text-xs uppercase tracking-[0.3em] text-champagne">
