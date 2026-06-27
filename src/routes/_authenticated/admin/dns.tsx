@@ -511,51 +511,49 @@ function DnsStatusPage() {
                 </tr>
               </thead>
               <tbody>
-                {history.map((e) => (
-                  <>
-                    <tr key={e.id} className="border-t border-border">
-                      <td className="px-3 py-2 whitespace-nowrap">
-                        {new Date(e.timestamp).toLocaleString("pl-PL")}
-                      </td>
-                      <td className="px-3 py-2 font-mono text-xs">{e.domain}</td>
-                      <td className="px-3 py-2 font-mono text-xs">{e.selector}</td>
-                      <td className="px-3 py-2">
-                        <StatusBadge status={e.allOk ? "ok" : "warn"} />
-                        <span className="ml-2 text-xs text-muted-foreground">
-                          {e.checks.filter((c) => c.status === "ok").length}/{e.checks.length}
-                        </span>
-                      </td>
-                      <td className="px-3 py-2">
-                        <button
-                          onClick={() => setExpanded((id) => (id === e.id ? null : e.id))}
-                          className="text-xs text-primary hover:underline"
-                        >
-                          {expanded === e.id ? "Ukryj" : "Pokaż"}
-                        </button>
+                {history.flatMap((e) => [
+                  <tr key={e.id} className="border-t border-border">
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      {new Date(e.timestamp).toLocaleString("pl-PL")}
+                    </td>
+                    <td className="px-3 py-2 font-mono text-xs">{e.domain}</td>
+                    <td className="px-3 py-2 font-mono text-xs">{e.selector}</td>
+                    <td className="px-3 py-2">
+                      <StatusBadge status={e.allOk ? "ok" : "warn"} />
+                      <span className="ml-2 text-xs text-muted-foreground">
+                        {e.checks.filter((c) => c.status === "ok").length}/{e.checks.length}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2">
+                      <button
+                        onClick={() => setExpanded((id) => (id === e.id ? null : e.id))}
+                        className="text-xs text-primary hover:underline"
+                      >
+                        {expanded === e.id ? "Ukryj" : "Pokaż"}
+                      </button>
+                    </td>
+                  </tr>,
+                  expanded === e.id ? (
+                    <tr key={`${e.id}-detail`} className="border-t border-border bg-muted/20">
+                      <td colSpan={5} className="px-3 py-3">
+                        <ul className="space-y-2 text-xs">
+                          {e.checks.map((c) => (
+                            <li key={c.id} className="flex items-start gap-2">
+                              <StatusBadge status={c.status} />
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-baseline gap-2 flex-wrap">
+                                  <span className="font-medium text-sm">{c.label}</span>
+                                  <code className="text-[10px] text-muted-foreground">{c.type} {c.name}</code>
+                                </div>
+                                <p className="break-all text-foreground/80">{c.detail || "—"}</p>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
                       </td>
                     </tr>
-                    {expanded === e.id && (
-                      <tr key={`${e.id}-detail`} className="border-t border-border bg-muted/20">
-                        <td colSpan={5} className="px-3 py-3">
-                          <ul className="space-y-2 text-xs">
-                            {e.checks.map((c) => (
-                              <li key={c.id} className="flex items-start gap-2">
-                                <StatusBadge status={c.status} />
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-baseline gap-2 flex-wrap">
-                                    <span className="font-medium text-sm">{c.label}</span>
-                                    <code className="text-[10px] text-muted-foreground">{c.type} {c.name}</code>
-                                  </div>
-                                  <p className="break-all text-foreground/80">{c.detail || "—"}</p>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-                        </td>
-                      </tr>
-                    )}
-                  </>
-                ))}
+                  ) : null,
+                ])}
               </tbody>
             </table>
           </div>
