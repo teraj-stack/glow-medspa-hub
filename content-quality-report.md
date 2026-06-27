@@ -1,7 +1,7 @@
 # Raport jakości treści
 
-Wygenerowano: 2026-06-25T05:14:34.422Z
-Przeskanowanych plików tras: 42
+Wygenerowano: 2026-06-27T03:05:07.603Z
+Przeskanowanych plików tras: 43
 
 | Podstrona | Fragmentów | Urwane | Podwójne spacje | Brak kropki | % problemów |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -12,6 +12,7 @@ Przeskanowanych plików tras: 42
 | `/_authenticated/admin/rezerwacje` | 45 | 11 | 12 | 10 | 73.3% |
 | `/polityka-prywatnosci` | 10 | 3 | 2 | 2 | 70% |
 | `/lekarze/halina-gabara` | 38 | 7 | 12 | 6 | 65.8% |
+| `/_authenticated/konto/postepowanie-pozabiegowe` | 33 | 3 | 8 | 9 | 60.6% |
 | `/unsubscribe` | 5 | 1 | 1 | 1 | 60% |
 | `/konsultacja` | 12 | 3 | 2 | 2 | 58.3% |
 | `/_authenticated/konto/wizyty` | 51 | 7 | 11 | 11 | 56.9% |
@@ -19,16 +20,16 @@ Przeskanowanych plików tras: 42
 | `/blog/blizny-potradzikowe` | 74 | 9 | 25 | 5 | 52.7% |
 | `/blog/powiklania-mezoterapia-iglowa` | 81 | 12 | 21 | 8 | 50.6% |
 | `/technologie/laser-tulowy` | 38 | 9 | 6 | 4 | 50% |
+| `/lekarze` | 26 | 7 | 4 | 1 | 46.2% |
+| `/_authenticated/admin/dns` | 37 | 5 | 7 | 5 | 45.9% |
 | `/auth` | 9 | 2 | 1 | 1 | 44.4% |
 | `/lovable/themes` | 27 | 5 | 4 | 3 | 44.4% |
 | `/regulamin` | 9 | 2 | 2 | 0 | 44.4% |
-| `/lekarze` | 25 | 7 | 3 | 1 | 44% |
 | `/blog/slonce-skora-nowoczesne-technologie` | 79 | 5 | 19 | 10 | 43% |
 | `(root layout)` | 21 | 4 | 0 | 5 | 42.9% |
 | `/renasculpt` | 22 | 6 | 1 | 2 | 40.9% |
 | `/technologie/peeling-weglowy-laserowy` | 27 | 4 | 5 | 2 | 40.7% |
 | `/_authenticated/admin/web-vitals` | 23 | 2 | 4 | 3 | 39.1% |
-| `/_authenticated/konto/postepowanie-pozabiegowe` | 25 | 2 | 3 | 4 | 36% |
 | `/_authenticated/admin/audyt` | 48 | 8 | 4 | 4 | 33.3% |
 | `/blog/laser-frakcyjny-rekonwalescencja` | 89 | 9 | 14 | 6 | 32.6% |
 | `/bezpieczenstwo-zabiegow-laserowych` | 63 | 11 | 3 | 6 | 31.7% |
@@ -45,7 +46,7 @@ Przeskanowanych plików tras: 42
 | `/technologie/fusion-plasma` | 54 | 7 | 0 | 6 | 24.1% |
 | `/technologie/$slug` | 25 | 4 | 0 | 0 | 16% |
 | `/_authenticated/admin/uzytkownicy` | 11 | 1 | 0 | 0 | 9.1% |
-| `/_authenticated/admin/index` | 14 | 0 | 0 | 0 | 0% |
+| `/_authenticated/admin/index` | 16 | 0 | 0 | 0 | 0% |
 | `/_authenticated/admin/route` | 1 | 0 | 0 | 0 | 0% |
 
 ## Przykłady (do 5 na podstronę)
@@ -127,6 +128,25 @@ Przeskanowanych plików tras: 42
   const [savedPhotoUrl, setSavedPhotoUrl] = useState"
 - podwójne spacje: "(initialPhotoUrl);
  ␣␣ const [draftPhotoUrl, setDraftPhotoUrl] = useState"
+
+### `/_authenticated/konto/postepowanie-pozabiegowe`
+- podwójne spacje: "loadDraft(), []);
+ ␣␣ const fetchDraft = useServerFn(getCreatorDraft);
+ ␣␣ const persistDraft = useServerFn(saveCreatorDraft);
+ ␣␣ const removeDraft = useServerFn(deleteCreatorDraft);
+
+ ␣␣ const [step, setStep] = useState"
+- brak kropki: "loadDraft(), []);
+  const fetchDraft = useServerFn(getCreatorDraft);
+  const per…"
+- podwójne spacje: "(initial.step);
+ ␣␣ const [localSavedAt, setLocalSavedAt] = useState"
+- brak kropki: "(initial.step);
+  const [localSavedAt, setLocalSavedAt] = useState"
+- podwójne spacje: "(
+ ␣␣ initial.updatedAt ? new Date(initial.updatedAt) : null,
+ ␣␣ );
+ ␣␣ const [cloudSavedAt, setCloudSavedAt] = useState"
 
 ### `/unsubscribe`
 - podwójne spacje: ").token as string | undefined
@@ -221,6 +241,28 @@ Przeskanowanych plików tras: 42
  ␣␣ zabiegów z toksyną botulinową. Standard premium klinik warszawskich — w Siedlcach."
 - urwane: "Umów konsultację"
 
+### `/lekarze`
+- urwane: "Lekarze i specjaliści"
+- urwane: "Wczytywanie listy lekarzy…"
+- urwane: "Wystąpił błąd"
+- podwójne spacje: "Spróbuj ponownie za chwilę. Jeśli problem się powtórzy, skontaktuj
+ ␣␣ się z nami bezpośrednio."
+- urwane: "Umów konsultację"
+
+### `/_authenticated/admin/dns`
+- podwójne spacje: "(null);
+ ␣␣ const [autoRefresh, setAutoRefresh] = useState(false);
+ ␣␣ const [history, setHistory] = useState"
+- brak kropki: "(null);
+  const [autoRefresh, setAutoRefresh] = useState(false);
+  const [histor…"
+- podwójne spacje: "([]);
+ ␣␣ const [expanded, setExpanded] = useState"
+- brak kropki: "([]);
+  const [expanded, setExpanded] = useState"
+- podwójne spacje: "(null);
+ ␣␣ const [compareA, setCompareA] = useState"
+
 ### `/auth`
 - podwójne spacje: "("login");
  ␣␣ const [email, setEmail] = useState("");
@@ -252,14 +294,6 @@ Przeskanowanych plików tras: 42
  ␣␣ wizyty na mniej niż 24 godziny przed terminem może wiązać się z opłatą rezerwacyjną."
 - urwane: "Regulamin | BMClinics.ai"
 - urwane: "Regulamin | BMClinics.ai"
-
-### `/lekarze`
-- urwane: "Lekarze i specjaliści"
-- urwane: "Wczytywanie listy lekarzy…"
-- urwane: "Wystąpił błąd"
-- podwójne spacje: "Spróbuj ponownie za chwilę. Jeśli problem się powtórzy, skontaktuj
- ␣␣ się z nami bezpośrednio."
-- urwane: "Umów konsultację"
 
 ### `/blog/slonce-skora-nowoczesne-technologie`
 - podwójne spacje: "„Poczekam z odmładzaniem do jesieni, bo latem lasery są niebezpieczne” — jedno
@@ -314,21 +348,6 @@ Przeskanowanych plików tras: 42
 - podwójne spacje: "Dane CrUX (Chrome User Experience Report) z PageSpeed Insights — pomiary rzeczywistych
  ␣␣ użytkowników z ostatnich 28 dni. Progi Google: LCP &lt; 2.5 s · INP &lt; 200 ms · CLS &lt; 0.1."
 - brak kropki: "Działa bez klucza API (limit ~25 zapytań/dzień). Dodaj sekret"
-
-### `/_authenticated/konto/postepowanie-pozabiegowe`
-- podwójne spacje: "loadDraft(), []);
-
- ␣␣ const [step, setStep] = useState"
-- brak kropki: "loadDraft(), []);
-
-  const [step, setStep] = useState"
-- podwójne spacje: "(initial.step);
- ␣␣ const [savedAt, setSavedAt] = useState"
-- brak kropki: "(initial.step);
-  const [savedAt, setSavedAt] = useState"
-- podwójne spacje: "(null);
-
- ␣␣ const [selected, setSelected] = useState"
 
 ### `/_authenticated/admin/audyt`
 - podwójne spacje: "("all");
