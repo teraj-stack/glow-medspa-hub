@@ -1,7 +1,7 @@
 // Krytyczny CSS dla pierwszego ekranu — inline w <head>, żeby renderowanie
 // nie czekało na pełny styles.css. Trzymamy poniżej ~3 KB.
 export const CRITICAL_CSS = `
-:root{--background:oklch(0.985 0.004 80);--foreground:oklch(0.16 0.005 60);--ink:oklch(0.16 0.005 60);--alabaster:oklch(0.985 0.004 80);--champagne:oklch(0.54 0.078 65);--border:oklch(0.9 0.01 70);--muted-foreground:oklch(0.48 0.01 60);--font-serif:"Cormorant Garamond","Times New Roman",serif;--font-sans:"Inter",system-ui,-apple-system,sans-serif}
+:root{--background:oklch(0.985 0.004 80);--foreground:oklch(0.16 0.005 60);--ink:oklch(0.16 0.005 60);--alabaster:oklch(0.985 0.004 80);--champagne:oklch(0.54 0.078 65);--border:oklch(0.9 0.01 70);--muted-foreground:oklch(0.48 0.01 60);--font-serif:"Cormorant Garamond","Times New Roman",serif;--font-sans:"Inter",system-ui,-apple-system,sans-serif;--spacing:0.25rem}
 *{box-sizing:border-box;border-color:var(--border)}
 html{-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 body{margin:0;background-color:var(--background);color:var(--foreground);font-family:var(--font-sans);text-wrap:pretty;hyphens:auto}
