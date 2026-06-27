@@ -24,6 +24,7 @@
     "test:e2e:content": "python3 tests/e2e/content_quality.py",
     "test:e2e:tile02-visual": "python3 tests/e2e/tile_02_visual_regression.py",
     "test:e2e:tile-przywrocenie-konturow-visual": "python3 tests/e2e/tile_przywrocenie_konturow_visual_regression.py",
+    "test:e2e:tile-przywrocenie-konturow-a11y": "python3 -u tests/e2e/tile_przywrocenie_konturow_a11y.py",
     "test:e2e:header-visual": "python3 tests/e2e/header_visual_regression.py",
     "preview": "vite preview",
     "lint": "eslint .",
