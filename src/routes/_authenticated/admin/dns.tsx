@@ -23,6 +23,26 @@ type Result = {
   error?: string;
 };
 
+type HistoryEntry = {
+  id: string;
+  timestamp: string; // ISO
+  domain: string;
+  selector: string;
+  allOk: boolean;
+  checks: {
+    id: string;
+    label: string;
+    name: string;
+    type: string;
+    status: Result["status"];
+    detail: string;
+    records: string[];
+  }[];
+};
+
+const HISTORY_KEY = "admin.dns.history.v1";
+const HISTORY_MAX = 50;
+
 const TYPE_CODES: Record<Check["type"], number> = {
   A: 1, NS: 2, CNAME: 5, MX: 15, TXT: 16,
 };
@@ -123,44 +143,201 @@ function StatusBadge({ status }: { status: Result["status"] }) {
   return <span className={`text-xs px-2 py-1 rounded font-medium ${m.cls}`}>{m.label}</span>;
 }
 
+function loadHistory(): HistoryEntry[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(HISTORY_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(entries: HistoryEntry[]) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(HISTORY_KEY, JSON.stringify(entries.slice(0, HISTORY_MAX)));
+  } catch {
+    // ignore quota
+  }
+}
+
+function csvEscape(v: string): string {
+  if (/[",\n;]/.test(v)) return `"${v.replace(/"/g, '""')}"`;
+  return v;
+}
+
+function entriesToCsv(entries: HistoryEntry[]): string {
+  const header = ["timestamp", "domain", "selector", "all_ok", "check_id", "check_label", "type", "name", "status", "detail", "records"];
+  const rows: string[] = [header.join(",")];
+  for (const e of entries) {
+    for (const c of e.checks) {
+      rows.push([
+        e.timestamp,
+        e.domain,
+        e.selector,
+        e.allOk ? "true" : "false",
+        c.id,
+        c.label,
+        c.type,
+        c.name,
+        c.status,
+        c.detail,
+        c.records.join(" | "),
+      ].map((x) => csvEscape(String(x))).join(","));
+    }
+  }
+  return rows.join("\n");
+}
+
+function downloadBlob(filename: string, blob: Blob) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+async function exportPdf(entries: HistoryEntry[]) {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const margin = 36;
+  let y = margin;
+
+  const newPageIfNeeded = (needed: number) => {
+    if (y + needed > pageH - margin) {
+      doc.addPage();
+      y = margin;
+    }
+  };
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(14);
+  doc.text("Historia sprawdzeń DNS", margin, y);
+  y += 18;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(9);
+  doc.text(`Wygenerowano: ${new Date().toLocaleString("pl-PL")}`, margin, y);
+  y += 18;
+
+  for (const e of entries) {
+    newPageIfNeeded(60);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text(
+      `${new Date(e.timestamp).toLocaleString("pl-PL")} — ${e.domain} [${e.allOk ? "OK" : "UWAGA"}]`,
+      margin,
+      y,
+    );
+    y += 14;
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(9);
+    doc.text(`Selektor DKIM: ${e.selector}`, margin, y);
+    y += 14;
+
+    for (const c of e.checks) {
+      const detailLines = doc.splitTextToSize(`  ${c.detail || "—"}`, pageW - margin * 2);
+      newPageIfNeeded(14 + detailLines.length * 11 + 4);
+      doc.setFont("helvetica", "bold");
+      doc.text(`[${c.status.toUpperCase()}] ${c.label}  (${c.type} ${c.name})`, margin, y);
+      y += 12;
+      doc.setFont("helvetica", "normal");
+      doc.text(detailLines, margin, y);
+      y += detailLines.length * 11 + 4;
+    }
+    y += 8;
+    doc.setDrawColor(200);
+    doc.line(margin, y, pageW - margin, y);
+    y += 10;
+  }
+
+  doc.save(`dns-historia-${new Date().toISOString().slice(0, 10)}.pdf`);
+}
+
 function DnsStatusPage() {
   const [domain, setDomain] = useState("bmclinics.ai");
   const [selector, setSelector] = useState("google");
   const [results, setResults] = useState<Record<string, Result>>({});
   const [lastCheck, setLastCheck] = useState<Date | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(false);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   const checks = useMemo(() => buildChecks(domain.trim(), selector.trim() || "google"), [domain, selector]);
 
+  useEffect(() => {
+    setHistory(loadHistory());
+  }, []);
+
+  const recordHistory = useCallback(
+    (snapshot: Record<string, Result>, currentChecks: Check[], dom: string, sel: string) => {
+      const entry: HistoryEntry = {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        timestamp: new Date().toISOString(),
+        domain: dom,
+        selector: sel,
+        allOk: currentChecks.every((c) => snapshot[c.id]?.status === "ok"),
+        checks: currentChecks.map((c) => {
+          const r = snapshot[c.id];
+          return {
+            id: c.id,
+            label: c.label,
+            name: c.name,
+            type: c.type,
+            status: r?.status ?? "error",
+            detail: r?.detail ?? r?.error ?? "",
+            records: r?.records ?? [],
+          };
+        }),
+      };
+      setHistory((prev) => {
+        const next = [entry, ...prev].slice(0, HISTORY_MAX);
+        saveHistory(next);
+        return next;
+      });
+    },
+    [],
+  );
+
   const runChecks = useCallback(async () => {
-    setResults((prev) => {
-      const next: Record<string, Result> = { ...prev };
-      for (const c of checks) next[c.id] = { records: [], ok: false, detail: "", status: "loading" };
-      return next;
-    });
+    const currentChecks = checks;
+    const dom = domain.trim();
+    const sel = selector.trim() || "google";
+    const loadingState: Record<string, Result> = {};
+    for (const c of currentChecks) loadingState[c.id] = { records: [], ok: false, detail: "", status: "loading" };
+    setResults((prev) => ({ ...prev, ...loadingState }));
+
+    const snapshot: Record<string, Result> = { ...loadingState };
     await Promise.all(
-      checks.map(async (c) => {
+      currentChecks.map(async (c) => {
         try {
           const records = await resolveDns(c.name, c.type);
           const m = c.match(records);
-          setResults((prev) => ({
-            ...prev,
-            [c.id]: { records, ok: m.ok, detail: m.detail, status: m.ok ? "ok" : records.length ? "warn" : "fail" },
-          }));
+          snapshot[c.id] = {
+            records, ok: m.ok, detail: m.detail,
+            status: m.ok ? "ok" : records.length ? "warn" : "fail",
+          };
         } catch (e) {
-          setResults((prev) => ({
-            ...prev,
-            [c.id]: { records: [], ok: false, detail: "", status: "error", error: (e as Error).message },
-          }));
+          snapshot[c.id] = { records: [], ok: false, detail: "", status: "error", error: (e as Error).message };
         }
       }),
     );
+    setResults((prev) => ({ ...prev, ...snapshot }));
     setLastCheck(new Date());
-  }, [checks]);
+    recordHistory(snapshot, currentChecks, dom, sel);
+  }, [checks, domain, selector, recordHistory]);
 
   useEffect(() => {
     void runChecks();
-  }, [runChecks]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!autoRefresh) return;
@@ -169,6 +346,26 @@ function DnsStatusPage() {
   }, [autoRefresh, runChecks]);
 
   const allOk = checks.every((c) => results[c.id]?.status === "ok");
+
+  const handleExportCsv = () => {
+    if (!history.length) return;
+    const csv = entriesToCsv(history);
+    downloadBlob(
+      `dns-historia-${new Date().toISOString().slice(0, 10)}.csv`,
+      new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" }),
+    );
+  };
+
+  const handleExportPdf = async () => {
+    if (!history.length) return;
+    await exportPdf(history);
+  };
+
+  const handleClearHistory = () => {
+    if (!confirm("Wyczyścić całą historię sprawdzeń DNS?")) return;
+    saveHistory([]);
+    setHistory([]);
+  };
 
   return (
     <div className="space-y-6">
@@ -268,9 +465,104 @@ function DnsStatusPage() {
         })}
       </div>
 
+      <section className="pt-4 border-t border-border space-y-3">
+        <div className="flex items-center gap-3 flex-wrap">
+          <h3 className="text-lg font-semibold">Historia sprawdzeń</h3>
+          <span className="text-xs text-muted-foreground">
+            {history.length} {history.length === 1 ? "wpis" : "wpisów"} (max {HISTORY_MAX})
+          </span>
+          <div className="ml-auto flex gap-2">
+            <button
+              onClick={handleExportCsv}
+              disabled={!history.length}
+              className="px-3 py-1.5 text-sm rounded border border-border hover:bg-muted disabled:opacity-50"
+            >
+              Eksport CSV
+            </button>
+            <button
+              onClick={() => void handleExportPdf()}
+              disabled={!history.length}
+              className="px-3 py-1.5 text-sm rounded border border-border hover:bg-muted disabled:opacity-50"
+            >
+              Eksport PDF
+            </button>
+            <button
+              onClick={handleClearHistory}
+              disabled={!history.length}
+              className="px-3 py-1.5 text-sm rounded border border-red-500/30 text-red-400 hover:bg-red-500/10 disabled:opacity-50"
+            >
+              Wyczyść
+            </button>
+          </div>
+        </div>
+
+        {history.length === 0 ? (
+          <p className="text-sm text-muted-foreground">Brak zapisanych sprawdzeń.</p>
+        ) : (
+          <div className="rounded-lg border border-border overflow-hidden">
+            <table className="w-full text-sm">
+              <thead className="bg-muted/50 text-xs text-muted-foreground">
+                <tr>
+                  <th className="text-left px-3 py-2">Data</th>
+                  <th className="text-left px-3 py-2">Domena</th>
+                  <th className="text-left px-3 py-2">DKIM</th>
+                  <th className="text-left px-3 py-2">Status</th>
+                  <th className="text-left px-3 py-2">Szczegóły</th>
+                </tr>
+              </thead>
+              <tbody>
+                {history.flatMap((e) => [
+                  <tr key={e.id} className="border-t border-border">
+                    <td className="px-3 py-2 whitespace-nowrap">
+                      {new Date(e.timestamp).toLocaleString("pl-PL")}
+                    </td>
+                    <td className="px-3 py-2 font-mono text-xs">{e.domain}</td>
+                    <td className="px-3 py-2 font-mono text-xs">{e.selector}</td>
+                    <td className="px-3 py-2">
+                      <StatusBadge status={e.allOk ? "ok" : "warn"} />
+                      <span className="ml-2 text-xs text-muted-foreground">
+                        {e.checks.filter((c) => c.status === "ok").length}/{e.checks.length}
+                      </span>
+                    </td>
+                    <td className="px-3 py-2">
+                      <button
+                        onClick={() => setExpanded((id) => (id === e.id ? null : e.id))}
+                        className="text-xs text-primary hover:underline"
+                      >
+                        {expanded === e.id ? "Ukryj" : "Pokaż"}
+                      </button>
+                    </td>
+                  </tr>,
+                  expanded === e.id ? (
+                    <tr key={`${e.id}-detail`} className="border-t border-border bg-muted/20">
+                      <td colSpan={5} className="px-3 py-3">
+                        <ul className="space-y-2 text-xs">
+                          {e.checks.map((c) => (
+                            <li key={c.id} className="flex items-start gap-2">
+                              <StatusBadge status={c.status} />
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-baseline gap-2 flex-wrap">
+                                  <span className="font-medium text-sm">{c.label}</span>
+                                  <code className="text-[10px] text-muted-foreground">{c.type} {c.name}</code>
+                                </div>
+                                <p className="break-all text-foreground/80">{c.detail || "—"}</p>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </td>
+                    </tr>
+                  ) : null,
+                ])}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
       <p className="text-xs text-muted-foreground">
-        Propagacja DNS może trwać do 72 godzin. Jeśli rekord został dopiero dodany u rejestratora,
-        odśwież po kilku minutach.
+        Propagacja DNS może trwać do 72 godzin. Historia zapisywana jest lokalnie w przeglądarce
+        (do {HISTORY_MAX} ostatnich sprawdzeń).
       </p>
     </div>
   );
