@@ -46,19 +46,39 @@ export const listMyVisitBookings = createServerFn({ method: "GET" })
 export const claimMyVisitBookingsByEmail = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }): Promise<{ claimed: number }> => {
-    const email = (context.claims as { email?: string } | null)?.email;
-    if (!email) return { claimed: 0 };
+    const claims = context.claims as
+      | { email?: string; email_confirmed_at?: string | null }
+      | null;
+    const claimEmail = claims?.email;
+    if (!claimEmail) return { claimed: 0 };
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    // SECURITY: trust only emails that Supabase Auth has actually verified.
+    // The JWT `email` claim is set even for unconfirmed signups, so an
+    // attacker could register with a victim's address and claim their
+    // bookings. Re-read the authoritative user row from auth.users and
+    // require email_confirmed_at to be present, and the address to match.
+    const { data: userRes, error: userErr } = await supabaseAdmin.auth.admin.getUserById(
+      context.userId,
+    );
+    if (userErr || !userRes?.user) return { claimed: 0 };
+    const verifiedEmail = userRes.user.email;
+    const confirmedAt =
+      (userRes.user as { email_confirmed_at?: string | null }).email_confirmed_at ?? null;
+    if (!verifiedEmail || !confirmedAt) return { claimed: 0 };
+    if (verifiedEmail.toLowerCase() !== claimEmail.toLowerCase()) return { claimed: 0 };
+
     const { data, error } = await supabaseAdmin
       .from("visit_bookings")
       .update({ user_id: context.userId })
       .is("user_id", null)
-      .ilike("patient_email", email)
+      .ilike("patient_email", verifiedEmail)
       .select("id");
     if (error) throw new Error(error.message);
     return { claimed: data?.length ?? 0 };
   });
+
 
 /**
  * Manual claim by cancel_token (from the confirmation email). Lets a patient
