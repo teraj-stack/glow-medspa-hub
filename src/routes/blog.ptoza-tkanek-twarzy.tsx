@@ -8,6 +8,12 @@ import szkicAsset from "@/assets/portret-starszej-kobiety.jpg.asset.json";
 import etapyAsset from "@/assets/ptoza-wektory-etapy.jpg.asset.json";
 import { cfImage } from "@/lib/cf-image";
 
+const PORTRAIT_WIDTHS = [480, 768, 1024, 1280, 1600] as const;
+const portraitSrcSet = PORTRAIT_WIDTHS
+  .map((w) => `${cfImage(szkicAsset.url, { width: w, fit: "cover" })} ${w}w`)
+  .join(", ");
+const portraitSizes = "(min-width: 1024px) 768px, (min-width: 640px) 90vw, 100vw";
+
 
 export const Route = createFileRoute("/blog/ptoza-tkanek-twarzy")({
   head: () => ({
