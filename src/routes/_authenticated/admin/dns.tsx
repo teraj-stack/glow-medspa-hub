@@ -356,6 +356,20 @@ function DnsStatusPage() {
     );
   };
 
+  const handleExportJson = () => {
+    if (!history.length) return;
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      domain,
+      selector,
+      entries: history,
+    };
+    downloadBlob(
+      `dns-historia-${new Date().toISOString().slice(0, 10)}.json`,
+      new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" }),
+    );
+  };
+
   const handleExportPdf = async () => {
     if (!history.length) return;
     await exportPdf(history);
@@ -478,6 +492,13 @@ function DnsStatusPage() {
               className="px-3 py-1.5 text-sm rounded border border-border hover:bg-muted disabled:opacity-50"
             >
               Eksport CSV
+            </button>
+            <button
+              onClick={handleExportJson}
+              disabled={!history.length}
+              className="px-3 py-1.5 text-sm rounded border border-border hover:bg-muted disabled:opacity-50"
+            >
+              Eksport JSON
             </button>
             <button
               onClick={() => void handleExportPdf()}
