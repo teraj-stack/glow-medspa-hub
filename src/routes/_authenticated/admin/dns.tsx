@@ -356,6 +356,20 @@ function DnsStatusPage() {
     );
   };
 
+  const handleExportJson = () => {
+    if (!history.length) return;
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      domain,
+      selector,
+      entries: history,
+    };
+    downloadBlob(
+      `dns-historia-${new Date().toISOString().slice(0, 10)}.json`,
+      new Blob([JSON.stringify(payload, null, 2)], { type: "application/json;charset=utf-8" }),
+    );
+  };
+
   const handleExportPdf = async () => {
     if (!history.length) return;
     await exportPdf(history);
