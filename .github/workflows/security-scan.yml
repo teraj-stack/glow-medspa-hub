@@ -213,3 +213,4 @@ jobs:
           name: trivy-sarif
           path: trivy-results.sarif
           if-no-files-found: warn
+          retention-days: ${{ github.event_name == 'pull_request' && 14 || 90 }}
