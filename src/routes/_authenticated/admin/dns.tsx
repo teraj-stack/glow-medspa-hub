@@ -384,6 +384,37 @@ function DnsStatusPage() {
     setHistory([]);
   };
 
+  const parseImportedJson = (text: string): HistoryEntry => {
+    const data = JSON.parse(text);
+    const candidate: unknown = Array.isArray(data)
+      ? data[0]
+      : data?.entries?.[0] ?? data;
+    if (
+      !candidate ||
+      typeof candidate !== "object" ||
+      !Array.isArray((candidate as HistoryEntry).checks) ||
+      typeof (candidate as HistoryEntry).timestamp !== "string"
+    ) {
+      throw new Error("Nieprawidłowy format pliku — oczekiwano eksportu historii DNS.");
+    }
+    return candidate as HistoryEntry;
+  };
+
+  const handleLoadCompare = async (side: "A" | "B", file: File | null) => {
+    setCompareError(null);
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const entry = parseImportedJson(text);
+      const payload = { name: file.name, data: entry };
+      if (side === "A") setCompareA(payload);
+      else setCompareB(payload);
+    } catch (e) {
+      setCompareError((e as Error).message);
+    }
+  };
+
+
   return (
     <div className="space-y-6">
       <div>
