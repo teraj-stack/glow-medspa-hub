@@ -21,10 +21,20 @@ export const Route = createFileRoute("/technologie/")({
       { property: "og:description", content: "Technologie dobrane do pięciu obszarów naszej praktyki." },
       { property: "og:url", content: "https://bmclinics.ai/technologie" },
     ],
-    links: [{ rel: "canonical", href: "https://bmclinics.ai/technologie" }],
+    links: [
+      { rel: "canonical", href: "https://bmclinics.ai/technologie" },
+      // Preload pierwszej ikony grupy — kandydat LCP po nagłówku H1
+      {
+        rel: "preload",
+        as: "image",
+        href: konturyAsset.url,
+        fetchpriority: "high",
+      },
+    ],
   }),
   component: TechnologiesPage,
 });
+
 
 type NeedGroup = {
   nr: string;
