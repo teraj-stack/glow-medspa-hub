@@ -615,6 +615,140 @@ function DnsStatusPage() {
         )}
       </section>
 
+      <section className="pt-4 border-t border-border space-y-3">
+        <div className="flex items-center gap-3 flex-wrap">
+          <h3 className="text-lg font-semibold">Porównaj eksporty JSON</h3>
+          <span className="text-xs text-muted-foreground">
+            Wgraj dwa pliki .json z eksportu — porównane zostanie najnowsze sprawdzenie z każdego.
+          </span>
+          {(compareA || compareB) && (
+            <button
+              onClick={() => { setCompareA(null); setCompareB(null); setCompareError(null); }}
+              className="ml-auto px-3 py-1.5 text-sm rounded border border-border hover:bg-muted"
+            >
+              Wyczyść porównanie
+            </button>
+          )}
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2">
+          {(["A", "B"] as const).map((side) => {
+            const loaded = side === "A" ? compareA : compareB;
+            return (
+              <label key={side} className="block rounded-lg border border-dashed border-border p-3 text-sm cursor-pointer hover:bg-muted/30">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-medium">Plik {side}</span>
+                  {loaded && (
+                    <span className="text-xs text-muted-foreground truncate max-w-[60%]" title={loaded.name}>
+                      {loaded.name}
+                    </span>
+                  )}
+                </div>
+                {loaded ? (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {loaded.data.domain} • DKIM {loaded.data.selector} •{" "}
+                    {new Date(loaded.data.timestamp).toLocaleString("pl-PL")}
+                  </p>
+                ) : (
+                  <p className="text-xs text-muted-foreground mt-1">Wybierz plik JSON…</p>
+                )}
+                <input
+                  type="file"
+                  accept="application/json,.json"
+                  className="hidden"
+                  onChange={(e) => void handleLoadCompare(side, e.target.files?.[0] ?? null)}
+                />
+              </label>
+            );
+          })}
+        </div>
+
+        {compareError && (
+          <p className="text-sm text-red-400">Błąd wczytywania: {compareError}</p>
+        )}
+
+        {compareA && compareB && (() => {
+          const ids = Array.from(
+            new Set([
+              ...compareA.data.checks.map((c) => c.id),
+              ...compareB.data.checks.map((c) => c.id),
+            ]),
+          );
+          const byId = (entry: HistoryEntry, id: string) => entry.checks.find((c) => c.id === id);
+          let diffCount = 0;
+          const rows = ids.map((id) => {
+            const a = byId(compareA.data, id);
+            const b = byId(compareB.data, id);
+            const statusDiff = (a?.status ?? "—") !== (b?.status ?? "—");
+            const detailDiff = (a?.detail ?? "") !== (b?.detail ?? "");
+            const recordsA = (a?.records ?? []).join(" | ");
+            const recordsB = (b?.records ?? []).join(" | ");
+            const recordsDiff = recordsA !== recordsB;
+            const changed = statusDiff || detailDiff || recordsDiff;
+            if (changed) diffCount++;
+            return { id, label: a?.label ?? b?.label ?? id, a, b, changed, statusDiff, detailDiff, recordsDiff };
+          });
+          return (
+            <div className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Różnice w {diffCount} z {rows.length} kontroli.
+              </p>
+              <div className="rounded-lg border border-border overflow-hidden">
+                <table className="w-full text-sm">
+                  <thead className="bg-muted/50 text-xs text-muted-foreground">
+                    <tr>
+                      <th className="text-left px-3 py-2">Kontrola</th>
+                      <th className="text-left px-3 py-2">A</th>
+                      <th className="text-left px-3 py-2">B</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rows.map((r) => (
+                      <tr
+                        key={r.id}
+                        className={`border-t border-border align-top ${r.changed ? "bg-amber-500/5" : ""}`}
+                      >
+                        <td className="px-3 py-2">
+                          <div className="font-medium">{r.label}</div>
+                          {r.changed && (
+                            <div className="text-[10px] text-amber-400 mt-0.5">
+                              {[r.statusDiff && "status", r.detailDiff && "detail", r.recordsDiff && "rekordy"]
+                                .filter(Boolean)
+                                .join(", ")}
+                            </div>
+                          )}
+                        </td>
+                        {(["a", "b"] as const).map((side) => {
+                          const c = r[side];
+                          return (
+                            <td key={side} className="px-3 py-2">
+                              {c ? (
+                                <div className="space-y-1">
+                                  <StatusBadge status={c.status} />
+                                  <p className="break-all text-foreground/80 text-xs">{c.detail || "—"}</p>
+                                  {c.records.length > 0 && (
+                                    <p className="break-all font-mono text-[10px] text-muted-foreground">
+                                      {c.records.join(" | ")}
+                                    </p>
+                                  )}
+                                </div>
+                              ) : (
+                                <span className="text-xs text-muted-foreground">brak</span>
+                              )}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          );
+        })()}
+      </section>
+
+
       <p className="text-xs text-muted-foreground">
         Propagacja DNS może trwać do 72 godzin. Historia zapisywana jest lokalnie w przeglądarce
         (do {HISTORY_MAX} ostatnich sprawdzeń).
