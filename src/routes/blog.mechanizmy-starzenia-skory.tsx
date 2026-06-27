@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Sparkles, ShieldCheck } from "lucide-react";
 import zdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
 import wiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";
-import fazyAsset from "@/assets/starzenie-fazy-struktura.jpg.asset.json";
+import fazyAsset from "@/assets/przyczyny-starzenia-trzy-problemy.jpeg.asset.json";
 
 export const Route = createFileRoute("/blog/mechanizmy-starzenia-skory")({
   head: () => ({
