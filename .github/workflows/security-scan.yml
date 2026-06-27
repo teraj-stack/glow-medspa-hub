@@ -1,0 +1,107 @@
+name: Security Scan (SAST + SCA)
+
+# Automatyczne skany bezpieczeństwa:
+# - SAST: CodeQL (JavaScript/TypeScript)
+# - SCA:  npm audit (high/critical) + Trivy (filesystem, vuln+secret+misconfig)
+# Uruchamiane przy każdym pull request, push do main, harmonogramowo,
+# oraz jako wymagany "gate" przed deployem (deploy-cloudflare.yml czeka na sukces).
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 3 * * 1' # poniedziałek 03:00 UTC
+  workflow_dispatch:
+
+concurrency:
+  group: security-scan-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  sast-codeql:
+    name: SAST · CodeQL
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          queries: security-and-quality
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"
+
+  sca-npm-audit:
+    name: SCA · npm audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (bun, frozen)
+        run: bun install --frozen-lockfile
+
+      # `bun audit` jeszcze nie zwraca pełnego raportu — używamy `npm audit`
+      # po wygenerowaniu package-lock.json z aktualnego package.json.
+      - name: Generate package-lock for audit
+        run: npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+
+      - name: npm audit (fail on high/critical)
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: npm audit (JSON report)
+        if: always()
+        run: npm audit --json > npm-audit.json || true
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-audit-report
+          path: npm-audit.json
+          if-no-files-found: ignore
+
+  sca-trivy:
+    name: SCA · Trivy (fs + secrets + misconfig)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Trivy filesystem scan
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+          format: sarif
+          output: trivy-results.sarif
+
+      - name: Upload Trivy SARIF
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
+          category: trivy-fs
