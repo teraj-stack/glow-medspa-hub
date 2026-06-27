@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { ThemePresetApplier } from "@/components/ThemePresetApplier";
+import { CRITICAL_CSS } from "@/lib/critical-css";
 
 function NotFoundComponent() {
   return (
