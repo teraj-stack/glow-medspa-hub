@@ -136,12 +136,11 @@ async def main():
             device_scale_factor=1,
             reduced_motion="reduce",
         )
-        page = await context.new_page()
 
         for name, w, h in VIEWPORTS:
             print(f"--- {name} ({w}x{h}) ---")
             try:
-                actual = await capture(page, name, w, h)
+                actual = await capture(context, name, w, h)
             except Exception as e:
                 print(f"  FAIL [{name}] capture: {e}")
                 failures.append(name)
