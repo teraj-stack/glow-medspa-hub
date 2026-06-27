@@ -83,7 +83,7 @@ export const Route = createFileRoute("/blog/starzenie-skory-ptoza-tkanek")({
           "@type": "Article",
           headline: "Starzenie skóry i ptoza tkanek — jak zatrzymać czas bez skalpela",
           description:
-            "Przewodnik po mechanizmach starzenia, anatomii ptozy i nowoczesnych metodach jej leczenia.",
+            "Przewodnik po mechanizmach starzenia skóry, anatomii ptozy tkanek oraz nowoczesnych metodach jej leczenia bez skalpela.",
           author: { "@type": "Organization", name: "BMClinics.ai" },
           publisher: {
             "@type": "Organization",
