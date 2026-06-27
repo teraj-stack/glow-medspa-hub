@@ -4,6 +4,13 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Layers } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
 import szkicAsset from "@/assets/portret-starszej-kobiety.jpg.asset.json";
+import { cfImage } from "@/lib/cf-image";
+
+const PORTRAIT_WIDTHS = [480, 768, 1024, 1280, 1600] as const;
+const portraitSrcSet = PORTRAIT_WIDTHS
+  .map((w) => `${cfImage(szkicAsset.url, { width: w, fit: "cover" })} ${w}w`)
+  .join(", ");
+const portraitSizes = "(min-width: 1024px) 768px, (min-width: 640px) 90vw, 100vw";
 import etapyAsset from "@/assets/ptoza-wektory-etapy.jpg.asset.json";
 
 export const Route = createFileRoute("/blog/ptoza-tkanek-twarzy")({
