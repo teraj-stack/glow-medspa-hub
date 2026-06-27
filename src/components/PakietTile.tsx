@@ -42,7 +42,9 @@ export default function PakietTile({
   iconHref,
   iconTooltip,
   id,
+  topIcons,
 }: PakietTileProps) {
+
   const iconCircle = (
     <div
       className="flex h-[84px] w-[84px] shrink-0 items-center justify-center rounded-full border transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg"
