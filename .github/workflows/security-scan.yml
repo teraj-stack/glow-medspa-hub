@@ -196,9 +196,17 @@ jobs:
           format: sarif
           output: trivy-results.sarif
 
-      - name: Upload Trivy SARIF
+      - name: Upload Trivy SARIF to Code Scanning
         if: always()
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results.sarif
           category: trivy-fs
+
+      - name: Upload Trivy SARIF artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-sarif
+          path: trivy-results.sarif
+          if-no-files-found: warn
