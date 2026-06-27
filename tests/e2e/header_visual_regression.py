@@ -44,9 +44,10 @@ VIEWPORTS = [
 ]
 
 
-async def capture(page, name, width, height):
+async def capture(context, name, width, height):
+    page = await context.new_page()
     await page.set_viewport_size({"width": width, "height": height})
-    resp = await page.goto(f"{BASE_URL}{ROUTE}", wait_until="domcontentloaded")
+    resp = await page.goto(f"{BASE_URL}{ROUTE}", wait_until="domcontentloaded", timeout=60_000)
     if not resp or resp.status >= 400:
         raise RuntimeError(f"[{name}] HTTP {resp.status if resp else '?'} dla {BASE_URL}{ROUTE}")
 
