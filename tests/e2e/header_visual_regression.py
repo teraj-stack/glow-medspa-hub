@@ -78,6 +78,7 @@ async def capture(context, name, width, height):
 
     shot_path = OUT_DIR / f"{name}-actual.png"
     await header.screenshot(path=str(shot_path))
+    await page.close()
     return shot_path
 
 
