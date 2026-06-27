@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { listActiveDoctors } from "@/lib/doctors.functions";
+import { cfImage, cfImageSrcSet } from "@/lib/cf-image";
 
 const doctorsQuery = queryOptions({
   queryKey: ["public-doctors"],
@@ -161,7 +162,9 @@ function DoctorCard({ doctor }: { doctor: { id: string; slug: string; full_name:
       <div className="shrink-0">
         {doctor.photo_url ? (
           <img
-            src={doctor.photo_url}
+            src={cfImage(doctor.photo_url, { width: 128, height: 128 })}
+            srcSet={cfImageSrcSet(doctor.photo_url, { width: 128, height: 128 })}
+            sizes="(min-width: 768px) 128px, 112px"
             alt={doctor.full_name}
             width={128}
             height={128}

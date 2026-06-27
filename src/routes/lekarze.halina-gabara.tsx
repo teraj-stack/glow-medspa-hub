@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { getDoctorBySlug, saveDoctorPortrait } from "@/lib/doctors.functions";
 import { checkIsAdmin } from "@/lib/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
+import { cfImage, cfImageSrcSet } from "@/lib/cf-image";
 import halinaPortrait from "@/assets/halina-portrait-960.webp.asset.json";
 import halaTloMp4 from "@/assets/hala-tlo.mp4.asset.json";
 import halaTloWebm from "@/assets/hala-tlo.webm.asset.json";
@@ -312,7 +313,9 @@ function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPic
     <figure className="flex flex-col items-center gap-4 md:items-end">
       <div className={`relative w-48 overflow-hidden shadow-sm md:w-56 ${shapeClasses(draftCrop.shape)}`}>
         <img
-          src={draftPhotoUrl}
+          src={cfImage(draftPhotoUrl, { width: 256, height: 320, fit: "cover" })}
+          srcSet={cfImageSrcSet(draftPhotoUrl, { width: 256, height: 320, fit: "cover" })}
+          sizes="(min-width: 768px) 224px, 192px"
           alt="lek. Halina Gabara — podgląd kadru"
           className="absolute inset-0 size-full object-cover"
           style={{
@@ -322,6 +325,7 @@ function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPic
           }}
           loading="eager"
         />
+
       </div>
       {isAdmin && (
       <figcaption className="w-full max-w-[14rem] space-y-3 md:max-w-[16rem]">
