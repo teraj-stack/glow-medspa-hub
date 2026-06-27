@@ -134,7 +134,13 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="pl">
       <head>
+        {/* Krytyczny CSS inline — eliminuje render-blocking dla pierwszego ekranu. */}
+        <style dangerouslySetInnerHTML={{ __html: CRITICAL_CSS }} />
         <HeadContent />
+        <noscript>
+          {/* Fallback: gdy JS jest wyłączony, włącz pełny arkusz natychmiast. */}
+          <link rel="stylesheet" href={appCss} />
+        </noscript>
       </head>
       <body>
         {children}
@@ -143,6 +149,7 @@ function RootShell({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
