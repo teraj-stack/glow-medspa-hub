@@ -13,6 +13,7 @@ concurrency:
 permissions:
   contents: read
   pull-requests: write
+  actions: read
 
 jobs:
   lighthouse:
@@ -112,6 +113,14 @@ jobs:
             const r = rows[0]; // representative
             const icon = (ok) => ok ? '✅' : '❌';
 
+            const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}#artifacts`;
+            const htmlPath = runs[0]?.htmlPath
+              ? path.relative(`.lighthouseci/${profile}`, runs[0].htmlPath)
+              : '';
+            const reportHtmlNote = htmlPath
+              ? `Pełny raport HTML po rozpakowaniu: \`${htmlPath}\``
+              : 'Pełny raport HTML dostępny w artefaktach powyżej.';
+
             const summary = [
               `### ${icon(allPassed)} Lighthouse (${profile}) — \`${targetPath}\``,
               ``,
@@ -123,11 +132,14 @@ jobs:
               `| FCP | ${fmt(r.fcp)} | — | – |`,
               `| TBT | ${fmt(r.tbt)} | — | – |`,
               ``,
-              `_Reprezentatywny przebieg z ${runs.length} pomiaru/ów. Pełny raport: artefakt \`lhci-${profile}-${context.runId}\`._`,
+              `_Reprezentatywny przebieg z ${runs.length} pomiaru/ów. [Pobierz artefakty \`lhci-${profile}-${context.runId}\`](${artifactUrl}). ${reportHtmlNote}_`,
             ].join('\n');
 
             core.setOutput('summary', summary);
             core.setOutput('passed', allPassed ? 'true' : 'false');
+            core.setOutput('artifactUrl', artifactUrl);
+            core.setOutput('htmlPath', htmlPath);
+            core.setOutput('reportHtmlNote', reportHtmlNote);
             await core.summary.addRaw(summary).write();
 
       - name: Comment Lighthouse results on PR
@@ -136,15 +148,48 @@ jobs:
         env:
           PROFILE: ${{ matrix.profile }}
           BODY: ${{ steps.metrics.outputs.summary }}
+          ARTIFACT_URL: ${{ steps.metrics.outputs.artifactUrl }}
+          HTML_PATH: ${{ steps.metrics.outputs.htmlPath }}
+          REPORT_NOTE: ${{ steps.metrics.outputs.reportHtmlNote }}
         with:
           script: |
             const profile = process.env.PROFILE;
             const body = process.env.BODY;
+            const artifactUrl = process.env.ARTIFACT_URL;
+            const htmlPath = process.env.HTML_PATH;
+            const reportNote = process.env.REPORT_NOTE;
             if (!body) return;
             const marker = `<!-- lhci-comment:${profile}:/technologie -->`;
-            const fullBody = `${marker}\n${body}`;
+
             const { owner, repo } = context.repo;
             const issue_number = context.payload.pull_request.number;
+
+            // Resolve a direct link to the uploaded artifact if available
+            const artifactName = `lhci-${profile}-${context.runId}`;
+            let directArtifactUrl = artifactUrl;
+            try {
+              const { data: runArtifacts } = await github.rest.actions.listWorkflowRunArtifacts({
+                owner, repo, run_id: context.runId,
+              });
+              const artifact = runArtifacts.artifacts.find(a => a.name === artifactName);
+              if (artifact) {
+                directArtifactUrl = `https://github.com/${owner}/${repo}/actions/runs/${context.runId}/artifacts/${artifact.id}`;
+              }
+            } catch (e) {
+              core.warning(`Could not resolve direct artifact URL: ${e.message}`);
+            }
+
+            const footerLines = [
+              '',
+              '---',
+              `📦 [Artefakty Lighthouse \`${artifactName}\`](${directArtifactUrl})`,
+            ];
+            if (htmlPath) {
+              footerLines.push(`📄 [Pełny raport HTML dla \`/technologie\`](${directArtifactUrl}) — po rozpakowaniu: \`${htmlPath}\``);
+            }
+            footerLines.push('', `> ${reportNote}`);
+            const footer = footerLines.join('\n');
+            const fullBody = `${marker}\n${body}${footer}`;
 
             const { data: comments } = await github.rest.issues.listComments({
               owner, repo, issue_number, per_page: 100,
