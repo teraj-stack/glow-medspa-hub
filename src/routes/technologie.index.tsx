@@ -147,13 +147,13 @@ function TechnologiesPage() {
               },
               {
                 step: "02",
-                title: "Fototerapia LED",
-                desc: "Co drugi dzień. Pobudza regenerację i aktywuje układ STEM — skraca okres gojenia o około 40%.",
+                title: "Laser pikosekundowy",
+                desc: "Co 10 dni. Po 2 sesjach pracuje na pełnej, przygotowanej skórze — bez ryzyka odczynu zapalnego.",
               },
               {
                 step: "03",
-                title: "Laser pikosekundowy",
-                desc: "Co 10 dni. Po 2 sesjach pracuje na pełnej, przygotowanej skórze — bez ryzyka odczynu zapalnego.",
+                title: "Fototerapia LED",
+                desc: "Co drugi dzień. Pobudza regenerację i aktywuje układ STEM — skraca okres gojenia o około 40%.",
               },
             ].map((item) => (
               <div
