@@ -1,0 +1,57 @@
+name: Cleanup SARIF artifacts
+
+# Czyści stare artefakty SARIF/audit z workflow Security Scan.
+# Retencja per-artefakt jest też ustawiona w upload-artifact (PR=14d, main=90d),
+# ten job dodatkowo dosprząta wszystko starsze niż MAX_AGE_DAYS i daje ręczny
+# trigger do natychmiastowego przeglądu.
+
+on:
+  schedule:
+    - cron: '0 4 * * 0' # niedziela 04:00 UTC
+  workflow_dispatch:
+    inputs:
+      max_age_days:
+        description: 'Usuń artefakty starsze niż N dni'
+        required: false
+        default: '90'
+
+permissions:
+  actions: write
+  contents: read
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Delete stale SARIF/audit artifacts
+        uses: actions/github-script@v7
+        env:
+          MAX_AGE_DAYS: ${{ github.event.inputs.max_age_days || '90' }}
+        with:
+          script: |
+            const maxAge = parseInt(process.env.MAX_AGE_DAYS, 10);
+            const cutoff = Date.now() - maxAge * 24 * 60 * 60 * 1000;
+            const targets = ['codeql-sarif', 'trivy-sarif', 'npm-audit-report'];
+            const it = github.paginate.iterator(
+              github.rest.actions.listArtifactsForRepo,
+              { owner: context.repo.owner, repo: context.repo.repo, per_page: 100 },
+            );
+            let deleted = 0, kept = 0;
+            for await (const page of it) {
+              for (const a of page.data) {
+                if (a.expired) continue;
+                if (!targets.includes(a.name)) continue;
+                const created = new Date(a.created_at).getTime();
+                if (created < cutoff) {
+                  await github.rest.actions.deleteArtifact({
+                    owner: context.repo.owner, repo: context.repo.repo, artifact_id: a.id,
+                  });
+                  core.info(`Deleted ${a.name} #${a.id} (created ${a.created_at})`);
+                  deleted++;
+                } else {
+                  kept++;
+                }
+              }
+            }
+            core.notice(`SARIF cleanup: deleted ${deleted}, kept ${kept} (cutoff ${maxAge}d).`);
