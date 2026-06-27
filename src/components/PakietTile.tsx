@@ -13,7 +13,9 @@ export type PakietTileProps = {
   iconHref?: string;
   iconTooltip?: string;
   id?: string;
+  topIcons?: { src: string; alt: string }[];
 };
+
 
 function renderBoldParts(text: string, boldParts?: string[]) {
   if (!boldParts || boldParts.length === 0) return <span>{text}</span>;
