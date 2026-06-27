@@ -1,0 +1,96 @@
+name: Visual regression — kafel „Przywrócenie konturów” (/rozwiązania)
+
+# Visual regression dla kafla #przywrocenie-konturow na trzech viewportach:
+# mobile (390x1400), tablet (834x1600), desktop (1440x1800).
+# Sprawdza również odstępy i brak ucinania ikon (assert_icons_layout).
+#
+# Domyślnie testuje URL produkcyjny, więc dobrze nadaje się po deployu.
+# Aby zaktualizować baseline'y (po świadomej zmianie wizualnej):
+#   UPDATE_BASELINES=1 npm run test:e2e:tile-przywrocenie-konturow-visual
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Bazowy URL do testowania"
+        required: false
+        default: "https://glow-medspa-hub.lovable.app"
+  schedule:
+    - cron: "10 6 * * *"
+  push:
+    branches: [main]
+    paths:
+      - "src/routes/rozwiazania.tsx"
+      - "src/components/PakietTile.tsx"
+      - "tests/e2e/tile_przywrocenie_konturow_visual_regression.py"
+      - "tests/e2e/__baselines__/tile-przywrocenie-konturow/**"
+      - ".github/workflows/visual-regression-tile-przywrocenie-konturow.yml"
+
+jobs:
+  visual-regression:
+    name: Visual regression · Przywrócenie konturów
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Resolve Playwright version
+        id: pw
+        run: |
+          PW_VERSION=$(python -c "import urllib.request, json; print(json.loads(urllib.request.urlopen('https://pypi.org/pypi/playwright/json').read())['info']['version'])")
+          echo "version=$PW_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.pw.outputs.version }}-chromium
+
+      - name: Install Playwright (Python) + Pillow
+        run: |
+          python -m pip install "playwright==${{ steps.pw.outputs.version }}" Pillow
+          if [ "${{ steps.pw-cache.outputs.cache-hit }}" = "true" ]; then
+            python -m playwright install-deps chromium
+          else
+            python -m playwright install --with-deps chromium
+          fi
+
+      - name: Run visual regression
+        env:
+          E2E_BASE_URL: ${{ github.event.inputs.base_url || 'https://glow-medspa-hub.lovable.app' }}
+        run: python3 tests/e2e/tile_przywrocenie_konturow_visual_regression.py
+
+      - name: Upload diffs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tile-przywrocenie-konturow-visual-diff
+          path: /tmp/browser/tile-przywrocenie-konturow-visual
+          if-no-files-found: ignore
+
+      - name: Step summary
+        if: always()
+        run: |
+          {
+            echo "## Visual regression — Przywrócenie konturów"
+            echo ""
+            echo "- URL: \`${{ github.event.inputs.base_url || 'https://glow-medspa-hub.lovable.app' }}\`"
+            echo "- Viewporty: mobile 390x1400, tablet 834x1600, desktop 1440x1800"
+            echo "- Selektor: \`#przywrocenie-konturow\`"
+            if [ "${{ job.status }}" != "success" ]; then
+              echo ""
+              echo "❌ Regresja — artifact \`tile-przywrocenie-konturow-visual-diff\` zawiera \`*-diff.png\` i \`*-actual.png\`."
+              echo ""
+              echo "Jeśli zmiana jest oczekiwana:"
+              echo '\`\`\`'
+              echo "UPDATE_BASELINES=1 npm run test:e2e:tile-przywrocenie-konturow-visual"
+              echo '\`\`\`'
+            else
+              echo ""
+              echo "✅ Zgodne z baseline'ami."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
