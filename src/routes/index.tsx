@@ -349,7 +349,7 @@ function BookingSection() {
           <dl className="mt-8 space-y-4 text-sm">
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Adres</dt>
-              <dd className="mt-1 text-foreground">Siedlce, woj. mazowieckie</dd>
+              <dd className="mt-1 text-foreground">Klinika Promedion, ul. Wójcickiego 4, Warszawa (Bielany)</dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Godziny</dt>
