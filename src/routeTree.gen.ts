@@ -72,8 +72,10 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as ApiPublicIndexnowKeyDottxtRouteImport } from './routes/api/public/indexnow/$key[.]txt'
 import { Route as ApiPublicHooksSitemapValidateRouteImport } from './routes/api/public/hooks/sitemap-validate'
 import { Route as ApiPublicHooksSeoSnapshotRouteImport } from './routes/api/public/hooks/seo-snapshot'
+import { Route as ApiPublicHooksSeoIndexationSubmitRouteImport } from './routes/api/public/hooks/seo-indexation-submit'
 import { Route as ApiPublicHooksCalendarSyncRetryRouteImport } from './routes/api/public/hooks/calendar-sync-retry'
 import { Route as ApiPublicBookingsCancelRouteImport } from './routes/api/public/bookings/cancel'
 import { Route as AuthenticatedAdminSeoRaportyRouteImport } from './routes/_authenticated/admin/seo.raporty'
@@ -417,6 +419,12 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicIndexnowKeyDottxtRoute =
+  ApiPublicIndexnowKeyDottxtRouteImport.update({
+    id: '/api/public/indexnow/$key.txt',
+    path: '/api/public/indexnow/$key.txt',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksSitemapValidateRoute =
   ApiPublicHooksSitemapValidateRouteImport.update({
     id: '/api/public/hooks/sitemap-validate',
@@ -427,6 +435,12 @@ const ApiPublicHooksSeoSnapshotRoute =
   ApiPublicHooksSeoSnapshotRouteImport.update({
     id: '/api/public/hooks/seo-snapshot',
     path: '/api/public/hooks/seo-snapshot',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksSeoIndexationSubmitRoute =
+  ApiPublicHooksSeoIndexationSubmitRouteImport.update({
+    id: '/api/public/hooks/seo-indexation-submit',
+    path: '/api/public/hooks/seo-indexation-submit',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPublicHooksCalendarSyncRetryRoute =
@@ -507,8 +521,10 @@ export interface FileRoutesByFullPath {
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
+  '/api/public/hooks/seo-indexation-submit': typeof ApiPublicHooksSeoIndexationSubmitRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
   '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
+  '/api/public/indexnow/$key.txt': typeof ApiPublicIndexnowKeyDottxtRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -574,8 +590,10 @@ export interface FileRoutesByTo {
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
+  '/api/public/hooks/seo-indexation-submit': typeof ApiPublicHooksSeoIndexationSubmitRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
   '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
+  '/api/public/indexnow/$key.txt': typeof ApiPublicIndexnowKeyDottxtRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -645,8 +663,10 @@ export interface FileRoutesById {
   '/_authenticated/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
+  '/api/public/hooks/seo-indexation-submit': typeof ApiPublicHooksSeoIndexationSubmitRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
   '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
+  '/api/public/indexnow/$key.txt': typeof ApiPublicIndexnowKeyDottxtRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -716,8 +736,10 @@ export interface FileRouteTypes {
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
+    | '/api/public/hooks/seo-indexation-submit'
     | '/api/public/hooks/seo-snapshot'
     | '/api/public/hooks/sitemap-validate'
+    | '/api/public/indexnow/$key.txt'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -783,8 +805,10 @@ export interface FileRouteTypes {
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
+    | '/api/public/hooks/seo-indexation-submit'
     | '/api/public/hooks/seo-snapshot'
     | '/api/public/hooks/sitemap-validate'
+    | '/api/public/indexnow/$key.txt'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -853,8 +877,10 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
+    | '/api/public/hooks/seo-indexation-submit'
     | '/api/public/hooks/seo-snapshot'
     | '/api/public/hooks/sitemap-validate'
+    | '/api/public/indexnow/$key.txt'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -908,8 +934,10 @@ export interface RootRouteChildren {
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBookingsCancelRoute: typeof ApiPublicBookingsCancelRoute
   ApiPublicHooksCalendarSyncRetryRoute: typeof ApiPublicHooksCalendarSyncRetryRoute
+  ApiPublicHooksSeoIndexationSubmitRoute: typeof ApiPublicHooksSeoIndexationSubmitRoute
   ApiPublicHooksSeoSnapshotRoute: typeof ApiPublicHooksSeoSnapshotRoute
   ApiPublicHooksSitemapValidateRoute: typeof ApiPublicHooksSitemapValidateRoute
+  ApiPublicIndexnowKeyDottxtRoute: typeof ApiPublicIndexnowKeyDottxtRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
@@ -1361,6 +1389,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/indexnow/$key.txt': {
+      id: '/api/public/indexnow/$key.txt'
+      path: '/api/public/indexnow/$key.txt'
+      fullPath: '/api/public/indexnow/$key.txt'
+      preLoaderRoute: typeof ApiPublicIndexnowKeyDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/sitemap-validate': {
       id: '/api/public/hooks/sitemap-validate'
       path: '/api/public/hooks/sitemap-validate'
@@ -1373,6 +1408,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/hooks/seo-snapshot'
       fullPath: '/api/public/hooks/seo-snapshot'
       preLoaderRoute: typeof ApiPublicHooksSeoSnapshotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/seo-indexation-submit': {
+      id: '/api/public/hooks/seo-indexation-submit'
+      path: '/api/public/hooks/seo-indexation-submit'
+      fullPath: '/api/public/hooks/seo-indexation-submit'
+      preLoaderRoute: typeof ApiPublicHooksSeoIndexationSubmitRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/hooks/calendar-sync-retry': {
@@ -1526,8 +1568,11 @@ const rootRouteChildren: RootRouteChildren = {
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBookingsCancelRoute: ApiPublicBookingsCancelRoute,
   ApiPublicHooksCalendarSyncRetryRoute: ApiPublicHooksCalendarSyncRetryRoute,
+  ApiPublicHooksSeoIndexationSubmitRoute:
+    ApiPublicHooksSeoIndexationSubmitRoute,
   ApiPublicHooksSeoSnapshotRoute: ApiPublicHooksSeoSnapshotRoute,
   ApiPublicHooksSitemapValidateRoute: ApiPublicHooksSitemapValidateRoute,
+  ApiPublicIndexnowKeyDottxtRoute: ApiPublicIndexnowKeyDottxtRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,

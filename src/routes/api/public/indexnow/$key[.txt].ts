@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 // https://bmclinics.ai/api/public/indexnow/<KEY>.txt and expects the body
 // to be exactly <KEY>. We compare the requested key with the secret
 // server-side so the key is only revealed to callers that already know it.
-export const Route = createFileRoute("/api/public/indexnow/$key")({
+export const Route = createFileRoute("/api/public/indexnow/$key.txt")({
   server: {
     handlers: {
       GET: async ({ params }) => {
