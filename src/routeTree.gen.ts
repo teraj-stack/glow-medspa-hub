@@ -19,6 +19,7 @@ import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywa
 import { Route as LekarzeRouteImport } from './routes/lekarze'
 import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-dziekujemy'
 import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
+import { Route as DiagnostykaSkorySiedlceRouteImport } from './routes/diagnostyka-skory-siedlce'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as BezpieczenstwoZabiegowLaserowychRouteImport } from './routes/bezpieczenstwo-zabiegow-laserowych'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -116,6 +117,11 @@ const KonsultacjaDziekujemyRoute = KonsultacjaDziekujemyRouteImport.update({
 const KonsultacjaRoute = KonsultacjaRouteImport.update({
   id: '/konsultacja',
   path: '/konsultacja',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiagnostykaSkorySiedlceRoute = DiagnostykaSkorySiedlceRouteImport.update({
+  id: '/diagnostyka-skory-siedlce',
+  path: '/diagnostyka-skory-siedlce',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CennikRoute = CennikRouteImport.update({
@@ -383,6 +389,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/bezpieczenstwo-zabiegow-laserowych': typeof BezpieczenstwoZabiegowLaserowychRoute
   '/cennik': typeof CennikRoute
+  '/diagnostyka-skory-siedlce': typeof DiagnostykaSkorySiedlceRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/lekarze': typeof LekarzeRouteWithChildren
@@ -442,6 +449,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/bezpieczenstwo-zabiegow-laserowych': typeof BezpieczenstwoZabiegowLaserowychRoute
   '/cennik': typeof CennikRoute
+  '/diagnostyka-skory-siedlce': typeof DiagnostykaSkorySiedlceRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
@@ -501,6 +509,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/bezpieczenstwo-zabiegow-laserowych': typeof BezpieczenstwoZabiegowLaserowychRoute
   '/cennik': typeof CennikRoute
+  '/diagnostyka-skory-siedlce': typeof DiagnostykaSkorySiedlceRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/lekarze': typeof LekarzeRouteWithChildren
@@ -562,6 +571,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bezpieczenstwo-zabiegow-laserowych'
     | '/cennik'
+    | '/diagnostyka-skory-siedlce'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
     | '/lekarze'
@@ -621,6 +631,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bezpieczenstwo-zabiegow-laserowych'
     | '/cennik'
+    | '/diagnostyka-skory-siedlce'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
     | '/polityka-prywatnosci'
@@ -679,6 +690,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bezpieczenstwo-zabiegow-laserowych'
     | '/cennik'
+    | '/diagnostyka-skory-siedlce'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
     | '/lekarze'
@@ -740,6 +752,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BezpieczenstwoZabiegowLaserowychRoute: typeof BezpieczenstwoZabiegowLaserowychRoute
   CennikRoute: typeof CennikRoute
+  DiagnostykaSkorySiedlceRoute: typeof DiagnostykaSkorySiedlceRoute
   KonsultacjaRoute: typeof KonsultacjaRoute
   KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
   LekarzeRoute: typeof LekarzeRouteWithChildren
@@ -850,6 +863,13 @@ declare module '@tanstack/react-router' {
       path: '/konsultacja'
       fullPath: '/konsultacja'
       preLoaderRoute: typeof KonsultacjaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diagnostyka-skory-siedlce': {
+      id: '/diagnostyka-skory-siedlce'
+      path: '/diagnostyka-skory-siedlce'
+      fullPath: '/diagnostyka-skory-siedlce'
+      preLoaderRoute: typeof DiagnostykaSkorySiedlceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cennik': {
@@ -1258,6 +1278,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BezpieczenstwoZabiegowLaserowychRoute: BezpieczenstwoZabiegowLaserowychRoute,
   CennikRoute: CennikRoute,
+  DiagnostykaSkorySiedlceRoute: DiagnostykaSkorySiedlceRoute,
   KonsultacjaRoute: KonsultacjaRoute,
   KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,
   LekarzeRoute: LekarzeRouteWithChildren,
@@ -1303,13 +1324,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
