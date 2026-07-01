@@ -413,6 +413,36 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_report_settings: {
+        Row: {
+          channel: string
+          enabled: boolean
+          fallback_to_admins: boolean
+          id: boolean
+          notification_emails: string[]
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          channel?: string
+          enabled?: boolean
+          fallback_to_admins?: boolean
+          id?: boolean
+          notification_emails?: string[]
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          channel?: string
+          enabled?: boolean
+          fallback_to_admins?: boolean
+          id?: boolean
+          notification_emails?: string[]
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       seo_snapshot_competitors: {
         Row: {
           common_keywords: number | null
