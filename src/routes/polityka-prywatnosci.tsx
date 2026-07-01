@@ -16,7 +16,7 @@ export const Route = createFileRoute("/polityka-prywatnosci")({
       <h1 className="font-serif text-ink">Polityka prywatności</h1>
       <div className="prose prose-neutral mt-8 max-w-3xl text-foreground/85">
         <p>
-          Administratorem Państwa danych osobowych jest BMClinics.ai z siedzibą w Siedlcach.
+          Administratorem Państwa danych osobowych jest BMClinics.ai z siedzibą w Warszawie.
           Dane przekazane przez formularz rezerwacyjny przetwarzamy wyłącznie w celu kontaktu w sprawie
           umówienia wizyty, na podstawie art. 6 ust. 1 lit. a RODO.
         </p>

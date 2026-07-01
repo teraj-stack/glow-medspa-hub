@@ -10,7 +10,7 @@ import komfortAsset from "@/assets/komfort-szkic.png.asset.json";
 export const Route = createFileRoute("/potrzeby")({
   head: () => ({
     meta: [
-      { title: "Potrzeby — BMClinics.ai Siedlce" },
+      { title: "Potrzeby — BMClinics.ai Warszawa" },
       {
         name: "description",
         content:

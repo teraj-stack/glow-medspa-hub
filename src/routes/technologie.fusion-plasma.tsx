@@ -58,9 +58,9 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
   },
   head: ({ loaderData }) => {
     const url = "https://bmclinics.ai/technologie/fusion-plasma";
-    const title = "Zimna plazma — rewitalizacja skóry | BMClinics.ai Siedlce";
+    const title = "Zimna plazma — rewitalizacja skóry | BMClinics.ai Warszawa";
     const description =
-      "Zimna plazma to najczęściej wybierany zabieg rewitalizacyjny na świecie — bezbolesny, bez rekonwalescencji. Skóra od razu wygląda promiennie. Standard premium klinik warszawskich w Siedlcach.";
+      "Zimna plazma to najczęściej wybierany zabieg rewitalizacyjny na świecie — bezbolesny, bez rekonwalescencji. Skóra od razu wygląda promiennie. Standard premium klinik warszawskich w Warszawie.";
 
     const serviceSchema = loaderData
       ? {
@@ -73,7 +73,7 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
             "@type": "MedicalBusiness",
             name: "BMClinics.ai",
             url: "https://bmclinics.ai",
-            address: { "@type": "PostalAddress", addressLocality: "Siedlce", addressCountry: "PL" },
+            address: { "@type": "PostalAddress", addressLocality: "Warszawa", addressCountry: "PL" },
           },
           indication: loaderData.tech.indications,
         }

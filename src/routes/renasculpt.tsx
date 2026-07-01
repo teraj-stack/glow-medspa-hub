@@ -28,11 +28,11 @@ export const Route = createFileRoute("/renasculpt")({
   head: ({ loaderData }) => {
     const tech = (loaderData as { tech: Technology } | undefined)?.tech ?? getTechnology(TECH_SLUG)!;
     const title =
-      "Modelowanie sylwetki HIFEM + EMS + RF — Renasculpt | BMClinics.ai Siedlce";
+      "Modelowanie sylwetki HIFEM + EMS + RF — Renasculpt | BMClinics.ai Warszawa";
     const description =
-      "Synchroniczna stymulacja elektromagnetyczna mięśni (HIFEM/EMS) połączona z radiofrekwencją: 30-minutowa sesja, bez nacięć, bez znieczulenia, bez rekonwalescencji. Średnio +16% masy mięśniowej i -19% tkanki tłuszczowej w badaniach klinicznych. Standard premium klinik warszawskich — w Siedlcach.";
+      "Synchroniczna stymulacja elektromagnetyczna mięśni (HIFEM/EMS) połączona z radiofrekwencją: 30-minutowa sesja, bez nacięć, bez znieczulenia, bez rekonwalescencji. Średnio +16% masy mięśniowej i -19% tkanki tłuszczowej w badaniach klinicznych. Standard premium klinik warszawskich — w Warszawie.";
     const keywords =
-      "HIFEM, EMS, RF, radiofrekwencja, modelowanie sylwetki Siedlce, redukcja tkanki tłuszczowej, lifting pośladków bez operacji, mięśnie dna miednicy, diastasis recti, Renasculpt, BMClinics.ai";
+      "HIFEM, EMS, RF, radiofrekwencja, modelowanie sylwetki Warszawa, redukcja tkanki tłuszczowej, lifting pośladków bez operacji, mięśnie dna miednicy, diastasis recti, Renasculpt, BMClinics.ai";
 
     const serviceSchema = {
       "@context": "https://schema.org",
@@ -46,7 +46,7 @@ export const Route = createFileRoute("/renasculpt")({
         url: "https://bmclinics.ai",
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Siedlce",
+          addressLocality: "Warszawa",
           addressCountry: "PL",
         },
       },

@@ -8,7 +8,7 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Konto pacjenta | BMClinics.ai" },
-      { name: "description", content: "Logowanie do panelu pacjenta kliniki BMClinics.ai w Siedlcach." },
+      { name: "description", content: "Logowanie do panelu pacjenta kliniki BMClinics.ai w Warszawie." },
     ],
   }),
   component: AuthPage,

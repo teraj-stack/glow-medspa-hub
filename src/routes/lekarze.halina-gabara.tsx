@@ -447,23 +447,23 @@ const CANONICAL = "https://bmclinics.ai/lekarze/halina-gabara";
 export const Route = createFileRoute("/lekarze/halina-gabara")({
   head: () => ({
     meta: [
-      { title: "lek. Halina Gabara — BMClinics.ai Siedlce" },
+      { title: "lek. Halina Gabara — BMClinics.ai Warszawa" },
       {
         name: "description",
         content:
-          "lek. Halina Gabara — medycyna estetyczna w Siedlcach. Doświadczenie z klinik premium, planowane terapie, bezpieczeństwo i przewidywalny efekt.",
+          "lek. Halina Gabara — medycyna estetyczna w Warszawie. Doświadczenie z klinik premium, planowane terapie, bezpieczeństwo i przewidywalny efekt.",
       },
       { property: "og:title", content: "lek. Halina Gabara — BMClinics.ai" },
       {
         property: "og:description",
         content:
-          "Profil lekarza prowadzącego w BMClinics.ai Siedlce — specjalizacje, podejście do pacjenta i ścieżka kliniczna.",
+          "Profil lekarza prowadzącego w BMClinics.ai Warszawa — specjalizacje, podejście do pacjenta i ścieżka kliniczna.",
       },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: CANONICAL },
       { property: "og:image", content: halinaPortrait.url },
       { name: "twitter:title", content: "lek. Halina Gabara — BMClinics.ai" },
-      { name: "twitter:description", content: "Profil lekarza prowadzącego w BMClinics.ai Siedlce — specjalizacje, podejście do pacjenta i ścieżka kliniczna." },
+      { name: "twitter:description", content: "Profil lekarza prowadzącego w BMClinics.ai Warszawa — specjalizacje, podejście do pacjenta i ścieżka kliniczna." },
       { name: "twitter:image", content: halinaPortrait.url },
     ],
     links: [{ rel: "canonical", href: CANONICAL }],
@@ -478,7 +478,7 @@ export const Route = createFileRoute("/lekarze/halina-gabara")({
           worksFor: {
             "@type": "MedicalClinic",
             name: "BMClinics.ai",
-            address: { "@type": "PostalAddress", addressLocality: "Siedlce", addressCountry: "PL" },
+            address: { "@type": "PostalAddress", addressLocality: "Warszawa", addressCountry: "PL" },
           },
           url: CANONICAL,
         }),
@@ -520,7 +520,7 @@ function HalinaGabaraPage() {
     ? doctor!.experience_summary!.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
     : [
         "Ścieżkę zawodową budowałam przez kilkanaście lat, łącząc praktykę w warszawskich klinikach premium z ortodontycznym, analitycznym spojrzeniem na twarz.",
-        "W BMClinics.ai w Siedlcach prowadzę pacjentów w identycznym standardzie — od konsultacji i diagnostyki, przez plan terapii, po opiekę pozabiegową i wizyty kontrolne.",
+        "W BMClinics.ai w Warszawie prowadzę pacjentów w identycznym standardzie — od konsultacji i diagnostyki, przez plan terapii, po opiekę pozabiegową i wizyty kontrolne.",
       ]);
   const specializations = (doctor?.specializations && doctor.specializations.length)
     ? doctor.specializations
@@ -597,7 +597,7 @@ function HalinaGabaraPage() {
               className="aspect-square w-full max-w-md rounded-2xl bg-muted object-cover shadow-sm"
               poster={halaTloPoster.url}
               ariaLabel="Wideo prezentacyjne dr Haliny Gabary"
-              description="Krótki, wyciszony klip prezentujący dr Halinę Gabarę w gabinecie zabiegowym kliniki w Siedlcach. Materiał nie zawiera ścieżki dźwiękowej ani istotnych informacji tekstowych."
+              description="Krótki, wyciszony klip prezentujący dr Halinę Gabarę w gabinecie zabiegowym kliniki w Warszawie. Materiał nie zawiera ścieżki dźwiękowej ani istotnych informacji tekstowych."
               caption="Wideo bez dźwięku. Użyj przycisku odtwarzania (Spacja lub Enter), aby uruchomić materiał."
               sources={[
                 { src: halaTloWebm.url, type: "video/webm" },

@@ -62,7 +62,7 @@ export const Route = createFileRoute("/blog/blizny-potradzikowe")({
       {
         name: "keywords",
         content:
-          "blizny potrądzikowe, usuwanie blizn potrądzikowych, dziury po trądziku, blizny po trądziku zabiegi, laser pikosekundowy blizny, radiofrekwencja mikroigłowa, Siedlce",
+          "blizny potrądzikowe, usuwanie blizn potrądzikowych, dziury po trądziku, blizny po trądziku zabiegi, laser pikosekundowy blizny, radiofrekwencja mikroigłowa, Warszawa",
       },
       { property: "og:title", content: "Blizny potrądzikowe — kompletny przewodnik po usuwaniu" },
       {

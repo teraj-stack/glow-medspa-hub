@@ -44,9 +44,9 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
   },
   head: () => {
     const title =
-      "Laser tulowy 1927 nm — melasma, przebarwienia, depigmentacja | BMClinics.ai Siedlce";
+      "Laser tulowy 1927 nm — melasma, przebarwienia, depigmentacja | BMClinics.ai Warszawa";
     const description =
-      "Laser tulowy 1927 nm — najbezpieczniejsza technologia w leczeniu melasmy i przebarwień posłonecznych. Precyzyjna depigmentacja bez wpływu na głębsze warstwy skóry. Standard premium klinik warszawskich w Siedlcach.";
+      "Laser tulowy 1927 nm — najbezpieczniejsza technologia w leczeniu melasmy i przebarwień posłonecznych. Precyzyjna depigmentacja bez wpływu na głębsze warstwy skóry. Standard premium klinik warszawskich w Warszawie.";
 
     const serviceSchema = {
       "@context": "https://schema.org",
@@ -60,7 +60,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
         url: "https://bmclinics.ai",
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Siedlce",
+          addressLocality: "Warszawa",
           addressCountry: "PL",
         },
       },
@@ -127,7 +127,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
         },
         {
           "@type": "Question",
-          name: "Ile kosztuje zabieg w Siedlcach?",
+          name: "Ile kosztuje zabieg w Warszawie?",
           acceptedAnswer: {
             "@type": "Answer",
             text: "Pojedyncza sesja twarzy: 1750 zł. Pakiet 3 sesji twarzy: 4600 zł (ok. 15% taniej). Combo twarz + szyja + dekolt: 4000 zł. To cennik klinik warszawskich — bez konieczności dojazdu do Warszawy.",
@@ -223,7 +223,7 @@ function LaserTulowyPage() {
               Nieablacyjna fototermoliza frakcyjna lasera tulowego 1927 nm. Najbezpieczniejsza
               i najbardziej selektywna technologia w terapii hiperpigmentacji i melasmy.
               Działa na powierzchni skóry — około 0,1 mm — dlatego nie zakłóca efektów
-              zabiegów z toksyną botulinową. Standard premium klinik warszawskich — w Siedlcach.
+              zabiegów z toksyną botulinową. Standard premium klinik warszawskich — w Warszawie.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Link
@@ -605,11 +605,11 @@ function LaserTulowyPage() {
           <div className="flex flex-col gap-6">
             <SectionHeading
               eyebrow="Konsultacja"
-              title="Zaplanuj swój zabieg w Siedlcach"
+              title="Zaplanuj swój zabieg w Warszawie"
               description="Wypełnij formularz — oddzwaniamy w ciągu 24 godzin, by ustalić termin konsultacji i odpowiedzieć na wszystkie pytania."
             />
             <p className="text-sm text-muted-foreground">
-              BMClinics.ai Siedlce · 10 lat doświadczenia w klinikach premium Warszawy ·
+              BMClinics.ai Warszawa · 10 lat doświadczenia w klinikach premium Warszawy ·
               ten sam sprzęt, ten sam standard, lokalnie.
             </p>
           </div>
