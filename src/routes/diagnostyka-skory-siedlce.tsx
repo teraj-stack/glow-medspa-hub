@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
-import { ScanFace, Microscope, ClipboardList, Sparkles, MapPin, Clock, CheckCircle2 } from "lucide-react";
+import { ScanFace, Microscope, ClipboardList, Sparkles, MapPin, Clock, CheckCircle2, Waves, Layers, LineChart, Grid3x3 } from "lucide-react";
 
 const CANONICAL = "https://bmclinics.ai/diagnostyka-skory-siedlce";
 const TITLE = "Diagnostyka skóry Siedlce — analiza skóry twarzy i badanie skóry | BMClinics";
