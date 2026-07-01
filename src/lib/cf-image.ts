@@ -50,8 +50,15 @@ export function cfImage(src: string | null | undefined, opts: CfImageOptions): s
   if (!src) return "";
   if (!ENABLED) return src;
   if (src.startsWith("blob:") || src.startsWith("data:")) return src;
-  if (src.startsWith("/cdn-cgi/image/")) return src;
-  return `/cdn-cgi/image/${buildOptions(opts)}/${src}`;
+  // If already wrapped, strip existing /cdn-cgi/image/<opts>/ prefix so that
+  // callers can safely re-wrap with different options (e.g. tiny blur placeholder).
+  let source = src;
+  if (source.startsWith("/cdn-cgi/image/")) {
+    const rest = source.slice("/cdn-cgi/image/".length);
+    const slash = rest.indexOf("/");
+    if (slash !== -1) source = rest.slice(slash + 1);
+  }
+  return `/cdn-cgi/image/${buildOptions(opts)}/${source}`;
 }
 
 /** Buduje `srcSet` dla retiny (1x + 2x). */
