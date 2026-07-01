@@ -22,20 +22,22 @@ export const Route = createFileRoute("/lekarze/")({
   gcTime: 60 * 60_000,
   head: () => ({
     meta: [
-      { title: "Lekarze i specjaliści — BMClinics.ai Siedlce" },
+      { title: "Lekarze medycyny estetycznej — Warszawa Bielany | BMClinics.ai" },
       {
         name: "description",
         content:
-          "Zespół BMClinics.ai w Siedlcach — lekarze i specjaliści medycyny estetycznej z warszawskim doświadczeniem.",
+          "Zespół BMClinics.ai — lekarze medycyny estetycznej przyjmujący w Warszawie (Klinika Promedion, Bielany). 10 lat doświadczenia w premium klinikach stolicy.",
       },
-      { property: "og:title", content: "Lekarze i specjaliści — BMClinics.ai" },
+      { property: "og:title", content: "Lekarze medycyny estetycznej — Warszawa Bielany" },
       {
         property: "og:description",
         content:
-          "Poznaj zespół kliniki w Siedlcach — kompetencje, specjalizacje i doświadczenie z premium klinik warszawskich.",
+          "Poznaj zespół przyjmujący w Klinice Promedion na warszawskich Bielanach — kompetencje, specjalizacje, doświadczenie.",
       },
+      { property: "og:url", content: "https://bmclinics.ai/lekarze" },
       { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://bmclinics.ai/lekarze" }],
   }),
   component: LekarzePage,
   pendingMs: 200,
