@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { captureSeoSnapshot, getAdminManagerEmails } from "@/lib/seo-snapshot-core";
+import { captureSeoSnapshot, getReportRecipients } from "@/lib/seo-snapshot-core";
 import { internalSendEmail } from "@/lib/email/internal-send.server";
 
 let cachedSecret: { value: string; expiresAt: number } | null = null;
