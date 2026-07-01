@@ -45,6 +45,7 @@ import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/bl
 import { Route as BlogMechanizmyStarzeniaSkoryRouteImport } from './routes/blog.mechanizmy-starzenia-skory'
 import { Route as BlogLiftingBezSkalpelaRouteImport } from './routes/blog.lifting-bez-skalpela'
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
+import { Route as BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport } from './routes/blog.jak-przygotowac-skore-do-diagnostyki'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
@@ -255,6 +256,12 @@ const BlogLaserFrakcyjnyRekonwalescencjaRoute =
     path: '/blog/laser-frakcyjny-rekonwalescencja',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogJakPrzygotowacSkoreDoDiagnostykiRoute =
+  BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport.update({
+    id: '/blog/jak-przygotowac-skore-do-diagnostyki',
+    path: '/blog/jak-przygotowac-skore-do-diagnostyki',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogBliznyPotradzikoweRoute = BlogBliznyPotradzikoweRouteImport.update({
   id: '/blog/blizny-potradzikowe',
   path: '/blog/blizny-potradzikowe',
@@ -402,6 +409,7 @@ export interface FileRoutesByFullPath {
   '/unsubscribe': typeof UnsubscribeRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
+  '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
   '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
@@ -460,6 +468,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
+  '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
   '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
@@ -522,6 +531,7 @@ export interface FileRoutesById {
   '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
+  '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
   '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
@@ -584,6 +594,7 @@ export interface FileRouteTypes {
     | '/unsubscribe'
     | '/admin'
     | '/blog/blizny-potradzikowe'
+    | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
     | '/blog/mechanizmy-starzenia-skory'
@@ -642,6 +653,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/blog/blizny-potradzikowe'
+    | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
     | '/blog/mechanizmy-starzenia-skory'
@@ -703,6 +715,7 @@ export interface FileRouteTypes {
     | '/unsubscribe'
     | '/_authenticated/admin'
     | '/blog/blizny-potradzikowe'
+    | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
     | '/blog/mechanizmy-starzenia-skory'
@@ -764,6 +777,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
   BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
+  BlogJakPrzygotowacSkoreDoDiagnostykiRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   BlogLaserFrakcyjnyRekonwalescencjaRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   BlogLiftingBezSkalpelaRoute: typeof BlogLiftingBezSkalpelaRoute
   BlogMechanizmyStarzeniaSkoryRoute: typeof BlogMechanizmyStarzeniaSkoryRoute
@@ -1047,6 +1061,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/jak-przygotowac-skore-do-diagnostyki': {
+      id: '/blog/jak-przygotowac-skore-do-diagnostyki'
+      path: '/blog/jak-przygotowac-skore-do-diagnostyki'
+      fullPath: '/blog/jak-przygotowac-skore-do-diagnostyki'
+      preLoaderRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/blizny-potradzikowe': {
       id: '/blog/blizny-potradzikowe'
       path: '/blog/blizny-potradzikowe'
@@ -1290,6 +1311,8 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
   BlogBliznyPotradzikoweRoute: BlogBliznyPotradzikoweRoute,
+  BlogJakPrzygotowacSkoreDoDiagnostykiRoute:
+    BlogJakPrzygotowacSkoreDoDiagnostykiRoute,
   BlogLaserFrakcyjnyRekonwalescencjaRoute:
     BlogLaserFrakcyjnyRekonwalescencjaRoute,
   BlogLiftingBezSkalpelaRoute: BlogLiftingBezSkalpelaRoute,
