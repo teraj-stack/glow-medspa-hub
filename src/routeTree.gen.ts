@@ -79,6 +79,7 @@ import { Route as ApiPublicHooksSeoIndexationSubmitRouteImport } from './routes/
 import { Route as ApiPublicHooksCalendarSyncRetryRouteImport } from './routes/api/public/hooks/calendar-sync-retry'
 import { Route as ApiPublicBookingsCancelRouteImport } from './routes/api/public/bookings/cancel'
 import { Route as AuthenticatedAdminSeoRaportyRouteImport } from './routes/_authenticated/admin/seo.raporty'
+import { Route as AuthenticatedAdminSeoIndeksacjaRouteImport } from './routes/_authenticated/admin/seo.indeksacja'
 
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
@@ -460,6 +461,12 @@ const AuthenticatedAdminSeoRaportyRoute =
     path: '/raporty',
     getParentRoute: () => AuthenticatedAdminSeoRoute,
   } as any)
+const AuthenticatedAdminSeoIndeksacjaRoute =
+  AuthenticatedAdminSeoIndeksacjaRouteImport.update({
+    id: '/indeksacja',
+    path: '/indeksacja',
+    getParentRoute: () => AuthenticatedAdminSeoRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -518,6 +525,7 @@ export interface FileRoutesByFullPath {
   '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -587,6 +595,7 @@ export interface FileRoutesByTo {
   '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -660,6 +669,7 @@ export interface FileRoutesById {
   '/_authenticated/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
   '/_authenticated/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -733,6 +743,7 @@ export interface FileRouteTypes {
     | '/konto/wizyty'
     | '/lovable/email/suppression'
     | '/admin/'
+    | '/admin/seo/indeksacja'
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
@@ -802,6 +813,7 @@ export interface FileRouteTypes {
     | '/konto/wizyty'
     | '/lovable/email/suppression'
     | '/admin'
+    | '/admin/seo/indeksacja'
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
@@ -874,6 +886,7 @@ export interface FileRouteTypes {
     | '/_authenticated/konto/wizyty'
     | '/lovable/email/suppression'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/seo/indeksacja'
     | '/_authenticated/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
@@ -1438,14 +1451,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSeoRaportyRouteImport
       parentRoute: typeof AuthenticatedAdminSeoRoute
     }
+    '/_authenticated/admin/seo/indeksacja': {
+      id: '/_authenticated/admin/seo/indeksacja'
+      path: '/indeksacja'
+      fullPath: '/admin/seo/indeksacja'
+      preLoaderRoute: typeof AuthenticatedAdminSeoIndeksacjaRouteImport
+      parentRoute: typeof AuthenticatedAdminSeoRoute
+    }
   }
 }
 
 interface AuthenticatedAdminSeoRouteChildren {
+  AuthenticatedAdminSeoIndeksacjaRoute: typeof AuthenticatedAdminSeoIndeksacjaRoute
   AuthenticatedAdminSeoRaportyRoute: typeof AuthenticatedAdminSeoRaportyRoute
 }
 
 const AuthenticatedAdminSeoRouteChildren: AuthenticatedAdminSeoRouteChildren = {
+  AuthenticatedAdminSeoIndeksacjaRoute: AuthenticatedAdminSeoIndeksacjaRoute,
   AuthenticatedAdminSeoRaportyRoute: AuthenticatedAdminSeoRaportyRoute,
 }
 
