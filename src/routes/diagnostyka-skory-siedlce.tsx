@@ -26,16 +26,41 @@ export const Route = createFileRoute("/diagnostyka-skory-siedlce")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "MedicalClinic",
+          "@type": ["MedicalClinic", "LocalBusiness"],
+          "@id": CANONICAL + "#business",
           name: "BMClinics — Diagnostyka skóry Siedlce",
           url: CANONICAL,
+          image: "https://bmclinics.ai/og-image.jpg",
+          telephone: "+48 570 570 100",
+          priceRange: "$$$",
           areaServed: { "@type": "City", name: "Siedlce" },
           address: {
             "@type": "PostalAddress",
+            streetAddress: "ul. Sokołowska 6",
             addressLocality: "Siedlce",
+            postalCode: "08-110",
             addressRegion: "mazowieckie",
             addressCountry: "PL",
           },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 52.1676,
+            longitude: 22.2902,
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              opens: "09:00",
+              closes: "19:00",
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: "Saturday",
+              opens: "10:00",
+              closes: "15:00",
+            },
+          ],
           medicalSpecialty: ["Dermatology", "CosmeticProcedure"],
           availableService: [
             {
@@ -51,6 +76,7 @@ export const Route = createFileRoute("/diagnostyka-skory-siedlce")({
           ],
         }),
       },
+
       {
         type: "application/ld+json",
         children: JSON.stringify({
