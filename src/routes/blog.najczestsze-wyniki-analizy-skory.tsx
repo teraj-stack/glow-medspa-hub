@@ -9,7 +9,7 @@ const FAQ = [
   },
   {
     q: "Co to jest UV-damage i czy zawsze rośnie z wiekiem?",
-    a: "To ilość melaniny zdeponowanej pod powierzchnią skóry w wyniku ekspozycji na słońce. Rośnie z wiekiem, ale można go „zatrzymać" dobrą fotoprotekcją — kolejne badanie za rok to potwierdzi.",
+    a: "To ilość melaniny zdeponowanej pod powierzchnią skóry w wyniku ekspozycji na słońce. Rośnie z wiekiem, ale można go „zatrzymać” dobrą fotoprotekcją — kolejne badanie za rok to potwierdzi.",
   },
   {
     q: "Elastyczność 68% — dużo czy mało?",
@@ -76,14 +76,14 @@ function Article() {
           <h2 className="font-serif text-2xl text-ink">Przebarwienia (melanina powierzchowna)</h2>
           <p className="mt-3 text-muted-foreground">
             Skala 0–100 vs. norma wiekowa. Wynik +20% ponad normę to sygnał do fotoprotekcji SPF 50 codziennie i rozważenia serii zabiegów na
-            przebarwienia. Ważny jest wzorzec: rozsiane plamy vs. „mapa" na policzkach (podejrzenie melasmy).
+            przebarwienia. Ważny jest wzorzec: rozsiane plamy vs. „mapa” na policzkach (podejrzenie melasmy).
           </p>
         </section>
 
         <section>
           <h2 className="font-serif text-2xl text-ink">UV-damage (melanina głęboka)</h2>
           <p className="mt-3 text-muted-foreground">
-            Warstwa, której nie widać gołym okiem — to Twoja „historia słońca". Wysoki wynik u 30-latki oznacza wysokie ryzyko przyszłych
+            Warstwa, której nie widać gołym okiem — to Twoja „historia słońca”. Wysoki wynik u 30-latki oznacza wysokie ryzyko przyszłych
             plam i fotostarzenia, ale też potencjał ich zapobiegania.
           </p>
         </section>
@@ -101,7 +101,7 @@ function Article() {
         <section>
           <h2 className="font-serif text-2xl text-ink">Elastyczność i sprężystość</h2>
           <p className="mt-3 text-muted-foreground">
-            Kutometr mierzy, jak skóra „wraca" po odkształceniu. Spadek 10–15% w ciągu 5 lat — norma. Spadek 25%+ — sygnał do zabiegów
+            Kutometr mierzy, jak skóra „wraca” po odkształceniu. Spadek 10–15% w ciągu 5 lat — norma. Spadek 25%+ — sygnał do zabiegów
             biostymulacyjnych, zanim ptoza stanie się widoczna.
           </p>
         </section>

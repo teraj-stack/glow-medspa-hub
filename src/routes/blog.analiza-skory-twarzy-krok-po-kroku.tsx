@@ -65,7 +65,7 @@ function Article() {
           </Link>
           <h1 className="mt-6 font-serif text-ink">Analiza skóry twarzy krok po kroku</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            Pacjenci pytają: „co konkretnie się dzieje przez tę godzinę?". Poniżej mapa całego badania — od pierwszego pytania w gabinecie po
+            Pacjenci pytają: „co konkretnie się dzieje przez tę godzinę?”. Poniżej mapa całego badania — od pierwszego pytania w gabinecie po
             PDF, który trafia do Ciebie następnego dnia.
           </p>
         </div>

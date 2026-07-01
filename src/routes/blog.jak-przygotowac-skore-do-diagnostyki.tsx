@@ -66,7 +66,7 @@ function Article() {
           <h1 className="mt-6 font-serif text-ink">Jak przygotować skórę do diagnostyki — 7 dni krok po kroku</h1>
           <p className="mt-4 text-lg text-muted-foreground">
             Analiza skóry twarzy jest tak dokładna, jak stan skóry w dniu badania. Kilka drobnych decyzji w tygodniu poprzedzającym wizytę
-            decyduje o tym, czy zobaczymy Twoją skórę „taką, jaka jest", czy zafałszowaną kosmetyką.
+            decyduje o tym, czy zobaczymy Twoją skórę „taką, jaka jest”, czy zafałszowaną kosmetyką.
           </p>
         </div>
       </section>
@@ -92,7 +92,7 @@ function Article() {
           <h2 className="font-serif text-2xl text-ink">24 godziny przed: nawodnienie i sen</h2>
           <p className="mt-3 text-muted-foreground">
             Wypij 1,5–2 l wody, śpij minimum 7 godzin, zrezygnuj z alkoholu. Odwodnienie widać w kamerze wielospektralnej jako spłycone
-            drobne linie i podkrążone oczy — objawy, których nie chcemy „doliczyć" do prawdziwego stanu skóry.
+            drobne linie i podkrążone oczy — objawy, których nie chcemy „doliczyć” do prawdziwego stanu skóry.
           </p>
         </section>
 
