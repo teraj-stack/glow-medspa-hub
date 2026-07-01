@@ -44,6 +44,8 @@ function IndeksacjaPanel() {
   const inspectFn = useServerFn(inspectIndexation);
   const bulkFn = useServerFn(bulkInspectIndexation);
   const statusFn = useServerFn(indexNowStatus);
+  const listReportsFn = useServerFn(listBulkInspectionReports);
+  const getReportFn = useServerFn(getBulkInspectionReport);
 
   const status = useQuery({ queryKey: ["indexnow-status"], queryFn: () => statusFn() });
   const list = useQuery({ queryKey: ["indexation-submissions"], queryFn: () => listFn() });
