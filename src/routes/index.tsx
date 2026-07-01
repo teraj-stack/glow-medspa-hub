@@ -12,17 +12,21 @@ import { HeroPicture } from "@/components/site/HeroPicture";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "BMClinics.ai — Medycyna estetyczna, Siedlce" },
+      { title: "Medycyna estetyczna Warszawa — BMClinics.ai (Bielany, Promedion)" },
       {
         name: "description",
         content:
-          "Klinika medycyny estetycznej i laserowej w Siedlcach. Dyskretne protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
+          "Medycyna estetyczna w Warszawie na Bielanach — konsultacje w Klinice Promedion, ul. Wójcickiego 4. Autorskie protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
       },
-      { property: "og:title", content: "BMClinics.ai — Siedlce" },
-      { property: "og:description", content: "Naturalny efekt. Dyskretna pamięć. Klinika medycyny estetycznej i laserowej w Siedlcach." },
+      { property: "og:title", content: "Medycyna estetyczna Warszawa — BMClinics.ai" },
+      { property: "og:description", content: "Klinika medycyny estetycznej i laserowej w Warszawie (Bielany, Promedion). Dyskretne, autorskie protokoły i naturalny efekt." },
       { property: "og:url", content: "https://bmclinics.ai/" },
       { property: "og:image", content: bujokAsset.url },
       { name: "twitter:image", content: bujokAsset.url },
+      { name: "geo.region", content: "PL-MZ" },
+      { name: "geo.placename", content: "Warszawa" },
+      { name: "geo.position", content: "52.2860;20.9370" },
+      { name: "ICBM", content: "52.2860, 20.9370" },
     ],
     links: [
       { rel: "canonical", href: "https://bmclinics.ai/" },
@@ -44,18 +48,44 @@ export const Route = createFileRoute("/")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "MedicalBusiness",
+          "@type": "MedicalClinic",
           "@id": "https://bmclinics.ai/#clinic",
-          name: "BMClinics.ai",
+          name: "BMClinics.ai — Medycyna estetyczna Warszawa",
           url: "https://bmclinics.ai/",
           image: bujokAsset.url,
-          priceRange: "$$",
+          priceRange: "$$$",
+          medicalSpecialty: ["CosmeticProcedure", "Dermatology"],
+          areaServed: [
+            { "@type": "City", name: "Warszawa" },
+            { "@type": "AdministrativeArea", name: "mazowieckie" },
+          ],
           address: {
             "@type": "PostalAddress",
-            addressLocality: "Siedlce",
+            streetAddress: "ul. Wójcickiego 4 (Klinika Promedion)",
+            addressLocality: "Warszawa",
             addressRegion: "mazowieckie",
+            postalCode: "01-938",
             addressCountry: "PL",
           },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 52.286,
+            longitude: 20.937,
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              opens: "09:00",
+              closes: "20:00",
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: "Saturday",
+              opens: "09:00",
+              closes: "15:00",
+            },
+          ],
         }),
       },
     ],
@@ -68,6 +98,7 @@ function Home() {
     <>
       <Hero />
       <ManifestSection />
+      <LocalWarsawSection />
       <TechnologiesPreview />
       <Testimonials />
       <BookingSection />
@@ -80,7 +111,7 @@ function Hero() {
     <section className="relative overflow-hidden bg-alabaster">
       <div className="container-luxury grid items-center gap-12 py-20 md:grid-cols-2 md:py-32">
         <div className="rise-in">
-          <div className="text-xs uppercase tracking-[0.3em] text-champagne">BMClinics.ai · Siedlce</div>
+          <div className="text-xs uppercase tracking-[0.3em] text-champagne">Medycyna estetyczna · Warszawa · Bielany</div>
           <h1 className="mt-6 font-serif text-ink">
             Piękno nie potrzebuje hałasu. Potrzebuje{" "}
             <span className="bg-gradient-to-r from-champagne-light via-gold to-champagne bg-clip-text text-transparent">
@@ -161,6 +192,95 @@ function ManifestSection() {
   );
 }
 
+function LocalWarsawSection() {
+  return (
+    <section id="medycyna-estetyczna-warszawa" className="container-luxury py-20 md:py-28">
+      <div className="mx-auto max-w-4xl">
+        <div className="text-xs uppercase tracking-[0.3em] text-champagne">Lokalizacja · Warszawa Bielany</div>
+        <h2 className="mt-4 font-serif text-ink">
+          Medycyna estetyczna w Warszawie — konsultacje na Bielanach
+        </h2>
+        <p className="mt-6 text-foreground/85">
+          Przyjmuję w <strong>Klinice Promedion</strong> przy ul. Wójcickiego 4 w Warszawie (Bielany).
+          Dziesięć lat doświadczenia w premium klinikach stolicy przekładam na autorskie
+          protokoły oparte na diagnostyce skóry i sprawdzonych technologiach laserowych.
+        </p>
+
+        <div className="mt-12 grid gap-10 md:grid-cols-2">
+          <div>
+            <h3 className="font-serif text-xl text-ink">Dla kogo</h3>
+            <ul className="mt-4 space-y-2 text-sm text-foreground/85">
+              <li>· Pacjenci szukający medycyny estetycznej w Warszawie i okolicach Bielan</li>
+              <li>· Osoby ceniące dyskrecję i konsultację lekarską, nie sprzedaż zabiegu</li>
+              <li>· Skóra dojrzała, przebarwienia, ptoza tkanek, naczynia, blizny potrądzikowe</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-serif text-xl text-ink">Jak wygląda pierwsza wizyta</h3>
+            <ul className="mt-4 space-y-2 text-sm text-foreground/85">
+              <li>· Wywiad medyczny i cele pacjenta (~20 min)</li>
+              <li>
+                · <Link to="/diagnostyka-skory-warszawa" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">Diagnostyka skóry twarzy</Link> — mapping, analiza spektralna
+              </li>
+              <li>
+                · Indywidualny plan leczenia i wybór <Link to="/technologie" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">technologii</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-10 md:grid-cols-3">
+          <div>
+            <h3 className="font-serif text-lg text-ink">Zakres zabiegów</h3>
+            <p className="mt-3 text-sm text-foreground/80">
+              Lasery frakcyjne, laser tulowy, terapia LED, fusion plasma, peeling węglowy —
+              zobacz <Link to="/technologie" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">wszystkie technologie</Link>.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-serif text-lg text-ink">Zespół</h3>
+            <p className="mt-3 text-sm text-foreground/80">
+              Poznaj <Link to="/lekarze" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">lekarzy i specjalistów</Link> prowadzących
+              konsultacje w Warszawie.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-serif text-lg text-ink">Bezpieczeństwo</h3>
+            <p className="mt-3 text-sm text-foreground/80">
+              Standardy pracy i przeciwwskazania opisujemy w sekcji
+              {" "}
+              <Link to="/bezpieczenstwo-zabiegow-laserowych" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">bezpieczeństwo zabiegów</Link>.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-12 rounded-lg border border-border bg-card p-6 md:p-8">
+          <h3 className="font-serif text-lg text-ink">Adres i dojazd</h3>
+          <p className="mt-3 text-sm text-foreground/85">
+            Klinika Promedion, ul. Wójcickiego 4, 01-938 Warszawa (Bielany).
+            Dogodny dojazd z Żoliborza, Bemowa, Młocin i całej Warszawy;
+            parking na terenie kliniki.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link
+              to="/konsultacja"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-ink px-6 text-sm tracking-wide text-alabaster transition hover:bg-ink/90"
+            >
+              Umów konsultację w Warszawie <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              to="/cennik"
+              className="inline-flex h-11 items-center justify-center rounded-md border border-ink/20 px-6 text-sm tracking-wide text-ink hover:bg-secondary"
+            >
+              Zobacz cennik
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 function TechnologiesPreview() {
   const featured = TECHNOLOGIES.slice(0, 6);
@@ -229,7 +349,7 @@ function BookingSection() {
           <dl className="mt-8 space-y-4 text-sm">
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Adres</dt>
-              <dd className="mt-1 text-foreground">Siedlce, woj. mazowieckie</dd>
+              <dd className="mt-1 text-foreground">Klinika Promedion, ul. Wójcickiego 4, Warszawa (Bielany)</dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Godziny</dt>

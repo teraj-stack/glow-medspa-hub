@@ -22,20 +22,22 @@ export const Route = createFileRoute("/lekarze/")({
   gcTime: 60 * 60_000,
   head: () => ({
     meta: [
-      { title: "Lekarze i specjaliści — BMClinics.ai Siedlce" },
+      { title: "Lekarze medycyny estetycznej — Warszawa Bielany | BMClinics.ai" },
       {
         name: "description",
         content:
-          "Zespół BMClinics.ai w Siedlcach — lekarze i specjaliści medycyny estetycznej z warszawskim doświadczeniem.",
+          "Zespół BMClinics.ai — lekarze medycyny estetycznej przyjmujący w Warszawie (Klinika Promedion, Bielany). 10 lat doświadczenia w premium klinikach stolicy.",
       },
-      { property: "og:title", content: "Lekarze i specjaliści — BMClinics.ai" },
+      { property: "og:title", content: "Lekarze medycyny estetycznej — Warszawa Bielany" },
       {
         property: "og:description",
         content:
-          "Poznaj zespół kliniki w Siedlcach — kompetencje, specjalizacje i doświadczenie z premium klinik warszawskich.",
+          "Poznaj zespół przyjmujący w Klinice Promedion na warszawskich Bielanach — kompetencje, specjalizacje, doświadczenie.",
       },
+      { property: "og:url", content: "https://bmclinics.ai/lekarze" },
       { property: "og:type", content: "website" },
     ],
+    links: [{ rel: "canonical", href: "https://bmclinics.ai/lekarze" }],
   }),
   component: LekarzePage,
   pendingMs: 200,
@@ -232,15 +234,22 @@ function LekarzePage() {
       <section className="container-luxury py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            Zespół kliniki
+            Medycyna estetyczna · Warszawa Bielany
           </p>
           <h1 className="mt-4 font-serif text-4xl tracking-tight text-foreground md:text-5xl">
-            Lekarze i specjaliści
+            Lekarze medycyny estetycznej w Warszawie
           </h1>
           <p className="mt-5 text-balance text-base leading-relaxed text-muted-foreground md:text-lg">
-            Dziesięć lat doświadczenia w premium klinikach Warszawy — ten sam standard
-            opieki w Siedlcach. Każda terapia projektowana indywidualnie, z naciskiem
-            na bezpieczeństwo i przewidywalny efekt.
+            Dziesięć lat doświadczenia w premium klinikach warszawskich. Konsultacje
+            prowadzimy w <strong>Klinice Promedion</strong> przy ul. Wójcickiego 4 na Bielanach.
+            Każda terapia projektowana indywidualnie, z naciskiem na bezpieczeństwo i przewidywalny efekt.
+          </p>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Zobacz też: <Link to="/" hash="medycyna-estetyczna-warszawa" className="underline decoration-champagne/60 underline-offset-4 hover:text-foreground">medycyna estetyczna Warszawa</Link>
+            {" · "}
+            <Link to="/diagnostyka-skory-warszawa" className="underline decoration-champagne/60 underline-offset-4 hover:text-foreground">diagnostyka skóry</Link>
+            {" · "}
+            <Link to="/technologie" className="underline decoration-champagne/60 underline-offset-4 hover:text-foreground">technologie</Link>
           </p>
         </div>
 
