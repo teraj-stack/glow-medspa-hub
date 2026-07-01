@@ -46,23 +46,23 @@ const FAQ = [
   },
   {
     q: "Ile kosztuje terapia blizn potrądzikowych?",
-    a: "Pojedyncza sesja laserem pikosekundowym kosztuje od 600 zł, sesja radiofrekwencji mikroigłowej od 800 zł. Cena pełnego protokołu łączonego (6 sesji) to ok. 4 200–5 400 zł. Oferujemy pakiety zabiegowe z 15–20% zniżką. Standard warszawski w Siedlcach — bez konieczności dojazdu do stolicy.",
+    a: "Pojedyncza sesja laserem pikosekundowym kosztuje od 600 zł, sesja radiofrekwencji mikroigłowej od 800 zł. Cena pełnego protokołu łączonego (6 sesji) to ok. 4 200–5 400 zł. Oferujemy pakiety zabiegowe z 15–20% zniżką. Standard warszawski w Warszawie — bez konieczności dojazdu do stolicy.",
   },
 ];
 
 export const Route = createFileRoute("/blog/blizny-potradzikowe")({
   head: () => ({
     meta: [
-      { title: "Blizny potrądzikowe — usuwanie i zabiegi | BMC Siedlce" },
+      { title: "Blizny potrądzikowe — usuwanie i zabiegi | BMClinics Warszawa" },
       {
         name: "description",
         content:
-          "Usuwanie blizn potrądzikowych w Siedlcach: laser pikosekundowy i radiofrekwencja mikroigłowa — metody, efekty, bezpieczeństwo zabiegów.",
+          "Usuwanie blizn potrądzikowych w Warszawie: laser pikosekundowy i radiofrekwencja mikroigłowa — metody, efekty, bezpieczeństwo zabiegów.",
       },
       {
         name: "keywords",
         content:
-          "blizny potrądzikowe, usuwanie blizn potrądzikowych, dziury po trądziku, blizny po trądziku zabiegi, laser pikosekundowy blizny, radiofrekwencja mikroigłowa, Siedlce",
+          "blizny potrądzikowe, usuwanie blizn potrądzikowych, dziury po trądziku, blizny po trądziku zabiegi, laser pikosekundowy blizny, radiofrekwencja mikroigłowa, Warszawa",
       },
       { property: "og:title", content: "Blizny potrądzikowe — kompletny przewodnik po usuwaniu" },
       {
@@ -480,7 +480,7 @@ function AcneScarsGuide() {
               </h3>
               <p className="mt-3 text-sm text-muted-foreground">
                 Od 10 lat pracuję w premium klinikach Warszawy. Ten sam protokół, te same urządzenia,
-                ten sam standard bezpieczeństwa — teraz w Siedlcach.
+                ten sam standard bezpieczeństwa — teraz w Warszawie.
               </p>
               <Link
                 to="/konsultacja"

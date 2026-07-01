@@ -13,7 +13,7 @@ export const Route = createFileRoute("/konsultacja")({
       {
         name: "description",
         content:
-          "Zarezerwuj konsultację online lub w klinice w Siedlcach. Po opłaceniu otrzymasz e-mail z formularzem diagnostycznym.",
+          "Zarezerwuj konsultację online lub w klinice w Warszawie. Po opłaceniu otrzymasz e-mail z formularzem diagnostycznym.",
       },
       { property: "og:title", content: "Umów konsultację — BMClinics.ai" },
       { property: "og:url", content: "https://bmclinics.ai/konsultacja" },
@@ -98,7 +98,7 @@ function ConsultationPage() {
                 {(
                   [
                     { v: "online", l: "Online", d: "Wideokonferencja" },
-                    { v: "clinic", l: "W klinice", d: "Siedlce" },
+                    { v: "clinic", l: "W klinice", d: "Warszawa" },
                   ] as const
                 ).map((opt) => (
                   <button

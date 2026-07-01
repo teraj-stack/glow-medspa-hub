@@ -191,8 +191,8 @@ export const template = {
     organicTraffic: 42,
     organicCost: 3.5,
     keywords: [
-      { phrase: "medycyna estetyczna siedlce", position: 18, previous_position: 22, search_volume: 140 },
-      { phrase: "diagnostyka skóry siedlce", position: 34, previous_position: null, search_volume: 30 },
+      { phrase: "medycyna estetyczna warszawa", position: 18, previous_position: 22, search_volume: 1400 },
+      { phrase: "diagnostyka skóry warszawa", position: 34, previous_position: null, search_volume: 260 },
     ],
     competitors: [
       { competitor_domain: "estclinic.pl", competitor_keywords: 512, common_keywords: 9 },

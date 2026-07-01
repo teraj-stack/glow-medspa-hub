@@ -185,7 +185,7 @@ export const Route = createFileRoute("/blog/laser-frakcyjny-rekonwalescencja")({
     meta: [
       {
         title:
-          "Laser frakcyjny — dzień po dniu rekonwalescencji (pikosekundowy, tulowy, CO2) | BMC Siedlce",
+          "Laser frakcyjny — dzień po dniu rekonwalescencji (pikosekundowy, tulowy, CO2) | BMClinics Warszawa",
       },
       {
         name: "description",
@@ -195,7 +195,7 @@ export const Route = createFileRoute("/blog/laser-frakcyjny-rekonwalescencja")({
       {
         name: "keywords",
         content:
-          "laser frakcyjny dzień po dniu, rekonwalescencja po laserze frakcyjnym, laser frakcyjny CO2, laser tulowy 1927 nm, laser pikosekundowy frakcyjny, downtime laser, gojenie po laserze, pielęgnacja po laserze frakcyjnym, Siedlce",
+          "laser frakcyjny dzień po dniu, rekonwalescencja po laserze frakcyjnym, laser frakcyjny CO2, laser tulowy 1927 nm, laser pikosekundowy frakcyjny, downtime laser, gojenie po laserze, pielęgnacja po laserze frakcyjnym, Warszawa",
       },
       {
         property: "og:title",
@@ -379,7 +379,7 @@ function FractionalLaserRecoveryGuide() {
               Najważniejszy fragment przewodnika. Dla każdego dnia opisuję, jak wygląda skóra,
               jak ją pielęgnować i co można robić. Plan oparty na praktyce w klinikach
               warszawskich, w których zabiegi prowadzimy od ponad 10 lat — ten sam standard
-              gabinetowy znajdziesz w Siedlcach.
+              gabinetowy znajdziesz w Warszawie.
             </p>
 
             <div className="mt-8 space-y-8">
@@ -589,7 +589,7 @@ function FractionalLaserRecoveryGuide() {
             <div className="tile-icon">
               <ShieldCheck className="size-5" />
             </div>
-            <div className="tile-title text-base">Standard warszawski w Siedlcach</div>
+            <div className="tile-title text-base">Standard warszawski w Warszawie</div>
             <p className="tile-text">
               10 lat doświadczenia w klinikach premium Warszawy — ten sam protokół
               bezpieczeństwa, ten sam standard pielęgnacji pozabiegowej, bez konieczności

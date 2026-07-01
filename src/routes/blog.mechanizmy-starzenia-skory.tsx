@@ -10,7 +10,7 @@ import fazyAsset from "@/assets/przyczyny-starzenia-trzy-problemy.jpeg.asset.jso
 export const Route = createFileRoute("/blog/mechanizmy-starzenia-skory")({
   head: () => ({
     meta: [
-      { title: "Mechanizmy starzenia skóry — kolagen, elastyna, glikacja | BMC Siedlce" },
+      { title: "Mechanizmy starzenia skóry — kolagen, elastyna, glikacja | BMClinics Warszawa" },
       {
         name: "description",
         content:

@@ -35,7 +35,7 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
   head: () => ({
     meta: [
       {
-        title: "Bezpieczeństwo zabiegów laserowych — BMClinics.ai Siedlce",
+        title: "Bezpieczeństwo zabiegów laserowych — BMClinics.ai Warszawa",
       },
       {
         name: "description",

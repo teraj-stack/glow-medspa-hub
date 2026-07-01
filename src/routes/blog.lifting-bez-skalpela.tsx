@@ -8,7 +8,7 @@ import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
 export const Route = createFileRoute("/blog/lifting-bez-skalpela")({
   head: () => ({
     meta: [
-      { title: "Lifting bez skalpela — co realnie działa | BMC Siedlce" },
+      { title: "Lifting bez skalpela — co realnie działa | BMClinics Warszawa" },
       {
         name: "description",
         content:
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/blog/lifting-bez-skalpela")({
       {
         name: "keywords",
         content:
-          "lifting bez skalpela, HIFU, radiofrekwencja mikroigłowa, stymulatory tkankowe, wolumetria twarzy, nici PDO, Siedlce",
+          "lifting bez skalpela, HIFU, radiofrekwencja mikroigłowa, stymulatory tkankowe, wolumetria twarzy, nici PDO, Warszawa",
       },
       { property: "og:title", content: "Lifting bez skalpela — sekwencja, która działa" },
       {

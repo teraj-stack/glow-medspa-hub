@@ -11,7 +11,7 @@ import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
 export const Route = createFileRoute("/technologie/")({
   head: () => ({
     meta: [
-      { title: "Technologie | BMClinics.ai Siedlce" },
+      { title: "Technologie | BMClinics.ai Warszawa" },
       {
         name: "description",
         content:

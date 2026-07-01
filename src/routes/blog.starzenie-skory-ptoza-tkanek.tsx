@@ -46,7 +46,7 @@ const FAQ = [
 export const Route = createFileRoute("/blog/starzenie-skory-ptoza-tkanek")({
   head: () => ({
     meta: [
-      { title: "Starzenie skóry i ptoza tkanek — kompletny przewodnik | BMC Siedlce" },
+      { title: "Starzenie skóry i ptoza tkanek — kompletny przewodnik | BMClinics Warszawa" },
       {
         name: "description",
         content:
@@ -55,7 +55,7 @@ export const Route = createFileRoute("/blog/starzenie-skory-ptoza-tkanek")({
       {
         name: "keywords",
         content:
-          "starzenie skóry, ptoza tkanek, opadanie tkanek twarzy, lifting bez skalpela, utrata jędrności, kolagen, elastyna, SMAS, Siedlce",
+          "starzenie skóry, ptoza tkanek, opadanie tkanek twarzy, lifting bez skalpela, utrata jędrności, kolagen, elastyna, SMAS, Warszawa",
       },
       { property: "og:title", content: "Starzenie skóry i ptoza tkanek — jak zatrzymać czas bez skalpela" },
       {

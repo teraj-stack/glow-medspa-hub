@@ -16,7 +16,7 @@ export const Route = createFileRoute("/lekarze/jan-bujok")({
       {
         name: "description",
         content:
-          "dr Jan Bujok — chirurg, twórca platformy MySkinCode i marki Bujok Medical. Autorskie protokoły medycyny estetycznej i regeneracyjnej w BMClinics.ai Siedlce.",
+          "dr Jan Bujok — chirurg, twórca platformy MySkinCode i marki Bujok Medical. Autorskie protokoły medycyny estetycznej i regeneracyjnej w BMClinics.ai Warszawa.",
       },
       { property: "og:title", content: "dr Jan Bujok — Innowator i Ekspert MedTech" },
       {
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/lekarze/jan-bujok")({
           worksFor: {
             "@type": "MedicalClinic",
             name: "BMClinics.ai",
-            address: { "@type": "PostalAddress", addressLocality: "Siedlce", addressCountry: "PL" },
+            address: { "@type": "PostalAddress", addressLocality: "Warszawa", addressCountry: "PL" },
           },
           url: CANONICAL,
           image: bujokAsset.url,

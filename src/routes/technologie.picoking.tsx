@@ -62,9 +62,9 @@ export const Route = createFileRoute("/technologie/picoking")({
   },
   head: ({ loaderData }) => {
     const url = "https://bmclinics.ai/technologie/picoking";
-    const title = "Laser pikosekundowy — Siedlce | BMClinics.ai";
+    const title = "Laser pikosekundowy — Warszawa | BMClinics.ai";
     const description =
-      "Laser pikosekundowy 350 ps w Siedlcach: melasma, blizny potrądzikowe, przebarwienia, tatuaże, fotoodmładzanie. Standard premium klinik warszawskich.";
+      "Laser pikosekundowy 350 ps w Warszawie: melasma, blizny potrądzikowe, przebarwienia, tatuaże, fotoodmładzanie. Standard premium klinik warszawskich.";
 
 
     const serviceSchema = loaderData
@@ -80,7 +80,7 @@ export const Route = createFileRoute("/technologie/picoking")({
             url: "https://bmclinics.ai",
             address: {
               "@type": "PostalAddress",
-              addressLocality: "Siedlce",
+              addressLocality: "Warszawa",
               addressCountry: "PL",
             },
           },
@@ -504,7 +504,7 @@ function PikosekundowyPage() {
           <SectionHeading
             eyebrow="Cennik"
             title="Standard warszawski — bez dojeżdżania do stolicy"
-            description="Od 10 lat pracuję w premium klinikach Warszawy. Ten sam standard zabiegu, protokoły i bezpieczeństwo — teraz w Siedlcach. Oszczędzasz pół dnia, paliwo i parking."
+            description="Od 10 lat pracuję w premium klinikach Warszawy. Ten sam standard zabiegu, protokoły i bezpieczeństwo — teraz w Warszawie. Oszczędzasz pół dnia, paliwo i parking."
           />
           <div className="mt-12 grid gap-8 md:grid-cols-[2fr_1fr]">
             <div className="overflow-hidden rounded-lg border border-border bg-card shadow-soft">
@@ -531,7 +531,7 @@ function PikosekundowyPage() {
 
             <div className="space-y-4">
               <div className="rounded-lg border border-champagne/40 bg-card p-6">
-                <div className="text-xs uppercase tracking-[0.25em] text-champagne">Region Siedlce</div>
+                <div className="text-xs uppercase tracking-[0.25em] text-champagne">Region Warszawa</div>
                 <h3 className="mt-2 font-serif text-xl text-ink">Najbliższy laser tej klasy — 120 km</h3>
                 <p className="mt-3 text-sm text-foreground/75">
                   Do tej pory pacjentki z Siedlec, Mińska Mazowieckiego, Łukowa, Łosic, Sokołowa i Białej Podlaskiej musiały jeździć do Warszawy. Teraz nie muszą.
