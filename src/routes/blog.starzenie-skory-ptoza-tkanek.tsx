@@ -1,5 +1,6 @@
 import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Layers, Clock, Sparkles, ShieldCheck, AlertCircle } from "lucide-react";
 import konturAsset from "@/assets/mapowanie-procesu-starzenia.jpeg.asset.json";
@@ -478,6 +479,7 @@ function AgingPillarArticle() {
               ))}
             </div>
           </section>
+        <DiagnostykaInlineCTA />
         </article>
 
         <aside className="md:col-span-1">
