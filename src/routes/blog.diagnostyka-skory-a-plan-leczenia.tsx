@@ -65,7 +65,7 @@ function Article() {
           </Link>
           <h1 className="mt-6 font-serif text-ink">Diagnostyka skóry a plan leczenia — dlaczego nie można ich rozdzielić</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            „Zrobię sobie laser na przebarwienia" to zdanie, po którym w klinice zawsze pytamy: jaką melaniną? Powierzchowną, głęboką,
+            „Zrobię sobie laser na przebarwienia” to zdanie, po którym w klinice zawsze pytamy: jaką melaniną? Powierzchowną, głęboką,
             melasmowatą? Bez diagnostyki wybór technologii jest przypadkiem.
           </p>
         </div>
@@ -101,7 +101,7 @@ function Article() {
         <section>
           <h2 className="font-serif text-2xl text-ink">Mierzalne cele</h2>
           <p className="mt-3 text-muted-foreground">
-            „Chcę wyglądać świeżo" to intencja, nie cel. Cel to np. „redukcja przebarwień o 30% w skali melaniny w 4 miesiące". Diagnostyka
+            „Chcę wyglądać świeżo” to intencja, nie cel. Cel to np. „redukcja przebarwień o 30% w skali melaniny w 4 miesiące”. Diagnostyka
             daje punkt odniesienia, bez którego nie ma sposobu ocenić skuteczności.
           </p>
         </section>

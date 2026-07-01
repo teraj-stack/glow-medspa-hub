@@ -47,6 +47,7 @@ import { Route as BlogMechanizmyStarzeniaSkoryRouteImport } from './routes/blog.
 import { Route as BlogLiftingBezSkalpelaRouteImport } from './routes/blog.lifting-bez-skalpela'
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
 import { Route as BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport } from './routes/blog.jak-przygotowac-skore-do-diagnostyki'
+import { Route as BlogJakCzestoPowtarzacAnalizeSkoryRouteImport } from './routes/blog.jak-czesto-powtarzac-analize-skory'
 import { Route as BlogDiagnostykaSkoryAPlanLeczeniaRouteImport } from './routes/blog.diagnostyka-skory-a-plan-leczenia'
 import { Route as BlogCoDalejPoBadaniuSkoryRouteImport } from './routes/blog.co-dalej-po-badaniu-skory'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
@@ -272,6 +273,12 @@ const BlogJakPrzygotowacSkoreDoDiagnostykiRoute =
     path: '/blog/jak-przygotowac-skore-do-diagnostyki',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogJakCzestoPowtarzacAnalizeSkoryRoute =
+  BlogJakCzestoPowtarzacAnalizeSkoryRouteImport.update({
+    id: '/blog/jak-czesto-powtarzac-analize-skory',
+    path: '/blog/jak-czesto-powtarzac-analize-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogDiagnostykaSkoryAPlanLeczeniaRoute =
   BlogDiagnostykaSkoryAPlanLeczeniaRouteImport.update({
     id: '/blog/diagnostyka-skory-a-plan-leczenia',
@@ -440,6 +447,7 @@ export interface FileRoutesByFullPath {
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
   '/blog/diagnostyka-skory-a-plan-leczenia': typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
+  '/blog/jak-czesto-powtarzac-analize-skory': typeof BlogJakCzestoPowtarzacAnalizeSkoryRoute
   '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
@@ -503,6 +511,7 @@ export interface FileRoutesByTo {
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
   '/blog/diagnostyka-skory-a-plan-leczenia': typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
+  '/blog/jak-czesto-powtarzac-analize-skory': typeof BlogJakCzestoPowtarzacAnalizeSkoryRoute
   '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
@@ -570,6 +579,7 @@ export interface FileRoutesById {
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
   '/blog/diagnostyka-skory-a-plan-leczenia': typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
+  '/blog/jak-czesto-powtarzac-analize-skory': typeof BlogJakCzestoPowtarzacAnalizeSkoryRoute
   '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
@@ -637,6 +647,7 @@ export interface FileRouteTypes {
     | '/blog/blizny-potradzikowe'
     | '/blog/co-dalej-po-badaniu-skory'
     | '/blog/diagnostyka-skory-a-plan-leczenia'
+    | '/blog/jak-czesto-powtarzac-analize-skory'
     | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
@@ -700,6 +711,7 @@ export interface FileRouteTypes {
     | '/blog/blizny-potradzikowe'
     | '/blog/co-dalej-po-badaniu-skory'
     | '/blog/diagnostyka-skory-a-plan-leczenia'
+    | '/blog/jak-czesto-powtarzac-analize-skory'
     | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
@@ -766,6 +778,7 @@ export interface FileRouteTypes {
     | '/blog/blizny-potradzikowe'
     | '/blog/co-dalej-po-badaniu-skory'
     | '/blog/diagnostyka-skory-a-plan-leczenia'
+    | '/blog/jak-czesto-powtarzac-analize-skory'
     | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
@@ -832,6 +845,7 @@ export interface RootRouteChildren {
   BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
   BlogCoDalejPoBadaniuSkoryRoute: typeof BlogCoDalejPoBadaniuSkoryRoute
   BlogDiagnostykaSkoryAPlanLeczeniaRoute: typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
+  BlogJakCzestoPowtarzacAnalizeSkoryRoute: typeof BlogJakCzestoPowtarzacAnalizeSkoryRoute
   BlogJakPrzygotowacSkoreDoDiagnostykiRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   BlogLaserFrakcyjnyRekonwalescencjaRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   BlogLiftingBezSkalpelaRoute: typeof BlogLiftingBezSkalpelaRoute
@@ -1131,6 +1145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/jak-czesto-powtarzac-analize-skory': {
+      id: '/blog/jak-czesto-powtarzac-analize-skory'
+      path: '/blog/jak-czesto-powtarzac-analize-skory'
+      fullPath: '/blog/jak-czesto-powtarzac-analize-skory'
+      preLoaderRoute: typeof BlogJakCzestoPowtarzacAnalizeSkoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/diagnostyka-skory-a-plan-leczenia': {
       id: '/blog/diagnostyka-skory-a-plan-leczenia'
       path: '/blog/diagnostyka-skory-a-plan-leczenia'
@@ -1400,6 +1421,8 @@ const rootRouteChildren: RootRouteChildren = {
   BlogCoDalejPoBadaniuSkoryRoute: BlogCoDalejPoBadaniuSkoryRoute,
   BlogDiagnostykaSkoryAPlanLeczeniaRoute:
     BlogDiagnostykaSkoryAPlanLeczeniaRoute,
+  BlogJakCzestoPowtarzacAnalizeSkoryRoute:
+    BlogJakCzestoPowtarzacAnalizeSkoryRoute,
   BlogJakPrzygotowacSkoreDoDiagnostykiRoute:
     BlogJakPrzygotowacSkoreDoDiagnostykiRoute,
   BlogLaserFrakcyjnyRekonwalescencjaRoute:

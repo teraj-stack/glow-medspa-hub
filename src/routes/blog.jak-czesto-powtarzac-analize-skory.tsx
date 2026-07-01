@@ -105,7 +105,7 @@ function Article() {
             <li>Menopauza i zmiana napięcia skóry.</li>
             <li>Znaczna utrata masy ciała.</li>
             <li>Długa podróż z intensywną ekspozycją słoneczną.</li>
-            <li>Przewlekły stres lub choroba, która „zestarzyła" skórę.</li>
+            <li>Przewlekły stres lub choroba, która „zestarzyła” skórę.</li>
           </ul>
         </section>
 

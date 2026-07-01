@@ -101,7 +101,7 @@ function Article() {
           <h2 className="font-serif text-2xl text-ink">Miesiąc 6: pełne badanie kontrolne</h2>
           <p className="mt-3 text-muted-foreground">
             Ponowne obrazowanie wielospektralne i pomiary fizyczne. To moment na trudne pytanie: co realnie się zmieniło, a co nie odpowiedziało?
-            Bez porównania „przed–po" na twardych danych ocena jest tylko subiektywna.
+            Bez porównania „przed–po” na twardych danych ocena jest tylko subiektywna.
           </p>
         </section>
 
