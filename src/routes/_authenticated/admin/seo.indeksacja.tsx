@@ -6,12 +6,29 @@ import {
   submitIndexationNow,
   listIndexationSubmissions,
   inspectIndexation,
+  bulkInspectIndexation,
   indexNowStatus,
 } from "@/lib/seo-indexation.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+
+type BulkRow = {
+  url: string;
+  ok: boolean;
+  verdict: string | null;
+  coverageState: string | null;
+  indexingState: string | null;
+  robotsTxtState: string | null;
+  lastCrawlTime: string | null;
+  googleCanonical: string | null;
+  error: string | null;
+};
+type BulkResult = {
+  results: BulkRow[];
+  summary: { total: number; passing: number; neutral: number; failing: number; errors: number };
+};
 
 export const Route = createFileRoute("/_authenticated/admin/seo/indeksacja")({
   codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
