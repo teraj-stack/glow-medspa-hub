@@ -42,6 +42,7 @@ import { Route as BlogStarzenieSkoryPtozaTkanekRouteImport } from './routes/blog
 import { Route as BlogSlonceSkoraNowoczesneTechnologieRouteImport } from './routes/blog.slonce-skora-nowoczesne-technologie'
 import { Route as BlogPtozaTkanekTwarzyRouteImport } from './routes/blog.ptoza-tkanek-twarzy'
 import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
+import { Route as BlogNajczestszeWynikiAnalizySkoryRouteImport } from './routes/blog.najczestsze-wyniki-analizy-skory'
 import { Route as BlogMechanizmyStarzeniaSkoryRouteImport } from './routes/blog.mechanizmy-starzenia-skory'
 import { Route as BlogLiftingBezSkalpelaRouteImport } from './routes/blog.lifting-bez-skalpela'
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
@@ -240,6 +241,12 @@ const BlogPowiklaniaMezoterapiaIglowaRoute =
     path: '/blog/powiklania-mezoterapia-iglowa',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogNajczestszeWynikiAnalizySkoryRoute =
+  BlogNajczestszeWynikiAnalizySkoryRouteImport.update({
+    id: '/blog/najczestsze-wyniki-analizy-skory',
+    path: '/blog/najczestsze-wyniki-analizy-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogMechanizmyStarzeniaSkoryRoute =
   BlogMechanizmyStarzeniaSkoryRouteImport.update({
     id: '/blog/mechanizmy-starzenia-skory',
@@ -421,6 +428,7 @@ export interface FileRoutesByFullPath {
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
   '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
+  '/blog/najczestsze-wyniki-analizy-skory': typeof BlogNajczestszeWynikiAnalizySkoryRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/blog/ptoza-tkanek-twarzy': typeof BlogPtozaTkanekTwarzyRoute
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
@@ -481,6 +489,7 @@ export interface FileRoutesByTo {
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
   '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
+  '/blog/najczestsze-wyniki-analizy-skory': typeof BlogNajczestszeWynikiAnalizySkoryRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/blog/ptoza-tkanek-twarzy': typeof BlogPtozaTkanekTwarzyRoute
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
@@ -545,6 +554,7 @@ export interface FileRoutesById {
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
   '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
+  '/blog/najczestsze-wyniki-analizy-skory': typeof BlogNajczestszeWynikiAnalizySkoryRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/blog/ptoza-tkanek-twarzy': typeof BlogPtozaTkanekTwarzyRoute
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
@@ -609,6 +619,7 @@ export interface FileRouteTypes {
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
     | '/blog/mechanizmy-starzenia-skory'
+    | '/blog/najczestsze-wyniki-analizy-skory'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/blog/ptoza-tkanek-twarzy'
     | '/blog/slonce-skora-nowoczesne-technologie'
@@ -669,6 +680,7 @@ export interface FileRouteTypes {
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
     | '/blog/mechanizmy-starzenia-skory'
+    | '/blog/najczestsze-wyniki-analizy-skory'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/blog/ptoza-tkanek-twarzy'
     | '/blog/slonce-skora-nowoczesne-technologie'
@@ -732,6 +744,7 @@ export interface FileRouteTypes {
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
     | '/blog/mechanizmy-starzenia-skory'
+    | '/blog/najczestsze-wyniki-analizy-skory'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/blog/ptoza-tkanek-twarzy'
     | '/blog/slonce-skora-nowoczesne-technologie'
@@ -795,6 +808,7 @@ export interface RootRouteChildren {
   BlogLaserFrakcyjnyRekonwalescencjaRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   BlogLiftingBezSkalpelaRoute: typeof BlogLiftingBezSkalpelaRoute
   BlogMechanizmyStarzeniaSkoryRoute: typeof BlogMechanizmyStarzeniaSkoryRoute
+  BlogNajczestszeWynikiAnalizySkoryRoute: typeof BlogNajczestszeWynikiAnalizySkoryRoute
   BlogPowiklaniaMezoterapiaIglowaRoute: typeof BlogPowiklaniaMezoterapiaIglowaRoute
   BlogPtozaTkanekTwarzyRoute: typeof BlogPtozaTkanekTwarzyRoute
   BlogSlonceSkoraNowoczesneTechnologieRoute: typeof BlogSlonceSkoraNowoczesneTechnologieRoute
@@ -1052,6 +1066,13 @@ declare module '@tanstack/react-router' {
       path: '/blog/powiklania-mezoterapia-iglowa'
       fullPath: '/blog/powiklania-mezoterapia-iglowa'
       preLoaderRoute: typeof BlogPowiklaniaMezoterapiaIglowaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/najczestsze-wyniki-analizy-skory': {
+      id: '/blog/najczestsze-wyniki-analizy-skory'
+      path: '/blog/najczestsze-wyniki-analizy-skory'
+      fullPath: '/blog/najczestsze-wyniki-analizy-skory'
+      preLoaderRoute: typeof BlogNajczestszeWynikiAnalizySkoryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/mechanizmy-starzenia-skory': {
@@ -1340,6 +1361,8 @@ const rootRouteChildren: RootRouteChildren = {
     BlogLaserFrakcyjnyRekonwalescencjaRoute,
   BlogLiftingBezSkalpelaRoute: BlogLiftingBezSkalpelaRoute,
   BlogMechanizmyStarzeniaSkoryRoute: BlogMechanizmyStarzeniaSkoryRoute,
+  BlogNajczestszeWynikiAnalizySkoryRoute:
+    BlogNajczestszeWynikiAnalizySkoryRoute,
   BlogPowiklaniaMezoterapiaIglowaRoute: BlogPowiklaniaMezoterapiaIglowaRoute,
   BlogPtozaTkanekTwarzyRoute: BlogPtozaTkanekTwarzyRoute,
   BlogSlonceSkoraNowoczesneTechnologieRoute:
