@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   Table,
@@ -684,7 +685,12 @@ function LaserSafetyPage() {
         </div>
       </section>
 
+      <section className="container-luxury">
+        <DiagnostykaInlineCTA variant="safety" />
+      </section>
+
       {/* CTA */}
+
       <section className="container-luxury py-16 md:py-24">
         <div className="rounded-lg bg-ink p-8 text-alabaster md:p-12">
           <div className="max-w-2xl">

@@ -1,6 +1,7 @@
 import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { BlurUpImage } from "@/components/site/BlurUpImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Layers } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
@@ -245,6 +246,7 @@ function PtosisArticle() {
               Czytaj część 3 →
             </Link>
           </section>
+        <DiagnostykaInlineCTA />
         </article>
 
         <aside className="md:col-span-1">

@@ -1,5 +1,6 @@
 import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Sparkles, AlertCircle } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
@@ -236,6 +237,7 @@ function NonSurgicalArticle() {
               Umów konsultację
             </Link>
           </section>
+        <DiagnostykaInlineCTA />
         </article>
 
         <aside className="md:col-span-1">

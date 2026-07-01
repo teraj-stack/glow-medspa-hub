@@ -1,5 +1,6 @@
 import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Sparkles, ShieldCheck } from "lucide-react";
 import zdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
@@ -195,6 +196,7 @@ function MechanismsArticle() {
               Czytaj część 2 →
             </Link>
           </section>
+        <DiagnostykaInlineCTA />
         </article>
 
         <aside className="md:col-span-1">
