@@ -107,9 +107,34 @@ function IndeksacjaPanel() {
       setBulkResult(data);
       toast.success(`Zweryfikowano ${data.summary.total} URL-i`);
       qc.invalidateQueries({ queryKey: ["indexation-submissions"] });
+      qc.invalidateQueries({ queryKey: ["bulk-inspection-reports"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
+
+  const openReportMut = useMutation({
+    mutationFn: async (id: string) => getReportFn({ data: { id } }),
+    onSuccess: (row: any) => {
+      setBulkResult({ results: row.results, summary: row.summary });
+      toast.success(`Otwarto raport z ${new Date(row.created_at).toLocaleString("pl-PL")}`);
+      if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const downloadReportCsv = (results: BulkRow[], createdAt: string) => {
+    const header = ["url", "verdict", "coverageState", "indexingState", "robotsTxtState", "googleCanonical", "lastCrawlTime", "error"];
+    const rows = results.map((r) =>
+      header.map((k) => `"${String((r as any)[k] ?? "").replace(/"/g, '""')}"`).join(","),
+    );
+    const blob = new Blob([header.join(",") + "\n" + rows.join("\n")], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `bulk-inspection-${createdAt.slice(0, 19).replace(/[:T]/g, "-")}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const idx = inspectResult?.inspectionResult?.indexStatusResult;
 
