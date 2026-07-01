@@ -684,7 +684,12 @@ function LaserSafetyPage() {
         </div>
       </section>
 
+      <section className="container-luxury">
+        <DiagnostykaInlineCTA variant="safety" />
+      </section>
+
       {/* CTA */}
+
       <section className="container-luxury py-16 md:py-24">
         <div className="rounded-lg bg-ink p-8 text-alabaster md:p-12">
           <div className="max-w-2xl">
