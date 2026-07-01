@@ -192,6 +192,95 @@ function ManifestSection() {
   );
 }
 
+function LocalWarsawSection() {
+  return (
+    <section id="medycyna-estetyczna-warszawa" className="container-luxury py-20 md:py-28">
+      <div className="mx-auto max-w-4xl">
+        <div className="text-xs uppercase tracking-[0.3em] text-champagne">Lokalizacja · Warszawa Bielany</div>
+        <h2 className="mt-4 font-serif text-ink">
+          Medycyna estetyczna w Warszawie — konsultacje na Bielanach
+        </h2>
+        <p className="mt-6 text-foreground/85">
+          Przyjmuję w <strong>Klinice Promedion</strong> przy ul. Wójcickiego 4 w Warszawie (Bielany).
+          Dziesięć lat doświadczenia w premium klinikach stolicy przekładam na autorskie
+          protokoły oparte na diagnostyce skóry i sprawdzonych technologiach laserowych.
+        </p>
+
+        <div className="mt-12 grid gap-10 md:grid-cols-2">
+          <div>
+            <h3 className="font-serif text-xl text-ink">Dla kogo</h3>
+            <ul className="mt-4 space-y-2 text-sm text-foreground/85">
+              <li>· Pacjenci szukający medycyny estetycznej w Warszawie i okolicach Bielan</li>
+              <li>· Osoby ceniące dyskrecję i konsultację lekarską, nie sprzedaż zabiegu</li>
+              <li>· Skóra dojrzała, przebarwienia, ptoza tkanek, naczynia, blizny potrądzikowe</li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-serif text-xl text-ink">Jak wygląda pierwsza wizyta</h3>
+            <ul className="mt-4 space-y-2 text-sm text-foreground/85">
+              <li>· Wywiad medyczny i cele pacjenta (~20 min)</li>
+              <li>
+                · <Link to="/diagnostyka-skory-warszawa" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">Diagnostyka skóry twarzy</Link> — mapping, analiza spektralna
+              </li>
+              <li>
+                · Indywidualny plan leczenia i wybór <Link to="/technologie" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">technologii</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-10 md:grid-cols-3">
+          <div>
+            <h3 className="font-serif text-lg text-ink">Zakres zabiegów</h3>
+            <p className="mt-3 text-sm text-foreground/80">
+              Lasery frakcyjne, laser tulowy, terapia LED, fusion plasma, peeling węglowy —
+              zobacz <Link to="/technologie" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">wszystkie technologie</Link>.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-serif text-lg text-ink">Zespół</h3>
+            <p className="mt-3 text-sm text-foreground/80">
+              Poznaj <Link to="/lekarze" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">lekarzy i specjalistów</Link> prowadzących
+              konsultacje w Warszawie.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-serif text-lg text-ink">Bezpieczeństwo</h3>
+            <p className="mt-3 text-sm text-foreground/80">
+              Standardy pracy i przeciwwskazania opisujemy w sekcji
+              {" "}
+              <Link to="/bezpieczenstwo-zabiegow-laserowych" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">bezpieczeństwo zabiegów</Link>.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-12 rounded-lg border border-border bg-card p-6 md:p-8">
+          <h3 className="font-serif text-lg text-ink">Adres i dojazd</h3>
+          <p className="mt-3 text-sm text-foreground/85">
+            Klinika Promedion, ul. Wójcickiego 4, 01-938 Warszawa (Bielany).
+            Dogodny dojazd z Żoliborza, Bemowa, Młocin i całej Warszawy;
+            parking na terenie kliniki.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link
+              to="/konsultacja"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-md bg-ink px-6 text-sm tracking-wide text-alabaster transition hover:bg-ink/90"
+            >
+              Umów konsultację w Warszawie <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              to="/cennik"
+              className="inline-flex h-11 items-center justify-center rounded-md border border-ink/20 px-6 text-sm tracking-wide text-ink hover:bg-secondary"
+            >
+              Zobacz cennik
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 function TechnologiesPreview() {
   const featured = TECHNOLOGIES.slice(0, 6);
