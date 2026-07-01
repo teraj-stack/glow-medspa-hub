@@ -12,17 +12,21 @@ import { HeroPicture } from "@/components/site/HeroPicture";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "BMClinics.ai — Medycyna estetyczna, Siedlce" },
+      { title: "Medycyna estetyczna Warszawa — BMClinics.ai (Bielany, Promedion)" },
       {
         name: "description",
         content:
-          "Klinika medycyny estetycznej i laserowej w Siedlcach. Dyskretne protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
+          "Medycyna estetyczna w Warszawie na Bielanach — konsultacje w Klinice Promedion, ul. Wójcickiego 4. Autorskie protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
       },
-      { property: "og:title", content: "BMClinics.ai — Siedlce" },
-      { property: "og:description", content: "Naturalny efekt. Dyskretna pamięć. Klinika medycyny estetycznej i laserowej w Siedlcach." },
+      { property: "og:title", content: "Medycyna estetyczna Warszawa — BMClinics.ai" },
+      { property: "og:description", content: "Klinika medycyny estetycznej i laserowej w Warszawie (Bielany, Promedion). Dyskretne, autorskie protokoły i naturalny efekt." },
       { property: "og:url", content: "https://bmclinics.ai/" },
       { property: "og:image", content: bujokAsset.url },
       { name: "twitter:image", content: bujokAsset.url },
+      { name: "geo.region", content: "PL-MZ" },
+      { name: "geo.placename", content: "Warszawa" },
+      { name: "geo.position", content: "52.2860;20.9370" },
+      { name: "ICBM", content: "52.2860, 20.9370" },
     ],
     links: [
       { rel: "canonical", href: "https://bmclinics.ai/" },
@@ -44,18 +48,44 @@ export const Route = createFileRoute("/")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "MedicalBusiness",
+          "@type": "MedicalClinic",
           "@id": "https://bmclinics.ai/#clinic",
-          name: "BMClinics.ai",
+          name: "BMClinics.ai — Medycyna estetyczna Warszawa",
           url: "https://bmclinics.ai/",
           image: bujokAsset.url,
-          priceRange: "$$",
+          priceRange: "$$$",
+          medicalSpecialty: ["CosmeticProcedure", "Dermatology"],
+          areaServed: [
+            { "@type": "City", name: "Warszawa" },
+            { "@type": "AdministrativeArea", name: "mazowieckie" },
+          ],
           address: {
             "@type": "PostalAddress",
-            addressLocality: "Siedlce",
+            streetAddress: "ul. Wójcickiego 4 (Klinika Promedion)",
+            addressLocality: "Warszawa",
             addressRegion: "mazowieckie",
+            postalCode: "01-938",
             addressCountry: "PL",
           },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 52.286,
+            longitude: 20.937,
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              opens: "09:00",
+              closes: "20:00",
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: "Saturday",
+              opens: "09:00",
+              closes: "15:00",
+            },
+          ],
         }),
       },
     ],
