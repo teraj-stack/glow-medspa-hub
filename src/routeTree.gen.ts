@@ -42,10 +42,16 @@ import { Route as BlogStarzenieSkoryPtozaTkanekRouteImport } from './routes/blog
 import { Route as BlogSlonceSkoraNowoczesneTechnologieRouteImport } from './routes/blog.slonce-skora-nowoczesne-technologie'
 import { Route as BlogPtozaTkanekTwarzyRouteImport } from './routes/blog.ptoza-tkanek-twarzy'
 import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
+import { Route as BlogNajczestszeWynikiAnalizySkoryRouteImport } from './routes/blog.najczestsze-wyniki-analizy-skory'
 import { Route as BlogMechanizmyStarzeniaSkoryRouteImport } from './routes/blog.mechanizmy-starzenia-skory'
 import { Route as BlogLiftingBezSkalpelaRouteImport } from './routes/blog.lifting-bez-skalpela'
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
+import { Route as BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport } from './routes/blog.jak-przygotowac-skore-do-diagnostyki'
+import { Route as BlogJakCzestoPowtarzacAnalizeSkoryRouteImport } from './routes/blog.jak-czesto-powtarzac-analize-skory'
+import { Route as BlogDiagnostykaSkoryAPlanLeczeniaRouteImport } from './routes/blog.diagnostyka-skory-a-plan-leczenia'
+import { Route as BlogCoDalejPoBadaniuSkoryRouteImport } from './routes/blog.co-dalej-po-badaniu-skory'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
+import { Route as BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport } from './routes/blog.analiza-skory-twarzy-krok-po-kroku'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
@@ -238,6 +244,12 @@ const BlogPowiklaniaMezoterapiaIglowaRoute =
     path: '/blog/powiklania-mezoterapia-iglowa',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogNajczestszeWynikiAnalizySkoryRoute =
+  BlogNajczestszeWynikiAnalizySkoryRouteImport.update({
+    id: '/blog/najczestsze-wyniki-analizy-skory',
+    path: '/blog/najczestsze-wyniki-analizy-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogMechanizmyStarzeniaSkoryRoute =
   BlogMechanizmyStarzeniaSkoryRouteImport.update({
     id: '/blog/mechanizmy-starzenia-skory',
@@ -255,11 +267,41 @@ const BlogLaserFrakcyjnyRekonwalescencjaRoute =
     path: '/blog/laser-frakcyjny-rekonwalescencja',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogJakPrzygotowacSkoreDoDiagnostykiRoute =
+  BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport.update({
+    id: '/blog/jak-przygotowac-skore-do-diagnostyki',
+    path: '/blog/jak-przygotowac-skore-do-diagnostyki',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogJakCzestoPowtarzacAnalizeSkoryRoute =
+  BlogJakCzestoPowtarzacAnalizeSkoryRouteImport.update({
+    id: '/blog/jak-czesto-powtarzac-analize-skory',
+    path: '/blog/jak-czesto-powtarzac-analize-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogDiagnostykaSkoryAPlanLeczeniaRoute =
+  BlogDiagnostykaSkoryAPlanLeczeniaRouteImport.update({
+    id: '/blog/diagnostyka-skory-a-plan-leczenia',
+    path: '/blog/diagnostyka-skory-a-plan-leczenia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogCoDalejPoBadaniuSkoryRoute =
+  BlogCoDalejPoBadaniuSkoryRouteImport.update({
+    id: '/blog/co-dalej-po-badaniu-skory',
+    path: '/blog/co-dalej-po-badaniu-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogBliznyPotradzikoweRoute = BlogBliznyPotradzikoweRouteImport.update({
   id: '/blog/blizny-potradzikowe',
   path: '/blog/blizny-potradzikowe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogAnalizaSkoryTwarzyKrokPoKrokuRoute =
+  BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport.update({
+    id: '/blog/analiza-skory-twarzy-krok-po-kroku',
+    path: '/blog/analiza-skory-twarzy-krok-po-kroku',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -401,10 +443,16 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
+  '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
+  '/blog/diagnostyka-skory-a-plan-leczenia': typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
+  '/blog/jak-czesto-powtarzac-analize-skory': typeof BlogJakCzestoPowtarzacAnalizeSkoryRoute
+  '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
   '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
+  '/blog/najczestsze-wyniki-analizy-skory': typeof BlogNajczestszeWynikiAnalizySkoryRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/blog/ptoza-tkanek-twarzy': typeof BlogPtozaTkanekTwarzyRoute
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
@@ -459,10 +507,16 @@ export interface FileRoutesByTo {
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
+  '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
+  '/blog/diagnostyka-skory-a-plan-leczenia': typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
+  '/blog/jak-czesto-powtarzac-analize-skory': typeof BlogJakCzestoPowtarzacAnalizeSkoryRoute
+  '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
   '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
+  '/blog/najczestsze-wyniki-analizy-skory': typeof BlogNajczestszeWynikiAnalizySkoryRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/blog/ptoza-tkanek-twarzy': typeof BlogPtozaTkanekTwarzyRoute
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
@@ -521,10 +575,16 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
+  '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
+  '/blog/diagnostyka-skory-a-plan-leczenia': typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
+  '/blog/jak-czesto-powtarzac-analize-skory': typeof BlogJakCzestoPowtarzacAnalizeSkoryRoute
+  '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
   '/blog/mechanizmy-starzenia-skory': typeof BlogMechanizmyStarzeniaSkoryRoute
+  '/blog/najczestsze-wyniki-analizy-skory': typeof BlogNajczestszeWynikiAnalizySkoryRoute
   '/blog/powiklania-mezoterapia-iglowa': typeof BlogPowiklaniaMezoterapiaIglowaRoute
   '/blog/ptoza-tkanek-twarzy': typeof BlogPtozaTkanekTwarzyRoute
   '/blog/slonce-skora-nowoczesne-technologie': typeof BlogSlonceSkoraNowoczesneTechnologieRoute
@@ -583,10 +643,16 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/admin'
+    | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
+    | '/blog/co-dalej-po-badaniu-skory'
+    | '/blog/diagnostyka-skory-a-plan-leczenia'
+    | '/blog/jak-czesto-powtarzac-analize-skory'
+    | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
     | '/blog/mechanizmy-starzenia-skory'
+    | '/blog/najczestsze-wyniki-analizy-skory'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/blog/ptoza-tkanek-twarzy'
     | '/blog/slonce-skora-nowoczesne-technologie'
@@ -641,10 +707,16 @@ export interface FileRouteTypes {
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
+    | '/blog/co-dalej-po-badaniu-skory'
+    | '/blog/diagnostyka-skory-a-plan-leczenia'
+    | '/blog/jak-czesto-powtarzac-analize-skory'
+    | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
     | '/blog/mechanizmy-starzenia-skory'
+    | '/blog/najczestsze-wyniki-analizy-skory'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/blog/ptoza-tkanek-twarzy'
     | '/blog/slonce-skora-nowoczesne-technologie'
@@ -702,10 +774,16 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/_authenticated/admin'
+    | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
+    | '/blog/co-dalej-po-badaniu-skory'
+    | '/blog/diagnostyka-skory-a-plan-leczenia'
+    | '/blog/jak-czesto-powtarzac-analize-skory'
+    | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
     | '/blog/mechanizmy-starzenia-skory'
+    | '/blog/najczestsze-wyniki-analizy-skory'
     | '/blog/powiklania-mezoterapia-iglowa'
     | '/blog/ptoza-tkanek-twarzy'
     | '/blog/slonce-skora-nowoczesne-technologie'
@@ -763,10 +841,16 @@ export interface RootRouteChildren {
   RozwiazaniaRoute: typeof RozwiazaniaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  BlogAnalizaSkoryTwarzyKrokPoKrokuRoute: typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
+  BlogCoDalejPoBadaniuSkoryRoute: typeof BlogCoDalejPoBadaniuSkoryRoute
+  BlogDiagnostykaSkoryAPlanLeczeniaRoute: typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
+  BlogJakCzestoPowtarzacAnalizeSkoryRoute: typeof BlogJakCzestoPowtarzacAnalizeSkoryRoute
+  BlogJakPrzygotowacSkoreDoDiagnostykiRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   BlogLaserFrakcyjnyRekonwalescencjaRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   BlogLiftingBezSkalpelaRoute: typeof BlogLiftingBezSkalpelaRoute
   BlogMechanizmyStarzeniaSkoryRoute: typeof BlogMechanizmyStarzeniaSkoryRoute
+  BlogNajczestszeWynikiAnalizySkoryRoute: typeof BlogNajczestszeWynikiAnalizySkoryRoute
   BlogPowiklaniaMezoterapiaIglowaRoute: typeof BlogPowiklaniaMezoterapiaIglowaRoute
   BlogPtozaTkanekTwarzyRoute: typeof BlogPtozaTkanekTwarzyRoute
   BlogSlonceSkoraNowoczesneTechnologieRoute: typeof BlogSlonceSkoraNowoczesneTechnologieRoute
@@ -1026,6 +1110,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogPowiklaniaMezoterapiaIglowaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/najczestsze-wyniki-analizy-skory': {
+      id: '/blog/najczestsze-wyniki-analizy-skory'
+      path: '/blog/najczestsze-wyniki-analizy-skory'
+      fullPath: '/blog/najczestsze-wyniki-analizy-skory'
+      preLoaderRoute: typeof BlogNajczestszeWynikiAnalizySkoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/mechanizmy-starzenia-skory': {
       id: '/blog/mechanizmy-starzenia-skory'
       path: '/blog/mechanizmy-starzenia-skory'
@@ -1047,11 +1138,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/jak-przygotowac-skore-do-diagnostyki': {
+      id: '/blog/jak-przygotowac-skore-do-diagnostyki'
+      path: '/blog/jak-przygotowac-skore-do-diagnostyki'
+      fullPath: '/blog/jak-przygotowac-skore-do-diagnostyki'
+      preLoaderRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/jak-czesto-powtarzac-analize-skory': {
+      id: '/blog/jak-czesto-powtarzac-analize-skory'
+      path: '/blog/jak-czesto-powtarzac-analize-skory'
+      fullPath: '/blog/jak-czesto-powtarzac-analize-skory'
+      preLoaderRoute: typeof BlogJakCzestoPowtarzacAnalizeSkoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/diagnostyka-skory-a-plan-leczenia': {
+      id: '/blog/diagnostyka-skory-a-plan-leczenia'
+      path: '/blog/diagnostyka-skory-a-plan-leczenia'
+      fullPath: '/blog/diagnostyka-skory-a-plan-leczenia'
+      preLoaderRoute: typeof BlogDiagnostykaSkoryAPlanLeczeniaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/co-dalej-po-badaniu-skory': {
+      id: '/blog/co-dalej-po-badaniu-skory'
+      path: '/blog/co-dalej-po-badaniu-skory'
+      fullPath: '/blog/co-dalej-po-badaniu-skory'
+      preLoaderRoute: typeof BlogCoDalejPoBadaniuSkoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/blizny-potradzikowe': {
       id: '/blog/blizny-potradzikowe'
       path: '/blog/blizny-potradzikowe'
       fullPath: '/blog/blizny-potradzikowe'
       preLoaderRoute: typeof BlogBliznyPotradzikoweRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/analiza-skory-twarzy-krok-po-kroku': {
+      id: '/blog/analiza-skory-twarzy-krok-po-kroku'
+      path: '/blog/analiza-skory-twarzy-krok-po-kroku'
+      fullPath: '/blog/analiza-skory-twarzy-krok-po-kroku'
+      preLoaderRoute: typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -1289,11 +1415,22 @@ const rootRouteChildren: RootRouteChildren = {
   RozwiazaniaRoute: RozwiazaniaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  BlogAnalizaSkoryTwarzyKrokPoKrokuRoute:
+    BlogAnalizaSkoryTwarzyKrokPoKrokuRoute,
   BlogBliznyPotradzikoweRoute: BlogBliznyPotradzikoweRoute,
+  BlogCoDalejPoBadaniuSkoryRoute: BlogCoDalejPoBadaniuSkoryRoute,
+  BlogDiagnostykaSkoryAPlanLeczeniaRoute:
+    BlogDiagnostykaSkoryAPlanLeczeniaRoute,
+  BlogJakCzestoPowtarzacAnalizeSkoryRoute:
+    BlogJakCzestoPowtarzacAnalizeSkoryRoute,
+  BlogJakPrzygotowacSkoreDoDiagnostykiRoute:
+    BlogJakPrzygotowacSkoreDoDiagnostykiRoute,
   BlogLaserFrakcyjnyRekonwalescencjaRoute:
     BlogLaserFrakcyjnyRekonwalescencjaRoute,
   BlogLiftingBezSkalpelaRoute: BlogLiftingBezSkalpelaRoute,
   BlogMechanizmyStarzeniaSkoryRoute: BlogMechanizmyStarzeniaSkoryRoute,
+  BlogNajczestszeWynikiAnalizySkoryRoute:
+    BlogNajczestszeWynikiAnalizySkoryRoute,
   BlogPowiklaniaMezoterapiaIglowaRoute: BlogPowiklaniaMezoterapiaIglowaRoute,
   BlogPtozaTkanekTwarzyRoute: BlogPtozaTkanekTwarzyRoute,
   BlogSlonceSkoraNowoczesneTechnologieRoute:
