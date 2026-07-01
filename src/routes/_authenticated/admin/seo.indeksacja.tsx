@@ -76,7 +76,43 @@ function IndeksacjaPanel() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const bulkMut = useMutation({
+    mutationFn: async () => {
+      const items = bulkUrls
+        .split(/\s+/)
+        .map((u) => u.trim())
+        .filter(Boolean);
+      if (!items.length) throw new Error("Wklej co najmniej jeden URL");
+      if (items.length > 25) throw new Error("Maksymalnie 25 URL-i naraz");
+      return bulkFn({ data: { urls: items } }) as Promise<BulkResult>;
+    },
+    onSuccess: (data) => {
+      setBulkResult(data);
+      toast.success(`Zweryfikowano ${data.summary.total} URL-i`);
+      qc.invalidateQueries({ queryKey: ["indexation-submissions"] });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   const idx = inspectResult?.inspectionResult?.indexStatusResult;
+
+  const verdictClass = (v: string | null) =>
+    v === "PASS" ? "text-emerald-500" : v === "FAIL" ? "text-destructive" : "text-muted-foreground";
+
+  const exportCsv = () => {
+    if (!bulkResult) return;
+    const header = ["url", "verdict", "coverageState", "indexingState", "robotsTxtState", "googleCanonical", "lastCrawlTime", "error"];
+    const rows = bulkResult.results.map((r) =>
+      header.map((k) => `"${String((r as any)[k] ?? "").replace(/"/g, '""')}"`).join(","),
+    );
+    const blob = new Blob([header.join(",") + "\n" + rows.join("\n")], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `bulk-inspection-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="space-y-6">
