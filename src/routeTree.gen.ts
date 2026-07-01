@@ -47,6 +47,7 @@ import { Route as BlogLiftingBezSkalpelaRouteImport } from './routes/blog.liftin
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
 import { Route as BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport } from './routes/blog.jak-przygotowac-skore-do-diagnostyki'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
+import { Route as BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport } from './routes/blog.analiza-skory-twarzy-krok-po-kroku'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
@@ -267,6 +268,12 @@ const BlogBliznyPotradzikoweRoute = BlogBliznyPotradzikoweRouteImport.update({
   path: '/blog/blizny-potradzikowe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogAnalizaSkoryTwarzyKrokPoKrokuRoute =
+  BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport.update({
+    id: '/blog/analiza-skory-twarzy-krok-po-kroku',
+    path: '/blog/analiza-skory-twarzy-krok-po-kroku',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -408,6 +415,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
@@ -467,6 +475,7 @@ export interface FileRoutesByTo {
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
@@ -530,6 +539,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
@@ -593,6 +603,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/admin'
+    | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
     | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
@@ -652,6 +663,7 @@ export interface FileRouteTypes {
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
     | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
@@ -714,6 +726,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/_authenticated/admin'
+    | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
     | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
@@ -776,6 +789,7 @@ export interface RootRouteChildren {
   RozwiazaniaRoute: typeof RozwiazaniaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  BlogAnalizaSkoryTwarzyKrokPoKrokuRoute: typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
   BlogJakPrzygotowacSkoreDoDiagnostykiRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   BlogLaserFrakcyjnyRekonwalescencjaRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
@@ -1075,6 +1089,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogBliznyPotradzikoweRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/analiza-skory-twarzy-krok-po-kroku': {
+      id: '/blog/analiza-skory-twarzy-krok-po-kroku'
+      path: '/blog/analiza-skory-twarzy-krok-po-kroku'
+      fullPath: '/blog/analiza-skory-twarzy-krok-po-kroku'
+      preLoaderRoute: typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -1310,6 +1331,8 @@ const rootRouteChildren: RootRouteChildren = {
   RozwiazaniaRoute: RozwiazaniaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  BlogAnalizaSkoryTwarzyKrokPoKrokuRoute:
+    BlogAnalizaSkoryTwarzyKrokPoKrokuRoute,
   BlogBliznyPotradzikoweRoute: BlogBliznyPotradzikoweRoute,
   BlogJakPrzygotowacSkoreDoDiagnostykiRoute:
     BlogJakPrzygotowacSkoreDoDiagnostykiRoute,
