@@ -26,12 +26,15 @@ import { Route as BezpieczenstwoZabiegowLaserowychRouteImport } from './routes/b
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WskazaniaIndexRouteImport } from './routes/wskazania.index'
 import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
 import { Route as LekarzeIndexRouteImport } from './routes/lekarze.index'
+import { Route as WskazaniaSlugRouteImport } from './routes/wskazania.$slug'
 import { Route as TechnologieTerapiaLedRouteImport } from './routes/technologie.terapia-led'
 import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
 import { Route as TechnologiePeelingWeglowyLaserowyRouteImport } from './routes/technologie.peeling-weglowy-laserowy'
 import { Route as TechnologieLaserTulowyRouteImport } from './routes/technologie.laser-tulowy'
+import { Route as TechnologieLaserFrakcyjnyCo2WarszawaRouteImport } from './routes/technologie.laser-frakcyjny-co2-warszawa'
 import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
 import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
 import { Route as LovableThemesRouteImport } from './routes/lovable.themes'
@@ -168,6 +171,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WskazaniaIndexRoute = WskazaniaIndexRouteImport.update({
+  id: '/wskazania/',
+  path: '/wskazania/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TechnologieIndexRoute = TechnologieIndexRouteImport.update({
   id: '/technologie/',
   path: '/technologie/',
@@ -177,6 +185,11 @@ const LekarzeIndexRoute = LekarzeIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => LekarzeRoute,
+} as any)
+const WskazaniaSlugRoute = WskazaniaSlugRouteImport.update({
+  id: '/wskazania/$slug',
+  path: '/wskazania/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const TechnologieTerapiaLedRoute = TechnologieTerapiaLedRouteImport.update({
   id: '/technologie/terapia-led',
@@ -199,6 +212,12 @@ const TechnologieLaserTulowyRoute = TechnologieLaserTulowyRouteImport.update({
   path: '/technologie/laser-tulowy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TechnologieLaserFrakcyjnyCo2WarszawaRoute =
+  TechnologieLaserFrakcyjnyCo2WarszawaRouteImport.update({
+    id: '/technologie/laser-frakcyjny-co2-warszawa',
+    path: '/technologie/laser-frakcyjny-co2-warszawa',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TechnologieFusionPlasmaRoute = TechnologieFusionPlasmaRouteImport.update({
   id: '/technologie/fusion-plasma',
   path: '/technologie/fusion-plasma',
@@ -512,12 +531,15 @@ export interface FileRoutesByFullPath {
   '/lovable/themes': typeof LovableThemesRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
+  '/technologie/laser-frakcyjny-co2-warszawa': typeof TechnologieLaserFrakcyjnyCo2WarszawaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
   '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
+  '/wskazania/$slug': typeof WskazaniaSlugRoute
   '/lekarze/': typeof LekarzeIndexRoute
   '/technologie/': typeof TechnologieIndexRoute
+  '/wskazania/': typeof WskazaniaIndexRoute
   '/admin/audyt': typeof AuthenticatedAdminAudytRoute
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/dns': typeof AuthenticatedAdminDnsRoute
@@ -583,12 +605,15 @@ export interface FileRoutesByTo {
   '/lovable/themes': typeof LovableThemesRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
+  '/technologie/laser-frakcyjny-co2-warszawa': typeof TechnologieLaserFrakcyjnyCo2WarszawaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
   '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
+  '/wskazania/$slug': typeof WskazaniaSlugRoute
   '/lekarze': typeof LekarzeIndexRoute
   '/technologie': typeof TechnologieIndexRoute
+  '/wskazania': typeof WskazaniaIndexRoute
   '/admin/audyt': typeof AuthenticatedAdminAudytRoute
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/dns': typeof AuthenticatedAdminDnsRoute
@@ -658,12 +683,15 @@ export interface FileRoutesById {
   '/lovable/themes': typeof LovableThemesRoute
   '/technologie/$slug': typeof TechnologieSlugRoute
   '/technologie/fusion-plasma': typeof TechnologieFusionPlasmaRoute
+  '/technologie/laser-frakcyjny-co2-warszawa': typeof TechnologieLaserFrakcyjnyCo2WarszawaRoute
   '/technologie/laser-tulowy': typeof TechnologieLaserTulowyRoute
   '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
+  '/wskazania/$slug': typeof WskazaniaSlugRoute
   '/lekarze/': typeof LekarzeIndexRoute
   '/technologie/': typeof TechnologieIndexRoute
+  '/wskazania/': typeof WskazaniaIndexRoute
   '/_authenticated/admin/audyt': typeof AuthenticatedAdminAudytRoute
   '/_authenticated/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/_authenticated/admin/dns': typeof AuthenticatedAdminDnsRoute
@@ -733,12 +761,15 @@ export interface FileRouteTypes {
     | '/lovable/themes'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
+    | '/technologie/laser-frakcyjny-co2-warszawa'
     | '/technologie/laser-tulowy'
     | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
+    | '/wskazania/$slug'
     | '/lekarze/'
     | '/technologie/'
+    | '/wskazania/'
     | '/admin/audyt'
     | '/admin/cennik'
     | '/admin/dns'
@@ -804,12 +835,15 @@ export interface FileRouteTypes {
     | '/lovable/themes'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
+    | '/technologie/laser-frakcyjny-co2-warszawa'
     | '/technologie/laser-tulowy'
     | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
+    | '/wskazania/$slug'
     | '/lekarze'
     | '/technologie'
+    | '/wskazania'
     | '/admin/audyt'
     | '/admin/cennik'
     | '/admin/dns'
@@ -878,12 +912,15 @@ export interface FileRouteTypes {
     | '/lovable/themes'
     | '/technologie/$slug'
     | '/technologie/fusion-plasma'
+    | '/technologie/laser-frakcyjny-co2-warszawa'
     | '/technologie/laser-tulowy'
     | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
+    | '/wskazania/$slug'
     | '/lekarze/'
     | '/technologie/'
+    | '/wskazania/'
     | '/_authenticated/admin/audyt'
     | '/_authenticated/admin/cennik'
     | '/_authenticated/admin/dns'
@@ -950,11 +987,14 @@ export interface RootRouteChildren {
   LovableThemesRoute: typeof LovableThemesRoute
   TechnologieSlugRoute: typeof TechnologieSlugRoute
   TechnologieFusionPlasmaRoute: typeof TechnologieFusionPlasmaRoute
+  TechnologieLaserFrakcyjnyCo2WarszawaRoute: typeof TechnologieLaserFrakcyjnyCo2WarszawaRoute
   TechnologieLaserTulowyRoute: typeof TechnologieLaserTulowyRoute
   TechnologiePeelingWeglowyLaserowyRoute: typeof TechnologiePeelingWeglowyLaserowyRoute
   TechnologiePicokingRoute: typeof TechnologiePicokingRoute
   TechnologieTerapiaLedRoute: typeof TechnologieTerapiaLedRoute
+  WskazaniaSlugRoute: typeof WskazaniaSlugRoute
   TechnologieIndexRoute: typeof TechnologieIndexRoute
+  WskazaniaIndexRoute: typeof WskazaniaIndexRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBookingsCancelRoute: typeof ApiPublicBookingsCancelRoute
   ApiPublicHooksCalendarSyncRetryRoute: typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -1091,6 +1131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wskazania/': {
+      id: '/wskazania/'
+      path: '/wskazania'
+      fullPath: '/wskazania/'
+      preLoaderRoute: typeof WskazaniaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/technologie/': {
       id: '/technologie/'
       path: '/technologie'
@@ -1104,6 +1151,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/lekarze/'
       preLoaderRoute: typeof LekarzeIndexRouteImport
       parentRoute: typeof LekarzeRoute
+    }
+    '/wskazania/$slug': {
+      id: '/wskazania/$slug'
+      path: '/wskazania/$slug'
+      fullPath: '/wskazania/$slug'
+      preLoaderRoute: typeof WskazaniaSlugRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/technologie/terapia-led': {
       id: '/technologie/terapia-led'
@@ -1131,6 +1185,13 @@ declare module '@tanstack/react-router' {
       path: '/technologie/laser-tulowy'
       fullPath: '/technologie/laser-tulowy'
       preLoaderRoute: typeof TechnologieLaserTulowyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/laser-frakcyjny-co2-warszawa': {
+      id: '/technologie/laser-frakcyjny-co2-warszawa'
+      path: '/technologie/laser-frakcyjny-co2-warszawa'
+      fullPath: '/technologie/laser-frakcyjny-co2-warszawa'
+      preLoaderRoute: typeof TechnologieLaserFrakcyjnyCo2WarszawaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/technologie/fusion-plasma': {
@@ -1601,12 +1662,16 @@ const rootRouteChildren: RootRouteChildren = {
   LovableThemesRoute: LovableThemesRoute,
   TechnologieSlugRoute: TechnologieSlugRoute,
   TechnologieFusionPlasmaRoute: TechnologieFusionPlasmaRoute,
+  TechnologieLaserFrakcyjnyCo2WarszawaRoute:
+    TechnologieLaserFrakcyjnyCo2WarszawaRoute,
   TechnologieLaserTulowyRoute: TechnologieLaserTulowyRoute,
   TechnologiePeelingWeglowyLaserowyRoute:
     TechnologiePeelingWeglowyLaserowyRoute,
   TechnologiePicokingRoute: TechnologiePicokingRoute,
   TechnologieTerapiaLedRoute: TechnologieTerapiaLedRoute,
+  WskazaniaSlugRoute: WskazaniaSlugRoute,
   TechnologieIndexRoute: TechnologieIndexRoute,
+  WskazaniaIndexRoute: WskazaniaIndexRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBookingsCancelRoute: ApiPublicBookingsCancelRoute,
   ApiPublicHooksCalendarSyncRetryRoute: ApiPublicHooksCalendarSyncRetryRoute,

@@ -219,7 +219,7 @@ function IndicationPage() {
       <section className="mx-auto max-w-6xl px-4 py-16">
         <SectionHeading eyebrow="Typologia" title="Rodzaje i skąd się biorą" />
         <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {data.types.map((t) => (
+          {data.types.map((t: { h3: string; text: string }) => (
             <div key={t.h3} className="rounded-lg border border-border bg-card p-6 shadow-soft">
               <h3 className="font-serif text-lg text-ink">{t.h3}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{t.text}</p>
@@ -237,7 +237,7 @@ function IndicationPage() {
             description="Terapię projektujemy indywidualnie — poniższe metody łączymy w plan dopasowany do skóry i trybu życia."
           />
           <div className="mt-10 grid gap-6 md:grid-cols-2">
-            {data.methods.map((m) => (
+            {data.methods.map((m: { h3: string; text: string; to?: string }) => (
               <div key={m.h3} className="rounded-lg border border-border bg-card p-6 shadow-soft">
                 <h3 className="font-serif text-lg text-ink">{m.h3}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{m.text}</p>
@@ -262,7 +262,7 @@ function IndicationPage() {
       <section className="mx-auto max-w-4xl px-4 pb-16">
         <SectionHeading eyebrow="Bezpieczeństwo" title="Przeciwwskazania" />
         <ul className="mt-8 grid gap-2">
-          {data.contraindications.map((c) => (
+          {data.contraindications.map((c: string) => (
             <li key={c} className="flex items-start gap-3 rounded-md border border-border bg-card p-4 text-sm">
               <AlertTriangle className="mt-0.5 size-4 shrink-0 text-champagne" aria-hidden />
               <span>{c}</span>
@@ -284,7 +284,7 @@ function IndicationPage() {
       <section className="mx-auto max-w-4xl px-4 pb-16">
         <SectionHeading eyebrow="FAQ" title="Najczęstsze pytania" />
         <div className="mt-8 space-y-4">
-          {data.faq.map((f) => (
+          {data.faq.map((f: { q: string; a: string }) => (
             <details key={f.q} className="group rounded-lg border border-border bg-card p-5 shadow-soft">
               <summary className="cursor-pointer list-none font-serif text-lg text-ink">
                 {f.q}
