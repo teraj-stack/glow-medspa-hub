@@ -41,16 +41,16 @@ const FAQ = [
 export const Route = createFileRoute("/blog/powiklania-mezoterapia-iglowa")({
   head: () => ({
     meta: [
-      { title: "Powikłania po mezoterapii igłowej — jak ich unikać | BMClinics.ai Siedlce" },
+      { title: "Powikłania po mezoterapii igłowej — jak ich unikać | BMClinics.ai Warszawa" },
       {
         name: "description",
         content:
-          "Kompletny przewodnik po powikłaniach po mezoterapii igłowej: jakie są najczęstsze skutki uboczne, kiedy należy się martwić i jak unikać komplikacji. BMClinics.ai Siedlce.",
+          "Kompletny przewodnik po powikłaniach po mezoterapii igłowej: jakie są najczęstsze skutki uboczne, kiedy należy się martwić i jak unikać komplikacji. BMClinics.ai Warszawa.",
       },
       {
         name: "keywords",
         content:
-          "powikłania po mezoterapii igłowej, skutki uboczne mezoterapii, bezpieczeństwo mezoterapii, zaczerwienienie po mezoterapii, siniaki po mezoterapii, mezoterapia igłowa Siedlce",
+          "powikłania po mezoterapii igłowej, skutki uboczne mezoterapii, bezpieczeństwo mezoterapii, zaczerwienienie po mezoterapii, siniaki po mezoterapii, mezoterapia igłowa Warszawa",
       },
       { property: "og:title", content: "Powikłania po mezoterapii igłowej — jak ich unikać" },
       {
@@ -451,7 +451,7 @@ function ComplicationsGuide() {
           <div className="rounded-lg border border-champagne/40 bg-secondary/40 p-6">
             <div className="font-serif text-lg text-ink">BMClinics.ai</div>
             <p className="mt-2 text-sm text-muted-foreground">
-              Klinika medycyny estetycznej i laserowej w Siedlcach. Bezpieczeństwo pacjenta jest
+              Klinika medycyny estetycznej i laserowej w Warszawie. Bezpieczeństwo pacjenta jest
               naszym priorytetem — każdy zabieg wykonuje wyłącznie doświadczony lekarz z
               certyfikowanymi preparatami.
             </p>
@@ -470,7 +470,7 @@ function ComplicationsGuide() {
                 → Katalog technologii medycyny estetycznej
               </Link>
               <Link to="/cennik" className="block text-foreground/80 hover:text-foreground">
-                → Cennik zabiegów w Siedlcach
+                → Cennik zabiegów w Warszawie
               </Link>
               <Link to="/konsultacja" className="block text-foreground/80 hover:text-foreground">
                 → Umów konsultację online

@@ -46,7 +46,7 @@ const FAQ = [
 export const Route = createFileRoute("/blog/starzenie-skory-ptoza-tkanek")({
   head: () => ({
     meta: [
-      { title: "Starzenie skóry i ptoza tkanek — kompletny przewodnik | BMC Siedlce" },
+      { title: "Starzenie skóry i ptoza tkanek — kompletny przewodnik | BMClinics Warszawa" },
       {
         name: "description",
         content:

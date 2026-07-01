@@ -385,7 +385,7 @@ function SunSkinTechArticle() {
             <div className="tile-icon">
               <ShieldCheck className="size-5" />
             </div>
-            <div className="tile-title text-base">Standard warszawski w Siedlcach</div>
+            <div className="tile-title text-base">Standard warszawski na Bielanach</div>
             <p className="tile-text">
               10 lat doświadczenia w klinikach premium Warszawy — ten sam protokół
               bezpieczeństwa, ten sam dobór technologii do sezonu, bez konieczności

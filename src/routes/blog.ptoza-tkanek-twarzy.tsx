@@ -19,7 +19,7 @@ const portraitSizes = "(min-width: 1024px) 768px, (min-width: 640px) 90vw, 100vw
 export const Route = createFileRoute("/blog/ptoza-tkanek-twarzy")({
   head: () => ({
     meta: [
-      { title: "Ptoza tkanek twarzy — anatomia opadania | BMC Siedlce" },
+      { title: "Ptoza tkanek twarzy — anatomia opadania | BMClinics Warszawa" },
       {
         name: "description",
         content:
