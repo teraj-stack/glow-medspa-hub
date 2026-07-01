@@ -98,6 +98,7 @@ function Home() {
     <>
       <Hero />
       <ManifestSection />
+      <LocalWarsawSection />
       <TechnologiesPreview />
       <Testimonials />
       <BookingSection />
