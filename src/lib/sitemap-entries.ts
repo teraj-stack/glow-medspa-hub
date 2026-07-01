@@ -47,6 +47,12 @@ export const BLOG_POSTS: { slug: string; priority?: string }[] = [
   { slug: "mechanizmy-starzenia-skory", priority: "0.7" },
   { slug: "ptoza-tkanek-twarzy", priority: "0.7" },
   { slug: "lifting-bez-skalpela", priority: "0.8" },
+  { slug: "jak-przygotowac-skore-do-diagnostyki", priority: "0.75" },
+  { slug: "analiza-skory-twarzy-krok-po-kroku", priority: "0.8" },
+  { slug: "najczestsze-wyniki-analizy-skory", priority: "0.8" },
+  { slug: "co-dalej-po-badaniu-skory", priority: "0.75" },
+  { slug: "diagnostyka-skory-a-plan-leczenia", priority: "0.8" },
+  { slug: "jak-czesto-powtarzac-analize-skory", priority: "0.7" },
 ];
 
 // Statyczne strony marketingowe / prawne / utility
