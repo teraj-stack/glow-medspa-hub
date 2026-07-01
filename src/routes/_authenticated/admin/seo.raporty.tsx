@@ -87,6 +87,9 @@ function SeoReportsPage() {
         </div>
       </header>
 
+      <NotificationSettingsCard />
+
+
       <div className="grid gap-6 md:grid-cols-[320px_1fr]">
         <aside className="border border-border rounded-md overflow-hidden">
           <div className="px-3 py-2 text-xs uppercase tracking-wide text-muted-foreground border-b border-border">
