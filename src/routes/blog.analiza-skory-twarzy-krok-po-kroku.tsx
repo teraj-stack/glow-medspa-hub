@@ -60,7 +60,7 @@ function Article() {
     <>
       <section className="bg-secondary/40 py-12 md:py-20">
         <div className="container-luxury max-w-3xl">
-          <Link to="/diagnostyka-skory-siedlce" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+          <Link to="/diagnostyka-skory-warszawa" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
             <ArrowLeft className="size-4" /> Diagnostyka skóry
           </Link>
           <h1 className="mt-6 font-serif text-ink">Analiza skóry twarzy krok po kroku</h1>

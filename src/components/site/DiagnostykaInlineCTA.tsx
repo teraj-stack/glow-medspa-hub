@@ -7,7 +7,7 @@ interface Props {
 }
 
 /**
- * Kontekstowy link do /diagnostyka-skory-siedlce.
+ * Kontekstowy link do /diagnostyka-skory-warszawa.
  * Używany w artykułach bloga i na /bezpieczenstwo w celu budowy siatki linków wewnętrznych.
  */
 export function DiagnostykaInlineCTA({ variant = "blog", className = "" }: Props) {
@@ -16,7 +16,7 @@ export function DiagnostykaInlineCTA({ variant = "blog", className = "" }: Props
       ? {
           eyebrow: "Zacznij od diagnostyki",
           title: "Kwalifikacja do zabiegu zaczyna się od badania skóry",
-          text: "Zanim wybierzesz technologię, warto zobaczyć, co dzieje się w Twojej skórze. Analiza skóry twarzy w Siedlcach trwa 45–60 minut i kończy się spersonalizowanym planem — bezpiecznym i wolnym od zgadywania.",
+          text: "Zanim wybierzesz technologię, warto zobaczyć, co dzieje się w Twojej skórze. Analiza skóry twarzy w Warszawie (Klinika Promedion) trwa 45–60 minut i kończy się spersonalizowanym planem — bezpiecznym i wolnym od zgadywania.",
         }
       : {
           eyebrow: "Powiązane",
@@ -27,7 +27,7 @@ export function DiagnostykaInlineCTA({ variant = "blog", className = "" }: Props
   return (
     <aside
       className={`my-10 rounded-lg border border-champagne/40 bg-card p-6 shadow-soft md:p-8 ${className}`}
-      aria-label="Diagnostyka skóry w Siedlcach"
+      aria-label="Diagnostyka skóry w Warszawie"
     >
       <div className="flex items-start gap-4">
         <ScanFace className="mt-1 size-6 shrink-0 text-champagne" aria-hidden />
@@ -37,10 +37,10 @@ export function DiagnostykaInlineCTA({ variant = "blog", className = "" }: Props
           <p className="mt-2 text-sm text-muted-foreground md:text-base">{copy.text}</p>
           <div className="mt-4">
             <Link
-              to="/diagnostyka-skory-siedlce"
+              to="/diagnostyka-skory-warszawa"
               className="inline-flex h-10 items-center justify-center rounded-md bg-ink px-5 text-sm tracking-wide text-alabaster transition hover:bg-ink/90"
             >
-              Diagnostyka skóry Siedlce →
+              Diagnostyka skóry Warszawa →
             </Link>
           </div>
         </div>
