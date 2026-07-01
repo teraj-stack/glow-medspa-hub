@@ -65,7 +65,7 @@ export const runSeoSnapshotNow = createServerFn({ method: "POST" })
   .validator(z.object({ domain: z.string().min(3).optional(), notify: z.boolean().optional() }))
   .handler(async ({ data, context }) => {
     await requireAdminOrManager(context.userId);
-    const { captureSeoSnapshot, getAdminManagerEmails } = await import("@/lib/seo-snapshot-core");
+    const { captureSeoSnapshot, getReportRecipients } = await import("@/lib/seo-snapshot-core");
     const domain = (data.domain ?? "bmclinics.ai").toLowerCase();
     const snap = await captureSeoSnapshot({ domain, triggeredBy: `manual:${context.userId}` });
     if (data.notify) {
@@ -85,7 +85,7 @@ export const runSeoSnapshotNow = createServerFn({ method: "POST" })
           .order("rank_position", { ascending: true })
           .limit(5),
       ]);
-      const emails = await getAdminManagerEmails();
+      const { emails } = await getReportRecipients();
       for (const email of emails) {
         try {
           await internalSendEmail({

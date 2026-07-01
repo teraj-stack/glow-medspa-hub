@@ -74,7 +74,7 @@ export const Route = createFileRoute("/api/public/hooks/seo-snapshot")({
                 .order("rank_position", { ascending: true })
                 .limit(5),
             ]);
-            const emails = await getAdminManagerEmails();
+            const { emails } = await getReportRecipients();
             for (const email of emails) {
               try {
                 await internalSendEmail({
