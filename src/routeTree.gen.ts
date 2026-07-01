@@ -72,7 +72,7 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
-import { Route as ApiPublicIndexnowKeyDottxtRouteImport } from './routes/api/public/indexnow/$key[.]txt'
+import { Route as ApiPublicIndexnowKeyDottxtRouteImport } from './routes/api/public/indexnow/$key[.txt]'
 import { Route as ApiPublicHooksSitemapValidateRouteImport } from './routes/api/public/hooks/sitemap-validate'
 import { Route as ApiPublicHooksSeoSnapshotRouteImport } from './routes/api/public/hooks/seo-snapshot'
 import { Route as ApiPublicHooksSeoIndexationSubmitRouteImport } from './routes/api/public/hooks/seo-indexation-submit'
