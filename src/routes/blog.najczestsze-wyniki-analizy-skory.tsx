@@ -73,7 +73,7 @@ function Article() {
 
       <article className="container-luxury max-w-3xl space-y-8 py-16 md:py-24">
         <section>
-          <h2 className="font-serif text-2xl text-ink">Przebarwienia (melanina powierzchowna)</h2>
+          <h2 className="font-serif text-2xl text-ink">Przebarwienia — płytka melanina</h2>
           <p className="mt-3 text-muted-foreground">
             Skala 0–100 vs. norma wiekowa. Wynik +20% ponad normę to sygnał do fotoprotekcji SPF 50 codziennie i rozważenia serii zabiegów na
             przebarwienia. Ważny jest wzorzec: rozsiane plamy vs. „mapa” na policzkach (podejrzenie melasmy).
@@ -81,7 +81,7 @@ function Article() {
         </section>
 
         <section>
-          <h2 className="font-serif text-2xl text-ink">UV-damage (melanina głęboka)</h2>
+          <h2 className="font-serif text-2xl text-ink">UV-damage — głęboka melanina</h2>
           <p className="mt-3 text-muted-foreground">
             Warstwa, której nie widać gołym okiem — to Twoja „historia słońca”. Wysoki wynik u 30-latki oznacza wysokie ryzyko przyszłych
             plam i fotostarzenia, ale też potencjał ich zapobiegania.
