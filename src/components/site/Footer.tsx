@@ -1,16 +1,21 @@
+import { Suspense } from "react";
 import { Link } from "@tanstack/react-router";
+import { NapBlock } from "@/components/site/NapBlock";
 
 export function Footer() {
   return (
     <footer className="mt-24 border-t border-border bg-ink text-alabaster">
       <div className="container-luxury grid gap-10 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
-          <div className="font-serif text-2xl">
-            BMClinics.ai
-          </div>
+          <div className="font-serif text-2xl">BMClinics.ai</div>
           <p className="mt-3 max-w-md text-sm text-alabaster/70">
             Klinika medycyny estetycznej i laserowej. Piękno nie potrzebuje hałasu, potrzebuje zrozumienia
           </p>
+          <div className="mt-6">
+            <Suspense fallback={<div className="text-xs text-alabaster/40">Ładowanie danych kontaktowych…</div>}>
+              <NapBlock />
+            </Suspense>
+          </div>
         </div>
         <div>
           <div className="text-xs uppercase tracking-[0.3em] text-champagne">Klinika</div>

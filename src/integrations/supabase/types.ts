@@ -389,6 +389,78 @@ export type Database = {
         }
         Relationships: []
       }
+      nap_settings: {
+        Row: {
+          business_name: string
+          categories: string[]
+          city: string
+          country_code: string
+          description: string | null
+          email: string | null
+          google_business_profile_url: string | null
+          google_maps_url: string | null
+          hours_json: Json
+          id: boolean
+          latitude: number | null
+          legal_name: string | null
+          longitude: number | null
+          phone: string | null
+          phone_e164: string | null
+          postal_code: string
+          region: string
+          street_address: string
+          updated_at: string
+          updated_by: string | null
+          website: string
+        }
+        Insert: {
+          business_name?: string
+          categories?: string[]
+          city?: string
+          country_code?: string
+          description?: string | null
+          email?: string | null
+          google_business_profile_url?: string | null
+          google_maps_url?: string | null
+          hours_json?: Json
+          id?: boolean
+          latitude?: number | null
+          legal_name?: string | null
+          longitude?: number | null
+          phone?: string | null
+          phone_e164?: string | null
+          postal_code?: string
+          region?: string
+          street_address?: string
+          updated_at?: string
+          updated_by?: string | null
+          website?: string
+        }
+        Update: {
+          business_name?: string
+          categories?: string[]
+          city?: string
+          country_code?: string
+          description?: string | null
+          email?: string | null
+          google_business_profile_url?: string | null
+          google_maps_url?: string | null
+          hours_json?: Json
+          id?: boolean
+          latitude?: number | null
+          legal_name?: string | null
+          longitude?: number | null
+          phone?: string | null
+          phone_e164?: string | null
+          postal_code?: string
+          region?: string
+          street_address?: string
+          updated_at?: string
+          updated_by?: string | null
+          website?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string

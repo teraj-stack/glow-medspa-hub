@@ -42,6 +42,11 @@ function AdminDashboard() {
       title: "Status DNS",
       description: "Weryfikacja MX, SPF, DKIM, DMARC oraz delegacji notify.* dla domeny.",
     },
+    {
+      to: "/admin/nap",
+      title: "NAP i cytowania lokalne",
+      description: "Zarządzaj nazwą, adresem i telefonem oraz generuj dane do 15 katalogów.",
+    },
   ];
   return (
     <div className="space-y-6">
