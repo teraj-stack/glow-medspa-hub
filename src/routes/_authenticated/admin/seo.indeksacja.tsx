@@ -8,6 +8,8 @@ import {
   inspectIndexation,
   bulkInspectIndexation,
   indexNowStatus,
+  listBulkInspectionReports,
+  getBulkInspectionReport,
 } from "@/lib/seo-indexation.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
