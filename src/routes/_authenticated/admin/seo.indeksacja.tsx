@@ -55,6 +55,19 @@ function IndeksacjaPanel() {
   const [inspectResult, setInspectResult] = useState<any>(null);
   const [bulkUrls, setBulkUrls] = useState("");
   const [bulkResult, setBulkResult] = useState<BulkResult | null>(null);
+  const [reportFrom, setReportFrom] = useState("");
+  const [reportTo, setReportTo] = useState("");
+
+  const reports = useQuery({
+    queryKey: ["bulk-inspection-reports", reportFrom, reportTo],
+    queryFn: () =>
+      listReportsFn({
+        data: {
+          from: reportFrom ? new Date(reportFrom).toISOString() : undefined,
+          to: reportTo ? new Date(reportTo + "T23:59:59").toISOString() : undefined,
+        },
+      }),
+  });
 
   const submitMut = useMutation({
     mutationFn: async () => {
