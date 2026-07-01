@@ -215,6 +215,59 @@ function DiagnostykaSkoryPage() {
         </div>
       </section>
 
+      {/* Jak to działa technologicznie */}
+      <section className="mx-auto max-w-6xl px-4 py-16">
+        <SectionHeading
+          eyebrow="Jak to działa"
+          title="Diagnostyka od strony technologicznej"
+          description="Bez nazw handlowych — zasady fizyczne i metody obrazowania, które składają się na wiarygodny raport skóry."
+        />
+        <div className="mt-10 grid gap-6 md:grid-cols-2">
+          {[
+            {
+              icon: Layers,
+              title: "Obrazowanie wielospektralne",
+              text: "Twarz jest fotografowana w kilku kanałach światła — widzialnym, ultrafioletowym (UV) i podczerwonym (NIR). Każde spektrum przenika naskórek na inną głębokość i uwidacznia różne struktury: powierzchnię, warstwę barwnikową, sieć naczyń, ślady fotostarzenia.",
+            },
+            {
+              icon: Waves,
+              title: "Polaryzacja krzyżowa i równoległa",
+              text: "Filtry polaryzacyjne oddzielają światło odbite od powierzchni od światła rozproszonego w głębi skóry. Polaryzacja krzyżowa odsłania naczynia i rumień, równoległa uwypukla teksturę, pory i mikrorelief.",
+            },
+            {
+              icon: Grid3x3,
+              title: "Mapping skóry i topografia 3D",
+              text: "Zdjęcia są łączone w cyfrową mapę twarzy z zachowaniem tej samej geometrii, kadru i oświetlenia. Dzięki temu kolejne badania są porównywalne — a różnica między nimi jest efektem leczenia, nie zmiany warunków.",
+            },
+            {
+              icon: LineChart,
+              title: "Analiza ilościowa i normy wiekowe",
+              text: "Algorytm koloryzuje intensywność melaniny, gęstość naczyń, głębokość zmarszczek i liczbę porów, a następnie porównuje wyniki z wartościami typowymi dla Twojego wieku i fototypu. Otrzymujesz liczby, nie ogólniki.",
+            },
+            {
+              icon: Sparkles,
+              title: "Pomiary biofizyczne bariery",
+              text: "Bezkontaktowe sondy oceniają nawilżenie warstwy rogowej (korneometria), przeznaskórkową utratę wody (TEWL) i elastyczność (kutometria). To trzy niezależne wskaźniki kondycji bariery skórnej.",
+            },
+            {
+              icon: Microscope,
+              title: "Dermatoskopia zmian ogniskowych",
+              text: "Wybrane zmiany barwnikowe oceniamy dodatkowo w powiększeniu z polaryzacją — do klasyfikacji łagodnych znamion i wychwycenia zmian, które wymagają kontroli dermatologicznej.",
+            },
+          ].map(({ icon: Icon, title, text }) => (
+            <div key={title} className="rounded-lg border border-border bg-card p-6 shadow-soft">
+              <Icon className="size-6 text-champagne" aria-hidden />
+              <h3 className="mt-4 font-serif text-lg text-ink">{title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground">{text}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mx-auto mt-8 max-w-3xl text-center text-xs uppercase tracking-[0.25em] text-muted-foreground">
+          Świadomie nie podajemy tu nazw handlowych urządzeń — liczą się metoda, powtarzalność i interpretacja lekarska.
+        </p>
+      </section>
+
+
       {/* Dla kogo */}
       <section className="mx-auto max-w-6xl px-4 py-16">
         <SectionHeading
