@@ -62,6 +62,7 @@ export const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/lekarze/jan-bujok", changefreq: "monthly", priority: "0.8" },
   { path: "/konsultacja", changefreq: "monthly", priority: "0.8" },
   { path: "/bezpieczenstwo-zabiegow-laserowych", changefreq: "monthly", priority: "0.8" },
+  { path: "/diagnostyka-skory-siedlce", changefreq: "monthly", priority: "0.85" },
   { path: "/konsultacja-dziekujemy", changefreq: "yearly", priority: "0.3" },
   { path: "/auth", changefreq: "yearly", priority: "0.3" },
   { path: "/unsubscribe", changefreq: "yearly", priority: "0.3" },
