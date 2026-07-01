@@ -8,6 +8,8 @@ import {
   inspectIndexation,
   bulkInspectIndexation,
   indexNowStatus,
+  listBulkInspectionReports,
+  getBulkInspectionReport,
 } from "@/lib/seo-indexation.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,6 +44,8 @@ function IndeksacjaPanel() {
   const inspectFn = useServerFn(inspectIndexation);
   const bulkFn = useServerFn(bulkInspectIndexation);
   const statusFn = useServerFn(indexNowStatus);
+  const listReportsFn = useServerFn(listBulkInspectionReports);
+  const getReportFn = useServerFn(getBulkInspectionReport);
 
   const status = useQuery({ queryKey: ["indexnow-status"], queryFn: () => statusFn() });
   const list = useQuery({ queryKey: ["indexation-submissions"], queryFn: () => listFn() });
@@ -51,6 +55,19 @@ function IndeksacjaPanel() {
   const [inspectResult, setInspectResult] = useState<any>(null);
   const [bulkUrls, setBulkUrls] = useState("");
   const [bulkResult, setBulkResult] = useState<BulkResult | null>(null);
+  const [reportFrom, setReportFrom] = useState("");
+  const [reportTo, setReportTo] = useState("");
+
+  const reports = useQuery({
+    queryKey: ["bulk-inspection-reports", reportFrom, reportTo],
+    queryFn: () =>
+      listReportsFn({
+        data: {
+          from: reportFrom ? new Date(reportFrom).toISOString() : undefined,
+          to: reportTo ? new Date(reportTo + "T23:59:59").toISOString() : undefined,
+        },
+      }),
+  });
 
   const submitMut = useMutation({
     mutationFn: async () => {
@@ -90,9 +107,34 @@ function IndeksacjaPanel() {
       setBulkResult(data);
       toast.success(`Zweryfikowano ${data.summary.total} URL-i`);
       qc.invalidateQueries({ queryKey: ["indexation-submissions"] });
+      qc.invalidateQueries({ queryKey: ["bulk-inspection-reports"] });
     },
     onError: (e: Error) => toast.error(e.message),
   });
+
+  const openReportMut = useMutation({
+    mutationFn: async (id: string) => getReportFn({ data: { id } }),
+    onSuccess: (row: any) => {
+      setBulkResult({ results: row.results, summary: row.summary });
+      toast.success(`Otwarto raport z ${new Date(row.created_at).toLocaleString("pl-PL")}`);
+      if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const downloadReportCsv = (results: BulkRow[], createdAt: string) => {
+    const header = ["url", "verdict", "coverageState", "indexingState", "robotsTxtState", "googleCanonical", "lastCrawlTime", "error"];
+    const rows = results.map((r) =>
+      header.map((k) => `"${String((r as any)[k] ?? "").replace(/"/g, '""')}"`).join(","),
+    );
+    const blob = new Blob([header.join(",") + "\n" + rows.join("\n")], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `bulk-inspection-${createdAt.slice(0, 19).replace(/[:T]/g, "-")}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const idx = inspectResult?.inspectionResult?.indexStatusResult;
 
@@ -250,6 +292,88 @@ function IndeksacjaPanel() {
           </div>
         )}
       </section>
+
+      <section className="rounded-lg border border-border p-4 space-y-3">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h3 className="font-medium">Historia raportów zbiorczych</h3>
+            <p className="text-xs text-muted-foreground">Każdy raport można ponownie otworzyć albo pobrać jako CSV.</p>
+          </div>
+          <div className="flex flex-wrap items-end gap-2">
+            <label className="text-xs text-muted-foreground flex flex-col">
+              Od
+              <Input type="date" value={reportFrom} onChange={(e) => setReportFrom(e.target.value)} className="w-40" />
+            </label>
+            <label className="text-xs text-muted-foreground flex flex-col">
+              Do
+              <Input type="date" value={reportTo} onChange={(e) => setReportTo(e.target.value)} className="w-40" />
+            </label>
+            {(reportFrom || reportTo) && (
+              <Button variant="ghost" onClick={() => { setReportFrom(""); setReportTo(""); }}>
+                Wyczyść
+              </Button>
+            )}
+          </div>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="text-left text-muted-foreground">
+              <tr>
+                <th className="py-1 pr-3">Data</th>
+                <th className="py-1 pr-3">URL-e</th>
+                <th className="py-1 pr-3">PASS</th>
+                <th className="py-1 pr-3">NEUTRAL</th>
+                <th className="py-1 pr-3">FAIL</th>
+                <th className="py-1 pr-3">Błędy</th>
+                <th className="py-1 pr-3">Źródło</th>
+                <th className="py-1 pr-3 text-right">Akcje</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reports.data?.rows.map((r: any) => (
+                <tr key={r.id} className="border-t border-border">
+                  <td className="py-1 pr-3 whitespace-nowrap">{new Date(r.created_at).toLocaleString("pl-PL")}</td>
+                  <td className="py-1 pr-3">{r.url_count}</td>
+                  <td className="py-1 pr-3 text-emerald-500">{r.summary?.passing ?? 0}</td>
+                  <td className="py-1 pr-3">{r.summary?.neutral ?? 0}</td>
+                  <td className="py-1 pr-3 text-destructive">{r.summary?.failing ?? 0}</td>
+                  <td className="py-1 pr-3">{r.summary?.errors ?? 0}</td>
+                  <td className="py-1 pr-3 text-muted-foreground">{r.triggered_by}</td>
+                  <td className="py-1 pr-3 text-right whitespace-nowrap">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      disabled={openReportMut.isPending}
+                      onClick={() => openReportMut.mutate(r.id)}
+                    >
+                      Otwórz
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={async () => {
+                        try {
+                          const full: any = await getReportFn({ data: { id: r.id } });
+                          downloadReportCsv(full.results, full.created_at);
+                        } catch (e) {
+                          toast.error(e instanceof Error ? e.message : String(e));
+                        }
+                      }}
+                    >
+                      CSV
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+              {!reports.data?.rows.length && (
+                <tr><td colSpan={8} className="py-4 text-center text-muted-foreground">Brak raportów w wybranym zakresie.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
 
 
       <section className="rounded-lg border border-border p-4">
