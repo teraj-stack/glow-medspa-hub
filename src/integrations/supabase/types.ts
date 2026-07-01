@@ -413,6 +413,183 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_snapshot_competitors: {
+        Row: {
+          common_keywords: number | null
+          competition_level: number | null
+          competitor_domain: string
+          competitor_keywords: number | null
+          competitor_traffic: number | null
+          id: number
+          rank_position: number | null
+          snapshot_id: string
+        }
+        Insert: {
+          common_keywords?: number | null
+          competition_level?: number | null
+          competitor_domain: string
+          competitor_keywords?: number | null
+          competitor_traffic?: number | null
+          id?: number
+          rank_position?: number | null
+          snapshot_id: string
+        }
+        Update: {
+          common_keywords?: number | null
+          competition_level?: number | null
+          competitor_domain?: string
+          competitor_keywords?: number | null
+          competitor_traffic?: number | null
+          id?: number
+          rank_position?: number | null
+          snapshot_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seo_snapshot_competitors_snapshot_id_fkey"
+            columns: ["snapshot_id"]
+            isOneToOne: false
+            referencedRelation: "seo_snapshots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      seo_snapshot_gap_keywords: {
+        Row: {
+          competitor_domain: string | null
+          competitor_position: number | null
+          cpc: number | null
+          id: number
+          phrase: string
+          position_index: number | null
+          search_volume: number | null
+          snapshot_id: string
+        }
+        Insert: {
+          competitor_domain?: string | null
+          competitor_position?: number | null
+          cpc?: number | null
+          id?: number
+          phrase: string
+          position_index?: number | null
+          search_volume?: number | null
+          snapshot_id: string
+        }
+        Update: {
+          competitor_domain?: string | null
+          competitor_position?: number | null
+          cpc?: number | null
+          id?: number
+          phrase?: string
+          position_index?: number | null
+          search_volume?: number | null
+          snapshot_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seo_snapshot_gap_keywords_snapshot_id_fkey"
+            columns: ["snapshot_id"]
+            isOneToOne: false
+            referencedRelation: "seo_snapshots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      seo_snapshot_keywords: {
+        Row: {
+          cpc: number | null
+          id: number
+          phrase: string
+          position: number | null
+          position_index: number | null
+          previous_position: number | null
+          search_volume: number | null
+          snapshot_id: string
+          traffic_percent: number | null
+          url: string | null
+        }
+        Insert: {
+          cpc?: number | null
+          id?: number
+          phrase: string
+          position?: number | null
+          position_index?: number | null
+          previous_position?: number | null
+          search_volume?: number | null
+          snapshot_id: string
+          traffic_percent?: number | null
+          url?: string | null
+        }
+        Update: {
+          cpc?: number | null
+          id?: number
+          phrase?: string
+          position?: number | null
+          position_index?: number | null
+          previous_position?: number | null
+          search_volume?: number | null
+          snapshot_id?: string
+          traffic_percent?: number | null
+          url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seo_snapshot_keywords_snapshot_id_fkey"
+            columns: ["snapshot_id"]
+            isOneToOne: false
+            referencedRelation: "seo_snapshots"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      seo_snapshots: {
+        Row: {
+          captured_at: string
+          competitors_count: number | null
+          created_at: string
+          database: string
+          domain: string
+          error: string | null
+          gap_keywords_count: number | null
+          id: string
+          organic_cost: number | null
+          organic_keywords: number | null
+          organic_traffic: number | null
+          raw_debug: Json | null
+          triggered_by: string
+        }
+        Insert: {
+          captured_at?: string
+          competitors_count?: number | null
+          created_at?: string
+          database: string
+          domain: string
+          error?: string | null
+          gap_keywords_count?: number | null
+          id?: string
+          organic_cost?: number | null
+          organic_keywords?: number | null
+          organic_traffic?: number | null
+          raw_debug?: Json | null
+          triggered_by?: string
+        }
+        Update: {
+          captured_at?: string
+          competitors_count?: number | null
+          created_at?: string
+          database?: string
+          domain?: string
+          error?: string | null
+          gap_keywords_count?: number | null
+          id?: string
+          organic_cost?: number | null
+          organic_keywords?: number | null
+          organic_traffic?: number | null
+          raw_debug?: Json | null
+          triggered_by?: string
+        }
+        Relationships: []
+      }
       sitemap_validation_history: {
         Row: {
           base_url: string
