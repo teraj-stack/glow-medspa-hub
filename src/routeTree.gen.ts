@@ -47,6 +47,7 @@ import { Route as BlogMechanizmyStarzeniaSkoryRouteImport } from './routes/blog.
 import { Route as BlogLiftingBezSkalpelaRouteImport } from './routes/blog.lifting-bez-skalpela'
 import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
 import { Route as BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport } from './routes/blog.jak-przygotowac-skore-do-diagnostyki'
+import { Route as BlogDiagnostykaSkoryAPlanLeczeniaRouteImport } from './routes/blog.diagnostyka-skory-a-plan-leczenia'
 import { Route as BlogCoDalejPoBadaniuSkoryRouteImport } from './routes/blog.co-dalej-po-badaniu-skory'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
 import { Route as BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport } from './routes/blog.analiza-skory-twarzy-krok-po-kroku'
@@ -271,6 +272,12 @@ const BlogJakPrzygotowacSkoreDoDiagnostykiRoute =
     path: '/blog/jak-przygotowac-skore-do-diagnostyki',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogDiagnostykaSkoryAPlanLeczeniaRoute =
+  BlogDiagnostykaSkoryAPlanLeczeniaRouteImport.update({
+    id: '/blog/diagnostyka-skory-a-plan-leczenia',
+    path: '/blog/diagnostyka-skory-a-plan-leczenia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogCoDalejPoBadaniuSkoryRoute =
   BlogCoDalejPoBadaniuSkoryRouteImport.update({
     id: '/blog/co-dalej-po-badaniu-skory',
@@ -432,6 +439,7 @@ export interface FileRoutesByFullPath {
   '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
+  '/blog/diagnostyka-skory-a-plan-leczenia': typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
   '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
@@ -494,6 +502,7 @@ export interface FileRoutesByTo {
   '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
+  '/blog/diagnostyka-skory-a-plan-leczenia': typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
   '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
@@ -560,6 +569,7 @@ export interface FileRoutesById {
   '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
+  '/blog/diagnostyka-skory-a-plan-leczenia': typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
   '/blog/jak-przygotowac-skore-do-diagnostyki': typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   '/blog/laser-frakcyjny-rekonwalescencja': typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   '/blog/lifting-bez-skalpela': typeof BlogLiftingBezSkalpelaRoute
@@ -626,6 +636,7 @@ export interface FileRouteTypes {
     | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
     | '/blog/co-dalej-po-badaniu-skory'
+    | '/blog/diagnostyka-skory-a-plan-leczenia'
     | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
@@ -688,6 +699,7 @@ export interface FileRouteTypes {
     | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
     | '/blog/co-dalej-po-badaniu-skory'
+    | '/blog/diagnostyka-skory-a-plan-leczenia'
     | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
@@ -753,6 +765,7 @@ export interface FileRouteTypes {
     | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
     | '/blog/co-dalej-po-badaniu-skory'
+    | '/blog/diagnostyka-skory-a-plan-leczenia'
     | '/blog/jak-przygotowac-skore-do-diagnostyki'
     | '/blog/laser-frakcyjny-rekonwalescencja'
     | '/blog/lifting-bez-skalpela'
@@ -818,6 +831,7 @@ export interface RootRouteChildren {
   BlogAnalizaSkoryTwarzyKrokPoKrokuRoute: typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
   BlogCoDalejPoBadaniuSkoryRoute: typeof BlogCoDalejPoBadaniuSkoryRoute
+  BlogDiagnostykaSkoryAPlanLeczeniaRoute: typeof BlogDiagnostykaSkoryAPlanLeczeniaRoute
   BlogJakPrzygotowacSkoreDoDiagnostykiRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRoute
   BlogLaserFrakcyjnyRekonwalescencjaRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRoute
   BlogLiftingBezSkalpelaRoute: typeof BlogLiftingBezSkalpelaRoute
@@ -1117,6 +1131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/diagnostyka-skory-a-plan-leczenia': {
+      id: '/blog/diagnostyka-skory-a-plan-leczenia'
+      path: '/blog/diagnostyka-skory-a-plan-leczenia'
+      fullPath: '/blog/diagnostyka-skory-a-plan-leczenia'
+      preLoaderRoute: typeof BlogDiagnostykaSkoryAPlanLeczeniaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/co-dalej-po-badaniu-skory': {
       id: '/blog/co-dalej-po-badaniu-skory'
       path: '/blog/co-dalej-po-badaniu-skory'
@@ -1377,6 +1398,8 @@ const rootRouteChildren: RootRouteChildren = {
     BlogAnalizaSkoryTwarzyKrokPoKrokuRoute,
   BlogBliznyPotradzikoweRoute: BlogBliznyPotradzikoweRoute,
   BlogCoDalejPoBadaniuSkoryRoute: BlogCoDalejPoBadaniuSkoryRoute,
+  BlogDiagnostykaSkoryAPlanLeczeniaRoute:
+    BlogDiagnostykaSkoryAPlanLeczeniaRoute,
   BlogJakPrzygotowacSkoreDoDiagnostykiRoute:
     BlogJakPrzygotowacSkoreDoDiagnostykiRoute,
   BlogLaserFrakcyjnyRekonwalescencjaRoute:
