@@ -111,7 +111,7 @@ function Hero() {
     <section className="relative overflow-hidden bg-alabaster">
       <div className="container-luxury grid items-center gap-12 py-20 md:grid-cols-2 md:py-32">
         <div className="rise-in">
-          <div className="text-xs uppercase tracking-[0.3em] text-champagne">BMClinics.ai · Siedlce</div>
+          <div className="text-xs uppercase tracking-[0.3em] text-champagne">Medycyna estetyczna · Warszawa · Bielany</div>
           <h1 className="mt-6 font-serif text-ink">
             Piękno nie potrzebuje hałasu. Potrzebuje{" "}
             <span className="bg-gradient-to-r from-champagne-light via-gold to-champagne bg-clip-text text-transparent">
