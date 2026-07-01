@@ -57,6 +57,85 @@ export const inspectIndexation = createServerFn({ method: "POST" })
     return r.json;
   });
 
+export const bulkInspectIndexation = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator(z.object({ urls: z.array(z.string().url()).min(1).max(25) }))
+  .handler(async ({ data, context }) => {
+    await assertAdminOrManager(context.userId);
+    const { inspectUrlGoogle } = await import("./seo-indexation-core");
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const triggeredBy = `bulk:${context.userId.slice(0, 8)}`;
+    const results: Array<{
+      url: string;
+      ok: boolean;
+      verdict: string | null;
+      coverageState: string | null;
+      indexingState: string | null;
+      robotsTxtState: string | null;
+      lastCrawlTime: string | null;
+      googleCanonical: string | null;
+      error: string | null;
+    }> = [];
+
+    // Concurrency 3 to be gentle with GSC quota
+    const queue = [...data.urls];
+    const workers = Array.from({ length: Math.min(3, queue.length) }, async () => {
+      while (queue.length) {
+        const url = queue.shift()!;
+        try {
+          const r = await inspectUrlGoogle(url);
+          const idx = r.json?.inspectionResult?.indexStatusResult;
+          results.push({
+            url,
+            ok: r.ok,
+            verdict: idx?.verdict ?? null,
+            coverageState: idx?.coverageState ?? null,
+            indexingState: idx?.indexingState ?? null,
+            robotsTxtState: idx?.robotsTxtState ?? null,
+            lastCrawlTime: idx?.lastCrawlTime ?? null,
+            googleCanonical: idx?.googleCanonical ?? null,
+            error: r.ok ? null : (r.body ?? "").slice(0, 200),
+          });
+          await supabaseAdmin.from("seo_indexation_submissions").insert({
+            provider: "google",
+            kind: "inspect",
+            target: url,
+            status: r.ok ? "ok" : "error",
+            http_status: r.status,
+            response: idx ? `${idx.verdict ?? ""} / ${idx.coverageState ?? ""}` : (r.body ?? "").slice(0, 500),
+            triggered_by: triggeredBy,
+          });
+        } catch (e) {
+          results.push({
+            url,
+            ok: false,
+            verdict: null,
+            coverageState: null,
+            indexingState: null,
+            robotsTxtState: null,
+            lastCrawlTime: null,
+            googleCanonical: null,
+            error: e instanceof Error ? e.message : String(e),
+          });
+        }
+      }
+    });
+    await Promise.all(workers);
+
+    // Preserve original order
+    const order = new Map(data.urls.map((u, i) => [u, i]));
+    results.sort((a, b) => (order.get(a.url) ?? 0) - (order.get(b.url) ?? 0));
+
+    const summary = {
+      total: results.length,
+      passing: results.filter((r) => r.verdict === "PASS").length,
+      neutral: results.filter((r) => r.verdict === "NEUTRAL").length,
+      failing: results.filter((r) => r.verdict === "FAIL").length,
+      errors: results.filter((r) => !r.ok).length,
+    };
+    return { results, summary };
+  });
+
 export const indexNowStatus = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
