@@ -158,7 +158,7 @@ export async function getAdminManagerEmails(): Promise<string[]> {
   for (const id of ids) {
     const { data } = await supabase.auth.admin.getUserById(id);
     const email = data?.user?.email;
-    if (email && data.user.email_confirmed_at) emails.push(email);
+    if (email && data?.user?.email_confirmed_at) emails.push(email);
   }
   return emails;
 }
