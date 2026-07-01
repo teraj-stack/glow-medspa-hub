@@ -413,6 +413,42 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_indexation_submissions: {
+        Row: {
+          created_at: string
+          http_status: number | null
+          id: string
+          kind: string
+          provider: string
+          response: string | null
+          status: string
+          target: string
+          triggered_by: string
+        }
+        Insert: {
+          created_at?: string
+          http_status?: number | null
+          id?: string
+          kind: string
+          provider: string
+          response?: string | null
+          status: string
+          target: string
+          triggered_by?: string
+        }
+        Update: {
+          created_at?: string
+          http_status?: number | null
+          id?: string
+          kind?: string
+          provider?: string
+          response?: string | null
+          status?: string
+          target?: string
+          triggered_by?: string
+        }
+        Relationships: []
+      }
       seo_report_settings: {
         Row: {
           channel: string
