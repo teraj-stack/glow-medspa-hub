@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-06-27T10:07:14.708Z",
+  "generatedAt": "2026-07-01T05:32:46.834Z",
   "dist": "dist",
-  "filesScanned": 328,
+  "filesScanned": 386,
   "scannedByExt": {
-    ".js": 122,
+    ".js": 141,
     ".css": 1,
     ".txt": 2,
     ".json": 4,
-    ".mjs": 199
+    ".mjs": 238
   },
-  "requiredHits": 46,
+  "requiredHits": 55,
   "forbiddenPattern": "BM[\\s\\u00A0]+Clinics",
   "requiredPattern": "BMClinics\\.ai",
   "offenderCount": 0,
