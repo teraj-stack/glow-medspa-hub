@@ -133,7 +133,65 @@ export const bulkInspectIndexation = createServerFn({ method: "POST" })
       failing: results.filter((r) => r.verdict === "FAIL").length,
       errors: results.filter((r) => !r.ok).length,
     };
-    return { results, summary };
+
+    let reportId: string | null = null;
+    try {
+      const { data: saved } = await supabaseAdmin
+        .from("seo_bulk_inspection_reports")
+        .insert({
+          created_by: context.userId,
+          triggered_by: triggeredBy,
+          url_count: results.length,
+          summary,
+          results,
+        })
+        .select("id")
+        .single();
+      reportId = saved?.id ?? null;
+    } catch {
+      // logging failure of the report should not break the response
+    }
+
+    return { results, summary, reportId };
+  });
+
+export const listBulkInspectionReports = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .validator(
+    z.object({
+      from: z.string().optional(),
+      to: z.string().optional(),
+      limit: z.number().int().min(1).max(200).optional(),
+    }).optional(),
+  )
+  .handler(async ({ data, context }) => {
+    await assertAdminOrManager(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    let q = supabaseAdmin
+      .from("seo_bulk_inspection_reports")
+      .select("id, created_at, triggered_by, url_count, summary")
+      .order("created_at", { ascending: false })
+      .limit(data?.limit ?? 100);
+    if (data?.from) q = q.gte("created_at", data.from);
+    if (data?.to) q = q.lte("created_at", data.to);
+    const { data: rows, error } = await q;
+    if (error) throw new Error(error.message);
+    return { rows: rows ?? [] };
+  });
+
+export const getBulkInspectionReport = createServerFn({ method: "GET" })
+  .validator(z.object({ id: z.string().uuid() }))
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ data, context }) => {
+    await assertAdminOrManager(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row, error } = await supabaseAdmin
+      .from("seo_bulk_inspection_reports")
+      .select("*")
+      .eq("id", data.id)
+      .single();
+    if (error) throw new Error(error.message);
+    return row;
   });
 
 export const indexNowStatus = createServerFn({ method: "GET" })
