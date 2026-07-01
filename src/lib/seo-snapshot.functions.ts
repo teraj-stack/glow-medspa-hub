@@ -12,6 +12,70 @@ async function requireAdminOrManager(userId: string) {
   if (!data?.length) throw new Error("Brak uprawnień");
 }
 
+const emailListSchema = z
+  .array(
+    z.string().trim().toLowerCase().email({ message: "Nieprawidłowy adres e-mail" }).max(255),
+  )
+  .max(20, "Maksymalnie 20 adresów");
+
+export const getSeoReportSettings = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await requireAdminOrManager(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
+      .from("seo_report_settings")
+      .select("channel, enabled, notification_emails, fallback_to_admins, updated_at, updated_by")
+      .eq("id", true)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    return (
+      data ?? {
+        channel: "email",
+        enabled: true,
+        notification_emails: [] as string[],
+        fallback_to_admins: true,
+        updated_at: null,
+        updated_by: null,
+      }
+    );
+  });
+
+export const updateSeoReportSettings = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator(
+    z.object({
+      enabled: z.boolean(),
+      channel: z.enum(["email"]).default("email"),
+      notificationEmails: emailListSchema,
+      fallbackToAdmins: z.boolean(),
+    }),
+  )
+  .handler(async ({ data, context }) => {
+    await requireAdminOrManager(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    // De-dupe while preserving order.
+    const unique = Array.from(new Set(data.notificationEmails));
+    const { data: row, error } = await supabaseAdmin
+      .from("seo_report_settings")
+      .upsert(
+        {
+          id: true,
+          channel: data.channel,
+          enabled: data.enabled,
+          notification_emails: unique,
+          fallback_to_admins: data.fallbackToAdmins,
+          updated_at: new Date().toISOString(),
+          updated_by: context.userId,
+        },
+        { onConflict: "id" },
+      )
+      .select("channel, enabled, notification_emails, fallback_to_admins, updated_at, updated_by")
+      .single();
+    if (error) throw new Error(error.message);
+    return row;
+  });
+
 export const listSeoSnapshots = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .validator(z.object({ limit: z.number().min(1).max(90).optional() }))
@@ -65,7 +129,7 @@ export const runSeoSnapshotNow = createServerFn({ method: "POST" })
   .validator(z.object({ domain: z.string().min(3).optional(), notify: z.boolean().optional() }))
   .handler(async ({ data, context }) => {
     await requireAdminOrManager(context.userId);
-    const { captureSeoSnapshot, getAdminManagerEmails } = await import("@/lib/seo-snapshot-core");
+    const { captureSeoSnapshot, getReportRecipients } = await import("@/lib/seo-snapshot-core");
     const domain = (data.domain ?? "bmclinics.ai").toLowerCase();
     const snap = await captureSeoSnapshot({ domain, triggeredBy: `manual:${context.userId}` });
     if (data.notify) {
@@ -85,7 +149,7 @@ export const runSeoSnapshotNow = createServerFn({ method: "POST" })
           .order("rank_position", { ascending: true })
           .limit(5),
       ]);
-      const emails = await getAdminManagerEmails();
+      const { emails } = await getReportRecipients();
       for (const email of emails) {
         try {
           await internalSendEmail({

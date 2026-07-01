@@ -146,13 +146,31 @@ export async function captureSeoSnapshot(input: CaptureInput): Promise<CaptureRe
   };
 }
 
-export async function getAdminManagerEmails(): Promise<string[]> {
+export async function getReportRecipients(): Promise<{ emails: string[]; enabled: boolean }> {
   const supabase = admin();
+  const { data: settings } = await supabase
+    .from("seo_report_settings")
+    .select("enabled, channel, notification_emails, fallback_to_admins")
+    .eq("id", true)
+    .maybeSingle();
+
+  const enabled = settings?.enabled ?? true;
+  const channel = settings?.channel ?? "email";
+  if (!enabled || channel !== "email") return { emails: [], enabled: false };
+
+  const configured = (settings?.notification_emails ?? [])
+    .map((e: string) => e.trim())
+    .filter(Boolean);
+  if (configured.length) return { emails: configured, enabled: true };
+
+  if (settings && settings.fallback_to_admins === false) return { emails: [], enabled: true };
+
+  // Fallback: all admins/managers with a confirmed e-mail.
   const { data: roles } = await supabase
     .from("user_roles")
     .select("user_id, role")
     .in("role", ["admin", "moderator"]);
-  if (!roles?.length) return [];
+  if (!roles?.length) return { emails: [], enabled: true };
   const ids = Array.from(new Set(roles.map((r: any) => r.user_id as string)));
   const emails: string[] = [];
   for (const id of ids) {
@@ -160,5 +178,11 @@ export async function getAdminManagerEmails(): Promise<string[]> {
     const email = data?.user?.email;
     if (email && data?.user?.email_confirmed_at) emails.push(email);
   }
+  return { emails, enabled: true };
+}
+
+/** @deprecated use getReportRecipients() */
+export async function getAdminManagerEmails(): Promise<string[]> {
+  const { emails } = await getReportRecipients();
   return emails;
 }

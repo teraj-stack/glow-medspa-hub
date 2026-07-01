@@ -4,10 +4,13 @@ import { z } from "zod";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+
 import {
   listSeoSnapshots,
   getSeoSnapshot,
   runSeoSnapshotNow,
+  getSeoReportSettings,
+  updateSeoReportSettings,
 } from "@/lib/seo-snapshot.functions";
 
 const searchSchema = z.object({ id: z.string().uuid().optional() });
@@ -83,6 +86,9 @@ function SeoReportsPage() {
           </Button>
         </div>
       </header>
+
+      <NotificationSettingsCard />
+
 
       <div className="grid gap-6 md:grid-cols-[320px_1fr]">
         <aside className="border border-border rounded-md overflow-hidden">
@@ -223,5 +229,135 @@ function SeoReportsPage() {
         </section>
       </div>
     </div>
+  );
+}
+
+function NotificationSettingsCard() {
+  const qc = useQueryClient();
+  const q = useQuery({
+    queryKey: ["seo-report-settings"],
+    queryFn: () => getSeoReportSettings({}),
+  });
+
+  const [emailsText, setEmailsText] = useState<string>("");
+  const [enabled, setEnabled] = useState(true);
+  const [fallback, setFallback] = useState(true);
+  const [hydrated, setHydrated] = useState(false);
+
+  if (q.data && !hydrated) {
+    setEmailsText((q.data.notification_emails ?? []).join(", "));
+    setEnabled(!!q.data.enabled);
+    setFallback(q.data.fallback_to_admins !== false);
+    setHydrated(true);
+  }
+
+  const saveMut = useMutation({
+    mutationFn: () => {
+      const emails = emailsText
+        .split(/[,\n;\s]+/)
+        .map((e) => e.trim().toLowerCase())
+        .filter(Boolean);
+      const invalid = emails.filter((e) => !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+      if (invalid.length) {
+        throw new Error(`Nieprawidłowe adresy: ${invalid.join(", ")}`);
+      }
+      return updateSeoReportSettings({
+        data: {
+          enabled,
+          channel: "email",
+          notificationEmails: emails,
+          fallbackToAdmins: fallback,
+        },
+      });
+    },
+    onSuccess: async () => {
+      toast.success("Zapisano ustawienia powiadomień");
+      await qc.invalidateQueries({ queryKey: ["seo-report-settings"] });
+    },
+    onError: (e: any) => toast.error(e?.message ?? "Nie udało się zapisać"),
+  });
+
+  const configuredCount = emailsText
+    .split(/[,\n;\s]+/)
+    .map((s) => s.trim())
+    .filter(Boolean).length;
+
+  return (
+    <section className="border border-border rounded-md p-4 space-y-4">
+      <header className="flex items-baseline justify-between gap-3 flex-wrap">
+        <div>
+          <h3 className="text-sm font-semibold uppercase tracking-wide">Powiadomienia</h3>
+          <p className="text-xs text-muted-foreground mt-1">
+            Kanał i lista odbiorców dziennego raportu SEO. Zapisane adresy nadpisują
+            domyślną wysyłkę do wszystkich administratorów.
+          </p>
+        </div>
+        <span className="text-xs text-muted-foreground">
+          {q.data?.updated_at
+            ? `zaktualizowano ${new Date(q.data.updated_at).toLocaleString("pl-PL")}`
+            : ""}
+        </span>
+      </header>
+
+      <div className="grid gap-4 md:grid-cols-[160px_1fr]">
+        <label className="text-sm">
+          Kanał
+          <select
+            disabled
+            value="email"
+            className="mt-1 block w-full border border-border rounded px-2 py-1.5 bg-muted text-sm"
+          >
+            <option value="email">E-mail</option>
+          </select>
+          <span className="block text-[11px] text-muted-foreground mt-1">
+            Inne kanały (Slack, webhook) — wkrótce.
+          </span>
+        </label>
+
+        <label className="text-sm">
+          Adresy e-mail odbiorców
+          <textarea
+            value={emailsText}
+            onChange={(e) => setEmailsText(e.target.value)}
+            placeholder="np. seo@bmclinics.ai, marketing@bmclinics.ai"
+            rows={2}
+            className="mt-1 block w-full border border-border rounded px-3 py-2 bg-background text-sm font-mono"
+          />
+          <span className="block text-[11px] text-muted-foreground mt-1">
+            Oddziel przecinkami lub nowymi liniami. {configuredCount > 0
+              ? `${configuredCount} adres(-y).`
+              : "Brak — użyta zostanie lista adminów."}
+          </span>
+        </label>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-4 text-sm">
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={enabled}
+            onChange={(e) => setEnabled(e.target.checked)}
+          />
+          Wysyłaj codzienne raporty
+        </label>
+        <label className="flex items-center gap-2">
+          <input
+            type="checkbox"
+            checked={fallback}
+            onChange={(e) => setFallback(e.target.checked)}
+          />
+          Jeśli lista jest pusta, wyślij do wszystkich adminów/managerów
+        </label>
+        <div className="ml-auto">
+          <Button
+            onClick={() => saveMut.mutate()}
+            disabled={saveMut.isPending || !hydrated}
+            size="sm"
+          >
+            {saveMut.isPending ? "Zapisywanie…" : "Zapisz ustawienia"}
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 }
