@@ -40,6 +40,7 @@ function IndeksacjaPanel() {
   const submitFn = useServerFn(submitIndexationNow);
   const listFn = useServerFn(listIndexationSubmissions);
   const inspectFn = useServerFn(inspectIndexation);
+  const bulkFn = useServerFn(bulkInspectIndexation);
   const statusFn = useServerFn(indexNowStatus);
 
   const status = useQuery({ queryKey: ["indexnow-status"], queryFn: () => statusFn() });
@@ -48,6 +49,8 @@ function IndeksacjaPanel() {
   const [urls, setUrls] = useState("");
   const [inspectUrl, setInspectUrl] = useState("https://bmclinics.ai/");
   const [inspectResult, setInspectResult] = useState<any>(null);
+  const [bulkUrls, setBulkUrls] = useState("");
+  const [bulkResult, setBulkResult] = useState<BulkResult | null>(null);
 
   const submitMut = useMutation({
     mutationFn: async () => {
