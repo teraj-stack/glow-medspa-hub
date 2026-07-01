@@ -24,6 +24,7 @@ function AdminLayout() {
     { to: "/admin/lekarze", label: "Lekarze" },
     { to: "/admin/cennik", label: "Cennik" },
     { to: "/admin/seo", label: "SEO" },
+    { to: "/admin/seo/raporty", label: "Raporty SEO" },
     { to: "/admin/web-vitals", label: "Web Vitals" },
     { to: "/admin/uzytkownicy", label: "Użytkownicy" },
     { to: "/admin/audyt", label: "Audyt" },
