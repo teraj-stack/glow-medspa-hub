@@ -75,6 +75,7 @@ import { Route as ApiPublicHooksSitemapValidateRouteImport } from './routes/api/
 import { Route as ApiPublicHooksSeoSnapshotRouteImport } from './routes/api/public/hooks/seo-snapshot'
 import { Route as ApiPublicHooksCalendarSyncRetryRouteImport } from './routes/api/public/hooks/calendar-sync-retry'
 import { Route as ApiPublicBookingsCancelRouteImport } from './routes/api/public/bookings/cancel'
+import { Route as AuthenticatedAdminSeoRaportyRouteImport } from './routes/_authenticated/admin/seo.raporty'
 
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
   id: '/unsubscribe',
@@ -432,6 +433,12 @@ const ApiPublicBookingsCancelRoute = ApiPublicBookingsCancelRouteImport.update({
   path: '/api/public/bookings/cancel',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminSeoRaportyRoute =
+  AuthenticatedAdminSeoRaportyRouteImport.update({
+    id: '/raporty',
+    path: '/raporty',
+    getParentRoute: () => AuthenticatedAdminSeoRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -482,13 +489,14 @@ export interface FileRoutesByFullPath {
   '/admin/dns': typeof AuthenticatedAdminDnsRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
-  '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/seo': typeof AuthenticatedAdminSeoRouteWithChildren
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
@@ -547,13 +555,14 @@ export interface FileRoutesByTo {
   '/admin/dns': typeof AuthenticatedAdminDnsRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
-  '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/seo': typeof AuthenticatedAdminSeoRouteWithChildren
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
@@ -616,13 +625,14 @@ export interface FileRoutesById {
   '/_authenticated/admin/dns': typeof AuthenticatedAdminDnsRoute
   '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/_authenticated/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
-  '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRouteWithChildren
   '/_authenticated/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/_authenticated/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/_authenticated/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   '/_authenticated/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
@@ -692,6 +702,7 @@ export interface FileRouteTypes {
     | '/konto/wizyty'
     | '/lovable/email/suppression'
     | '/admin/'
+    | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
     | '/api/public/hooks/seo-snapshot'
@@ -757,6 +768,7 @@ export interface FileRouteTypes {
     | '/konto/wizyty'
     | '/lovable/email/suppression'
     | '/admin'
+    | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
     | '/api/public/hooks/seo-snapshot'
@@ -825,6 +837,7 @@ export interface FileRouteTypes {
     | '/_authenticated/konto/wizyty'
     | '/lovable/email/suppression'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
     | '/api/public/hooks/seo-snapshot'
@@ -1355,8 +1368,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicBookingsCancelRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/seo/raporty': {
+      id: '/_authenticated/admin/seo/raporty'
+      path: '/raporty'
+      fullPath: '/admin/seo/raporty'
+      preLoaderRoute: typeof AuthenticatedAdminSeoRaportyRouteImport
+      parentRoute: typeof AuthenticatedAdminSeoRoute
+    }
   }
 }
+
+interface AuthenticatedAdminSeoRouteChildren {
+  AuthenticatedAdminSeoRaportyRoute: typeof AuthenticatedAdminSeoRaportyRoute
+}
+
+const AuthenticatedAdminSeoRouteChildren: AuthenticatedAdminSeoRouteChildren = {
+  AuthenticatedAdminSeoRaportyRoute: AuthenticatedAdminSeoRaportyRoute,
+}
+
+const AuthenticatedAdminSeoRouteWithChildren =
+  AuthenticatedAdminSeoRoute._addFileChildren(
+    AuthenticatedAdminSeoRouteChildren,
+  )
 
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAudytRoute: typeof AuthenticatedAdminAudytRoute
@@ -1364,7 +1397,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminDnsRoute: typeof AuthenticatedAdminDnsRoute
   AuthenticatedAdminLekarzeRoute: typeof AuthenticatedAdminLekarzeRoute
   AuthenticatedAdminRezerwacjeRoute: typeof AuthenticatedAdminRezerwacjeRoute
-  AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
+  AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRouteWithChildren
   AuthenticatedAdminUzytkownicyRoute: typeof AuthenticatedAdminUzytkownicyRoute
   AuthenticatedAdminWebVitalsRoute: typeof AuthenticatedAdminWebVitalsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
@@ -1377,7 +1410,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminDnsRoute: AuthenticatedAdminDnsRoute,
     AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
     AuthenticatedAdminRezerwacjeRoute: AuthenticatedAdminRezerwacjeRoute,
-    AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,
+    AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRouteWithChildren,
     AuthenticatedAdminUzytkownicyRoute: AuthenticatedAdminUzytkownicyRoute,
     AuthenticatedAdminWebVitalsRoute: AuthenticatedAdminWebVitalsRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
