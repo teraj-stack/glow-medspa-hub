@@ -293,6 +293,88 @@ function IndeksacjaPanel() {
         )}
       </section>
 
+      <section className="rounded-lg border border-border p-4 space-y-3">
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h3 className="font-medium">Historia raportów zbiorczych</h3>
+            <p className="text-xs text-muted-foreground">Każdy raport można ponownie otworzyć albo pobrać jako CSV.</p>
+          </div>
+          <div className="flex flex-wrap items-end gap-2">
+            <label className="text-xs text-muted-foreground flex flex-col">
+              Od
+              <Input type="date" value={reportFrom} onChange={(e) => setReportFrom(e.target.value)} className="w-40" />
+            </label>
+            <label className="text-xs text-muted-foreground flex flex-col">
+              Do
+              <Input type="date" value={reportTo} onChange={(e) => setReportTo(e.target.value)} className="w-40" />
+            </label>
+            {(reportFrom || reportTo) && (
+              <Button variant="ghost" onClick={() => { setReportFrom(""); setReportTo(""); }}>
+                Wyczyść
+              </Button>
+            )}
+          </div>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="text-left text-muted-foreground">
+              <tr>
+                <th className="py-1 pr-3">Data</th>
+                <th className="py-1 pr-3">URL-e</th>
+                <th className="py-1 pr-3">PASS</th>
+                <th className="py-1 pr-3">NEUTRAL</th>
+                <th className="py-1 pr-3">FAIL</th>
+                <th className="py-1 pr-3">Błędy</th>
+                <th className="py-1 pr-3">Źródło</th>
+                <th className="py-1 pr-3 text-right">Akcje</th>
+              </tr>
+            </thead>
+            <tbody>
+              {reports.data?.rows.map((r: any) => (
+                <tr key={r.id} className="border-t border-border">
+                  <td className="py-1 pr-3 whitespace-nowrap">{new Date(r.created_at).toLocaleString("pl-PL")}</td>
+                  <td className="py-1 pr-3">{r.url_count}</td>
+                  <td className="py-1 pr-3 text-emerald-500">{r.summary?.passing ?? 0}</td>
+                  <td className="py-1 pr-3">{r.summary?.neutral ?? 0}</td>
+                  <td className="py-1 pr-3 text-destructive">{r.summary?.failing ?? 0}</td>
+                  <td className="py-1 pr-3">{r.summary?.errors ?? 0}</td>
+                  <td className="py-1 pr-3 text-muted-foreground">{r.triggered_by}</td>
+                  <td className="py-1 pr-3 text-right whitespace-nowrap">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      disabled={openReportMut.isPending}
+                      onClick={() => openReportMut.mutate(r.id)}
+                    >
+                      Otwórz
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={async () => {
+                        try {
+                          const full: any = await getReportFn({ data: { id: r.id } });
+                          downloadReportCsv(full.results, full.created_at);
+                        } catch (e) {
+                          toast.error(e instanceof Error ? e.message : String(e));
+                        }
+                      }}
+                    >
+                      CSV
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+              {!reports.data?.rows.length && (
+                <tr><td colSpan={8} className="py-4 text-center text-muted-foreground">Brak raportów w wybranym zakresie.</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
+
 
       <section className="rounded-lg border border-border p-4">
         <h3 className="font-medium mb-3">Historia zgłoszeń (50 ostatnich)</h3>
