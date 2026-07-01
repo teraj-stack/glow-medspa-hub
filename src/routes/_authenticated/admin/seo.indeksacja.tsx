@@ -183,6 +183,75 @@ function IndeksacjaPanel() {
         )}
       </section>
 
+      <section className="rounded-lg border border-border p-4 space-y-3">
+        <h3 className="font-medium">Weryfikacja zbiorcza (do 25 URL-i)</h3>
+        <p className="text-xs text-muted-foreground">
+          Wklej listę URL-i (po jednym w linii). Każdy zostanie sprawdzony przez Google URL Inspection równolegle (3 naraz), a wyniki zebrane w tabeli. Każde sprawdzenie trafia też do historii zgłoszeń.
+        </p>
+        <Textarea
+          rows={6}
+          value={bulkUrls}
+          onChange={(e) => setBulkUrls(e.target.value)}
+          placeholder={"https://bmclinics.ai/\nhttps://bmclinics.ai/lekarze\nhttps://bmclinics.ai/technologie"}
+        />
+        <div className="flex flex-wrap gap-2">
+          <Button disabled={bulkMut.isPending} onClick={() => bulkMut.mutate()}>
+            {bulkMut.isPending ? "Sprawdzam…" : "Sprawdź listę"}
+          </Button>
+          {bulkResult && (
+            <Button variant="outline" onClick={exportCsv}>
+              Eksport CSV
+            </Button>
+          )}
+        </div>
+
+        {bulkResult && (
+          <div className="space-y-3">
+            <div className="flex flex-wrap gap-3 text-sm">
+              <span className="rounded-md bg-muted/50 px-2 py-1">Łącznie: <strong>{bulkResult.summary.total}</strong></span>
+              <span className="rounded-md bg-emerald-500/10 px-2 py-1 text-emerald-500">PASS: {bulkResult.summary.passing}</span>
+              <span className="rounded-md bg-muted/50 px-2 py-1">NEUTRAL: {bulkResult.summary.neutral}</span>
+              <span className="rounded-md bg-destructive/10 px-2 py-1 text-destructive">FAIL: {bulkResult.summary.failing}</span>
+              {bulkResult.summary.errors > 0 && (
+                <span className="rounded-md bg-destructive/10 px-2 py-1 text-destructive">Błędy: {bulkResult.summary.errors}</span>
+              )}
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="text-left text-muted-foreground">
+                  <tr>
+                    <th className="py-1 pr-3">URL</th>
+                    <th className="py-1 pr-3">Werdykt</th>
+                    <th className="py-1 pr-3">Pokrycie</th>
+                    <th className="py-1 pr-3">Indeksowanie</th>
+                    <th className="py-1 pr-3">Robots</th>
+                    <th className="py-1 pr-3">Ostatni crawl</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bulkResult.results.map((r) => (
+                    <tr key={r.url} className="border-t border-border align-top">
+                      <td className="py-1 pr-3 max-w-xs truncate" title={r.url}>
+                        <a href={r.url} target="_blank" rel="noreferrer" className="underline">{r.url}</a>
+                        {r.error && <div className="text-xs text-destructive">{r.error}</div>}
+                      </td>
+                      <td className={`py-1 pr-3 font-medium ${verdictClass(r.verdict)}`}>{r.verdict ?? "—"}</td>
+                      <td className="py-1 pr-3">{r.coverageState ?? "—"}</td>
+                      <td className="py-1 pr-3">{r.indexingState ?? "—"}</td>
+                      <td className="py-1 pr-3">{r.robotsTxtState ?? "—"}</td>
+                      <td className="py-1 pr-3 whitespace-nowrap">
+                        {r.lastCrawlTime ? new Date(r.lastCrawlTime).toLocaleString("pl-PL") : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </section>
+
+
       <section className="rounded-lg border border-border p-4">
         <h3 className="font-medium mb-3">Historia zgłoszeń (50 ostatnich)</h3>
         <div className="overflow-x-auto">
