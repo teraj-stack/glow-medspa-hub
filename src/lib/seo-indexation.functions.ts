@@ -180,8 +180,8 @@ export const listBulkInspectionReports = createServerFn({ method: "GET" })
   });
 
 export const getBulkInspectionReport = createServerFn({ method: "GET" })
-  .validator(z.object({ id: z.string().uuid() }))
   .middleware([requireSupabaseAuth])
+  .validator(z.object({ id: z.string().uuid() }))
   .handler(async ({ data, context }) => {
     await assertAdminOrManager(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
