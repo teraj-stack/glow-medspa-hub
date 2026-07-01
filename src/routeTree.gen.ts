@@ -72,7 +72,7 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
 import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
-import { Route as ApiPublicIndexnowKeyDottxtRouteImport } from './routes/api/public/indexnow/$key[.txt]'
+import { Route as ApiPublicIndexnowSplatRouteImport } from './routes/api/public/indexnow/$'
 import { Route as ApiPublicHooksSitemapValidateRouteImport } from './routes/api/public/hooks/sitemap-validate'
 import { Route as ApiPublicHooksSeoSnapshotRouteImport } from './routes/api/public/hooks/seo-snapshot'
 import { Route as ApiPublicHooksSeoIndexationSubmitRouteImport } from './routes/api/public/hooks/seo-indexation-submit'
@@ -420,12 +420,11 @@ const ApiPublicPaymentsWebhookRoute =
     path: '/api/public/payments/webhook',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicIndexnowKeyDottxtRoute =
-  ApiPublicIndexnowKeyDottxtRouteImport.update({
-    id: '/api/public/indexnow/$key.txt',
-    path: '/api/public/indexnow/$key.txt',
-    getParentRoute: () => rootRouteImport,
-  } as any)
+const ApiPublicIndexnowSplatRoute = ApiPublicIndexnowSplatRouteImport.update({
+  id: '/api/public/indexnow/$',
+  path: '/api/public/indexnow/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicHooksSitemapValidateRoute =
   ApiPublicHooksSitemapValidateRouteImport.update({
     id: '/api/public/hooks/sitemap-validate',
@@ -532,7 +531,7 @@ export interface FileRoutesByFullPath {
   '/api/public/hooks/seo-indexation-submit': typeof ApiPublicHooksSeoIndexationSubmitRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
   '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
-  '/api/public/indexnow/$key.txt': typeof ApiPublicIndexnowKeyDottxtRoute
+  '/api/public/indexnow/$': typeof ApiPublicIndexnowSplatRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -602,7 +601,7 @@ export interface FileRoutesByTo {
   '/api/public/hooks/seo-indexation-submit': typeof ApiPublicHooksSeoIndexationSubmitRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
   '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
-  '/api/public/indexnow/$key.txt': typeof ApiPublicIndexnowKeyDottxtRoute
+  '/api/public/indexnow/$': typeof ApiPublicIndexnowSplatRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -676,7 +675,7 @@ export interface FileRoutesById {
   '/api/public/hooks/seo-indexation-submit': typeof ApiPublicHooksSeoIndexationSubmitRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
   '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
-  '/api/public/indexnow/$key.txt': typeof ApiPublicIndexnowKeyDottxtRoute
+  '/api/public/indexnow/$': typeof ApiPublicIndexnowSplatRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/auth/preview': typeof LovableEmailAuthPreviewRoute
   '/lovable/email/auth/webhook': typeof LovableEmailAuthWebhookRoute
@@ -750,7 +749,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/seo-indexation-submit'
     | '/api/public/hooks/seo-snapshot'
     | '/api/public/hooks/sitemap-validate'
-    | '/api/public/indexnow/$key.txt'
+    | '/api/public/indexnow/$'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -820,7 +819,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/seo-indexation-submit'
     | '/api/public/hooks/seo-snapshot'
     | '/api/public/hooks/sitemap-validate'
-    | '/api/public/indexnow/$key.txt'
+    | '/api/public/indexnow/$'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -893,7 +892,7 @@ export interface FileRouteTypes {
     | '/api/public/hooks/seo-indexation-submit'
     | '/api/public/hooks/seo-snapshot'
     | '/api/public/hooks/sitemap-validate'
-    | '/api/public/indexnow/$key.txt'
+    | '/api/public/indexnow/$'
     | '/api/public/payments/webhook'
     | '/lovable/email/auth/preview'
     | '/lovable/email/auth/webhook'
@@ -950,7 +949,7 @@ export interface RootRouteChildren {
   ApiPublicHooksSeoIndexationSubmitRoute: typeof ApiPublicHooksSeoIndexationSubmitRoute
   ApiPublicHooksSeoSnapshotRoute: typeof ApiPublicHooksSeoSnapshotRoute
   ApiPublicHooksSitemapValidateRoute: typeof ApiPublicHooksSitemapValidateRoute
-  ApiPublicIndexnowKeyDottxtRoute: typeof ApiPublicIndexnowKeyDottxtRoute
+  ApiPublicIndexnowSplatRoute: typeof ApiPublicIndexnowSplatRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailAuthPreviewRoute: typeof LovableEmailAuthPreviewRoute
   LovableEmailAuthWebhookRoute: typeof LovableEmailAuthWebhookRoute
@@ -1402,11 +1401,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/indexnow/$key.txt': {
-      id: '/api/public/indexnow/$key.txt'
-      path: '/api/public/indexnow/$key.txt'
-      fullPath: '/api/public/indexnow/$key.txt'
-      preLoaderRoute: typeof ApiPublicIndexnowKeyDottxtRouteImport
+    '/api/public/indexnow/$': {
+      id: '/api/public/indexnow/$'
+      path: '/api/public/indexnow/$'
+      fullPath: '/api/public/indexnow/$'
+      preLoaderRoute: typeof ApiPublicIndexnowSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/hooks/sitemap-validate': {
@@ -1594,7 +1593,7 @@ const rootRouteChildren: RootRouteChildren = {
     ApiPublicHooksSeoIndexationSubmitRoute,
   ApiPublicHooksSeoSnapshotRoute: ApiPublicHooksSeoSnapshotRoute,
   ApiPublicHooksSitemapValidateRoute: ApiPublicHooksSitemapValidateRoute,
-  ApiPublicIndexnowKeyDottxtRoute: ApiPublicIndexnowKeyDottxtRoute,
+  ApiPublicIndexnowSplatRoute: ApiPublicIndexnowSplatRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailAuthPreviewRoute: LovableEmailAuthPreviewRoute,
   LovableEmailAuthWebhookRoute: LovableEmailAuthWebhookRoute,
