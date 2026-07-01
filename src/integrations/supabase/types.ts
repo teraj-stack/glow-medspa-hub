@@ -485,6 +485,36 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_bulk_inspection_reports: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          results: Json
+          summary: Json
+          triggered_by: string
+          url_count: number
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          results?: Json
+          summary?: Json
+          triggered_by: string
+          url_count: number
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          results?: Json
+          summary?: Json
+          triggered_by?: string
+          url_count?: number
+        }
+        Relationships: []
+      }
       seo_indexation_submissions: {
         Row: {
           created_at: string
