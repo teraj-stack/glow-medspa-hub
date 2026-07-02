@@ -551,6 +551,42 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_keyword_research_reports: {
+        Row: {
+          append_location: string | null
+          created_at: string
+          created_by: string | null
+          database: string
+          id: string
+          label: string | null
+          phrase_count: number
+          rows: Json
+          triggered_by: string
+        }
+        Insert: {
+          append_location?: string | null
+          created_at?: string
+          created_by?: string | null
+          database: string
+          id?: string
+          label?: string | null
+          phrase_count: number
+          rows?: Json
+          triggered_by: string
+        }
+        Update: {
+          append_location?: string | null
+          created_at?: string
+          created_by?: string | null
+          database?: string
+          id?: string
+          label?: string | null
+          phrase_count?: number
+          rows?: Json
+          triggered_by?: string
+        }
+        Relationships: []
+      }
       seo_report_settings: {
         Row: {
           channel: string
