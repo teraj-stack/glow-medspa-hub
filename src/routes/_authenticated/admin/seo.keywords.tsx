@@ -330,7 +330,8 @@ function KeywordsPanel() {
           <Button disabled={runMut.isPending || !phrases.length} onClick={() => runMut.mutate()}>
             {runMut.isPending ? "Pobieram…" : "Uruchom research i zapisz"}
           </Button>
-          {result && (<Button variant="outline" onClick={() => downloadCsv(result)}>Eksport CSV</Button>)}
+          {result && (<Button variant="outline" onClick={() => downloadCsv(result)}>Eksport CSV (pełny)</Button>)}
+          {result && (<Button variant="outline" onClick={() => downloadRecommendationsCsv(result)}>Eksport rekomendacji CSV</Button>)}
         </div>
       </section>
 
