@@ -183,10 +183,7 @@ const TIMELINE = [
 export const Route = createFileRoute("/blog/laser-frakcyjny-rekonwalescencja")({
   head: () => ({
     meta: [
-      {
-        title:
-          "Laser frakcyjny — dzień po dniu rekonwalescencji (pikosekundowy, tulowy, CO2) | BMClinics Warszawa",
-      },
+      { title: "Laser frakcyjny — rekonwalescencja dzień po dniu | BMClinics" },
       {
         name: "description",
         content:
