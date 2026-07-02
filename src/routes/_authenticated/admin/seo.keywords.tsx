@@ -366,6 +366,11 @@ function KeywordsPanel() {
               <tbody>
                 {result.rows.map((r) => {
                   const serp = serpMap[r.phrase];
+                  const rec = recommend(r);
+                  const recTone =
+                    rec.priority === "high" ? "text-emerald-500" :
+                    rec.priority === "medium" ? "text-amber-500" :
+                    rec.priority === "low" ? "text-orange-500" : "text-muted-foreground";
                   return (
                     <Fragment key={r.phrase}>
                       <tr className="border-t border-border">
@@ -380,10 +385,14 @@ function KeywordsPanel() {
                             {serp === "loading" ? "…" : serp ? "Odśwież" : "Pokaż"}
                           </Button>
                         </td>
+                        <td className="py-2 pr-3">
+                          <div className={`text-xs font-medium ${recTone}`}>{rec.label}</div>
+                          <div className="text-xs text-muted-foreground">{rec.reason}</div>
+                        </td>
                       </tr>
                       {serp && serp !== "loading" && (
                         <tr className="border-t border-border/50 bg-muted/20">
-                          <td colSpan={7} className="py-2 px-3">
+                          <td colSpan={8} className="py-2 px-3">
                             <div className="text-xs text-muted-foreground mb-1">Top 10 SERP dla <code className="font-mono">{r.phrase}</code></div>
                             <ol className="text-xs space-y-0.5">
                               {serp.results.map((s) => (
