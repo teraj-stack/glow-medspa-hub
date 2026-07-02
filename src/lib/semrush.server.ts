@@ -197,11 +197,11 @@ export async function fetchKeywordSerp(
     phrase: phrase.trim().toLowerCase(),
     database,
     display_limit: String(limit),
-    export_columns: "Dn,Ur,Po",
+    export_columns: "Dn,Ur",
   });
-  return rows.slice(1).map((r) => ({
+  return rows.slice(1).map((r, i) => ({
     domain: r[0] ?? "",
     url: r[1] ?? "",
-    position: num(r[2]),
+    position: i + 1,
   }));
 }
