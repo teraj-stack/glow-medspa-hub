@@ -14,7 +14,7 @@ import {
 const SLUG = "slonce-skora-nowoczesne-technologie";
 const URL = `https://bmclinics.ai/blog/${SLUG}`;
 const TITLE =
-  "Słońce, skóra i nowoczesne technologie — czy każdy laser „boi się” lata?";
+  "Słońce a laser — które zabiegi robić latem? | BMClinics";
 const DESCRIPTION =
   "Nie każda technologia laserowa wymaga jesieni. Wyjaśniamy, dlaczego laser frakcyjny CO2 odkładamy na chłodniejsze miesiące, a laser pikosekundowy bezpiecznie pracuje również latem.";
 const PUBLISHED = "2026-06-23T10:00:00+02:00";
