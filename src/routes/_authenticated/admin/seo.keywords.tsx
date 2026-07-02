@@ -360,6 +360,7 @@ function KeywordsPanel() {
                   <th className="py-2 pr-3 text-right">Konkurencja</th>
                   <th className="py-2 pr-3 text-right">Wyniki</th>
                   <th className="py-2 pr-3 text-right">SERP</th>
+                  <th className="py-2 pr-3">Rekomendacja</th>
                 </tr>
               </thead>
               <tbody>
