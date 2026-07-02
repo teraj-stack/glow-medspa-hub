@@ -120,3 +120,88 @@ export async function fetchCompetitors(
     competitorTraffic: num(r[4]),
   }));
 }
+
+export interface KeywordMetric {
+  phrase: string;
+  volume: number | null;
+  cpc: number | null;
+  competition: number | null; // 0-1 paid competition
+  resultsCount: number | null;
+  difficulty: number | null; // 0-100 KD
+}
+
+// Batch metrics via phrase_these (Ph,Nq,Cp,Co,Nr) + phrase_kdi (Ph,Kd) merged by phrase.
+export async function fetchKeywordMetrics(
+  phrases: string[],
+  database = "pl",
+): Promise<KeywordMetric[]> {
+  const cleaned = Array.from(new Set(phrases.map((p) => p.trim().toLowerCase()).filter(Boolean)));
+  if (!cleaned.length) return [];
+  // Semrush limits phrase_these to ~100 phrases per call.
+  const chunks: string[][] = [];
+  for (let i = 0; i < cleaned.length; i += 90) chunks.push(cleaned.slice(i, i + 90));
+
+  const byPhrase = new Map<string, KeywordMetric>();
+  for (const p of cleaned) {
+    byPhrase.set(p, { phrase: p, volume: null, cpc: null, competition: null, resultsCount: null, difficulty: null });
+  }
+
+  for (const chunk of chunks) {
+    const phraseParam = chunk.join(";");
+    const [metricsRows, kdiRows] = await Promise.all([
+      callSemrush({
+        type: "phrase_these",
+        phrase: phraseParam,
+        database,
+        export_columns: "Ph,Nq,Cp,Co,Nr",
+      }).catch(() => [] as string[][]),
+      callSemrush({
+        type: "phrase_kdi",
+        phrase: phraseParam,
+        database,
+        export_columns: "Ph,Kd",
+      }).catch(() => [] as string[][]),
+    ]);
+    for (const r of metricsRows.slice(1)) {
+      const key = (r[0] ?? "").toLowerCase();
+      const cur = byPhrase.get(key);
+      if (!cur) continue;
+      cur.volume = num(r[1]);
+      cur.cpc = num(r[2]);
+      cur.competition = num(r[3]);
+      cur.resultsCount = num(r[4]);
+    }
+    for (const r of kdiRows.slice(1)) {
+      const key = (r[0] ?? "").toLowerCase();
+      const cur = byPhrase.get(key);
+      if (!cur) continue;
+      cur.difficulty = num(r[1]);
+    }
+  }
+  return cleaned.map((p) => byPhrase.get(p)!);
+}
+
+export interface SerpEntry {
+  position: number | null;
+  domain: string;
+  url: string;
+}
+
+export async function fetchKeywordSerp(
+  phrase: string,
+  database = "pl",
+  limit = 10,
+): Promise<SerpEntry[]> {
+  const rows = await callSemrush({
+    type: "phrase_organic",
+    phrase: phrase.trim().toLowerCase(),
+    database,
+    display_limit: String(limit),
+    export_columns: "Dn,Ur",
+  });
+  return rows.slice(1).map((r, i) => ({
+    domain: r[0] ?? "",
+    url: r[1] ?? "",
+    position: i + 1,
+  }));
+}
