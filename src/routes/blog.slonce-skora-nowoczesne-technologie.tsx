@@ -53,7 +53,7 @@ const FAQ = [
 export const Route = createFileRoute("/blog/slonce-skora-nowoczesne-technologie")({
   head: () => ({
     meta: [
-      { title: `${TITLE} — BMClinics.ai` },
+      { title: META_TITLE },
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
