@@ -83,6 +83,7 @@ import { Route as ApiPublicHooksSeoIndexationSubmitRouteImport } from './routes/
 import { Route as ApiPublicHooksCalendarSyncRetryRouteImport } from './routes/api/public/hooks/calendar-sync-retry'
 import { Route as ApiPublicBookingsCancelRouteImport } from './routes/api/public/bookings/cancel'
 import { Route as AuthenticatedAdminSeoRaportyRouteImport } from './routes/_authenticated/admin/seo.raporty'
+import { Route as AuthenticatedAdminSeoKeywordsRouteImport } from './routes/_authenticated/admin/seo.keywords'
 import { Route as AuthenticatedAdminSeoIndeksacjaRouteImport } from './routes/_authenticated/admin/seo.indeksacja'
 
 const UnsubscribeRoute = UnsubscribeRouteImport.update({
@@ -485,6 +486,12 @@ const AuthenticatedAdminSeoRaportyRoute =
     path: '/raporty',
     getParentRoute: () => AuthenticatedAdminSeoRoute,
   } as any)
+const AuthenticatedAdminSeoKeywordsRoute =
+  AuthenticatedAdminSeoKeywordsRouteImport.update({
+    id: '/keywords',
+    path: '/keywords',
+    getParentRoute: () => AuthenticatedAdminSeoRoute,
+  } as any)
 const AuthenticatedAdminSeoIndeksacjaRoute =
   AuthenticatedAdminSeoIndeksacjaRouteImport.update({
     id: '/indeksacja',
@@ -554,6 +561,7 @@ export interface FileRoutesByFullPath {
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
+  '/admin/seo/keywords': typeof AuthenticatedAdminSeoKeywordsRoute
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -628,6 +636,7 @@ export interface FileRoutesByTo {
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
+  '/admin/seo/keywords': typeof AuthenticatedAdminSeoKeywordsRoute
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -706,6 +715,7 @@ export interface FileRoutesById {
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
+  '/_authenticated/admin/seo/keywords': typeof AuthenticatedAdminSeoKeywordsRoute
   '/_authenticated/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -784,6 +794,7 @@ export interface FileRouteTypes {
     | '/lovable/email/suppression'
     | '/admin/'
     | '/admin/seo/indeksacja'
+    | '/admin/seo/keywords'
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
@@ -858,6 +869,7 @@ export interface FileRouteTypes {
     | '/lovable/email/suppression'
     | '/admin'
     | '/admin/seo/indeksacja'
+    | '/admin/seo/keywords'
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
@@ -935,6 +947,7 @@ export interface FileRouteTypes {
     | '/lovable/email/suppression'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/seo/indeksacja'
+    | '/_authenticated/admin/seo/keywords'
     | '/_authenticated/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
@@ -1530,6 +1543,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSeoRaportyRouteImport
       parentRoute: typeof AuthenticatedAdminSeoRoute
     }
+    '/_authenticated/admin/seo/keywords': {
+      id: '/_authenticated/admin/seo/keywords'
+      path: '/keywords'
+      fullPath: '/admin/seo/keywords'
+      preLoaderRoute: typeof AuthenticatedAdminSeoKeywordsRouteImport
+      parentRoute: typeof AuthenticatedAdminSeoRoute
+    }
     '/_authenticated/admin/seo/indeksacja': {
       id: '/_authenticated/admin/seo/indeksacja'
       path: '/indeksacja'
@@ -1542,11 +1562,13 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedAdminSeoRouteChildren {
   AuthenticatedAdminSeoIndeksacjaRoute: typeof AuthenticatedAdminSeoIndeksacjaRoute
+  AuthenticatedAdminSeoKeywordsRoute: typeof AuthenticatedAdminSeoKeywordsRoute
   AuthenticatedAdminSeoRaportyRoute: typeof AuthenticatedAdminSeoRaportyRoute
 }
 
 const AuthenticatedAdminSeoRouteChildren: AuthenticatedAdminSeoRouteChildren = {
   AuthenticatedAdminSeoIndeksacjaRoute: AuthenticatedAdminSeoIndeksacjaRoute,
+  AuthenticatedAdminSeoKeywordsRoute: AuthenticatedAdminSeoKeywordsRoute,
   AuthenticatedAdminSeoRaportyRoute: AuthenticatedAdminSeoRaportyRoute,
 }
 
