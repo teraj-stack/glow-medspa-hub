@@ -26,7 +26,7 @@ const CONTENT: Record<string, IndicationContent> = {
     h1: "Usuwanie przebarwień w Warszawie",
     metaTitle: "Usuwanie przebarwień Warszawa — diagnostyka i leczenie | BMClinics",
     metaDesc:
-      "Przebarwienia posłoneczne, hormonalne i pozapalne. Diagnostyka spektralna i dobór terapii lekarskiej w Warszawie (Bielany, Klinika Promedion).",
+      "Przebarwienia posłoneczne, hormonalne i pozapalne. Diagnostyka spektralna i dobór terapii lekarskiej w Warszawie — ul. Branickiego 10 (klinika ginekologii).",
     keyword: "usuwanie przebarwień Warszawa",
     intro:
       "Przebarwienia to nie jedna choroba — to kilka różnych mechanizmów, które wymagają różnych terapii. Zaczynamy od diagnostyki, dobieramy technologię, planujemy sezonowo.",
