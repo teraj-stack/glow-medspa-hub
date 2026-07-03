@@ -409,6 +409,9 @@ function KeywordsPanel() {
   const [serpMap, setSerpMap] = useState<Record<string, SerpResult | "loading">>({});
   const [reportFrom, setReportFrom] = useState("");
   const [reportTo, setReportTo] = useState("");
+  const [reportSearch, setReportSearch] = useState("");
+  const [reportPage, setReportPage] = useState(1);
+  const REPORTS_PAGE_SIZE = 10;
   const [comparedIds, setComparedIds] = useState<string[]>([]);
   const [comparedReports, setComparedReports] = useState<ResearchResult[]>([]);
   const [clusters, setClusters] = useState<{ reportId: string; database: string; clusters: ContentCluster[] } | null>(null);
