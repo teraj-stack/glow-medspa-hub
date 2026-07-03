@@ -307,7 +307,7 @@ export const saveClustersAsDrafts = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const now = new Date().toISOString();
-    const rows: Array<{ user_id: string; draft_key: string; data: Record<string, unknown> }> = [];
+    const rows: Array<{ user_id: string; draft_key: string; data: any }> = [];
 
     for (const c of data.clusters) {
       const clusterMeta = {
