@@ -121,20 +121,21 @@ function scanFile(path) {
     }
   }
 
-  // 2) Branickiego musi mieć "10"
-  for (const hit of findAll(src, /Branickiego(?!\s*10\b)/g)) {
-    // Dopuszczamy w JSX-owym prosie "przy ul. Branickiego 10." — filtr obejmuje
-    // każdy przypadek, gdzie w promieniu 4 znaków po "Branickiego" nie ma "10".
-    const window = src.slice(hit.index, hit.index + 30);
-    if (!/Branickiego\s*10\b/.test(window)) {
+  // 2) Branickiego z numerem innym niż 10 (np. "Branickiego 4", "Branickiego 12")
+  //    Sama "Branickiego" bez numeru (keyword SEO, wzmianka o przystanku)
+  //    jest dozwolona — flagujemy wyłącznie konkretną, złą numerację.
+  for (const hit of findAll(src, /Branickiego\s+(\d+)/g)) {
+    const num = hit.match.match(/\d+/)[0];
+    if (num !== "10") {
       issues.push({
-        rule: "nap:street-missing-number",
+        rule: "nap:wrong-street-number",
         file: rel,
         line: lineNo(src, hit.index),
-        message: `Wzmianka o Branickiego bez numeru 10 (kanoniczna forma: „${CANON.street}").`,
+        message: `Wzmianka „Branickiego ${num}" — kanoniczny numer to 10 („${CANON.street}").`,
       });
     }
   }
+
 
   // 3) postal code w pobliżu Branickiego musi być 02-972
   for (const hit of findAll(src, /Branickiego[\s\S]{0,200}?(\d{2}-\d{3})/g)) {
