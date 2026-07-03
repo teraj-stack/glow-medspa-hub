@@ -151,6 +151,7 @@ function KeywordsPanel() {
   const [reportTo, setReportTo] = useState("");
   const [comparedIds, setComparedIds] = useState<string[]>([]);
   const [comparedReports, setComparedReports] = useState<ResearchResult[]>([]);
+  const [clusters, setClusters] = useState<{ reportId: string; database: string; clusters: ContentCluster[] } | null>(null);
 
   const appendLocation =
     appendMode === "siedlce" ? "siedlce" :
