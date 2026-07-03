@@ -7,7 +7,9 @@ import {
   getOgRescrapeRun,
   startOgRescrape,
   listSitemapPaths,
+  listFailedOgUrls,
 } from "@/lib/og-rescrape.functions";
+
 
 export const Route = createFileRoute("/_authenticated/admin/seo/og-rescrape")({
   codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
