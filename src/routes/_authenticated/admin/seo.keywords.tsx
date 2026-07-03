@@ -948,7 +948,7 @@ function KeywordsPanel() {
               </tr>
             </thead>
             <tbody>
-              {reports.data?.rows.map((r: ReportListRow) => (
+              {pageRows.map((r: ReportListRow) => (
                 <tr key={r.id} className="border-t border-border">
                   <td className="py-1 pr-3">
                     <input
