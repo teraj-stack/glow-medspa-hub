@@ -763,19 +763,39 @@ function OgRescrapePanel() {
                             />
                           </td>
                           <td className="px-3 py-2">
-                            <StatusBadge
-                              status={r.status === "pending" ? "pending" : undefined}
-                              ok={r.facebook_ok}
-                              skipped={r.facebook_skipped}
-                              label={r.facebook_status != null ? `FB ${r.facebook_status}` : "FB"}
-                            />
+                            <div className="flex items-center gap-1.5">
+                              <StatusBadge
+                                status={r.status === "pending" ? "pending" : undefined}
+                                ok={r.facebook_ok}
+                                skipped={r.facebook_skipped}
+                                label={r.facebook_status != null ? `FB ${r.facebook_status}` : "FB"}
+                              />
+                              {r.facebook_attempts > 1 && (
+                                <span
+                                  className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+                                  title={`Liczba prób Facebook: ${r.facebook_attempts}`}
+                                >
+                                  ×{r.facebook_attempts}
+                                </span>
+                              )}
+                            </div>
                           </td>
                           <td className="px-3 py-2">
-                            <StatusBadge
-                              status={r.status === "pending" ? "pending" : undefined}
-                              ok={r.linkedin_ok}
-                              label={r.linkedin_status != null ? `LI ${r.linkedin_status}` : "LI"}
-                            />
+                            <div className="flex items-center gap-1.5">
+                              <StatusBadge
+                                status={r.status === "pending" ? "pending" : undefined}
+                                ok={r.linkedin_ok}
+                                label={r.linkedin_status != null ? `LI ${r.linkedin_status}` : "LI"}
+                              />
+                              {r.linkedin_attempts > 1 && (
+                                <span
+                                  className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-muted text-muted-foreground"
+                                  title={`Liczba prób LinkedIn: ${r.linkedin_attempts}`}
+                                >
+                                  ×{r.linkedin_attempts}
+                                </span>
+                              )}
+                            </div>
                           </td>
                           <td className="px-3 py-2 text-xs text-muted-foreground whitespace-nowrap">
                             {r.processed_at ? fmtDate(r.processed_at) : "—"}
