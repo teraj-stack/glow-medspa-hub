@@ -518,9 +518,14 @@ function KeywordsPanel() {
 
       {comparedReports.length >= 2 && (
         <section className="rounded-lg border border-border p-4 space-y-3">
-          <div>
-            <h3 className="font-medium">Porównanie ({comparedReports.length} raportów)</h3>
-            <p className="text-xs text-muted-foreground">Frazy, które występują tylko w części raportów, mają „—" w brakujących kolumnach.</p>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 className="font-medium">Porównanie ({comparedReports.length} raportów)</h3>
+              <p className="text-xs text-muted-foreground">Frazy, które występują tylko w części raportów, mają „—" w brakujących kolumnach.</p>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => downloadComparisonCsv(comparedReports, comparisonRows)}>
+              Eksport porównania CSV
+            </Button>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
