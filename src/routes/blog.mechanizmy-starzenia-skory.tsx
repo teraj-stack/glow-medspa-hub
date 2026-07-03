@@ -121,16 +121,16 @@ function MechanismsArticle() {
             </p>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               <figure className="overflow-hidden rounded-lg border border-border bg-card">
-                <img src={zdrowaAsset.url} alt="Skóra młoda — gęsta sieć włókien" loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
+                <CfImg src={zdrowaAsset.url} alt="Skóra młoda — gęsta sieć włókien" width={640} height={480} responsiveWidths={[400, 640, 800]} sizes="(max-width: 768px) 100vw, 400px" className="aspect-[4/3] w-full object-cover" />
                 <figcaption className="px-4 py-3 text-sm text-muted-foreground">Młoda skóra — równoległe, gęste włókna elastyny.</figcaption>
               </figure>
               <figure className="overflow-hidden rounded-lg border border-border bg-card">
-                <img src={wiotkaAsset.url} alt="Skóra dojrzała — elastoza posłoneczna" loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
+                <CfImg src={wiotkaAsset.url} alt="Skóra dojrzała — elastoza posłoneczna" width={640} height={480} responsiveWidths={[400, 640, 800]} sizes="(max-width: 768px) 100vw, 400px" className="aspect-[4/3] w-full object-cover" />
                 <figcaption className="px-4 py-3 text-sm text-muted-foreground">Skóra dojrzała — elastoza, fragmentacja, utrata podparcia.</figcaption>
               </figure>
             </div>
             <figure id="mapowanie-procesu-starzenia" className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
-              <img src={fazyAsset.url} alt="Przyczyny starzenia się skóry — trzy główne problemy: redukcja kwasu hialuronowego (GAGs), nadmierna produkcja proteaz (MMPs), spadek regeneracji (HSPS) oraz zjawiska dodatkowe — stres oksydacyjny i glikacja" loading="lazy" decoding="async" className="w-full object-cover" />
+              <CfImg src={fazyAsset.url} alt="Przyczyny starzenia się skóry — trzy główne problemy: redukcja kwasu hialuronowego (GAGs), nadmierna produkcja proteaz (MMPs), spadek regeneracji (HSPS) oraz zjawiska dodatkowe — stres oksydacyjny i glikacja" width={1200} height={800} responsiveWidths={[640, 960, 1200]} sizes="(max-width: 768px) 100vw, 900px" className="w-full object-cover" />
               <figcaption className="px-4 py-3 text-sm text-muted-foreground">Przyczyny starzenia się skóry — trzy główne problemy: redukcja GAGs, nadmierna produkcja MMPs i spadek regeneracji (HSPS), uzupełnione o stres oksydacyjny i glikację.</figcaption>
             </figure>
           </section>
