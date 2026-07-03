@@ -79,7 +79,9 @@ function OgRescrapePanel() {
   const getFn = useServerFn(getOgRescrapeRun);
   const startFn = useServerFn(startOgRescrape);
   const pathsFn = useServerFn(listSitemapPaths);
+  const failedFn = useServerFn(listFailedOgUrls);
   const queryClient = useQueryClient();
+
 
   const runs = useQuery({
     queryKey: ["og-rescrape-runs"],
