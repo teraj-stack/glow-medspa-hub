@@ -896,7 +896,31 @@ function KeywordsPanel() {
                         <label className="text-[10px] uppercase text-muted-foreground">Slug</label>
                         <Input value={c.pillarSlug} onChange={(e) => updateCluster(idx, { pillarSlug: e.target.value.replace(/^\/+/, "") })} className="font-mono text-xs" />
                       </div>
+                      <div>
+                        <label className="text-[10px] uppercase text-muted-foreground flex justify-between">
+                          <span>Meta title</span>
+                          <span className={((c.pillarMetaTitle ?? "").length > 60 ? "text-destructive" : "text-muted-foreground")}>{(c.pillarMetaTitle ?? "").length}/60</span>
+                        </label>
+                        <Input value={c.pillarMetaTitle ?? ""} onChange={(e) => updateCluster(idx, { pillarMetaTitle: e.target.value })} />
+                      </div>
+                      <div>
+                        <label className="text-[10px] uppercase text-muted-foreground flex justify-between">
+                          <span>Meta description</span>
+                          <span className={((c.pillarMetaDescription ?? "").length > 160 || (c.pillarMetaDescription ?? "").length < 120 ? "text-destructive" : "text-muted-foreground")}>{(c.pillarMetaDescription ?? "").length}/160</span>
+                        </label>
+                        <Textarea rows={2} value={c.pillarMetaDescription ?? ""} onChange={(e) => updateCluster(idx, { pillarMetaDescription: e.target.value })} />
+                      </div>
+                      <div>
+                        <label className="text-[10px] uppercase text-muted-foreground">Outline H2/H3 (linie: `## Nagłówek` lub `### Podsekcja`)</label>
+                        <Textarea
+                          rows={Math.max(6, (c.pillarOutline ?? []).length + 1)}
+                          value={(c.pillarOutline ?? []).join("\n")}
+                          onChange={(e) => updateCluster(idx, { pillarOutline: e.target.value.split("\n").map((l) => l.trim()).filter(Boolean) })}
+                          className="font-mono text-xs"
+                        />
+                      </div>
                     </div>
+
 
                     <div>
                       <div className="text-xs uppercase text-muted-foreground mb-2">Artykuły wspierające ({c.supportingArticles.length})</div>
