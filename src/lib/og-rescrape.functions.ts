@@ -160,3 +160,75 @@ export const listSitemapPaths = createServerFn({ method: "GET" })
     };
   });
 
+// Zwraca listę URL-i, które w ostatnich runach zakończyły się błędem
+// (brak OG/Twitter, HTTP>=400, timeout, itp.). Domyślnie patrzy w ostatni skończony run;
+// z `scope: "recent"` scala błędy z ostatnich N runów (deduplikacja po URL).
+export const listFailedOgUrls = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input?: { runId?: string; scope?: "last-run" | "recent"; recentLimit?: number }) => ({
+    runId: typeof input?.runId === "string" && input.runId.length > 0 ? input.runId : undefined,
+    scope: input?.scope === "recent" ? "recent" : ("last-run" as "last-run" | "recent"),
+    recentLimit: Math.min(Math.max(input?.recentLimit ?? 5, 1), 20),
+  }))
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    // Ustal zbiór run_id do przeszukania.
+    let runIds: string[] = [];
+    let sourceLabel = "";
+    if (data.runId) {
+      runIds = [data.runId];
+      sourceLabel = `run ${data.runId.slice(0, 8)}`;
+    } else if (data.scope === "recent") {
+      const { data: runs, error } = await supabaseAdmin
+        .from("og_rescrape_runs")
+        .select("id")
+        .in("status", ["done", "error"])
+        .order("started_at", { ascending: false })
+        .limit(data.recentLimit);
+      if (error) throw new Error(error.message);
+      runIds = (runs ?? []).map((r) => r.id as string);
+      sourceLabel = `ostatnie ${runIds.length} runy`;
+    } else {
+      const { data: runs, error } = await supabaseAdmin
+        .from("og_rescrape_runs")
+        .select("id")
+        .in("status", ["done", "error"])
+        .order("started_at", { ascending: false })
+        .limit(1);
+      if (error) throw new Error(error.message);
+      runIds = (runs ?? []).map((r) => r.id as string);
+      sourceLabel = "ostatni zakończony run";
+    }
+
+    if (runIds.length === 0) {
+      return { urls: [] as string[], sourceLabel, runIds };
+    }
+
+    // Pobierz wyniki z tych runów; filtruj URL-e z faktycznymi błędami.
+    const { data: rows, error: resErr } = await supabaseAdmin
+      .from("og_rescrape_results")
+      .select("url, facebook_ok, facebook_status, facebook_skipped, linkedin_ok, linkedin_status, status")
+      .in("run_id", runIds);
+    if (resErr) throw new Error(resErr.message);
+
+    const failed = new Set<string>();
+    for (const r of rows ?? []) {
+      const fbBad =
+        !r.facebook_skipped &&
+        (r.facebook_ok === false || (typeof r.facebook_status === "number" && r.facebook_status >= 400));
+      const liBad =
+        r.linkedin_ok === false || (typeof r.linkedin_status === "number" && r.linkedin_status >= 400);
+      const statusBad = r.status === "error";
+      if (fbBad || liBad || statusBad) failed.add(r.url as string);
+    }
+
+    return {
+      urls: Array.from(failed).sort(),
+      sourceLabel,
+      runIds,
+    };
+  });
+
+
