@@ -624,6 +624,73 @@ function KeywordsPanel() {
           </div>
         </section>
       )}
+
+      {clusters && clusters.clusters.length > 0 && (
+        <section id="clusters-section" className="rounded-lg border border-border p-4 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 className="font-medium">Propozycje klastrów artykułów ({clusters.clusters.length})</h3>
+              <p className="text-xs text-muted-foreground">Wygenerowane przez AI na bazie fraz z raportu. Każdy klaster = pillar + wspierające, gotowe do publikacji.</p>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => downloadClustersCsv(clusters.clusters)}>Eksport klastrów CSV</Button>
+              <Button variant="outline" size="sm" onClick={() => downloadClustersMarkdown(clusters.clusters)}>Eksport Markdown</Button>
+              <Button variant="ghost" size="sm" onClick={() => setClusters(null)}>Zamknij</Button>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {clusters.clusters.map((c, idx) => (
+              <div key={idx} className="rounded-md border border-border/70 p-4 space-y-3 bg-muted/20">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <div>
+                    <h4 className="font-semibold">{c.cluster}</h4>
+                    <div className="text-xs text-muted-foreground">
+                      Usługa: <strong>{c.targetService}</strong> · intent: <code className="font-mono">{c.intent}</code>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded bg-background border border-border/50 p-3">
+                  <div className="text-xs uppercase text-muted-foreground mb-1">Pillar</div>
+                  <div className="font-medium">{c.pillarTitle}</div>
+                  <code className="text-xs text-muted-foreground font-mono">/{c.pillarSlug}</code>
+                </div>
+
+                <div>
+                  <div className="text-xs uppercase text-muted-foreground mb-2">Artykuły wspierające</div>
+                  <ul className="space-y-2">
+                    {c.supportingArticles.map((a, i) => (
+                      <li key={i} className="text-sm border-l-2 border-border pl-3">
+                        <div className="font-medium">{a.title}</div>
+                        <code className="text-xs text-muted-foreground font-mono">/{a.slug}</code>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          <span className="font-mono">{a.primaryKeyword}</span>
+                          {a.estimatedVolume != null && <span> · vol {fmt(a.estimatedVolume)}</span>}
+                          {a.estimatedKd != null && <span className={kdTone(a.estimatedKd)}> · KD {fmt(a.estimatedKd)}</span>}
+                        </div>
+                        {a.supportingKeywords.length > 0 && (
+                          <div className="text-xs mt-1 flex flex-wrap gap-1">
+                            {a.supportingKeywords.map((k, j) => (
+                              <span key={j} className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px]">{k}</span>
+                            ))}
+                          </div>
+                        )}
+                        <div className="text-xs text-muted-foreground mt-1 italic">{a.angle}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="text-xs grid gap-2 sm:grid-cols-2">
+                  <div><span className="text-muted-foreground">Linkowanie: </span>{c.internalLinking}</div>
+                  <div><span className="text-muted-foreground">CTA: </span>{c.cta}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
