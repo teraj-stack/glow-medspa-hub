@@ -315,7 +315,7 @@ function IndicationPage() {
           </div>
           <p className="mt-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
             <CheckCircle2 className="size-4 text-champagne" aria-hidden />
-            Klinika Promedion, ul. Wójcickiego 4, Warszawa
+            ul. Branickiego 10, Warszawa (klinika ginekologii)
           </p>
         </div>
       </section>
