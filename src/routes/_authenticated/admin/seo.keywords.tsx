@@ -943,6 +943,53 @@ function KeywordsPanel() {
                     >
                       CSV
                     </Button>
+                    {r.clusters_generated_at && (
+                      <>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          title={`Klastry z sesji (wygenerowane ${new Date(r.clusters_generated_at).toLocaleString("pl-PL")})`}
+                          onClick={async () => {
+                            try {
+                              const full = await getClustersFn({ data: { id: r.id } });
+                              if (!full.clusters.length) {
+                                toast.error("Ta sesja nie ma zapisanych klastrów.");
+                                return;
+                              }
+                              const slug = sessionFileSlug({ id: full.id, label: full.label, createdAt: full.createdAt });
+                              downloadClustersCsv(full.clusters as unknown as ContentCluster[], slug);
+                            } catch (e) {
+                              toast.error(e instanceof Error ? e.message : String(e));
+                            }
+                          }}
+                        >
+                          Klastry CSV
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={async () => {
+                            try {
+                              const full = await getClustersFn({ data: { id: r.id } });
+                              if (!full.clusters.length) {
+                                toast.error("Ta sesja nie ma zapisanych klastrów.");
+                                return;
+                              }
+                              const slug = sessionFileSlug({ id: full.id, label: full.label, createdAt: full.createdAt });
+                              downloadClustersMarkdown(
+                                full.clusters as unknown as ContentCluster[],
+                                slug,
+                                { id: full.id, label: full.label, createdAt: full.createdAt, database: full.database, appendLocation: full.appendLocation },
+                              );
+                            } catch (e) {
+                              toast.error(e instanceof Error ? e.message : String(e));
+                            }
+                          }}
+                        >
+                          Klastry MD
+                        </Button>
+                      </>
+                    )}
                     <Button
                       variant="ghost"
                       size="sm"
