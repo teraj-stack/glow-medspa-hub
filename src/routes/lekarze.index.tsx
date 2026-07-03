@@ -32,7 +32,7 @@ export const Route = createFileRoute("/lekarze/")({
       {
         property: "og:description",
         content:
-          "Poznaj zespół przyjmujący w Klinice Ginekologii na warszawskich Bielanach — kompetencje, specjalizacje, doświadczenie.",
+          "Poznaj zespół przyjmujący w Klinice Ginekologii w warszawskim Wilanowie — kompetencje, specjalizacje, doświadczenie.",
       },
       { property: "og:url", content: "https://bmclinics.ai/lekarze" },
       { property: "og:type", content: "website" },
@@ -241,7 +241,7 @@ function LekarzePage() {
           </h1>
           <p className="mt-5 text-balance text-base leading-relaxed text-muted-foreground md:text-lg">
             Dziesięć lat doświadczenia w premium klinikach warszawskich. Konsultacje
-            prowadzimy w <strong>Klinice Ginekologii</strong> przy ul. Branickiego 10 na Bielanach.
+            prowadzimy w <strong>Klinice Ginekologii</strong> przy ul. Branickiego 10 w Wilanowie.
             Każda terapia projektowana indywidualnie, z naciskiem na bezpieczeństwo i przewidywalny efekt.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
