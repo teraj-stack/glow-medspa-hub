@@ -9,6 +9,7 @@ import {
   getKeywordResearchReport,
   deleteKeywordResearchReport,
   generateContentClusters,
+  getKeywordResearchClusters,
   saveClustersAsDrafts,
   listExistingSlugs,
   type ContentCluster,
@@ -49,6 +50,7 @@ type ReportListRow = {
   append_location: string | null;
   phrase_count: number;
   label: string | null;
+  clusters_generated_at: string | null;
 };
 
 const DATABASES = [
@@ -190,7 +192,25 @@ function linksToMd(links: LinkTarget[]): string {
   return links.map((l) => `  - ${l.role === "pillar" ? "🏛 " : "↔ "}[${l.title}](${l.path})`).join("\n");
 }
 
-function downloadClustersCsv(clusters: ContentCluster[]) {
+/**
+ * Zamienia etykietę raportu (lub jej brak) na bezpieczny fragment nazwy pliku,
+ * dzięki czemu eksport klastrów każdej sesji ma jednoznaczny, rozpoznawalny
+ * plik (np. `content-clusters__2026-07-03T12-45__wilanow-laser__ab12cd34.csv`).
+ */
+function sessionFileSlug(opts: { label: string | null; id: string; createdAt: string }): string {
+  const stamp = opts.createdAt.slice(0, 19).replace(/[:T]/g, "-");
+  const shortId = opts.id.slice(0, 8);
+  const rawLabel = (opts.label ?? "").toLowerCase().trim();
+  const label = rawLabel
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 40);
+  return [stamp, label || null, shortId].filter(Boolean).join("__");
+}
+
+function downloadClustersCsv(clusters: ContentCluster[], fileSlug: string) {
   const header = ["klaster", "intent", "usluga", "typ", "tytul", "slug", "fraza_glowna", "frazy_wspierajace", "wolumen", "kd", "angle", "meta_title", "meta_description", "outline", "linki_wewnetrzne"];
   const rows: (string | number | null)[][] = [];
   for (const c of clusters) {
@@ -199,8 +219,7 @@ function downloadClustersCsv(clusters: ContentCluster[]) {
       rows.push([c.cluster, c.intent, c.targetService, "SUPPORT", a.title, normalizeSlug(a.slug), a.primaryKeyword, a.supportingKeywords.join("; "), a.estimatedVolume ?? "", a.estimatedKd ?? "", a.angle, a.metaTitle ?? "", a.metaDescription ?? "", (a.outline ?? []).join(" | "), linksToCsv(supportInternalLinks(c, a.slug))]);
     }
   }
-  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
-  triggerDownload(toCsv(header, rows), `content-clusters-${stamp}.csv`);
+  triggerDownload(toCsv(header, rows), `content-clusters__${fileSlug}.csv`);
 }
 
 function outlineToMd(outline: string[] | undefined): string {
@@ -217,14 +236,28 @@ function clustersToMarkdown(clusters: ContentCluster[]): string {
   }).join("\n---\n\n");
 }
 
-function downloadClustersMarkdown(clusters: ContentCluster[]) {
-  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
-  const md = "# Klastry contentowe — propozycje\n\n" + clustersToMarkdown(clusters);
+function downloadClustersMarkdown(
+  clusters: ContentCluster[],
+  fileSlug: string,
+  sessionMeta: { label: string | null; id: string; createdAt: string; database: string; appendLocation: string | null },
+) {
+  const header = [
+    "# Klastry contentowe — sesja keyword researchu",
+    "",
+    `- **ID sesji:** \`${sessionMeta.id}\``,
+    `- **Etykieta:** ${sessionMeta.label ?? "_(brak)_"}`,
+    `- **Utworzono:** ${sessionMeta.createdAt}`,
+    `- **Baza Semrush:** ${sessionMeta.database}${sessionMeta.appendLocation ? ` (+ ${sessionMeta.appendLocation})` : ""}`,
+    "",
+    "---",
+    "",
+  ].join("\n");
+  const md = header + clustersToMarkdown(clusters);
   const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `content-clusters-${stamp}.md`;
+  a.download = `content-clusters__${fileSlug}.md`;
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -363,6 +396,7 @@ function KeywordsPanel() {
   const getFn = useServerFn(getKeywordResearchReport);
   const deleteFn = useServerFn(deleteKeywordResearchReport);
   const clustersFn = useServerFn(generateContentClusters);
+  const getClustersFn = useServerFn(getKeywordResearchClusters);
   const saveDraftsFn = useServerFn(saveClustersAsDrafts);
 
 
@@ -909,6 +943,53 @@ function KeywordsPanel() {
                     >
                       CSV
                     </Button>
+                    {r.clusters_generated_at && (
+                      <>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          title={`Klastry z sesji (wygenerowane ${new Date(r.clusters_generated_at).toLocaleString("pl-PL")})`}
+                          onClick={async () => {
+                            try {
+                              const full = await getClustersFn({ data: { id: r.id } });
+                              if (!full.clusters.length) {
+                                toast.error("Ta sesja nie ma zapisanych klastrów.");
+                                return;
+                              }
+                              const slug = sessionFileSlug({ id: full.id, label: full.label, createdAt: full.createdAt });
+                              downloadClustersCsv(full.clusters as unknown as ContentCluster[], slug);
+                            } catch (e) {
+                              toast.error(e instanceof Error ? e.message : String(e));
+                            }
+                          }}
+                        >
+                          Klastry CSV
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={async () => {
+                            try {
+                              const full = await getClustersFn({ data: { id: r.id } });
+                              if (!full.clusters.length) {
+                                toast.error("Ta sesja nie ma zapisanych klastrów.");
+                                return;
+                              }
+                              const slug = sessionFileSlug({ id: full.id, label: full.label, createdAt: full.createdAt });
+                              downloadClustersMarkdown(
+                                full.clusters as unknown as ContentCluster[],
+                                slug,
+                                { id: full.id, label: full.label, createdAt: full.createdAt, database: full.database, appendLocation: full.appendLocation },
+                              );
+                            } catch (e) {
+                              toast.error(e instanceof Error ? e.message : String(e));
+                            }
+                          }}
+                        >
+                          Klastry MD
+                        </Button>
+                      </>
+                    )}
                     <Button
                       variant="ghost"
                       size="sm"
@@ -996,8 +1077,23 @@ function KeywordsPanel() {
               >
                 {saveDraftsMut.isPending ? "Zapisuję…" : "💾 Zapisz do publikacji"}
               </Button>
-              <Button variant="outline" size="sm" onClick={() => downloadClustersCsv(clusters.clusters)}>Eksport klastrów CSV</Button>
-              <Button variant="outline" size="sm" onClick={() => downloadClustersMarkdown(clusters.clusters)}>Eksport Markdown</Button>
+              {(() => {
+                const meta = reports.data?.rows.find((r: ReportListRow) => r.id === clusters.reportId);
+                const sessionMeta = {
+                  id: clusters.reportId,
+                  label: meta?.label ?? null,
+                  createdAt: meta?.created_at ?? new Date().toISOString(),
+                  database: meta?.database ?? clusters.database,
+                  appendLocation: meta?.append_location ?? null,
+                };
+                const slug = sessionFileSlug(sessionMeta);
+                return (
+                  <>
+                    <Button variant="outline" size="sm" onClick={() => downloadClustersCsv(clusters.clusters, slug)}>Eksport klastrów CSV</Button>
+                    <Button variant="outline" size="sm" onClick={() => downloadClustersMarkdown(clusters.clusters, slug, sessionMeta)}>Eksport Markdown</Button>
+                  </>
+                );
+              })()}
               <Button variant="ghost" size="sm" onClick={() => setClusters(null)}>Zamknij</Button>
             </div>
           </div>

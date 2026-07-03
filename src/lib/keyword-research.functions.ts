@@ -82,7 +82,9 @@ export const listKeywordResearchReports = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     let q = supabaseAdmin
       .from("seo_keyword_research_reports")
-      .select("id, created_at, triggered_by, database, append_location, phrase_count, label")
+      .select(
+        "id, created_at, triggered_by, database, append_location, phrase_count, label, clusters_generated_at",
+      )
       .order("created_at", { ascending: false })
       .limit(200);
     if (data.from) q = q.gte("created_at", data.from);
@@ -91,6 +93,7 @@ export const listKeywordResearchReports = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { rows: rows ?? [] };
   });
+
 
 export const getKeywordResearchReport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -114,6 +117,40 @@ export const getKeywordResearchReport = createServerFn({ method: "POST" })
       rows: (row.rows ?? []) as unknown as KeywordMetric[],
     };
   });
+
+/**
+ * Zwraca zapisane klastry dla konkretnej sesji researchu (per-session export).
+ * Klastry są zapisywane w momencie ich wygenerowania (patrz
+ * generateContentClusters) i pozostają dostępne również po odświeżeniu
+ * strony — panel admina używa tego do przycisków CSV/MD w historii.
+ */
+export const getKeywordResearchClusters = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator(z.object({ id: z.string().uuid() }))
+  .handler(async ({ data, context }) => {
+    await requireAdminOrManager(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row, error } = await supabaseAdmin
+      .from("seo_keyword_research_reports")
+      .select("id, created_at, database, append_location, label, clusters, clusters_generated_at")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!row) throw new Error("Raport nie znaleziony");
+    const clusters = ((row.clusters ?? []) as unknown) as ContentCluster[];
+    return {
+      id: row.id,
+      createdAt: row.created_at,
+      database: row.database,
+      appendLocation: row.append_location,
+      label: row.label,
+      generatedAt: row.clusters_generated_at,
+      clusters,
+    };
+  });
+
+
+
 
 export const deleteKeywordResearchReport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -286,7 +323,16 @@ export const generateContentClusters = createServerFn({ method: "POST" })
     const call = json.choices?.[0]?.message?.tool_calls?.[0];
     if (!call) throw new Error("AI nie zwróciło poprawnej odpowiedzi (brak tool_call).");
     const parsed = JSON.parse(call.function.arguments) as { clusters: ContentCluster[] };
-    return { reportId: row.id, database: row.database, clusters: parsed.clusters ?? [] };
+    const clusters = parsed.clusters ?? [];
+    // Persist klastry przy sesji — dzięki temu każdy raport ma własny
+    // eksport CSV/MD dostępny również po odświeżeniu strony.
+    const generatedAt = new Date().toISOString();
+    await supabaseAdmin
+      .from("seo_keyword_research_reports")
+      .update({ clusters: clusters as unknown as any, clusters_generated_at: generatedAt })
+      .eq("id", row.id);
+    return { reportId: row.id, database: row.database, clusters, generatedAt };
+
   });
 
 const ClusterArticleSchema = z.object({

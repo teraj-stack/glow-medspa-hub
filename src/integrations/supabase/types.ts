@@ -554,6 +554,8 @@ export type Database = {
       seo_keyword_research_reports: {
         Row: {
           append_location: string | null
+          clusters: Json | null
+          clusters_generated_at: string | null
           created_at: string
           created_by: string | null
           database: string
@@ -565,6 +567,8 @@ export type Database = {
         }
         Insert: {
           append_location?: string | null
+          clusters?: Json | null
+          clusters_generated_at?: string | null
           created_at?: string
           created_by?: string | null
           database: string
@@ -576,6 +580,8 @@ export type Database = {
         }
         Update: {
           append_location?: string | null
+          clusters?: Json | null
+          clusters_generated_at?: string | null
           created_at?: string
           created_by?: string | null
           database?: string
