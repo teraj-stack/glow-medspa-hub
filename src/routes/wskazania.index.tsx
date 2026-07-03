@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Sun } from "lucide-react";
+import { CONTENT as INDICATIONS_CONTENT } from "./wskazania.$slug";
 
 const CANONICAL = "https://bmclinics.ai/wskazania";
 const TITLE = "Wskazania — jakie problemy skóry leczymy w Warszawie | BMClinics";
@@ -14,14 +15,11 @@ interface Indication {
   icon: typeof Sun;
 }
 
-const INDICATIONS: Indication[] = [
-  {
-    slug: "przebarwienia-warszawa",
-    title: "Przebarwienia",
-    short: "Plamy posłoneczne, pozapalne i barwnikowe — diagnostyka i dobór lasera.",
-    icon: Sun,
-  },
-];
+// Kafelki generowane z dostępnych kluczy CONTENT — nigdy nie prowadzą do martwego /wskazania/$slug.
+const INDICATIONS: Indication[] = Object.values(INDICATIONS_CONTENT)
+  .map((c) => ({ slug: c.slug, title: c.title, short: c.short, icon: Sun }))
+  .sort((a, b) => a.title.localeCompare(b.title, "pl"));
+
 
 export const Route = createFileRoute("/wskazania/")({
   head: () => ({
