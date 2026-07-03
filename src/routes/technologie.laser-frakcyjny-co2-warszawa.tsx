@@ -247,7 +247,7 @@ function LaserCO2Page() {
             "Kwalifikacja lekarska z analizą skóry twarzy przed każdą pierwszą sesją.",
             "Profilaktyka przeciwwirusowa u pacjentów z nawracającą opryszczką.",
             "Dobór parametrów wg fototypu Fitzpatricka — zminimalizowane ryzyko przebarwień pozapalnych.",
-            "Zabieg w gabinecie zabiegowym z pełnym zapleczem medycznym Kliniki klinika ginekologii.",
+            "Zabieg w gabinecie zabiegowym z pełnym zapleczem medycznym Kliniki Ginekologii.",
             "Kontrola po 14 dniach i po 8 tygodniach — dokumentacja fotograficzna postępu.",
           ].map((s) => (
             <li key={s} className="flex items-start gap-3 rounded-md border border-border bg-card p-4 text-sm">
