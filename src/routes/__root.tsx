@@ -86,8 +86,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "BMClinics.ai — Medycyna estetyczna, Warszawa" },
       { name: "twitter:description", content: "Klinika medycyny estetycznej i laserowej w Warszawie. Naturalny efekt, dyskretna pamięć." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9694039e-10cf-47cf-b1da-44821ea89022/id-preview-85c1e743--7c40afc9-5d62-4e26-8703-fb0c05436327.lovable.app-1782055168987.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9694039e-10cf-47cf-b1da-44821ea89022/id-preview-85c1e743--7c40afc9-5d62-4e26-8703-fb0c05436327.lovable.app-1782055168987.png" },
+      // og:image / twitter:image NIE ustawiamy w __root — root head()
+      // konkatenuje się do każdego matcha, więc obraz roota nadpisałby
+      // og:image wszystkich podstron. Leafy ustawiają własny podgląd
+      // (patrz np. src/routes/index.tsx, technologie.*.tsx, lekarze.*.tsx).
     ],
     links: [
       // Główny arkusz ładowany asynchronicznie (media=print + swap), aby nie
