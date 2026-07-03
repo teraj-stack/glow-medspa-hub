@@ -11,7 +11,7 @@ interface Indication {
   slug: string;
   title: string;
   short: string;
-  icon: typeof Sparkles;
+  icon: typeof Sun;
 }
 
 const INDICATIONS: Indication[] = [
@@ -20,42 +20,6 @@ const INDICATIONS: Indication[] = [
     title: "Przebarwienia",
     short: "Plamy posłoneczne, pozapalne i barwnikowe — diagnostyka i dobór lasera.",
     icon: Sun,
-  },
-  {
-    slug: "melasma-ostuda-warszawa",
-    title: "Melasma / ostuda",
-    short: "Hormonalne przebarwienia twarzy — bezpieczna, wielomiesięczna strategia leczenia.",
-    icon: Layers,
-  },
-  {
-    slug: "blizny-potradzikowe-warszawa",
-    title: "Blizny potrądzikowe",
-    short: "Wygładzenie tekstury i wyrównanie kolorytu skóry po trądziku.",
-    icon: Eraser,
-  },
-  {
-    slug: "naczynka-rumien-warszawa",
-    title: "Naczynka i rumień",
-    short: "Zamykanie teleangiektazji i redukcja stałego zaczerwienienia.",
-    icon: Waves,
-  },
-  {
-    slug: "rozstepy-warszawa",
-    title: "Rozstępy",
-    short: "Redukcja świeżych i starych rozstępów — protokół frakcyjny.",
-    icon: Droplet,
-  },
-  {
-    slug: "tatuaz-usuwanie-warszawa",
-    title: "Usuwanie tatuażu",
-    short: "Bezpieczne, wielosesyjne usuwanie tatuażu bez blizn.",
-    icon: Sparkles,
-  },
-  {
-    slug: "wiotkosc-lifting-bez-skalpela-wwa",
-    title: "Wiotkość skóry",
-    short: "Lifting bez skalpela — napięcie tkanek i poprawa owalu twarzy.",
-    icon: ArrowUpRight,
   },
 ];
 
