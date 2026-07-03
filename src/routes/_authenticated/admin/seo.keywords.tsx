@@ -263,6 +263,7 @@ function KeywordsPanel() {
   const getFn = useServerFn(getKeywordResearchReport);
   const deleteFn = useServerFn(deleteKeywordResearchReport);
   const clustersFn = useServerFn(generateContentClusters);
+  const saveDraftsFn = useServerFn(saveClustersAsDrafts);
 
 
   const [input, setInput] = useState("");
