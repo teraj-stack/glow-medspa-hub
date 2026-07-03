@@ -126,6 +126,31 @@ function OgRescrapePanel() {
   });
 
   const rows = runs.data?.rows ?? [];
+  const activeRun = useMemo(() => rows.find((r) => r.status === "running") ?? null, [rows]);
+  const activeDetailId = activeRun?.id ?? null;
+
+  const activeDetail = useQuery({
+    queryKey: ["og-rescrape-run", activeDetailId],
+    queryFn: () => getFn({ data: { runId: activeDetailId! } }),
+    enabled: !!activeDetailId,
+    staleTime: 2_000,
+    refetchInterval: 2_000,
+  });
+
+  const CONCURRENCY = 4;
+  const queueStats = useMemo(() => {
+    if (!activeRun) return null;
+    const results = activeDetail.data?.results ?? [];
+    const pending = results.filter((r) => r.status === "pending").length;
+    const done = results.filter((r) => r.status === "done").length;
+    const errored = results.filter((r) => r.status === "error").length;
+    const inFlight = Math.min(CONCURRENCY, pending);
+    const queued = Math.max(0, pending - inFlight);
+    const total = activeRun.total || results.length;
+    const processed = done + errored;
+    const pct = total > 0 ? Math.round((processed / total) * 100) : 0;
+    return { pending, done, errored, inFlight, queued, total, processed, pct };
+  }, [activeRun, activeDetail.data]);
 
   const detailStats = useMemo(() => {
     const results = detail.data?.results ?? [];
@@ -134,6 +159,7 @@ function OgRescrapePanel() {
     const done = results.filter((r) => r.status === "done").length;
     return { pending, errored, done, total: results.length };
   }, [detail.data]);
+
 
   const runFull = () => {
     setTriggerMsg(null);
