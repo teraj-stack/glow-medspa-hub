@@ -22,6 +22,7 @@ import heroAvif from "@/assets/led-hero.avif.asset.json";
 import heroWebp from "@/assets/led-hero.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
 import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { withOgVersion } from "@/config/social-preview";
 
 const TECH_SLUG = "terapia-led";
 const PAGE_URL = "https://bmclinics.ai/technologie/terapia-led";
@@ -135,11 +136,11 @@ export const Route = createFileRoute("/technologie/terapia-led")({
         { property: "og:description", content: description },
         { property: "og:url", content: PAGE_URL },
         { property: "og:type", content: "article" },
-        { property: "og:image", content: heroAsset.url },
+        { property: "og:image", content: withOgVersion(heroAsset.url) },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
-        { name: "twitter:image", content: heroAsset.url },
+        { name: "twitter:image", content: withOgVersion(heroAsset.url) },
       ],
       links: [
         { rel: "canonical", href: PAGE_URL },

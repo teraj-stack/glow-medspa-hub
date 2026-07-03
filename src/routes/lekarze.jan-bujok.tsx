@@ -7,6 +7,7 @@ import bujokAvif from "@/assets/bujok.avif.asset.json";
 import bujokWebp from "@/assets/bujok.webp.asset.json";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { withOgVersion } from "@/config/social-preview";
 
 const CANONICAL = "https://bmclinics.ai/lekarze/jan-bujok";
 
@@ -27,10 +28,10 @@ export const Route = createFileRoute("/lekarze/jan-bujok")({
       },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: CANONICAL },
-      { property: "og:image", content: bujokAsset.url },
+      { property: "og:image", content: withOgVersion(bujokAsset.url) },
       { name: "twitter:title", content: "dr Jan Bujok — Innowator i Ekspert MedTech" },
       { name: "twitter:description", content: "Twórca MySkinCode i Bujok Medical. Autorskie protokoły medycyny estetycznej i regeneracyjnej." },
-      { name: "twitter:image", content: bujokAsset.url },
+      { name: "twitter:image", content: withOgVersion(bujokAsset.url) },
     ],
     links: [{ rel: "canonical", href: CANONICAL }],
     scripts: [

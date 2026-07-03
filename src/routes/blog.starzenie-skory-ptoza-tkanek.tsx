@@ -7,6 +7,7 @@ import konturAsset from "@/assets/mapowanie-procesu-starzenia.jpeg.asset.json";
 import wiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";
 import zdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
 import zaawAsset from "@/assets/plasma-zaawansowana.png.asset.json";
+import { withOgVersion } from "@/config/social-preview";
 
 const FAQ = [
   {
@@ -65,7 +66,7 @@ export const Route = createFileRoute("/blog/starzenie-skory-ptoza-tkanek")({
       },
       { property: "og:url", content: "https://bmclinics.ai/blog/starzenie-skory-ptoza-tkanek" },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: `https://bmclinics.ai${konturAsset.url}` },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${konturAsset.url)}` },
       { property: "article:published_time", content: "2026-06-27T10:00:00+02:00" },
       { property: "article:modified_time", content: "2026-06-27T10:00:00+02:00" },
       { property: "article:author", content: "BMClinics.ai" },
