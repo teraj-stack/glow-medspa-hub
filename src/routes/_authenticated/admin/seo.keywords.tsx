@@ -409,6 +409,9 @@ function KeywordsPanel() {
   const [serpMap, setSerpMap] = useState<Record<string, SerpResult | "loading">>({});
   const [reportFrom, setReportFrom] = useState("");
   const [reportTo, setReportTo] = useState("");
+  const [reportSearch, setReportSearch] = useState("");
+  const [reportPage, setReportPage] = useState(1);
+  const REPORTS_PAGE_SIZE = 10;
   const [comparedIds, setComparedIds] = useState<string[]>([]);
   const [comparedReports, setComparedReports] = useState<ResearchResult[]>([]);
   const [clusters, setClusters] = useState<{ reportId: string; database: string; clusters: ContentCluster[] } | null>(null);
@@ -875,15 +878,25 @@ function KeywordsPanel() {
           </div>
           <div className="flex flex-wrap items-end gap-2">
             <label className="text-xs text-muted-foreground flex flex-col">
+              Szukaj (etykieta / baza / lokalizacja)
+              <Input
+                type="search"
+                value={reportSearch}
+                onChange={(e) => { setReportSearch(e.target.value); setReportPage(1); }}
+                placeholder="np. warszawa, pl, konsultacja…"
+                className="w-64"
+              />
+            </label>
+            <label className="text-xs text-muted-foreground flex flex-col">
               Od
-              <Input type="date" value={reportFrom} onChange={(e) => setReportFrom(e.target.value)} className="w-40" />
+              <Input type="date" value={reportFrom} onChange={(e) => { setReportFrom(e.target.value); setReportPage(1); }} className="w-40" />
             </label>
             <label className="text-xs text-muted-foreground flex flex-col">
               Do
-              <Input type="date" value={reportTo} onChange={(e) => setReportTo(e.target.value)} className="w-40" />
+              <Input type="date" value={reportTo} onChange={(e) => { setReportTo(e.target.value); setReportPage(1); }} className="w-40" />
             </label>
-            {(reportFrom || reportTo) && (
-              <Button variant="ghost" onClick={() => { setReportFrom(""); setReportTo(""); }}>Wyczyść</Button>
+            {(reportFrom || reportTo || reportSearch) && (
+              <Button variant="ghost" onClick={() => { setReportFrom(""); setReportTo(""); setReportSearch(""); setReportPage(1); }}>Wyczyść</Button>
             )}
             <Button
               disabled={comparedIds.length < 2 || runCompareMut.isPending}
@@ -899,6 +912,28 @@ function KeywordsPanel() {
           </div>
         </div>
 
+        {(() => {
+          const allRows: ReportListRow[] = reports.data?.rows ?? [];
+          const q = reportSearch.trim().toLowerCase();
+          const filteredRows = q
+            ? allRows.filter((r) =>
+                [r.label, r.database, r.append_location]
+                  .filter(Boolean)
+                  .some((v) => String(v).toLowerCase().includes(q)),
+              )
+            : allRows;
+          const totalPages = Math.max(1, Math.ceil(filteredRows.length / REPORTS_PAGE_SIZE));
+          const page = Math.min(reportPage, totalPages);
+          const pageRows = filteredRows.slice((page - 1) * REPORTS_PAGE_SIZE, page * REPORTS_PAGE_SIZE);
+          return (
+        <>
+        <div className="text-xs text-muted-foreground">
+          {filteredRows.length === allRows.length
+            ? `${allRows.length} sesji`
+            : `${filteredRows.length} z ${allRows.length} sesji`}
+        </div>
+
+
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="text-left text-muted-foreground">
@@ -913,7 +948,7 @@ function KeywordsPanel() {
               </tr>
             </thead>
             <tbody>
-              {reports.data?.rows.map((r: ReportListRow) => (
+              {pageRows.map((r: ReportListRow) => (
                 <tr key={r.id} className="border-t border-border">
                   <td className="py-1 pr-3">
                     <input
@@ -1003,12 +1038,30 @@ function KeywordsPanel() {
                   </td>
                 </tr>
               ))}
-              {!reports.data?.rows.length && (
-                <tr><td colSpan={7} className="py-4 text-center text-muted-foreground">Brak zapisanych analiz w wybranym zakresie.</td></tr>
+              {!pageRows.length && (
+                <tr><td colSpan={7} className="py-4 text-center text-muted-foreground">
+                  {allRows.length ? "Brak sesji pasujących do wyszukiwania." : "Brak zapisanych analiz w wybranym zakresie."}
+                </td></tr>
               )}
             </tbody>
           </table>
         </div>
+        {filteredRows.length > REPORTS_PAGE_SIZE && (
+          <div className="flex items-center justify-between gap-2 pt-2">
+            <div className="text-xs text-muted-foreground">
+              Strona {page} z {totalPages} · pozycje {(page - 1) * REPORTS_PAGE_SIZE + 1}–{Math.min(page * REPORTS_PAGE_SIZE, filteredRows.length)}
+            </div>
+            <div className="flex gap-1">
+              <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setReportPage(1)}>«</Button>
+              <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setReportPage(page - 1)}>‹</Button>
+              <Button variant="outline" size="sm" disabled={page >= totalPages} onClick={() => setReportPage(page + 1)}>›</Button>
+              <Button variant="outline" size="sm" disabled={page >= totalPages} onClick={() => setReportPage(totalPages)}>»</Button>
+            </div>
+          </div>
+        )}
+        </>
+          );
+        })()}
       </section>
 
       {comparedReports.length >= 2 && (
