@@ -178,6 +178,84 @@ function OgRescrapePanel() {
     trigger.mutate({ paths, triggeredBy: "manual-url" });
   };
 
+  const exportResults = (format: "csv" | "json") => {
+    const run = detail.data?.run;
+    const results = detail.data?.results ?? [];
+    if (!run || results.length === 0) return;
+
+    const runStamp = new Date(run.started_at).toISOString().replace(/[:.]/g, "-");
+    const baseName = `og-rescrape-${runStamp}`;
+
+    const rows = results.map((r) => {
+      const errParts: string[] = [];
+      if (r.facebook_error) errParts.push(`FB: ${r.facebook_error}`);
+      if (r.linkedin_error) errParts.push(`LI: ${r.linkedin_error}`);
+      return {
+        url: r.url,
+        status: r.status,
+        facebook_http_status: r.facebook_status,
+        facebook_ok: r.facebook_ok,
+        facebook_skipped: r.facebook_skipped,
+        facebook_attempts: r.facebook_attempts ?? 0,
+        facebook_error: r.facebook_error,
+        linkedin_http_status: r.linkedin_status,
+        linkedin_ok: r.linkedin_ok,
+        linkedin_attempts: r.linkedin_attempts ?? 0,
+        linkedin_error: r.linkedin_error,
+        total_attempts: (r.facebook_attempts ?? 0) + (r.linkedin_attempts ?? 0),
+        error: errParts.join(" · ") || null,
+        processed_at: r.processed_at,
+      };
+    });
+
+    let blob: Blob;
+    let filename: string;
+    if (format === "json") {
+      const payload = {
+        run: {
+          id: run.id,
+          started_at: run.started_at,
+          finished_at: run.finished_at,
+          status: run.status,
+          triggered_by: run.triggered_by,
+          commit_sha: run.commit_sha,
+          total: run.total,
+          processed: run.processed,
+          duration_ms: run.duration_ms,
+        },
+        results: rows,
+      };
+      blob = new Blob([JSON.stringify(payload, null, 2)], {
+        type: "application/json;charset=utf-8",
+      });
+      filename = `${baseName}.json`;
+    } else {
+      const headers = Object.keys(rows[0]);
+      const escape = (v: unknown) => {
+        if (v === null || v === undefined) return "";
+        const s = String(v);
+        return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+      };
+      const csv = [
+        headers.join(","),
+        ...rows.map((r) => headers.map((h) => escape((r as Record<string, unknown>)[h])).join(",")),
+      ].join("\n");
+      blob = new Blob([`\uFEFF${csv}`], { type: "text/csv;charset=utf-8" });
+      filename = `${baseName}.csv`;
+    }
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+
+
   return (
     <div className="space-y-8">
       <div>
@@ -451,7 +529,7 @@ function OgRescrapePanel() {
                 </span>
               )}
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap">
               <div className="flex gap-3 text-xs text-muted-foreground">
                 <span>
                   <span className="text-amber-500 font-medium">{detailStats.pending}</span> oczekuje
@@ -463,6 +541,22 @@ function OgRescrapePanel() {
                   <span className="text-red-500 font-medium">{detailStats.errored}</span> błąd
                 </span>
               </div>
+              <button
+                onClick={() => exportResults("csv")}
+                disabled={!detail.data?.results?.length}
+                className="text-xs px-2 py-1 rounded border border-border hover:bg-muted disabled:opacity-50"
+                title="Pobierz wyniki jako CSV"
+              >
+                Eksport CSV
+              </button>
+              <button
+                onClick={() => exportResults("json")}
+                disabled={!detail.data?.results?.length}
+                className="text-xs px-2 py-1 rounded border border-border hover:bg-muted disabled:opacity-50"
+                title="Pobierz wyniki jako JSON"
+              >
+                Eksport JSON
+              </button>
               <select
                 value={filter}
                 onChange={(e) => setFilter(e.target.value as typeof filter)}
@@ -474,6 +568,7 @@ function OgRescrapePanel() {
                 <option value="errors">Tylko błędy</option>
               </select>
             </div>
+
           </div>
 
           {detail.data?.run && detail.data.run.total > 0 && (

@@ -38,9 +38,11 @@ export interface OgRescrapeResultRow {
   facebook_status: number | null;
   facebook_skipped: boolean;
   facebook_error: string | null;
+  facebook_attempts: number;
   linkedin_ok: boolean;
   linkedin_status: number | null;
   linkedin_error: string | null;
+  linkedin_attempts: number;
   status: string;
   processed_at: string | null;
 }
@@ -49,7 +51,8 @@ const RUN_COLUMNS =
   "id, started_at, finished_at, duration_ms, base_url, triggered_by, commit_sha, total, facebook_ok, linkedin_ok, facebook_skipped, error, status, processed, last_progress_at";
 
 const RESULT_COLUMNS =
-  "id, url, facebook_ok, facebook_status, facebook_skipped, facebook_error, linkedin_ok, linkedin_status, linkedin_error, status, processed_at";
+  "id, url, facebook_ok, facebook_status, facebook_skipped, facebook_error, facebook_attempts, linkedin_ok, linkedin_status, linkedin_error, linkedin_attempts, status, processed_at";
+
 
 export const listOgRescrapeRuns = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
