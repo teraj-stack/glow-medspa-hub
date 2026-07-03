@@ -103,6 +103,8 @@ function OgRescrapePanel() {
   const [filter, setFilter] = useState<"all" | "pending" | "done" | "errors">("all");
   const [pathInput, setPathInput] = useState("");
   const [triggerMsg, setTriggerMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+  const [failedScope, setFailedScope] = useState<"last-run" | "recent">("last-run");
+
 
   const trigger = useMutation({
     mutationFn: (vars: { paths?: string[]; triggeredBy?: string }) =>
