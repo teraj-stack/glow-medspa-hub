@@ -10,6 +10,7 @@ import bujokWebp from "@/assets/bujok.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
 import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,8 +24,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Medycyna estetyczna Warszawa — BMClinics.ai" },
       { property: "og:description", content: "Klinika medycyny estetycznej i laserowej w Warszawie (Wilanów, klinika ginekologii). Dyskretne, autorskie protokoły i naturalny efekt." },
       { property: "og:url", content: "https://bmclinics.ai/" },
-      { property: "og:image", content: withOgVersion(bujokAsset.url) },
-      { name: "twitter:image", content: withOgVersion(bujokAsset.url) },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
       { name: "geo.region", content: "PL-MZ" },
       { name: "geo.placename", content: "Warszawa" },
       { name: "geo.position", content: "52.16850;21.09000" },

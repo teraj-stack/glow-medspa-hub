@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { ArrowLeft } from "lucide-react";
+import ogCard from "@/assets/og/blog-jak-przygotowac-skore-do-diagnostyki.jpg";
+import { withOgVersion } from "@/config/social-preview";
 
 const FAQ = [
   {

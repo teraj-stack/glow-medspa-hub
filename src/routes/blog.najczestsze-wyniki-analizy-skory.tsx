@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { ArrowLeft } from "lucide-react";
+import ogCard from "@/assets/og/blog-najczestsze-wyniki-analizy-skory.jpg";
+import { withOgVersion } from "@/config/social-preview";
 
 const FAQ = [
   {

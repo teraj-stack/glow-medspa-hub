@@ -10,6 +10,8 @@ import {
   ShieldCheck,
   AlertCircle,
 } from "lucide-react";
+import ogCard from "@/assets/og/blog-blizny-potradzikowe.jpg";
+import { withOgVersion } from "@/config/social-preview";
 
 const FAQ = [
   {

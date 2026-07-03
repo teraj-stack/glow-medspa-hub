@@ -10,6 +10,8 @@ import {
   AlertCircle,
   CheckCircle2,
 } from "lucide-react";
+import ogCard from "@/assets/og/blog-slonce-skora-nowoczesne-technologie.jpg";
+import { withOgVersion } from "@/config/social-preview";
 
 const SLUG = "slonce-skora-nowoczesne-technologie";
 const URL = `https://bmclinics.ai/blog/${SLUG}`;

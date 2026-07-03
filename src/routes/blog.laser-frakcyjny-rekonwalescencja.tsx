@@ -11,6 +11,8 @@ import {
   Sparkles,
   Sun,
 } from "lucide-react";
+import ogCard from "@/assets/og/blog-laser-frakcyjny-rekonwalescencja.jpg";
+import { withOgVersion } from "@/config/social-preview";
 
 const FAQ = [
   {

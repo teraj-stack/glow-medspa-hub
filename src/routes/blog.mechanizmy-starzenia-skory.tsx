@@ -7,6 +7,7 @@ import zdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
 import wiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";
 import fazyAsset from "@/assets/przyczyny-starzenia-trzy-problemy.jpeg.asset.json";
 import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/blog-mechanizmy-starzenia-skory.jpg";
 
 export const Route = createFileRoute("/blog/mechanizmy-starzenia-skory")({
   head: () => ({
@@ -30,7 +31,8 @@ export const Route = createFileRoute("/blog/mechanizmy-starzenia-skory")({
       },
       { property: "og:url", content: "https://bmclinics.ai/blog/mechanizmy-starzenia-skory" },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${zdrowaAsset.url}`) },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard},
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) }`)}`) },
       { property: "article:published_time", content: "2026-06-27T10:05:00+02:00" },
       { property: "article:section", content: "Edukacja pacjenta" },
       { property: "og:locale", content: "pl_PL" },
