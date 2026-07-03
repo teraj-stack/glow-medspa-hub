@@ -1081,6 +1081,12 @@ function KeywordsPanel() {
                                   <div>
                                     <label className="text-[10px] uppercase text-muted-foreground">Slug</label>
                                     <Input value={a.slug} onChange={(e) => updateSupport(idx, i, { slug: e.target.value.replace(/^\/+/, "") })} className="font-mono text-xs" />
+                                    <SlugValidation
+                                      slug={a.slug}
+                                      status={slugStatus(a.slug)}
+                                      suggestions={suggestSlugVariants(a.slug, takenSlugsForSuggest, { intent: c.intent, location: result?.appendLocation ?? "" })}
+                                      onApply={(v) => updateSupport(idx, i, { slug: v })}
+                                    />
                                   </div>
                                   <div>
                                     <label className="text-[10px] uppercase text-muted-foreground">Fraza główna</label>
