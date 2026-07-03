@@ -103,7 +103,7 @@ export function buildSitemapEntries(): SitemapEntry[] {
 
   // Dedup po path (na wypadek duplikatu w STATIC_ENTRIES)
   const seen = new Set<string>();
-  const all = [...STATIC_ENTRIES, ...technologyEntries, ...blogEntries].filter((e) => {
+  const all = [...STATIC_ENTRIES, ...technologyEntries, ...blogEntries, ...wskazaniaEntries].filter((e) => {
     if (seen.has(e.path)) return false;
     seen.add(e.path);
     return true;
