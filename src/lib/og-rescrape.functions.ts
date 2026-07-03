@@ -92,3 +92,68 @@ export const getOgRescrapeRun = createServerFn({ method: "GET" })
       results: (resQ.data ?? []) as OgRescrapeResultRow[],
     };
   });
+
+// Ręczne uruchomienie rescrape z panelu — dla całej sitemap albo tylko wybranych URL-i/ścieżek.
+export const startOgRescrape = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input?: { paths?: string[]; triggeredBy?: string }) => {
+    const paths = Array.isArray(input?.paths)
+      ? input!.paths
+          .map((p) => (typeof p === "string" ? p.trim() : ""))
+          .filter((p) => p.length > 0)
+          .slice(0, 200)
+      : undefined;
+    return { paths, triggeredBy: input?.triggeredBy };
+  })
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context.userId);
+    const { rescrapeAllOg } = await import("@/lib/og-rescrape-core");
+    const { SITEMAP_BASE_URL, assertAllowedBaseUrl } = await import("@/lib/sitemap-entries");
+
+    // Znormalizuj: przyjmuj pełne URL-e (wtedy wyciągamy pathname) i sprawdzaj host allowlist.
+    let normalizedPaths: string[] | undefined;
+    if (data.paths && data.paths.length > 0) {
+      normalizedPaths = data.paths.map((p) => {
+        if (/^https?:\/\//i.test(p)) {
+          const allowed = assertAllowedBaseUrl(p);
+          if (!allowed) throw new Error(`Nieautoryzowany host w URL: ${p}`);
+          try {
+            const u = new URL(p);
+            return u.pathname + u.search;
+          } catch {
+            throw new Error(`Nieprawidłowy URL: ${p}`);
+          }
+        }
+        return p.startsWith("/") ? p : `/${p}`;
+      });
+    }
+
+    const summary = await rescrapeAllOg({
+      baseUrl: SITEMAP_BASE_URL,
+      paths: normalizedPaths,
+      triggeredBy: data.triggeredBy || (normalizedPaths ? "manual-url" : "manual-full"),
+      persist: true,
+    });
+    return {
+      runId: summary.runId,
+      total: summary.total,
+      facebookOk: summary.facebookOk,
+      linkedinOk: summary.linkedinOk,
+      facebookSkipped: summary.facebookSkipped,
+      durationMs: summary.durationMs,
+    };
+  });
+
+// Zwraca listę ścieżek z sitemap — do podpowiedzi w panelu.
+export const listSitemapPaths = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator(() => ({}))
+  .handler(async ({ context }) => {
+    await assertAdmin(context.userId);
+    const { buildSitemapEntries, SITEMAP_BASE_URL } = await import("@/lib/sitemap-entries");
+    return {
+      baseUrl: SITEMAP_BASE_URL,
+      paths: buildSitemapEntries().map((e) => e.path),
+    };
+  });
+
