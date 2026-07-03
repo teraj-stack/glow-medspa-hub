@@ -878,15 +878,25 @@ function KeywordsPanel() {
           </div>
           <div className="flex flex-wrap items-end gap-2">
             <label className="text-xs text-muted-foreground flex flex-col">
+              Szukaj (etykieta / baza / lokalizacja)
+              <Input
+                type="search"
+                value={reportSearch}
+                onChange={(e) => { setReportSearch(e.target.value); setReportPage(1); }}
+                placeholder="np. warszawa, pl, konsultacja…"
+                className="w-64"
+              />
+            </label>
+            <label className="text-xs text-muted-foreground flex flex-col">
               Od
-              <Input type="date" value={reportFrom} onChange={(e) => setReportFrom(e.target.value)} className="w-40" />
+              <Input type="date" value={reportFrom} onChange={(e) => { setReportFrom(e.target.value); setReportPage(1); }} className="w-40" />
             </label>
             <label className="text-xs text-muted-foreground flex flex-col">
               Do
-              <Input type="date" value={reportTo} onChange={(e) => setReportTo(e.target.value)} className="w-40" />
+              <Input type="date" value={reportTo} onChange={(e) => { setReportTo(e.target.value); setReportPage(1); }} className="w-40" />
             </label>
-            {(reportFrom || reportTo) && (
-              <Button variant="ghost" onClick={() => { setReportFrom(""); setReportTo(""); }}>Wyczyść</Button>
+            {(reportFrom || reportTo || reportSearch) && (
+              <Button variant="ghost" onClick={() => { setReportFrom(""); setReportTo(""); setReportSearch(""); setReportPage(1); }}>Wyczyść</Button>
             )}
             <Button
               disabled={comparedIds.length < 2 || runCompareMut.isPending}
@@ -901,6 +911,28 @@ function KeywordsPanel() {
             )}
           </div>
         </div>
+
+        {(() => {
+          const allRows: ReportListRow[] = reports.data?.rows ?? [];
+          const q = reportSearch.trim().toLowerCase();
+          const filteredRows = q
+            ? allRows.filter((r) =>
+                [r.label, r.database, r.append_location]
+                  .filter(Boolean)
+                  .some((v) => String(v).toLowerCase().includes(q)),
+              )
+            : allRows;
+          const totalPages = Math.max(1, Math.ceil(filteredRows.length / REPORTS_PAGE_SIZE));
+          const page = Math.min(reportPage, totalPages);
+          const pageRows = filteredRows.slice((page - 1) * REPORTS_PAGE_SIZE, page * REPORTS_PAGE_SIZE);
+          return (
+        <>
+        <div className="text-xs text-muted-foreground">
+          {filteredRows.length === allRows.length
+            ? `${allRows.length} sesji`
+            : `${filteredRows.length} z ${allRows.length} sesji`}
+        </div>
+
 
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
