@@ -8,6 +8,8 @@ import {
   listKeywordResearchReports,
   getKeywordResearchReport,
   deleteKeywordResearchReport,
+  generateContentClusters,
+  type ContentCluster,
 } from "@/lib/keyword-research.functions";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -128,6 +130,40 @@ function downloadComparisonCsv(reports: ResearchResult[], rows: { phrase: string
   triggerDownload(toCsv(header, csvRows), `keyword-comparison-${stamp}.csv`);
 }
 
+function downloadClustersCsv(clusters: ContentCluster[]) {
+  const header = ["klaster", "intent", "usluga", "typ", "tytul", "slug", "fraza_glowna", "frazy_wspierajace", "wolumen", "kd", "angle"];
+  const rows: (string | number | null)[][] = [];
+  for (const c of clusters) {
+    rows.push([c.cluster, c.intent, c.targetService, "PILLAR", c.pillarTitle, c.pillarSlug, "", "", "", "", ""]);
+    for (const a of c.supportingArticles) {
+      rows.push([c.cluster, c.intent, c.targetService, "SUPPORT", a.title, a.slug, a.primaryKeyword, a.supportingKeywords.join("; "), a.estimatedVolume ?? "", a.estimatedKd ?? "", a.angle]);
+    }
+  }
+  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+  triggerDownload(toCsv(header, rows), `content-clusters-${stamp}.csv`);
+}
+
+function clustersToMarkdown(clusters: ContentCluster[]): string {
+  return clusters.map((c) => {
+    const support = c.supportingArticles.map((a) =>
+      `- **${a.title}** \`/${a.slug}\`\n  - fraza główna: \`${a.primaryKeyword}\`${a.estimatedVolume ? ` · vol ${a.estimatedVolume}` : ""}${a.estimatedKd != null ? ` · KD ${a.estimatedKd}` : ""}\n  - wspierające: ${a.supportingKeywords.map((k) => `\`${k}\``).join(", ")}\n  - angle: ${a.angle}`,
+    ).join("\n");
+    return `## ${c.cluster} · ${c.intent}\n**Usługa docelowa:** ${c.targetService}\n\n### Pillar\n- **${c.pillarTitle}** \`/${c.pillarSlug}\`\n\n### Artykuły wspierające\n${support}\n\n**Linkowanie wewnętrzne:** ${c.internalLinking}\n**CTA:** ${c.cta}\n`;
+  }).join("\n---\n\n");
+}
+
+function downloadClustersMarkdown(clusters: ContentCluster[]) {
+  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+  const md = "# Klastry contentowe — propozycje\n\n" + clustersToMarkdown(clusters);
+  const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `content-clusters-${stamp}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 function KeywordsPanel() {
   const qc = useQueryClient();
   const researchFn = useServerFn(researchKeywords);
@@ -135,6 +171,8 @@ function KeywordsPanel() {
   const listFn = useServerFn(listKeywordResearchReports);
   const getFn = useServerFn(getKeywordResearchReport);
   const deleteFn = useServerFn(deleteKeywordResearchReport);
+  const clustersFn = useServerFn(generateContentClusters);
+
 
   const [input, setInput] = useState("");
   const [database, setDatabase] = useState("pl");
@@ -147,6 +185,7 @@ function KeywordsPanel() {
   const [reportTo, setReportTo] = useState("");
   const [comparedIds, setComparedIds] = useState<string[]>([]);
   const [comparedReports, setComparedReports] = useState<ResearchResult[]>([]);
+  const [clusters, setClusters] = useState<{ reportId: string; database: string; clusters: ContentCluster[] } | null>(null);
 
   const appendLocation =
     appendMode === "siedlce" ? "siedlce" :
@@ -206,6 +245,17 @@ function KeywordsPanel() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["keyword-research-reports"] });
       toast.success("Raport usunięty.");
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const clustersMut = useMutation({
+    mutationFn: async (reportId: string) =>
+      clustersFn({ data: { reportId } }) as Promise<{ reportId: string; database: string; clusters: ContentCluster[] }>,
+    onSuccess: (r) => {
+      setClusters(r);
+      toast.success(`Wygenerowano ${r.clusters.length} klastrów.`);
+      if (typeof window !== "undefined") setTimeout(() => document.getElementById("clusters-section")?.scrollIntoView({ behavior: "smooth" }), 100);
     },
     onError: (e: Error) => toast.error(e.message),
   });
@@ -332,6 +382,15 @@ function KeywordsPanel() {
           </Button>
           {result && (<Button variant="outline" onClick={() => downloadCsv(result)}>Eksport CSV (pełny)</Button>)}
           {result && (<Button variant="outline" onClick={() => downloadRecommendationsCsv(result)}>Eksport rekomendacji CSV</Button>)}
+          {result?.id && (
+            <Button
+              variant="default"
+              disabled={clustersMut.isPending}
+              onClick={() => clustersMut.mutate(result.id!)}
+            >
+              {clustersMut.isPending ? "Generuję klastry…" : "✨ Wygeneruj klastry artykułów"}
+            </Button>
+          )}
         </div>
       </section>
 
@@ -562,6 +621,73 @@ function KeywordsPanel() {
                 ))}
               </tbody>
             </table>
+          </div>
+        </section>
+      )}
+
+      {clusters && clusters.clusters.length > 0 && (
+        <section id="clusters-section" className="rounded-lg border border-border p-4 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 className="font-medium">Propozycje klastrów artykułów ({clusters.clusters.length})</h3>
+              <p className="text-xs text-muted-foreground">Wygenerowane przez AI na bazie fraz z raportu. Każdy klaster = pillar + wspierające, gotowe do publikacji.</p>
+            </div>
+            <div className="flex gap-2">
+              <Button variant="outline" size="sm" onClick={() => downloadClustersCsv(clusters.clusters)}>Eksport klastrów CSV</Button>
+              <Button variant="outline" size="sm" onClick={() => downloadClustersMarkdown(clusters.clusters)}>Eksport Markdown</Button>
+              <Button variant="ghost" size="sm" onClick={() => setClusters(null)}>Zamknij</Button>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            {clusters.clusters.map((c, idx) => (
+              <div key={idx} className="rounded-md border border-border/70 p-4 space-y-3 bg-muted/20">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <div>
+                    <h4 className="font-semibold">{c.cluster}</h4>
+                    <div className="text-xs text-muted-foreground">
+                      Usługa: <strong>{c.targetService}</strong> · intent: <code className="font-mono">{c.intent}</code>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded bg-background border border-border/50 p-3">
+                  <div className="text-xs uppercase text-muted-foreground mb-1">Pillar</div>
+                  <div className="font-medium">{c.pillarTitle}</div>
+                  <code className="text-xs text-muted-foreground font-mono">/{c.pillarSlug}</code>
+                </div>
+
+                <div>
+                  <div className="text-xs uppercase text-muted-foreground mb-2">Artykuły wspierające</div>
+                  <ul className="space-y-2">
+                    {c.supportingArticles.map((a, i) => (
+                      <li key={i} className="text-sm border-l-2 border-border pl-3">
+                        <div className="font-medium">{a.title}</div>
+                        <code className="text-xs text-muted-foreground font-mono">/{a.slug}</code>
+                        <div className="text-xs text-muted-foreground mt-1">
+                          <span className="font-mono">{a.primaryKeyword}</span>
+                          {a.estimatedVolume != null && <span> · vol {fmt(a.estimatedVolume)}</span>}
+                          {a.estimatedKd != null && <span className={kdTone(a.estimatedKd)}> · KD {fmt(a.estimatedKd)}</span>}
+                        </div>
+                        {a.supportingKeywords.length > 0 && (
+                          <div className="text-xs mt-1 flex flex-wrap gap-1">
+                            {a.supportingKeywords.map((k, j) => (
+                              <span key={j} className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px]">{k}</span>
+                            ))}
+                          </div>
+                        )}
+                        <div className="text-xs text-muted-foreground mt-1 italic">{a.angle}</div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="text-xs grid gap-2 sm:grid-cols-2">
+                  <div><span className="text-muted-foreground">Linkowanie: </span>{c.internalLinking}</div>
+                  <div><span className="text-muted-foreground">CTA: </span>{c.cta}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
       )}
