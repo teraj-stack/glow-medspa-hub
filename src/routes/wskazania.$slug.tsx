@@ -24,6 +24,7 @@ const CONTENT: Record<string, IndicationContent> = {
   "przebarwienia-warszawa": {
     slug: "przebarwienia-warszawa",
     title: "Przebarwienia",
+    short: "Plamy posłoneczne, pozapalne i barwnikowe — diagnostyka i dobór lasera.",
     h1: "Usuwanie przebarwień w Warszawie",
     metaTitle: "Usuwanie przebarwień Warszawa — diagnostyka i leczenie | BMClinics",
     metaDesc:
