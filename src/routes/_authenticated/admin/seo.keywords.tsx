@@ -974,8 +974,9 @@ function KeywordsPanel() {
             <div className="flex gap-2">
               <Button
                 size="sm"
-                disabled={saveDraftsMut.isPending}
+                disabled={saveDraftsMut.isPending || slugConflictCount > 0}
                 onClick={() => saveDraftsMut.mutate({ reportId: clusters.reportId, clusters: clusters.clusters })}
+                title={slugConflictCount > 0 ? `Rozwiąż ${slugConflictCount} konflikt(y) slugów przed zapisem` : ""}
               >
                 {saveDraftsMut.isPending ? "Zapisuję…" : "💾 Zapisz do publikacji"}
               </Button>
@@ -984,6 +985,15 @@ function KeywordsPanel() {
               <Button variant="ghost" size="sm" onClick={() => setClusters(null)}>Zamknij</Button>
             </div>
           </div>
+          {slugConflictCount > 0 && (
+            <div className="rounded border border-destructive/50 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+              ⚠ Wykryto {slugConflictCount} konflikt(y) slugów — użyj propozycji przy każdym oznaczonym polu lub edytuj ręcznie. Zapis do publikacji jest zablokowany do czasu ich rozwiązania.
+            </div>
+          )}
+          {existingSlugsQuery.isLoading && (
+            <div className="text-xs text-muted-foreground">Sprawdzam zajęte slugi…</div>
+          )}
+
 
           {(() => {
             const updateCluster = (idx: number, patch: Partial<ContentCluster>) => {
