@@ -1,11 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
-import { Sparkles, Droplet, Waves, Layers, Sun, Eraser, ArrowUpRight } from "lucide-react";
+import { Sun } from "lucide-react";
 
 const CANONICAL = "https://bmclinics.ai/wskazania";
 const TITLE = "Wskazania — jakie problemy skóry leczymy w Warszawie | BMClinics";
 const DESCRIPTION =
-  "Przebarwienia, melasma, blizny potrądzikowe, naczynka, wiotkość, rozstępy — dobór terapii lekarskiej do konkretnego wskazania. Konsultacje w Warszawie (Bielany, Klinika Promedion).";
+  "Diagnostyka i leczenie przebarwień skóry — dobór terapii lekarskiej do konkretnego wskazania. Konsultacje w Warszawie, ul. Branickiego 10 (klinika ginekologii). Kolejne wskazania w przygotowaniu.";
 
 interface Indication {
   slug: string;
