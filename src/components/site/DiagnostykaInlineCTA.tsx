@@ -16,7 +16,7 @@ export function DiagnostykaInlineCTA({ variant = "blog", className = "" }: Props
       ? {
           eyebrow: "Zacznij od diagnostyki",
           title: "Kwalifikacja do zabiegu zaczyna się od badania skóry",
-          text: "Zanim wybierzesz technologię, warto zobaczyć, co dzieje się w Twojej skórze. Analiza skóry twarzy w Warszawie (Klinika Promedion) trwa 45–60 minut i kończy się spersonalizowanym planem — bezpiecznym i wolnym od zgadywania.",
+          text: "Zanim wybierzesz technologię, warto zobaczyć, co dzieje się w Twojej skórze. Analiza skóry twarzy w Warszawie (Klinika Ginekologii) trwa 45–60 minut i kończy się spersonalizowanym planem — bezpiecznym i wolnym od zgadywania.",
         }
       : {
           eyebrow: "Powiązane",

@@ -360,7 +360,7 @@ function KeywordsPanel() {
           {appendMode === "custom" && (
             <label className="text-sm flex flex-col gap-1">
               <span className="text-muted-foreground">Własna lokalizacja</span>
-              <Input value={customLoc} onChange={(e) => setCustomLoc(e.target.value)} placeholder="np. bielany" />
+              <Input value={customLoc} onChange={(e) => setCustomLoc(e.target.value)} placeholder="np. wilanów" />
             </label>
           )}
 

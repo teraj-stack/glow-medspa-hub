@@ -186,7 +186,7 @@ export const WelcomeEmail = ({
         </Section>
 
         <Text style={footer}>
-          BMClinics.ai · Warszawa (Bielany)
+          BMClinics.ai · Warszawa (Wilanów)
           <br />
           <Link href={siteUrl} style={{ ...linkStyle, fontSize: '12px' }}>
             bmclinics.ai

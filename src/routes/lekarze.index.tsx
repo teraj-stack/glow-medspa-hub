@@ -22,17 +22,17 @@ export const Route = createFileRoute("/lekarze/")({
   gcTime: 60 * 60_000,
   head: () => ({
     meta: [
-      { title: "Lekarze medycyny estetycznej — Warszawa Bielany | BMClinics.ai" },
+      { title: "Lekarze medycyny estetycznej — Warszawa Wilanów | BMClinics.ai" },
       {
         name: "description",
         content:
-          "Zespół BMClinics.ai — lekarze medycyny estetycznej przyjmujący w Warszawie (Klinika Promedion, Bielany). 10 lat doświadczenia w premium klinikach stolicy.",
+          "Zespół BMClinics.ai — lekarze medycyny estetycznej przyjmujący w Warszawie (Klinika Ginekologii, Wilanów). 10 lat doświadczenia w premium klinikach stolicy.",
       },
-      { property: "og:title", content: "Lekarze medycyny estetycznej — Warszawa Bielany" },
+      { property: "og:title", content: "Lekarze medycyny estetycznej — Warszawa Wilanów" },
       {
         property: "og:description",
         content:
-          "Poznaj zespół przyjmujący w Klinice Promedion na warszawskich Bielanach — kompetencje, specjalizacje, doświadczenie.",
+          "Poznaj zespół przyjmujący w Klinice Ginekologii na warszawskich Bielanach — kompetencje, specjalizacje, doświadczenie.",
       },
       { property: "og:url", content: "https://bmclinics.ai/lekarze" },
       { property: "og:type", content: "website" },
@@ -234,14 +234,14 @@ function LekarzePage() {
       <section className="container-luxury py-16 md:py-24">
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            Medycyna estetyczna · Warszawa Bielany
+            Medycyna estetyczna · Warszawa Wilanów
           </p>
           <h1 className="mt-4 font-serif text-4xl tracking-tight text-foreground md:text-5xl">
             Lekarze medycyny estetycznej w Warszawie
           </h1>
           <p className="mt-5 text-balance text-base leading-relaxed text-muted-foreground md:text-lg">
             Dziesięć lat doświadczenia w premium klinikach warszawskich. Konsultacje
-            prowadzimy w <strong>Klinice Promedion</strong> przy ul. Wójcickiego 4 na Bielanach.
+            prowadzimy w <strong>Klinice Ginekologii</strong> przy ul. Branickiego 10 na Bielanach.
             Każda terapia projektowana indywidualnie, z naciskiem na bezpieczeństwo i przewidywalny efekt.
           </p>
           <p className="mt-4 text-sm text-muted-foreground">
