@@ -1038,12 +1038,30 @@ function KeywordsPanel() {
                   </td>
                 </tr>
               ))}
-              {!reports.data?.rows.length && (
-                <tr><td colSpan={7} className="py-4 text-center text-muted-foreground">Brak zapisanych analiz w wybranym zakresie.</td></tr>
+              {!pageRows.length && (
+                <tr><td colSpan={7} className="py-4 text-center text-muted-foreground">
+                  {allRows.length ? "Brak sesji pasujących do wyszukiwania." : "Brak zapisanych analiz w wybranym zakresie."}
+                </td></tr>
               )}
             </tbody>
           </table>
         </div>
+        {filteredRows.length > REPORTS_PAGE_SIZE && (
+          <div className="flex items-center justify-between gap-2 pt-2">
+            <div className="text-xs text-muted-foreground">
+              Strona {page} z {totalPages} · pozycje {(page - 1) * REPORTS_PAGE_SIZE + 1}–{Math.min(page * REPORTS_PAGE_SIZE, filteredRows.length)}
+            </div>
+            <div className="flex gap-1">
+              <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setReportPage(1)}>«</Button>
+              <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setReportPage(page - 1)}>‹</Button>
+              <Button variant="outline" size="sm" disabled={page >= totalPages} onClick={() => setReportPage(page + 1)}>›</Button>
+              <Button variant="outline" size="sm" disabled={page >= totalPages} onClick={() => setReportPage(totalPages)}>»</Button>
+            </div>
+          </div>
+        )}
+        </>
+          );
+        })()}
       </section>
 
       {comparedReports.length >= 2 && (
