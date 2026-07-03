@@ -12,21 +12,21 @@ import { HeroPicture } from "@/components/site/HeroPicture";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Medycyna estetyczna Warszawa — BMClinics.ai (Bielany, Promedion)" },
+      { title: "Medycyna estetyczna Warszawa — BMClinics.ai (Wilanów, klinika ginekologii)" },
       {
         name: "description",
         content:
-          "Medycyna estetyczna w Warszawie na Bielanach — konsultacje w Klinice Promedion, ul. Wójcickiego 4. Autorskie protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
+          "Medycyna estetyczna w Warszawie na Bielanach — konsultacje w Klinice Ginekologii, ul. Branickiego 10. Autorskie protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
       },
       { property: "og:title", content: "Medycyna estetyczna Warszawa — BMClinics.ai" },
-      { property: "og:description", content: "Klinika medycyny estetycznej i laserowej w Warszawie (Bielany, Promedion). Dyskretne, autorskie protokoły i naturalny efekt." },
+      { property: "og:description", content: "Klinika medycyny estetycznej i laserowej w Warszawie (Wilanów, klinika ginekologii). Dyskretne, autorskie protokoły i naturalny efekt." },
       { property: "og:url", content: "https://bmclinics.ai/" },
       { property: "og:image", content: bujokAsset.url },
       { name: "twitter:image", content: bujokAsset.url },
       { name: "geo.region", content: "PL-MZ" },
       { name: "geo.placename", content: "Warszawa" },
-      { name: "geo.position", content: "52.2860;20.9370" },
-      { name: "ICBM", content: "52.2860, 20.9370" },
+      { name: "geo.position", content: "52.16850;21.09000" },
+      { name: "ICBM", content: "52.16850, 21.09000" },
     ],
     links: [
       { rel: "canonical", href: "https://bmclinics.ai/" },
@@ -61,16 +61,16 @@ export const Route = createFileRoute("/")({
           ],
           address: {
             "@type": "PostalAddress",
-            streetAddress: "ul. Wójcickiego 4 (Klinika Promedion)",
+            streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)",
             addressLocality: "Warszawa",
             addressRegion: "mazowieckie",
-            postalCode: "01-938",
+            postalCode: "02-972",
             addressCountry: "PL",
           },
           geo: {
             "@type": "GeoCoordinates",
-            latitude: 52.286,
-            longitude: 20.937,
+            latitude: 52.1685,
+            longitude: 21.0900,
           },
           openingHoursSpecification: [
             {
@@ -111,7 +111,7 @@ function Hero() {
     <section className="relative overflow-hidden bg-alabaster">
       <div className="container-luxury grid items-center gap-12 py-20 md:grid-cols-2 md:py-32">
         <div className="rise-in">
-          <div className="text-xs uppercase tracking-[0.3em] text-champagne">Medycyna estetyczna · Warszawa · Bielany</div>
+          <div className="text-xs uppercase tracking-[0.3em] text-champagne">Medycyna estetyczna · Warszawa · Wilanów</div>
           <h1 className="mt-6 font-serif text-ink">
             Piękno nie potrzebuje hałasu. Potrzebuje{" "}
             <span className="bg-gradient-to-r from-champagne-light via-gold to-champagne bg-clip-text text-transparent">
@@ -196,12 +196,12 @@ function LocalWarsawSection() {
   return (
     <section id="medycyna-estetyczna-warszawa" className="container-luxury py-20 md:py-28">
       <div className="mx-auto max-w-4xl">
-        <div className="text-xs uppercase tracking-[0.3em] text-champagne">Lokalizacja · Warszawa Bielany</div>
+        <div className="text-xs uppercase tracking-[0.3em] text-champagne">Lokalizacja · Warszawa Wilanów</div>
         <h2 className="mt-4 font-serif text-ink">
           Medycyna estetyczna w Warszawie — konsultacje na Bielanach
         </h2>
         <p className="mt-6 text-foreground/85">
-          Przyjmuję w <strong>Klinice Promedion</strong> przy ul. Wójcickiego 4 w Warszawie (Bielany).
+          Przyjmuję w <strong>Klinice Ginekologii</strong> przy ul. Branickiego 10 w Warszawie (Wilanów).
           Dziesięć lat doświadczenia w premium klinikach stolicy przekładam na autorskie
           protokoły oparte na diagnostyce skóry i sprawdzonych technologiach laserowych.
         </p>
@@ -257,7 +257,7 @@ function LocalWarsawSection() {
         <div className="mt-12 rounded-lg border border-border bg-card p-6 md:p-8">
           <h3 className="font-serif text-lg text-ink">Adres i dojazd</h3>
           <p className="mt-3 text-sm text-foreground/85">
-            Klinika Promedion, ul. Wójcickiego 4, 01-938 Warszawa (Bielany).
+            Klinika Ginekologii, ul. Branickiego 10, 02-972 Warszawa (Wilanów).
             Dogodny dojazd z Żoliborza, Bemowa, Młocin i całej Warszawy;
             parking na terenie kliniki.
           </p>
@@ -349,7 +349,7 @@ function BookingSection() {
           <dl className="mt-8 space-y-4 text-sm">
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Adres</dt>
-              <dd className="mt-1 text-foreground">Klinika Promedion, ul. Wójcickiego 4, Warszawa (Bielany)</dd>
+              <dd className="mt-1 text-foreground">Klinika Ginekologii, ul. Branickiego 10, Warszawa (Wilanów)</dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Godziny</dt>

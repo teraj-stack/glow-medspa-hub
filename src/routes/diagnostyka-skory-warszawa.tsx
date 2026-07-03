@@ -5,14 +5,14 @@ import { ScanFace, Microscope, ClipboardList, Sparkles, MapPin, Clock, CheckCirc
 const CANONICAL = "https://bmclinics.ai/diagnostyka-skory-warszawa";
 const TITLE = "Diagnostyka skóry Warszawa — analiza skóry twarzy i badanie skóry | BMClinics";
 const DESCRIPTION =
-  "Profesjonalna diagnostyka skóry w Warszawie (Klinika Promedion, ul. Wójcickiego 4): analiza skóry twarzy i badanie skóry z obrazowaniem wielospektralnym, konsultacja lekarska i spersonalizowany plan leczenia.";
+  "Profesjonalna diagnostyka skóry w Warszawie (Klinika Ginekologii, ul. Branickiego 10): analiza skóry twarzy i badanie skóry z obrazowaniem wielospektralnym, konsultacja lekarska i spersonalizowany plan leczenia.";
 
 export const Route = createFileRoute("/diagnostyka-skory-warszawa")({
   head: () => ({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
-      { name: "keywords", content: "diagnostyka skóry Warszawa, analiza skóry twarzy, badanie skóry, analiza skóry Warszawa, dermatoskopia Warszawa, Bielany, Promedion" },
+      { name: "keywords", content: "diagnostyka skóry Warszawa, analiza skóry twarzy, badanie skóry, analiza skóry Warszawa, dermatoskopia Warszawa, Wilanów, klinika ginekologii" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/diagnostyka-skory-warszawa")({
           "@context": "https://schema.org",
           "@type": ["MedicalClinic", "LocalBusiness"],
           "@id": CANONICAL + "#business",
-          name: "BMClinics — Diagnostyka skóry Warszawa (Klinika Promedion)",
+          name: "BMClinics — Diagnostyka skóry Warszawa (Klinika Ginekologii)",
           url: CANONICAL,
           image: "https://bmclinics.ai/og-image.jpg",
           telephone: "+48 570 570 100",
@@ -36,16 +36,16 @@ export const Route = createFileRoute("/diagnostyka-skory-warszawa")({
           areaServed: { "@type": "City", name: "Warszawa" },
           address: {
             "@type": "PostalAddress",
-            streetAddress: "ul. Wójcickiego 4 (Klinika Promedion)",
+            streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)",
             addressLocality: "Warszawa",
-            postalCode: "01-938",
+            postalCode: "02-972",
             addressRegion: "mazowieckie",
             addressCountry: "PL",
           },
           geo: {
             "@type": "GeoCoordinates",
             latitude: 52.2932,
-            longitude: 20.9376,
+            longitude: 21.09006,
           },
           openingHoursSpecification: [
             {
@@ -104,7 +104,7 @@ export const Route = createFileRoute("/diagnostyka-skory-warszawa")({
               name: "Gdzie odbywa się diagnostyka w Warszawie?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Konsultacje i diagnostykę prowadzimy w Klinice Promedion przy ul. Wójcickiego 4 na warszawskich Bielanach. Dogodny dojazd komunikacją miejską i parking dla pacjentów na miejscu.",
+                text: "Konsultacje i diagnostykę prowadzimy w Klinice Ginekologii przy ul. Branickiego 10 na warszawskich Bielanach. Dogodny dojazd komunikacją miejską i parking dla pacjentów na miejscu.",
               },
             },
             {
@@ -130,7 +130,7 @@ function DiagnostykaSkoryPage() {
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-16 md:pt-24">
         <div className="flex flex-col items-start gap-4">
           <span className="inline-flex items-center gap-2 rounded-full border border-champagne/40 bg-champagne/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-champagne">
-            <MapPin className="size-3.5" aria-hidden /> Warszawa · Bielany
+            <MapPin className="size-3.5" aria-hidden /> Warszawa · Wilanów
           </span>
           <h1 className="max-w-3xl font-serif text-4xl leading-tight text-ink md:text-5xl">
             Diagnostyka skóry w Warszawie — analiza skóry twarzy i badanie skóry
@@ -138,7 +138,7 @@ function DiagnostykaSkoryPage() {
           <p className="max-w-2xl text-base text-muted-foreground md:text-lg">
             Zaczynamy od zrozumienia. Precyzyjne badanie skóry i analiza skóry twarzy pozwalają nam
             zaproponować leczenie, które faktycznie działa — bez zgadywania i bez zbędnych zabiegów.
-            Konsultacje w Klinice Promedion przy ul. Wójcickiego 4.
+            Konsultacje w Klinice Ginekologii przy ul. Branickiego 10.
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
             <Link
@@ -308,7 +308,7 @@ function DiagnostykaSkoryPage() {
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground md:text-base">
             45–60 minut spokojnej rozmowy i badania, po którym wiesz dokładnie, co i w jakiej kolejności robić.
-            Terminy w Warszawie (Klinika Promedion, ul. Wójcickiego 4) zwykle w ciągu tygodnia.
+            Terminy w Warszawie (Klinika Ginekologii, ul. Branickiego 10) zwykle w ciągu tygodnia.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link

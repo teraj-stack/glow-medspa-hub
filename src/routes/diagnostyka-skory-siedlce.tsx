@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 // Trwałe przekierowanie 301 — konsultacje odbywają się w Warszawie
-// (Klinika Promedion, ul. Wójcickiego 4). Zachowujemy stary URL wyłącznie
+// (Klinika Ginekologii, ul. Branickiego 10). Zachowujemy stary URL wyłącznie
 // po to, by nie tracić linków zewnętrznych i wyników wyszukiwarek.
 export const Route = createFileRoute("/diagnostyka-skory-siedlce")({
   beforeLoad: () => {

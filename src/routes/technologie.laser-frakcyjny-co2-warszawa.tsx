@@ -6,7 +6,7 @@ import { CheckCircle2, AlertTriangle, Clock, Sparkles } from "lucide-react";
 const CANONICAL = "https://bmclinics.ai/technologie/laser-frakcyjny-co2-warszawa";
 const TITLE = "Laser frakcyjny CO₂ Warszawa — protokół, wskazania, cena | BMClinics";
 const DESCRIPTION =
-  "Laser frakcyjny CO₂ w Warszawie (Bielany, Klinika Promedion). Wskazania, przebieg zabiegu, rekonwalescencja dzień po dniu, bezpieczeństwo i cennik. Konsultacja lekarska.";
+  "Laser frakcyjny CO₂ w Warszawie (Wilanów, Klinika Ginekologii). Wskazania, przebieg zabiegu, rekonwalescencja dzień po dniu, bezpieczeństwo i cennik. Konsultacja lekarska.";
 
 const FAQ = [
   {
@@ -39,7 +39,7 @@ export const Route = createFileRoute("/technologie/laser-frakcyjny-co2-warszawa"
       {
         name: "keywords",
         content:
-          "laser frakcyjny Warszawa, laser co2 Warszawa, laser frakcyjny co2 Warszawa, blizny potrądzikowe Warszawa, rozstępy Warszawa, Bielany, Promedion",
+          "laser frakcyjny Warszawa, laser co2 Warszawa, laser frakcyjny co2 Warszawa, blizny potrądzikowe Warszawa, rozstępy Warszawa, Wilanów, klinika ginekologii",
       },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
@@ -73,17 +73,17 @@ export const Route = createFileRoute("/technologie/laser-frakcyjny-co2-warszawa"
           "@context": "https://schema.org",
           "@type": "MedicalClinic",
           "@id": CANONICAL + "#clinic",
-          name: "BMClinics — Klinika Promedion",
+          name: "BMClinics — Klinika Ginekologii",
           url: "https://bmclinics.ai",
           address: {
             "@type": "PostalAddress",
-            streetAddress: "ul. Wójcickiego 4",
+            streetAddress: "ul. Branickiego 10",
             addressLocality: "Warszawa",
-            postalCode: "01-938",
+            postalCode: "02-972",
             addressRegion: "mazowieckie",
             addressCountry: "PL",
           },
-          geo: { "@type": "GeoCoordinates", latitude: 52.2932, longitude: 20.9376 },
+          geo: { "@type": "GeoCoordinates", latitude: 52.2932, longitude: 21.09006 },
           areaServed: { "@type": "City", name: "Warszawa" },
         }),
       },
@@ -126,7 +126,7 @@ function LaserCO2Page() {
           <Link to="/technologie" className="hover:text-ink">Technologie</Link> · Laser frakcyjny CO₂
         </nav>
         <span className="mt-4 inline-flex items-center gap-2 rounded-full border border-champagne/40 bg-champagne/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-champagne">
-          Warszawa · Bielany
+          Warszawa · Wilanów
         </span>
         <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink md:text-5xl">
           Laser frakcyjny CO₂ w Warszawie
@@ -134,7 +134,7 @@ function LaserCO2Page() {
         <p className="mt-4 max-w-2xl text-base text-muted-foreground md:text-lg">
           Ablacyjna technologia frakcyjna 10 600 nm — złoty standard w leczeniu blizn potrądzikowych,
           głębokich zmarszczek i rozstępów. Kwalifikacja lekarska, protokół dopasowany do fototypu,
-          konsultacja w Klinice Promedion przy ul. Wójcickiego 4.
+          konsultacja w Klinice Ginekologii przy ul. Branickiego 10.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link to="/konsultacja" className="inline-flex h-11 items-center justify-center rounded-md bg-ink px-6 text-sm tracking-wide text-alabaster hover:bg-ink/90">
@@ -247,7 +247,7 @@ function LaserCO2Page() {
             "Kwalifikacja lekarska z analizą skóry twarzy przed każdą pierwszą sesją.",
             "Profilaktyka przeciwwirusowa u pacjentów z nawracającą opryszczką.",
             "Dobór parametrów wg fototypu Fitzpatricka — zminimalizowane ryzyko przebarwień pozapalnych.",
-            "Zabieg w gabinecie zabiegowym z pełnym zapleczem medycznym Kliniki Promedion.",
+            "Zabieg w gabinecie zabiegowym z pełnym zapleczem medycznym Kliniki klinika ginekologii.",
             "Kontrola po 14 dniach i po 8 tygodniach — dokumentacja fotograficzna postępu.",
           ].map((s) => (
             <li key={s} className="flex items-start gap-3 rounded-md border border-border bg-card p-4 text-sm">
