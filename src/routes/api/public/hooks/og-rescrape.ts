@@ -1,9 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-// Hook: wymusza re-scrape kart OG/Twitter u crawlerów sociali dla wszystkich
-// publikowanych podstron (na podstawie sitemap).
-// Wywoływany po deployu z GitHub Actions oraz z cron/panelu administratora.
-// Autoryzacja: apikey = SUPABASE_PUBLISHABLE_KEY (spójna z pozostałymi hookami).
+// Hook: wymusza re-scrape kart OG/Twitter dla wszystkich publikowanych podstron.
+// Wywoływany po deployu z GitHub Actions oraz z panelu administratora.
+// Autoryzacja: apikey = SUPABASE_PUBLISHABLE_KEY (spójne z innymi hookami).
 export const Route = createFileRoute("/api/public/hooks/og-rescrape")({
   server: {
     handlers: {
@@ -14,14 +13,25 @@ export const Route = createFileRoute("/api/public/hooks/og-rescrape")({
           return new Response("Unauthorized", { status: 401 });
         }
         try {
-          let body: { baseUrl?: string; paths?: string[] } = {};
+          let body: {
+            baseUrl?: string;
+            paths?: string[];
+            triggeredBy?: string;
+            commitSha?: string;
+          } = {};
           try {
             body = (await request.json()) as typeof body;
           } catch {
             /* body opcjonalny */
           }
           const { rescrapeAllOg } = await import("@/lib/og-rescrape-core");
-          const summary = await rescrapeAllOg(body);
+          const summary = await rescrapeAllOg({
+            baseUrl: body.baseUrl,
+            paths: body.paths,
+            triggeredBy: body.triggeredBy ?? "post-deploy",
+            commitSha: body.commitSha,
+            persist: true,
+          });
           return Response.json(summary);
         } catch (e: unknown) {
           const msg = e instanceof Error ? e.message : String(e);

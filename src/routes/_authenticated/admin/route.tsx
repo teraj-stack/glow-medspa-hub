@@ -27,6 +27,7 @@ function AdminLayout() {
     { to: "/admin/seo/raporty", label: "Raporty SEO" },
     { to: "/admin/seo/indeksacja", label: "Indeksacja" },
     { to: "/admin/seo/keywords", label: "Keywords" },
+    { to: "/admin/seo/og-rescrape", label: "OG re-scrape" },
     { to: "/admin/web-vitals", label: "Web Vitals" },
     { to: "/admin/uzytkownicy", label: "Użytkownicy" },
     { to: "/admin/audyt", label: "Audyt" },

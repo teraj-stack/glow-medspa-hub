@@ -84,6 +84,7 @@ import { Route as ApiPublicHooksOgRescrapeRouteImport } from './routes/api/publi
 import { Route as ApiPublicHooksCalendarSyncRetryRouteImport } from './routes/api/public/hooks/calendar-sync-retry'
 import { Route as ApiPublicBookingsCancelRouteImport } from './routes/api/public/bookings/cancel'
 import { Route as AuthenticatedAdminSeoRaportyRouteImport } from './routes/_authenticated/admin/seo.raporty'
+import { Route as AuthenticatedAdminSeoOgRescrapeRouteImport } from './routes/_authenticated/admin/seo.og-rescrape'
 import { Route as AuthenticatedAdminSeoKeywordsRouteImport } from './routes/_authenticated/admin/seo.keywords'
 import { Route as AuthenticatedAdminSeoIndeksacjaRouteImport } from './routes/_authenticated/admin/seo.indeksacja'
 
@@ -493,6 +494,12 @@ const AuthenticatedAdminSeoRaportyRoute =
     path: '/raporty',
     getParentRoute: () => AuthenticatedAdminSeoRoute,
   } as any)
+const AuthenticatedAdminSeoOgRescrapeRoute =
+  AuthenticatedAdminSeoOgRescrapeRouteImport.update({
+    id: '/og-rescrape',
+    path: '/og-rescrape',
+    getParentRoute: () => AuthenticatedAdminSeoRoute,
+  } as any)
 const AuthenticatedAdminSeoKeywordsRoute =
   AuthenticatedAdminSeoKeywordsRouteImport.update({
     id: '/keywords',
@@ -569,6 +576,7 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
   '/admin/seo/keywords': typeof AuthenticatedAdminSeoKeywordsRoute
+  '/admin/seo/og-rescrape': typeof AuthenticatedAdminSeoOgRescrapeRoute
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -645,6 +653,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
   '/admin/seo/keywords': typeof AuthenticatedAdminSeoKeywordsRoute
+  '/admin/seo/og-rescrape': typeof AuthenticatedAdminSeoOgRescrapeRoute
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -725,6 +734,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
   '/_authenticated/admin/seo/keywords': typeof AuthenticatedAdminSeoKeywordsRoute
+  '/_authenticated/admin/seo/og-rescrape': typeof AuthenticatedAdminSeoOgRescrapeRoute
   '/_authenticated/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -805,6 +815,7 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/admin/seo/indeksacja'
     | '/admin/seo/keywords'
+    | '/admin/seo/og-rescrape'
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
@@ -881,6 +892,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/admin/seo/indeksacja'
     | '/admin/seo/keywords'
+    | '/admin/seo/og-rescrape'
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
@@ -960,6 +972,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/'
     | '/_authenticated/admin/seo/indeksacja'
     | '/_authenticated/admin/seo/keywords'
+    | '/_authenticated/admin/seo/og-rescrape'
     | '/_authenticated/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
@@ -1564,6 +1577,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSeoRaportyRouteImport
       parentRoute: typeof AuthenticatedAdminSeoRoute
     }
+    '/_authenticated/admin/seo/og-rescrape': {
+      id: '/_authenticated/admin/seo/og-rescrape'
+      path: '/og-rescrape'
+      fullPath: '/admin/seo/og-rescrape'
+      preLoaderRoute: typeof AuthenticatedAdminSeoOgRescrapeRouteImport
+      parentRoute: typeof AuthenticatedAdminSeoRoute
+    }
     '/_authenticated/admin/seo/keywords': {
       id: '/_authenticated/admin/seo/keywords'
       path: '/keywords'
@@ -1584,12 +1604,14 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedAdminSeoRouteChildren {
   AuthenticatedAdminSeoIndeksacjaRoute: typeof AuthenticatedAdminSeoIndeksacjaRoute
   AuthenticatedAdminSeoKeywordsRoute: typeof AuthenticatedAdminSeoKeywordsRoute
+  AuthenticatedAdminSeoOgRescrapeRoute: typeof AuthenticatedAdminSeoOgRescrapeRoute
   AuthenticatedAdminSeoRaportyRoute: typeof AuthenticatedAdminSeoRaportyRoute
 }
 
 const AuthenticatedAdminSeoRouteChildren: AuthenticatedAdminSeoRouteChildren = {
   AuthenticatedAdminSeoIndeksacjaRoute: AuthenticatedAdminSeoIndeksacjaRoute,
   AuthenticatedAdminSeoKeywordsRoute: AuthenticatedAdminSeoKeywordsRoute,
+  AuthenticatedAdminSeoOgRescrapeRoute: AuthenticatedAdminSeoOgRescrapeRoute,
   AuthenticatedAdminSeoRaportyRoute: AuthenticatedAdminSeoRaportyRoute,
 }
 
