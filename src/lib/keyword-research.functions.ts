@@ -128,3 +128,147 @@ export const deleteKeywordResearchReport = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
+
+export type ContentCluster = {
+  cluster: string;
+  intent: "informacyjny" | "komercyjny" | "lokalny" | "porównawczy";
+  pillarTitle: string;
+  pillarSlug: string;
+  targetService: string;
+  supportingArticles: {
+    title: string;
+    slug: string;
+    primaryKeyword: string;
+    supportingKeywords: string[];
+    angle: string;
+    estimatedVolume: number | null;
+    estimatedKd: number | null;
+  }[];
+  internalLinking: string;
+  cta: string;
+};
+
+const CLINIC_SERVICES = [
+  "diagnostyka skóry (analiza kamerowa)",
+  "laser pikosekundowy (przebarwienia, melasma, blizny)",
+  "laser tulowy 1927 nm (melasma, przebarwienia powierzchowne)",
+  "laser frakcyjny CO2 (rewitalizacja, blizny potrądzikowe)",
+  "mezoterapia igłowa i bezigłowa",
+  "biostymulatory kolagenu",
+  "lifting bez skalpela (HIFU / RF mikroigłowe)",
+  "toksyna botulinowa i wolumetria kwasem hialuronowym",
+  "planowanie leczenia AI (MySkinCode)",
+];
+
+export const generateContentClusters = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator(z.object({ reportId: z.string().uuid() }))
+  .handler(async ({ data, context }) => {
+    await requireAdminOrManager(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row, error } = await supabaseAdmin
+      .from("seo_keyword_research_reports")
+      .select("id, database, append_location, label, rows")
+      .eq("id", data.reportId)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!row) throw new Error("Raport nie znaleziony");
+
+    const metrics = (row.rows ?? []) as unknown as KeywordMetric[];
+    const compact = metrics
+      .map((m) => ({
+        phrase: m.phrase,
+        volume: m.volume,
+        kd: m.difficulty,
+        cpc: m.cpc,
+      }))
+      .sort((a, b) => (b.volume ?? 0) - (a.volume ?? 0))
+      .slice(0, 80);
+
+    const apiKey = process.env.LOVABLE_API_KEY;
+    if (!apiKey) throw new Error("Brak LOVABLE_API_KEY");
+
+    const system = `Jesteś strategiem SEO dla warszawskiej kliniki medycyny estetycznej. Grupujesz frazy w klastry contentowe (pillar + wspierające). Reguły:
+- NIE używaj nazw handlowych urządzeń (np. PicoKing, PicoSure, Fraxel). Używaj tylko ogólnych nazw technologii (laser pikosekundowy, laser tulowy 1927 nm, laser frakcyjny CO2).
+- Klinika: BMClinics, Warszawa, ul. Branickiego 10 (klinika ginekologii). NIE wspominaj Siedlec, chyba że fraza wprost tego dotyczy.
+- Tytuły artykułów: konkretne, do 60 znaków, bez clickbaitu, po polsku.
+- Preferuj klastry pod realne usługi kliniki (podane niżej).
+- Grupuj frazy synonimiczne i pochodne w JEDEN artykuł zamiast osobnych.
+- Pomiń frazy o wolumenie <20/mies., chyba że dobrze pasują do klastra jako uzupełnienie.
+- Zwróć TYLKO JSON zgodny ze schematem.`;
+
+    const user = `Usługi kliniki:\n${CLINIC_SERVICES.map((s) => `- ${s}`).join("\n")}\n\nBaza Semrush: ${row.database}${row.append_location ? ` (+ ${row.append_location})` : ""}\nRaport: ${row.label ?? row.id}\n\nFrazy (top ${compact.length} po wolumenie):\n${JSON.stringify(compact, null, 2)}\n\nZbuduj 3–6 klastrów tematycznych. Każdy klaster: 1 pillar + 3–6 artykułów wspierających.`;
+
+    const schema = {
+      name: "content_clusters",
+      description: "Klastry tematyczne artykułów blogowych.",
+      parameters: {
+        type: "object",
+        properties: {
+          clusters: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                cluster: { type: "string" },
+                intent: { type: "string", enum: ["informacyjny", "komercyjny", "lokalny", "porównawczy"] },
+                pillarTitle: { type: "string" },
+                pillarSlug: { type: "string" },
+                targetService: { type: "string" },
+                supportingArticles: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      title: { type: "string" },
+                      slug: { type: "string" },
+                      primaryKeyword: { type: "string" },
+                      supportingKeywords: { type: "array", items: { type: "string" } },
+                      angle: { type: "string" },
+                      estimatedVolume: { type: ["number", "null"] },
+                      estimatedKd: { type: ["number", "null"] },
+                    },
+                    required: ["title", "slug", "primaryKeyword", "supportingKeywords", "angle"],
+                  },
+                },
+                internalLinking: { type: "string" },
+                cta: { type: "string" },
+              },
+              required: ["cluster", "intent", "pillarTitle", "pillarSlug", "targetService", "supportingArticles", "internalLinking", "cta"],
+            },
+          },
+        },
+        required: ["clusters"],
+      },
+    };
+
+    const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "google/gemini-2.5-pro",
+        messages: [
+          { role: "system", content: system },
+          { role: "user", content: user },
+        ],
+        tools: [{ type: "function", function: schema }],
+        tool_choice: { type: "function", function: { name: "content_clusters" } },
+      }),
+    });
+
+    if (!res.ok) {
+      const body = await res.text();
+      if (res.status === 429) throw new Error("Limit AI wyczerpany — spróbuj za chwilę.");
+      if (res.status === 402) throw new Error("Skończyły się credity AI w workspace.");
+      throw new Error(`AI Gateway ${res.status}: ${body.slice(0, 200)}`);
+    }
+
+    const json = await res.json();
+    const call = json.choices?.[0]?.message?.tool_calls?.[0];
+    if (!call) throw new Error("AI nie zwróciło poprawnej odpowiedzi (brak tool_call).");
+    const parsed = JSON.parse(call.function.arguments) as { clusters: ContentCluster[] };
+    return { reportId: row.id, database: row.database, clusters: parsed.clusters ?? [] };
+  });
