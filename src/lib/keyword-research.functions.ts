@@ -289,7 +289,16 @@ export const generateContentClusters = createServerFn({ method: "POST" })
     const call = json.choices?.[0]?.message?.tool_calls?.[0];
     if (!call) throw new Error("AI nie zwróciło poprawnej odpowiedzi (brak tool_call).");
     const parsed = JSON.parse(call.function.arguments) as { clusters: ContentCluster[] };
-    return { reportId: row.id, database: row.database, clusters: parsed.clusters ?? [] };
+    const clusters = parsed.clusters ?? [];
+    // Persist klastry przy sesji — dzięki temu każdy raport ma własny
+    // eksport CSV/MD dostępny również po odświeżeniu strony.
+    const generatedAt = new Date().toISOString();
+    await supabaseAdmin
+      .from("seo_keyword_research_reports")
+      .update({ clusters: clusters as unknown as any, clusters_generated_at: generatedAt })
+      .eq("id", row.id);
+    return { reportId: row.id, database: row.database, clusters, generatedAt };
+
   });
 
 const ClusterArticleSchema = z.object({
