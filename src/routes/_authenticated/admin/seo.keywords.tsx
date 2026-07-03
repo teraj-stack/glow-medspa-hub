@@ -160,24 +160,29 @@ function downloadComparisonCsv(reports: ResearchResult[], rows: { phrase: string
 }
 
 function downloadClustersCsv(clusters: ContentCluster[]) {
-  const header = ["klaster", "intent", "usluga", "typ", "tytul", "slug", "fraza_glowna", "frazy_wspierajace", "wolumen", "kd", "angle"];
+  const header = ["klaster", "intent", "usluga", "typ", "tytul", "slug", "fraza_glowna", "frazy_wspierajace", "wolumen", "kd", "angle", "meta_title", "meta_description", "outline"];
   const rows: (string | number | null)[][] = [];
   for (const c of clusters) {
-    rows.push([c.cluster, c.intent, c.targetService, "PILLAR", c.pillarTitle, c.pillarSlug, "", "", "", "", ""]);
+    rows.push([c.cluster, c.intent, c.targetService, "PILLAR", c.pillarTitle, c.pillarSlug, "", "", "", "", "", c.pillarMetaTitle ?? "", c.pillarMetaDescription ?? "", (c.pillarOutline ?? []).join(" | ")]);
     for (const a of c.supportingArticles) {
-      rows.push([c.cluster, c.intent, c.targetService, "SUPPORT", a.title, a.slug, a.primaryKeyword, a.supportingKeywords.join("; "), a.estimatedVolume ?? "", a.estimatedKd ?? "", a.angle]);
+      rows.push([c.cluster, c.intent, c.targetService, "SUPPORT", a.title, a.slug, a.primaryKeyword, a.supportingKeywords.join("; "), a.estimatedVolume ?? "", a.estimatedKd ?? "", a.angle, a.metaTitle ?? "", a.metaDescription ?? "", (a.outline ?? []).join(" | ")]);
     }
   }
   const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
   triggerDownload(toCsv(header, rows), `content-clusters-${stamp}.csv`);
 }
 
+function outlineToMd(outline: string[] | undefined): string {
+  if (!outline || outline.length === 0) return "_(brak)_";
+  return outline.map((l) => `  ${l}`).join("\n");
+}
+
 function clustersToMarkdown(clusters: ContentCluster[]): string {
   return clusters.map((c) => {
     const support = c.supportingArticles.map((a) =>
-      `- **${a.title}** \`/${a.slug}\`\n  - fraza główna: \`${a.primaryKeyword}\`${a.estimatedVolume ? ` · vol ${a.estimatedVolume}` : ""}${a.estimatedKd != null ? ` · KD ${a.estimatedKd}` : ""}\n  - wspierające: ${a.supportingKeywords.map((k) => `\`${k}\``).join(", ")}\n  - angle: ${a.angle}`,
-    ).join("\n");
-    return `## ${c.cluster} · ${c.intent}\n**Usługa docelowa:** ${c.targetService}\n\n### Pillar\n- **${c.pillarTitle}** \`/${c.pillarSlug}\`\n\n### Artykuły wspierające\n${support}\n\n**Linkowanie wewnętrzne:** ${c.internalLinking}\n**CTA:** ${c.cta}\n`;
+      `#### ${a.title} \`/${a.slug}\`\n- fraza główna: \`${a.primaryKeyword}\`${a.estimatedVolume ? ` · vol ${a.estimatedVolume}` : ""}${a.estimatedKd != null ? ` · KD ${a.estimatedKd}` : ""}\n- wspierające: ${a.supportingKeywords.map((k) => `\`${k}\``).join(", ")}\n- angle: ${a.angle}\n- **meta title:** ${a.metaTitle ?? ""}\n- **meta description:** ${a.metaDescription ?? ""}\n- **outline:**\n${outlineToMd(a.outline)}`,
+    ).join("\n\n");
+    return `## ${c.cluster} · ${c.intent}\n**Usługa docelowa:** ${c.targetService}\n\n### Pillar: ${c.pillarTitle} \`/${c.pillarSlug}\`\n- **meta title:** ${c.pillarMetaTitle ?? ""}\n- **meta description:** ${c.pillarMetaDescription ?? ""}\n- **outline:**\n${outlineToMd(c.pillarOutline)}\n\n### Artykuły wspierające\n${support}\n\n**Linkowanie wewnętrzne:** ${c.internalLinking}\n**CTA:** ${c.cta}\n`;
   }).join("\n---\n\n");
 }
 
