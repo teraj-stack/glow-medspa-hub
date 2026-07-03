@@ -314,3 +314,118 @@ function IndicationPage() {
     </main>
   );
 }
+
+function humanizeSlug(slug: string) {
+  const cleaned = slug
+    .replace(/-warszawa$/i, "")
+    .replace(/-/g, " ")
+    .trim();
+  return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+}
+
+function ComingSoonIndication() {
+  const { slug } = Route.useParams();
+  const title = humanizeSlug(slug);
+
+  return (
+    <main className="bg-background">
+      <section className="mx-auto max-w-4xl px-4 pb-10 pt-16 md:pt-24">
+        <nav aria-label="Ścieżka" className="text-xs uppercase tracking-[0.25em] text-muted-foreground">
+          <Link to="/" className="hover:text-ink">Start</Link> ·{" "}
+          <Link to="/wskazania" className="hover:text-ink">Wskazania</Link> · {title}
+        </nav>
+        <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-champagne/50 bg-champagne/5 px-3 py-1 text-xs uppercase tracking-[0.25em] text-champagne">
+          <Clock className="size-3.5" aria-hidden /> Wkrótce
+        </div>
+        <h1 className="mt-4 font-serif text-4xl leading-tight text-ink md:text-5xl">
+          {title} — strona w przygotowaniu
+        </h1>
+        <p className="mt-4 max-w-2xl text-base text-muted-foreground md:text-lg">
+          Pracujemy nad pełnym opisem tego wskazania. W międzyczasie możesz umówić konsultację — plan
+          leczenia projektujemy indywidualnie po diagnostyce skóry, a rekomendacje przekażemy podczas wizyty
+          w naszej klinice w Warszawie na ul. Branickiego 10 (klinika ginekologii).
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link
+            to="/konsultacja"
+            className="inline-flex h-11 items-center justify-center rounded-md bg-ink px-6 text-sm tracking-wide text-alabaster hover:bg-ink/90"
+          >
+            <CalendarCheck className="mr-2 size-4" aria-hidden />
+            Umów konsultację
+          </Link>
+          <Link
+            to="/diagnostyka-skory-warszawa"
+            className="inline-flex h-11 items-center justify-center rounded-md border border-border px-6 text-sm text-ink hover:bg-secondary"
+          >
+            Zacznij od diagnostyki
+          </Link>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-4xl px-4 py-12">
+        <SectionHeading eyebrow="Przygotowanie" title="Jak przygotować się do konsultacji" />
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {[
+            {
+              icon: ShieldCheck,
+              h: "Unikaj słońca i solarium",
+              p: "Przez min. 4 tygodnie przed wizytą — świeża opalenizna wyklucza część zabiegów laserowych.",
+            },
+            {
+              icon: Sparkles,
+              h: "Odstaw retinol i mocne kwasy",
+              p: "Na 5–7 dni przed konsultacją, aby ocena skóry była wiarygodna.",
+            },
+            {
+              icon: CheckCircle2,
+              h: "Przygotuj historię skóry",
+              p: "Wcześniejsze zabiegi, przyjmowane leki (szczególnie izotretynoina), alergie i przewlekłe choroby.",
+            },
+            {
+              icon: AlertTriangle,
+              h: "Zdjęcia „przed”",
+              p: "Zrób 2–3 zdjęcia problematycznych obszarów w naturalnym świetle — pomagają zaplanować terapię.",
+            },
+          ].map((item) => (
+            <div key={item.h} className="flex gap-4 rounded-lg border border-border bg-card p-5 shadow-soft">
+              <item.icon className="mt-1 size-5 shrink-0 text-champagne" aria-hidden />
+              <div>
+                <h3 className="font-serif text-lg text-ink">{item.h}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{item.p}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-4xl px-4 py-12">
+        <div className="rounded-lg border border-border bg-secondary/40 p-6 text-sm text-muted-foreground">
+          Szukasz konkretnego wskazania? Zajrzyj do{" "}
+          <Link to="/wskazania" className="text-champagne hover:underline">
+            listy wszystkich wskazań
+          </Link>{" "}
+          lub napisz do nas — dopiszemy Twój temat do priorytetów redakcyjnych.
+        </div>
+      </section>
+
+      <LocalWarsawSection procedureLabel="konsultację lekarską" />
+
+      <section className="mx-auto max-w-4xl px-4 py-16 text-center">
+        <div className="rounded-lg border border-champagne/40 bg-card p-8 shadow-soft md:p-12">
+          <div className="text-xs uppercase tracking-[0.3em] text-champagne">Zarezerwuj termin</div>
+          <h2 className="mt-3 font-serif text-2xl text-ink md:text-3xl">
+            Nie czekaj na pełny opis — porozmawiajmy o Twoim przypadku
+          </h2>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link to="/konsultacja" className="inline-flex h-11 items-center justify-center rounded-md bg-ink px-6 text-sm text-alabaster hover:bg-ink/90">
+              Umów konsultację
+            </Link>
+            <Link to="/lekarze" className="inline-flex h-11 items-center justify-center rounded-md border border-border px-6 text-sm text-ink hover:bg-secondary">
+              Poznaj zespół
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
