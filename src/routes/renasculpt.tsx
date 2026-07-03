@@ -16,6 +16,8 @@ import {
   HeartPulse,
 } from "lucide-react";
 import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 const TECH_SLUG = "renasculpt";
 const PAGE_URL = "https://bmclinics.ai/renasculpt";
@@ -87,6 +89,11 @@ export const Route = createFileRoute("/renasculpt")({
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
+        { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+        { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
       ],
       links: [{ rel: "canonical", href: PAGE_URL }],
       scripts: [

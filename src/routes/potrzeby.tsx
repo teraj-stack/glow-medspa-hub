@@ -6,6 +6,8 @@ import teksturaAsset from "@/assets/tekstura-hd-clean.png.asset.json";
 import dlonieAsset from "@/assets/dlonie-cialo.avif.asset.json";
 import okoAsset from "@/assets/okolica-oka.avif.asset.json";
 import komfortAsset from "@/assets/komfort-szkic.png.asset.json";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 export const Route = createFileRoute("/potrzeby")({
   head: () => ({
@@ -19,6 +21,11 @@ export const Route = createFileRoute("/potrzeby")({
       { property: "og:title", content: "Potrzeby — BMClinics.ai" },
       { property: "og:description", content: "Na czym się skupiamy — pięć obszarów naszej praktyki." },
       { property: "og:url", content: "https://bmclinics.ai/potrzeby" },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
     ],
     links: [{ rel: "canonical", href: "https://bmclinics.ai/potrzeby" }],
     scripts: [

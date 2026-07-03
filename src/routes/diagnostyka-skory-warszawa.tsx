@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ScanFace, Microscope, ClipboardList, Sparkles, MapPin, Clock, CheckCircle2, Waves, Layers, LineChart, Grid3x3 } from "lucide-react";
-import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { CLINIC_ADDRESS, CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 const CANONICAL = "https://bmclinics.ai/diagnostyka-skory-warszawa";
 const TITLE = "Diagnostyka skóry Warszawa — analiza skóry twarzy i badanie skóry | BMClinics";
@@ -18,6 +20,11 @@ export const Route = createFileRoute("/diagnostyka-skory-warszawa")({
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
       { property: "og:url", content: CANONICAL },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
       { name: "geo.region", content: "PL-MZ" },
       { name: "geo.placename", content: "Warszawa" },
     ],
@@ -40,8 +47,8 @@ export const Route = createFileRoute("/diagnostyka-skory-warszawa")({
           },
           geo: {
             "@type": "GeoCoordinates",
-            latitude: 52.2932,
-            longitude: 21.09006,
+            latitude: CLINIC_ADDRESS.latitude,
+            longitude: CLINIC_ADDRESS.longitude,
           },
           openingHoursSpecification: [
             {

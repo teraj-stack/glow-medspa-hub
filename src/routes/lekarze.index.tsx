@@ -2,6 +2,8 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { listActiveDoctors } from "@/lib/doctors.functions";
 import { cfImage, cfImageSrcSet } from "@/lib/cf-image";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 const doctorsQuery = queryOptions({
   queryKey: ["public-doctors"],
@@ -36,6 +38,11 @@ export const Route = createFileRoute("/lekarze/")({
       },
       { property: "og:url", content: "https://bmclinics.ai/lekarze" },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
     ],
     links: [{ rel: "canonical", href: "https://bmclinics.ai/lekarze" }],
   }),
