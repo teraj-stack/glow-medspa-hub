@@ -1130,9 +1130,19 @@ function KeywordsPanel() {
               <h3 className="font-medium">Porównanie ({comparedReports.length} raportów)</h3>
               <p className="text-xs text-muted-foreground">Frazy, które występują tylko w części raportów, mają „—" w brakujących kolumnach.</p>
             </div>
-            <Button variant="outline" size="sm" onClick={() => downloadComparisonCsv(comparedReports, comparisonRows)}>
-              Eksport porównania CSV
-            </Button>
+            <div className="flex flex-wrap gap-2">
+              <Button variant="outline" size="sm" onClick={() => downloadComparisonCsv(comparedReports, comparisonRows)}>
+                Eksport porównania CSV
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                title="CSV z różnicami względem pierwszej wybranej sesji: nowe / usunięte frazy oraz zmiany wolumenu i KD."
+                onClick={() => downloadComparisonDiffCsv(comparedReports, comparisonRows)}
+              >
+                Eksport różnic CSV
+              </Button>
+            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
