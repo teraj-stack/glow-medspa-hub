@@ -20,7 +20,11 @@
         "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
         "cumulative-layout-shift": ["error", { "maxNumericValue": 0.1 }],
         "first-contentful-paint": ["warn", { "maxNumericValue": 1800 }],
-        "total-blocking-time": ["warn", { "maxNumericValue": 300 }]
+        "total-blocking-time": ["warn", { "maxNumericValue": 300 }],
+        "modern-image-formats": ["error", { "maxNumericValue": 20480 }],
+        "uses-optimized-images": ["error", { "maxNumericValue": 20480 }],
+        "uses-responsive-images": ["error", { "maxNumericValue": 30720 }],
+        "efficient-animated-content": ["warn", { "maxNumericValue": 20480 }]
       }
     },
     "upload": {

@@ -185,6 +185,76 @@ jobs:
             core.setOutput('passed', allPassed ? 'true' : 'false');
             await core.summary.addRaw(body).write();
 
+      - name: Enforce image delivery budget
+        if: always()
+        uses: actions/github-script@v7
+        env:
+          PROFILE: ${{ matrix.profile }}
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const profile = process.env.PROFILE;
+            const dir = `.lighthouseci/${profile}`;
+            const manifestPath = path.join(dir, 'manifest.json');
+            if (!fs.existsSync(manifestPath)) {
+              core.warning(`Manifest missing at ${manifestPath}, skipping image budget.`);
+              return;
+            }
+            const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+            const runs = manifest.filter(m => m.isRepresentativeRun);
+            const target = (runs.length ? runs : manifest);
+
+            // Total wastedBytes budget across all image-delivery audits, per profile.
+            // Mobile is stricter because slow networks amplify the cost.
+            const totalBudget = profile === 'mobile' ? 51200 : 81920; // 50 KiB / 80 KiB
+            const audits = [
+              'modern-image-formats',
+              'uses-optimized-images',
+              'uses-responsive-images',
+              'efficient-animated-content',
+            ];
+
+            const rows = [];
+            let overallOk = true;
+            for (const run of target) {
+              const report = JSON.parse(fs.readFileSync(run.jsonPath, 'utf8'));
+              const pathname = (() => { try { return new URL(run.url).pathname; } catch { return run.url; } })();
+              let total = 0;
+              const perAudit = {};
+              for (const id of audits) {
+                const a = report.audits?.[id];
+                const w = a?.details?.overallSavingsBytes ?? a?.numericValue ?? 0;
+                perAudit[id] = Math.round(w);
+                total += w;
+              }
+              const ok = total <= totalBudget;
+              if (!ok) overallOk = false;
+              rows.push({ pathname, total: Math.round(total), perAudit, ok });
+            }
+
+            const fmtKb = (n) => `${(n / 1024).toFixed(1)} KiB`;
+            const icon = (ok) => ok ? '✅' : '❌';
+            const header = [
+              `### ${icon(overallOk)} Image delivery — ${profile === 'mobile' ? '📱 Mobile' : '💻 Desktop'}`,
+              ``,
+              `Budżet sumaryczny \`wastedBytes\` per URL: **${fmtKb(totalBudget)}**.`,
+              ``,
+              `| URL | modern-formats | optimized | responsive | animated | Σ wasted | Status |`,
+              `| --- | ---: | ---: | ---: | ---: | ---: | :---: |`,
+            ];
+            for (const r of rows) {
+              header.push(`| \`${r.pathname}\` | ${fmtKb(r.perAudit['modern-image-formats'])} | ${fmtKb(r.perAudit['uses-optimized-images'])} | ${fmtKb(r.perAudit['uses-responsive-images'])} | ${fmtKb(r.perAudit['efficient-animated-content'])} | **${fmtKb(r.total)}** | ${icon(r.ok)} |`);
+            }
+            const body = header.join('\n');
+            await core.summary.addRaw(body).write();
+
+            fs.writeFileSync(`.lighthouseci/image-delivery-${profile}.json`, JSON.stringify({ profile, totalBudget, rows, passed: overallOk }, null, 2));
+
+            if (!overallOk) {
+              core.setFailed(`Image delivery budget exceeded on ${profile} (limit ${fmtKb(totalBudget)} per URL). See job summary for per-URL breakdown.`);
+            }
+
       - name: Enforce thresholds
         if: always()
         run: |
