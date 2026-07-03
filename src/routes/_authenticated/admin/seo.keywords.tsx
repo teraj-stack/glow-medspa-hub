@@ -55,6 +55,34 @@ const DATABASES = [
   { value: "de", label: "Niemcy (de)" },
 ];
 
+const LOCATION_PRESETS: { group: string; items: { label: string; value: string }[] }[] = [
+  {
+    group: "Warszawa i okolice",
+    items: [
+      { label: "+ Warszawa", value: "warszawa" },
+      { label: "+ Wilanów", value: "wilanów" },
+      { label: "+ Mokotów", value: "mokotów" },
+      { label: "+ Ursynów", value: "ursynów" },
+      { label: "+ Śródmieście", value: "śródmieście" },
+      { label: "+ Powsin", value: "powsin" },
+      { label: "+ Konstancin-Jeziorna", value: "konstancin-jeziorna" },
+    ],
+  },
+  {
+    group: "Siedlce i okolice",
+    items: [
+      { label: "+ Siedlce", value: "siedlce" },
+      { label: "+ Mińsk Mazowiecki", value: "mińsk mazowiecki" },
+      { label: "+ Łuków", value: "łuków" },
+      { label: "+ Sokołów Podlaski", value: "sokołów podlaski" },
+      { label: "+ Węgrów", value: "węgrów" },
+      { label: "+ Garwolin", value: "garwolin" },
+      { label: "+ Otwock", value: "otwock" },
+    ],
+  },
+];
+
+
 function fmt(n: number | null | undefined, digits = 0, suffix = "") {
   if (n == null) return "—";
   return n.toLocaleString("pl-PL", { maximumFractionDigits: digits }) + suffix;
