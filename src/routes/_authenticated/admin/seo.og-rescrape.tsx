@@ -115,8 +115,10 @@ function OgRescrapePanel() {
         text: `Uruchomiono (${res.total} URL-i, ${(res.durationMs / 1000).toFixed(1)}s).`,
       });
       queryClient.invalidateQueries({ queryKey: ["og-rescrape-runs"] });
+      queryClient.invalidateQueries({ queryKey: ["og-rescrape-failed"] });
       if (res.runId) setSelectedId(res.runId);
     },
+
     onError: (err: unknown) => {
       const msg = err instanceof Error ? err.message : String(err);
       setTriggerMsg({ kind: "err", text: msg });
