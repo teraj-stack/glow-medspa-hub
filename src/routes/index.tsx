@@ -37,13 +37,13 @@ export const Route = createFileRoute("/")({
       {
         rel: "preload",
         as: "image",
-        href: cfImage(bujokAvif.url, { width: 1200, format: "avif" }),
+        href: cfImage(bujokAvif.url, { width: 640, format: "avif" }),
         type: "image/avif",
         fetchPriority: "high",
-        imagesrcset: [480, 768, 1024, 1200]
+        imagesrcset: [360, 480, 640, 800, 1200]
           .map((w) => `${cfImage(bujokAvif.url, { width: w, format: "avif" })} ${w}w`)
           .join(", "),
-        imagesizes: "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px",
+        imagesizes: "(max-width: 768px) 92vw, (min-width: 1280px) 600px, 50vw",
       },
     ],
     scripts: [
