@@ -218,12 +218,15 @@ async function persistPerUrl(admin: Admin, runId: string, r: RescrapeResult) {
       facebook_status: r.facebook.status ?? null,
       facebook_skipped: r.facebook.skipped ?? false,
       facebook_error: r.facebook.error ?? null,
+      facebook_attempts: r.facebook.attempts ?? 0,
       linkedin_ok: r.linkedin.ok,
       linkedin_status: r.linkedin.status ?? null,
       linkedin_error: r.linkedin.error ?? null,
+      linkedin_attempts: r.linkedin.attempts ?? 0,
       status: anyError ? "error" : "done",
       processed_at: new Date().toISOString(),
     })
+
     .eq("run_id", runId)
     .eq("url", r.url);
   if (error) console.error("[og-rescrape] failed to update result row", r.url, error);

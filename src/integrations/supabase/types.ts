@@ -463,11 +463,13 @@ export type Database = {
       }
       og_rescrape_results: {
         Row: {
+          facebook_attempts: number
           facebook_error: string | null
           facebook_ok: boolean
           facebook_skipped: boolean
           facebook_status: number | null
           id: number
+          linkedin_attempts: number
           linkedin_error: string | null
           linkedin_ok: boolean
           linkedin_status: number | null
@@ -477,11 +479,13 @@ export type Database = {
           url: string
         }
         Insert: {
+          facebook_attempts?: number
           facebook_error?: string | null
           facebook_ok?: boolean
           facebook_skipped?: boolean
           facebook_status?: number | null
           id?: number
+          linkedin_attempts?: number
           linkedin_error?: string | null
           linkedin_ok?: boolean
           linkedin_status?: number | null
@@ -491,11 +495,13 @@ export type Database = {
           url: string
         }
         Update: {
+          facebook_attempts?: number
           facebook_error?: string | null
           facebook_ok?: boolean
           facebook_skipped?: boolean
           facebook_status?: number | null
           id?: number
+          linkedin_attempts?: number
           linkedin_error?: string | null
           linkedin_ok?: boolean
           linkedin_status?: number | null
