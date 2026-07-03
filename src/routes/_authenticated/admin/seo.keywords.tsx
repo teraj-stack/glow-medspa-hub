@@ -382,6 +382,15 @@ function KeywordsPanel() {
           </Button>
           {result && (<Button variant="outline" onClick={() => downloadCsv(result)}>Eksport CSV (pełny)</Button>)}
           {result && (<Button variant="outline" onClick={() => downloadRecommendationsCsv(result)}>Eksport rekomendacji CSV</Button>)}
+          {result?.id && (
+            <Button
+              variant="default"
+              disabled={clustersMut.isPending}
+              onClick={() => clustersMut.mutate(result.id!)}
+            >
+              {clustersMut.isPending ? "Generuję klastry…" : "✨ Wygeneruj klastry artykułów"}
+            </Button>
+          )}
         </div>
       </section>
 
