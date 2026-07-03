@@ -461,6 +461,98 @@ export type Database = {
         }
         Relationships: []
       }
+      og_rescrape_results: {
+        Row: {
+          facebook_error: string | null
+          facebook_ok: boolean
+          facebook_skipped: boolean
+          facebook_status: number | null
+          id: number
+          linkedin_error: string | null
+          linkedin_ok: boolean
+          linkedin_status: number | null
+          run_id: string
+          url: string
+        }
+        Insert: {
+          facebook_error?: string | null
+          facebook_ok?: boolean
+          facebook_skipped?: boolean
+          facebook_status?: number | null
+          id?: number
+          linkedin_error?: string | null
+          linkedin_ok?: boolean
+          linkedin_status?: number | null
+          run_id: string
+          url: string
+        }
+        Update: {
+          facebook_error?: string | null
+          facebook_ok?: boolean
+          facebook_skipped?: boolean
+          facebook_status?: number | null
+          id?: number
+          linkedin_error?: string | null
+          linkedin_ok?: boolean
+          linkedin_status?: number | null
+          run_id?: string
+          url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "og_rescrape_results_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "og_rescrape_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      og_rescrape_runs: {
+        Row: {
+          base_url: string
+          commit_sha: string | null
+          duration_ms: number
+          error: string | null
+          facebook_ok: number
+          facebook_skipped: boolean
+          finished_at: string
+          id: string
+          linkedin_ok: number
+          started_at: string
+          total: number
+          triggered_by: string
+        }
+        Insert: {
+          base_url: string
+          commit_sha?: string | null
+          duration_ms?: number
+          error?: string | null
+          facebook_ok?: number
+          facebook_skipped?: boolean
+          finished_at?: string
+          id?: string
+          linkedin_ok?: number
+          started_at?: string
+          total?: number
+          triggered_by?: string
+        }
+        Update: {
+          base_url?: string
+          commit_sha?: string | null
+          duration_ms?: number
+          error?: string | null
+          facebook_ok?: number
+          facebook_skipped?: boolean
+          finished_at?: string
+          id?: string
+          linkedin_ok?: number
+          started_at?: string
+          total?: number
+          triggered_by?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string
