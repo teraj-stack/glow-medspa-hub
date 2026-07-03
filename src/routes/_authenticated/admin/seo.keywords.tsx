@@ -540,6 +540,64 @@ function KeywordsPanel() {
         </section>
       )}
 
+      {result && (() => {
+        const groups = groupByIntent(result.rows);
+        if (!groups.length) return null;
+        return (
+          <section id="intent-groups-section" className="rounded-lg border border-border p-4 space-y-4">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h3 className="font-medium">Grupy fraz według intencji</h3>
+                <p className="text-xs text-muted-foreground">
+                  Automatyczne pogrupowanie fraz z aktualnego raportu (usługa, cennik, lokalizacja, przebieg, porównania, bezpieczeństwo, opinie, informacyjne). Dla każdej grupy — gotowa propozycja tematu artykułu.
+                </p>
+              </div>
+              <Button variant="outline" onClick={() => downloadIntentGroupsCsv(result, groups)}>Eksport grup CSV</Button>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-2">
+              {groups.map((g) => {
+                const meta = INTENT_META[g.intent];
+                const top = g.rows[0]?.phrase ?? "";
+                return (
+                  <div key={g.intent} className="rounded-md border border-border/60 p-3 space-y-2 bg-muted/10">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <div className="font-medium text-sm">{meta.label}</div>
+                      <div className="text-xs text-muted-foreground tabular-nums">
+                        {g.rows.length} fraz · Σ vol {fmt(g.totalVolume)}
+                      </div>
+                    </div>
+                    <div className="text-xs text-muted-foreground">{meta.hint}</div>
+
+                    <div className="rounded border border-dashed border-border/60 p-2 space-y-1">
+                      <div className="text-[11px] uppercase tracking-wide text-muted-foreground">Propozycja artykułu</div>
+                      <div className="text-sm font-medium leading-snug">{meta.titleTemplate(top)}</div>
+                      <div className="text-xs text-muted-foreground">{meta.angle}</div>
+                    </div>
+
+                    <ul className="text-xs space-y-0.5">
+                      {g.rows.slice(0, 6).map((r) => (
+                        <li key={r.phrase} className="flex justify-between gap-2">
+                          <span className="font-mono truncate">{r.phrase}</span>
+                          <span className="text-muted-foreground tabular-nums whitespace-nowrap">
+                            {fmt(r.volume)} · KD <span className={kdTone(r.difficulty)}>{fmt(r.difficulty)}</span>
+                          </span>
+                        </li>
+                      ))}
+                      {g.rows.length > 6 && (
+                        <li className="text-muted-foreground">+ {g.rows.length - 6} kolejnych…</li>
+                      )}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })()}
+
+
+
       <section className="rounded-lg border border-border p-4 space-y-3">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
