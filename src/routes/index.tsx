@@ -8,6 +8,7 @@ import bujokAsset from "@/assets/bujok.jpeg.asset.json";
 import bujokAvif from "@/assets/bujok.avif.asset.json";
 import bujokWebp from "@/assets/bujok.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
+import { cfImage } from "@/lib/cf-image";
 import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 import { withOgVersion } from "@/config/social-preview";
 import ogCard from "@/assets/og/index.jpg";
