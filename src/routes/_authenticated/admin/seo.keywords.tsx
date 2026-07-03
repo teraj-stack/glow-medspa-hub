@@ -352,6 +352,13 @@ function KeywordsPanel() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const saveDraftsMut = useMutation({
+    mutationFn: async (payload: { reportId?: string; clusters: ContentCluster[] }) =>
+      saveDraftsFn({ data: payload }) as Promise<{ saved: number; savedAt: string }>,
+    onSuccess: (r) => toast.success(`Zapisano ${r.saved} szkiców w /admin/content.`),
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   const loadSerp = async (phrase: string) => {
     if (!result) return;
     setSerpMap((m) => ({ ...m, [phrase]: "loading" }));
