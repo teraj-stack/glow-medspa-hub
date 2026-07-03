@@ -426,6 +426,7 @@ function KeywordsPanel() {
             </label>
           )}
 
+
           <label className="text-sm flex flex-col gap-1">
             <span className="text-muted-foreground">Etykieta (opcjonalna)</span>
             <Input value={label} onChange={(e) => setLabel(e.target.value)} placeholder="np. baseline usług 07/2026" />
