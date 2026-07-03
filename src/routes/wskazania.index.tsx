@@ -58,7 +58,7 @@ function WskazaniaHub() {
     <main className="bg-background">
       <section className="mx-auto max-w-6xl px-4 pb-10 pt-16 md:pt-24">
         <span className="inline-flex items-center gap-2 rounded-full border border-champagne/40 bg-champagne/10 px-3 py-1 text-xs uppercase tracking-[0.3em] text-champagne">
-          Warszawa · Bielany
+          Warszawa · ul. Branickiego 10
         </span>
         <h1 className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink md:text-5xl">
           Wskazania — od problemu do właściwej technologii
