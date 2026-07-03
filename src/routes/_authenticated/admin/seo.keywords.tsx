@@ -50,6 +50,7 @@ type ReportListRow = {
   append_location: string | null;
   phrase_count: number;
   label: string | null;
+  clusters_generated_at: string | null;
 };
 
 const DATABASES = [
