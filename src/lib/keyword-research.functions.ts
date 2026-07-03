@@ -82,7 +82,9 @@ export const listKeywordResearchReports = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     let q = supabaseAdmin
       .from("seo_keyword_research_reports")
-      .select("id, created_at, triggered_by, database, append_location, phrase_count, label")
+      .select(
+        "id, created_at, triggered_by, database, append_location, phrase_count, label, clusters_generated_at",
+      )
       .order("created_at", { ascending: false })
       .limit(200);
     if (data.from) q = q.gte("created_at", data.from);
@@ -91,6 +93,7 @@ export const listKeywordResearchReports = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { rows: rows ?? [] };
   });
+
 
 export const getKeywordResearchReport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
