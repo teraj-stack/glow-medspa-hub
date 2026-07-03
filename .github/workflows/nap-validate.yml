@@ -1,0 +1,42 @@
+name: NAP validate (address consistency)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  nap-validate:
+    name: Validate clinic NAP (source + dist)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate NAP in source
+        run: npm run validate:nap
+
+      - name: Build (Vite only)
+        run: npx vite build
+
+      - name: Validate NAP in dist
+        run: npm run validate:nap:dist
+
+      - name: Upload NAP report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nap-validator-report
+          path: reports/nap-dist.json
+          if-no-files-found: ignore
