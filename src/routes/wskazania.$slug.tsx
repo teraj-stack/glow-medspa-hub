@@ -20,7 +20,7 @@ interface IndicationContent {
   faq: { q: string; a: string }[];
 }
 
-const CONTENT: Record<string, IndicationContent> = {
+export const CONTENT: Record<string, IndicationContent> = {
   "przebarwienia-warszawa": {
     slug: "przebarwienia-warszawa",
     title: "Przebarwienia",
