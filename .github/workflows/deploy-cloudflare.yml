@@ -102,21 +102,23 @@ jobs:
       - name: Post-deploy — wymuś re-scrape kart OG/Twitter u sociali
         env:
           SUPABASE_PUBLISHABLE_KEY: ${{ secrets.VITE_SUPABASE_PUBLISHABLE_KEY }}
+          COMMIT_SHA: ${{ github.sha }}
         run: |
           # Daj Cloudflare kilka sekund na propagację nowej wersji Workera.
           sleep 15
           echo "Triggering OG re-scrape hook…"
+          BODY=$(printf '{"triggeredBy":"post-deploy","commitSha":"%s"}' "${COMMIT_SHA}")
           HTTP_STATUS=$(curl -sS -o /tmp/og-rescrape.json -w "%{http_code}" \
             -X POST "https://bmclinics.ai/api/public/hooks/og-rescrape" \
             -H "Content-Type: application/json" \
             -H "apikey: ${SUPABASE_PUBLISHABLE_KEY}" \
-            --max-time 120 \
-            -d '{}') || true
+            --max-time 180 \
+            -d "${BODY}") || true
           echo "HTTP status: ${HTTP_STATUS}"
           head -c 4000 /tmp/og-rescrape.json || true
           echo
           # Nie blokujemy deployu przy błędzie re-scrape — social crawlerzy i tak
           # odświeżą się przy pierwszym udostępnieniu. Pokazujemy tylko status.
           if [ "${HTTP_STATUS}" != "200" ]; then
-            echo "::warning::OG re-scrape zwrócił HTTP ${HTTP_STATUS} — sprawdź logi hooka."
+            echo "::warning::OG re-scrape zwrócił HTTP ${HTTP_STATUS} — sprawdź panel /admin/seo/og-rescrape."
           fi
