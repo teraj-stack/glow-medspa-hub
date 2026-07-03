@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import logoBmcUrl from "@/assets/bujok-medical-logo.webp";
+import { cfImage } from "@/lib/cf-image";
 import { supabase } from "@/integrations/supabase/client";
 
 const NAV = [
