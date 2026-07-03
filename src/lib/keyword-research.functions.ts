@@ -272,3 +272,97 @@ export const generateContentClusters = createServerFn({ method: "POST" })
     const parsed = JSON.parse(call.function.arguments) as { clusters: ContentCluster[] };
     return { reportId: row.id, database: row.database, clusters: parsed.clusters ?? [] };
   });
+
+const ClusterArticleSchema = z.object({
+  title: z.string().trim().min(1),
+  slug: z.string().trim().min(1),
+  primaryKeyword: z.string().trim().default(""),
+  supportingKeywords: z.array(z.string().trim()).default([]),
+  angle: z.string().trim().default(""),
+  estimatedVolume: z.number().nullable().optional(),
+  estimatedKd: z.number().nullable().optional(),
+});
+
+const ClusterSchema = z.object({
+  cluster: z.string().trim().min(1),
+  intent: z.string().trim().min(1),
+  pillarTitle: z.string().trim().min(1),
+  pillarSlug: z.string().trim().min(1),
+  targetService: z.string().trim().default(""),
+  supportingArticles: z.array(ClusterArticleSchema).default([]),
+  internalLinking: z.string().trim().default(""),
+  cta: z.string().trim().default(""),
+});
+
+export const saveClustersAsDrafts = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator(
+    z.object({
+      reportId: z.string().uuid().optional(),
+      clusters: z.array(ClusterSchema).min(1).max(50),
+    }),
+  )
+  .handler(async ({ data, context }) => {
+    await requireAdminOrManager(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const now = new Date().toISOString();
+    const rows: Array<{ user_id: string; draft_key: string; data: any }> = [];
+
+    for (const c of data.clusters) {
+      const clusterMeta = {
+        cluster: c.cluster,
+        intent: c.intent,
+        targetService: c.targetService,
+        internalLinking: c.internalLinking,
+        cta: c.cta,
+        reportId: data.reportId ?? null,
+        savedAt: now,
+      };
+
+      rows.push({
+        user_id: context.userId,
+        draft_key: `article:${c.pillarSlug}`,
+        data: {
+          type: "pillar",
+          status: "draft",
+          title: c.pillarTitle,
+          slug: c.pillarSlug,
+          primaryKeyword: "",
+          supportingKeywords: [],
+          angle: "",
+          estimatedVolume: null,
+          estimatedKd: null,
+          body: "",
+          cluster: clusterMeta,
+        },
+      });
+
+      for (const a of c.supportingArticles) {
+        rows.push({
+          user_id: context.userId,
+          draft_key: `article:${a.slug}`,
+          data: {
+            type: "support",
+            status: "draft",
+            title: a.title,
+            slug: a.slug,
+            primaryKeyword: a.primaryKeyword,
+            supportingKeywords: a.supportingKeywords,
+            angle: a.angle,
+            estimatedVolume: a.estimatedVolume ?? null,
+            estimatedKd: a.estimatedKd ?? null,
+            body: "",
+            cluster: clusterMeta,
+          },
+        });
+      }
+    }
+
+    const { error } = await supabaseAdmin
+      .from("creator_drafts")
+      .upsert(rows, { onConflict: "user_id,draft_key" });
+    if (error) throw new Error(error.message);
+
+    return { saved: rows.length, savedAt: now };
+  });

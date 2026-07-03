@@ -9,6 +9,7 @@ import {
   getKeywordResearchReport,
   deleteKeywordResearchReport,
   generateContentClusters,
+  saveClustersAsDrafts,
   type ContentCluster,
 } from "@/lib/keyword-research.functions";
 import { Button } from "@/components/ui/button";
@@ -262,6 +263,7 @@ function KeywordsPanel() {
   const getFn = useServerFn(getKeywordResearchReport);
   const deleteFn = useServerFn(deleteKeywordResearchReport);
   const clustersFn = useServerFn(generateContentClusters);
+  const saveDraftsFn = useServerFn(saveClustersAsDrafts);
 
 
   const [input, setInput] = useState("");
@@ -347,6 +349,13 @@ function KeywordsPanel() {
       toast.success(`Wygenerowano ${r.clusters.length} klastrów.`);
       if (typeof window !== "undefined") setTimeout(() => document.getElementById("clusters-section")?.scrollIntoView({ behavior: "smooth" }), 100);
     },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  const saveDraftsMut = useMutation({
+    mutationFn: async (payload: { reportId?: string; clusters: ContentCluster[] }) =>
+      saveDraftsFn({ data: payload }) as Promise<{ saved: number; savedAt: string }>,
+    onSuccess: (r) => toast.success(`Zapisano ${r.saved} szkiców w /admin/content.`),
     onError: (e: Error) => toast.error(e.message),
   });
 
@@ -820,6 +829,13 @@ function KeywordsPanel() {
               <p className="text-xs text-muted-foreground">Edytuj tytuły, slugi i frazy przed eksportem — zmiany trafią do CSV i Markdown.</p>
             </div>
             <div className="flex gap-2">
+              <Button
+                size="sm"
+                disabled={saveDraftsMut.isPending}
+                onClick={() => saveDraftsMut.mutate({ reportId: clusters.reportId, clusters: clusters.clusters })}
+              >
+                {saveDraftsMut.isPending ? "Zapisuję…" : "💾 Zapisz do publikacji"}
+              </Button>
               <Button variant="outline" size="sm" onClick={() => downloadClustersCsv(clusters.clusters)}>Eksport klastrów CSV</Button>
               <Button variant="outline" size="sm" onClick={() => downloadClustersMarkdown(clusters.clusters)}>Eksport Markdown</Button>
               <Button variant="ghost" size="sm" onClick={() => setClusters(null)}>Zamknij</Button>
