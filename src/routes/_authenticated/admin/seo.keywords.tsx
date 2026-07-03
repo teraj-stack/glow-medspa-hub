@@ -73,21 +73,59 @@ function reportTitle(r: { label?: string | null; created_at?: string; createdAt?
   return `${base} · ${r.database}${loc ? " +" + loc : ""}`;
 }
 
-function downloadCsv(result: ResearchResult) {
-  const header = ["fraza", "wolumen", "KD", "CPC (USD)", "konkurencja", "wyniki"];
-  const rows = result.rows.map((r) =>
-    [r.phrase, r.volume ?? "", r.difficulty ?? "", r.cpc ?? "", r.competition ?? "", r.resultsCount ?? ""]
-      .map((v) => `"${String(v).replace(/"/g, '""')}"`)
-      .join(","),
-  );
-  const stamp = (result.createdAt ?? new Date().toISOString()).slice(0, 19).replace(/[:T]/g, "-");
-  const blob = new Blob([header.join(",") + "\n" + rows.join("\n")], { type: "text/csv;charset=utf-8" });
+function recommend(r: Row): { priority: "high" | "medium" | "low" | "skip"; label: string; reason: string } {
+  const v = r.volume ?? 0;
+  const kd = r.difficulty ?? 100;
+  if (v < 20) return { priority: "skip", label: "Pomiń", reason: "Wolumen zbyt niski (<20/mies.)" };
+  if (kd < 30 && v >= 100) return { priority: "high", label: "Cel #1", reason: "Niska trudność + solidny wolumen — realny cel dla nowej strony" };
+  if (kd < 30) return { priority: "high", label: "Szybka wygrana", reason: "Bardzo niska trudność — łatwo wejść w top" };
+  if (kd < 50 && v >= 200) return { priority: "medium", label: "Warto", reason: "Umiarkowana trudność, dobry wolumen — content + linki" };
+  if (kd < 50) return { priority: "medium", label: "Uzupełniające", reason: "Umiarkowana trudność, niski wolumen — bundle z innymi" };
+  if (kd < 70) return { priority: "low", label: "Długofalowe", reason: "Wysoka trudność — dopiero po zbudowaniu autorytetu" };
+  return { priority: "skip", label: "Odpuść", reason: "Teren dużych serwisów — użyj dłuższej, bardziej specyficznej frazy" };
+}
+
+function toCsv(header: string[], rows: (string | number | null | undefined)[][]) {
+  const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  return header.map(esc).join(",") + "\n" + rows.map((r) => r.map(esc).join(",")).join("\n");
+}
+
+function triggerDownload(csv: string, filename: string) {
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `keyword-research-${result.database}${result.appendLocation ? "-" + result.appendLocation : ""}-${stamp}.csv`;
+  a.download = filename;
   a.click();
   URL.revokeObjectURL(url);
+}
+
+function downloadCsv(result: ResearchResult) {
+  const header = ["fraza", "wolumen", "KD", "CPC (USD)", "konkurencja", "wyniki", "priorytet", "rekomendacja"];
+  const rows = result.rows.map((r) => {
+    const rec = recommend(r);
+    return [r.phrase, r.volume ?? "", r.difficulty ?? "", r.cpc ?? "", r.competition ?? "", r.resultsCount ?? "", rec.label, rec.reason];
+  });
+  const stamp = (result.createdAt ?? new Date().toISOString()).slice(0, 19).replace(/[:T]/g, "-");
+  triggerDownload(toCsv(header, rows), `keyword-research-${result.database}${result.appendLocation ? "-" + result.appendLocation : ""}-${stamp}.csv`);
+}
+
+function downloadRecommendationsCsv(result: ResearchResult) {
+  const header = ["priorytet", "fraza", "wolumen", "KD", "uzasadnienie"];
+  const order = { high: 0, medium: 1, low: 2, skip: 3 } as const;
+  const rows = result.rows
+    .map((r) => ({ r, rec: recommend(r) }))
+    .sort((a, b) => order[a.rec.priority] - order[b.rec.priority] || (b.r.volume ?? 0) - (a.r.volume ?? 0))
+    .map(({ r, rec }) => [rec.label, r.phrase, r.volume ?? "", r.difficulty ?? "", rec.reason]);
+  const stamp = (result.createdAt ?? new Date().toISOString()).slice(0, 19).replace(/[:T]/g, "-");
+  triggerDownload(toCsv(header, rows), `keyword-recommendations-${result.database}${result.appendLocation ? "-" + result.appendLocation : ""}-${stamp}.csv`);
+}
+
+function downloadComparisonCsv(reports: ResearchResult[], rows: { phrase: string; perReport: (Row | null)[] }[]) {
+  const header = ["fraza", ...reports.flatMap((r) => [`${reportTitle(r)} · wolumen`, `${reportTitle(r)} · KD`])];
+  const csvRows = rows.map((cr) => [cr.phrase, ...cr.perReport.flatMap((row) => [row?.volume ?? "", row?.difficulty ?? ""])]);
+  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+  triggerDownload(toCsv(header, csvRows), `keyword-comparison-${stamp}.csv`);
 }
 
 function KeywordsPanel() {
@@ -292,7 +330,8 @@ function KeywordsPanel() {
           <Button disabled={runMut.isPending || !phrases.length} onClick={() => runMut.mutate()}>
             {runMut.isPending ? "Pobieram…" : "Uruchom research i zapisz"}
           </Button>
-          {result && (<Button variant="outline" onClick={() => downloadCsv(result)}>Eksport CSV</Button>)}
+          {result && (<Button variant="outline" onClick={() => downloadCsv(result)}>Eksport CSV (pełny)</Button>)}
+          {result && (<Button variant="outline" onClick={() => downloadRecommendationsCsv(result)}>Eksport rekomendacji CSV</Button>)}
         </div>
       </section>
 
@@ -321,11 +360,17 @@ function KeywordsPanel() {
                   <th className="py-2 pr-3 text-right">Konkurencja</th>
                   <th className="py-2 pr-3 text-right">Wyniki</th>
                   <th className="py-2 pr-3 text-right">SERP</th>
+                  <th className="py-2 pr-3">Rekomendacja</th>
                 </tr>
               </thead>
               <tbody>
                 {result.rows.map((r) => {
                   const serp = serpMap[r.phrase];
+                  const rec = recommend(r);
+                  const recTone =
+                    rec.priority === "high" ? "text-emerald-500" :
+                    rec.priority === "medium" ? "text-amber-500" :
+                    rec.priority === "low" ? "text-orange-500" : "text-muted-foreground";
                   return (
                     <Fragment key={r.phrase}>
                       <tr className="border-t border-border">
@@ -340,10 +385,14 @@ function KeywordsPanel() {
                             {serp === "loading" ? "…" : serp ? "Odśwież" : "Pokaż"}
                           </Button>
                         </td>
+                        <td className="py-2 pr-3">
+                          <div className={`text-xs font-medium ${recTone}`}>{rec.label}</div>
+                          <div className="text-xs text-muted-foreground">{rec.reason}</div>
+                        </td>
                       </tr>
                       {serp && serp !== "loading" && (
                         <tr className="border-t border-border/50 bg-muted/20">
-                          <td colSpan={7} className="py-2 px-3">
+                          <td colSpan={8} className="py-2 px-3">
                             <div className="text-xs text-muted-foreground mb-1">Top 10 SERP dla <code className="font-mono">{r.phrase}</code></div>
                             <ol className="text-xs space-y-0.5">
                               {serp.results.map((s) => (
@@ -469,9 +518,14 @@ function KeywordsPanel() {
 
       {comparedReports.length >= 2 && (
         <section className="rounded-lg border border-border p-4 space-y-3">
-          <div>
-            <h3 className="font-medium">Porównanie ({comparedReports.length} raportów)</h3>
-            <p className="text-xs text-muted-foreground">Frazy, które występują tylko w części raportów, mają „—" w brakujących kolumnach.</p>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <h3 className="font-medium">Porównanie ({comparedReports.length} raportów)</h3>
+              <p className="text-xs text-muted-foreground">Frazy, które występują tylko w części raportów, mają „—" w brakujących kolumnach.</p>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => downloadComparisonCsv(comparedReports, comparisonRows)}>
+              Eksport porównania CSV
+            </Button>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
