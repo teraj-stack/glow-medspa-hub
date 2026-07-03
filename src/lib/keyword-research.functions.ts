@@ -134,6 +134,9 @@ export type ContentCluster = {
   intent: "informacyjny" | "komercyjny" | "lokalny" | "porównawczy";
   pillarTitle: string;
   pillarSlug: string;
+  pillarMetaTitle: string;
+  pillarMetaDescription: string;
+  pillarOutline: string[];
   targetService: string;
   supportingArticles: {
     title: string;
@@ -143,6 +146,9 @@ export type ContentCluster = {
     angle: string;
     estimatedVolume: number | null;
     estimatedKd: number | null;
+    metaTitle: string;
+    metaDescription: string;
+    outline: string[];
   }[];
   internalLinking: string;
   cta: string;
