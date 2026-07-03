@@ -249,6 +249,17 @@ function KeywordsPanel() {
     onError: (e: Error) => toast.error(e.message),
   });
 
+  const clustersMut = useMutation({
+    mutationFn: async (reportId: string) =>
+      clustersFn({ data: { reportId } }) as Promise<{ reportId: string; database: string; clusters: ContentCluster[] }>,
+    onSuccess: (r) => {
+      setClusters(r);
+      toast.success(`Wygenerowano ${r.clusters.length} klastrów.`);
+      if (typeof window !== "undefined") setTimeout(() => document.getElementById("clusters-section")?.scrollIntoView({ behavior: "smooth" }), 100);
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
   const loadSerp = async (phrase: string) => {
     if (!result) return;
     setSerpMap((m) => ({ ...m, [phrase]: "loading" }));
