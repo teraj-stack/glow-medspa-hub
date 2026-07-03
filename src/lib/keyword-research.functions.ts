@@ -137,7 +137,7 @@ export const getKeywordResearchClusters = createServerFn({ method: "POST" })
       .maybeSingle();
     if (error) throw new Error(error.message);
     if (!row) throw new Error("Raport nie znaleziony");
-    const clusters = ((row.clusters ?? []) as unknown) as ContentClusterLike[];
+    const clusters = ((row.clusters ?? []) as unknown) as ContentCluster[];
     return {
       id: row.id,
       createdAt: row.created_at,
@@ -149,8 +149,7 @@ export const getKeywordResearchClusters = createServerFn({ method: "POST" })
     };
   });
 
-// Luźny typ na potrzeby getter'a (rzeczywisty schemat: ContentCluster niżej).
-type ContentClusterLike = Record<string, unknown>;
+
 
 
 export const deleteKeywordResearchReport = createServerFn({ method: "POST" })
