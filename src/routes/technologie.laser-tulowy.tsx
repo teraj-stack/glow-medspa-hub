@@ -27,6 +27,7 @@ import ba2After from "@/assets/tulowy-ba-2a.png.asset.json";
 import ba3Before from "@/assets/tulowy-ba-3.png.asset.json";
 import ba3After from "@/assets/tulowy-ba-3a.png.asset.json";
 import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { withOgVersion } from "@/config/social-preview";
 
 const BEFORE_AFTER = [
   { before: ba1Before.url, after: ba1After.url, title: "Przebarwienia posłoneczne i plamy pigmentacyjne", desc: "Wyraźna redukcja plam, ujednolicenie kolorytu i rozjaśnienie skóry twarzy." },
@@ -161,11 +162,11 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
         { property: "og:description", content: description },
         { property: "og:url", content: PAGE_URL },
         { property: "og:type", content: "article" },
-        { property: "og:image", content: heroAsset.url },
+        { property: "og:image", content: withOgVersion(heroAsset.url) },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
-        { name: "twitter:image", content: heroAsset.url },
+        { name: "twitter:image", content: withOgVersion(heroAsset.url) },
       ],
       links: [
         { rel: "canonical", href: PAGE_URL },

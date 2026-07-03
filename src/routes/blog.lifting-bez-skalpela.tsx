@@ -4,6 +4,7 @@ import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Sparkles, AlertCircle } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
+import { withOgVersion } from "@/config/social-preview";
 
 export const Route = createFileRoute("/blog/lifting-bez-skalpela")({
   head: () => ({
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/blog/lifting-bez-skalpela")({
       },
       { property: "og:url", content: "https://bmclinics.ai/blog/lifting-bez-skalpela" },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: `https://bmclinics.ai${konturAsset.url}` },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${konturAsset.url}`) },
       { property: "article:published_time", content: "2026-06-27T10:15:00+02:00" },
       { property: "article:section", content: "Medycyna estetyczna" },
       { property: "og:locale", content: "pl_PL" },

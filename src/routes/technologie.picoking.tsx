@@ -23,6 +23,7 @@ import ba7a from "@/assets/piko-ba-7a.webp.asset.json";
 import ba8 from "@/assets/piko-ba-8.webp.asset.json";
 import ba8a from "@/assets/piko-ba-8a.webp.asset.json";
 import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { withOgVersion } from "@/config/social-preview";
 
 const BA_GALLERY = [
   {
@@ -111,10 +112,10 @@ export const Route = createFileRoute("/technologie/picoking")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:url", content: url },
-        { property: "og:image", content: heroImg },
+        { property: "og:image", content: withOgVersion(heroImg) },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
-        { name: "twitter:image", content: heroImg },
+        { name: "twitter:image", content: withOgVersion(heroImg) },
       ],
       links: [
         { rel: "canonical", href: url },

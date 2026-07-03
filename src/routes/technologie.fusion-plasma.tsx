@@ -34,6 +34,7 @@ import ba11After from "@/assets/plasma-ba-11a.png.asset.json";
 import ba12Before from "@/assets/plasma-ba-12.png.asset.json";
 import ba12After from "@/assets/plasma-ba-12a.png.asset.json";
 import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { withOgVersion } from "@/config/social-preview";
 
 const BEFORE_AFTER = [
   { before: ba1Before.url, after: ba1After.url, title: "Trądzik i niedoskonałości", desc: "Redukcja zmian zapalnych, wyrównanie kolorytu, zmniejszenie widoczności porów na policzku." },
@@ -103,7 +104,7 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:url", content: url },
-        { property: "og:image", content: dzialanieImg },
+        { property: "og:image", content: withOgVersion(dzialanieImg) },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
