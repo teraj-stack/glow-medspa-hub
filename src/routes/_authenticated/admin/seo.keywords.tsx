@@ -137,6 +137,8 @@ function KeywordsPanel() {
   const listFn = useServerFn(listKeywordResearchReports);
   const getFn = useServerFn(getKeywordResearchReport);
   const deleteFn = useServerFn(deleteKeywordResearchReport);
+  const clustersFn = useServerFn(generateContentClusters);
+
 
   const [input, setInput] = useState("");
   const [database, setDatabase] = useState("pl");
