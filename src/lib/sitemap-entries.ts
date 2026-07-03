@@ -1,4 +1,5 @@
 import { TECHNOLOGIES } from "@/data/technologies";
+import { CONTENT as WSKAZANIA_CONTENT } from "@/routes/wskazania.$slug";
 
 export const SITEMAP_BASE_URL = "https://bmclinics.ai";
 
@@ -70,7 +71,6 @@ export const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/bezpieczenstwo-zabiegow-laserowych", changefreq: "monthly", priority: "0.8" },
   { path: "/diagnostyka-skory-warszawa", changefreq: "monthly", priority: "0.85" },
   { path: "/wskazania", changefreq: "monthly", priority: "0.85" },
-  { path: "/wskazania/przebarwienia-warszawa", changefreq: "monthly", priority: "0.85" },
   { path: "/technologie/laser-frakcyjny-co2-warszawa", changefreq: "monthly", priority: "0.9" },
   { path: "/konsultacja-dziekujemy", changefreq: "yearly", priority: "0.3" },
   { path: "/auth", changefreq: "yearly", priority: "0.3" },
@@ -94,9 +94,16 @@ export function buildSitemapEntries(): SitemapEntry[] {
     priority: p.priority ?? "0.7",
   }));
 
+  // Wskazania — generowane tylko z dostępnych kluczy CONTENT
+  const wskazaniaEntries: SitemapEntry[] = Object.keys(WSKAZANIA_CONTENT).map((slug) => ({
+    path: `/wskazania/${slug}`,
+    changefreq: "monthly",
+    priority: "0.85",
+  }));
+
   // Dedup po path (na wypadek duplikatu w STATIC_ENTRIES)
   const seen = new Set<string>();
-  const all = [...STATIC_ENTRIES, ...technologyEntries, ...blogEntries].filter((e) => {
+  const all = [...STATIC_ENTRIES, ...technologyEntries, ...blogEntries, ...wskazaniaEntries].filter((e) => {
     if (seen.has(e.path)) return false;
     seen.add(e.path);
     return true;
