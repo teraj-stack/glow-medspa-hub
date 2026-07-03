@@ -7,7 +7,9 @@ import {
   getOgRescrapeRun,
   startOgRescrape,
   listSitemapPaths,
+  listFailedOgUrls,
 } from "@/lib/og-rescrape.functions";
+
 
 export const Route = createFileRoute("/_authenticated/admin/seo/og-rescrape")({
   codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
@@ -77,7 +79,9 @@ function OgRescrapePanel() {
   const getFn = useServerFn(getOgRescrapeRun);
   const startFn = useServerFn(startOgRescrape);
   const pathsFn = useServerFn(listSitemapPaths);
+  const failedFn = useServerFn(listFailedOgUrls);
   const queryClient = useQueryClient();
+
 
   const runs = useQuery({
     queryKey: ["og-rescrape-runs"],
@@ -99,6 +103,8 @@ function OgRescrapePanel() {
   const [filter, setFilter] = useState<"all" | "pending" | "done" | "errors">("all");
   const [pathInput, setPathInput] = useState("");
   const [triggerMsg, setTriggerMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+  const [failedScope, setFailedScope] = useState<"last-run" | "recent">("last-run");
+
 
   const trigger = useMutation({
     mutationFn: (vars: { paths?: string[]; triggeredBy?: string }) =>
@@ -109,8 +115,10 @@ function OgRescrapePanel() {
         text: `Uruchomiono (${res.total} URL-i, ${(res.durationMs / 1000).toFixed(1)}s).`,
       });
       queryClient.invalidateQueries({ queryKey: ["og-rescrape-runs"] });
+      queryClient.invalidateQueries({ queryKey: ["og-rescrape-failed"] });
       if (res.runId) setSelectedId(res.runId);
     },
+
     onError: (err: unknown) => {
       const msg = err instanceof Error ? err.message : String(err);
       setTriggerMsg({ kind: "err", text: msg });
@@ -177,6 +185,35 @@ function OgRescrapePanel() {
     }
     trigger.mutate({ paths, triggeredBy: "manual-url" });
   };
+
+  const failedList = useQuery({
+    queryKey: ["og-rescrape-failed", failedScope, selectedId],
+    queryFn: () =>
+      failedFn({
+        data: {
+          scope: failedScope,
+          // Jeśli scope=last-run i użytkownik wybrał konkretny run w tabeli, użyj tamtego runId.
+          runId: failedScope === "last-run" && selectedId ? selectedId : undefined,
+          recentLimit: 5,
+        },
+      }),
+    staleTime: 10_000,
+  });
+
+  const runFailedOnly = () => {
+    setTriggerMsg(null);
+    const urls = failedList.data?.urls ?? [];
+    if (urls.length === 0) {
+      setTriggerMsg({
+        kind: "err",
+        text: "Brak URL-i z błędami do ponowienia w wybranym zakresie.",
+      });
+      return;
+    }
+    trigger.mutate({ paths: urls, triggeredBy: `manual-retry-${failedScope}` });
+  };
+
+
 
   const exportResults = (format: "csv" | "json") => {
     const run = detail.data?.run;
@@ -292,6 +329,72 @@ function OgRescrapePanel() {
               Odśwież tylko podane URL-e
             </button>
           </div>
+
+          <div className="rounded-md border border-amber-500/30 bg-amber-500/5 p-3 space-y-2">
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="text-sm font-medium">Ponów tylko URL-e z błędami</div>
+              <div className="flex items-center gap-1 text-xs">
+                <label className="flex items-center gap-1 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="failed-scope"
+                    value="last-run"
+                    checked={failedScope === "last-run"}
+                    onChange={() => setFailedScope("last-run")}
+                    className="accent-amber-500"
+                  />
+                  <span>
+                    {selectedId ? "z wybranego runa" : "z ostatniego runa"}
+                  </span>
+                </label>
+                <label className="flex items-center gap-1 cursor-pointer ml-2">
+                  <input
+                    type="radio"
+                    name="failed-scope"
+                    value="recent"
+                    checked={failedScope === "recent"}
+                    onChange={() => setFailedScope("recent")}
+                    className="accent-amber-500"
+                  />
+                  <span>z ostatnich 5 runów</span>
+                </label>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={runFailedOnly}
+                disabled={trigger.isPending || failedList.isLoading || (failedList.data?.urls?.length ?? 0) === 0}
+                className="px-3 py-1.5 text-sm rounded border border-amber-500/40 bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 disabled:opacity-50"
+              >
+                Ponów błędy
+                {failedList.data && ` (${failedList.data.urls.length} URL-i)`}
+              </button>
+              <span className="text-xs text-muted-foreground">
+                {failedList.isLoading
+                  ? "Wyszukiwanie błędów…"
+                  : failedList.data
+                    ? `Źródło: ${failedList.data.sourceLabel}. Kryteria: brak OG/Twitter, HTTP ≥ 400 lub błąd sieci.`
+                    : failedList.error
+                      ? String(failedList.error)
+                      : ""}
+              </span>
+            </div>
+            {failedList.data && failedList.data.urls.length > 0 && (
+              <details>
+                <summary className="text-xs text-muted-foreground cursor-pointer hover:text-foreground">
+                  Pokaż URL-e do ponowienia ({failedList.data.urls.length})
+                </summary>
+                <div className="mt-2 flex flex-col gap-0.5 max-h-40 overflow-y-auto font-mono text-[11px]">
+                  {failedList.data.urls.map((u) => (
+                    <span key={u} className="text-muted-foreground truncate">{u}</span>
+                  ))}
+                </div>
+              </details>
+            )}
+          </div>
+
+
           <div>
             <label className="block text-xs text-muted-foreground mb-1">
               URL-e lub ścieżki (jeden na linię lub oddzielone przecinkami)
