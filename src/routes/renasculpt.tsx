@@ -46,7 +46,10 @@ export const Route = createFileRoute("/renasculpt")({
         url: "https://bmclinics.ai",
         address: {
           "@type": "PostalAddress",
+          streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)",
           addressLocality: "Warszawa",
+          addressRegion: "mazowieckie",
+          postalCode: "02-972",
           addressCountry: "PL",
         },
       },

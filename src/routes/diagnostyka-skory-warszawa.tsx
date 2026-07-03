@@ -104,7 +104,7 @@ export const Route = createFileRoute("/diagnostyka-skory-warszawa")({
               name: "Gdzie odbywa się diagnostyka w Warszawie?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Konsultacje i diagnostykę prowadzimy w Klinice Ginekologii przy ul. Branickiego 10 na warszawskich Bielanach. Dogodny dojazd komunikacją miejską i parking dla pacjentów na miejscu.",
+                text: "Konsultacje i diagnostykę prowadzimy w Klinice Ginekologii przy ul. Branickiego 10 w warszawskim Wilanowie. Dogodny dojazd komunikacją miejską i parking dla pacjentów na miejscu.",
               },
             },
             {

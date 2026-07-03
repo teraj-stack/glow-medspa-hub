@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Medycyna estetyczna w Warszawie na Bielanach — konsultacje w Klinice Ginekologii, ul. Branickiego 10. Autorskie protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
+          "Medycyna estetyczna w Warszawie w Wilanowie — konsultacje w Klinice Ginekologii, ul. Branickiego 10. Autorskie protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
       },
       { property: "og:title", content: "Medycyna estetyczna Warszawa — BMClinics.ai" },
       { property: "og:description", content: "Klinika medycyny estetycznej i laserowej w Warszawie (Wilanów, klinika ginekologii). Dyskretne, autorskie protokoły i naturalny efekt." },
@@ -198,7 +198,7 @@ function LocalWarsawSection() {
       <div className="mx-auto max-w-4xl">
         <div className="text-xs uppercase tracking-[0.3em] text-champagne">Lokalizacja · Warszawa Wilanów</div>
         <h2 className="mt-4 font-serif text-ink">
-          Medycyna estetyczna w Warszawie — konsultacje na Bielanach
+          Medycyna estetyczna w Warszawie — konsultacje w Wilanowie
         </h2>
         <p className="mt-6 text-foreground/85">
           Przyjmuję w <strong>Klinice Ginekologii</strong> przy ul. Branickiego 10 w Warszawie (Wilanów).
@@ -210,7 +210,7 @@ function LocalWarsawSection() {
           <div>
             <h3 className="font-serif text-xl text-ink">Dla kogo</h3>
             <ul className="mt-4 space-y-2 text-sm text-foreground/85">
-              <li>· Pacjenci szukający medycyny estetycznej w Warszawie i okolicach Bielan</li>
+              <li>· Pacjenci szukający medycyny estetycznej w Warszawie i okolic Wilanowa</li>
               <li>· Osoby ceniące dyskrecję i konsultację lekarską, nie sprzedaż zabiegu</li>
               <li>· Skóra dojrzała, przebarwienia, ptoza tkanek, naczynia, blizny potrądzikowe</li>
             </ul>

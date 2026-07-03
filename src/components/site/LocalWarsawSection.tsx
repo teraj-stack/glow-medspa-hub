@@ -19,7 +19,7 @@ export function LocalWarsawSection({ procedureLabel = "zabieg" }: Props) {
               Gdzie wykonujemy {procedureLabel} w Warszawie
             </h2>
             <p className="mt-3 text-sm text-muted-foreground md:text-base">
-              Konsultacje i zabiegi prowadzimy w Klinice Ginekologii na warszawskich Bielanach —
+              Konsultacje i zabiegi prowadzimy w Klinice Ginekologii w warszawskim Wilanowie —
               spokojna, kameralna lokalizacja z pełnym zapleczem medycznym i parkingiem dla pacjentów.
             </p>
 
