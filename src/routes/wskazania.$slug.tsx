@@ -6,6 +6,7 @@ import { CheckCircle2, AlertTriangle } from "lucide-react";
 interface IndicationContent {
   slug: string;
   title: string;
+  short: string;
   h1: string;
   metaTitle: string;
   metaDesc: string;
@@ -19,10 +20,11 @@ interface IndicationContent {
   faq: { q: string; a: string }[];
 }
 
-const CONTENT: Record<string, IndicationContent> = {
+export const CONTENT: Record<string, IndicationContent> = {
   "przebarwienia-warszawa": {
     slug: "przebarwienia-warszawa",
     title: "Przebarwienia",
+    short: "Plamy posłoneczne, pozapalne i barwnikowe — diagnostyka i dobór lasera.",
     h1: "Usuwanie przebarwień w Warszawie",
     metaTitle: "Usuwanie przebarwień Warszawa — diagnostyka i leczenie | BMClinics",
     metaDesc:
