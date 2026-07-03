@@ -6,6 +6,7 @@ import { CheckCircle2, AlertTriangle } from "lucide-react";
 interface IndicationContent {
   slug: string;
   title: string;
+  short: string;
   h1: string;
   metaTitle: string;
   metaDesc: string;
