@@ -1,4 +1,5 @@
 import { TECHNOLOGIES } from "@/data/technologies";
+import { CONTENT as WSKAZANIA_CONTENT } from "@/routes/wskazania.$slug";
 
 export const SITEMAP_BASE_URL = "https://bmclinics.ai";
 
