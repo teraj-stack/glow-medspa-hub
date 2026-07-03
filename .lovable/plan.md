@@ -1,197 +1,36 @@
+## Problem (potwierdzony)
 
-# Plan treści i struktura landingów — Warszawa (Bielany / Promedion)
+Na `/wskazania` jest 7 kafelków, ale `src/routes/wskazania.$slug.tsx` zawiera treść tylko dla `przebarwienia-warszawa`. Pozostałe 6 (`melasma-ostuda-warszawa`, `blizny-potradzikowe-warszawa`, `naczynka-rumien-warszawa`, `rozstepy-warszawa`, `tatuaz-usuwanie-warszawa`, `wiotkosc-lifting-bez-skalpela-wwa`) wpadają w `throw notFound()` → strona „Nie znaleziono wskazania". Dodatkowo istniejąca treść `Przebarwienia` odwołuje się jeszcze do starego adresu (Bielany / Promedion), który zgodnie z pamięcią projektu jest nieaktualny — nowy adres to **ul. Branickiego 10 (klinika ginekologii)**.
 
-Cel: realny ruch z Google w Warszawie na frazy związane z **technologiami zabiegowymi** („device settings" = konfiguracja/protokół urządzenia w kontekście SEO ≙ landing per-technologia) i **wskazaniami** (co problem klienta rozwiązuje). Zero nazw handlowych sprzętu w treści publicznej — używamy nazw generycznych (laser frakcyjny CO₂, laser pikosekundowy, laser tulowy 1927 nm, HIFU, IPL, RF mikroigłowe itd.).
+Do wyboru masz dwie ścieżki — proszę o decyzję, którą wdrażam.
 
-Źródło volume/KDI: Semrush, baza `pl` (Polska).
+## Opcja A — Szybka naprawa (dziś, ~5 min pracy)
 
----
+Zostawiamy tylko działający kafelek. Usuwamy 6 pozostałych z tablicy `INDICATIONS`, dopóki nie mamy treści. Efekt: hub przestaje kłamać, brak martwych linków, żaden ruch nie trafia w ślepy zaułek.
 
-## 1. Architektura tras (hub-and-spoke)
+Zmiany:
+- `src/routes/wskazania.index.tsx` — `INDICATIONS` zredukowane do 1 pozycji (Przebarwienia).
+- `src/routes/wskazania.$slug.tsx` — aktualizacja treści `przebarwienia-warszawa`: „Bielany / Klinika Promedion" → „Branickiego 10 (klinika ginekologii)" w intro, meta, keywords.
+- `src/routes/wskazania.index.tsx` — analogiczna aktualizacja DESCRIPTION.
 
-```text
-/technologie                        (hub istniejący — link-hub)
-  ├─ /technologie/laser-pikosekundowy-warszawa      [NEW]
-  ├─ /technologie/laser-frakcyjny-co2-warszawa      [NEW]
-  ├─ /technologie/laser-tulowy-1927-warszawa        [NEW]
-  ├─ /technologie/hifu-warszawa                     [NEW]
-  ├─ /technologie/ipl-fotoodmladzanie-warszawa      [NEW]
-  └─ /technologie/rf-mikroiglowe-warszawa           [NEW]
+## Opcja B — Pełne wskazania (rekomendowana docelowo)
 
-/wskazania                          (hub NOWY — spis wskazań)
-  ├─ /wskazania/przebarwienia-warszawa              [NEW, priorytet]
-  ├─ /wskazania/melasma-ostuda-warszawa             [NEW]
-  ├─ /wskazania/blizny-potradzikowe-warszawa        [NEW]
-  ├─ /wskazania/naczynka-rumien-warszawa            [NEW]
-  ├─ /wskazania/rozstepy-warszawa                   [NEW]
-  ├─ /wskazania/tatuaz-usuwanie-warszawa            [NEW]
-  └─ /wskazania/wiotkosc-lifting-bez-skalpela-wwa   [NEW]
-```
+Dopisujemy 6 brakujących wpisów `IndicationContent` w tym samym schemacie co `przebarwienia-warszawa` (intro, 3–4 `types`, 3–4 `methods`, `timeline`, `contraindications`, `priceNote`, 4–5 pytań FAQ). Aby uniknąć zmyślonych obietnic klinicznych i cen, potrzebuję od Ciebie:
 
-Każdy landing „technologia" cross-linkuje ≥3 wskazania i odwrotnie. Hub `/wskazania` z krótkim opisem + tile grid — realny page (nie sam sitemap).
+1. Dla każdego z 6 wskazań: **potwierdzenie technologii**, które oferujesz (np. Melasma → laser tulowy 1927 nm + farmakoterapia; Blizny potrądzikowe → laser frakcyjny CO2 + mikroigłowe RF; Naczynka → laser naczyniowy 532/1064 nm; Rozstępy → laser frakcyjny + biostymulator; Tatuaż → laser pikosekundowy; Wiotkość → HIFU / RF mikroigłowe / biostymulatory).
+2. **Ceny od** dla każdego wskazania (sesja + orientacyjna seria).
+3. **Zakres skuteczności / limitacji**, który chcesz komunikować (np. „melasma jest przewlekła, kontrolujemy nie leczymy").
+4. Zgodę na standardową listę przeciwwskazań (ciąża/karmienie tam gdzie zasadne, izotretynoina 6 mies., aktywne infekcje, opalenizna, fotodermatozy) lub Twoje modyfikacje.
 
----
+Po otrzymaniu punktów 1–4 generuję 6 wpisów bez nazw handlowych urządzeń, z adresem Branickiego 10, i dopisuję je równocześnie do `src/lib/sitemap-entries.ts` (żeby wszystkie 7 stron trafiły do sitemapy).
 
-## 2. Priorytet frazowy (dane Semrush, baza PL)
+## Techniczne szczegóły
 
-| # | Fraza | Vol/mo | KDI | Typ | Landing |
-|---|-------|-------:|----:|-----|---------|
-| 1 | laser frakcyjny warszawa | 1 000 | 13 | technologia | /technologie/laser-frakcyjny-co2-warszawa |
-| 2 | mezoterapia igłowa warszawa | 390 | 11 | technologia | (jeśli oferowana; poza planem) |
-| 3 | hifu warszawa | 320 | 14 | technologia | /technologie/hifu-warszawa |
-| 4 | laser co2 warszawa | 260 | 11 | technologia | (wariant #1, canonical → #1) |
-| 5 | usuwanie przebarwień warszawa | 260 | 16 | wskazanie | /wskazania/przebarwienia-warszawa |
-| 6 | laserowe usuwanie przebarwień warszawa | 210 | — | wskazanie | ↑ ta sama, sekcja + H2 |
-| 7 | zamykanie naczynek warszawa | 140 | 17 | wskazanie | /wskazania/naczynka-rumien-warszawa |
-| 8 | fotoodmładzanie warszawa | 140 | 13 | technologia | /technologie/ipl-fotoodmladzanie-warszawa |
-| 9 | laser pikosekundowy warszawa | 110 | 11 | technologia | /technologie/laser-pikosekundowy-warszawa |
+- Struktura `IndicationContent` już istnieje — nie ruszam schematu ani routingu.
+- Sitemapa: obecnie `src/lib/sitemap-entries.ts` ma tylko `/wskazania/przebarwienia-warszawa`. W Opcji A zostaje jak jest. W Opcji B dopisuję 6 pozostałych URL-i.
+- Route dynamiczny `/wskazania/$slug` z `notFound()` zostaje bez zmian — to prawidłowe zabezpieczenie na literówki w URL.
+- Nie ruszam `notFoundComponent` — ma sensowną treść, po prostu przestanie się pojawiać przy klikaniu z huba.
 
-Wszystkie KDI 11–17 → **realne do wejścia w top 10 w 8–16 tyg.** przy AS domeny 20-40 i konsekwentnej publikacji. Sumaryczny „pool" ~2 830 wyszukiwań/mies. bez frazy „melasma" (4 400/mies., KDI wyższe — traktujemy jako aspirational).
+## Rekomendacja
 
-Nie targetujemy: „laser frakcyjny cena", „laser co2 efekty" — ogólnopolskie, wchłonie je blog, nie landing lokalny.
-
----
-
-## 3. Szablon landingu TECHNOLOGIA (H1–H3)
-
-Tytuł: `Laser frakcyjny CO₂ Warszawa — protokół, wskazania, cena | BMClinics.ai` (≤60)
-Meta: `Laser frakcyjny CO₂ w Warszawie (Bielany). Wskazania, przebieg, rekonwalescencja, cennik. Konsultacja lekarska w Klinice Promedion.` (≤160)
-
-```text
-H1  Laser frakcyjny CO₂ w Warszawie
-  (eyebrow: „Bielany · Klinika Promedion, Wójcickiego 4")
-  [Blok: krótki lead 2 zdania + primary CTA „Rezerwuj konsultację"]
-
-H2  Dla kogo — wskazania
-  H3  Blizny potrądzikowe i pozabiegowe
-  H3  Zmarszczki okolic oczu i ust
-  H3  Rozstępy, zmiany posłoneczne
-  H3  Kiedy laser CO₂ NIE jest wskazany (przeciwwskazania)
-
-H2  Jak wygląda zabieg krok po kroku
-  H3  Konsultacja i kwalifikacja lekarska
-  H3  Przebieg zabiegu (znieczulenie, czas, odczucia)
-  H3  Rekonwalescencja dzień po dniu (D0-D14)
-
-H2  Efekty i seria zabiegów
-  H3  Kiedy widać efekt (before/after grid)
-  H3  Rekomendowana seria i odstępy
-
-H2  Bezpieczeństwo w Warszawie
-  H3  Kwalifikacja pacjenta i badanie skóry
-  H3  Ochrona przed powikłaniami — nasz protokół
-  [link out → /bezpieczenstwo-zabiegow-laserowych]
-
-H2  Cennik zabiegu w Warszawie
-  H3  Cena za obszar
-  H3  Pakiety serii
-  [link out → /cennik]
-
-H2  FAQ (5–7 pytań, JSON-LD FAQPage)
-
-H2  Umów konsultację
-  [Blok NAP + mapa Promedion + BookingFormLazy]
-```
-
-Wymagania techniczne per landing:
-- JSON-LD `MedicalProcedure` + `MedicalClinic` (z `/#clinic`) + `FAQPage`.
-- OG image = zdjęcie efektu / gabinetu (nie stock).
-- Linki wewnętrzne: 3× do powiązanych `/wskazania/*`, 1× do `/lekarze`, 1× do `/diagnostyka-skory-warszawa`.
-- Breadcrumb JSON-LD: `Strona główna › Technologie › [nazwa]`.
-- Zero nazw handlowych sprzętu (zgodnie z memory rule).
-
----
-
-## 4. Szablon landingu WSKAZANIE (H1–H3)
-
-Tytuł: `Usuwanie przebarwień Warszawa — diagnostyka i leczenie | BMClinics.ai`
-Meta: `Przebarwienia posłoneczne, hormonalne i pozapalne. Diagnostyka spektralna i dobór terapii lekarskiej w Warszawie (Bielany).`
-
-```text
-H1  Usuwanie przebarwień w Warszawie
-
-H2  Rodzaje przebarwień i skąd się biorą
-  H3  Posłoneczne (soczewicowate)
-  H3  Melasma / ostuda (hormonalna)
-  H3  Pozapalne (po trądziku, po zabiegach)
-  H3  Barwnikowe zmiany naczyniowe (różnicowanie)
-
-H2  Diagnostyka — dlaczego zaczynamy od badania skóry
-  [link out → /diagnostyka-skory-warszawa]
-  H3  Analiza spektralna i mapping barwnika
-  H3  Klasyfikacja fototypu (Fitzpatrick)
-
-H2  Metody leczenia dobierane w klinice
-  H3  Laser pikosekundowy — dla trwałych, głębokich plam
-  H3  Laser tulowy 1927 nm — dla powierzchownych, rozlanych
-  H3  Kwasy medyczne i terapie łączone
-  H3  Farmakoterapia miejscowa i domowa fotoprotekcja
-  (każdy H3 linkuje do właściwej /technologie/*)
-
-H2  Czego oczekiwać po serii — realne efekty
-  H3  Kalendarz leczenia (rozłożenie w miesiące)
-  H3  Ryzyko nawrotu i jak mu zapobiegamy
-
-H2  Bezpieczeństwo i przeciwwskazania
-
-H2  Cennik konsultacji i zabiegów w Warszawie
-
-H2  FAQ (JSON-LD FAQPage; 6–8 pytań z People Also Ask)
-  „Czy laser usuwa przebarwienia raz na zawsze?"
-  „Ile kosztuje usuwanie przebarwień w Warszawie?"
-  „Kiedy nie robić lasera na przebarwienia?"
-  „Czy melasmę można wyleczyć?"
-  „Ile trwa rekonwalescencja?"
-
-H2  Umów diagnostykę skóry
-  [NAP + BookingFormLazy]
-```
-
----
-
-## 5. Sekcja lokalna — powtarzalny blok „Warszawa"
-
-Ten sam komponent na każdym landingu (spójność NAP, waga lokalna):
-
-- H2 „Gdzie wykonujemy zabieg w Warszawie"
-- Adres + dzielnica (Bielany) + dojazd (metro Młociny 8 min, parking Promedion)
-- Osadzone Google Maps (lazy)
-- Godziny (z `nap_settings`)
-- Link do Google Business Profile
-- Mikro-blok „Obsługujemy pacjentów z: Bielany, Bemowo, Żoliborz, Śródmieście, Łomianki"
-
----
-
-## 6. Wsparcie blogiem (klaster tematyczny — 3 mies.)
-
-Blog karmi landingi linkowaniem wewnętrznym (anchor = fraza lokalna).
-
-Priorytet publikacji:
-1. „Laser frakcyjny — dzień po dniu (D0-D14)" — vol 2 400, KDI niskie → link do `/technologie/laser-frakcyjny-co2-warszawa`
-2. „Melasma vs przebarwienia posłoneczne — jak odróżnić" → `/wskazania/melasma-ostuda-warszawa`
-3. „Ile trwa rekonwalescencja po laserze CO₂" → j.w.
-4. „Czy laser pikosekundowy boli" (long tail informational) → `/technologie/laser-pikosekundowy-warszawa`
-5. „Zamykanie naczynek — laser czy IPL" → `/wskazania/naczynka-rumien-warszawa`
-6. „Fotoprotekcja po zabiegu — przewodnik" → link ze wszystkich landingów wskazań
-
----
-
-## 7. Kolejność wdrożenia (co robię, gdy zaakceptujesz)
-
-1. **Landing #1**: `/wskazania/przebarwienia-warszawa` — najwyższy stosunek volume/KDI + linkuje w 3 istniejące technologie.
-2. **Landing #2**: `/technologie/laser-frakcyjny-co2-warszawa` — największy pojedynczy volume (1 000/mies.).
-3. Hub `/wskazania` + shell komponentu `LocalWarsawSection` re-użyty w obu.
-4. Sitemap + JSON-LD BreadcrumbList + wpięcie w `/technologie` i menu.
-5. IndexNow ping po każdym z landingów (mamy już /admin/seo/indeksacja).
-6. Kolejne 5 landingów w cyklu 1/tydzień, plus 2 posty blogowe/tydzień z klastra.
-
-Prognoza: pierwsze pozycje 5–20 w 4–6 tyg. dla KDI ≤17; wejście top 10 dla ≥3 fraz w 12 tyg.
-
----
-
-## 8. Czego celowo NIE robimy
-
-- Nie tworzymy landingu per marka urządzenia (rule projektu).
-- Nie duplikujemy „laser co2 warszawa" osobno od „laser frakcyjny warszawa" — jeden landing, canonical, dwa H2 w treści.
-- Nie targetujemy fraz Siedlce (przekierowane, nie odpowiadają lokalizacji).
-- Nie ścigamy „melasma" (4 400/mies., KDI wysokie, ogólnopolska) samodzielnie — wchodzimy long-tailem lokalnym „melasma leczenie warszawa".
+**Wdrażam Opcję A od razu**, żeby zatrzymać krwotok martwych linków, a Opcję B robimy jak prześlesz dane kliniczne (pkt 1–4). Napisz „A", „B" albo „A + zbieram dane do B".
