@@ -164,6 +164,68 @@ function downloadClustersMarkdown(clusters: ContentCluster[]) {
   URL.revokeObjectURL(url);
 }
 
+type IntentKey = "cennik" | "lokalizacja" | "przebieg" | "porownanie" | "powiklania" | "opinie" | "usluga" | "informacyjne";
+
+const INTENT_META: Record<IntentKey, { label: string; hint: string; titleTemplate: (top: string) => string; angle: string }> = {
+  cennik:      { label: "Cennik / koszt",           hint: "Użytkownik szuka ceny — intent transakcyjny.", titleTemplate: (t) => `${cap(t)} — cennik ${new Date().getFullYear()} (Warszawa, Branickiego 10)`, angle: "Tabela cen, od czego zależy koszt, pakiety, finansowanie, CTA do konsultacji." },
+  lokalizacja: { label: "Lokalizacja",              hint: "Fraza z miastem/dzielnicą — intent lokalny.",    titleTemplate: (t) => `${cap(t)} — Warszawa Wilanów (ul. Branickiego 10)`, angle: "NAP, mapa, dojazd, catchment, opinie lokalne, LocalBusiness schema." },
+  przebieg:    { label: "Przebieg / efekty",        hint: "Jak wygląda zabieg, ile trwa, kiedy efekty.",   titleTemplate: (t) => `${cap(t)} — jak wygląda, ile trwa, kiedy widać efekty`, angle: "Step-by-step, harmonogram efektów, rekonwalescencja, zdjęcia przed/po." },
+  porownanie:  { label: "Porównanie / alternatywy", hint: "Porównanie technologii lub zabiegów.",          titleTemplate: (t) => `${cap(t)} — porównanie z alternatywami (co wybrać)`, angle: "Tabela porównawcza, wskazania, ograniczenia, koszty, decyzja per typ skóry." },
+  powiklania:  { label: "Bezpieczeństwo / powikłania", hint: "Przeciwwskazania, ryzyko, bezpieczeństwo.", titleTemplate: (t) => `${cap(t)} — przeciwwskazania, ryzyko i jak zminimalizować powikłania`, angle: "Lista przeciwwskazań, red flags, co robić przed/po, kiedy zgłosić się do lekarza." },
+  opinie:      { label: "Opinie / recenzje",        hint: "Szuka social proof.",                            titleTemplate: (t) => `${cap(t)} — opinie pacjentek i realne efekty`, angle: "Case studies, cytaty pacjentek, zdjęcia przed/po, linki do Google Reviews." },
+  usluga:      { label: "Usługa (komercyjne)",      hint: "Nazwa zabiegu — intent komercyjny.",             titleTemplate: (t) => `${cap(t)} w Warszawie — na czym polega i dla kogo`, angle: "Strona usługi: wskazania, mechanizm, przebieg, cennik, FAQ, CTA rezerwacji." },
+  informacyjne:{ label: "Informacyjne / edukacja",  hint: "Ogólne pytania — top of funnel.",               titleTemplate: (t) => `${cap(t)} — kompletny przewodnik`, angle: "Definicja, przyczyny, kiedy do specjalisty, przegląd metod leczenia." },
+};
+
+function cap(s: string) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function classifyIntent(phrase: string): IntentKey {
+  const p = phrase.toLowerCase();
+  if (/(cen[ay]|cennik|koszt|ile kosztuje|ile za|promocja|rabat|tanio|najtaniej)/.test(p)) return "cennik";
+  if (/(opinie|recenzje|forum|opini)/.test(p)) return "opinie";
+  if (/(przeciwwskazani|powikłani|powiklani|skutki uboczne|ryzyko|bezpieczn|boli|ból|bol)/.test(p)) return "powiklania";
+  if (/( vs | czy |różnic|roznic|porównan|porownan|lepsz|alternatyw|co wybrać|co wybrac)/.test(p)) return "porownanie";
+  if (/(jak (wygląda|wyglada|przebiega)|ile trwa|ile zabiegów|ile zabiegow|efekt|rekonwalescencj|po zabiegu|przed zabiegiem|przygotowani|znieczuleni|kiedy widać|kiedy widac)/.test(p)) return "przebieg";
+  if (/(warszaw|siedlce|krak|wrocł|wroc|poznan|gdans|wilanów|wilanow|mokot|bielan|śródmie|srodmie|ursyn|żoli|zoli|bemow|dzielnic|blisko|gdzie|w mieście|w miescie|klinik|gabinet)/.test(p)) return "lokalizacja";
+  if (/(co to|czym jest|dlaczego|przyczyn|objaw|rodzaj)/.test(p)) return "informacyjne";
+  return "usluga";
+}
+
+type IntentGroup = { intent: IntentKey; rows: Row[]; totalVolume: number };
+
+function groupByIntent(rows: Row[]): IntentGroup[] {
+  const map = new Map<IntentKey, Row[]>();
+  for (const r of rows) {
+    const k = classifyIntent(r.phrase);
+    const arr = map.get(k) ?? [];
+    arr.push(r);
+    map.set(k, arr);
+  }
+  const ordering: IntentKey[] = ["usluga", "cennik", "lokalizacja", "przebieg", "porownanie", "powiklania", "opinie", "informacyjne"];
+  return ordering
+    .filter((k) => map.has(k))
+    .map((intent) => {
+      const rs = (map.get(intent) ?? []).sort((a, b) => (b.volume ?? 0) - (a.volume ?? 0));
+      const totalVolume = rs.reduce((s, r) => s + (r.volume ?? 0), 0);
+      return { intent, rows: rs, totalVolume };
+    });
+}
+
+function downloadIntentGroupsCsv(result: ResearchResult, groups: IntentGroup[]) {
+  const header = ["intent", "fraza", "wolumen", "KD", "CPC (USD)", "propozycja_tytulu", "angle"];
+  const rows: (string | number | null)[][] = [];
+  for (const g of groups) {
+    const meta = INTENT_META[g.intent];
+    const topPhrase = g.rows[0]?.phrase ?? "";
+    const title = meta.titleTemplate(topPhrase);
+    for (const r of g.rows) {
+      rows.push([meta.label, r.phrase, r.volume ?? "", r.difficulty ?? "", r.cpc ?? "", title, meta.angle]);
+    }
+  }
+  const stamp = (result.createdAt ?? new Date().toISOString()).slice(0, 19).replace(/[:T]/g, "-");
+  triggerDownload(toCsv(header, rows), `intent-groups-${result.database}-${stamp}.csv`);
+}
+
 function KeywordsPanel() {
   const qc = useQueryClient();
   const researchFn = useServerFn(researchKeywords);
@@ -477,6 +539,64 @@ function KeywordsPanel() {
           </p>
         </section>
       )}
+
+      {result && (() => {
+        const groups = groupByIntent(result.rows);
+        if (!groups.length) return null;
+        return (
+          <section id="intent-groups-section" className="rounded-lg border border-border p-4 space-y-4">
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h3 className="font-medium">Grupy fraz według intencji</h3>
+                <p className="text-xs text-muted-foreground">
+                  Automatyczne pogrupowanie fraz z aktualnego raportu (usługa, cennik, lokalizacja, przebieg, porównania, bezpieczeństwo, opinie, informacyjne). Dla każdej grupy — gotowa propozycja tematu artykułu.
+                </p>
+              </div>
+              <Button variant="outline" onClick={() => downloadIntentGroupsCsv(result, groups)}>Eksport grup CSV</Button>
+            </div>
+
+            <div className="grid gap-3 md:grid-cols-2">
+              {groups.map((g) => {
+                const meta = INTENT_META[g.intent];
+                const top = g.rows[0]?.phrase ?? "";
+                return (
+                  <div key={g.intent} className="rounded-md border border-border/60 p-3 space-y-2 bg-muted/10">
+                    <div className="flex items-baseline justify-between gap-2">
+                      <div className="font-medium text-sm">{meta.label}</div>
+                      <div className="text-xs text-muted-foreground tabular-nums">
+                        {g.rows.length} fraz · Σ vol {fmt(g.totalVolume)}
+                      </div>
+                    </div>
+                    <div className="text-xs text-muted-foreground">{meta.hint}</div>
+
+                    <div className="rounded border border-dashed border-border/60 p-2 space-y-1">
+                      <div className="text-[11px] uppercase tracking-wide text-muted-foreground">Propozycja artykułu</div>
+                      <div className="text-sm font-medium leading-snug">{meta.titleTemplate(top)}</div>
+                      <div className="text-xs text-muted-foreground">{meta.angle}</div>
+                    </div>
+
+                    <ul className="text-xs space-y-0.5">
+                      {g.rows.slice(0, 6).map((r) => (
+                        <li key={r.phrase} className="flex justify-between gap-2">
+                          <span className="font-mono truncate">{r.phrase}</span>
+                          <span className="text-muted-foreground tabular-nums whitespace-nowrap">
+                            {fmt(r.volume)} · KD <span className={kdTone(r.difficulty)}>{fmt(r.difficulty)}</span>
+                          </span>
+                        </li>
+                      ))}
+                      {g.rows.length > 6 && (
+                        <li className="text-muted-foreground">+ {g.rows.length - 6} kolejnych…</li>
+                      )}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })()}
+
+
 
       <section className="rounded-lg border border-border p-4 space-y-3">
         <div className="flex flex-wrap items-end justify-between gap-3">
