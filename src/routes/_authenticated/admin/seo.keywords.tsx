@@ -817,7 +817,7 @@ function KeywordsPanel() {
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
               <h3 className="font-medium">Propozycje klastrów artykułów ({clusters.clusters.length})</h3>
-              <p className="text-xs text-muted-foreground">Wygenerowane przez AI na bazie fraz z raportu. Każdy klaster = pillar + wspierające, gotowe do publikacji.</p>
+              <p className="text-xs text-muted-foreground">Edytuj tytuły, slugi i frazy przed eksportem — zmiany trafią do CSV i Markdown.</p>
             </div>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={() => downloadClustersCsv(clusters.clusters)}>Eksport klastrów CSV</Button>
@@ -826,56 +826,109 @@ function KeywordsPanel() {
             </div>
           </div>
 
-          <div className="space-y-4">
-            {clusters.clusters.map((c, idx) => (
-              <div key={idx} className="rounded-md border border-border/70 p-4 space-y-3 bg-muted/20">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <div>
-                    <h4 className="font-semibold">{c.cluster}</h4>
-                    <div className="text-xs text-muted-foreground">
-                      Usługa: <strong>{c.targetService}</strong> · intent: <code className="font-mono">{c.intent}</code>
+          {(() => {
+            const updateCluster = (idx: number, patch: Partial<ContentCluster>) => {
+              setClusters((prev) => prev && ({
+                ...prev,
+                clusters: prev.clusters.map((c, i) => i === idx ? { ...c, ...patch } : c),
+              }));
+            };
+            const updateSupport = (cIdx: number, sIdx: number, patch: Partial<ContentCluster["supportingArticles"][number]>) => {
+              setClusters((prev) => prev && ({
+                ...prev,
+                clusters: prev.clusters.map((c, i) => i !== cIdx ? c : {
+                  ...c,
+                  supportingArticles: c.supportingArticles.map((a, j) => j === sIdx ? { ...a, ...patch } : a),
+                }),
+              }));
+            };
+            const removeSupport = (cIdx: number, sIdx: number) => {
+              setClusters((prev) => prev && ({
+                ...prev,
+                clusters: prev.clusters.map((c, i) => i !== cIdx ? c : {
+                  ...c,
+                  supportingArticles: c.supportingArticles.filter((_, j) => j !== sIdx),
+                }),
+              }));
+            };
+            return (
+              <div className="space-y-4">
+                {clusters.clusters.map((c, idx) => (
+                  <div key={idx} className="rounded-md border border-border/70 p-4 space-y-3 bg-muted/20">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2">
+                      <div className="flex-1 min-w-[220px]">
+                        <label className="text-xs uppercase text-muted-foreground">Nazwa klastra</label>
+                        <Input value={c.cluster} onChange={(e) => updateCluster(idx, { cluster: e.target.value })} className="font-semibold" />
+                        <div className="text-xs text-muted-foreground mt-1">
+                          Usługa: <strong>{c.targetService}</strong> · intent: <code className="font-mono">{c.intent}</code>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="rounded bg-background border border-border/50 p-3 space-y-2">
+                      <div className="text-xs uppercase text-muted-foreground">Pillar</div>
+                      <div>
+                        <label className="text-[10px] uppercase text-muted-foreground">Tytuł</label>
+                        <Input value={c.pillarTitle} onChange={(e) => updateCluster(idx, { pillarTitle: e.target.value })} />
+                      </div>
+                      <div>
+                        <label className="text-[10px] uppercase text-muted-foreground">Slug</label>
+                        <Input value={c.pillarSlug} onChange={(e) => updateCluster(idx, { pillarSlug: e.target.value.replace(/^\/+/, "") })} className="font-mono text-xs" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="text-xs uppercase text-muted-foreground mb-2">Artykuły wspierające ({c.supportingArticles.length})</div>
+                      <ul className="space-y-3">
+                        {c.supportingArticles.map((a, i) => (
+                          <li key={i} className="text-sm border-l-2 border-border pl-3 space-y-2">
+                            <div className="flex items-start gap-2">
+                              <div className="flex-1 space-y-2">
+                                <div>
+                                  <label className="text-[10px] uppercase text-muted-foreground">Tytuł</label>
+                                  <Input value={a.title} onChange={(e) => updateSupport(idx, i, { title: e.target.value })} />
+                                </div>
+                                <div className="grid gap-2 sm:grid-cols-2">
+                                  <div>
+                                    <label className="text-[10px] uppercase text-muted-foreground">Slug</label>
+                                    <Input value={a.slug} onChange={(e) => updateSupport(idx, i, { slug: e.target.value.replace(/^\/+/, "") })} className="font-mono text-xs" />
+                                  </div>
+                                  <div>
+                                    <label className="text-[10px] uppercase text-muted-foreground">Fraza główna</label>
+                                    <Input value={a.primaryKeyword} onChange={(e) => updateSupport(idx, i, { primaryKeyword: e.target.value })} className="font-mono text-xs" />
+                                  </div>
+                                </div>
+                                <div>
+                                  <label className="text-[10px] uppercase text-muted-foreground">Frazy wspierające (rozdzielone `;`)</label>
+                                  <Textarea
+                                    rows={2}
+                                    value={a.supportingKeywords.join("; ")}
+                                    onChange={(e) => updateSupport(idx, i, { supportingKeywords: e.target.value.split(/;\s*/).map((s) => s.trim()).filter(Boolean) })}
+                                    className="font-mono text-xs"
+                                  />
+                                </div>
+                                <div className="text-xs text-muted-foreground">
+                                  {a.estimatedVolume != null && <span>vol {fmt(a.estimatedVolume)}</span>}
+                                  {a.estimatedKd != null && <span className={kdTone(a.estimatedKd)}> · KD {fmt(a.estimatedKd)}</span>}
+                                  <span className="italic"> · {a.angle}</span>
+                                </div>
+                              </div>
+                              <Button variant="ghost" size="sm" onClick={() => removeSupport(idx, i)} title="Usuń artykuł">×</Button>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="text-xs grid gap-2 sm:grid-cols-2">
+                      <div><span className="text-muted-foreground">Linkowanie: </span>{c.internalLinking}</div>
+                      <div><span className="text-muted-foreground">CTA: </span>{c.cta}</div>
                     </div>
                   </div>
-                </div>
-
-                <div className="rounded bg-background border border-border/50 p-3">
-                  <div className="text-xs uppercase text-muted-foreground mb-1">Pillar</div>
-                  <div className="font-medium">{c.pillarTitle}</div>
-                  <code className="text-xs text-muted-foreground font-mono">/{c.pillarSlug}</code>
-                </div>
-
-                <div>
-                  <div className="text-xs uppercase text-muted-foreground mb-2">Artykuły wspierające</div>
-                  <ul className="space-y-2">
-                    {c.supportingArticles.map((a, i) => (
-                      <li key={i} className="text-sm border-l-2 border-border pl-3">
-                        <div className="font-medium">{a.title}</div>
-                        <code className="text-xs text-muted-foreground font-mono">/{a.slug}</code>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          <span className="font-mono">{a.primaryKeyword}</span>
-                          {a.estimatedVolume != null && <span> · vol {fmt(a.estimatedVolume)}</span>}
-                          {a.estimatedKd != null && <span className={kdTone(a.estimatedKd)}> · KD {fmt(a.estimatedKd)}</span>}
-                        </div>
-                        {a.supportingKeywords.length > 0 && (
-                          <div className="text-xs mt-1 flex flex-wrap gap-1">
-                            {a.supportingKeywords.map((k, j) => (
-                              <span key={j} className="rounded bg-muted px-1.5 py-0.5 font-mono text-[10px]">{k}</span>
-                            ))}
-                          </div>
-                        )}
-                        <div className="text-xs text-muted-foreground mt-1 italic">{a.angle}</div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="text-xs grid gap-2 sm:grid-cols-2">
-                  <div><span className="text-muted-foreground">Linkowanie: </span>{c.internalLinking}</div>
-                  <div><span className="text-muted-foreground">CTA: </span>{c.cta}</div>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
+            );
+          })()}
         </section>
       )}
     </div>
