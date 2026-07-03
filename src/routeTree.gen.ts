@@ -80,6 +80,7 @@ import { Route as ApiPublicIndexnowSplatRouteImport } from './routes/api/public/
 import { Route as ApiPublicHooksSitemapValidateRouteImport } from './routes/api/public/hooks/sitemap-validate'
 import { Route as ApiPublicHooksSeoSnapshotRouteImport } from './routes/api/public/hooks/seo-snapshot'
 import { Route as ApiPublicHooksSeoIndexationSubmitRouteImport } from './routes/api/public/hooks/seo-indexation-submit'
+import { Route as ApiPublicHooksOgRescrapeRouteImport } from './routes/api/public/hooks/og-rescrape'
 import { Route as ApiPublicHooksCalendarSyncRetryRouteImport } from './routes/api/public/hooks/calendar-sync-retry'
 import { Route as ApiPublicBookingsCancelRouteImport } from './routes/api/public/bookings/cancel'
 import { Route as AuthenticatedAdminSeoRaportyRouteImport } from './routes/_authenticated/admin/seo.raporty'
@@ -469,6 +470,12 @@ const ApiPublicHooksSeoIndexationSubmitRoute =
     path: '/api/public/hooks/seo-indexation-submit',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksOgRescrapeRoute =
+  ApiPublicHooksOgRescrapeRouteImport.update({
+    id: '/api/public/hooks/og-rescrape',
+    path: '/api/public/hooks/og-rescrape',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksCalendarSyncRetryRoute =
   ApiPublicHooksCalendarSyncRetryRouteImport.update({
     id: '/api/public/hooks/calendar-sync-retry',
@@ -565,6 +572,7 @@ export interface FileRoutesByFullPath {
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
+  '/api/public/hooks/og-rescrape': typeof ApiPublicHooksOgRescrapeRoute
   '/api/public/hooks/seo-indexation-submit': typeof ApiPublicHooksSeoIndexationSubmitRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
   '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
@@ -640,6 +648,7 @@ export interface FileRoutesByTo {
   '/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
+  '/api/public/hooks/og-rescrape': typeof ApiPublicHooksOgRescrapeRoute
   '/api/public/hooks/seo-indexation-submit': typeof ApiPublicHooksSeoIndexationSubmitRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
   '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
@@ -719,6 +728,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/seo/raporty': typeof AuthenticatedAdminSeoRaportyRoute
   '/api/public/bookings/cancel': typeof ApiPublicBookingsCancelRoute
   '/api/public/hooks/calendar-sync-retry': typeof ApiPublicHooksCalendarSyncRetryRoute
+  '/api/public/hooks/og-rescrape': typeof ApiPublicHooksOgRescrapeRoute
   '/api/public/hooks/seo-indexation-submit': typeof ApiPublicHooksSeoIndexationSubmitRoute
   '/api/public/hooks/seo-snapshot': typeof ApiPublicHooksSeoSnapshotRoute
   '/api/public/hooks/sitemap-validate': typeof ApiPublicHooksSitemapValidateRoute
@@ -798,6 +808,7 @@ export interface FileRouteTypes {
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
+    | '/api/public/hooks/og-rescrape'
     | '/api/public/hooks/seo-indexation-submit'
     | '/api/public/hooks/seo-snapshot'
     | '/api/public/hooks/sitemap-validate'
@@ -873,6 +884,7 @@ export interface FileRouteTypes {
     | '/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
+    | '/api/public/hooks/og-rescrape'
     | '/api/public/hooks/seo-indexation-submit'
     | '/api/public/hooks/seo-snapshot'
     | '/api/public/hooks/sitemap-validate'
@@ -951,6 +963,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/seo/raporty'
     | '/api/public/bookings/cancel'
     | '/api/public/hooks/calendar-sync-retry'
+    | '/api/public/hooks/og-rescrape'
     | '/api/public/hooks/seo-indexation-submit'
     | '/api/public/hooks/seo-snapshot'
     | '/api/public/hooks/sitemap-validate'
@@ -1011,6 +1024,7 @@ export interface RootRouteChildren {
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBookingsCancelRoute: typeof ApiPublicBookingsCancelRoute
   ApiPublicHooksCalendarSyncRetryRoute: typeof ApiPublicHooksCalendarSyncRetryRoute
+  ApiPublicHooksOgRescrapeRoute: typeof ApiPublicHooksOgRescrapeRoute
   ApiPublicHooksSeoIndexationSubmitRoute: typeof ApiPublicHooksSeoIndexationSubmitRoute
   ApiPublicHooksSeoSnapshotRoute: typeof ApiPublicHooksSeoSnapshotRoute
   ApiPublicHooksSitemapValidateRoute: typeof ApiPublicHooksSitemapValidateRoute
@@ -1522,6 +1536,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicHooksSeoIndexationSubmitRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/og-rescrape': {
+      id: '/api/public/hooks/og-rescrape'
+      path: '/api/public/hooks/og-rescrape'
+      fullPath: '/api/public/hooks/og-rescrape'
+      preLoaderRoute: typeof ApiPublicHooksOgRescrapeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/calendar-sync-retry': {
       id: '/api/public/hooks/calendar-sync-retry'
       path: '/api/public/hooks/calendar-sync-retry'
@@ -1697,6 +1718,7 @@ const rootRouteChildren: RootRouteChildren = {
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBookingsCancelRoute: ApiPublicBookingsCancelRoute,
   ApiPublicHooksCalendarSyncRetryRoute: ApiPublicHooksCalendarSyncRetryRoute,
+  ApiPublicHooksOgRescrapeRoute: ApiPublicHooksOgRescrapeRoute,
   ApiPublicHooksSeoIndexationSubmitRoute:
     ApiPublicHooksSeoIndexationSubmitRoute,
   ApiPublicHooksSeoSnapshotRoute: ApiPublicHooksSeoSnapshotRoute,
