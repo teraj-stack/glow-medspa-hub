@@ -10,8 +10,10 @@ import {
   deleteKeywordResearchReport,
   generateContentClusters,
   saveClustersAsDrafts,
+  listExistingSlugs,
   type ContentCluster,
 } from "@/lib/keyword-research.functions";
+import { buildSitemapEntries } from "@/lib/sitemap-entries";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
@@ -289,6 +291,70 @@ function downloadIntentGroupsCsv(result: ResearchResult, groups: IntentGroup[]) 
   triggerDownload(toCsv(header, rows), `intent-groups-${result.database}-${stamp}.csv`);
 }
 
+function cleanSlug(s: string): string {
+  return (s ?? "").trim().replace(/^\/+/, "").replace(/\/+$/, "").toLowerCase();
+}
+
+function suggestSlugVariants(base: string, taken: Set<string>, context: { intent?: string; location?: string } = {}): string[] {
+  const clean = cleanSlug(base);
+  if (!clean) return [];
+  const out: string[] = [];
+  const push = (v: string) => {
+    const c = cleanSlug(v);
+    if (c && !taken.has(c) && !out.includes(c) && c !== clean) out.push(c);
+  };
+  const loc = context.location ? cleanSlug(context.location) : "";
+  if (loc && !clean.includes(loc)) push(`${clean}-${loc}`);
+  const intent = context.intent ? cleanSlug(context.intent) : "";
+  const intentMap: Record<string, string> = {
+    cennik: "cena", lokalizacja: "warszawa", przebieg: "krok-po-kroku",
+    porownanie: "porownanie", powiklania: "powiklania", opinie: "opinie",
+    usluga: "poradnik", informacyjne: "poradnik",
+  };
+  const intentSuffix = intent && intentMap[intent] ? intentMap[intent] : "poradnik";
+  push(`${clean}-${intentSuffix}`);
+  push(`${clean}-2026`);
+  for (let n = 2; n <= 9 && out.length < 5; n++) push(`${clean}-${n}`);
+  return out.slice(0, 4);
+}
+
+function SlugValidation({ slug, status, suggestions, onApply }: {
+  slug: string;
+  status: { taken: boolean; duplicateInBatch: boolean };
+  suggestions: string[];
+  onApply: (v: string) => void;
+}) {
+  if (!slug.trim()) return null;
+  const conflict = status.taken || status.duplicateInBatch;
+  if (!conflict) {
+    return <div className="text-[10px] text-emerald-500 mt-1">✓ slug wolny</div>;
+  }
+  const reason = status.duplicateInBatch
+    ? "Slug użyty w tym samym eksporcie — zmień jeden z nich."
+    : "Slug zajęty (istniejąca strona lub szkic).";
+  return (
+    <div className="text-[10px] text-destructive mt-1 space-y-1">
+      <div>⚠ {reason}</div>
+      {suggestions.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1 text-muted-foreground">
+          <span>Propozycje:</span>
+          {suggestions.map((s) => (
+            <button
+              key={s}
+              type="button"
+              onClick={() => onApply(s)}
+              className="rounded border border-border px-1.5 py-0.5 font-mono hover:bg-muted"
+              title="Zastosuj bezpieczny wariant"
+            >
+              /{s}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function KeywordsPanel() {
   const qc = useQueryClient();
   const researchFn = useServerFn(researchKeywords);
@@ -392,6 +458,49 @@ function KeywordsPanel() {
     onSuccess: (r) => toast.success(`Zapisano ${r.saved} szkiców w /admin/content.`),
     onError: (e: Error) => toast.error(e.message),
   });
+
+  const existingSlugsFn = useServerFn(listExistingSlugs);
+  const existingSlugsQuery = useQuery({
+    queryKey: ["existing-slugs"],
+    queryFn: async () => existingSlugsFn({}) as Promise<{ slugs: string[] }>,
+    enabled: !!clusters,
+    staleTime: 30_000,
+  });
+
+  const takenSlugsBase = useMemo(() => {
+    const set = new Set<string>();
+    for (const e of buildSitemapEntries()) {
+      const p = cleanSlug(e.path);
+      if (p) set.add(p);
+    }
+    for (const s of existingSlugsQuery.data?.slugs ?? []) set.add(cleanSlug(s));
+    return set;
+  }, [existingSlugsQuery.data]);
+
+  const currentClusterSlugs = useMemo(() => {
+    const list: string[] = [];
+    if (clusters) {
+      for (const c of clusters.clusters) {
+        list.push(cleanSlug(c.pillarSlug));
+        for (const a of c.supportingArticles) list.push(cleanSlug(a.slug));
+      }
+    }
+    return list;
+  }, [clusters]);
+
+  function slugStatus(slug: string): { taken: boolean; duplicateInBatch: boolean } {
+    const c = cleanSlug(slug);
+    if (!c) return { taken: false, duplicateInBatch: false };
+    const taken = takenSlugsBase.has(c);
+    const duplicateInBatch = currentClusterSlugs.filter((s) => s === c).length > 1;
+    return { taken, duplicateInBatch };
+  }
+
+  const takenSlugsForSuggest = useMemo(() => {
+    const s = new Set(takenSlugsBase);
+    for (const c of currentClusterSlugs) s.add(c);
+    return s;
+  }, [takenSlugsBase, currentClusterSlugs]);
 
   const loadSerp = async (phrase: string) => {
     if (!result) return;
@@ -924,6 +1033,12 @@ function KeywordsPanel() {
                       <div>
                         <label className="text-[10px] uppercase text-muted-foreground">Slug</label>
                         <Input value={c.pillarSlug} onChange={(e) => updateCluster(idx, { pillarSlug: e.target.value.replace(/^\/+/, "") })} className="font-mono text-xs" />
+                        <SlugValidation
+                          slug={c.pillarSlug}
+                          status={slugStatus(c.pillarSlug)}
+                          suggestions={suggestSlugVariants(c.pillarSlug, takenSlugsForSuggest, { intent: c.intent, location: result?.appendLocation ?? "" })}
+                          onApply={(v) => updateCluster(idx, { pillarSlug: v })}
+                        />
                       </div>
                       <div>
                         <label className="text-[10px] uppercase text-muted-foreground flex justify-between">

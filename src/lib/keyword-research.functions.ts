@@ -394,3 +394,22 @@ export const saveClustersAsDrafts = createServerFn({ method: "POST" })
 
     return { saved: rows.length, savedAt: now };
   });
+
+export const listExistingSlugs = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await requireAdminOrManager(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
+      .from("creator_drafts")
+      .select("draft_key,data")
+      .eq("user_id", context.userId);
+    if (error) throw new Error(error.message);
+    const slugs = new Set<string>();
+    for (const r of data ?? []) {
+      const s = ((r.data as any)?.slug ?? "").toString().trim().replace(/^\/+/, "");
+      if (s) slugs.add(s);
+      if (r.draft_key?.startsWith("article:")) slugs.add(r.draft_key.slice("article:".length).replace(/^\/+/, ""));
+    }
+    return { slugs: Array.from(slugs) };
+  });
