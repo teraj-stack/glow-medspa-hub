@@ -6,6 +6,7 @@ import bujokAsset from "@/assets/bujok.jpeg.asset.json";
 import bujokAvif from "@/assets/bujok.avif.asset.json";
 import bujokWebp from "@/assets/bujok.webp.asset.json";
 import { ArrowRight, ExternalLink } from "lucide-react";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 const CANONICAL = "https://bmclinics.ai/lekarze/jan-bujok";
 
@@ -43,7 +44,7 @@ export const Route = createFileRoute("/lekarze/jan-bujok")({
           worksFor: {
             "@type": "MedicalClinic",
             name: "BMClinics.ai",
-            address: { "@type": "PostalAddress", streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)", addressLocality: "Warszawa", addressRegion: "mazowieckie", postalCode: "02-972", addressCountry: "PL" },
+            address: { ...CLINIC_POSTAL_ADDRESS_JSONLD },
           },
           url: CANONICAL,
           image: bujokAsset.url,

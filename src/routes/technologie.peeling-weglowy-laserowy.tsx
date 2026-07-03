@@ -18,6 +18,7 @@ import heroAsset from "@/assets/peeling-weglowy-hero.jpg.asset.json";
 import heroAvif from "@/assets/peeling-weglowy-hero.avif.asset.json";
 import heroWebp from "@/assets/peeling-weglowy-hero.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 const TECH_SLUG = "peeling-weglowy-laserowy";
 const PAGE_URL = "https://bmclinics.ai/technologie/peeling-weglowy-laserowy";
@@ -44,7 +45,7 @@ export const Route = createFileRoute("/technologie/peeling-weglowy-laserowy")({
         "@type": "MedicalBusiness",
         name: "BMClinics.ai",
         url: "https://bmclinics.ai",
-        address: { "@type": "PostalAddress", streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)", addressLocality: "Warszawa", addressRegion: "mazowieckie", postalCode: "02-972", addressCountry: "PL" },
+        address: { ...CLINIC_POSTAL_ADDRESS_JSONLD },
       },
       indication: [
         "rozszerzone pory",

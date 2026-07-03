@@ -33,6 +33,7 @@ import ba11Before from "@/assets/plasma-ba-11.png.asset.json";
 import ba11After from "@/assets/plasma-ba-11a.png.asset.json";
 import ba12Before from "@/assets/plasma-ba-12.png.asset.json";
 import ba12After from "@/assets/plasma-ba-12a.png.asset.json";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 const BEFORE_AFTER = [
   { before: ba1Before.url, after: ba1After.url, title: "Trądzik i niedoskonałości", desc: "Redukcja zmian zapalnych, wyrównanie kolorytu, zmniejszenie widoczności porów na policzku." },
@@ -73,7 +74,7 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
             "@type": "MedicalBusiness",
             name: "BMClinics.ai",
             url: "https://bmclinics.ai",
-            address: { "@type": "PostalAddress", streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)", addressLocality: "Warszawa", addressRegion: "mazowieckie", postalCode: "02-972", addressCountry: "PL" },
+            address: { ...CLINIC_POSTAL_ADDRESS_JSONLD },
           },
           indication: loaderData.tech.indications,
         }

@@ -26,6 +26,7 @@ import ba2Before from "@/assets/tulowy-ba-2.png.asset.json";
 import ba2After from "@/assets/tulowy-ba-2a.png.asset.json";
 import ba3Before from "@/assets/tulowy-ba-3.png.asset.json";
 import ba3After from "@/assets/tulowy-ba-3a.png.asset.json";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 const BEFORE_AFTER = [
   { before: ba1Before.url, after: ba1After.url, title: "Przebarwienia posłoneczne i plamy pigmentacyjne", desc: "Wyraźna redukcja plam, ujednolicenie kolorytu i rozjaśnienie skóry twarzy." },
@@ -59,12 +60,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
         name: "BMClinics.ai",
         url: "https://bmclinics.ai",
         address: {
-          "@type": "PostalAddress",
-          streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)",
-          addressLocality: "Warszawa",
-          addressRegion: "mazowieckie",
-          postalCode: "02-972",
-          addressCountry: "PL",
+          ...CLINIC_POSTAL_ADDRESS_JSONLD,
         },
       },
       indication: [

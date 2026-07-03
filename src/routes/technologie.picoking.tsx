@@ -22,6 +22,7 @@ import ba7 from "@/assets/piko-ba-7.webp.asset.json";
 import ba7a from "@/assets/piko-ba-7a.webp.asset.json";
 import ba8 from "@/assets/piko-ba-8.webp.asset.json";
 import ba8a from "@/assets/piko-ba-8a.webp.asset.json";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 const BA_GALLERY = [
   {
@@ -79,12 +80,7 @@ export const Route = createFileRoute("/technologie/picoking")({
             name: "BMClinics.ai",
             url: "https://bmclinics.ai",
             address: {
-              "@type": "PostalAddress",
-              streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)",
-              addressLocality: "Warszawa",
-              addressRegion: "mazowieckie",
-              postalCode: "02-972",
-              addressCountry: "PL",
+              ...CLINIC_POSTAL_ADDRESS_JSONLD,
             },
           },
           indication: loaderData.tech.indications,

@@ -11,6 +11,7 @@ import halinaPortrait from "@/assets/halina-portrait-960.webp.asset.json";
 import halaTloMp4 from "@/assets/hala-tlo.mp4.asset.json";
 import halaTloWebm from "@/assets/hala-tlo.webm.asset.json";
 import halaTloPoster from "@/assets/hala-tlo-poster.jpg.asset.json";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 function useIsAdmin() {
   return useQuery({
@@ -478,7 +479,7 @@ export const Route = createFileRoute("/lekarze/halina-gabara")({
           worksFor: {
             "@type": "MedicalClinic",
             name: "BMClinics.ai",
-            address: { "@type": "PostalAddress", streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)", addressLocality: "Warszawa", addressRegion: "mazowieckie", postalCode: "02-972", addressCountry: "PL" },
+            address: { ...CLINIC_POSTAL_ADDRESS_JSONLD },
           },
           url: CANONICAL,
         }),

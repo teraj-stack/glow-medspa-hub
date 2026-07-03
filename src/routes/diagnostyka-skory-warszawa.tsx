@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ScanFace, Microscope, ClipboardList, Sparkles, MapPin, Clock, CheckCircle2, Waves, Layers, LineChart, Grid3x3 } from "lucide-react";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 const CANONICAL = "https://bmclinics.ai/diagnostyka-skory-warszawa";
 const TITLE = "Diagnostyka skóry Warszawa — analiza skóry twarzy i badanie skóry | BMClinics";
@@ -35,12 +36,7 @@ export const Route = createFileRoute("/diagnostyka-skory-warszawa")({
           priceRange: "$$$",
           areaServed: { "@type": "City", name: "Warszawa" },
           address: {
-            "@type": "PostalAddress",
-            streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)",
-            addressLocality: "Warszawa",
-            postalCode: "02-972",
-            addressRegion: "mazowieckie",
-            addressCountry: "PL",
+            ...CLINIC_POSTAL_ADDRESS_JSONLD,
           },
           geo: {
             "@type": "GeoCoordinates",
