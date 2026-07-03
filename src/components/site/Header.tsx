@@ -39,7 +39,8 @@ export function Header() {
       <div className="container-luxury flex h-16 items-center justify-between md:h-20">
         <Link to="/" aria-label="BMClinics.ai — strona główna" className="flex items-center">
           <img
-            src={logoBmcUrl}
+            src={cfImage(logoBmcUrl, { width: 88, format: "auto" })}
+            srcSet={`${cfImage(logoBmcUrl, { width: 44, format: "auto" })} 1x, ${cfImage(logoBmcUrl, { width: 88, format: "auto" })} 2x`}
             alt="Bujok Medical"
             className="h-9 w-auto drop-shadow-sm md:h-11"
             width={44}
