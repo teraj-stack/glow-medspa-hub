@@ -2,6 +2,7 @@ import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { CfImg } from "@/components/site/CfImg";
 import { ArrowLeft, Sparkles, ShieldCheck } from "lucide-react";
 import zdrowaAsset from "@/assets/plasma-skora-zdrowa.png.asset.json";
 import wiotkaAsset from "@/assets/plasma-skora-wiotka.jpg.asset.json";

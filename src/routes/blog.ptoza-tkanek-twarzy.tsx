@@ -3,6 +3,7 @@ import { BlurUpImage } from "@/components/site/BlurUpImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { CfImg } from "@/components/site/CfImg";
 import { ArrowLeft, Layers } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
 import szkicAsset from "@/assets/portret-starszej-kobiety.jpg.asset.json";

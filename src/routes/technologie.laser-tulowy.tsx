@@ -19,6 +19,7 @@ import heroAsset from "@/assets/tulowy-hero.jpg.asset.json";
 import heroAvif from "@/assets/tulowy-hero.avif.asset.json";
 import heroWebp from "@/assets/tulowy-hero.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
+import { CfImg } from "@/components/site/CfImg";
 import mechanizmImg from "@/assets/tulowy-mechanizm.webp";
 import ba1Before from "@/assets/tulowy-ba-1.png.asset.json";
 import ba1After from "@/assets/tulowy-ba-1a.png.asset.json";
