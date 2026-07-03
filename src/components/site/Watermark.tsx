@@ -1,5 +1,6 @@
 import { CSSProperties } from "react";
 import watermarkUrl from "@/assets/bujok-watermark.webp";
+import { cfImage } from "@/lib/cf-image";
 
 type Size = "sm" | "md" | "lg";
 
