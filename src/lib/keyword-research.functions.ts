@@ -134,6 +134,9 @@ export type ContentCluster = {
   intent: "informacyjny" | "komercyjny" | "lokalny" | "porównawczy";
   pillarTitle: string;
   pillarSlug: string;
+  pillarMetaTitle: string;
+  pillarMetaDescription: string;
+  pillarOutline: string[];
   targetService: string;
   supportingArticles: {
     title: string;
@@ -143,6 +146,9 @@ export type ContentCluster = {
     angle: string;
     estimatedVolume: number | null;
     estimatedKd: number | null;
+    metaTitle: string;
+    metaDescription: string;
+    outline: string[];
   }[];
   internalLinking: string;
   cta: string;
@@ -195,9 +201,13 @@ export const generateContentClusters = createServerFn({ method: "POST" })
 - Preferuj klastry pod realne usługi kliniki (podane niżej).
 - Grupuj frazy synonimiczne i pochodne w JEDEN artykuł zamiast osobnych.
 - Pomiń frazy o wolumenie <20/mies., chyba że dobrze pasują do klastra jako uzupełnienie.
+- Dla KAŻDEGO artykułu (pillar i wspierające) wygeneruj brief:
+  - metaTitle: <=60 znaków, zawiera frazę główną, po polsku, bez clickbaitu.
+  - metaDescription: 140–158 znaków, naturalna zachęta z CTA (np. "Umów konsultację w BMClinics"), zawiera frazę główną.
+  - outline: 5–9 nagłówków sekcji artykułu jako TABLICA STRINGÓW; każdy element zaczyna się od "## " (H2) lub "### " (H3, podsekcja poprzedzającego H2). Uwzględnij sekcje: wprowadzenie/definicja, wskazania, przebieg zabiegu, efekty, przeciwwskazania, cena/konsultacja, FAQ.
 - Zwróć TYLKO JSON zgodny ze schematem.`;
 
-    const user = `Usługi kliniki:\n${CLINIC_SERVICES.map((s) => `- ${s}`).join("\n")}\n\nBaza Semrush: ${row.database}${row.append_location ? ` (+ ${row.append_location})` : ""}\nRaport: ${row.label ?? row.id}\n\nFrazy (top ${compact.length} po wolumenie):\n${JSON.stringify(compact, null, 2)}\n\nZbuduj 3–6 klastrów tematycznych. Każdy klaster: 1 pillar + 3–6 artykułów wspierających.`;
+    const user = `Usługi kliniki:\n${CLINIC_SERVICES.map((s) => `- ${s}`).join("\n")}\n\nBaza Semrush: ${row.database}${row.append_location ? ` (+ ${row.append_location})` : ""}\nRaport: ${row.label ?? row.id}\n\nFrazy (top ${compact.length} po wolumenie):\n${JSON.stringify(compact, null, 2)}\n\nZbuduj 3–6 klastrów tematycznych. Każdy klaster: 1 pillar + 3–6 artykułów wspierających. Dla każdego artykułu wygeneruj metaTitle, metaDescription oraz outline (## / ###).`;
 
     const schema = {
       name: "content_clusters",
@@ -214,6 +224,9 @@ export const generateContentClusters = createServerFn({ method: "POST" })
                 intent: { type: "string", enum: ["informacyjny", "komercyjny", "lokalny", "porównawczy"] },
                 pillarTitle: { type: "string" },
                 pillarSlug: { type: "string" },
+                pillarMetaTitle: { type: "string" },
+                pillarMetaDescription: { type: "string" },
+                pillarOutline: { type: "array", items: { type: "string" } },
                 targetService: { type: "string" },
                 supportingArticles: {
                   type: "array",
@@ -227,14 +240,17 @@ export const generateContentClusters = createServerFn({ method: "POST" })
                       angle: { type: "string" },
                       estimatedVolume: { type: ["number", "null"] },
                       estimatedKd: { type: ["number", "null"] },
+                      metaTitle: { type: "string" },
+                      metaDescription: { type: "string" },
+                      outline: { type: "array", items: { type: "string" } },
                     },
-                    required: ["title", "slug", "primaryKeyword", "supportingKeywords", "angle"],
+                    required: ["title", "slug", "primaryKeyword", "supportingKeywords", "angle", "metaTitle", "metaDescription", "outline"],
                   },
                 },
                 internalLinking: { type: "string" },
                 cta: { type: "string" },
               },
-              required: ["cluster", "intent", "pillarTitle", "pillarSlug", "targetService", "supportingArticles", "internalLinking", "cta"],
+              required: ["cluster", "intent", "pillarTitle", "pillarSlug", "pillarMetaTitle", "pillarMetaDescription", "pillarOutline", "targetService", "supportingArticles", "internalLinking", "cta"],
             },
           },
         },
@@ -281,6 +297,9 @@ const ClusterArticleSchema = z.object({
   angle: z.string().trim().default(""),
   estimatedVolume: z.number().nullable().optional(),
   estimatedKd: z.number().nullable().optional(),
+  metaTitle: z.string().trim().default(""),
+  metaDescription: z.string().trim().default(""),
+  outline: z.array(z.string().trim()).default([]),
 });
 
 const ClusterSchema = z.object({
@@ -288,6 +307,9 @@ const ClusterSchema = z.object({
   intent: z.string().trim().min(1),
   pillarTitle: z.string().trim().min(1),
   pillarSlug: z.string().trim().min(1),
+  pillarMetaTitle: z.string().trim().default(""),
+  pillarMetaDescription: z.string().trim().default(""),
+  pillarOutline: z.array(z.string().trim()).default([]),
   targetService: z.string().trim().default(""),
   supportingArticles: z.array(ClusterArticleSchema).default([]),
   internalLinking: z.string().trim().default(""),
@@ -333,6 +355,9 @@ export const saveClustersAsDrafts = createServerFn({ method: "POST" })
           angle: "",
           estimatedVolume: null,
           estimatedKd: null,
+          metaTitle: c.pillarMetaTitle,
+          metaDescription: c.pillarMetaDescription,
+          outline: c.pillarOutline,
           body: "",
           cluster: clusterMeta,
         },
@@ -352,6 +377,9 @@ export const saveClustersAsDrafts = createServerFn({ method: "POST" })
             angle: a.angle,
             estimatedVolume: a.estimatedVolume ?? null,
             estimatedKd: a.estimatedKd ?? null,
+            metaTitle: a.metaTitle,
+            metaDescription: a.metaDescription,
+            outline: a.outline,
             body: "",
             cluster: clusterMeta,
           },

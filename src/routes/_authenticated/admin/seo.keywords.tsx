@@ -160,24 +160,29 @@ function downloadComparisonCsv(reports: ResearchResult[], rows: { phrase: string
 }
 
 function downloadClustersCsv(clusters: ContentCluster[]) {
-  const header = ["klaster", "intent", "usluga", "typ", "tytul", "slug", "fraza_glowna", "frazy_wspierajace", "wolumen", "kd", "angle"];
+  const header = ["klaster", "intent", "usluga", "typ", "tytul", "slug", "fraza_glowna", "frazy_wspierajace", "wolumen", "kd", "angle", "meta_title", "meta_description", "outline"];
   const rows: (string | number | null)[][] = [];
   for (const c of clusters) {
-    rows.push([c.cluster, c.intent, c.targetService, "PILLAR", c.pillarTitle, c.pillarSlug, "", "", "", "", ""]);
+    rows.push([c.cluster, c.intent, c.targetService, "PILLAR", c.pillarTitle, c.pillarSlug, "", "", "", "", "", c.pillarMetaTitle ?? "", c.pillarMetaDescription ?? "", (c.pillarOutline ?? []).join(" | ")]);
     for (const a of c.supportingArticles) {
-      rows.push([c.cluster, c.intent, c.targetService, "SUPPORT", a.title, a.slug, a.primaryKeyword, a.supportingKeywords.join("; "), a.estimatedVolume ?? "", a.estimatedKd ?? "", a.angle]);
+      rows.push([c.cluster, c.intent, c.targetService, "SUPPORT", a.title, a.slug, a.primaryKeyword, a.supportingKeywords.join("; "), a.estimatedVolume ?? "", a.estimatedKd ?? "", a.angle, a.metaTitle ?? "", a.metaDescription ?? "", (a.outline ?? []).join(" | ")]);
     }
   }
   const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
   triggerDownload(toCsv(header, rows), `content-clusters-${stamp}.csv`);
 }
 
+function outlineToMd(outline: string[] | undefined): string {
+  if (!outline || outline.length === 0) return "_(brak)_";
+  return outline.map((l) => `  ${l}`).join("\n");
+}
+
 function clustersToMarkdown(clusters: ContentCluster[]): string {
   return clusters.map((c) => {
     const support = c.supportingArticles.map((a) =>
-      `- **${a.title}** \`/${a.slug}\`\n  - fraza główna: \`${a.primaryKeyword}\`${a.estimatedVolume ? ` · vol ${a.estimatedVolume}` : ""}${a.estimatedKd != null ? ` · KD ${a.estimatedKd}` : ""}\n  - wspierające: ${a.supportingKeywords.map((k) => `\`${k}\``).join(", ")}\n  - angle: ${a.angle}`,
-    ).join("\n");
-    return `## ${c.cluster} · ${c.intent}\n**Usługa docelowa:** ${c.targetService}\n\n### Pillar\n- **${c.pillarTitle}** \`/${c.pillarSlug}\`\n\n### Artykuły wspierające\n${support}\n\n**Linkowanie wewnętrzne:** ${c.internalLinking}\n**CTA:** ${c.cta}\n`;
+      `#### ${a.title} \`/${a.slug}\`\n- fraza główna: \`${a.primaryKeyword}\`${a.estimatedVolume ? ` · vol ${a.estimatedVolume}` : ""}${a.estimatedKd != null ? ` · KD ${a.estimatedKd}` : ""}\n- wspierające: ${a.supportingKeywords.map((k) => `\`${k}\``).join(", ")}\n- angle: ${a.angle}\n- **meta title:** ${a.metaTitle ?? ""}\n- **meta description:** ${a.metaDescription ?? ""}\n- **outline:**\n${outlineToMd(a.outline)}`,
+    ).join("\n\n");
+    return `## ${c.cluster} · ${c.intent}\n**Usługa docelowa:** ${c.targetService}\n\n### Pillar: ${c.pillarTitle} \`/${c.pillarSlug}\`\n- **meta title:** ${c.pillarMetaTitle ?? ""}\n- **meta description:** ${c.pillarMetaDescription ?? ""}\n- **outline:**\n${outlineToMd(c.pillarOutline)}\n\n### Artykuły wspierające\n${support}\n\n**Linkowanie wewnętrzne:** ${c.internalLinking}\n**CTA:** ${c.cta}\n`;
   }).join("\n---\n\n");
 }
 
@@ -891,7 +896,31 @@ function KeywordsPanel() {
                         <label className="text-[10px] uppercase text-muted-foreground">Slug</label>
                         <Input value={c.pillarSlug} onChange={(e) => updateCluster(idx, { pillarSlug: e.target.value.replace(/^\/+/, "") })} className="font-mono text-xs" />
                       </div>
+                      <div>
+                        <label className="text-[10px] uppercase text-muted-foreground flex justify-between">
+                          <span>Meta title</span>
+                          <span className={((c.pillarMetaTitle ?? "").length > 60 ? "text-destructive" : "text-muted-foreground")}>{(c.pillarMetaTitle ?? "").length}/60</span>
+                        </label>
+                        <Input value={c.pillarMetaTitle ?? ""} onChange={(e) => updateCluster(idx, { pillarMetaTitle: e.target.value })} />
+                      </div>
+                      <div>
+                        <label className="text-[10px] uppercase text-muted-foreground flex justify-between">
+                          <span>Meta description</span>
+                          <span className={((c.pillarMetaDescription ?? "").length > 160 || (c.pillarMetaDescription ?? "").length < 120 ? "text-destructive" : "text-muted-foreground")}>{(c.pillarMetaDescription ?? "").length}/160</span>
+                        </label>
+                        <Textarea rows={2} value={c.pillarMetaDescription ?? ""} onChange={(e) => updateCluster(idx, { pillarMetaDescription: e.target.value })} />
+                      </div>
+                      <div>
+                        <label className="text-[10px] uppercase text-muted-foreground">Outline H2/H3 (linie: `## Nagłówek` lub `### Podsekcja`)</label>
+                        <Textarea
+                          rows={Math.max(6, (c.pillarOutline ?? []).length + 1)}
+                          value={(c.pillarOutline ?? []).join("\n")}
+                          onChange={(e) => updateCluster(idx, { pillarOutline: e.target.value.split("\n").map((l) => l.trim()).filter(Boolean) })}
+                          className="font-mono text-xs"
+                        />
+                      </div>
                     </div>
+
 
                     <div>
                       <div className="text-xs uppercase text-muted-foreground mb-2">Artykuły wspierające ({c.supportingArticles.length})</div>
@@ -923,11 +952,38 @@ function KeywordsPanel() {
                                     className="font-mono text-xs"
                                   />
                                 </div>
+                                <div className="rounded border border-dashed border-border/60 p-2 space-y-2 bg-muted/30">
+                                  <div className="text-[10px] uppercase text-muted-foreground font-semibold">Brief SEO</div>
+                                  <div>
+                                    <label className="text-[10px] uppercase text-muted-foreground flex justify-between">
+                                      <span>Meta title</span>
+                                      <span className={((a.metaTitle ?? "").length > 60 ? "text-destructive" : "text-muted-foreground")}>{(a.metaTitle ?? "").length}/60</span>
+                                    </label>
+                                    <Input value={a.metaTitle ?? ""} onChange={(e) => updateSupport(idx, i, { metaTitle: e.target.value })} />
+                                  </div>
+                                  <div>
+                                    <label className="text-[10px] uppercase text-muted-foreground flex justify-between">
+                                      <span>Meta description</span>
+                                      <span className={((a.metaDescription ?? "").length > 160 || (a.metaDescription ?? "").length < 120 ? "text-destructive" : "text-muted-foreground")}>{(a.metaDescription ?? "").length}/160</span>
+                                    </label>
+                                    <Textarea rows={2} value={a.metaDescription ?? ""} onChange={(e) => updateSupport(idx, i, { metaDescription: e.target.value })} />
+                                  </div>
+                                  <div>
+                                    <label className="text-[10px] uppercase text-muted-foreground">Outline H2/H3 (linie: `## Nagłówek` lub `### Podsekcja`)</label>
+                                    <Textarea
+                                      rows={Math.max(5, (a.outline ?? []).length + 1)}
+                                      value={(a.outline ?? []).join("\n")}
+                                      onChange={(e) => updateSupport(idx, i, { outline: e.target.value.split("\n").map((l) => l.trim()).filter(Boolean) })}
+                                      className="font-mono text-xs"
+                                    />
+                                  </div>
+                                </div>
                                 <div className="text-xs text-muted-foreground">
                                   {a.estimatedVolume != null && <span>vol {fmt(a.estimatedVolume)}</span>}
                                   {a.estimatedKd != null && <span className={kdTone(a.estimatedKd)}> · KD {fmt(a.estimatedKd)}</span>}
                                   <span className="italic"> · {a.angle}</span>
                                 </div>
+
                               </div>
                               <Button variant="ghost" size="sm" onClick={() => removeSupport(idx, i)} title="Usuń artykuł">×</Button>
                             </div>
