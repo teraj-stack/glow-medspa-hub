@@ -73,7 +73,7 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
             "@type": "MedicalBusiness",
             name: "BMClinics.ai",
             url: "https://bmclinics.ai",
-            address: { "@type": "PostalAddress", addressLocality: "Warszawa", addressCountry: "PL" },
+            address: { "@type": "PostalAddress", streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)", addressLocality: "Warszawa", addressRegion: "mazowieckie", postalCode: "02-972", addressCountry: "PL" },
           },
           indication: loaderData.tech.indications,
         }
