@@ -471,7 +471,9 @@ export type Database = {
           linkedin_error: string | null
           linkedin_ok: boolean
           linkedin_status: number | null
+          processed_at: string | null
           run_id: string
+          status: string
           url: string
         }
         Insert: {
@@ -483,7 +485,9 @@ export type Database = {
           linkedin_error?: string | null
           linkedin_ok?: boolean
           linkedin_status?: number | null
+          processed_at?: string | null
           run_id: string
+          status?: string
           url: string
         }
         Update: {
@@ -495,7 +499,9 @@ export type Database = {
           linkedin_error?: string | null
           linkedin_ok?: boolean
           linkedin_status?: number | null
+          processed_at?: string | null
           run_id?: string
+          status?: string
           url?: string
         }
         Relationships: [
@@ -518,8 +524,11 @@ export type Database = {
           facebook_skipped: boolean
           finished_at: string
           id: string
+          last_progress_at: string | null
           linkedin_ok: number
+          processed: number
           started_at: string
+          status: string
           total: number
           triggered_by: string
         }
@@ -532,8 +541,11 @@ export type Database = {
           facebook_skipped?: boolean
           finished_at?: string
           id?: string
+          last_progress_at?: string | null
           linkedin_ok?: number
+          processed?: number
           started_at?: string
+          status?: string
           total?: number
           triggered_by?: string
         }
@@ -546,8 +558,11 @@ export type Database = {
           facebook_skipped?: boolean
           finished_at?: string
           id?: string
+          last_progress_at?: string | null
           linkedin_ok?: number
+          processed?: number
           started_at?: string
+          status?: string
           total?: number
           triggered_by?: string
         }
