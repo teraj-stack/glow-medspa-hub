@@ -11,8 +11,8 @@ import { SITEMAP_BASE_URL, buildSitemapEntries } from "./sitemap-entries";
 
 export interface RescrapeResult {
   url: string;
-  facebook: { ok: boolean; status?: number; skipped?: boolean; error?: string };
-  linkedin: { ok: boolean; status?: number; error?: string };
+  facebook: { ok: boolean; status?: number; skipped?: boolean; error?: string; attempts?: number };
+  linkedin: { ok: boolean; status?: number; error?: string; attempts?: number };
 }
 
 export interface RescrapeSummary {
@@ -31,32 +31,129 @@ export interface RescrapeSummary {
   results: RescrapeResult[];
 }
 
-async function scrapeFacebook(url: string, token: string): Promise<RescrapeResult["facebook"]> {
-  try {
-    const endpoint = `https://graph.facebook.com/v20.0/?id=${encodeURIComponent(url)}&scrape=true&access_token=${encodeURIComponent(token)}`;
-    const res = await fetch(endpoint, { method: "POST" });
-    if (!res.ok) {
-      const body = await res.text().catch(() => "");
-      return { ok: false, status: res.status, error: body.slice(0, 500) };
+// ==================== Rate limiting + queue ====================
+// Prosty token-bucket per usługa: nie więcej niż `minIntervalMs` między kolejnymi
+// żądaniami do tego samego API. Chroni przed 429 / blokadą IP przy dużej sitemap.
+// Wartości można nadpisać przez env (FB_MIN_INTERVAL_MS, LI_MIN_INTERVAL_MS).
+
+interface RateLimiter {
+  minIntervalMs: number;
+  maxRetries: number;
+  nextAvailableAt: number;
+  queue: Array<() => void>;
+  draining: boolean;
+}
+
+function makeLimiter(minIntervalMs: number, maxRetries: number): RateLimiter {
+  return { minIntervalMs, maxRetries, nextAvailableAt: 0, queue: [], draining: false };
+}
+
+function envInt(name: string, fallback: number): number {
+  const v = process.env[name];
+  if (!v) return fallback;
+  const n = Number.parseInt(v, 10);
+  return Number.isFinite(n) && n >= 0 ? n : fallback;
+}
+
+const FB_LIMITER = makeLimiter(envInt("FB_MIN_INTERVAL_MS", 1100), envInt("FB_MAX_RETRIES", 3));
+const LI_LIMITER = makeLimiter(envInt("LI_MIN_INTERVAL_MS", 800), envInt("LI_MAX_RETRIES", 3));
+
+function acquire(limiter: RateLimiter): Promise<void> {
+  return new Promise<void>((resolve) => {
+    limiter.queue.push(resolve);
+    drain(limiter);
+  });
+}
+
+function drain(limiter: RateLimiter) {
+  if (limiter.draining) return;
+  limiter.draining = true;
+  const step = () => {
+    const next = limiter.queue.shift();
+    if (!next) {
+      limiter.draining = false;
+      return;
     }
-    return { ok: true, status: res.status };
-  } catch (e) {
-    return { ok: false, error: e instanceof Error ? e.message : String(e) };
+    const now = Date.now();
+    const wait = Math.max(0, limiter.nextAvailableAt - now);
+    setTimeout(() => {
+      limiter.nextAvailableAt = Date.now() + limiter.minIntervalMs;
+      next();
+      step();
+    }, wait);
+  };
+  step();
+}
+
+function parseRetryAfter(res: Response): number | null {
+  const h = res.headers.get("retry-after");
+  if (!h) return null;
+  const secs = Number.parseInt(h, 10);
+  if (Number.isFinite(secs)) return secs * 1000;
+  const dateMs = Date.parse(h);
+  if (Number.isFinite(dateMs)) return Math.max(0, dateMs - Date.now());
+  return null;
+}
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+async function withRateLimit(
+  limiter: RateLimiter,
+  fetcher: () => Promise<Response>,
+): Promise<{ res: Response; attempts: number } | { error: string; attempts: number }> {
+  let attempts = 0;
+  let lastErr = "";
+  const maxAttempts = limiter.maxRetries + 1;
+  while (attempts < maxAttempts) {
+    await acquire(limiter);
+    attempts++;
+    try {
+      const res = await fetcher();
+      if (res.status === 429 || res.status >= 500) {
+        if (attempts < maxAttempts) {
+          const retryAfter = parseRetryAfter(res) ?? Math.min(30000, 500 * 2 ** (attempts - 1));
+          // Blokujemy limiter na czas backoff, żeby cała kolejka poczekała.
+          limiter.nextAvailableAt = Math.max(limiter.nextAvailableAt, Date.now() + retryAfter);
+          await sleep(retryAfter);
+          continue;
+        }
+      }
+      return { res, attempts };
+    } catch (e) {
+      lastErr = e instanceof Error ? e.message : String(e);
+      if (attempts < maxAttempts) {
+        const backoff = Math.min(30000, 500 * 2 ** (attempts - 1));
+        await sleep(backoff);
+        continue;
+      }
+    }
   }
+  return { error: lastErr || "max retries exceeded", attempts };
+}
+
+async function scrapeFacebook(url: string, token: string): Promise<RescrapeResult["facebook"]> {
+  const endpoint = `https://graph.facebook.com/v20.0/?id=${encodeURIComponent(url)}&scrape=true&access_token=${encodeURIComponent(token)}`;
+  const out = await withRateLimit(FB_LIMITER, () => fetch(endpoint, { method: "POST" }));
+  if ("error" in out) return { ok: false, error: out.error, attempts: out.attempts };
+  const { res, attempts } = out;
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    return { ok: false, status: res.status, error: body.slice(0, 500), attempts };
+  }
+  return { ok: true, status: res.status, attempts };
 }
 
 async function scrapeLinkedIn(url: string): Promise<RescrapeResult["linkedin"]> {
-  try {
-    const endpoint = `https://www.linkedin.com/post-inspector/inspect/${encodeURIComponent(url)}`;
-    const res = await fetch(endpoint, {
+  const endpoint = `https://www.linkedin.com/post-inspector/inspect/${encodeURIComponent(url)}`;
+  const out = await withRateLimit(LI_LIMITER, () =>
+    fetch(endpoint, {
       method: "GET",
       redirect: "follow",
       headers: { "User-Agent": "Mozilla/5.0 (compatible; BMClinicsOGRescraper/1.0)" },
-    });
-    return { ok: res.ok, status: res.status };
-  } catch (e) {
-    return { ok: false, error: e instanceof Error ? e.message : String(e) };
-  }
+    }),
+  );
+  if ("error" in out) return { ok: false, error: out.error, attempts: out.attempts };
+  return { ok: out.res.ok, status: out.res.status, attempts: out.attempts };
 }
 
 const CONCURRENCY = 4;
