@@ -163,6 +163,65 @@ function downloadComparisonCsv(reports: ResearchResult[], rows: { phrase: string
   triggerDownload(toCsv(header, csvRows), `keyword-comparison-${stamp}.csv`);
 }
 
+/**
+ * Eksport różnic między 2–4 sesjami. Pierwsza sesja to baseline; dla każdej
+ * kolejnej liczymy status frazy (nowa / usunięta / utrzymana) oraz delta
+ * wolumenu i KD względem baseline. Dodatkowo — kolumna „zmiana" pokazuje
+ * ogólny kierunek: NEW / REMOVED / KEPT / UNCHANGED.
+ */
+function downloadComparisonDiffCsv(reports: ResearchResult[], rows: { phrase: string; perReport: (Row | null)[] }[]) {
+  const [baseline, ...rest] = reports;
+  const header: string[] = ["fraza", "status_globalny", `${reportTitle(baseline)} · wolumen`, `${reportTitle(baseline)} · KD`];
+  for (const r of rest) {
+    const t = reportTitle(r);
+    header.push(`${t} · wolumen`, `${t} · KD`, `${t} · status`, `${t} · Δ wolumen vs baseline`, `${t} · Δ KD vs baseline`);
+  }
+
+  const num = (v: number | null | undefined) => (typeof v === "number" && Number.isFinite(v) ? v : null);
+  const fmtDelta = (a: number | null, b: number | null) => (a === null || b === null ? "" : a - b);
+
+  const csvRows = rows.map((cr) => {
+    const baseRow = cr.perReport[0];
+    const baseVol = num(baseRow?.volume);
+    const baseKd = num(baseRow?.difficulty);
+    const presence = cr.perReport.map((r) => r !== null);
+    const inAll = presence.every(Boolean);
+    const inNone = presence.every((p) => !p);
+    let globalStatus: string;
+    if (inNone) globalStatus = "MISSING";
+    else if (inAll) {
+      const anyChange = cr.perReport.some((r) => num(r?.volume) !== baseVol || num(r?.difficulty) !== baseKd);
+      globalStatus = anyChange ? "KEPT_CHANGED" : "UNCHANGED";
+    } else if (!presence[0]) globalStatus = "NEW";
+    else if (!presence[presence.length - 1]) globalStatus = "REMOVED";
+    else globalStatus = "PARTIAL";
+
+    const row: (string | number)[] = [cr.phrase, globalStatus, baseVol ?? "", baseKd ?? ""];
+    rest.forEach((_r, i) => {
+      const cur = cr.perReport[i + 1];
+      const curVol = num(cur?.volume);
+      const curKd = num(cur?.difficulty);
+      let status: string;
+      if (!baseRow && !cur) status = "MISSING";
+      else if (!baseRow && cur) status = "NEW";
+      else if (baseRow && !cur) status = "REMOVED";
+      else if (curVol === baseVol && curKd === baseKd) status = "UNCHANGED";
+      else status = "CHANGED";
+      row.push(
+        curVol ?? "",
+        curKd ?? "",
+        status,
+        fmtDelta(curVol, baseVol),
+        fmtDelta(curKd, baseKd),
+      );
+    });
+    return row;
+  });
+
+  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+  triggerDownload(toCsv(header, csvRows), `keyword-comparison-diff-${stamp}.csv`);
+}
+
 type LinkTarget = { title: string; path: string; role: "pillar" | "support" };
 
 function normalizeSlug(s: string): string {
