@@ -329,6 +329,72 @@ function OgRescrapePanel() {
               Odśwież tylko podane URL-e
             </button>
           </div>
+
+          <div className="rounded-md border border-amber-500/30 bg-amber-500/5 p-3 space-y-2">
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="text-sm font-medium">Ponów tylko URL-e z błędami</div>
+              <div className="flex items-center gap-1 text-xs">
+                <label className="flex items-center gap-1 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="failed-scope"
+                    value="last-run"
+                    checked={failedScope === "last-run"}
+                    onChange={() => setFailedScope("last-run")}
+                    className="accent-amber-500"
+                  />
+                  <span>
+                    {selectedId ? "z wybranego runa" : "z ostatniego runa"}
+                  </span>
+                </label>
+                <label className="flex items-center gap-1 cursor-pointer ml-2">
+                  <input
+                    type="radio"
+                    name="failed-scope"
+                    value="recent"
+                    checked={failedScope === "recent"}
+                    onChange={() => setFailedScope("recent")}
+                    className="accent-amber-500"
+                  />
+                  <span>z ostatnich 5 runów</span>
+                </label>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={runFailedOnly}
+                disabled={trigger.isPending || failedList.isLoading || (failedList.data?.urls?.length ?? 0) === 0}
+                className="px-3 py-1.5 text-sm rounded border border-amber-500/40 bg-amber-500/10 text-amber-600 hover:bg-amber-500/20 disabled:opacity-50"
+              >
+                Ponów błędy
+                {failedList.data && ` (${failedList.data.urls.length} URL-i)`}
+              </button>
+              <span className="text-xs text-muted-foreground">
+                {failedList.isLoading
+                  ? "Wyszukiwanie błędów…"
+                  : failedList.data
+                    ? `Źródło: ${failedList.data.sourceLabel}. Kryteria: brak OG/Twitter, HTTP ≥ 400 lub błąd sieci.`
+                    : failedList.error
+                      ? String(failedList.error)
+                      : ""}
+              </span>
+            </div>
+            {failedList.data && failedList.data.urls.length > 0 && (
+              <details>
+                <summary className="text-xs text-muted-foreground cursor-pointer hover:text-foreground">
+                  Pokaż URL-e do ponowienia ({failedList.data.urls.length})
+                </summary>
+                <div className="mt-2 flex flex-col gap-0.5 max-h-40 overflow-y-auto font-mono text-[11px]">
+                  {failedList.data.urls.map((u) => (
+                    <span key={u} className="text-muted-foreground truncate">{u}</span>
+                  ))}
+                </div>
+              </details>
+            )}
+          </div>
+
+
           <div>
             <label className="block text-xs text-muted-foreground mb-1">
               URL-e lub ścieżki (jeden na linię lub oddzielone przecinkami)
