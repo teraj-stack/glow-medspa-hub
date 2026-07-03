@@ -75,6 +75,9 @@ function RunStatePill({ status }: { status: string }) {
 function OgRescrapePanel() {
   const listFn = useServerFn(listOgRescrapeRuns);
   const getFn = useServerFn(getOgRescrapeRun);
+  const startFn = useServerFn(startOgRescrape);
+  const pathsFn = useServerFn(listSitemapPaths);
+  const queryClient = useQueryClient();
 
   const runs = useQuery({
     queryKey: ["og-rescrape-runs"],
@@ -86,8 +89,33 @@ function OgRescrapePanel() {
     },
   });
 
+  const sitemap = useQuery({
+    queryKey: ["og-rescrape-sitemap-paths"],
+    queryFn: () => pathsFn({ data: {} }),
+    staleTime: 5 * 60_000,
+  });
+
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [filter, setFilter] = useState<"all" | "pending" | "done" | "errors">("all");
+  const [pathInput, setPathInput] = useState("");
+  const [triggerMsg, setTriggerMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+
+  const trigger = useMutation({
+    mutationFn: (vars: { paths?: string[]; triggeredBy?: string }) =>
+      startFn({ data: vars }),
+    onSuccess: (res) => {
+      setTriggerMsg({
+        kind: "ok",
+        text: `Uruchomiono (${res.total} URL-i, ${(res.durationMs / 1000).toFixed(1)}s).`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["og-rescrape-runs"] });
+      if (res.runId) setSelectedId(res.runId);
+    },
+    onError: (err: unknown) => {
+      const msg = err instanceof Error ? err.message : String(err);
+      setTriggerMsg({ kind: "err", text: msg });
+    },
+  });
 
   const detail = useQuery({
     queryKey: ["og-rescrape-run", selectedId],
@@ -107,6 +135,23 @@ function OgRescrapePanel() {
     return { pending, errored, done, total: results.length };
   }, [detail.data]);
 
+  const runFull = () => {
+    setTriggerMsg(null);
+    trigger.mutate({ triggeredBy: "manual-full" });
+  };
+  const runForInput = () => {
+    setTriggerMsg(null);
+    const paths = pathInput
+      .split(/[\n,]+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (paths.length === 0) {
+      setTriggerMsg({ kind: "err", text: "Podaj co najmniej jeden URL lub ścieżkę." });
+      return;
+    }
+    trigger.mutate({ paths, triggeredBy: "manual-url" });
+  };
+
   return (
     <div className="space-y-8">
       <div>
@@ -117,6 +162,82 @@ function OgRescrapePanel() {
           crawlerzy pobrali nowe obrazki i opisy od razu. Postęp aktualizuje się na żywo.
         </p>
       </div>
+
+      <section className="rounded-lg border border-border">
+        <div className="border-b border-border px-4 py-3 flex items-center justify-between">
+          <div className="text-sm font-medium">Uruchom ręcznie</div>
+          {trigger.isPending && (
+            <span className="text-xs text-muted-foreground">Trwa odświeżanie…</span>
+          )}
+        </div>
+        <div className="p-4 space-y-3">
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={runFull}
+              disabled={trigger.isPending}
+              className="px-3 py-1.5 text-sm rounded border border-border bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-50"
+            >
+              Odśwież całą sitemap
+              {sitemap.data?.paths && ` (${sitemap.data.paths.length} URL-i)`}
+            </button>
+            <button
+              onClick={runForInput}
+              disabled={trigger.isPending || pathInput.trim().length === 0}
+              className="px-3 py-1.5 text-sm rounded border border-border hover:bg-muted disabled:opacity-50"
+            >
+              Odśwież tylko podane URL-e
+            </button>
+          </div>
+          <div>
+            <label className="block text-xs text-muted-foreground mb-1">
+              URL-e lub ścieżki (jeden na linię lub oddzielone przecinkami)
+            </label>
+            <textarea
+              value={pathInput}
+              onChange={(e) => setPathInput(e.target.value)}
+              placeholder={`/blog/analiza-skory-twarzy-krok-po-kroku\nhttps://bmclinics.ai/`}
+              className="w-full h-24 rounded border border-border bg-background px-3 py-2 text-sm font-mono"
+              disabled={trigger.isPending}
+            />
+            {sitemap.data?.paths && (
+              <details className="mt-2">
+                <summary className="text-xs text-muted-foreground cursor-pointer hover:text-foreground">
+                  Pokaż ścieżki z sitemap ({sitemap.data.paths.length})
+                </summary>
+                <div className="mt-2 flex flex-wrap gap-1 max-h-32 overflow-y-auto">
+                  {sitemap.data.paths.map((p) => (
+                    <button
+                      key={p}
+                      type="button"
+                      onClick={() =>
+                        setPathInput((cur) => (cur ? `${cur}\n${p}` : p))
+                      }
+                      className="text-[11px] px-1.5 py-0.5 rounded border border-border hover:bg-muted font-mono"
+                    >
+                      {p}
+                    </button>
+                  ))}
+                </div>
+              </details>
+            )}
+          </div>
+          {triggerMsg && (
+            <div
+              className={`text-xs rounded border px-3 py-2 ${
+                triggerMsg.kind === "ok"
+                  ? "border-emerald-500/30 bg-emerald-500/5 text-emerald-500"
+                  : "border-destructive/40 bg-destructive/5 text-destructive"
+              }`}
+            >
+              {triggerMsg.text}
+            </div>
+          )}
+          <p className="text-xs text-muted-foreground">
+            Ten sam efekt można uzyskać zewnętrznie: <code>POST /api/public/hooks/og-rescrape</code>{" "}
+            z nagłówkiem <code>apikey</code>, opcjonalne body <code>{`{ "paths": ["/..."] }`}</code>.
+          </p>
+        </div>
+      </section>
 
       {runs.isError && (
         <div className="rounded-md border border-destructive/40 bg-destructive/5 p-3 text-sm">
