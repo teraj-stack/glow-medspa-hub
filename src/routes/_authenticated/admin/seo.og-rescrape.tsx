@@ -184,6 +184,35 @@ function OgRescrapePanel() {
     trigger.mutate({ paths, triggeredBy: "manual-url" });
   };
 
+  const failedList = useQuery({
+    queryKey: ["og-rescrape-failed", failedScope, selectedId],
+    queryFn: () =>
+      failedFn({
+        data: {
+          scope: failedScope,
+          // Jeśli scope=last-run i użytkownik wybrał konkretny run w tabeli, użyj tamtego runId.
+          runId: failedScope === "last-run" && selectedId ? selectedId : undefined,
+          recentLimit: 5,
+        },
+      }),
+    staleTime: 10_000,
+  });
+
+  const runFailedOnly = () => {
+    setTriggerMsg(null);
+    const urls = failedList.data?.urls ?? [];
+    if (urls.length === 0) {
+      setTriggerMsg({
+        kind: "err",
+        text: "Brak URL-i z błędami do ponowienia w wybranym zakresie.",
+      });
+      return;
+    }
+    trigger.mutate({ paths: urls, triggeredBy: `manual-retry-${failedScope}` });
+  };
+
+
+
   const exportResults = (format: "csv" | "json") => {
     const run = detail.data?.run;
     const results = detail.data?.results ?? [];
