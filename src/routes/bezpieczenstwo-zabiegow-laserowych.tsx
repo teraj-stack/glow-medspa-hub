@@ -30,6 +30,9 @@ import {
   MessageCircle,
   CalendarDays,
 } from "lucide-react";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
+
 
 export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
   head: () => ({
@@ -52,6 +55,11 @@ export const Route = createFileRoute("/bezpieczenstwo-zabiegow-laserowych")({
           "Jak dbamy o bezpieczeństwo pacjenta podczas zabiegów laserowych: konsultacja, przeciwwskazania, kwalifikacje personelu, nadzór medyczny oraz zalecenia pozabiegowe.",
       },
       { property: "og:url", content: "https://bmclinics.ai/bezpieczenstwo-zabiegow-laserowych" },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
     ],
     links: [
       { rel: "canonical", href: "https://bmclinics.ai/bezpieczenstwo-zabiegow-laserowych" },

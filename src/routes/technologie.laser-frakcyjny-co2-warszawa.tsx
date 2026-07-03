@@ -2,7 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { LocalWarsawSection } from "@/components/site/LocalWarsawSection";
 import { CheckCircle2, AlertTriangle, Clock, Sparkles } from "lucide-react";
-import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { CLINIC_ADDRESS, CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 const CANONICAL = "https://bmclinics.ai/technologie/laser-frakcyjny-co2-warszawa";
 const TITLE = "Laser frakcyjny CO₂ Warszawa — protokół, wskazania, cena | BMClinics";
@@ -46,6 +48,11 @@ export const Route = createFileRoute("/technologie/laser-frakcyjny-co2-warszawa"
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "article" },
       { property: "og:url", content: CANONICAL },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
       { name: "geo.region", content: "PL-MZ" },
       { name: "geo.placename", content: "Warszawa" },
     ],
@@ -79,7 +86,7 @@ export const Route = createFileRoute("/technologie/laser-frakcyjny-co2-warszawa"
           address: {
             ...CLINIC_POSTAL_ADDRESS_JSONLD,
           },
-          geo: { "@type": "GeoCoordinates", latitude: 52.2932, longitude: 21.09006 },
+          geo: { "@type": "GeoCoordinates", latitude: CLINIC_ADDRESS.latitude, longitude: CLINIC_ADDRESS.longitude },
           areaServed: { "@type": "City", name: "Warszawa" },
         }),
       },

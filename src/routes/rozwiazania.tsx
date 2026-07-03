@@ -21,6 +21,9 @@ import dlonieCialoAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
 import okoAsset from "@/assets/oko-szkic-v2.webp";
 import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
 import renesansAsset from "@/assets/renesans-v2.png.asset.json";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
+
 
 
 
@@ -36,6 +39,11 @@ export const Route = createFileRoute("/rozwiazania")({
       { property: "og:title", content: "Rozwiązania — BMClinics.ai" },
       { property: "og:description", content: "Pięć obszarów naszej praktyki w estetyce «cichego luksusu»." },
       { property: "og:url", content: "https://bmclinics.ai/rozwiazania" },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
     ],
     links: [{ rel: "canonical", href: "https://bmclinics.ai/rozwiazania" }],
     scripts: [

@@ -2,6 +2,8 @@ import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { LocalWarsawSection } from "@/components/site/LocalWarsawSection";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { CheckCircle2, AlertTriangle, Clock, CalendarCheck, Sparkles, ShieldCheck } from "lucide-react";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 
 interface IndicationContent {
@@ -369,6 +371,11 @@ export const Route = createFileRoute("/wskazania/$slug")({
         { property: "og:description", content: loaderData.metaDesc },
         { property: "og:type", content: "article" },
         { property: "og:url", content: canonical },
+        { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+        { property: "og:image:width", content: "1200" },
+        { property: "og:image:height", content: "630" },
+        { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+        { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
         { name: "geo.region", content: "PL-MZ" },
         { name: "geo.placename", content: "Warszawa" },
       ],

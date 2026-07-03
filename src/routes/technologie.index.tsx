@@ -7,6 +7,8 @@ import teksturaAsset from "@/assets/tekstura-hd-clean.png.asset.json";
 import dlonieAsset from "@/assets/dlonie-cialo-szkic.png.asset.json";
 import okoAsset from "@/assets/oko-szkic-v2.webp";
 import bodyContourAsset from "@/assets/sylwetka-body-contour-v2.png.asset.json";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 export const Route = createFileRoute("/technologie/")({
   head: () => ({
@@ -20,6 +22,11 @@ export const Route = createFileRoute("/technologie/")({
       { property: "og:title", content: "Technologie — BMClinics.ai" },
       { property: "og:description", content: "Technologie dobrane do pięciu obszarów naszej praktyki." },
       { property: "og:url", content: "https://bmclinics.ai/technologie" },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
     ],
     links: [
       { rel: "canonical", href: "https://bmclinics.ai/technologie" },

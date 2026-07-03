@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Sun } from "lucide-react";
 import { CONTENT as INDICATIONS_CONTENT } from "./wskazania.$slug";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 const CANONICAL = "https://bmclinics.ai/wskazania";
 const TITLE = "Wskazania — jakie problemy skóry leczymy w Warszawie | BMClinics";
@@ -30,6 +32,11 @@ export const Route = createFileRoute("/wskazania/")({
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "website" },
       { property: "og:url", content: CANONICAL },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
       { name: "geo.region", content: "PL-MZ" },
       { name: "geo.placename", content: "Warszawa" },
     ],
