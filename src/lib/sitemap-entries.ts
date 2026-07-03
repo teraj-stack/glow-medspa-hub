@@ -94,6 +94,13 @@ export function buildSitemapEntries(): SitemapEntry[] {
     priority: p.priority ?? "0.7",
   }));
 
+  // Wskazania — generowane tylko z dostępnych kluczy CONTENT
+  const wskazaniaEntries: SitemapEntry[] = Object.keys(WSKAZANIA_CONTENT).map((slug) => ({
+    path: `/wskazania/${slug}`,
+    changefreq: "monthly",
+    priority: "0.85",
+  }));
+
   // Dedup po path (na wypadek duplikatu w STATIC_ENTRIES)
   const seen = new Set<string>();
   const all = [...STATIC_ENTRIES, ...technologyEntries, ...blogEntries].filter((e) => {
