@@ -168,18 +168,7 @@ export const Route = createFileRoute("/wskazania/$slug")({
       ],
     };
   },
-  notFoundComponent: () => (
-    <main className="mx-auto max-w-3xl px-4 py-24 text-center">
-      <h1 className="font-serif text-3xl text-ink">Nie znaleziono wskazania</h1>
-      <p className="mt-3 text-muted-foreground">
-        Wróć do{" "}
-        <Link to="/wskazania" className="underline">
-          listy wskazań
-        </Link>
-        .
-      </p>
-    </main>
-  ),
+  notFoundComponent: ComingSoonIndication,
   errorComponent: ({ error }) => (
     <main className="mx-auto max-w-3xl px-4 py-24 text-center">
       <h1 className="font-serif text-3xl text-ink">Wystąpił błąd</h1>
