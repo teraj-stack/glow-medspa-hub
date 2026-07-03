@@ -15,6 +15,7 @@ import {
   Flame,
   HeartPulse,
 } from "lucide-react";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 const TECH_SLUG = "renasculpt";
 const PAGE_URL = "https://bmclinics.ai/renasculpt";
@@ -45,12 +46,7 @@ export const Route = createFileRoute("/renasculpt")({
         name: "BMClinics.ai",
         url: "https://bmclinics.ai",
         address: {
-          "@type": "PostalAddress",
-          streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)",
-          addressLocality: "Warszawa",
-          addressRegion: "mazowieckie",
-          postalCode: "02-972",
-          addressCountry: "PL",
+          ...CLINIC_POSTAL_ADDRESS_JSONLD,
         },
       },
       indication: tech.indications,

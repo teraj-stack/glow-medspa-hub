@@ -8,6 +8,7 @@ import bujokAsset from "@/assets/bujok.jpeg.asset.json";
 import bujokAvif from "@/assets/bujok.avif.asset.json";
 import bujokWebp from "@/assets/bujok.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -60,12 +61,7 @@ export const Route = createFileRoute("/")({
             { "@type": "AdministrativeArea", name: "mazowieckie" },
           ],
           address: {
-            "@type": "PostalAddress",
-            streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)",
-            addressLocality: "Warszawa",
-            addressRegion: "mazowieckie",
-            postalCode: "02-972",
-            addressCountry: "PL",
+            ...CLINIC_POSTAL_ADDRESS_JSONLD,
           },
           geo: {
             "@type": "GeoCoordinates",

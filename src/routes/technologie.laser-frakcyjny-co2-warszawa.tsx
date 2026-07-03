@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { LocalWarsawSection } from "@/components/site/LocalWarsawSection";
 import { CheckCircle2, AlertTriangle, Clock, Sparkles } from "lucide-react";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 const CANONICAL = "https://bmclinics.ai/technologie/laser-frakcyjny-co2-warszawa";
 const TITLE = "Laser frakcyjny CO₂ Warszawa — protokół, wskazania, cena | BMClinics";
@@ -76,12 +77,7 @@ export const Route = createFileRoute("/technologie/laser-frakcyjny-co2-warszawa"
           name: "BMClinics — Klinika Ginekologii",
           url: "https://bmclinics.ai",
           address: {
-            "@type": "PostalAddress",
-            streetAddress: "ul. Branickiego 10",
-            addressLocality: "Warszawa",
-            postalCode: "02-972",
-            addressRegion: "mazowieckie",
-            addressCountry: "PL",
+            ...CLINIC_POSTAL_ADDRESS_JSONLD,
           },
           geo: { "@type": "GeoCoordinates", latitude: 52.2932, longitude: 21.09006 },
           areaServed: { "@type": "City", name: "Warszawa" },

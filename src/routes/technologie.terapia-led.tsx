@@ -21,6 +21,7 @@ import heroAsset from "@/assets/led-hero.jpg.asset.json";
 import heroAvif from "@/assets/led-hero.avif.asset.json";
 import heroWebp from "@/assets/led-hero.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
+import { CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 
 const TECH_SLUG = "terapia-led";
 const PAGE_URL = "https://bmclinics.ai/technologie/terapia-led";
@@ -48,12 +49,7 @@ export const Route = createFileRoute("/technologie/terapia-led")({
         name: "BMClinics.ai",
         url: "https://bmclinics.ai",
         address: {
-          "@type": "PostalAddress",
-          streetAddress: "ul. Branickiego 10 (Klinika Ginekologii)",
-          addressLocality: "Warszawa",
-          addressRegion: "mazowieckie",
-          postalCode: "02-972",
-          addressCountry: "PL",
+          ...CLINIC_POSTAL_ADDRESS_JSONLD,
         },
       },
       indication: [
