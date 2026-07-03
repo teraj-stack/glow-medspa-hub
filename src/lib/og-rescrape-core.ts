@@ -6,8 +6,6 @@
 //   (App Access Token: {app_id}|{app_secret}). Bez tokena krok jest pomijany.
 // - LinkedIn: Post Inspector fetch — publiczne GET na inspect/{url} odświeża preview.
 // - Twitter/X: brak publicznego API — pomijamy (crawler odświeża sam przy udostępnieniu).
-//
-// Zwraca listę per-URL wyników do zalogowania w admin UI / GH Actions.
 
 import { SITEMAP_BASE_URL, buildSitemapEntries } from "./sitemap-entries";
 
@@ -19,12 +17,17 @@ export interface RescrapeResult {
 
 export interface RescrapeSummary {
   ok: boolean;
+  runId?: string;
   baseUrl: string;
   total: number;
   facebookOk: number;
   linkedinOk: number;
   facebookSkipped: boolean;
   durationMs: number;
+  startedAt: string;
+  finishedAt: string;
+  triggeredBy: string;
+  commitSha?: string;
   results: RescrapeResult[];
 }
 
@@ -34,7 +37,7 @@ async function scrapeFacebook(url: string, token: string): Promise<RescrapeResul
     const res = await fetch(endpoint, { method: "POST" });
     if (!res.ok) {
       const body = await res.text().catch(() => "");
-      return { ok: false, status: res.status, error: body.slice(0, 200) };
+      return { ok: false, status: res.status, error: body.slice(0, 500) };
     }
     return { ok: true, status: res.status };
   } catch (e) {
@@ -50,7 +53,6 @@ async function scrapeLinkedIn(url: string): Promise<RescrapeResult["linkedin"]> 
       redirect: "follow",
       headers: { "User-Agent": "Mozilla/5.0 (compatible; BMClinicsOGRescraper/1.0)" },
     });
-    // LinkedIn zwraca 200 z HTML; sam GET wywołuje scrape.
     return { ok: res.ok, status: res.status };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : String(e) };
@@ -73,9 +75,19 @@ async function runPool<T, R>(items: T[], worker: (item: T) => Promise<R>): Promi
   return results;
 }
 
-export async function rescrapeAllOg(opts?: { baseUrl?: string; paths?: string[] }): Promise<RescrapeSummary> {
+export interface RescrapeOptions {
+  baseUrl?: string;
+  paths?: string[];
+  triggeredBy?: string;
+  commitSha?: string;
+  persist?: boolean;
+}
+
+export async function rescrapeAllOg(opts?: RescrapeOptions): Promise<RescrapeSummary> {
   const started = Date.now();
+  const startedAt = new Date(started).toISOString();
   const baseUrl = (opts?.baseUrl ?? SITEMAP_BASE_URL).replace(/\/+$/, "");
+  const triggeredBy = opts?.triggeredBy ?? "post-deploy";
   const paths = opts?.paths?.length ? opts.paths : buildSitemapEntries().map((e) => e.path);
   const urls = paths.map((p) => `${baseUrl}${p.startsWith("/") ? p : `/${p}`}`);
 
@@ -94,15 +106,65 @@ export async function rescrapeAllOg(opts?: { baseUrl?: string; paths?: string[] 
 
   const facebookOk = results.filter((r) => r.facebook.ok).length;
   const linkedinOk = results.filter((r) => r.linkedin.ok).length;
+  const finished = Date.now();
+  const durationMs = finished - started;
 
-  return {
+  const summary: RescrapeSummary = {
     ok: true,
     baseUrl,
     total: urls.length,
     facebookOk,
     linkedinOk,
     facebookSkipped,
-    durationMs: Date.now() - started,
+    durationMs,
+    startedAt,
+    finishedAt: new Date(finished).toISOString(),
+    triggeredBy,
+    commitSha: opts?.commitSha,
     results,
   };
+
+  if (opts?.persist !== false) {
+    try {
+      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+      const { data: runRow, error: runErr } = await supabaseAdmin
+        .from("og_rescrape_runs")
+        .insert({
+          started_at: summary.startedAt,
+          finished_at: summary.finishedAt,
+          duration_ms: summary.durationMs,
+          base_url: summary.baseUrl,
+          triggered_by: summary.triggeredBy,
+          commit_sha: summary.commitSha ?? null,
+          total: summary.total,
+          facebook_ok: summary.facebookOk,
+          linkedin_ok: summary.linkedinOk,
+          facebook_skipped: summary.facebookSkipped,
+        })
+        .select("id")
+        .single();
+      if (runErr) throw runErr;
+      summary.runId = runRow.id;
+      if (results.length > 0) {
+        const rows = results.map((r) => ({
+          run_id: runRow.id,
+          url: r.url,
+          facebook_ok: r.facebook.ok,
+          facebook_status: r.facebook.status ?? null,
+          facebook_skipped: r.facebook.skipped ?? false,
+          facebook_error: r.facebook.error ?? null,
+          linkedin_ok: r.linkedin.ok,
+          linkedin_status: r.linkedin.status ?? null,
+          linkedin_error: r.linkedin.error ?? null,
+        }));
+        const { error: resErr } = await supabaseAdmin.from("og_rescrape_results").insert(rows);
+        if (resErr) throw resErr;
+      }
+    } catch (e) {
+      // Persist niepowodzenie nie blokuje zwrócenia wyników wołającemu.
+      console.error("[og-rescrape] persist failed", e);
+    }
+  }
+
+  return summary;
 }
