@@ -258,7 +258,7 @@ function LocalWarsawSection() {
           <h3 className="font-serif text-lg text-ink">Adres i dojazd</h3>
           <p className="mt-3 text-sm text-foreground/85">
             Klinika Ginekologii, ul. Branickiego 10, 02-972 Warszawa (Wilanów).
-            Dogodny dojazd z Żoliborza, Bemowa, Młocin i całej Warszawy;
+            Dogodny dojazd z Mokotowa, Ursynowa, Śródmieścia i całej Warszawy;
             parking na terenie kliniki.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
