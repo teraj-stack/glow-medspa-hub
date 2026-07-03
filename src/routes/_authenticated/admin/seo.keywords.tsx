@@ -1029,8 +1029,23 @@ function KeywordsPanel() {
               >
                 {saveDraftsMut.isPending ? "Zapisuję…" : "💾 Zapisz do publikacji"}
               </Button>
-              <Button variant="outline" size="sm" onClick={() => downloadClustersCsv(clusters.clusters)}>Eksport klastrów CSV</Button>
-              <Button variant="outline" size="sm" onClick={() => downloadClustersMarkdown(clusters.clusters)}>Eksport Markdown</Button>
+              {(() => {
+                const meta = reports.data?.rows.find((r: ReportListRow) => r.id === clusters.reportId);
+                const sessionMeta = {
+                  id: clusters.reportId,
+                  label: meta?.label ?? null,
+                  createdAt: meta?.created_at ?? new Date().toISOString(),
+                  database: meta?.database ?? clusters.database,
+                  appendLocation: meta?.append_location ?? null,
+                };
+                const slug = sessionFileSlug(sessionMeta);
+                return (
+                  <>
+                    <Button variant="outline" size="sm" onClick={() => downloadClustersCsv(clusters.clusters, slug)}>Eksport klastrów CSV</Button>
+                    <Button variant="outline" size="sm" onClick={() => downloadClustersMarkdown(clusters.clusters, slug, sessionMeta)}>Eksport Markdown</Button>
+                  </>
+                );
+              })()}
               <Button variant="ghost" size="sm" onClick={() => setClusters(null)}>Zamknij</Button>
             </div>
           </div>
