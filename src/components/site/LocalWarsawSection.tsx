@@ -53,7 +53,7 @@ export function LocalWarsawSection({ procedureLabel = "zabieg" }: Props) {
           <div className="overflow-hidden rounded-lg border border-border shadow-soft">
             <iframe
               title="Mapa lokalizacji Klinika Ginekologii, ul. Branickiego 10, Warszawa"
-              src="https://www.google.com/maps?q=Klinika%20klinika ginekologii%20W%C3%B3jcickiego%204%20Warszawa&output=embed"
+              src="https://www.google.com/maps?q=ul.%20Branickiego%2010%20Warszawa&output=embed"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="h-full min-h-[320px] w-full"
