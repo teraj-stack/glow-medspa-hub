@@ -14,8 +14,6 @@
  * - zmieniono tytuł/opis strony w sposób istotny dla podglądu
  *
  * Format: `YYYYMMDD` lub `YYYYMMDD-N` przy kilku bumpach dziennie.
- * Ostatni bump: 2026-07-03 — refactor adresu na ul. Branickiego 10.
- */
  * Ostatni bump: 2026-07-03 (v2) — nowe branded OG cards (hero + blog).
  */
 export const OG_VERSION = "20260703-2";
