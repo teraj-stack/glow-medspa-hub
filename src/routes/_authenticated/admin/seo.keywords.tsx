@@ -130,6 +130,40 @@ function downloadComparisonCsv(reports: ResearchResult[], rows: { phrase: string
   triggerDownload(toCsv(header, csvRows), `keyword-comparison-${stamp}.csv`);
 }
 
+function downloadClustersCsv(clusters: ContentCluster[]) {
+  const header = ["klaster", "intent", "usluga", "typ", "tytul", "slug", "fraza_glowna", "frazy_wspierajace", "wolumen", "kd", "angle"];
+  const rows: (string | number | null)[][] = [];
+  for (const c of clusters) {
+    rows.push([c.cluster, c.intent, c.targetService, "PILLAR", c.pillarTitle, c.pillarSlug, "", "", "", "", ""]);
+    for (const a of c.supportingArticles) {
+      rows.push([c.cluster, c.intent, c.targetService, "SUPPORT", a.title, a.slug, a.primaryKeyword, a.supportingKeywords.join("; "), a.estimatedVolume ?? "", a.estimatedKd ?? "", a.angle]);
+    }
+  }
+  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+  triggerDownload(toCsv(header, rows), `content-clusters-${stamp}.csv`);
+}
+
+function clustersToMarkdown(clusters: ContentCluster[]): string {
+  return clusters.map((c) => {
+    const support = c.supportingArticles.map((a) =>
+      `- **${a.title}** \`/${a.slug}\`\n  - fraza główna: \`${a.primaryKeyword}\`${a.estimatedVolume ? ` · vol ${a.estimatedVolume}` : ""}${a.estimatedKd != null ? ` · KD ${a.estimatedKd}` : ""}\n  - wspierające: ${a.supportingKeywords.map((k) => `\`${k}\``).join(", ")}\n  - angle: ${a.angle}`,
+    ).join("\n");
+    return `## ${c.cluster} · ${c.intent}\n**Usługa docelowa:** ${c.targetService}\n\n### Pillar\n- **${c.pillarTitle}** \`/${c.pillarSlug}\`\n\n### Artykuły wspierające\n${support}\n\n**Linkowanie wewnętrzne:** ${c.internalLinking}\n**CTA:** ${c.cta}\n`;
+  }).join("\n---\n\n");
+}
+
+function downloadClustersMarkdown(clusters: ContentCluster[]) {
+  const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
+  const md = "# Klastry contentowe — propozycje\n\n" + clustersToMarkdown(clusters);
+  const blob = new Blob([md], { type: "text/markdown;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `content-clusters-${stamp}.md`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 function KeywordsPanel() {
   const qc = useQueryClient();
   const researchFn = useServerFn(researchKeywords);
