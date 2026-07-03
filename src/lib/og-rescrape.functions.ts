@@ -26,6 +26,9 @@ export interface OgRescrapeRunRow {
   linkedin_ok: number;
   facebook_skipped: boolean;
   error: string | null;
+  status: string;
+  processed: number;
+  last_progress_at: string | null;
 }
 
 export interface OgRescrapeResultRow {
@@ -38,7 +41,15 @@ export interface OgRescrapeResultRow {
   linkedin_ok: boolean;
   linkedin_status: number | null;
   linkedin_error: string | null;
+  status: string;
+  processed_at: string | null;
 }
+
+const RUN_COLUMNS =
+  "id, started_at, finished_at, duration_ms, base_url, triggered_by, commit_sha, total, facebook_ok, linkedin_ok, facebook_skipped, error, status, processed, last_progress_at";
+
+const RESULT_COLUMNS =
+  "id, url, facebook_ok, facebook_status, facebook_skipped, facebook_error, linkedin_ok, linkedin_status, linkedin_error, status, processed_at";
 
 export const listOgRescrapeRuns = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
@@ -49,9 +60,7 @@ export const listOgRescrapeRuns = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: rows, error } = await supabaseAdmin
       .from("og_rescrape_runs")
-      .select(
-        "id, started_at, finished_at, duration_ms, base_url, triggered_by, commit_sha, total, facebook_ok, linkedin_ok, facebook_skipped, error",
-      )
+      .select(RUN_COLUMNS)
       .order("started_at", { ascending: false })
       .limit(limit);
     if (error) throw new Error(error.message);
@@ -68,18 +77,10 @@ export const getOgRescrapeRun = createServerFn({ method: "GET" })
     await assertAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const [runQ, resQ] = await Promise.all([
-      supabaseAdmin
-        .from("og_rescrape_runs")
-        .select(
-          "id, started_at, finished_at, duration_ms, base_url, triggered_by, commit_sha, total, facebook_ok, linkedin_ok, facebook_skipped, error",
-        )
-        .eq("id", data.runId)
-        .maybeSingle(),
+      supabaseAdmin.from("og_rescrape_runs").select(RUN_COLUMNS).eq("id", data.runId).maybeSingle(),
       supabaseAdmin
         .from("og_rescrape_results")
-        .select(
-          "id, url, facebook_ok, facebook_status, facebook_skipped, facebook_error, linkedin_ok, linkedin_status, linkedin_error",
-        )
+        .select(RESULT_COLUMNS)
         .eq("run_id", data.runId)
         .order("url", { ascending: true }),
     ]);

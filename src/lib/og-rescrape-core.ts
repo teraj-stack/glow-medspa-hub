@@ -61,26 +61,88 @@ async function scrapeLinkedIn(url: string): Promise<RescrapeResult["linkedin"]> 
 
 const CONCURRENCY = 4;
 
-async function runPool<T, R>(items: T[], worker: (item: T) => Promise<R>): Promise<R[]> {
-  const results: R[] = new Array(items.length);
-  let cursor = 0;
-  const workers = Array.from({ length: Math.min(CONCURRENCY, items.length) }, async () => {
-    while (true) {
-      const i = cursor++;
-      if (i >= items.length) return;
-      results[i] = await worker(items[i]);
-    }
-  });
-  await Promise.all(workers);
-  return results;
-}
-
 export interface RescrapeOptions {
   baseUrl?: string;
   paths?: string[];
   triggeredBy?: string;
   commitSha?: string;
   persist?: boolean;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Admin = any;
+
+async function createRunRow(
+  admin: Admin,
+  summary: Pick<RescrapeSummary, "startedAt" | "baseUrl" | "triggeredBy" | "commitSha" | "total" | "facebookSkipped">,
+): Promise<string | null> {
+  const { data, error } = await admin
+    .from("og_rescrape_runs")
+    .insert({
+      started_at: summary.startedAt,
+      finished_at: summary.startedAt,
+      duration_ms: 0,
+      base_url: summary.baseUrl,
+      triggered_by: summary.triggeredBy,
+      commit_sha: summary.commitSha ?? null,
+      total: summary.total,
+      facebook_ok: 0,
+      linkedin_ok: 0,
+      facebook_skipped: summary.facebookSkipped,
+      status: "running",
+      processed: 0,
+      last_progress_at: summary.startedAt,
+    })
+    .select("id")
+    .single();
+  if (error) {
+    console.error("[og-rescrape] failed to create run row", error);
+    return null;
+  }
+  return data.id as string;
+}
+
+async function seedResultRows(admin: Admin, runId: string, urls: string[]) {
+  const rows = urls.map((url) => ({
+    run_id: runId,
+    url,
+    status: "pending" as const,
+  }));
+  const { error } = await admin.from("og_rescrape_results").insert(rows);
+  if (error) console.error("[og-rescrape] failed to seed result rows", error);
+}
+
+async function persistPerUrl(admin: Admin, runId: string, r: RescrapeResult) {
+  const anyError = (!r.facebook.ok && !r.facebook.skipped) || !r.linkedin.ok;
+  const { error } = await admin
+    .from("og_rescrape_results")
+    .update({
+      facebook_ok: r.facebook.ok,
+      facebook_status: r.facebook.status ?? null,
+      facebook_skipped: r.facebook.skipped ?? false,
+      facebook_error: r.facebook.error ?? null,
+      linkedin_ok: r.linkedin.ok,
+      linkedin_status: r.linkedin.status ?? null,
+      linkedin_error: r.linkedin.error ?? null,
+      status: anyError ? "error" : "done",
+      processed_at: new Date().toISOString(),
+    })
+    .eq("run_id", runId)
+    .eq("url", r.url);
+  if (error) console.error("[og-rescrape] failed to update result row", r.url, error);
+}
+
+async function bumpProgress(admin: Admin, runId: string, processed: number, fbOk: number, liOk: number) {
+  const { error } = await admin
+    .from("og_rescrape_runs")
+    .update({
+      processed,
+      facebook_ok: fbOk,
+      linkedin_ok: liOk,
+      last_progress_at: new Date().toISOString(),
+    })
+    .eq("id", runId);
+  if (error) console.error("[og-rescrape] failed to bump progress", error);
 }
 
 export async function rescrapeAllOg(opts?: RescrapeOptions): Promise<RescrapeSummary> {
@@ -93,24 +155,69 @@ export async function rescrapeAllOg(opts?: RescrapeOptions): Promise<RescrapeSum
 
   const fbToken = process.env.FACEBOOK_APP_ACCESS_TOKEN;
   const facebookSkipped = !fbToken;
+  const persist = opts?.persist !== false;
 
-  const results = await runPool(urls, async (url) => {
-    const [facebook, linkedin] = await Promise.all([
-      fbToken
-        ? scrapeFacebook(url, fbToken)
-        : Promise.resolve<RescrapeResult["facebook"]>({ ok: false, skipped: true }),
-      scrapeLinkedIn(url),
-    ]);
-    return { url, facebook, linkedin };
+  // Seed run + pending result rows przed pierwszym fetch-em, żeby panel widział postęp od razu.
+  let admin: Admin | null = null;
+  let runId: string | null = null;
+  if (persist) {
+    try {
+      const mod = await import("@/integrations/supabase/client.server");
+      admin = mod.supabaseAdmin;
+      runId = await createRunRow(admin, {
+        startedAt,
+        baseUrl,
+        triggeredBy,
+        commitSha: opts?.commitSha,
+        total: urls.length,
+        facebookSkipped,
+      });
+      if (runId && urls.length > 0) await seedResultRows(admin, runId, urls);
+    } catch (e) {
+      console.error("[og-rescrape] persist init failed", e);
+      admin = null;
+      runId = null;
+    }
+  }
+
+  const results: RescrapeResult[] = new Array(urls.length);
+  let cursor = 0;
+  let processed = 0;
+  let facebookOk = 0;
+  let linkedinOk = 0;
+
+  const workers = Array.from({ length: Math.min(CONCURRENCY, urls.length) }, async () => {
+    while (true) {
+      const i = cursor++;
+      if (i >= urls.length) return;
+      const url = urls[i];
+      const [facebook, linkedin] = await Promise.all([
+        fbToken
+          ? scrapeFacebook(url, fbToken)
+          : Promise.resolve<RescrapeResult["facebook"]>({ ok: false, skipped: true }),
+        scrapeLinkedIn(url),
+      ]);
+      const r: RescrapeResult = { url, facebook, linkedin };
+      results[i] = r;
+      if (facebook.ok) facebookOk++;
+      if (linkedin.ok) linkedinOk++;
+      processed++;
+
+      if (admin && runId) {
+        // Nieblokujące — nie chcemy, żeby update DB opóźniał kolejne fetch-e.
+        void persistPerUrl(admin, runId, r).then(() =>
+          bumpProgress(admin!, runId!, processed, facebookOk, linkedinOk),
+        );
+      }
+    }
   });
+  await Promise.all(workers);
 
-  const facebookOk = results.filter((r) => r.facebook.ok).length;
-  const linkedinOk = results.filter((r) => r.linkedin.ok).length;
   const finished = Date.now();
   const durationMs = finished - started;
-
   const summary: RescrapeSummary = {
     ok: true,
+    runId: runId ?? undefined,
     baseUrl,
     total: urls.length,
     facebookOk,
@@ -124,45 +231,22 @@ export async function rescrapeAllOg(opts?: RescrapeOptions): Promise<RescrapeSum
     results,
   };
 
-  if (opts?.persist !== false) {
+  if (admin && runId) {
     try {
-      const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-      const { data: runRow, error: runErr } = await supabaseAdmin
+      await admin
         .from("og_rescrape_runs")
-        .insert({
-          started_at: summary.startedAt,
+        .update({
           finished_at: summary.finishedAt,
           duration_ms: summary.durationMs,
-          base_url: summary.baseUrl,
-          triggered_by: summary.triggeredBy,
-          commit_sha: summary.commitSha ?? null,
-          total: summary.total,
           facebook_ok: summary.facebookOk,
           linkedin_ok: summary.linkedinOk,
-          facebook_skipped: summary.facebookSkipped,
+          processed: summary.total,
+          status: "done",
+          last_progress_at: summary.finishedAt,
         })
-        .select("id")
-        .single();
-      if (runErr) throw runErr;
-      summary.runId = runRow.id;
-      if (results.length > 0) {
-        const rows = results.map((r) => ({
-          run_id: runRow.id,
-          url: r.url,
-          facebook_ok: r.facebook.ok,
-          facebook_status: r.facebook.status ?? null,
-          facebook_skipped: r.facebook.skipped ?? false,
-          facebook_error: r.facebook.error ?? null,
-          linkedin_ok: r.linkedin.ok,
-          linkedin_status: r.linkedin.status ?? null,
-          linkedin_error: r.linkedin.error ?? null,
-        }));
-        const { error: resErr } = await supabaseAdmin.from("og_rescrape_results").insert(rows);
-        if (resErr) throw resErr;
-      }
+        .eq("id", runId);
     } catch (e) {
-      // Persist niepowodzenie nie blokuje zwrócenia wyników wołającemu.
-      console.error("[og-rescrape] persist failed", e);
+      console.error("[og-rescrape] finalize failed", e);
     }
   }
 
