@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { Watermark } from "@/components/site/Watermark";
+import { CfImg } from "@/components/site/CfImg";
 import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { getTechnology, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
@@ -201,7 +202,7 @@ function FusionPlasmaPage() {
           </p>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             <figure className="rounded-lg overflow-hidden border border-border bg-white shadow-soft">
-              <img src={skoraZdrowaImg} alt="Model skóry zdrowej — gęsta siatka kolagenu, mieszki włosowe, naczynia krwionośne" className="w-full h-auto" />
+              <CfImg src={skoraZdrowaImg} alt="Model skóry zdrowej — gęsta siatka kolagenu, mieszki włosowe, naczynia krwionośne" width={640} height={480} responsiveWidths={[400, 640, 800]} sizes="(max-width: 768px) 100vw, 500px" className="w-full h-auto" />
               <figcaption className="p-5">
                 <div className="text-xs uppercase tracking-[0.3em] text-champagne">Skóra zdrowa</div>
                 <h3 className="mt-2 font-serif text-xl text-ink">Gęsta, elastyczna, ukrwiona</h3>
@@ -211,7 +212,7 @@ function FusionPlasmaPage() {
               </figcaption>
             </figure>
             <figure className="rounded-lg overflow-hidden border border-border bg-white shadow-soft">
-              <img src={skoraWiotkaAsset.url} alt="Model skóry wiotkiej i cienkiej — rzadka siatka kolagenu, oznaki przewlekłego zapalenia" className="w-full h-auto" />
+              <CfImg src={skoraWiotkaAsset.url} alt="Model skóry wiotkiej i cienkiej — rzadka siatka kolagenu, oznaki przewlekłego zapalenia" width={640} height={480} responsiveWidths={[400, 640, 800]} sizes="(max-width: 768px) 100vw, 500px" className="w-full h-auto" />
               <figcaption className="p-5">
                 <div className="text-xs uppercase tracking-[0.3em] text-champagne">Skóra wiotka i cienka</div>
                 <h3 className="mt-2 font-serif text-xl text-ink">Ścieńczała, bez podparcia</h3>
@@ -229,7 +230,7 @@ function FusionPlasmaPage() {
         <SectionHeading eyebrow="Jak to działa" title="Zimna plazma budzi skórę do pracy" />
         <div className="mt-10 grid gap-12 md:grid-cols-[1fr_1.2fr] md:items-center">
           <figure className="rounded-lg overflow-hidden bg-white shadow-soft border border-border">
-            <img src={zaawansowanaImg} alt="Strumień zimnej plazmy aktywujący odbudowę kolagenu w głębi skóry" className="w-full h-auto" />
+            <CfImg src={zaawansowanaImg} alt="Strumień zimnej plazmy aktywujący odbudowę kolagenu w głębi skóry" width={640} height={480} responsiveWidths={[400, 640, 800]} sizes="(max-width: 768px) 100vw, 500px" className="w-full h-auto" />
           </figure>
           <div className="space-y-6">
             <p className="text-foreground/85 md:text-lg">
@@ -353,11 +354,11 @@ function FusionPlasmaPage() {
               <figure key={item.title} className="overflow-hidden rounded-lg border border-border bg-card">
                 <div className="grid grid-cols-2">
                   <div className="relative">
-                    <img src={item.before} alt={`${item.title} — przed zabiegiem`} loading="lazy" className="aspect-square w-full object-cover" />
+                    <CfImg src={item.before} alt={`${item.title} — przed zabiegiem`} width={480} height={480} responsiveWidths={[320, 480, 640]} sizes="(max-width: 768px) 50vw, 320px" className="aspect-square w-full object-cover" />
                     <span className="absolute left-3 top-3 rounded-full bg-ink/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white">Przed</span>
                   </div>
                   <div className="relative">
-                    <img src={item.after} alt={`${item.title} — po zabiegu`} loading="lazy" className="aspect-square w-full object-cover" />
+                    <CfImg src={item.after} alt={`${item.title} — po zabiegu`} width={480} height={480} responsiveWidths={[320, 480, 640]} sizes="(max-width: 768px) 50vw, 320px" className="aspect-square w-full object-cover" />
                     <span className="absolute left-3 top-3 rounded-full bg-champagne px-3 py-1 text-xs uppercase tracking-[0.2em] text-ink">Po</span>
                   </div>
                 </div>
