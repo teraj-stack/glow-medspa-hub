@@ -16,7 +16,9 @@
  * Format: `YYYYMMDD` lub `YYYYMMDD-N` przy kilku bumpach dziennie.
  * Ostatni bump: 2026-07-03 — refactor adresu na ul. Branickiego 10.
  */
-export const OG_VERSION = "20260703";
+ * Ostatni bump: 2026-07-03 (v2) — nowe branded OG cards (hero + blog).
+ */
+export const OG_VERSION = "20260703-2";
 
 /**
  * Doklej `?v=OG_VERSION` (lub `&v=...` jeśli URL już ma query) do URL-a
