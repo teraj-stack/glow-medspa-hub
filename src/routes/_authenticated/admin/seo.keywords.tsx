@@ -421,7 +421,45 @@ function KeywordsPanel() {
           {phrases.length} pozycji do sprawdzenia (limit 50).
         </div>
 
+        <div className="space-y-2">
+          <div className="text-xs text-muted-foreground">Szybkie presety lokalizacji (kliknij, aby doczepić do każdej frazy):</div>
+          {LOCATION_PRESETS.map((g) => (
+            <div key={g.group} className="flex flex-wrap items-center gap-1.5">
+              <span className="text-[11px] uppercase tracking-wide text-muted-foreground w-full sm:w-40">{g.group}</span>
+              {g.items.map((it) => {
+                const active = appendLocation.toLowerCase() === it.value.toLowerCase();
+                return (
+                  <button
+                    key={it.value}
+                    type="button"
+                    onClick={() => {
+                      if (active) {
+                        setAppendMode("none");
+                        setCustomLoc("");
+                      } else if (it.value === "warszawa" || it.value === "siedlce") {
+                        setAppendMode(it.value as "warszawa" | "siedlce");
+                      } else {
+                        setAppendMode("custom");
+                        setCustomLoc(it.value);
+                      }
+                    }}
+                    className={
+                      "text-xs rounded-full border px-2.5 py-1 transition " +
+                      (active
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "border-border hover:bg-muted")
+                    }
+                  >
+                    {it.label}
+                  </button>
+                );
+              })}
+            </div>
+          ))}
+        </div>
+
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+
           <label className="text-sm flex flex-col gap-1">
             <span className="text-muted-foreground">Baza Semrush</span>
             <select
