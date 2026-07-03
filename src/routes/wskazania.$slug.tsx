@@ -26,7 +26,7 @@ const CONTENT: Record<string, IndicationContent> = {
     h1: "Usuwanie przebarwień w Warszawie",
     metaTitle: "Usuwanie przebarwień Warszawa — diagnostyka i leczenie | BMClinics",
     metaDesc:
-      "Przebarwienia posłoneczne, hormonalne i pozapalne. Diagnostyka spektralna i dobór terapii lekarskiej w Warszawie (Bielany, Klinika Promedion).",
+      "Przebarwienia posłoneczne, hormonalne i pozapalne. Diagnostyka spektralna i dobór terapii lekarskiej w Warszawie — ul. Branickiego 10 (klinika ginekologii).",
     keyword: "usuwanie przebarwień Warszawa",
     intro:
       "Przebarwienia to nie jedna choroba — to kilka różnych mechanizmów, które wymagają różnych terapii. Zaczynamy od diagnostyki, dobieramy technologię, planujemy sezonowo.",
@@ -116,7 +116,7 @@ export const Route = createFileRoute("/wskazania/$slug")({
       meta: [
         { title: loaderData.metaTitle },
         { name: "description", content: loaderData.metaDesc },
-        { name: "keywords", content: `${loaderData.keyword}, ${loaderData.title} Warszawa, Bielany, Promedion` },
+        { name: "keywords", content: `${loaderData.keyword}, ${loaderData.title} Warszawa, Branickiego, klinika ginekologii` },
         { property: "og:title", content: loaderData.metaTitle },
         { property: "og:description", content: loaderData.metaDesc },
         { property: "og:type", content: "article" },
@@ -315,7 +315,7 @@ function IndicationPage() {
           </div>
           <p className="mt-6 flex items-center justify-center gap-2 text-xs text-muted-foreground">
             <CheckCircle2 className="size-4 text-champagne" aria-hidden />
-            Klinika Promedion, ul. Wójcickiego 4, Warszawa
+            ul. Branickiego 10, Warszawa (klinika ginekologii)
           </p>
         </div>
       </section>
