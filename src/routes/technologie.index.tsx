@@ -221,9 +221,9 @@ function TechnologiesPage() {
                   <img
                     src={group.icon}
                     alt=""
-                    loading={isFirstGroup ? "eager" : "lazy"}
-                    {...(isFirstGroup ? { fetchPriority: "high" as const } : { fetchPriority: "low" as const })}
-                    decoding={isFirstGroup ? "sync" : "async"}
+                    loading="lazy"
+                    fetchPriority="low"
+                    decoding="async"
                     width={84}
                     height={84}
                     className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"

@@ -325,7 +325,8 @@ function PortraitShapePicker({ slug, initialPhotoUrl, initialCrop }: PortraitPic
             transform: `scale(${draftCrop.zoom})`,
             transformOrigin: `${draftCrop.offsetX}% ${draftCrop.offsetY}%`,
           }}
-          loading="eager"
+          loading="lazy"
+          decoding="async"
         />
 
       </div>
