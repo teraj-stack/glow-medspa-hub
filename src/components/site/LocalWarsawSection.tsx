@@ -37,16 +37,16 @@ export function LocalWarsawSection({ procedureLabel = "zabieg" }: Props) {
               </div>
               <div className="flex items-start gap-2">
                 <Train className="mt-0.5 size-4 shrink-0 text-champagne" aria-hidden />
-                <div>Metro Młociny 8 min autobusem · przystanek Wólczyńska 3 min pieszo</div>
+                <div>Autobusy w kierunku Wilanowa · przystanki w pobliżu ul. Branickiego</div>
               </div>
               <div className="flex items-start gap-2">
                 <Car className="mt-0.5 size-4 shrink-0 text-champagne" aria-hidden />
-                <div>Bezpłatny parking dla pacjentów przy klinice</div>
+                <div>Parking dla pacjentów przy klinice</div>
               </div>
             </address>
 
             <p className="mt-6 text-xs uppercase tracking-[0.25em] text-muted-foreground">
-              Obsługujemy pacjentów z: Wilanów · Bemowo · Żoliborz · Śródmieście · Łomianki · Nowy Dwór Mazowiecki
+              Obsługujemy pacjentów z: Wilanów · Mokotów · Śródmieście · Ursynów · Powsin · Konstancin-Jeziorna
             </p>
           </div>
 
