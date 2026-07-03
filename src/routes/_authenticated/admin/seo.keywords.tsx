@@ -164,6 +164,68 @@ function downloadClustersMarkdown(clusters: ContentCluster[]) {
   URL.revokeObjectURL(url);
 }
 
+type IntentKey = "cennik" | "lokalizacja" | "przebieg" | "porownanie" | "powiklania" | "opinie" | "usluga" | "informacyjne";
+
+const INTENT_META: Record<IntentKey, { label: string; hint: string; titleTemplate: (top: string) => string; angle: string }> = {
+  cennik:      { label: "Cennik / koszt",           hint: "Użytkownik szuka ceny — intent transakcyjny.", titleTemplate: (t) => `${cap(t)} — cennik ${new Date().getFullYear()} (Warszawa, Branickiego 10)`, angle: "Tabela cen, od czego zależy koszt, pakiety, finansowanie, CTA do konsultacji." },
+  lokalizacja: { label: "Lokalizacja",              hint: "Fraza z miastem/dzielnicą — intent lokalny.",    titleTemplate: (t) => `${cap(t)} — Warszawa Wilanów (ul. Branickiego 10)`, angle: "NAP, mapa, dojazd, catchment, opinie lokalne, LocalBusiness schema." },
+  przebieg:    { label: "Przebieg / efekty",        hint: "Jak wygląda zabieg, ile trwa, kiedy efekty.",   titleTemplate: (t) => `${cap(t)} — jak wygląda, ile trwa, kiedy widać efekty`, angle: "Step-by-step, harmonogram efektów, rekonwalescencja, zdjęcia przed/po." },
+  porownanie:  { label: "Porównanie / alternatywy", hint: "Porównanie technologii lub zabiegów.",          titleTemplate: (t) => `${cap(t)} — porównanie z alternatywami (co wybrać)`, angle: "Tabela porównawcza, wskazania, ograniczenia, koszty, decyzja per typ skóry." },
+  powiklania:  { label: "Bezpieczeństwo / powikłania", hint: "Przeciwwskazania, ryzyko, bezpieczeństwo.", titleTemplate: (t) => `${cap(t)} — przeciwwskazania, ryzyko i jak zminimalizować powikłania`, angle: "Lista przeciwwskazań, red flags, co robić przed/po, kiedy zgłosić się do lekarza." },
+  opinie:      { label: "Opinie / recenzje",        hint: "Szuka social proof.",                            titleTemplate: (t) => `${cap(t)} — opinie pacjentek i realne efekty`, angle: "Case studies, cytaty pacjentek, zdjęcia przed/po, linki do Google Reviews." },
+  usluga:      { label: "Usługa (komercyjne)",      hint: "Nazwa zabiegu — intent komercyjny.",             titleTemplate: (t) => `${cap(t)} w Warszawie — na czym polega i dla kogo`, angle: "Strona usługi: wskazania, mechanizm, przebieg, cennik, FAQ, CTA rezerwacji." },
+  informacyjne:{ label: "Informacyjne / edukacja",  hint: "Ogólne pytania — top of funnel.",               titleTemplate: (t) => `${cap(t)} — kompletny przewodnik`, angle: "Definicja, przyczyny, kiedy do specjalisty, przegląd metod leczenia." },
+};
+
+function cap(s: string) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function classifyIntent(phrase: string): IntentKey {
+  const p = phrase.toLowerCase();
+  if (/(cen[ay]|cennik|koszt|ile kosztuje|ile za|promocja|rabat|tanio|najtaniej)/.test(p)) return "cennik";
+  if (/(opinie|recenzje|forum|opini)/.test(p)) return "opinie";
+  if (/(przeciwwskazani|powikłani|powiklani|skutki uboczne|ryzyko|bezpieczn|boli|ból|bol)/.test(p)) return "powiklania";
+  if (/( vs | czy |różnic|roznic|porównan|porownan|lepsz|alternatyw|co wybrać|co wybrac)/.test(p)) return "porownanie";
+  if (/(jak (wygląda|wyglada|przebiega)|ile trwa|ile zabiegów|ile zabiegow|efekt|rekonwalescencj|po zabiegu|przed zabiegiem|przygotowani|znieczuleni|kiedy widać|kiedy widac)/.test(p)) return "przebieg";
+  if (/(warszaw|siedlce|krak|wrocł|wroc|poznan|gdans|wilanów|wilanow|mokot|bielan|śródmie|srodmie|ursyn|żoli|zoli|bemow|dzielnic|blisko|gdzie|w mieście|w miescie|klinik|gabinet)/.test(p)) return "lokalizacja";
+  if (/(co to|czym jest|dlaczego|przyczyn|objaw|rodzaj)/.test(p)) return "informacyjne";
+  return "usluga";
+}
+
+type IntentGroup = { intent: IntentKey; rows: Row[]; totalVolume: number };
+
+function groupByIntent(rows: Row[]): IntentGroup[] {
+  const map = new Map<IntentKey, Row[]>();
+  for (const r of rows) {
+    const k = classifyIntent(r.phrase);
+    const arr = map.get(k) ?? [];
+    arr.push(r);
+    map.set(k, arr);
+  }
+  const ordering: IntentKey[] = ["usluga", "cennik", "lokalizacja", "przebieg", "porownanie", "powiklania", "opinie", "informacyjne"];
+  return ordering
+    .filter((k) => map.has(k))
+    .map((intent) => {
+      const rs = (map.get(intent) ?? []).sort((a, b) => (b.volume ?? 0) - (a.volume ?? 0));
+      const totalVolume = rs.reduce((s, r) => s + (r.volume ?? 0), 0);
+      return { intent, rows: rs, totalVolume };
+    });
+}
+
+function downloadIntentGroupsCsv(result: ResearchResult, groups: IntentGroup[]) {
+  const header = ["intent", "fraza", "wolumen", "KD", "CPC (USD)", "propozycja_tytulu", "angle"];
+  const rows: (string | number | null)[][] = [];
+  for (const g of groups) {
+    const meta = INTENT_META[g.intent];
+    const topPhrase = g.rows[0]?.phrase ?? "";
+    const title = meta.titleTemplate(topPhrase);
+    for (const r of g.rows) {
+      rows.push([meta.label, r.phrase, r.volume ?? "", r.difficulty ?? "", r.cpc ?? "", title, meta.angle]);
+    }
+  }
+  const stamp = (result.createdAt ?? new Date().toISOString()).slice(0, 19).replace(/[:T]/g, "-");
+  triggerDownload(toCsv(header, rows), `intent-groups-${result.database}-${stamp}.csv`);
+}
+
 function KeywordsPanel() {
   const qc = useQueryClient();
   const researchFn = useServerFn(researchKeywords);
