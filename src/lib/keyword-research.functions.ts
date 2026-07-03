@@ -118,6 +118,41 @@ export const getKeywordResearchReport = createServerFn({ method: "POST" })
     };
   });
 
+/**
+ * Zwraca zapisane klastry dla konkretnej sesji researchu (per-session export).
+ * Klastry są zapisywane w momencie ich wygenerowania (patrz
+ * generateContentClusters) i pozostają dostępne również po odświeżeniu
+ * strony — panel admina używa tego do przycisków CSV/MD w historii.
+ */
+export const getKeywordResearchClusters = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator(z.object({ id: z.string().uuid() }))
+  .handler(async ({ data, context }) => {
+    await requireAdminOrManager(context.userId);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row, error } = await supabaseAdmin
+      .from("seo_keyword_research_reports")
+      .select("id, created_at, database, append_location, label, clusters, clusters_generated_at")
+      .eq("id", data.id)
+      .maybeSingle();
+    if (error) throw new Error(error.message);
+    if (!row) throw new Error("Raport nie znaleziony");
+    const clusters = ((row.clusters ?? []) as unknown) as ContentClusterLike[];
+    return {
+      id: row.id,
+      createdAt: row.created_at,
+      database: row.database,
+      appendLocation: row.append_location,
+      label: row.label,
+      generatedAt: row.clusters_generated_at,
+      clusters,
+    };
+  });
+
+// Luźny typ na potrzeby getter'a (rzeczywisty schemat: ContentCluster niżej).
+type ContentClusterLike = Record<string, unknown>;
+
+
 export const deleteKeywordResearchReport = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .validator(z.object({ id: z.string().uuid() }))
