@@ -116,7 +116,7 @@ export const Route = createFileRoute("/wskazania/$slug")({
       meta: [
         { title: loaderData.metaTitle },
         { name: "description", content: loaderData.metaDesc },
-        { name: "keywords", content: `${loaderData.keyword}, ${loaderData.title} Warszawa, Bielany, Promedion` },
+        { name: "keywords", content: `${loaderData.keyword}, ${loaderData.title} Warszawa, Branickiego, klinika ginekologii` },
         { property: "og:title", content: loaderData.metaTitle },
         { property: "og:description", content: loaderData.metaDesc },
         { property: "og:type", content: "article" },
