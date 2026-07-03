@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { ArrowLeft } from "lucide-react";
+import ogCard from "@/assets/og/blog-co-dalej-po-badaniu-skory.jpg";
+import { withOgVersion } from "@/config/social-preview";
 
 const FAQ = [
   {
@@ -34,6 +36,12 @@ export const Route = createFileRoute("/blog/co-dalej-po-badaniu-skory")({
       { property: "og:description", content: "Od raportu do konkretnych decyzji." },
       { property: "og:type", content: "article" },
       { property: "og:url", content: "https://bmclinics.ai/blog/co-dalej-po-badaniu-skory" },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:locale", content: "pl_PL" },
     ],
     links: [{ rel: "canonical", href: "https://bmclinics.ai/blog/co-dalej-po-badaniu-skory" }],

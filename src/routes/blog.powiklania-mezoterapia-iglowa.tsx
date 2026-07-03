@@ -2,6 +2,8 @@ import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, ShieldAlert, CheckCircle2, Stethoscope } from "lucide-react";
+import ogCard from "@/assets/og/blog-powiklania-mezoterapia-iglowa.jpg";
+import { withOgVersion } from "@/config/social-preview";
 
 const FAQ = [
   {
@@ -59,6 +61,12 @@ export const Route = createFileRoute("/blog/powiklania-mezoterapia-iglowa")({
           "Kompletny przewodnik po powikłaniach po mezoterapii igłowej: jakie są najczęstsze skutki uboczne, kiedy należy się martwić i jak unikać komplikacji.",
       },
       { property: "og:url", content: "https://bmclinics.ai/blog/powiklania-mezoterapia-iglowa" },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "article" },
       { property: "article:published_time", content: "2025-06-22T10:00:00+02:00" },
       { property: "article:modified_time", content: "2025-06-22T10:00:00+02:00" },

@@ -5,6 +5,7 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { ArrowLeft, Sparkles, AlertCircle } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
 import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/blog-lifting-bez-skalpela.jpg";
 
 export const Route = createFileRoute("/blog/lifting-bez-skalpela")({
   head: () => ({
@@ -28,7 +29,12 @@ export const Route = createFileRoute("/blog/lifting-bez-skalpela")({
       },
       { property: "og:url", content: "https://bmclinics.ai/blog/lifting-bez-skalpela" },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${konturAsset.url}`) },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "article:published_time", content: "2026-06-27T10:15:00+02:00" },
       { property: "article:section", content: "Medycyna estetyczna" },
       { property: "og:locale", content: "pl_PL" },

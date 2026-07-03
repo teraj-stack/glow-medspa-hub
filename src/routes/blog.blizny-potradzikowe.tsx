@@ -10,6 +10,8 @@ import {
   ShieldCheck,
   AlertCircle,
 } from "lucide-react";
+import ogCard from "@/assets/og/blog-blizny-potradzikowe.jpg";
+import { withOgVersion } from "@/config/social-preview";
 
 const FAQ = [
   {
@@ -71,6 +73,12 @@ export const Route = createFileRoute("/blog/blizny-potradzikowe")({
           "Jak skutecznie zredukować blizny po trądziku? Laser pikosekundowy z efektem fotoakustycznym i radiofrekwencja mikroigłowa — co działa, kiedy i u kogo.",
       },
       { property: "og:url", content: "https://bmclinics.ai/blog/blizny-potradzikowe" },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:type", content: "article" },
       { property: "article:published_time", content: "2026-06-22T10:00:00+02:00" },
       { property: "article:modified_time", content: "2026-06-22T10:00:00+02:00" },
