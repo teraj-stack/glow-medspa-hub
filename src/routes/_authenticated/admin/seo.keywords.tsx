@@ -8,6 +8,8 @@ import {
   listKeywordResearchReports,
   getKeywordResearchReport,
   deleteKeywordResearchReport,
+  generateContentClusters,
+  type ContentCluster,
 } from "@/lib/keyword-research.functions";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
