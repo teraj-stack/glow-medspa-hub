@@ -201,9 +201,13 @@ export const generateContentClusters = createServerFn({ method: "POST" })
 - Preferuj klastry pod realne usługi kliniki (podane niżej).
 - Grupuj frazy synonimiczne i pochodne w JEDEN artykuł zamiast osobnych.
 - Pomiń frazy o wolumenie <20/mies., chyba że dobrze pasują do klastra jako uzupełnienie.
+- Dla KAŻDEGO artykułu (pillar i wspierające) wygeneruj brief:
+  - metaTitle: <=60 znaków, zawiera frazę główną, po polsku, bez clickbaitu.
+  - metaDescription: 140–158 znaków, naturalna zachęta z CTA (np. "Umów konsultację w BMClinics"), zawiera frazę główną.
+  - outline: 5–9 nagłówków sekcji artykułu jako TABLICA STRINGÓW; każdy element zaczyna się od "## " (H2) lub "### " (H3, podsekcja poprzedzającego H2). Uwzględnij sekcje: wprowadzenie/definicja, wskazania, przebieg zabiegu, efekty, przeciwwskazania, cena/konsultacja, FAQ.
 - Zwróć TYLKO JSON zgodny ze schematem.`;
 
-    const user = `Usługi kliniki:\n${CLINIC_SERVICES.map((s) => `- ${s}`).join("\n")}\n\nBaza Semrush: ${row.database}${row.append_location ? ` (+ ${row.append_location})` : ""}\nRaport: ${row.label ?? row.id}\n\nFrazy (top ${compact.length} po wolumenie):\n${JSON.stringify(compact, null, 2)}\n\nZbuduj 3–6 klastrów tematycznych. Każdy klaster: 1 pillar + 3–6 artykułów wspierających.`;
+    const user = `Usługi kliniki:\n${CLINIC_SERVICES.map((s) => `- ${s}`).join("\n")}\n\nBaza Semrush: ${row.database}${row.append_location ? ` (+ ${row.append_location})` : ""}\nRaport: ${row.label ?? row.id}\n\nFrazy (top ${compact.length} po wolumenie):\n${JSON.stringify(compact, null, 2)}\n\nZbuduj 3–6 klastrów tematycznych. Każdy klaster: 1 pillar + 3–6 artykułów wspierających. Dla każdego artykułu wygeneruj metaTitle, metaDescription oraz outline (## / ###).`;
 
     const schema = {
       name: "content_clusters",
