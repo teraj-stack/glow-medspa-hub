@@ -39,7 +39,8 @@ export function Watermark({
   };
   return (
     <img
-      src={watermarkUrl}
+      src={cfImage(watermarkUrl, { width: 160, format: "auto", fit: "contain", quality: 75 })}
+      srcSet={`${cfImage(watermarkUrl, { width: 112, format: "auto", fit: "contain", quality: 75 })} 1x, ${cfImage(watermarkUrl, { width: 224, format: "auto", fit: "contain", quality: 75 })} 2x`}
       alt=""
       aria-hidden="true"
       draggable={false}
