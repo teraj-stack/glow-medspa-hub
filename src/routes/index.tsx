@@ -157,8 +157,8 @@ function Hero() {
             width={1200}
             height={1500}
             eager
-            responsiveWidths={[480, 768, 1024, 1200]}
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px"
+            responsiveWidths={[360, 480, 640, 800, 1200]}
+            sizes="(max-width: 768px) 92vw, (min-width: 1280px) 600px, 50vw"
             imgClassName="aspect-[4/5] w-full rounded-lg object-cover shadow-elegant"
           />
           <div className="absolute -bottom-6 -left-6 hidden rounded-lg border border-border bg-card p-5 shadow-soft md:block">
