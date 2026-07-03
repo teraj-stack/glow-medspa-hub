@@ -34,7 +34,17 @@ export const Route = createFileRoute("/")({
     ],
     links: [
       { rel: "canonical", href: "https://bmclinics.ai/" },
-      { rel: "preload", as: "image", href: bujokAvif.url, type: "image/avif", fetchPriority: "high" },
+      {
+        rel: "preload",
+        as: "image",
+        href: cfImage(bujokAvif.url, { width: 1200, format: "avif" }),
+        type: "image/avif",
+        fetchPriority: "high",
+        imagesrcset: [480, 768, 1024, 1200]
+          .map((w) => `${cfImage(bujokAvif.url, { width: w, format: "avif" })} ${w}w`)
+          .join(", "),
+        imagesizes: "(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 600px",
+      },
     ],
     scripts: [
       {
