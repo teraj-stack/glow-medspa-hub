@@ -159,13 +159,42 @@ function downloadComparisonCsv(reports: ResearchResult[], rows: { phrase: string
   triggerDownload(toCsv(header, csvRows), `keyword-comparison-${stamp}.csv`);
 }
 
+type LinkTarget = { title: string; path: string; role: "pillar" | "support" };
+
+function normalizeSlug(s: string): string {
+  const trimmed = (s ?? "").trim().replace(/^\/+/, "");
+  return `/${trimmed}`;
+}
+
+function pillarInternalLinks(c: ContentCluster): LinkTarget[] {
+  return c.supportingArticles.map((a) => ({ title: a.title, path: normalizeSlug(a.slug), role: "support" as const }));
+}
+
+function supportInternalLinks(c: ContentCluster, currentSlug: string): LinkTarget[] {
+  const links: LinkTarget[] = [{ title: c.pillarTitle, path: normalizeSlug(c.pillarSlug), role: "pillar" }];
+  for (const a of c.supportingArticles) {
+    if (a.slug === currentSlug) continue;
+    links.push({ title: a.title, path: normalizeSlug(a.slug), role: "support" });
+  }
+  return links;
+}
+
+function linksToCsv(links: LinkTarget[]): string {
+  return links.map((l) => `${l.title} → ${l.path}`).join(" | ");
+}
+
+function linksToMd(links: LinkTarget[]): string {
+  if (links.length === 0) return "_(brak)_";
+  return links.map((l) => `  - ${l.role === "pillar" ? "🏛 " : "↔ "}[${l.title}](${l.path})`).join("\n");
+}
+
 function downloadClustersCsv(clusters: ContentCluster[]) {
-  const header = ["klaster", "intent", "usluga", "typ", "tytul", "slug", "fraza_glowna", "frazy_wspierajace", "wolumen", "kd", "angle", "meta_title", "meta_description", "outline"];
+  const header = ["klaster", "intent", "usluga", "typ", "tytul", "slug", "fraza_glowna", "frazy_wspierajace", "wolumen", "kd", "angle", "meta_title", "meta_description", "outline", "linki_wewnetrzne"];
   const rows: (string | number | null)[][] = [];
   for (const c of clusters) {
-    rows.push([c.cluster, c.intent, c.targetService, "PILLAR", c.pillarTitle, c.pillarSlug, "", "", "", "", "", c.pillarMetaTitle ?? "", c.pillarMetaDescription ?? "", (c.pillarOutline ?? []).join(" | ")]);
+    rows.push([c.cluster, c.intent, c.targetService, "PILLAR", c.pillarTitle, normalizeSlug(c.pillarSlug), "", "", "", "", "", c.pillarMetaTitle ?? "", c.pillarMetaDescription ?? "", (c.pillarOutline ?? []).join(" | "), linksToCsv(pillarInternalLinks(c))]);
     for (const a of c.supportingArticles) {
-      rows.push([c.cluster, c.intent, c.targetService, "SUPPORT", a.title, a.slug, a.primaryKeyword, a.supportingKeywords.join("; "), a.estimatedVolume ?? "", a.estimatedKd ?? "", a.angle, a.metaTitle ?? "", a.metaDescription ?? "", (a.outline ?? []).join(" | ")]);
+      rows.push([c.cluster, c.intent, c.targetService, "SUPPORT", a.title, normalizeSlug(a.slug), a.primaryKeyword, a.supportingKeywords.join("; "), a.estimatedVolume ?? "", a.estimatedKd ?? "", a.angle, a.metaTitle ?? "", a.metaDescription ?? "", (a.outline ?? []).join(" | "), linksToCsv(supportInternalLinks(c, a.slug))]);
     }
   }
   const stamp = new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-");
@@ -180,9 +209,9 @@ function outlineToMd(outline: string[] | undefined): string {
 function clustersToMarkdown(clusters: ContentCluster[]): string {
   return clusters.map((c) => {
     const support = c.supportingArticles.map((a) =>
-      `#### ${a.title} \`/${a.slug}\`\n- fraza główna: \`${a.primaryKeyword}\`${a.estimatedVolume ? ` · vol ${a.estimatedVolume}` : ""}${a.estimatedKd != null ? ` · KD ${a.estimatedKd}` : ""}\n- wspierające: ${a.supportingKeywords.map((k) => `\`${k}\``).join(", ")}\n- angle: ${a.angle}\n- **meta title:** ${a.metaTitle ?? ""}\n- **meta description:** ${a.metaDescription ?? ""}\n- **outline:**\n${outlineToMd(a.outline)}`,
+      `#### ${a.title} \`${normalizeSlug(a.slug)}\`\n- fraza główna: \`${a.primaryKeyword}\`${a.estimatedVolume ? ` · vol ${a.estimatedVolume}` : ""}${a.estimatedKd != null ? ` · KD ${a.estimatedKd}` : ""}\n- wspierające: ${a.supportingKeywords.map((k) => `\`${k}\``).join(", ")}\n- angle: ${a.angle}\n- **meta title:** ${a.metaTitle ?? ""}\n- **meta description:** ${a.metaDescription ?? ""}\n- **outline:**\n${outlineToMd(a.outline)}\n- **linkuj wewnętrznie do:**\n${linksToMd(supportInternalLinks(c, a.slug))}`,
     ).join("\n\n");
-    return `## ${c.cluster} · ${c.intent}\n**Usługa docelowa:** ${c.targetService}\n\n### Pillar: ${c.pillarTitle} \`/${c.pillarSlug}\`\n- **meta title:** ${c.pillarMetaTitle ?? ""}\n- **meta description:** ${c.pillarMetaDescription ?? ""}\n- **outline:**\n${outlineToMd(c.pillarOutline)}\n\n### Artykuły wspierające\n${support}\n\n**Linkowanie wewnętrzne:** ${c.internalLinking}\n**CTA:** ${c.cta}\n`;
+    return `## ${c.cluster} · ${c.intent}\n**Usługa docelowa:** ${c.targetService}\n\n### Pillar: ${c.pillarTitle} \`${normalizeSlug(c.pillarSlug)}\`\n- **meta title:** ${c.pillarMetaTitle ?? ""}\n- **meta description:** ${c.pillarMetaDescription ?? ""}\n- **outline:**\n${outlineToMd(c.pillarOutline)}\n- **linkuj wewnętrznie do (hub → supporty):**\n${linksToMd(pillarInternalLinks(c))}\n\n### Artykuły wspierające\n${support}\n\n**Strategia linkowania (ogólna):** ${c.internalLinking}\n**CTA:** ${c.cta}\n`;
   }).join("\n---\n\n");
 }
 
