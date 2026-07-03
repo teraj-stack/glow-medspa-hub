@@ -265,6 +265,87 @@ function OgRescrapePanel() {
         </div>
       </section>
 
+      {activeRun && queueStats && (
+        <section className="rounded-lg border border-blue-500/30 bg-blue-500/5">
+          <div className="border-b border-blue-500/20 px-4 py-3 flex items-center justify-between">
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <span className="inline-block h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+              Kolejka aktualnego runa
+              <span className="text-xs text-muted-foreground font-normal">
+                · start {fmtDate(activeRun.started_at)}
+              </span>
+            </div>
+            <button
+              className="text-xs px-2 py-1 rounded border border-border hover:bg-muted"
+              onClick={() => setSelectedId(activeRun.id)}
+            >
+              Pokaż szczegóły ↓
+            </button>
+          </div>
+          <div className="p-4 space-y-4">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+              <div className="rounded border border-border bg-background p-3">
+                <div className="text-[11px] uppercase tracking-wide text-muted-foreground">Wszystkich</div>
+                <div className="text-2xl font-semibold tabular-nums">{queueStats.total}</div>
+              </div>
+              <div className="rounded border border-amber-500/30 bg-amber-500/5 p-3">
+                <div className="text-[11px] uppercase tracking-wide text-amber-600">W kolejce</div>
+                <div className="text-2xl font-semibold tabular-nums text-amber-600">{queueStats.queued}</div>
+              </div>
+              <div className="rounded border border-blue-500/30 bg-blue-500/5 p-3">
+                <div className="text-[11px] uppercase tracking-wide text-blue-500">W toku</div>
+                <div className="text-2xl font-semibold tabular-nums text-blue-500">{queueStats.inFlight}</div>
+                <div className="text-[10px] text-muted-foreground mt-0.5">
+                  workers: {CONCURRENCY}
+                </div>
+              </div>
+              <div className="rounded border border-emerald-500/30 bg-emerald-500/5 p-3">
+                <div className="text-[11px] uppercase tracking-wide text-emerald-500">Zakończone</div>
+                <div className="text-2xl font-semibold tabular-nums text-emerald-500">{queueStats.done}</div>
+              </div>
+              <div className="rounded border border-red-500/30 bg-red-500/5 p-3">
+                <div className="text-[11px] uppercase tracking-wide text-red-500">Błędy</div>
+                <div className="text-2xl font-semibold tabular-nums text-red-500">{queueStats.errored}</div>
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                <span>
+                  Postęp: <span className="text-foreground font-medium tabular-nums">
+                    {queueStats.processed}/{queueStats.total}
+                  </span> ({queueStats.pct}%)
+                </span>
+                {activeRun.last_progress_at && (
+                  <span>ostatnia aktualizacja {fmtDate(activeRun.last_progress_at)}</span>
+                )}
+              </div>
+              <div className="h-2 rounded bg-muted overflow-hidden flex">
+                <div
+                  className="h-full bg-emerald-500 transition-all"
+                  style={{ width: `${queueStats.total ? (queueStats.done / queueStats.total) * 100 : 0}%` }}
+                  title={`Zakończone: ${queueStats.done}`}
+                />
+                <div
+                  className="h-full bg-red-500 transition-all"
+                  style={{ width: `${queueStats.total ? (queueStats.errored / queueStats.total) * 100 : 0}%` }}
+                  title={`Błędy: ${queueStats.errored}`}
+                />
+                <div
+                  className="h-full bg-blue-500 transition-all animate-pulse"
+                  style={{ width: `${queueStats.total ? (queueStats.inFlight / queueStats.total) * 100 : 0}%` }}
+                  title={`W toku: ${queueStats.inFlight}`}
+                />
+              </div>
+            </div>
+            <p className="text-[11px] text-muted-foreground">
+              Auto-odświeżanie co 2 s. „W toku" to szacunek na podstawie liczby workerów ({CONCURRENCY}) i zadań oczekujących.
+            </p>
+          </div>
+        </section>
+      )}
+
+
+
       {runs.isError && (
         <div className="rounded-md border border-destructive/40 bg-destructive/5 p-3 text-sm">
           Błąd pobierania: {(runs.error as Error).message}
