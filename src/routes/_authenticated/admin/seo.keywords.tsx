@@ -952,11 +952,38 @@ function KeywordsPanel() {
                                     className="font-mono text-xs"
                                   />
                                 </div>
+                                <div className="rounded border border-dashed border-border/60 p-2 space-y-2 bg-muted/30">
+                                  <div className="text-[10px] uppercase text-muted-foreground font-semibold">Brief SEO</div>
+                                  <div>
+                                    <label className="text-[10px] uppercase text-muted-foreground flex justify-between">
+                                      <span>Meta title</span>
+                                      <span className={((a.metaTitle ?? "").length > 60 ? "text-destructive" : "text-muted-foreground")}>{(a.metaTitle ?? "").length}/60</span>
+                                    </label>
+                                    <Input value={a.metaTitle ?? ""} onChange={(e) => updateSupport(idx, i, { metaTitle: e.target.value })} />
+                                  </div>
+                                  <div>
+                                    <label className="text-[10px] uppercase text-muted-foreground flex justify-between">
+                                      <span>Meta description</span>
+                                      <span className={((a.metaDescription ?? "").length > 160 || (a.metaDescription ?? "").length < 120 ? "text-destructive" : "text-muted-foreground")}>{(a.metaDescription ?? "").length}/160</span>
+                                    </label>
+                                    <Textarea rows={2} value={a.metaDescription ?? ""} onChange={(e) => updateSupport(idx, i, { metaDescription: e.target.value })} />
+                                  </div>
+                                  <div>
+                                    <label className="text-[10px] uppercase text-muted-foreground">Outline H2/H3 (linie: `## Nagłówek` lub `### Podsekcja`)</label>
+                                    <Textarea
+                                      rows={Math.max(5, (a.outline ?? []).length + 1)}
+                                      value={(a.outline ?? []).join("\n")}
+                                      onChange={(e) => updateSupport(idx, i, { outline: e.target.value.split("\n").map((l) => l.trim()).filter(Boolean) })}
+                                      className="font-mono text-xs"
+                                    />
+                                  </div>
+                                </div>
                                 <div className="text-xs text-muted-foreground">
                                   {a.estimatedVolume != null && <span>vol {fmt(a.estimatedVolume)}</span>}
                                   {a.estimatedKd != null && <span className={kdTone(a.estimatedKd)}> · KD {fmt(a.estimatedKd)}</span>}
                                   <span className="italic"> · {a.angle}</span>
                                 </div>
+
                               </div>
                               <Button variant="ghost" size="sm" onClick={() => removeSupport(idx, i)} title="Usuń artykuł">×</Button>
                             </div>
