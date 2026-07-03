@@ -194,10 +194,9 @@ function TechnologiesPage() {
         </div>
       </section>
 
-      {GROUPS.map((group, groupIdx) => {
+      {GROUPS.map((group) => {
         const techs = group.techSlugs.map(getTech).filter(Boolean) as Technology[];
         if (!techs.length) return null;
-        const isFirstGroup = groupIdx === 0;
         return (
           <section
             key={group.slug}
