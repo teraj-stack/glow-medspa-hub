@@ -297,6 +297,9 @@ const ClusterArticleSchema = z.object({
   angle: z.string().trim().default(""),
   estimatedVolume: z.number().nullable().optional(),
   estimatedKd: z.number().nullable().optional(),
+  metaTitle: z.string().trim().default(""),
+  metaDescription: z.string().trim().default(""),
+  outline: z.array(z.string().trim()).default([]),
 });
 
 const ClusterSchema = z.object({
@@ -304,6 +307,9 @@ const ClusterSchema = z.object({
   intent: z.string().trim().min(1),
   pillarTitle: z.string().trim().min(1),
   pillarSlug: z.string().trim().min(1),
+  pillarMetaTitle: z.string().trim().default(""),
+  pillarMetaDescription: z.string().trim().default(""),
+  pillarOutline: z.array(z.string().trim()).default([]),
   targetService: z.string().trim().default(""),
   supportingArticles: z.array(ClusterArticleSchema).default([]),
   internalLinking: z.string().trim().default(""),
