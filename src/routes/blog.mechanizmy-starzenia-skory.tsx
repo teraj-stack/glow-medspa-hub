@@ -30,7 +30,7 @@ export const Route = createFileRoute("/blog/mechanizmy-starzenia-skory")({
       },
       { property: "og:url", content: "https://bmclinics.ai/blog/mechanizmy-starzenia-skory" },
       { property: "og:type", content: "article" },
-      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${zdrowaAsset.url)}` },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${zdrowaAsset.url}`) },
       { property: "article:published_time", content: "2026-06-27T10:05:00+02:00" },
       { property: "article:section", content: "Edukacja pacjenta" },
       { property: "og:locale", content: "pl_PL" },
