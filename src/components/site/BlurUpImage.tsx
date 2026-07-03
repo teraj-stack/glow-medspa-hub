@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback, ImgHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
-import { cfImage } from "@/lib/cf-image";
+import { cfImage, cfImageSrcSet } from "@/lib/cf-image";
+
 
 type BlurUpImageProps = {
   src: string;
@@ -90,6 +91,15 @@ export function BlurUpImage({
     imgClassName,
   );
 
+  const optimizedSrc = useMemo(
+    () => cfImage(src, { width, fit: "cover", format: "auto" }),
+    [src, width],
+  );
+  const retinaSrcSet = useMemo(
+    () => srcSet ?? cfImageSrcSet(src, { width, fit: "cover", format: "auto" }),
+    [src, srcSet, width],
+  );
+
   return (
     <div className={wrapperClass} style={aspectRatio}>
       <img
@@ -102,8 +112,8 @@ export function BlurUpImage({
         decoding="async"
       />
       <img
-        src={src}
-        srcSet={srcSet}
+        src={optimizedSrc}
+        srcSet={retinaSrcSet}
         sizes={sizes}
         alt={alt}
         width={width}

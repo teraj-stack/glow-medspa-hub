@@ -3,6 +3,7 @@ import { BlurUpImage } from "@/components/site/BlurUpImage";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { CfImg } from "@/components/site/CfImg";
 import { ArrowLeft, Layers } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
 import szkicAsset from "@/assets/portret-starszej-kobiety.jpg.asset.json";
@@ -230,13 +231,13 @@ function PtosisArticle() {
               </div>
             </div>
             <figure className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
-              <img src={konturAsset.url} alt="Wektory opadania tkanek twarzy" loading="lazy" decoding="async" className="w-full object-cover" />
+              <CfImg src={konturAsset.url} alt="Wektory opadania tkanek twarzy" width={1000} height={666} responsiveWidths={[560, 800, 1200]} sizes="(max-width: 768px) 100vw, 800px" className="w-full object-cover" />
               <figcaption className="px-4 py-3 text-sm text-muted-foreground">
                 Wektory ptozy — kierunki opadania tkanek pomagają planować odwrotne wektory zabiegowe.
               </figcaption>
             </figure>
             <figure className="mt-6 overflow-hidden rounded-lg border border-border bg-card">
-              <img src={etapyAsset.url} alt="Etapy planowania leczenia ptozy — analiza potrzeb 50+, przebudowa skosowa i wektory siły, odzyskana harmonia 35+" loading="lazy" decoding="async" className="w-full object-cover" />
+              <CfImg src={etapyAsset.url} alt="Etapy planowania leczenia ptozy — analiza potrzeb 50+, przebudowa skosowa i wektory siły, odzyskana harmonia 35+" width={1200} height={800} responsiveWidths={[640, 960, 1200]} sizes="(max-width: 768px) 100vw, 900px" className="w-full object-cover" />
               <figcaption className="px-4 py-3 text-sm text-muted-foreground">
                 Plan leczenia w trzech etapach: analiza wektorów napięcia (50+), celowana regeneracja i ułożenie włókien, efekt odzyskanej harmonii (wizualnie 35+).
               </figcaption>

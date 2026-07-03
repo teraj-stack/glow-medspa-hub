@@ -1,6 +1,7 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { cfImage, cfImageSrcSet } from "@/lib/cf-image";
 
 export type PakietTileProps = {
   nr: string;
@@ -54,9 +55,13 @@ export default function PakietTile({
       }}
     >
       <img
-        src={icon}
+        src={cfImage(icon, { width: 84, format: "auto", fit: "contain", quality: 80 })}
+        srcSet={cfImageSrcSet(icon, { width: 84, format: "auto", fit: "contain", quality: 80 })}
         alt=""
+        width={84}
+        height={84}
         loading="lazy"
+        decoding="async"
         className="h-full w-full object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-110 motion-safe:animate-[float_6s_ease-in-out_infinite]"
       />
     </div>
@@ -94,9 +99,13 @@ export default function PakietTile({
               }}
             >
               <img
-                src={ic.src}
+                src={cfImage(ic.src, { width: 48, format: "auto", fit: "contain", quality: 80 })}
+                srcSet={cfImageSrcSet(ic.src, { width: 48, format: "auto", fit: "contain", quality: 80 })}
                 alt={ic.alt}
+                width={48}
+                height={48}
                 loading="lazy"
+                decoding="async"
                 className="h-full w-full object-contain p-1.5 motion-safe:animate-[float_6s_ease-in-out_infinite]"
                 style={{ animationDelay: `${i * 0.4}s` }}
               />

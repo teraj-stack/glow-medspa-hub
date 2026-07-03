@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Watermark } from "./Watermark";
+import { cfImage, cfImageSrcSet } from "@/lib/cf-image";
 
 type Props = {
   beforeSrc: string;
@@ -54,9 +55,12 @@ export function BeforeAfterSlider({
         }}
       >
         <img
-          src={afterSrc}
+          src={cfImage(afterSrc, { width: 800, format: "auto" })}
+          srcSet={cfImageSrcSet(afterSrc, { width: 800, format: "auto" })}
+          sizes="(max-width: 768px) 100vw, 800px"
           alt={afterAlt}
           loading="lazy"
+          decoding="async"
           draggable={false}
           className="absolute inset-0 h-full w-full object-cover"
         />
@@ -65,9 +69,12 @@ export function BeforeAfterSlider({
           style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}
         >
           <img
-            src={beforeSrc}
+            src={cfImage(beforeSrc, { width: 800, format: "auto" })}
+            srcSet={cfImageSrcSet(beforeSrc, { width: 800, format: "auto" })}
+            sizes="(max-width: 768px) 100vw, 800px"
             alt={beforeAlt}
             loading="lazy"
+            decoding="async"
             draggable={false}
             className="absolute inset-0 h-full w-full object-cover"
           />

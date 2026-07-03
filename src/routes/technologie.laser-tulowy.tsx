@@ -19,6 +19,7 @@ import heroAsset from "@/assets/tulowy-hero.jpg.asset.json";
 import heroAvif from "@/assets/tulowy-hero.avif.asset.json";
 import heroWebp from "@/assets/tulowy-hero.webp.asset.json";
 import { HeroPicture } from "@/components/site/HeroPicture";
+import { CfImg } from "@/components/site/CfImg";
 import mechanizmImg from "@/assets/tulowy-mechanizm.webp";
 import ba1Before from "@/assets/tulowy-ba-1.png.asset.json";
 import ba1After from "@/assets/tulowy-ba-1a.png.asset.json";
@@ -518,11 +519,11 @@ function LaserTulowyPage() {
               <figure key={item.title} className="overflow-hidden rounded-lg border border-border bg-card">
                 <div className="grid grid-cols-2">
                   <div className="relative">
-                    <img src={item.before} alt={`${item.title} — przed zabiegiem`} loading="lazy" className="aspect-[3/4] w-full object-cover" />
+                    <CfImg src={item.before} alt={`${item.title} — przed zabiegiem`} width={480} height={640} responsiveWidths={[320, 480, 640]} sizes="(max-width: 768px) 50vw, 320px" className="aspect-[3/4] w-full object-cover" />
                     <span className="absolute left-3 top-3 rounded-full bg-ink/80 px-3 py-1 text-xs uppercase tracking-[0.2em] text-white">Przed</span>
                   </div>
                   <div className="relative">
-                    <img src={item.after} alt={`${item.title} — po zabiegu`} loading="lazy" className="aspect-[3/4] w-full object-cover" />
+                    <CfImg src={item.after} alt={`${item.title} — po zabiegu`} width={480} height={640} responsiveWidths={[320, 480, 640]} sizes="(max-width: 768px) 50vw, 320px" className="aspect-[3/4] w-full object-cover" />
                     <span className="absolute left-3 top-3 rounded-full bg-champagne px-3 py-1 text-xs uppercase tracking-[0.2em] text-ink">Po</span>
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import { ArrowRight, Gem } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { cfImage, cfImageSrcSet } from "@/lib/cf-image";
 
 export type PakietETileTechnology = {
   name: string;
@@ -50,7 +51,8 @@ export default function PakietETile({
     <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-sm bg-champagne/10 border border-champagne/30 flex items-center justify-center text-champagne overflow-hidden transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg group-hover:border-champagne/60">
       {imageSrc ? (
         <img
-          src={imageSrc}
+          src={cfImage(imageSrc, { width: 96, format: "auto", fit: "contain", quality: 80 })}
+          srcSet={cfImageSrcSet(imageSrc, { width: 96, format: "auto", fit: "contain", quality: 80 })}
           alt={imageAlt ?? ""}
           width={96}
           height={96}

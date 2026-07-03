@@ -2,6 +2,7 @@ import { RelatedPosts } from "@/components/site/RelatedPosts";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { DiagnostykaInlineCTA } from "@/components/site/DiagnostykaInlineCTA";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { CfImg } from "@/components/site/CfImg";
 import { ArrowLeft, Sparkles, AlertCircle } from "lucide-react";
 import konturAsset from "@/assets/kontur-lifting-owal.avif.asset.json";
 import { withOgVersion } from "@/config/social-preview";
@@ -181,7 +182,7 @@ function NonSurgicalArticle() {
               </li>
             </ol>
             <figure className="mt-8 overflow-hidden rounded-lg border border-border bg-card">
-              <img src={konturAsset.url} alt="Wektory podnoszenia tkanek przy zabiegach liftingujących" loading="lazy" decoding="async" className="w-full object-cover" />
+              <CfImg src={konturAsset.url} alt="Wektory podnoszenia tkanek przy zabiegach liftingujących" width={1000} height={666} responsiveWidths={[560, 800, 1200]} sizes="(max-width: 768px) 100vw, 800px" className="w-full object-cover" />
               <figcaption className="px-4 py-3 text-sm text-muted-foreground">
                 Wektory pracy zabiegowej — odwrotne do wektorów ptozy, dobrane do anatomii pacjentki.
               </figcaption>
