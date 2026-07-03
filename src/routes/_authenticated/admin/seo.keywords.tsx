@@ -502,6 +502,22 @@ function KeywordsPanel() {
     return s;
   }, [takenSlugsBase, currentClusterSlugs]);
 
+  const slugConflictCount = useMemo(() => {
+    if (!clusters) return 0;
+    const counts = new Map<string, number>();
+    for (const s of currentClusterSlugs) counts.set(s, (counts.get(s) ?? 0) + 1);
+    let n = 0;
+    for (const c of clusters.clusters) {
+      const ps = cleanSlug(c.pillarSlug);
+      if (ps && (takenSlugsBase.has(ps) || (counts.get(ps) ?? 0) > 1)) n++;
+      for (const a of c.supportingArticles) {
+        const as = cleanSlug(a.slug);
+        if (as && (takenSlugsBase.has(as) || (counts.get(as) ?? 0) > 1)) n++;
+      }
+    }
+    return n;
+  }, [clusters, currentClusterSlugs, takenSlugsBase]);
+
   const loadSerp = async (phrase: string) => {
     if (!result) return;
     setSerpMap((m) => ({ ...m, [phrase]: "loading" }));
