@@ -4,6 +4,10 @@ import { SectionHeading } from "@/components/site/SectionHeading";
 import { TECHNOLOGIES } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { listHiddenPricingItems } from "@/lib/pricing-visibility.functions";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
+
+const OG_IMAGE = withOgVersion(`https://bmclinics.ai${ogCard}`);
 
 export const Route = createFileRoute("/cennik")({
   head: () => ({
@@ -16,6 +20,8 @@ export const Route = createFileRoute("/cennik")({
       { property: "og:title", content: "Cennik — BMClinics.ai" },
       { property: "og:description", content: "Przejrzyste ceny, indywidualna wycena protokołu." },
       { property: "og:url", content: "https://bmclinics.ai/cennik" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: "https://bmclinics.ai/cennik" }],
   }),
