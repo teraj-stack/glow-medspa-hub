@@ -5,6 +5,10 @@ import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { createConsultationCheckout } from "@/lib/payments.functions";
 import { PaymentTestModeBanner } from "@/components/PaymentTestModeBanner";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
+
+const OG_IMAGE = withOgVersion(`https://bmclinics.ai${ogCard}`);
 
 export const Route = createFileRoute("/konsultacja")({
   head: () => ({
@@ -17,6 +21,8 @@ export const Route = createFileRoute("/konsultacja")({
       },
       { property: "og:title", content: "Umów konsultację — BMClinics.ai" },
       { property: "og:url", content: "https://bmclinics.ai/konsultacja" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: "https://bmclinics.ai/konsultacja" }],
   }),
