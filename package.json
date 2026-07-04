@@ -20,6 +20,7 @@
     "validate:blog": "node scripts/validate-content.mjs --section=blog",
     "validate:nap": "node scripts/validate-nap.mjs --scope=src",
     "validate:nap:dist": "node scripts/validate-nap.mjs --scope=dist --json=reports/nap-dist.json",
+    "validate:geo": "node scripts/validate-geo-jsonld.mjs --json=reports/geo-jsonld.json",
     "audit:rls": "node scripts/audit-rls.mjs",
     "validate:content:report": "node scripts/validate-content.mjs --section=all --json=reports/content-quality.json --html=reports/content-quality.html",
     "test:e2e:technologie": "python3 tests/e2e/technologie_content_quality.py",
