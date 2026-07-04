@@ -464,10 +464,10 @@ export const Route = createFileRoute("/lekarze/halina-gabara")({
       },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: CANONICAL },
-      { property: "og:image", content: withOgVersion(halinaPortrait.url) },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${halinaPortrait.url}`) },
       { name: "twitter:title", content: "lek. Halina Gabara — BMClinics.ai" },
       { name: "twitter:description", content: "Profil lekarza prowadzącego w BMClinics.ai Warszawa — specjalizacje, podejście do pacjenta i ścieżka kliniczna." },
-      { name: "twitter:image", content: withOgVersion(halinaPortrait.url) },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${halinaPortrait.url}`) },
     ],
     links: [{ rel: "canonical", href: CANONICAL }],
     scripts: [

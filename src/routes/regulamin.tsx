@@ -1,4 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
+
+const OG_IMAGE = withOgVersion(`https://bmclinics.ai${ogCard}`);
 
 export const Route = createFileRoute("/regulamin")({
   head: () => ({
@@ -8,6 +12,8 @@ export const Route = createFileRoute("/regulamin")({
       { property: "og:title", content: "Regulamin | BMClinics.ai" },
       { property: "og:description", content: "Warunki rezerwacji, odwołań i reklamacji wizyt w BMClinics.ai." },
       { property: "og:url", content: "https://bmclinics.ai/regulamin" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: "https://bmclinics.ai/regulamin" }],
   }),

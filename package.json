@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "npm run validate:brand && npm run validate:content && npm run validate:nap && npm run validate:geo && vite build && npm run brand:validate-or-fix:dist && npm run validate:nap:dist && npm run report:content",
-    "build:dev": "npm run validate:brand && npm run validate:content && npm run validate:nap && npm run validate:geo && vite build --mode development && npm run brand:validate-or-fix:dist && npm run validate:nap:dist && npm run report:content",
+    "build": "npm run validate:brand && npm run validate:content && npm run validate:nap && npm run validate:geo && npm run validate:twitter-card && vite build && npm run brand:validate-or-fix:dist && npm run validate:nap:dist && npm run report:content",
+    "build:dev": "npm run validate:brand && npm run validate:content && npm run validate:nap && npm run validate:geo && npm run validate:twitter-card && vite build --mode development && npm run brand:validate-or-fix:dist && npm run validate:nap:dist && npm run report:content",
     "report:content": "node scripts/content-quality-report.mjs",
     "validate:brand": "node scripts/validate-brand.mjs",
     "validate:brand:dist": "node scripts/validate-brand-dist.mjs",
@@ -21,6 +21,7 @@
     "validate:nap": "node scripts/validate-nap.mjs --scope=src",
     "validate:nap:dist": "node scripts/validate-nap.mjs --scope=dist --json=reports/nap-dist.json",
     "validate:geo": "node scripts/validate-geo-jsonld.mjs --json=reports/geo-jsonld.json",
+    "validate:twitter-card": "node scripts/validate-twitter-card.mjs --json=reports/twitter-card.json",
     "audit:rls": "node scripts/audit-rls.mjs",
     "validate:content:report": "node scripts/validate-content.mjs --section=all --json=reports/content-quality.json --html=reports/content-quality.html",
     "test:e2e:technologie": "python3 tests/e2e/technologie_content_quality.py",

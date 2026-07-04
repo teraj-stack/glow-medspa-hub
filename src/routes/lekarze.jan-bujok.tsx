@@ -28,10 +28,10 @@ export const Route = createFileRoute("/lekarze/jan-bujok")({
       },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: CANONICAL },
-      { property: "og:image", content: withOgVersion(bujokAsset.url) },
+      { property: "og:image", content: withOgVersion(`https://bmclinics.ai${bujokAsset.url}`) },
       { name: "twitter:title", content: "dr Jan Bujok — Innowator i Ekspert MedTech" },
       { name: "twitter:description", content: "Twórca MySkinCode i Bujok Medical. Autorskie protokoły medycyny estetycznej i regeneracyjnej." },
-      { name: "twitter:image", content: withOgVersion(bujokAsset.url) },
+      { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${bujokAsset.url}`) },
     ],
     links: [{ rel: "canonical", href: CANONICAL }],
     scripts: [
