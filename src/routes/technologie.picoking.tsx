@@ -112,10 +112,10 @@ export const Route = createFileRoute("/technologie/picoking")({
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:url", content: url },
-        { property: "og:image", content: withOgVersion(heroImg) },
+        { property: "og:image", content: withOgVersion(`https://bmclinics.ai${heroImg}`) },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
-        { name: "twitter:image", content: withOgVersion(heroImg) },
+        { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${heroImg}`) },
       ],
       links: [
         { rel: "canonical", href: url },
