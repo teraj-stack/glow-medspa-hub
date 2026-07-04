@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "npm run validate:brand && npm run validate:content && npm run validate:nap && vite build && npm run brand:validate-or-fix:dist && npm run validate:nap:dist && npm run report:content",
-    "build:dev": "npm run validate:brand && npm run validate:content && npm run validate:nap && vite build --mode development && npm run brand:validate-or-fix:dist && npm run validate:nap:dist && npm run report:content",
+    "build": "npm run validate:brand && npm run validate:content && npm run validate:nap && npm run validate:geo && vite build && npm run brand:validate-or-fix:dist && npm run validate:nap:dist && npm run report:content",
+    "build:dev": "npm run validate:brand && npm run validate:content && npm run validate:nap && npm run validate:geo && vite build --mode development && npm run brand:validate-or-fix:dist && npm run validate:nap:dist && npm run report:content",
     "report:content": "node scripts/content-quality-report.mjs",
     "validate:brand": "node scripts/validate-brand.mjs",
     "validate:brand:dist": "node scripts/validate-brand-dist.mjs",
