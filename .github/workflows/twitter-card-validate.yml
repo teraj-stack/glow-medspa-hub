@@ -1,0 +1,36 @@
+name: Twitter Card validate (image absolute URL)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  twitter-card-validate:
+    name: Validate twitter:image for summary_large_image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Twitter Card twitter:image
+        run: npm run validate:twitter-card
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: twitter-card-report
+          path: reports/twitter-card.json
+          if-no-files-found: ignore
