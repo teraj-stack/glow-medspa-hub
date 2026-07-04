@@ -1,4 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
+
+const OG_IMAGE = withOgVersion(`https://bmclinics.ai${ogCard}`);
 
 export const Route = createFileRoute("/polityka-prywatnosci")({
   head: () => ({
@@ -8,6 +12,8 @@ export const Route = createFileRoute("/polityka-prywatnosci")({
       { property: "og:title", content: "Polityka prywatności | BMClinics.ai" },
       { property: "og:description", content: "Jak przetwarzamy Państwa dane osobowe — podstawa prawna, zakres, prawa pacjenta." },
       { property: "og:url", content: "https://bmclinics.ai/polityka-prywatnosci" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: "https://bmclinics.ai/polityka-prywatnosci" }],
   }),
