@@ -20,6 +20,7 @@ function AdminLayout() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const tabs = [
     { to: "/admin", label: "Pulpit", exact: true },
+    { to: "/admin/panel", label: "Panel (wszystko)" },
     { to: "/admin/rezerwacje", label: "Rezerwacje" },
     { to: "/admin/lekarze", label: "Lekarze" },
     { to: "/admin/cennik", label: "Cennik" },
