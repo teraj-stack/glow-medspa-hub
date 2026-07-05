@@ -388,6 +388,76 @@ export const TECHNOLOGIES: Technology[] = [
     ],
     faq: [],
   },
+  {
+    slug: "toksyna-botulinowa",
+    name: "Toksyna botulinowa — neuromodulacja mimiczna",
+    category: "twarz",
+    shortDesc:
+      "Precyzyjna neuromodulacja mięśni mimicznych oczyszczoną toksyną botulinową typu A — wygładzenie zmarszczek dynamicznych, korekta asymetrii i profilaktyka zmarszczek utrwalonych.",
+    mechanism:
+      "Toksyna botulinowa typu A jest neuromodulatorem blokującym uwalnianie acetylocholiny w płytce nerwowo-mięśniowej. Podana śródmięśniowo w mikrodawkach czasowo zmniejsza napięcie wybranych mięśni mimicznych, co wygładza zmarszczki dynamiczne (powstałe od ruchu) i spowalnia utrwalanie zmarszczek statycznych. Efekt rozwija się w 3–7 dobie, stabilizuje po 14 dniach i utrzymuje się średnio 3–5 miesięcy, zależnie od metabolizmu, aktywności mięśni i dawki. Dawka wyrażana jest w jednostkach biologicznych (U), a nie w mililitrach — każda okolica ma indywidualne bezpieczne zakresy dawkowania oparte o mapowanie mięśni pacjenta.",
+    indications: [
+      "zmarszczki poprzeczne czoła",
+      "zmarszczki lwie (gładzizna czoła)",
+      "kurze łapki wokół oczu",
+      "bunny lines (zmarszczki nosa)",
+      "opadające kąciki ust",
+      "gummy smile (nadmierne odsłanianie dziąseł)",
+      "bruksizm i przerost mięśni żwaczy",
+      "hiperhydroza pach, dłoni i stóp",
+      "profilaktyka zmarszczek u pacjentów 25+",
+      "korekta asymetrii mimicznej",
+    ],
+    contraindications: [
+      "ciąża i karmienie piersią",
+      "miastenia i inne choroby nerwowo-mięśniowe",
+      "aktywne zakażenie w miejscu wkłucia",
+      "nadwrażliwość na białko toksyny botulinowej lub albuminę ludzką",
+      "przyjmowanie aminoglikozydów w ciągu ostatnich 14 dni",
+      "zaburzenia krzepnięcia i leczenie przeciwkrzepliwe (wymaga konsultacji)",
+    ],
+    pricing: [
+      { label: "Konsultacja kwalifikacyjna (rozliczana przy zabiegu)", price: 200 },
+      { label: "Jedna okolica — czoło / lwia zmarszczka / kurze łapki", price: 700 },
+      { label: "Dwie okolice — pakiet górnej części twarzy", price: 1200 },
+      { label: "Trzy okolice — pełna neuromodulacja górnej twarzy (czoło + lwia + kurze łapki)", price: 1500 },
+      { label: "Bunny lines (zmarszczki nosa)", price: 400 },
+      { label: "Opadające kąciki ust (DAO)", price: 500 },
+      { label: "Gummy smile (mięsień dźwigacz wargi)", price: 500 },
+      { label: "Broda — efekt „pomarańczowej skórki”", price: 500 },
+      { label: "Lifting mimiczny „nefertiti” (platyzma)", price: 1400 },
+      { label: "Bruksizm / modelowanie żwaczy", price: 1400 },
+      { label: "Hiperhydroza pach", price: 1800 },
+      { label: "Hiperhydroza dłoni lub stóp", price: 2200 },
+      { label: "Doiniekcja korekcyjna w 14. dobie", price: null, note: "bezpłatnie w ramach zabiegu" },
+    ],
+    faq: [
+      {
+        q: "Kiedy zobaczę efekt?",
+        a: "Pierwsze zmiany po 3–7 dobie, pełny efekt po 14 dniach — wtedy wykonujemy kontrolę i ewentualną bezpłatną doiniekcję korekcyjną.",
+      },
+      {
+        q: "Jak długo utrzymuje się efekt?",
+        a: "Średnio 3–5 miesięcy. Przy regularnych zabiegach (2–3 razy w roku) czas działania stopniowo się wydłuża, a mięśnie „uczą się” słabszej pracy.",
+      },
+      {
+        q: "Czy będę wyglądać sztucznie?",
+        a: "Nie — pracujemy w filozofii neuromodulacji, nie paraliżu. Dawki dobierane są tak, aby zachować naturalną mimikę i mikroekspresje. Twarz pozostaje żywa, tylko bez wgłębiania zmarszczek.",
+      },
+      {
+        q: "Czy to boli?",
+        a: "Zabieg wykonujemy bardzo cienkimi igłami (0,3 mm). Odczucie porównywalne do ukłucia komara. Znieczulenie miejscowe zwykle nie jest potrzebne.",
+      },
+      {
+        q: "Kiedy mogę wrócić do aktywności?",
+        a: "Do pracy — od razu. Sport, sauna, masaż twarzy, pozycja leżąca i alkohol — odradzane przez pierwsze 24 godziny, by preparat nie migrował poza okolicę docelową.",
+      },
+      {
+        q: "Czy neuromodulacja jest bezpieczna długoterminowo?",
+        a: "Tak. Toksyna botulinowa typu A jest jednym z najlepiej przebadanych preparatów w medycynie estetycznej — stosowana od ponad 30 lat, w tym u dzieci w neurologii. Nie kumuluje się w organizmie i jest metabolizowana w ciągu kilku miesięcy.",
+      },
+    ],
+  },
 ];
 
 
