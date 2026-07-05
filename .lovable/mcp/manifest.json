@@ -74,8 +74,8 @@
       },
       {
         "name": "get_clinic_info",
-        "title": "Get clinic info (NAP)",
-        "description": "Return BM Clinics contact details: name, address, phone, email, opening hours and geographic coordinates.",
+        "title": "Get clinic info",
+        "description": "Return BM Clinics public contact details: name, address in Warsaw, and website URL.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
