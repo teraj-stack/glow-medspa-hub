@@ -65,6 +65,7 @@ import { Route as AuthenticatedAdminWebVitalsRouteImport } from './routes/_authe
 import { Route as AuthenticatedAdminUzytkownicyRouteImport } from './routes/_authenticated/admin/uzytkownicy'
 import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
 import { Route as AuthenticatedAdminRezerwacjeRouteImport } from './routes/_authenticated/admin/rezerwacje'
+import { Route as AuthenticatedAdminPanelRouteImport } from './routes/_authenticated/admin/panel'
 import { Route as AuthenticatedAdminNapRouteImport } from './routes/_authenticated/admin/nap'
 import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
 import { Route as AuthenticatedAdminDnsRouteImport } from './routes/_authenticated/admin/dns'
@@ -387,6 +388,11 @@ const AuthenticatedAdminRezerwacjeRoute =
     path: '/rezerwacje',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
+const AuthenticatedAdminPanelRoute = AuthenticatedAdminPanelRouteImport.update({
+  id: '/panel',
+  path: '/panel',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
 const AuthenticatedAdminNapRoute = AuthenticatedAdminNapRouteImport.update({
   id: '/nap',
   path: '/nap',
@@ -566,6 +572,7 @@ export interface FileRoutesByFullPath {
   '/admin/dns': typeof AuthenticatedAdminDnsRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/nap': typeof AuthenticatedAdminNapRoute
+  '/admin/panel': typeof AuthenticatedAdminPanelRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRouteWithChildren
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
@@ -643,6 +650,7 @@ export interface FileRoutesByTo {
   '/admin/dns': typeof AuthenticatedAdminDnsRoute
   '/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/admin/nap': typeof AuthenticatedAdminNapRoute
+  '/admin/panel': typeof AuthenticatedAdminPanelRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/admin/seo': typeof AuthenticatedAdminSeoRouteWithChildren
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
@@ -724,6 +732,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/dns': typeof AuthenticatedAdminDnsRoute
   '/_authenticated/admin/lekarze': typeof AuthenticatedAdminLekarzeRoute
   '/_authenticated/admin/nap': typeof AuthenticatedAdminNapRoute
+  '/_authenticated/admin/panel': typeof AuthenticatedAdminPanelRoute
   '/_authenticated/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
   '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRouteWithChildren
   '/_authenticated/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
@@ -805,6 +814,7 @@ export interface FileRouteTypes {
     | '/admin/dns'
     | '/admin/lekarze'
     | '/admin/nap'
+    | '/admin/panel'
     | '/admin/rezerwacje'
     | '/admin/seo'
     | '/admin/uzytkownicy'
@@ -882,6 +892,7 @@ export interface FileRouteTypes {
     | '/admin/dns'
     | '/admin/lekarze'
     | '/admin/nap'
+    | '/admin/panel'
     | '/admin/rezerwacje'
     | '/admin/seo'
     | '/admin/uzytkownicy'
@@ -962,6 +973,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/dns'
     | '/_authenticated/admin/lekarze'
     | '/_authenticated/admin/nap'
+    | '/_authenticated/admin/panel'
     | '/_authenticated/admin/rezerwacje'
     | '/_authenticated/admin/seo'
     | '/_authenticated/admin/uzytkownicy'
@@ -1444,6 +1456,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRezerwacjeRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
+    '/_authenticated/admin/panel': {
+      id: '/_authenticated/admin/panel'
+      path: '/panel'
+      fullPath: '/admin/panel'
+      preLoaderRoute: typeof AuthenticatedAdminPanelRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/nap': {
       id: '/_authenticated/admin/nap'
       path: '/nap'
@@ -1626,6 +1645,7 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminDnsRoute: typeof AuthenticatedAdminDnsRoute
   AuthenticatedAdminLekarzeRoute: typeof AuthenticatedAdminLekarzeRoute
   AuthenticatedAdminNapRoute: typeof AuthenticatedAdminNapRoute
+  AuthenticatedAdminPanelRoute: typeof AuthenticatedAdminPanelRoute
   AuthenticatedAdminRezerwacjeRoute: typeof AuthenticatedAdminRezerwacjeRoute
   AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRouteWithChildren
   AuthenticatedAdminUzytkownicyRoute: typeof AuthenticatedAdminUzytkownicyRoute
@@ -1640,6 +1660,7 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminDnsRoute: AuthenticatedAdminDnsRoute,
     AuthenticatedAdminLekarzeRoute: AuthenticatedAdminLekarzeRoute,
     AuthenticatedAdminNapRoute: AuthenticatedAdminNapRoute,
+    AuthenticatedAdminPanelRoute: AuthenticatedAdminPanelRoute,
     AuthenticatedAdminRezerwacjeRoute: AuthenticatedAdminRezerwacjeRoute,
     AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRouteWithChildren,
     AuthenticatedAdminUzytkownicyRoute: AuthenticatedAdminUzytkownicyRoute,
