@@ -9,13 +9,13 @@
     "server": {
       "name": "bmclinics-mcp",
       "version": "0.1.0",
-      "title": "BM Clinics"
+      "title": "BMClinics.ai"
     },
     "tools": [
       {
         "name": "list_doctors",
         "title": "List doctors",
-        "description": "List active doctors at BM Clinics with their public profile: name, professional title, specializations, and short bio.",
+        "description": "List active doctors at BMClinics.ai with their public profile: name, professional title, specializations, and short bio.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -31,7 +31,7 @@
       {
         "name": "list_technologies",
         "title": "List treatment technologies",
-        "description": "List all aesthetic-medicine technologies offered at BM Clinics with short technical descriptions, category and indications. Optionally filter by category.",
+        "description": "List all aesthetic-medicine technologies offered at BMClinics.ai with short technical descriptions, category and indications. Optionally filter by category.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -59,7 +59,7 @@
       {
         "name": "list_blog_posts",
         "title": "List blog posts",
-        "description": "List all published blog posts on BM Clinics: title, excerpt, category, reading time and URL.",
+        "description": "List all published blog posts on BMClinics.ai: title, excerpt, category, reading time and URL.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,
@@ -75,7 +75,7 @@
       {
         "name": "get_clinic_info",
         "title": "Get clinic info",
-        "description": "Return BM Clinics public contact details: name, address in Warsaw, and website URL.",
+        "description": "Return BMClinics.ai public contact details: name, address in Warsaw, and website URL.",
         "annotations": {
           "readOnlyHint": true,
           "idempotentHint": true,

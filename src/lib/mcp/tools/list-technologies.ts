@@ -5,7 +5,7 @@ export default defineTool({
   name: "list_technologies",
   title: "List treatment technologies",
   description:
-    "List all aesthetic-medicine technologies offered at BM Clinics with short technical descriptions, category and indications. Optionally filter by category.",
+    "List all aesthetic-medicine technologies offered at BMClinics.ai with short technical descriptions, category and indications. Optionally filter by category.",
   inputSchema: {
     category: z
       .enum(["twarz", "ciało", "intymność", "skóra", "modelowanie"])

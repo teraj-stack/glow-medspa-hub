@@ -5,7 +5,7 @@ export default defineTool({
   name: "list_doctors",
   title: "List doctors",
   description:
-    "List active doctors at BM Clinics with their public profile: name, professional title, specializations, and short bio.",
+    "List active doctors at BMClinics.ai with their public profile: name, professional title, specializations, and short bio.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async () => {

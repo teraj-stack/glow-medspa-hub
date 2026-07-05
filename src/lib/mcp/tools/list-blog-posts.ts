@@ -4,7 +4,7 @@ export default defineTool({
   name: "list_blog_posts",
   title: "List blog posts",
   description:
-    "List all published blog posts on BM Clinics: title, excerpt, category, reading time and URL.",
+    "List all published blog posts on BMClinics.ai: title, excerpt, category, reading time and URL.",
   inputSchema: {},
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async () => {
