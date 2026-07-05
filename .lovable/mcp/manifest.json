@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "bmclinics-mcp",
+      "version": "0.1.0",
+      "title": "BM Clinics"
+    },
+    "tools": [
+      {
+        "name": "list_doctors",
+        "title": "List doctors",
+        "description": "List active doctors at BM Clinics with their public profile: name, professional title, specializations, and short bio.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_technologies",
+        "title": "List treatment technologies",
+        "description": "List all aesthetic-medicine technologies offered at BM Clinics with short technical descriptions, category and indications. Optionally filter by category.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "category": {
+              "description": "Optional category filter.",
+              "type": "string",
+              "enum": [
+                "twarz",
+                "ciało",
+                "intymność",
+                "skóra",
+                "modelowanie"
+              ]
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_blog_posts",
+        "title": "List blog posts",
+        "description": "List all published blog posts on BM Clinics: title, excerpt, category, reading time and URL.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_clinic_info",
+        "title": "Get clinic info (NAP)",
+        "description": "Return BM Clinics contact details: name, address, phone, email, opening hours and geographic coordinates.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

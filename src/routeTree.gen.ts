@@ -16,6 +16,7 @@ import { Route as RenasculptRouteImport } from './routes/renasculpt'
 import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as PotrzebyRouteImport } from './routes/potrzeby'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as LekarzeRouteImport } from './routes/lekarze'
 import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-dziekujemy'
 import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
@@ -56,6 +57,8 @@ import { Route as BlogDiagnostykaSkoryAPlanLeczeniaRouteImport } from './routes/
 import { Route as BlogCoDalejPoBadaniuSkoryRouteImport } from './routes/blog.co-dalej-po-badaniu-skory'
 import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
 import { Route as BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport } from './routes/blog.analiza-skory-twarzy-krok-po-kroku'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
@@ -71,6 +74,7 @@ import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminDnsRouteImport } from './routes/_authenticated/admin/dns'
 import { Route as AuthenticatedAdminCennikRouteImport } from './routes/_authenticated/admin/cennik'
 import { Route as AuthenticatedAdminAudytRouteImport } from './routes/_authenticated/admin/audyt'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -122,6 +126,11 @@ const PotrzebyRoute = PotrzebyRouteImport.update({
 const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
   id: '/polityka-prywatnosci',
   path: '/polityka-prywatnosci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LekarzeRoute = LekarzeRouteImport.update({
@@ -338,6 +347,18 @@ const BlogAnalizaSkoryTwarzyKrokPoKrokuRoute =
     path: '/blog/analiza-skory-twarzy-krok-po-kroku',
     getParentRoute: () => rootRouteImport,
   } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -420,6 +441,12 @@ const AuthenticatedAdminAudytRoute = AuthenticatedAdminAudytRouteImport.update({
   path: '/audyt',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -529,6 +556,7 @@ export interface FileRoutesByFullPath {
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/lekarze': typeof LekarzeRouteWithChildren
+  '/mcp': typeof McpRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -537,6 +565,8 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
@@ -567,6 +597,7 @@ export interface FileRoutesByFullPath {
   '/lekarze/': typeof LekarzeIndexRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/wskazania/': typeof WskazaniaIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/audyt': typeof AuthenticatedAdminAudytRoute
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/dns': typeof AuthenticatedAdminDnsRoute
@@ -608,6 +639,7 @@ export interface FileRoutesByTo {
   '/diagnostyka-skory-warszawa': typeof DiagnostykaSkoryWarszawaRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
+  '/mcp': typeof McpRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -615,6 +647,8 @@ export interface FileRoutesByTo {
   '/rozwiazania': typeof RozwiazaniaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
@@ -645,6 +679,7 @@ export interface FileRoutesByTo {
   '/lekarze': typeof LekarzeIndexRoute
   '/technologie': typeof TechnologieIndexRoute
   '/wskazania': typeof WskazaniaIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/audyt': typeof AuthenticatedAdminAudytRoute
   '/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/admin/dns': typeof AuthenticatedAdminDnsRoute
@@ -689,6 +724,7 @@ export interface FileRoutesById {
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
   '/lekarze': typeof LekarzeRouteWithChildren
+  '/mcp': typeof McpRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/potrzeby': typeof PotrzebyRoute
   '/regulamin': typeof RegulaminRoute
@@ -697,6 +733,8 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/unsubscribe': typeof UnsubscribeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteRouteWithChildren
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/blog/analiza-skory-twarzy-krok-po-kroku': typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   '/blog/blizny-potradzikowe': typeof BlogBliznyPotradzikoweRoute
   '/blog/co-dalej-po-badaniu-skory': typeof BlogCoDalejPoBadaniuSkoryRoute
@@ -727,6 +765,7 @@ export interface FileRoutesById {
   '/lekarze/': typeof LekarzeIndexRoute
   '/technologie/': typeof TechnologieIndexRoute
   '/wskazania/': typeof WskazaniaIndexRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/_authenticated/admin/audyt': typeof AuthenticatedAdminAudytRoute
   '/_authenticated/admin/cennik': typeof AuthenticatedAdminCennikRoute
   '/_authenticated/admin/dns': typeof AuthenticatedAdminDnsRoute
@@ -771,6 +810,7 @@ export interface FileRouteTypes {
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
     | '/lekarze'
+    | '/mcp'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -779,6 +819,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/admin'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
     | '/blog/co-dalej-po-badaniu-skory'
@@ -809,6 +851,7 @@ export interface FileRouteTypes {
     | '/lekarze/'
     | '/technologie/'
     | '/wskazania/'
+    | '/.mcp/invoke-tool/$tool'
     | '/admin/audyt'
     | '/admin/cennik'
     | '/admin/dns'
@@ -850,6 +893,7 @@ export interface FileRouteTypes {
     | '/diagnostyka-skory-warszawa'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
+    | '/mcp'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -857,6 +901,8 @@ export interface FileRouteTypes {
     | '/rozwiazania'
     | '/sitemap.xml'
     | '/unsubscribe'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
     | '/blog/co-dalej-po-badaniu-skory'
@@ -887,6 +933,7 @@ export interface FileRouteTypes {
     | '/lekarze'
     | '/technologie'
     | '/wskazania'
+    | '/.mcp/invoke-tool/$tool'
     | '/admin/audyt'
     | '/admin/cennik'
     | '/admin/dns'
@@ -930,6 +977,7 @@ export interface FileRouteTypes {
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
     | '/lekarze'
+    | '/mcp'
     | '/polityka-prywatnosci'
     | '/potrzeby'
     | '/regulamin'
@@ -938,6 +986,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/unsubscribe'
     | '/_authenticated/admin'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/blog/analiza-skory-twarzy-krok-po-kroku'
     | '/blog/blizny-potradzikowe'
     | '/blog/co-dalej-po-badaniu-skory'
@@ -968,6 +1018,7 @@ export interface FileRouteTypes {
     | '/lekarze/'
     | '/technologie/'
     | '/wskazania/'
+    | '/.mcp/invoke-tool/$tool'
     | '/_authenticated/admin/audyt'
     | '/_authenticated/admin/cennik'
     | '/_authenticated/admin/dns'
@@ -1012,6 +1063,7 @@ export interface RootRouteChildren {
   KonsultacjaRoute: typeof KonsultacjaRoute
   KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
   LekarzeRoute: typeof LekarzeRouteWithChildren
+  McpRoute: typeof McpRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   PotrzebyRoute: typeof PotrzebyRoute
   RegulaminRoute: typeof RegulaminRoute
@@ -1019,6 +1071,8 @@ export interface RootRouteChildren {
   RozwiazaniaRoute: typeof RozwiazaniaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   UnsubscribeRoute: typeof UnsubscribeRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   BlogAnalizaSkoryTwarzyKrokPoKrokuRoute: typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRoute
   BlogBliznyPotradzikoweRoute: typeof BlogBliznyPotradzikoweRoute
   BlogCoDalejPoBadaniuSkoryRoute: typeof BlogCoDalejPoBadaniuSkoryRoute
@@ -1046,6 +1100,7 @@ export interface RootRouteChildren {
   WskazaniaSlugRoute: typeof WskazaniaSlugRoute
   TechnologieIndexRoute: typeof TechnologieIndexRoute
   WskazaniaIndexRoute: typeof WskazaniaIndexRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBookingsCancelRoute: typeof ApiPublicBookingsCancelRoute
   ApiPublicHooksCalendarSyncRetryRoute: typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -1111,6 +1166,13 @@ declare module '@tanstack/react-router' {
       path: '/polityka-prywatnosci'
       fullPath: '/polityka-prywatnosci'
       preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/lekarze': {
@@ -1393,6 +1455,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -1497,6 +1573,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/audyt'
       preLoaderRoute: typeof AuthenticatedAdminAudytRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
@@ -1715,6 +1798,7 @@ const rootRouteChildren: RootRouteChildren = {
   KonsultacjaRoute: KonsultacjaRoute,
   KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,
   LekarzeRoute: LekarzeRouteWithChildren,
+  McpRoute: McpRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   PotrzebyRoute: PotrzebyRoute,
   RegulaminRoute: RegulaminRoute,
@@ -1722,6 +1806,9 @@ const rootRouteChildren: RootRouteChildren = {
   RozwiazaniaRoute: RozwiazaniaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   UnsubscribeRoute: UnsubscribeRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   BlogAnalizaSkoryTwarzyKrokPoKrokuRoute:
     BlogAnalizaSkoryTwarzyKrokPoKrokuRoute,
   BlogBliznyPotradzikoweRoute: BlogBliznyPotradzikoweRoute,
@@ -1758,6 +1845,7 @@ const rootRouteChildren: RootRouteChildren = {
   WskazaniaSlugRoute: WskazaniaSlugRoute,
   TechnologieIndexRoute: TechnologieIndexRoute,
   WskazaniaIndexRoute: WskazaniaIndexRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBookingsCancelRoute: ApiPublicBookingsCancelRoute,
   ApiPublicHooksCalendarSyncRetryRoute: ApiPublicHooksCalendarSyncRetryRoute,
