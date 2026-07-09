@@ -312,7 +312,7 @@ export function BotoxVariantConfigurator() {
               Umów konsultację
             </Link>
             <p className="mt-3 text-[11px] leading-relaxed text-muted-foreground">
-              Konsultacja kwalifikacyjna 200 zł — rozliczana przy zabiegu.
+              Konsultacja kwalifikacyjna {formatCena(200)} — rozliczana przy zabiegu.
               Dawki dobierane indywidualnie na podstawie mapowania mięśni.
             </p>
           </div>
