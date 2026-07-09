@@ -3,6 +3,7 @@ import { ArrowLeft, Check } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { InlineBookingCTA } from "@/components/site/InlineBookingCTA";
+import { BotoxVariantConfigurator } from "@/components/site/BotoxVariantConfigurator";
 import { TECHNOLOGIES, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 
