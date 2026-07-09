@@ -1,6 +1,7 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { BookingFormLazy } from "@/components/site/BookingFormLazy";
+import { InlineBookingCTA } from "@/components/site/InlineBookingCTA";
 import { getTechnology, TECHNOLOGIES, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check } from "lucide-react";
@@ -182,6 +183,13 @@ function TechnologyDetail() {
                 ))}
               </div>
             </div>
+          )}
+          {tech.slug === "toksyna-botulinowa" && (
+            <InlineBookingCTA
+              technologySlug={tech.slug}
+              heading="Zarezerwuj termin konsultacji"
+              copy="Neuromodulacja mimiczna zaczyna się od rozmowy — zaplanujmy Państwa wizytę w dogodnym terminie."
+            />
           )}
         </article>
 
