@@ -1,6 +1,7 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { BookingFormLazy } from "@/components/site/BookingFormLazy";
+import { InlineBookingCTA } from "@/components/site/InlineBookingCTA";
 import { getTechnology, TECHNOLOGIES, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check } from "lucide-react";
@@ -183,6 +184,13 @@ function TechnologyDetail() {
               </div>
             </div>
           )}
+          {tech.slug === "toksyna-botulinowa" && (
+            <InlineBookingCTA
+              technologySlug={tech.slug}
+              heading="Zarezerwuj termin konsultacji"
+              copy="Neuromodulacja mimiczna zaczyna się od rozmowy — zaplanujmy Państwa wizytę w dogodnym terminie."
+            />
+          )}
         </article>
 
         <aside className="space-y-6">
@@ -218,7 +226,7 @@ function TechnologyDetail() {
         </aside>
       </section>
 
-      <section className="bg-secondary/40 py-16 md:py-24">
+      <section id="rezerwacja" className="bg-secondary/40 py-16 md:py-24 scroll-mt-24">
         <div className="container-luxury grid gap-12 md:grid-cols-2">
           <div>
             <SectionHeading eyebrow="Rezerwacja" title="Umówmy konsultację" />
