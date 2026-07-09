@@ -3,6 +3,7 @@ import { ArrowLeft, Check } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { InlineBookingCTA } from "@/components/site/InlineBookingCTA";
+import { BotoxVariantConfigurator } from "@/components/site/BotoxVariantConfigurator";
 import { TECHNOLOGIES, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 
@@ -114,11 +115,14 @@ export function TechnologyDetail({ tech }: { tech: Technology }) {
             </div>
           )}
           {tech.slug === "toksyna-botulinowa" && (
-            <InlineBookingCTA
-              technologySlug={tech.slug}
-              heading="Zarezerwuj termin konsultacji"
-              copy="Neuromodulacja mimiczna zaczyna się od rozmowy — zaplanujmy Państwa wizytę w dogodnym terminie."
-            />
+            <>
+              <BotoxVariantConfigurator />
+              <InlineBookingCTA
+                technologySlug={tech.slug}
+                heading="Zarezerwuj termin konsultacji"
+                copy="Neuromodulacja mimiczna zaczyna się od rozmowy — zaplanujmy Państwa wizytę w dogodnym terminie."
+              />
+            </>
           )}
         </article>
 
