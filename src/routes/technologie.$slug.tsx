@@ -4,6 +4,8 @@ import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { getTechnology, TECHNOLOGIES, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check } from "lucide-react";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 export const Route = createFileRoute("/technologie/$slug")({
   loader: ({ params }): { tech: import("@/data/technologies").Technology } => {
