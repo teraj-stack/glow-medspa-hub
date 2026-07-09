@@ -111,7 +111,7 @@ export const Route = createFileRoute("/technologie/toksyna-botulinowa")({
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: OG_TITLE },
         { name: "twitter:description", content: OG_DESCRIPTION },
-        { name: "twitter:image", content: ogImage },
+        { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
         { name: "geo.region", content: "PL-MZ" },
         { name: "geo.placename", content: "Warszawa" },
         { name: "geo.position", content: "52.15515;21.09006" },
