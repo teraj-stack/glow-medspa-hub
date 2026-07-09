@@ -4,6 +4,8 @@ import { BookingFormLazy } from "@/components/site/BookingFormLazy";
 import { getTechnology, TECHNOLOGIES, type Technology } from "@/data/technologies";
 import { formatCena } from "@/lib/format";
 import { ArrowLeft, Check } from "lucide-react";
+import { withOgVersion } from "@/config/social-preview";
+import ogCard from "@/assets/og/index.jpg";
 
 export const Route = createFileRoute("/technologie/$slug")({
   loader: ({ params }): { tech: import("@/data/technologies").Technology } => {
@@ -45,6 +47,7 @@ export const Route = createFileRoute("/technologie/$slug")({
     if (serviceSchema) scripts.push({ type: "application/ld+json", children: JSON.stringify(serviceSchema) });
     if (faqSchema) scripts.push({ type: "application/ld+json", children: JSON.stringify(faqSchema) });
 
+    const ogImage = withOgVersion(`https://bmclinics.ai${ogCard}`);
     return {
       meta: loaderData
         ? [
@@ -53,8 +56,16 @@ export const Route = createFileRoute("/technologie/$slug")({
             { property: "og:title", content: `${loaderData.tech.name} — BMClinics.ai` },
             { property: "og:description", content: loaderData.tech.shortDesc },
             { property: "og:url", content: `https://bmclinics.ai/technologie/${params.slug}` },
+            { property: "og:image", content: ogImage },
+            { name: "twitter:card", content: "summary_large_image" },
+            { name: "twitter:title", content: `${loaderData.tech.name} — BMClinics.ai` },
+            { name: "twitter:description", content: loaderData.tech.shortDesc },
+            { name: "twitter:image", content: ogImage },
           ]
-        : [{ title: "Technologia — BMClinics.ai" }],
+        : [
+            { title: "Technologia — BMClinics.ai" },
+            { name: "twitter:image", content: ogImage },
+          ],
       links: [{ rel: "canonical", href: `https://bmclinics.ai/technologie/${params.slug}` }],
       scripts: scripts.length > 0 ? scripts : undefined,
     };

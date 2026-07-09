@@ -1,6 +1,41 @@
-import { Suspense } from "react";
+import { Component, Suspense, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { NapBlock } from "@/components/site/NapBlock";
+import { CLINIC_ADDRESS } from "@/config/clinic";
+
+/**
+ * Static fallback rendered when the dynamic NAP query fails (DB timeout,
+ * PostgREST worker killed, SSR abort). Keeps the footer — and the whole
+ * page — from crashing to a 522 when nap_settings is slow.
+ */
+function NapFallback() {
+  return (
+    <address className="not-italic text-sm leading-relaxed text-alabaster/80" data-testid="nap-block-fallback">
+      <div className="text-xs uppercase tracking-[0.3em] text-champagne">Kontakt · NAP</div>
+      <div className="mt-3 font-medium">BMClinics.ai</div>
+      <div className="mt-1">
+        <div>{CLINIC_ADDRESS.streetWithVenue}</div>
+        <div>
+          {CLINIC_ADDRESS.postalCode} {CLINIC_ADDRESS.city}, {CLINIC_ADDRESS.region}
+        </div>
+      </div>
+    </address>
+  );
+}
+
+class NapBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  state = { hasError: false };
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error: unknown) {
+    console.error("[Footer] NapBlock failed, rendering static fallback:", error);
+  }
+  render() {
+    if (this.state.hasError) return <NapFallback />;
+    return this.props.children;
+  }
+}
 
 export function Footer() {
   return (
@@ -12,9 +47,11 @@ export function Footer() {
             Klinika medycyny estetycznej i laserowej. Piękno nie potrzebuje hałasu, potrzebuje zrozumienia
           </p>
           <div className="mt-6">
-            <Suspense fallback={<div className="text-xs text-alabaster/40">Ładowanie danych kontaktowych…</div>}>
-              <NapBlock />
-            </Suspense>
+            <NapBoundary>
+              <Suspense fallback={<NapFallback />}>
+                <NapBlock />
+              </Suspense>
+            </NapBoundary>
           </div>
         </div>
         <div>
