@@ -88,11 +88,11 @@ export const Route = createFileRoute("/technologie/peeling-weglowy-laserowy")({
         { property: "og:description", content: description },
         { property: "og:url", content: PAGE_URL },
         { property: "og:type", content: "article" },
-        { property: "og:image", content: withOgVersion(heroAsset.url) },
+        { property: "og:image", content: withOgVersion(`https://bmclinics.ai${heroAsset.url}`) },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
-        { name: "twitter:image", content: withOgVersion(heroAsset.url) },
+        { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${heroAsset.url}`) },
       ],
       links: [
         { rel: "canonical", href: PAGE_URL },
