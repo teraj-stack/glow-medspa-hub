@@ -226,7 +226,7 @@ function TechnologyDetail() {
         </aside>
       </section>
 
-      <section className="bg-secondary/40 py-16 md:py-24">
+      <section id="rezerwacja" className="bg-secondary/40 py-16 md:py-24 scroll-mt-24">
         <div className="container-luxury grid gap-12 md:grid-cols-2">
           <div>
             <SectionHeading eyebrow="Rezerwacja" title="Umówmy konsultację" />
