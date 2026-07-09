@@ -31,6 +31,7 @@ import { Route as WskazaniaIndexRouteImport } from './routes/wskazania.index'
 import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
 import { Route as LekarzeIndexRouteImport } from './routes/lekarze.index'
 import { Route as WskazaniaSlugRouteImport } from './routes/wskazania.$slug'
+import { Route as TechnologieToksynaBotulinowaRouteImport } from './routes/technologie.toksyna-botulinowa'
 import { Route as TechnologieTerapiaLedRouteImport } from './routes/technologie.terapia-led'
 import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
 import { Route as TechnologiePeelingWeglowyLaserowyRouteImport } from './routes/technologie.peeling-weglowy-laserowy'
@@ -204,6 +205,12 @@ const WskazaniaSlugRoute = WskazaniaSlugRouteImport.update({
   path: '/wskazania/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TechnologieToksynaBotulinowaRoute =
+  TechnologieToksynaBotulinowaRouteImport.update({
+    id: '/technologie/toksyna-botulinowa',
+    path: '/technologie/toksyna-botulinowa',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TechnologieTerapiaLedRoute = TechnologieTerapiaLedRouteImport.update({
   id: '/technologie/terapia-led',
   path: '/technologie/terapia-led',
@@ -593,6 +600,7 @@ export interface FileRoutesByFullPath {
   '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
+  '/technologie/toksyna-botulinowa': typeof TechnologieToksynaBotulinowaRoute
   '/wskazania/$slug': typeof WskazaniaSlugRoute
   '/lekarze/': typeof LekarzeIndexRoute
   '/technologie/': typeof TechnologieIndexRoute
@@ -675,6 +683,7 @@ export interface FileRoutesByTo {
   '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
+  '/technologie/toksyna-botulinowa': typeof TechnologieToksynaBotulinowaRoute
   '/wskazania/$slug': typeof WskazaniaSlugRoute
   '/lekarze': typeof LekarzeIndexRoute
   '/technologie': typeof TechnologieIndexRoute
@@ -761,6 +770,7 @@ export interface FileRoutesById {
   '/technologie/peeling-weglowy-laserowy': typeof TechnologiePeelingWeglowyLaserowyRoute
   '/technologie/picoking': typeof TechnologiePicokingRoute
   '/technologie/terapia-led': typeof TechnologieTerapiaLedRoute
+  '/technologie/toksyna-botulinowa': typeof TechnologieToksynaBotulinowaRoute
   '/wskazania/$slug': typeof WskazaniaSlugRoute
   '/lekarze/': typeof LekarzeIndexRoute
   '/technologie/': typeof TechnologieIndexRoute
@@ -847,6 +857,7 @@ export interface FileRouteTypes {
     | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
+    | '/technologie/toksyna-botulinowa'
     | '/wskazania/$slug'
     | '/lekarze/'
     | '/technologie/'
@@ -929,6 +940,7 @@ export interface FileRouteTypes {
     | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
+    | '/technologie/toksyna-botulinowa'
     | '/wskazania/$slug'
     | '/lekarze'
     | '/technologie'
@@ -1014,6 +1026,7 @@ export interface FileRouteTypes {
     | '/technologie/peeling-weglowy-laserowy'
     | '/technologie/picoking'
     | '/technologie/terapia-led'
+    | '/technologie/toksyna-botulinowa'
     | '/wskazania/$slug'
     | '/lekarze/'
     | '/technologie/'
@@ -1097,6 +1110,7 @@ export interface RootRouteChildren {
   TechnologiePeelingWeglowyLaserowyRoute: typeof TechnologiePeelingWeglowyLaserowyRoute
   TechnologiePicokingRoute: typeof TechnologiePicokingRoute
   TechnologieTerapiaLedRoute: typeof TechnologieTerapiaLedRoute
+  TechnologieToksynaBotulinowaRoute: typeof TechnologieToksynaBotulinowaRoute
   WskazaniaSlugRoute: typeof WskazaniaSlugRoute
   TechnologieIndexRoute: typeof TechnologieIndexRoute
   WskazaniaIndexRoute: typeof WskazaniaIndexRoute
@@ -1271,6 +1285,13 @@ declare module '@tanstack/react-router' {
       path: '/wskazania/$slug'
       fullPath: '/wskazania/$slug'
       preLoaderRoute: typeof WskazaniaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/toksyna-botulinowa': {
+      id: '/technologie/toksyna-botulinowa'
+      path: '/technologie/toksyna-botulinowa'
+      fullPath: '/technologie/toksyna-botulinowa'
+      preLoaderRoute: typeof TechnologieToksynaBotulinowaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/technologie/terapia-led': {
@@ -1842,6 +1863,7 @@ const rootRouteChildren: RootRouteChildren = {
     TechnologiePeelingWeglowyLaserowyRoute,
   TechnologiePicokingRoute: TechnologiePicokingRoute,
   TechnologieTerapiaLedRoute: TechnologieTerapiaLedRoute,
+  TechnologieToksynaBotulinowaRoute: TechnologieToksynaBotulinowaRoute,
   WskazaniaSlugRoute: WskazaniaSlugRoute,
   TechnologieIndexRoute: TechnologieIndexRoute,
   WskazaniaIndexRoute: WskazaniaIndexRoute,
