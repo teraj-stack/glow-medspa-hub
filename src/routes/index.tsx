@@ -362,7 +362,7 @@ function BookingSection() {
             </div>
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Godziny</dt>
-              <dd className="mt-1 text-foreground">pon.–pt. 9:00–20:00 · sob. 9:00–15:00</dd>
+              <dd className="mt-1 text-foreground">pon.–pt. 12:00–20:00&nbsp;</dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Cena</dt>
