@@ -51,8 +51,8 @@ export function NapBlock({ variant = "footer" }: { variant?: "footer" | "inline"
         <meta itemProp="addressCountry" content={nap.country_code} />
       </div>
       {nap.phone ? (
-        <div className="mt-2">
-          tel.{" "}
+        <div className="mt-1">
+          tel:{" "}
           <a
             href={`tel:${(nap.phone_e164 ?? nap.phone).replace(/\s+/g, "")}`}
             className="underline decoration-champagne/40 underline-offset-4 hover:decoration-champagne"
