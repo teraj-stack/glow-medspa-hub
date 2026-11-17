@@ -1,6 +1,7 @@
 // Krytyczny CSS dla pierwszego ekranu — inline w <head>, żeby renderowanie
 // nie czekało na pełny styles.css. Trzymamy poniżej ~3 KB.
 export const CRITICAL_CSS = `
+@layer base{
 :root{--background:oklch(0.985 0.004 80);--foreground:oklch(0.16 0.005 60);--ink:oklch(0.16 0.005 60);--alabaster:oklch(0.985 0.004 80);--champagne:oklch(0.54 0.078 65);--border:oklch(0.9 0.01 70);--muted-foreground:oklch(0.48 0.01 60);--font-serif:"Cormorant Garamond","Times New Roman",serif;--font-sans:"Inter",system-ui,-apple-system,sans-serif;--spacing:0.25rem}
 *{box-sizing:border-box;border-color:var(--border)}
 html{-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
@@ -17,4 +18,5 @@ img,svg,video{display:block;max-width:100%}
 .min-h-screen{min-height:100vh}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+}
 `;
