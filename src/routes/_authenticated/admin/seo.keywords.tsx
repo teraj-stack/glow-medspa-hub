@@ -73,18 +73,6 @@ const LOCATION_PRESETS: { group: string; items: { label: string; value: string }
       { label: "+ Konstancin-Jeziorna", value: "konstancin-jeziorna" },
     ],
   },
-  {
-    group: "Siedlce i okolice",
-    items: [
-      { label: "+ Siedlce", value: "siedlce" },
-      { label: "+ Mińsk Mazowiecki", value: "mińsk mazowiecki" },
-      { label: "+ Łuków", value: "łuków" },
-      { label: "+ Sokołów Podlaski", value: "sokołów podlaski" },
-      { label: "+ Węgrów", value: "węgrów" },
-      { label: "+ Garwolin", value: "garwolin" },
-      { label: "+ Otwock", value: "otwock" },
-    ],
-  },
 ];
 
 
@@ -343,7 +331,7 @@ function classifyIntent(phrase: string): IntentKey {
   if (/(przeciwwskazani|powikłani|powiklani|skutki uboczne|ryzyko|bezpieczn|boli|ból|bol)/.test(p)) return "powiklania";
   if (/( vs | czy |różnic|roznic|porównan|porownan|lepsz|alternatyw|co wybrać|co wybrac)/.test(p)) return "porownanie";
   if (/(jak (wygląda|wyglada|przebiega)|ile trwa|ile zabiegów|ile zabiegow|efekt|rekonwalescencj|po zabiegu|przed zabiegiem|przygotowani|znieczuleni|kiedy widać|kiedy widac)/.test(p)) return "przebieg";
-  if (/(warszaw|siedlce|krak|wrocł|wroc|poznan|gdans|wilanów|wilanow|mokot|bielan|śródmie|srodmie|ursyn|żoli|zoli|bemow|dzielnic|blisko|gdzie|w mieście|w miescie|klinik|gabinet)/.test(p)) return "lokalizacja";
+  if (/(warszaw|krak|wrocł|wroc|poznan|gdans|wilanów|wilanow|mokot|bielan|śródmie|srodmie|ursyn|żoli|zoli|bemow|dzielnic|blisko|gdzie|w mieście|w miescie|klinik|gabinet)/.test(p)) return "lokalizacja";
   if (/(co to|czym jest|dlaczego|przyczyn|objaw|rodzaj)/.test(p)) return "informacyjne";
   return "usluga";
 }
@@ -461,7 +449,7 @@ function KeywordsPanel() {
 
   const [input, setInput] = useState("");
   const [database, setDatabase] = useState("pl");
-  const [appendMode, setAppendMode] = useState<"none" | "siedlce" | "warszawa" | "custom">("none");
+  const [appendMode, setAppendMode] = useState<"none" | "warszawa" | "custom">("none");
   const [customLoc, setCustomLoc] = useState("");
   const [label, setLabel] = useState("");
   const [result, setResult] = useState<ResearchResult | null>(null);
@@ -476,7 +464,6 @@ function KeywordsPanel() {
   const [clusters, setClusters] = useState<{ reportId: string; database: string; clusters: ContentCluster[] } | null>(null);
 
   const appendLocation =
-    appendMode === "siedlce" ? "siedlce" :
     appendMode === "warszawa" ? "warszawa" :
     appendMode === "custom" ? customLoc.trim() : "";
 
@@ -700,8 +687,8 @@ function KeywordsPanel() {
                       if (active) {
                         setAppendMode("none");
                         setCustomLoc("");
-                      } else if (it.value === "warszawa" || it.value === "siedlce") {
-                        setAppendMode(it.value as "warszawa" | "siedlce");
+                      } else if (it.value === "warszawa") {
+                        setAppendMode("warszawa");
                       } else {
                         setAppendMode("custom");
                         setCustomLoc(it.value);
@@ -743,7 +730,6 @@ function KeywordsPanel() {
               className="border border-border rounded-md h-9 px-2 bg-background"
             >
               <option value="none">Brak — krajowo</option>
-              <option value="siedlce">+ siedlce</option>
               <option value="warszawa">+ warszawa</option>
               <option value="custom">+ własne miasto / dzielnica…</option>
             </select>
