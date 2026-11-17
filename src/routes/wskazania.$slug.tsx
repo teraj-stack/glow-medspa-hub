@@ -424,7 +424,7 @@ export const Route = createFileRoute("/wskazania/$slug")({
   errorComponent: ({ error }) => (
     <main className="mx-auto max-w-3xl px-4 py-24 text-center">
       <h1 className="font-serif text-3xl text-ink">Wystąpił błąd</h1>
-      <p className="mt-3 text-sm text-muted-foreground">{error?.message ?? "Spróbuj ponownie."}</p>
+      <p className="mt-3 text-sm text-muted-foreground">{(error as Error | undefined)?.message ?? "Spróbuj ponownie."}</p>
     </main>
   ),
   component: IndicationPage,

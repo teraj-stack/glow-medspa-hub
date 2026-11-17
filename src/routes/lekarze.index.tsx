@@ -50,7 +50,7 @@ export const Route = createFileRoute("/lekarze/")({
   pendingMs: 200,
   pendingMinMs: 300,
   pendingComponent: LekarzePending,
-  errorComponent: LekarzeError,
+  errorComponent: LekarzeError as never,
   notFoundComponent: () => (
     <main className="bg-background">
       <section className="container-luxury py-20 text-center">

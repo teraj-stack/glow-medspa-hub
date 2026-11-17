@@ -9,160 +9,103 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as RozwiazaniaRouteImport } from './routes/rozwiazania'
-import { Route as RenasculptRouteImport } from './routes/renasculpt'
-import { Route as RegulaminRouteImport } from './routes/regulamin'
-import { Route as PotrzebyRouteImport } from './routes/potrzeby'
-import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as LekarzeRouteImport } from './routes/lekarze'
-import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-dziekujemy'
-import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
-import { Route as DiagnostykaSkoryWarszawaRouteImport } from './routes/diagnostyka-skory-warszawa'
-import { Route as DiagnostykaSkorySiedlceRouteImport } from './routes/diagnostyka-skory-siedlce'
-import { Route as CennikRouteImport } from './routes/cennik'
-import { Route as BezpieczenstwoZabiegowLaserowychRouteImport } from './routes/bezpieczenstwo-zabiegow-laserowych'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as WskazaniaIndexRouteImport } from './routes/wskazania.index'
-import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
-import { Route as LekarzeIndexRouteImport } from './routes/lekarze.index'
-import { Route as WskazaniaSlugRouteImport } from './routes/wskazania.$slug'
-import { Route as TechnologieToksynaBotulinowaRouteImport } from './routes/technologie.toksyna-botulinowa'
-import { Route as TechnologieTerapiaLedRouteImport } from './routes/technologie.terapia-led'
-import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
-import { Route as TechnologiePeelingWeglowyLaserowyRouteImport } from './routes/technologie.peeling-weglowy-laserowy'
-import { Route as TechnologieLaserTulowyRouteImport } from './routes/technologie.laser-tulowy'
-import { Route as TechnologieLaserFrakcyjnyCo2WarszawaRouteImport } from './routes/technologie.laser-frakcyjny-co2-warszawa'
-import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
-import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
-import { Route as LovableThemesRouteImport } from './routes/lovable.themes'
-import { Route as LekarzeJanBujokRouteImport } from './routes/lekarze.jan-bujok'
-import { Route as LekarzeHalinaGabaraRouteImport } from './routes/lekarze.halina-gabara'
-import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
-import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
-import { Route as BlogStarzenieSkoryPtozaTkanekRouteImport } from './routes/blog.starzenie-skory-ptoza-tkanek'
-import { Route as BlogSlonceSkoraNowoczesneTechnologieRouteImport } from './routes/blog.slonce-skora-nowoczesne-technologie'
-import { Route as BlogPtozaTkanekTwarzyRouteImport } from './routes/blog.ptoza-tkanek-twarzy'
-import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
-import { Route as BlogNajczestszeWynikiAnalizySkoryRouteImport } from './routes/blog.najczestsze-wyniki-analizy-skory'
-import { Route as BlogMechanizmyStarzeniaSkoryRouteImport } from './routes/blog.mechanizmy-starzenia-skory'
-import { Route as BlogLiftingBezSkalpelaRouteImport } from './routes/blog.lifting-bez-skalpela'
-import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
-import { Route as BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport } from './routes/blog.jak-przygotowac-skore-do-diagnostyki'
-import { Route as BlogJakCzestoPowtarzacAnalizeSkoryRouteImport } from './routes/blog.jak-czesto-powtarzac-analize-skory'
-import { Route as BlogDiagnostykaSkoryAPlanLeczeniaRouteImport } from './routes/blog.diagnostyka-skory-a-plan-leczenia'
-import { Route as BlogCoDalejPoBadaniuSkoryRouteImport } from './routes/blog.co-dalej-po-badaniu-skory'
-import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
-import { Route as BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport } from './routes/blog.analiza-skory-twarzy-krok-po-kroku'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BezpieczenstwoZabiegowLaserowychRouteImport } from './routes/bezpieczenstwo-zabiegow-laserowych'
+import { Route as CennikRouteImport } from './routes/cennik'
+import { Route as DiagnostykaSkorySiedlceRouteImport } from './routes/diagnostyka-skory-siedlce'
+import { Route as DiagnostykaSkoryWarszawaRouteImport } from './routes/diagnostyka-skory-warszawa'
+import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
+import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-dziekujemy'
+import { Route as LekarzeRouteImport } from './routes/lekarze'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as PotrzebyRouteImport } from './routes/potrzeby'
+import { Route as RegulaminRouteImport } from './routes/regulamin'
+import { Route as RenasculptRouteImport } from './routes/renasculpt'
+import { Route as RozwiazaniaRouteImport } from './routes/rozwiazania'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as UnsubscribeRouteImport } from './routes/unsubscribe'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as AuthenticatedAdminRouteRouteImport } from './routes/_authenticated/admin/route'
-import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
-import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
-import { Route as AuthenticatedKontoWizytyRouteImport } from './routes/_authenticated/konto.wizyty'
-import { Route as AuthenticatedKontoPostepowaniePozabiegoweRouteImport } from './routes/_authenticated/konto.postepowanie-pozabiegowe'
-import { Route as AuthenticatedAdminWebVitalsRouteImport } from './routes/_authenticated/admin/web-vitals'
-import { Route as AuthenticatedAdminUzytkownicyRouteImport } from './routes/_authenticated/admin/uzytkownicy'
-import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
-import { Route as AuthenticatedAdminRezerwacjeRouteImport } from './routes/_authenticated/admin/rezerwacje'
-import { Route as AuthenticatedAdminPanelRouteImport } from './routes/_authenticated/admin/panel'
-import { Route as AuthenticatedAdminNapRouteImport } from './routes/_authenticated/admin/nap'
-import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
-import { Route as AuthenticatedAdminDnsRouteImport } from './routes/_authenticated/admin/dns'
-import { Route as AuthenticatedAdminCennikRouteImport } from './routes/_authenticated/admin/cennik'
-import { Route as AuthenticatedAdminAudytRouteImport } from './routes/_authenticated/admin/audyt'
+import { Route as BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport } from './routes/blog.analiza-skory-twarzy-krok-po-kroku'
+import { Route as BlogBliznyPotradzikoweRouteImport } from './routes/blog.blizny-potradzikowe'
+import { Route as BlogCoDalejPoBadaniuSkoryRouteImport } from './routes/blog.co-dalej-po-badaniu-skory'
+import { Route as BlogDiagnostykaSkoryAPlanLeczeniaRouteImport } from './routes/blog.diagnostyka-skory-a-plan-leczenia'
+import { Route as BlogJakCzestoPowtarzacAnalizeSkoryRouteImport } from './routes/blog.jak-czesto-powtarzac-analize-skory'
+import { Route as BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport } from './routes/blog.jak-przygotowac-skore-do-diagnostyki'
+import { Route as BlogLaserFrakcyjnyRekonwalescencjaRouteImport } from './routes/blog.laser-frakcyjny-rekonwalescencja'
+import { Route as BlogLiftingBezSkalpelaRouteImport } from './routes/blog.lifting-bez-skalpela'
+import { Route as BlogMechanizmyStarzeniaSkoryRouteImport } from './routes/blog.mechanizmy-starzenia-skory'
+import { Route as BlogNajczestszeWynikiAnalizySkoryRouteImport } from './routes/blog.najczestsze-wyniki-analizy-skory'
+import { Route as BlogPowiklaniaMezoterapiaIglowaRouteImport } from './routes/blog.powiklania-mezoterapia-iglowa'
+import { Route as BlogPtozaTkanekTwarzyRouteImport } from './routes/blog.ptoza-tkanek-twarzy'
+import { Route as BlogSlonceSkoraNowoczesneTechnologieRouteImport } from './routes/blog.slonce-skora-nowoczesne-technologie'
+import { Route as BlogStarzenieSkoryPtozaTkanekRouteImport } from './routes/blog.starzenie-skory-ptoza-tkanek'
+import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as FormularzTokenRouteImport } from './routes/formularz.$token'
+import { Route as LekarzeIndexRouteImport } from './routes/lekarze.index'
+import { Route as LekarzeHalinaGabaraRouteImport } from './routes/lekarze.halina-gabara'
+import { Route as LekarzeJanBujokRouteImport } from './routes/lekarze.jan-bujok'
+import { Route as LovableThemesRouteImport } from './routes/lovable.themes'
+import { Route as TechnologieIndexRouteImport } from './routes/technologie.index'
+import { Route as TechnologieSlugRouteImport } from './routes/technologie.$slug'
+import { Route as TechnologieFusionPlasmaRouteImport } from './routes/technologie.fusion-plasma'
+import { Route as TechnologieLaserFrakcyjnyCo2WarszawaRouteImport } from './routes/technologie.laser-frakcyjny-co2-warszawa'
+import { Route as TechnologieLaserTulowyRouteImport } from './routes/technologie.laser-tulowy'
+import { Route as TechnologiePeelingWeglowyLaserowyRouteImport } from './routes/technologie.peeling-weglowy-laserowy'
+import { Route as TechnologiePicokingRouteImport } from './routes/technologie.picoking'
+import { Route as TechnologieTerapiaLedRouteImport } from './routes/technologie.terapia-led'
+import { Route as TechnologieToksynaBotulinowaRouteImport } from './routes/technologie.toksyna-botulinowa'
+import { Route as WskazaniaIndexRouteImport } from './routes/wskazania.index'
+import { Route as WskazaniaSlugRouteImport } from './routes/wskazania.$slug'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
-import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
-import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
-import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
-import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
-import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
-import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
-import { Route as ApiPublicIndexnowSplatRouteImport } from './routes/api/public/indexnow/$'
-import { Route as ApiPublicHooksSitemapValidateRouteImport } from './routes/api/public/hooks/sitemap-validate'
-import { Route as ApiPublicHooksSeoSnapshotRouteImport } from './routes/api/public/hooks/seo-snapshot'
-import { Route as ApiPublicHooksSeoIndexationSubmitRouteImport } from './routes/api/public/hooks/seo-indexation-submit'
-import { Route as ApiPublicHooksOgRescrapeRouteImport } from './routes/api/public/hooks/og-rescrape'
-import { Route as ApiPublicHooksCalendarSyncRetryRouteImport } from './routes/api/public/hooks/calendar-sync-retry'
-import { Route as ApiPublicBookingsCancelRouteImport } from './routes/api/public/bookings/cancel'
-import { Route as AuthenticatedAdminSeoRaportyRouteImport } from './routes/_authenticated/admin/seo.raporty'
-import { Route as AuthenticatedAdminSeoOgRescrapeRouteImport } from './routes/_authenticated/admin/seo.og-rescrape'
-import { Route as AuthenticatedAdminSeoKeywordsRouteImport } from './routes/_authenticated/admin/seo.keywords'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminAudytRouteImport } from './routes/_authenticated/admin/audyt'
+import { Route as AuthenticatedAdminCennikRouteImport } from './routes/_authenticated/admin/cennik'
+import { Route as AuthenticatedAdminDnsRouteImport } from './routes/_authenticated/admin/dns'
+import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authenticated/admin/lekarze'
+import { Route as AuthenticatedAdminNapRouteImport } from './routes/_authenticated/admin/nap'
+import { Route as AuthenticatedAdminPanelRouteImport } from './routes/_authenticated/admin/panel'
+import { Route as AuthenticatedAdminRezerwacjeRouteImport } from './routes/_authenticated/admin/rezerwacje'
+import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
+import { Route as AuthenticatedAdminUzytkownicyRouteImport } from './routes/_authenticated/admin/uzytkownicy'
+import { Route as AuthenticatedAdminWebVitalsRouteImport } from './routes/_authenticated/admin/web-vitals'
+import { Route as AuthenticatedKontoPostepowaniePozabiegoweRouteImport } from './routes/_authenticated/konto.postepowanie-pozabiegowe'
+import { Route as AuthenticatedKontoWizytyRouteImport } from './routes/_authenticated/konto.wizyty'
+import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as AuthenticatedAdminSeoIndeksacjaRouteImport } from './routes/_authenticated/admin/seo.indeksacja'
+import { Route as AuthenticatedAdminSeoKeywordsRouteImport } from './routes/_authenticated/admin/seo.keywords'
+import { Route as AuthenticatedAdminSeoOgRescrapeRouteImport } from './routes/_authenticated/admin/seo.og-rescrape'
+import { Route as AuthenticatedAdminSeoRaportyRouteImport } from './routes/_authenticated/admin/seo.raporty'
+import { Route as ApiPublicBookingsCancelRouteImport } from './routes/api/public/bookings/cancel'
+import { Route as ApiPublicHooksCalendarSyncRetryRouteImport } from './routes/api/public/hooks/calendar-sync-retry'
+import { Route as ApiPublicHooksOgRescrapeRouteImport } from './routes/api/public/hooks/og-rescrape'
+import { Route as ApiPublicHooksSeoIndexationSubmitRouteImport } from './routes/api/public/hooks/seo-indexation-submit'
+import { Route as ApiPublicHooksSeoSnapshotRouteImport } from './routes/api/public/hooks/seo-snapshot'
+import { Route as ApiPublicHooksSitemapValidateRouteImport } from './routes/api/public/hooks/sitemap-validate'
+import { Route as ApiPublicIndexnowSplatRouteImport } from './routes/api/public/indexnow/$'
+import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
+import { Route as LovableEmailAuthPreviewRouteImport } from './routes/lovable/email/auth/preview'
+import { Route as LovableEmailAuthWebhookRouteImport } from './routes/lovable/email/auth/webhook'
+import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
+import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
+import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 
-const UnsubscribeRoute = UnsubscribeRouteImport.update({
-  id: '/unsubscribe',
-  path: '/unsubscribe',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RozwiazaniaRoute = RozwiazaniaRouteImport.update({
-  id: '/rozwiazania',
-  path: '/rozwiazania',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RenasculptRoute = RenasculptRouteImport.update({
-  id: '/renasculpt',
-  path: '/renasculpt',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RegulaminRoute = RegulaminRouteImport.update({
-  id: '/regulamin',
-  path: '/regulamin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PotrzebyRoute = PotrzebyRouteImport.update({
-  id: '/potrzeby',
-  path: '/potrzeby',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
-  id: '/polityka-prywatnosci',
-  path: '/polityka-prywatnosci',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LekarzeRoute = LekarzeRouteImport.update({
-  id: '/lekarze',
-  path: '/lekarze',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KonsultacjaDziekujemyRoute = KonsultacjaDziekujemyRouteImport.update({
-  id: '/konsultacja-dziekujemy',
-  path: '/konsultacja-dziekujemy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KonsultacjaRoute = KonsultacjaRouteImport.update({
-  id: '/konsultacja',
-  path: '/konsultacja',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiagnostykaSkoryWarszawaRoute =
-  DiagnostykaSkoryWarszawaRouteImport.update({
-    id: '/diagnostyka-skory-warszawa',
-    path: '/diagnostyka-skory-warszawa',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const DiagnostykaSkorySiedlceRoute = DiagnostykaSkorySiedlceRouteImport.update({
-  id: '/diagnostyka-skory-siedlce',
-  path: '/diagnostyka-skory-siedlce',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CennikRoute = CennikRouteImport.update({
-  id: '/cennik',
-  path: '/cennik',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BezpieczenstwoZabiegowLaserowychRoute =
@@ -171,187 +114,81 @@ const BezpieczenstwoZabiegowLaserowychRoute =
     path: '/bezpieczenstwo-zabiegow-laserowych',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const CennikRoute = CennikRouteImport.update({
+  id: '/cennik',
+  path: '/cennik',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const DiagnostykaSkorySiedlceRoute = DiagnostykaSkorySiedlceRouteImport.update({
+  id: '/diagnostyka-skory-siedlce',
+  path: '/diagnostyka-skory-siedlce',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WskazaniaIndexRoute = WskazaniaIndexRouteImport.update({
-  id: '/wskazania/',
-  path: '/wskazania/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TechnologieIndexRoute = TechnologieIndexRouteImport.update({
-  id: '/technologie/',
-  path: '/technologie/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LekarzeIndexRoute = LekarzeIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => LekarzeRoute,
-} as any)
-const WskazaniaSlugRoute = WskazaniaSlugRouteImport.update({
-  id: '/wskazania/$slug',
-  path: '/wskazania/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TechnologieToksynaBotulinowaRoute =
-  TechnologieToksynaBotulinowaRouteImport.update({
-    id: '/technologie/toksyna-botulinowa',
-    path: '/technologie/toksyna-botulinowa',
+const DiagnostykaSkoryWarszawaRoute =
+  DiagnostykaSkoryWarszawaRouteImport.update({
+    id: '/diagnostyka-skory-warszawa',
+    path: '/diagnostyka-skory-warszawa',
     getParentRoute: () => rootRouteImport,
   } as any)
-const TechnologieTerapiaLedRoute = TechnologieTerapiaLedRouteImport.update({
-  id: '/technologie/terapia-led',
-  path: '/technologie/terapia-led',
+const KonsultacjaRoute = KonsultacjaRouteImport.update({
+  id: '/konsultacja',
+  path: '/konsultacja',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TechnologiePicokingRoute = TechnologiePicokingRouteImport.update({
-  id: '/technologie/picoking',
-  path: '/technologie/picoking',
+const KonsultacjaDziekujemyRoute = KonsultacjaDziekujemyRouteImport.update({
+  id: '/konsultacja-dziekujemy',
+  path: '/konsultacja-dziekujemy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TechnologiePeelingWeglowyLaserowyRoute =
-  TechnologiePeelingWeglowyLaserowyRouteImport.update({
-    id: '/technologie/peeling-weglowy-laserowy',
-    path: '/technologie/peeling-weglowy-laserowy',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const TechnologieLaserTulowyRoute = TechnologieLaserTulowyRouteImport.update({
-  id: '/technologie/laser-tulowy',
-  path: '/technologie/laser-tulowy',
+const LekarzeRoute = LekarzeRouteImport.update({
+  id: '/lekarze',
+  path: '/lekarze',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TechnologieLaserFrakcyjnyCo2WarszawaRoute =
-  TechnologieLaserFrakcyjnyCo2WarszawaRouteImport.update({
-    id: '/technologie/laser-frakcyjny-co2-warszawa',
-    path: '/technologie/laser-frakcyjny-co2-warszawa',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const TechnologieFusionPlasmaRoute = TechnologieFusionPlasmaRouteImport.update({
-  id: '/technologie/fusion-plasma',
-  path: '/technologie/fusion-plasma',
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
-  id: '/technologie/$slug',
-  path: '/technologie/$slug',
+const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
+  id: '/polityka-prywatnosci',
+  path: '/polityka-prywatnosci',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LovableThemesRoute = LovableThemesRouteImport.update({
-  id: '/lovable/themes',
-  path: '/lovable/themes',
+const PotrzebyRoute = PotrzebyRouteImport.update({
+  id: '/potrzeby',
+  path: '/potrzeby',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LekarzeJanBujokRoute = LekarzeJanBujokRouteImport.update({
-  id: '/jan-bujok',
-  path: '/jan-bujok',
-  getParentRoute: () => LekarzeRoute,
-} as any)
-const LekarzeHalinaGabaraRoute = LekarzeHalinaGabaraRouteImport.update({
-  id: '/halina-gabara',
-  path: '/halina-gabara',
-  getParentRoute: () => LekarzeRoute,
-} as any)
-const FormularzTokenRoute = FormularzTokenRouteImport.update({
-  id: '/formularz/$token',
-  path: '/formularz/$token',
+const RegulaminRoute = RegulaminRouteImport.update({
+  id: '/regulamin',
+  path: '/regulamin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
-  id: '/email/unsubscribe',
-  path: '/email/unsubscribe',
+const RenasculptRoute = RenasculptRouteImport.update({
+  id: '/renasculpt',
+  path: '/renasculpt',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogStarzenieSkoryPtozaTkanekRoute =
-  BlogStarzenieSkoryPtozaTkanekRouteImport.update({
-    id: '/blog/starzenie-skory-ptoza-tkanek',
-    path: '/blog/starzenie-skory-ptoza-tkanek',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogSlonceSkoraNowoczesneTechnologieRoute =
-  BlogSlonceSkoraNowoczesneTechnologieRouteImport.update({
-    id: '/blog/slonce-skora-nowoczesne-technologie',
-    path: '/blog/slonce-skora-nowoczesne-technologie',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogPtozaTkanekTwarzyRoute = BlogPtozaTkanekTwarzyRouteImport.update({
-  id: '/blog/ptoza-tkanek-twarzy',
-  path: '/blog/ptoza-tkanek-twarzy',
+const RozwiazaniaRoute = RozwiazaniaRouteImport.update({
+  id: '/rozwiazania',
+  path: '/rozwiazania',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogPowiklaniaMezoterapiaIglowaRoute =
-  BlogPowiklaniaMezoterapiaIglowaRouteImport.update({
-    id: '/blog/powiklania-mezoterapia-iglowa',
-    path: '/blog/powiklania-mezoterapia-iglowa',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogNajczestszeWynikiAnalizySkoryRoute =
-  BlogNajczestszeWynikiAnalizySkoryRouteImport.update({
-    id: '/blog/najczestsze-wyniki-analizy-skory',
-    path: '/blog/najczestsze-wyniki-analizy-skory',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogMechanizmyStarzeniaSkoryRoute =
-  BlogMechanizmyStarzeniaSkoryRouteImport.update({
-    id: '/blog/mechanizmy-starzenia-skory',
-    path: '/blog/mechanizmy-starzenia-skory',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogLiftingBezSkalpelaRoute = BlogLiftingBezSkalpelaRouteImport.update({
-  id: '/blog/lifting-bez-skalpela',
-  path: '/blog/lifting-bez-skalpela',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogLaserFrakcyjnyRekonwalescencjaRoute =
-  BlogLaserFrakcyjnyRekonwalescencjaRouteImport.update({
-    id: '/blog/laser-frakcyjny-rekonwalescencja',
-    path: '/blog/laser-frakcyjny-rekonwalescencja',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogJakPrzygotowacSkoreDoDiagnostykiRoute =
-  BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport.update({
-    id: '/blog/jak-przygotowac-skore-do-diagnostyki',
-    path: '/blog/jak-przygotowac-skore-do-diagnostyki',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogJakCzestoPowtarzacAnalizeSkoryRoute =
-  BlogJakCzestoPowtarzacAnalizeSkoryRouteImport.update({
-    id: '/blog/jak-czesto-powtarzac-analize-skory',
-    path: '/blog/jak-czesto-powtarzac-analize-skory',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogDiagnostykaSkoryAPlanLeczeniaRoute =
-  BlogDiagnostykaSkoryAPlanLeczeniaRouteImport.update({
-    id: '/blog/diagnostyka-skory-a-plan-leczenia',
-    path: '/blog/diagnostyka-skory-a-plan-leczenia',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogCoDalejPoBadaniuSkoryRoute =
-  BlogCoDalejPoBadaniuSkoryRouteImport.update({
-    id: '/blog/co-dalej-po-badaniu-skory',
-    path: '/blog/co-dalej-po-badaniu-skory',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const BlogBliznyPotradzikoweRoute = BlogBliznyPotradzikoweRouteImport.update({
-  id: '/blog/blizny-potradzikowe',
-  path: '/blog/blizny-potradzikowe',
+const UnsubscribeRoute = UnsubscribeRouteImport.update({
+  id: '/unsubscribe',
+  path: '/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BlogAnalizaSkoryTwarzyKrokPoKrokuRoute =
-  BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport.update({
-    id: '/blog/analiza-skory-twarzy-krok-po-kroku',
-    path: '/blog/analiza-skory-twarzy-krok-po-kroku',
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
     getParentRoute: () => rootRouteImport,
   } as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
@@ -360,81 +197,194 @@ const Char91DotwellKnownChar93OauthProtectedResourceRoute =
     path: '/.well-known/oauth-protected-resource',
     getParentRoute: () => rootRouteImport,
   } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const AuthenticatedAdminRouteRoute = AuthenticatedAdminRouteRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const BlogAnalizaSkoryTwarzyKrokPoKrokuRoute =
+  BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport.update({
+    id: '/blog/analiza-skory-twarzy-krok-po-kroku',
+    path: '/blog/analiza-skory-twarzy-krok-po-kroku',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogBliznyPotradzikoweRoute = BlogBliznyPotradzikoweRouteImport.update({
+  id: '/blog/blizny-potradzikowe',
+  path: '/blog/blizny-potradzikowe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogCoDalejPoBadaniuSkoryRoute =
+  BlogCoDalejPoBadaniuSkoryRouteImport.update({
+    id: '/blog/co-dalej-po-badaniu-skory',
+    path: '/blog/co-dalej-po-badaniu-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogDiagnostykaSkoryAPlanLeczeniaRoute =
+  BlogDiagnostykaSkoryAPlanLeczeniaRouteImport.update({
+    id: '/blog/diagnostyka-skory-a-plan-leczenia',
+    path: '/blog/diagnostyka-skory-a-plan-leczenia',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogJakCzestoPowtarzacAnalizeSkoryRoute =
+  BlogJakCzestoPowtarzacAnalizeSkoryRouteImport.update({
+    id: '/blog/jak-czesto-powtarzac-analize-skory',
+    path: '/blog/jak-czesto-powtarzac-analize-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogJakPrzygotowacSkoreDoDiagnostykiRoute =
+  BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport.update({
+    id: '/blog/jak-przygotowac-skore-do-diagnostyki',
+    path: '/blog/jak-przygotowac-skore-do-diagnostyki',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogLaserFrakcyjnyRekonwalescencjaRoute =
+  BlogLaserFrakcyjnyRekonwalescencjaRouteImport.update({
+    id: '/blog/laser-frakcyjny-rekonwalescencja',
+    path: '/blog/laser-frakcyjny-rekonwalescencja',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogLiftingBezSkalpelaRoute = BlogLiftingBezSkalpelaRouteImport.update({
+  id: '/blog/lifting-bez-skalpela',
+  path: '/blog/lifting-bez-skalpela',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogMechanizmyStarzeniaSkoryRoute =
+  BlogMechanizmyStarzeniaSkoryRouteImport.update({
+    id: '/blog/mechanizmy-starzenia-skory',
+    path: '/blog/mechanizmy-starzenia-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogNajczestszeWynikiAnalizySkoryRoute =
+  BlogNajczestszeWynikiAnalizySkoryRouteImport.update({
+    id: '/blog/najczestsze-wyniki-analizy-skory',
+    path: '/blog/najczestsze-wyniki-analizy-skory',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogPowiklaniaMezoterapiaIglowaRoute =
+  BlogPowiklaniaMezoterapiaIglowaRouteImport.update({
+    id: '/blog/powiklania-mezoterapia-iglowa',
+    path: '/blog/powiklania-mezoterapia-iglowa',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogPtozaTkanekTwarzyRoute = BlogPtozaTkanekTwarzyRouteImport.update({
+  id: '/blog/ptoza-tkanek-twarzy',
+  path: '/blog/ptoza-tkanek-twarzy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlonceSkoraNowoczesneTechnologieRoute =
+  BlogSlonceSkoraNowoczesneTechnologieRouteImport.update({
+    id: '/blog/slonce-skora-nowoczesne-technologie',
+    path: '/blog/slonce-skora-nowoczesne-technologie',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const BlogStarzenieSkoryPtozaTkanekRoute =
+  BlogStarzenieSkoryPtozaTkanekRouteImport.update({
+    id: '/blog/starzenie-skory-ptoza-tkanek',
+    path: '/blog/starzenie-skory-ptoza-tkanek',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
+  id: '/email/unsubscribe',
+  path: '/email/unsubscribe',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FormularzTokenRoute = FormularzTokenRouteImport.update({
+  id: '/formularz/$token',
+  path: '/formularz/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LekarzeIndexRoute = LekarzeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LekarzeRoute,
+} as any)
+const LekarzeHalinaGabaraRoute = LekarzeHalinaGabaraRouteImport.update({
+  id: '/halina-gabara',
+  path: '/halina-gabara',
+  getParentRoute: () => LekarzeRoute,
+} as any)
+const LekarzeJanBujokRoute = LekarzeJanBujokRouteImport.update({
+  id: '/jan-bujok',
+  path: '/jan-bujok',
+  getParentRoute: () => LekarzeRoute,
+} as any)
+const LovableThemesRoute = LovableThemesRouteImport.update({
+  id: '/lovable/themes',
+  path: '/lovable/themes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologieIndexRoute = TechnologieIndexRouteImport.update({
+  id: '/technologie/',
+  path: '/technologie/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologieSlugRoute = TechnologieSlugRouteImport.update({
+  id: '/technologie/$slug',
+  path: '/technologie/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologieFusionPlasmaRoute = TechnologieFusionPlasmaRouteImport.update({
+  id: '/technologie/fusion-plasma',
+  path: '/technologie/fusion-plasma',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologieLaserFrakcyjnyCo2WarszawaRoute =
+  TechnologieLaserFrakcyjnyCo2WarszawaRouteImport.update({
+    id: '/technologie/laser-frakcyjny-co2-warszawa',
+    path: '/technologie/laser-frakcyjny-co2-warszawa',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TechnologieLaserTulowyRoute = TechnologieLaserTulowyRouteImport.update({
+  id: '/technologie/laser-tulowy',
+  path: '/technologie/laser-tulowy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologiePeelingWeglowyLaserowyRoute =
+  TechnologiePeelingWeglowyLaserowyRouteImport.update({
+    id: '/technologie/peeling-weglowy-laserowy',
+    path: '/technologie/peeling-weglowy-laserowy',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const TechnologiePicokingRoute = TechnologiePicokingRouteImport.update({
+  id: '/technologie/picoking',
+  path: '/technologie/picoking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologieTerapiaLedRoute = TechnologieTerapiaLedRouteImport.update({
+  id: '/technologie/terapia-led',
+  path: '/technologie/terapia-led',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechnologieToksynaBotulinowaRoute =
+  TechnologieToksynaBotulinowaRouteImport.update({
+    id: '/technologie/toksyna-botulinowa',
+    path: '/technologie/toksyna-botulinowa',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const WskazaniaIndexRoute = WskazaniaIndexRouteImport.update({
+  id: '/wskazania/',
+  path: '/wskazania/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WskazaniaSlugRoute = WskazaniaSlugRouteImport.update({
+  id: '/wskazania/$slug',
+  path: '/wskazania/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
-const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
-  id: '/lovable/email/suppression',
-  path: '/lovable/email/suppression',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedKontoWizytyRoute =
-  AuthenticatedKontoWizytyRouteImport.update({
-    id: '/konto/wizyty',
-    path: '/konto/wizyty',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedKontoPostepowaniePozabiegoweRoute =
-  AuthenticatedKontoPostepowaniePozabiegoweRouteImport.update({
-    id: '/konto/postepowanie-pozabiegowe',
-    path: '/konto/postepowanie-pozabiegowe',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedAdminWebVitalsRoute =
-  AuthenticatedAdminWebVitalsRouteImport.update({
-    id: '/web-vitals',
-    path: '/web-vitals',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminUzytkownicyRoute =
-  AuthenticatedAdminUzytkownicyRouteImport.update({
-    id: '/uzytkownicy',
-    path: '/uzytkownicy',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminSeoRoute = AuthenticatedAdminSeoRouteImport.update({
-  id: '/seo',
-  path: '/seo',
-  getParentRoute: () => AuthenticatedAdminRouteRoute,
-} as any)
-const AuthenticatedAdminRezerwacjeRoute =
-  AuthenticatedAdminRezerwacjeRouteImport.update({
-    id: '/rezerwacje',
-    path: '/rezerwacje',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminPanelRoute = AuthenticatedAdminPanelRouteImport.update({
-  id: '/panel',
-  path: '/panel',
-  getParentRoute: () => AuthenticatedAdminRouteRoute,
-} as any)
-const AuthenticatedAdminNapRoute = AuthenticatedAdminNapRouteImport.update({
-  id: '/nap',
-  path: '/nap',
-  getParentRoute: () => AuthenticatedAdminRouteRoute,
-} as any)
-const AuthenticatedAdminLekarzeRoute =
-  AuthenticatedAdminLekarzeRouteImport.update({
-    id: '/lekarze',
-    path: '/lekarze',
-    getParentRoute: () => AuthenticatedAdminRouteRoute,
-  } as any)
-const AuthenticatedAdminDnsRoute = AuthenticatedAdminDnsRouteImport.update({
-  id: '/dns',
-  path: '/dns',
+const AuthenticatedAdminAudytRoute = AuthenticatedAdminAudytRouteImport.update({
+  id: '/audyt',
+  path: '/audyt',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
 const AuthenticatedAdminCennikRoute =
@@ -443,101 +393,71 @@ const AuthenticatedAdminCennikRoute =
     path: '/cennik',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const AuthenticatedAdminAudytRoute = AuthenticatedAdminAudytRouteImport.update({
-  id: '/audyt',
-  path: '/audyt',
+const AuthenticatedAdminDnsRoute = AuthenticatedAdminDnsRouteImport.update({
+  id: '/dns',
+  path: '/dns',
   getParentRoute: () => AuthenticatedAdminRouteRoute,
 } as any)
-const Char91DotmcpChar93InvokeToolToolRoute =
-  Char91DotmcpChar93InvokeToolToolRouteImport.update({
-    id: '/.mcp/invoke-tool/$tool',
-    path: '/.mcp/invoke-tool/$tool',
-    getParentRoute: () => rootRouteImport,
+const AuthenticatedAdminLekarzeRoute =
+  AuthenticatedAdminLekarzeRouteImport.update({
+    id: '/lekarze',
+    path: '/lekarze',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const LovableEmailTransactionalSendRoute =
-  LovableEmailTransactionalSendRouteImport.update({
-    id: '/lovable/email/transactional/send',
-    path: '/lovable/email/transactional/send',
-    getParentRoute: () => rootRouteImport,
+const AuthenticatedAdminNapRoute = AuthenticatedAdminNapRouteImport.update({
+  id: '/nap',
+  path: '/nap',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminPanelRoute = AuthenticatedAdminPanelRouteImport.update({
+  id: '/panel',
+  path: '/panel',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminRezerwacjeRoute =
+  AuthenticatedAdminRezerwacjeRouteImport.update({
+    id: '/rezerwacje',
+    path: '/rezerwacje',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const LovableEmailTransactionalPreviewRoute =
-  LovableEmailTransactionalPreviewRouteImport.update({
-    id: '/lovable/email/transactional/preview',
-    path: '/lovable/email/transactional/preview',
-    getParentRoute: () => rootRouteImport,
+const AuthenticatedAdminSeoRoute = AuthenticatedAdminSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
+  getParentRoute: () => AuthenticatedAdminRouteRoute,
+} as any)
+const AuthenticatedAdminUzytkownicyRoute =
+  AuthenticatedAdminUzytkownicyRouteImport.update({
+    id: '/uzytkownicy',
+    path: '/uzytkownicy',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const LovableEmailQueueProcessRoute =
-  LovableEmailQueueProcessRouteImport.update({
-    id: '/lovable/email/queue/process',
-    path: '/lovable/email/queue/process',
-    getParentRoute: () => rootRouteImport,
+const AuthenticatedAdminWebVitalsRoute =
+  AuthenticatedAdminWebVitalsRouteImport.update({
+    id: '/web-vitals',
+    path: '/web-vitals',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
-  id: '/lovable/email/auth/webhook',
-  path: '/lovable/email/auth/webhook',
+const AuthenticatedKontoPostepowaniePozabiegoweRoute =
+  AuthenticatedKontoPostepowaniePozabiegoweRouteImport.update({
+    id: '/konto/postepowanie-pozabiegowe',
+    path: '/konto/postepowanie-pozabiegowe',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedKontoWizytyRoute =
+  AuthenticatedKontoWizytyRouteImport.update({
+    id: '/konto/wizyty',
+    path: '/konto/wizyty',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
+  id: '/lovable/email/suppression',
+  path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
-  id: '/lovable/email/auth/preview',
-  path: '/lovable/email/auth/preview',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicPaymentsWebhookRoute =
-  ApiPublicPaymentsWebhookRouteImport.update({
-    id: '/api/public/payments/webhook',
-    path: '/api/public/payments/webhook',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicIndexnowSplatRoute = ApiPublicIndexnowSplatRouteImport.update({
-  id: '/api/public/indexnow/$',
-  path: '/api/public/indexnow/$',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiPublicHooksSitemapValidateRoute =
-  ApiPublicHooksSitemapValidateRouteImport.update({
-    id: '/api/public/hooks/sitemap-validate',
-    path: '/api/public/hooks/sitemap-validate',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksSeoSnapshotRoute =
-  ApiPublicHooksSeoSnapshotRouteImport.update({
-    id: '/api/public/hooks/seo-snapshot',
-    path: '/api/public/hooks/seo-snapshot',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksSeoIndexationSubmitRoute =
-  ApiPublicHooksSeoIndexationSubmitRouteImport.update({
-    id: '/api/public/hooks/seo-indexation-submit',
-    path: '/api/public/hooks/seo-indexation-submit',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksOgRescrapeRoute =
-  ApiPublicHooksOgRescrapeRouteImport.update({
-    id: '/api/public/hooks/og-rescrape',
-    path: '/api/public/hooks/og-rescrape',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicHooksCalendarSyncRetryRoute =
-  ApiPublicHooksCalendarSyncRetryRouteImport.update({
-    id: '/api/public/hooks/calendar-sync-retry',
-    path: '/api/public/hooks/calendar-sync-retry',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiPublicBookingsCancelRoute = ApiPublicBookingsCancelRouteImport.update({
-  id: '/api/public/bookings/cancel',
-  path: '/api/public/bookings/cancel',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthenticatedAdminSeoRaportyRoute =
-  AuthenticatedAdminSeoRaportyRouteImport.update({
-    id: '/raporty',
-    path: '/raporty',
-    getParentRoute: () => AuthenticatedAdminSeoRoute,
-  } as any)
-const AuthenticatedAdminSeoOgRescrapeRoute =
-  AuthenticatedAdminSeoOgRescrapeRouteImport.update({
-    id: '/og-rescrape',
-    path: '/og-rescrape',
+const AuthenticatedAdminSeoIndeksacjaRoute =
+  AuthenticatedAdminSeoIndeksacjaRouteImport.update({
+    id: '/indeksacja',
+    path: '/indeksacja',
     getParentRoute: () => AuthenticatedAdminSeoRoute,
   } as any)
 const AuthenticatedAdminSeoKeywordsRoute =
@@ -546,11 +466,91 @@ const AuthenticatedAdminSeoKeywordsRoute =
     path: '/keywords',
     getParentRoute: () => AuthenticatedAdminSeoRoute,
   } as any)
-const AuthenticatedAdminSeoIndeksacjaRoute =
-  AuthenticatedAdminSeoIndeksacjaRouteImport.update({
-    id: '/indeksacja',
-    path: '/indeksacja',
+const AuthenticatedAdminSeoOgRescrapeRoute =
+  AuthenticatedAdminSeoOgRescrapeRouteImport.update({
+    id: '/og-rescrape',
+    path: '/og-rescrape',
     getParentRoute: () => AuthenticatedAdminSeoRoute,
+  } as any)
+const AuthenticatedAdminSeoRaportyRoute =
+  AuthenticatedAdminSeoRaportyRouteImport.update({
+    id: '/raporty',
+    path: '/raporty',
+    getParentRoute: () => AuthenticatedAdminSeoRoute,
+  } as any)
+const ApiPublicBookingsCancelRoute = ApiPublicBookingsCancelRouteImport.update({
+  id: '/api/public/bookings/cancel',
+  path: '/api/public/bookings/cancel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicHooksCalendarSyncRetryRoute =
+  ApiPublicHooksCalendarSyncRetryRouteImport.update({
+    id: '/api/public/hooks/calendar-sync-retry',
+    path: '/api/public/hooks/calendar-sync-retry',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksOgRescrapeRoute =
+  ApiPublicHooksOgRescrapeRouteImport.update({
+    id: '/api/public/hooks/og-rescrape',
+    path: '/api/public/hooks/og-rescrape',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksSeoIndexationSubmitRoute =
+  ApiPublicHooksSeoIndexationSubmitRouteImport.update({
+    id: '/api/public/hooks/seo-indexation-submit',
+    path: '/api/public/hooks/seo-indexation-submit',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksSeoSnapshotRoute =
+  ApiPublicHooksSeoSnapshotRouteImport.update({
+    id: '/api/public/hooks/seo-snapshot',
+    path: '/api/public/hooks/seo-snapshot',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicHooksSitemapValidateRoute =
+  ApiPublicHooksSitemapValidateRouteImport.update({
+    id: '/api/public/hooks/sitemap-validate',
+    path: '/api/public/hooks/sitemap-validate',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicIndexnowSplatRoute = ApiPublicIndexnowSplatRouteImport.update({
+  id: '/api/public/indexnow/$',
+  path: '/api/public/indexnow/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicPaymentsWebhookRoute =
+  ApiPublicPaymentsWebhookRouteImport.update({
+    id: '/api/public/payments/webhook',
+    path: '/api/public/payments/webhook',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LovableEmailAuthPreviewRoute = LovableEmailAuthPreviewRouteImport.update({
+  id: '/lovable/email/auth/preview',
+  path: '/lovable/email/auth/preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailAuthWebhookRoute = LovableEmailAuthWebhookRouteImport.update({
+  id: '/lovable/email/auth/webhook',
+  path: '/lovable/email/auth/webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LovableEmailQueueProcessRoute =
+  LovableEmailQueueProcessRouteImport.update({
+    id: '/lovable/email/queue/process',
+    path: '/lovable/email/queue/process',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LovableEmailTransactionalPreviewRoute =
+  LovableEmailTransactionalPreviewRouteImport.update({
+    id: '/lovable/email/transactional/preview',
+    path: '/lovable/email/transactional/preview',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const LovableEmailTransactionalSendRoute =
+  LovableEmailTransactionalSendRouteImport.update({
+    id: '/lovable/email/transactional/send',
+    path: '/lovable/email/transactional/send',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -1133,116 +1133,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/unsubscribe': {
-      id: '/unsubscribe'
-      path: '/unsubscribe'
-      fullPath: '/unsubscribe'
-      preLoaderRoute: typeof UnsubscribeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/rozwiazania': {
-      id: '/rozwiazania'
-      path: '/rozwiazania'
-      fullPath: '/rozwiazania'
-      preLoaderRoute: typeof RozwiazaniaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/renasculpt': {
-      id: '/renasculpt'
-      path: '/renasculpt'
-      fullPath: '/renasculpt'
-      preLoaderRoute: typeof RenasculptRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/regulamin': {
-      id: '/regulamin'
-      path: '/regulamin'
-      fullPath: '/regulamin'
-      preLoaderRoute: typeof RegulaminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/potrzeby': {
-      id: '/potrzeby'
-      path: '/potrzeby'
-      fullPath: '/potrzeby'
-      preLoaderRoute: typeof PotrzebyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/polityka-prywatnosci': {
-      id: '/polityka-prywatnosci'
-      path: '/polityka-prywatnosci'
-      fullPath: '/polityka-prywatnosci'
-      preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lekarze': {
-      id: '/lekarze'
-      path: '/lekarze'
-      fullPath: '/lekarze'
-      preLoaderRoute: typeof LekarzeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/konsultacja-dziekujemy': {
-      id: '/konsultacja-dziekujemy'
-      path: '/konsultacja-dziekujemy'
-      fullPath: '/konsultacja-dziekujemy'
-      preLoaderRoute: typeof KonsultacjaDziekujemyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/konsultacja': {
-      id: '/konsultacja'
-      path: '/konsultacja'
-      fullPath: '/konsultacja'
-      preLoaderRoute: typeof KonsultacjaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/diagnostyka-skory-warszawa': {
-      id: '/diagnostyka-skory-warszawa'
-      path: '/diagnostyka-skory-warszawa'
-      fullPath: '/diagnostyka-skory-warszawa'
-      preLoaderRoute: typeof DiagnostykaSkoryWarszawaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/diagnostyka-skory-siedlce': {
-      id: '/diagnostyka-skory-siedlce'
-      path: '/diagnostyka-skory-siedlce'
-      fullPath: '/diagnostyka-skory-siedlce'
-      preLoaderRoute: typeof DiagnostykaSkorySiedlceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cennik': {
-      id: '/cennik'
-      path: '/cennik'
-      fullPath: '/cennik'
-      preLoaderRoute: typeof CennikRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/bezpieczenstwo-zabiegow-laserowych': {
-      id: '/bezpieczenstwo-zabiegow-laserowych'
-      path: '/bezpieczenstwo-zabiegow-laserowych'
-      fullPath: '/bezpieczenstwo-zabiegow-laserowych'
-      preLoaderRoute: typeof BezpieczenstwoZabiegowLaserowychRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -1252,235 +1147,116 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/wskazania/': {
-      id: '/wskazania/'
-      path: '/wskazania'
-      fullPath: '/wskazania/'
-      preLoaderRoute: typeof WskazaniaIndexRouteImport
+    '/bezpieczenstwo-zabiegow-laserowych': {
+      id: '/bezpieczenstwo-zabiegow-laserowych'
+      path: '/bezpieczenstwo-zabiegow-laserowych'
+      fullPath: '/bezpieczenstwo-zabiegow-laserowych'
+      preLoaderRoute: typeof BezpieczenstwoZabiegowLaserowychRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/technologie/': {
-      id: '/technologie/'
-      path: '/technologie'
-      fullPath: '/technologie/'
-      preLoaderRoute: typeof TechnologieIndexRouteImport
+    '/cennik': {
+      id: '/cennik'
+      path: '/cennik'
+      fullPath: '/cennik'
+      preLoaderRoute: typeof CennikRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lekarze/': {
-      id: '/lekarze/'
-      path: '/'
-      fullPath: '/lekarze/'
-      preLoaderRoute: typeof LekarzeIndexRouteImport
-      parentRoute: typeof LekarzeRoute
-    }
-    '/wskazania/$slug': {
-      id: '/wskazania/$slug'
-      path: '/wskazania/$slug'
-      fullPath: '/wskazania/$slug'
-      preLoaderRoute: typeof WskazaniaSlugRouteImport
+    '/diagnostyka-skory-siedlce': {
+      id: '/diagnostyka-skory-siedlce'
+      path: '/diagnostyka-skory-siedlce'
+      fullPath: '/diagnostyka-skory-siedlce'
+      preLoaderRoute: typeof DiagnostykaSkorySiedlceRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/technologie/toksyna-botulinowa': {
-      id: '/technologie/toksyna-botulinowa'
-      path: '/technologie/toksyna-botulinowa'
-      fullPath: '/technologie/toksyna-botulinowa'
-      preLoaderRoute: typeof TechnologieToksynaBotulinowaRouteImport
+    '/diagnostyka-skory-warszawa': {
+      id: '/diagnostyka-skory-warszawa'
+      path: '/diagnostyka-skory-warszawa'
+      fullPath: '/diagnostyka-skory-warszawa'
+      preLoaderRoute: typeof DiagnostykaSkoryWarszawaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/technologie/terapia-led': {
-      id: '/technologie/terapia-led'
-      path: '/technologie/terapia-led'
-      fullPath: '/technologie/terapia-led'
-      preLoaderRoute: typeof TechnologieTerapiaLedRouteImport
+    '/konsultacja': {
+      id: '/konsultacja'
+      path: '/konsultacja'
+      fullPath: '/konsultacja'
+      preLoaderRoute: typeof KonsultacjaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/technologie/picoking': {
-      id: '/technologie/picoking'
-      path: '/technologie/picoking'
-      fullPath: '/technologie/picoking'
-      preLoaderRoute: typeof TechnologiePicokingRouteImport
+    '/konsultacja-dziekujemy': {
+      id: '/konsultacja-dziekujemy'
+      path: '/konsultacja-dziekujemy'
+      fullPath: '/konsultacja-dziekujemy'
+      preLoaderRoute: typeof KonsultacjaDziekujemyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/technologie/peeling-weglowy-laserowy': {
-      id: '/technologie/peeling-weglowy-laserowy'
-      path: '/technologie/peeling-weglowy-laserowy'
-      fullPath: '/technologie/peeling-weglowy-laserowy'
-      preLoaderRoute: typeof TechnologiePeelingWeglowyLaserowyRouteImport
+    '/lekarze': {
+      id: '/lekarze'
+      path: '/lekarze'
+      fullPath: '/lekarze'
+      preLoaderRoute: typeof LekarzeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/technologie/laser-tulowy': {
-      id: '/technologie/laser-tulowy'
-      path: '/technologie/laser-tulowy'
-      fullPath: '/technologie/laser-tulowy'
-      preLoaderRoute: typeof TechnologieLaserTulowyRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/technologie/laser-frakcyjny-co2-warszawa': {
-      id: '/technologie/laser-frakcyjny-co2-warszawa'
-      path: '/technologie/laser-frakcyjny-co2-warszawa'
-      fullPath: '/technologie/laser-frakcyjny-co2-warszawa'
-      preLoaderRoute: typeof TechnologieLaserFrakcyjnyCo2WarszawaRouteImport
+    '/polityka-prywatnosci': {
+      id: '/polityka-prywatnosci'
+      path: '/polityka-prywatnosci'
+      fullPath: '/polityka-prywatnosci'
+      preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/technologie/fusion-plasma': {
-      id: '/technologie/fusion-plasma'
-      path: '/technologie/fusion-plasma'
-      fullPath: '/technologie/fusion-plasma'
-      preLoaderRoute: typeof TechnologieFusionPlasmaRouteImport
+    '/potrzeby': {
+      id: '/potrzeby'
+      path: '/potrzeby'
+      fullPath: '/potrzeby'
+      preLoaderRoute: typeof PotrzebyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/technologie/$slug': {
-      id: '/technologie/$slug'
-      path: '/technologie/$slug'
-      fullPath: '/technologie/$slug'
-      preLoaderRoute: typeof TechnologieSlugRouteImport
+    '/regulamin': {
+      id: '/regulamin'
+      path: '/regulamin'
+      fullPath: '/regulamin'
+      preLoaderRoute: typeof RegulaminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/themes': {
-      id: '/lovable/themes'
-      path: '/lovable/themes'
-      fullPath: '/lovable/themes'
-      preLoaderRoute: typeof LovableThemesRouteImport
+    '/renasculpt': {
+      id: '/renasculpt'
+      path: '/renasculpt'
+      fullPath: '/renasculpt'
+      preLoaderRoute: typeof RenasculptRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lekarze/jan-bujok': {
-      id: '/lekarze/jan-bujok'
-      path: '/jan-bujok'
-      fullPath: '/lekarze/jan-bujok'
-      preLoaderRoute: typeof LekarzeJanBujokRouteImport
-      parentRoute: typeof LekarzeRoute
-    }
-    '/lekarze/halina-gabara': {
-      id: '/lekarze/halina-gabara'
-      path: '/halina-gabara'
-      fullPath: '/lekarze/halina-gabara'
-      preLoaderRoute: typeof LekarzeHalinaGabaraRouteImport
-      parentRoute: typeof LekarzeRoute
-    }
-    '/formularz/$token': {
-      id: '/formularz/$token'
-      path: '/formularz/$token'
-      fullPath: '/formularz/$token'
-      preLoaderRoute: typeof FormularzTokenRouteImport
+    '/rozwiazania': {
+      id: '/rozwiazania'
+      path: '/rozwiazania'
+      fullPath: '/rozwiazania'
+      preLoaderRoute: typeof RozwiazaniaRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/email/unsubscribe': {
-      id: '/email/unsubscribe'
-      path: '/email/unsubscribe'
-      fullPath: '/email/unsubscribe'
-      preLoaderRoute: typeof EmailUnsubscribeRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/blog/starzenie-skory-ptoza-tkanek': {
-      id: '/blog/starzenie-skory-ptoza-tkanek'
-      path: '/blog/starzenie-skory-ptoza-tkanek'
-      fullPath: '/blog/starzenie-skory-ptoza-tkanek'
-      preLoaderRoute: typeof BlogStarzenieSkoryPtozaTkanekRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/slonce-skora-nowoczesne-technologie': {
-      id: '/blog/slonce-skora-nowoczesne-technologie'
-      path: '/blog/slonce-skora-nowoczesne-technologie'
-      fullPath: '/blog/slonce-skora-nowoczesne-technologie'
-      preLoaderRoute: typeof BlogSlonceSkoraNowoczesneTechnologieRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/ptoza-tkanek-twarzy': {
-      id: '/blog/ptoza-tkanek-twarzy'
-      path: '/blog/ptoza-tkanek-twarzy'
-      fullPath: '/blog/ptoza-tkanek-twarzy'
-      preLoaderRoute: typeof BlogPtozaTkanekTwarzyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/powiklania-mezoterapia-iglowa': {
-      id: '/blog/powiklania-mezoterapia-iglowa'
-      path: '/blog/powiklania-mezoterapia-iglowa'
-      fullPath: '/blog/powiklania-mezoterapia-iglowa'
-      preLoaderRoute: typeof BlogPowiklaniaMezoterapiaIglowaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/najczestsze-wyniki-analizy-skory': {
-      id: '/blog/najczestsze-wyniki-analizy-skory'
-      path: '/blog/najczestsze-wyniki-analizy-skory'
-      fullPath: '/blog/najczestsze-wyniki-analizy-skory'
-      preLoaderRoute: typeof BlogNajczestszeWynikiAnalizySkoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/mechanizmy-starzenia-skory': {
-      id: '/blog/mechanizmy-starzenia-skory'
-      path: '/blog/mechanizmy-starzenia-skory'
-      fullPath: '/blog/mechanizmy-starzenia-skory'
-      preLoaderRoute: typeof BlogMechanizmyStarzeniaSkoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/lifting-bez-skalpela': {
-      id: '/blog/lifting-bez-skalpela'
-      path: '/blog/lifting-bez-skalpela'
-      fullPath: '/blog/lifting-bez-skalpela'
-      preLoaderRoute: typeof BlogLiftingBezSkalpelaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/laser-frakcyjny-rekonwalescencja': {
-      id: '/blog/laser-frakcyjny-rekonwalescencja'
-      path: '/blog/laser-frakcyjny-rekonwalescencja'
-      fullPath: '/blog/laser-frakcyjny-rekonwalescencja'
-      preLoaderRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/jak-przygotowac-skore-do-diagnostyki': {
-      id: '/blog/jak-przygotowac-skore-do-diagnostyki'
-      path: '/blog/jak-przygotowac-skore-do-diagnostyki'
-      fullPath: '/blog/jak-przygotowac-skore-do-diagnostyki'
-      preLoaderRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/jak-czesto-powtarzac-analize-skory': {
-      id: '/blog/jak-czesto-powtarzac-analize-skory'
-      path: '/blog/jak-czesto-powtarzac-analize-skory'
-      fullPath: '/blog/jak-czesto-powtarzac-analize-skory'
-      preLoaderRoute: typeof BlogJakCzestoPowtarzacAnalizeSkoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/diagnostyka-skory-a-plan-leczenia': {
-      id: '/blog/diagnostyka-skory-a-plan-leczenia'
-      path: '/blog/diagnostyka-skory-a-plan-leczenia'
-      fullPath: '/blog/diagnostyka-skory-a-plan-leczenia'
-      preLoaderRoute: typeof BlogDiagnostykaSkoryAPlanLeczeniaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/co-dalej-po-badaniu-skory': {
-      id: '/blog/co-dalej-po-badaniu-skory'
-      path: '/blog/co-dalej-po-badaniu-skory'
-      fullPath: '/blog/co-dalej-po-badaniu-skory'
-      preLoaderRoute: typeof BlogCoDalejPoBadaniuSkoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/blizny-potradzikowe': {
-      id: '/blog/blizny-potradzikowe'
-      path: '/blog/blizny-potradzikowe'
-      fullPath: '/blog/blizny-potradzikowe'
-      preLoaderRoute: typeof BlogBliznyPotradzikoweRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/analiza-skory-twarzy-krok-po-kroku': {
-      id: '/blog/analiza-skory-twarzy-krok-po-kroku'
-      path: '/blog/analiza-skory-twarzy-krok-po-kroku'
-      fullPath: '/blog/analiza-skory-twarzy-krok-po-kroku'
-      preLoaderRoute: typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/unsubscribe': {
+      id: '/unsubscribe'
+      path: '/unsubscribe'
+      fullPath: '/unsubscribe'
+      preLoaderRoute: typeof UnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/.mcp/list-tools': {
@@ -1490,6 +1266,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin': {
       id: '/_authenticated/admin'
       path: '/admin'
@@ -1497,95 +1280,235 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/blog/analiza-skory-twarzy-krok-po-kroku': {
+      id: '/blog/analiza-skory-twarzy-krok-po-kroku'
+      path: '/blog/analiza-skory-twarzy-krok-po-kroku'
+      fullPath: '/blog/analiza-skory-twarzy-krok-po-kroku'
+      preLoaderRoute: typeof BlogAnalizaSkoryTwarzyKrokPoKrokuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/blizny-potradzikowe': {
+      id: '/blog/blizny-potradzikowe'
+      path: '/blog/blizny-potradzikowe'
+      fullPath: '/blog/blizny-potradzikowe'
+      preLoaderRoute: typeof BlogBliznyPotradzikoweRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/co-dalej-po-badaniu-skory': {
+      id: '/blog/co-dalej-po-badaniu-skory'
+      path: '/blog/co-dalej-po-badaniu-skory'
+      fullPath: '/blog/co-dalej-po-badaniu-skory'
+      preLoaderRoute: typeof BlogCoDalejPoBadaniuSkoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/diagnostyka-skory-a-plan-leczenia': {
+      id: '/blog/diagnostyka-skory-a-plan-leczenia'
+      path: '/blog/diagnostyka-skory-a-plan-leczenia'
+      fullPath: '/blog/diagnostyka-skory-a-plan-leczenia'
+      preLoaderRoute: typeof BlogDiagnostykaSkoryAPlanLeczeniaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/jak-czesto-powtarzac-analize-skory': {
+      id: '/blog/jak-czesto-powtarzac-analize-skory'
+      path: '/blog/jak-czesto-powtarzac-analize-skory'
+      fullPath: '/blog/jak-czesto-powtarzac-analize-skory'
+      preLoaderRoute: typeof BlogJakCzestoPowtarzacAnalizeSkoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/jak-przygotowac-skore-do-diagnostyki': {
+      id: '/blog/jak-przygotowac-skore-do-diagnostyki'
+      path: '/blog/jak-przygotowac-skore-do-diagnostyki'
+      fullPath: '/blog/jak-przygotowac-skore-do-diagnostyki'
+      preLoaderRoute: typeof BlogJakPrzygotowacSkoreDoDiagnostykiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/laser-frakcyjny-rekonwalescencja': {
+      id: '/blog/laser-frakcyjny-rekonwalescencja'
+      path: '/blog/laser-frakcyjny-rekonwalescencja'
+      fullPath: '/blog/laser-frakcyjny-rekonwalescencja'
+      preLoaderRoute: typeof BlogLaserFrakcyjnyRekonwalescencjaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/lifting-bez-skalpela': {
+      id: '/blog/lifting-bez-skalpela'
+      path: '/blog/lifting-bez-skalpela'
+      fullPath: '/blog/lifting-bez-skalpela'
+      preLoaderRoute: typeof BlogLiftingBezSkalpelaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/mechanizmy-starzenia-skory': {
+      id: '/blog/mechanizmy-starzenia-skory'
+      path: '/blog/mechanizmy-starzenia-skory'
+      fullPath: '/blog/mechanizmy-starzenia-skory'
+      preLoaderRoute: typeof BlogMechanizmyStarzeniaSkoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/najczestsze-wyniki-analizy-skory': {
+      id: '/blog/najczestsze-wyniki-analizy-skory'
+      path: '/blog/najczestsze-wyniki-analizy-skory'
+      fullPath: '/blog/najczestsze-wyniki-analizy-skory'
+      preLoaderRoute: typeof BlogNajczestszeWynikiAnalizySkoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/powiklania-mezoterapia-iglowa': {
+      id: '/blog/powiklania-mezoterapia-iglowa'
+      path: '/blog/powiklania-mezoterapia-iglowa'
+      fullPath: '/blog/powiklania-mezoterapia-iglowa'
+      preLoaderRoute: typeof BlogPowiklaniaMezoterapiaIglowaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/ptoza-tkanek-twarzy': {
+      id: '/blog/ptoza-tkanek-twarzy'
+      path: '/blog/ptoza-tkanek-twarzy'
+      fullPath: '/blog/ptoza-tkanek-twarzy'
+      preLoaderRoute: typeof BlogPtozaTkanekTwarzyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/slonce-skora-nowoczesne-technologie': {
+      id: '/blog/slonce-skora-nowoczesne-technologie'
+      path: '/blog/slonce-skora-nowoczesne-technologie'
+      fullPath: '/blog/slonce-skora-nowoczesne-technologie'
+      preLoaderRoute: typeof BlogSlonceSkoraNowoczesneTechnologieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/starzenie-skory-ptoza-tkanek': {
+      id: '/blog/starzenie-skory-ptoza-tkanek'
+      path: '/blog/starzenie-skory-ptoza-tkanek'
+      fullPath: '/blog/starzenie-skory-ptoza-tkanek'
+      preLoaderRoute: typeof BlogStarzenieSkoryPtozaTkanekRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/email/unsubscribe': {
+      id: '/email/unsubscribe'
+      path: '/email/unsubscribe'
+      fullPath: '/email/unsubscribe'
+      preLoaderRoute: typeof EmailUnsubscribeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/formularz/$token': {
+      id: '/formularz/$token'
+      path: '/formularz/$token'
+      fullPath: '/formularz/$token'
+      preLoaderRoute: typeof FormularzTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lekarze/': {
+      id: '/lekarze/'
+      path: '/'
+      fullPath: '/lekarze/'
+      preLoaderRoute: typeof LekarzeIndexRouteImport
+      parentRoute: typeof LekarzeRoute
+    }
+    '/lekarze/halina-gabara': {
+      id: '/lekarze/halina-gabara'
+      path: '/halina-gabara'
+      fullPath: '/lekarze/halina-gabara'
+      preLoaderRoute: typeof LekarzeHalinaGabaraRouteImport
+      parentRoute: typeof LekarzeRoute
+    }
+    '/lekarze/jan-bujok': {
+      id: '/lekarze/jan-bujok'
+      path: '/jan-bujok'
+      fullPath: '/lekarze/jan-bujok'
+      preLoaderRoute: typeof LekarzeJanBujokRouteImport
+      parentRoute: typeof LekarzeRoute
+    }
+    '/lovable/themes': {
+      id: '/lovable/themes'
+      path: '/lovable/themes'
+      fullPath: '/lovable/themes'
+      preLoaderRoute: typeof LovableThemesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/': {
+      id: '/technologie/'
+      path: '/technologie'
+      fullPath: '/technologie/'
+      preLoaderRoute: typeof TechnologieIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/$slug': {
+      id: '/technologie/$slug'
+      path: '/technologie/$slug'
+      fullPath: '/technologie/$slug'
+      preLoaderRoute: typeof TechnologieSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/fusion-plasma': {
+      id: '/technologie/fusion-plasma'
+      path: '/technologie/fusion-plasma'
+      fullPath: '/technologie/fusion-plasma'
+      preLoaderRoute: typeof TechnologieFusionPlasmaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/laser-frakcyjny-co2-warszawa': {
+      id: '/technologie/laser-frakcyjny-co2-warszawa'
+      path: '/technologie/laser-frakcyjny-co2-warszawa'
+      fullPath: '/technologie/laser-frakcyjny-co2-warszawa'
+      preLoaderRoute: typeof TechnologieLaserFrakcyjnyCo2WarszawaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/laser-tulowy': {
+      id: '/technologie/laser-tulowy'
+      path: '/technologie/laser-tulowy'
+      fullPath: '/technologie/laser-tulowy'
+      preLoaderRoute: typeof TechnologieLaserTulowyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/peeling-weglowy-laserowy': {
+      id: '/technologie/peeling-weglowy-laserowy'
+      path: '/technologie/peeling-weglowy-laserowy'
+      fullPath: '/technologie/peeling-weglowy-laserowy'
+      preLoaderRoute: typeof TechnologiePeelingWeglowyLaserowyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/picoking': {
+      id: '/technologie/picoking'
+      path: '/technologie/picoking'
+      fullPath: '/technologie/picoking'
+      preLoaderRoute: typeof TechnologiePicokingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/terapia-led': {
+      id: '/technologie/terapia-led'
+      path: '/technologie/terapia-led'
+      fullPath: '/technologie/terapia-led'
+      preLoaderRoute: typeof TechnologieTerapiaLedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/technologie/toksyna-botulinowa': {
+      id: '/technologie/toksyna-botulinowa'
+      path: '/technologie/toksyna-botulinowa'
+      fullPath: '/technologie/toksyna-botulinowa'
+      preLoaderRoute: typeof TechnologieToksynaBotulinowaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wskazania/': {
+      id: '/wskazania/'
+      path: '/wskazania'
+      fullPath: '/wskazania/'
+      preLoaderRoute: typeof WskazaniaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wskazania/$slug': {
+      id: '/wskazania/$slug'
+      path: '/wskazania/$slug'
+      fullPath: '/wskazania/$slug'
+      preLoaderRoute: typeof WskazaniaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/'
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/lovable/email/suppression': {
-      id: '/lovable/email/suppression'
-      path: '/lovable/email/suppression'
-      fullPath: '/lovable/email/suppression'
-      preLoaderRoute: typeof LovableEmailSuppressionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/konto/wizyty': {
-      id: '/_authenticated/konto/wizyty'
-      path: '/konto/wizyty'
-      fullPath: '/konto/wizyty'
-      preLoaderRoute: typeof AuthenticatedKontoWizytyRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/konto/postepowanie-pozabiegowe': {
-      id: '/_authenticated/konto/postepowanie-pozabiegowe'
-      path: '/konto/postepowanie-pozabiegowe'
-      fullPath: '/konto/postepowanie-pozabiegowe'
-      preLoaderRoute: typeof AuthenticatedKontoPostepowaniePozabiegoweRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/admin/web-vitals': {
-      id: '/_authenticated/admin/web-vitals'
-      path: '/web-vitals'
-      fullPath: '/admin/web-vitals'
-      preLoaderRoute: typeof AuthenticatedAdminWebVitalsRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/uzytkownicy': {
-      id: '/_authenticated/admin/uzytkownicy'
-      path: '/uzytkownicy'
-      fullPath: '/admin/uzytkownicy'
-      preLoaderRoute: typeof AuthenticatedAdminUzytkownicyRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/seo': {
-      id: '/_authenticated/admin/seo'
-      path: '/seo'
-      fullPath: '/admin/seo'
-      preLoaderRoute: typeof AuthenticatedAdminSeoRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/rezerwacje': {
-      id: '/_authenticated/admin/rezerwacje'
-      path: '/rezerwacje'
-      fullPath: '/admin/rezerwacje'
-      preLoaderRoute: typeof AuthenticatedAdminRezerwacjeRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/panel': {
-      id: '/_authenticated/admin/panel'
-      path: '/panel'
-      fullPath: '/admin/panel'
-      preLoaderRoute: typeof AuthenticatedAdminPanelRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/nap': {
-      id: '/_authenticated/admin/nap'
-      path: '/nap'
-      fullPath: '/admin/nap'
-      preLoaderRoute: typeof AuthenticatedAdminNapRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/lekarze': {
-      id: '/_authenticated/admin/lekarze'
-      path: '/lekarze'
-      fullPath: '/admin/lekarze'
-      preLoaderRoute: typeof AuthenticatedAdminLekarzeRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/dns': {
-      id: '/_authenticated/admin/dns'
-      path: '/dns'
-      fullPath: '/admin/dns'
-      preLoaderRoute: typeof AuthenticatedAdminDnsRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
-    '/_authenticated/admin/cennik': {
-      id: '/_authenticated/admin/cennik'
-      path: '/cennik'
-      fullPath: '/admin/cennik'
-      preLoaderRoute: typeof AuthenticatedAdminCennikRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/audyt': {
@@ -1595,116 +1518,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminAudytRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+    '/_authenticated/admin/cennik': {
+      id: '/_authenticated/admin/cennik'
+      path: '/cennik'
+      fullPath: '/admin/cennik'
+      preLoaderRoute: typeof AuthenticatedAdminCennikRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/dns': {
+      id: '/_authenticated/admin/dns'
+      path: '/dns'
+      fullPath: '/admin/dns'
+      preLoaderRoute: typeof AuthenticatedAdminDnsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/lekarze': {
+      id: '/_authenticated/admin/lekarze'
+      path: '/lekarze'
+      fullPath: '/admin/lekarze'
+      preLoaderRoute: typeof AuthenticatedAdminLekarzeRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/nap': {
+      id: '/_authenticated/admin/nap'
+      path: '/nap'
+      fullPath: '/admin/nap'
+      preLoaderRoute: typeof AuthenticatedAdminNapRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/panel': {
+      id: '/_authenticated/admin/panel'
+      path: '/panel'
+      fullPath: '/admin/panel'
+      preLoaderRoute: typeof AuthenticatedAdminPanelRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/rezerwacje': {
+      id: '/_authenticated/admin/rezerwacje'
+      path: '/rezerwacje'
+      fullPath: '/admin/rezerwacje'
+      preLoaderRoute: typeof AuthenticatedAdminRezerwacjeRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/seo': {
+      id: '/_authenticated/admin/seo'
+      path: '/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AuthenticatedAdminSeoRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/uzytkownicy': {
+      id: '/_authenticated/admin/uzytkownicy'
+      path: '/uzytkownicy'
+      fullPath: '/admin/uzytkownicy'
+      preLoaderRoute: typeof AuthenticatedAdminUzytkownicyRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/admin/web-vitals': {
+      id: '/_authenticated/admin/web-vitals'
+      path: '/web-vitals'
+      fullPath: '/admin/web-vitals'
+      preLoaderRoute: typeof AuthenticatedAdminWebVitalsRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
+    '/_authenticated/konto/postepowanie-pozabiegowe': {
+      id: '/_authenticated/konto/postepowanie-pozabiegowe'
+      path: '/konto/postepowanie-pozabiegowe'
+      fullPath: '/konto/postepowanie-pozabiegowe'
+      preLoaderRoute: typeof AuthenticatedKontoPostepowaniePozabiegoweRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/konto/wizyty': {
+      id: '/_authenticated/konto/wizyty'
+      path: '/konto/wizyty'
+      fullPath: '/konto/wizyty'
+      preLoaderRoute: typeof AuthenticatedKontoWizytyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/lovable/email/suppression': {
+      id: '/lovable/email/suppression'
+      path: '/lovable/email/suppression'
+      fullPath: '/lovable/email/suppression'
+      preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lovable/email/transactional/send': {
-      id: '/lovable/email/transactional/send'
-      path: '/lovable/email/transactional/send'
-      fullPath: '/lovable/email/transactional/send'
-      preLoaderRoute: typeof LovableEmailTransactionalSendRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lovable/email/transactional/preview': {
-      id: '/lovable/email/transactional/preview'
-      path: '/lovable/email/transactional/preview'
-      fullPath: '/lovable/email/transactional/preview'
-      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lovable/email/queue/process': {
-      id: '/lovable/email/queue/process'
-      path: '/lovable/email/queue/process'
-      fullPath: '/lovable/email/queue/process'
-      preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lovable/email/auth/webhook': {
-      id: '/lovable/email/auth/webhook'
-      path: '/lovable/email/auth/webhook'
-      fullPath: '/lovable/email/auth/webhook'
-      preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/lovable/email/auth/preview': {
-      id: '/lovable/email/auth/preview'
-      path: '/lovable/email/auth/preview'
-      fullPath: '/lovable/email/auth/preview'
-      preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/payments/webhook': {
-      id: '/api/public/payments/webhook'
-      path: '/api/public/payments/webhook'
-      fullPath: '/api/public/payments/webhook'
-      preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/indexnow/$': {
-      id: '/api/public/indexnow/$'
-      path: '/api/public/indexnow/$'
-      fullPath: '/api/public/indexnow/$'
-      preLoaderRoute: typeof ApiPublicIndexnowSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/sitemap-validate': {
-      id: '/api/public/hooks/sitemap-validate'
-      path: '/api/public/hooks/sitemap-validate'
-      fullPath: '/api/public/hooks/sitemap-validate'
-      preLoaderRoute: typeof ApiPublicHooksSitemapValidateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/seo-snapshot': {
-      id: '/api/public/hooks/seo-snapshot'
-      path: '/api/public/hooks/seo-snapshot'
-      fullPath: '/api/public/hooks/seo-snapshot'
-      preLoaderRoute: typeof ApiPublicHooksSeoSnapshotRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/seo-indexation-submit': {
-      id: '/api/public/hooks/seo-indexation-submit'
-      path: '/api/public/hooks/seo-indexation-submit'
-      fullPath: '/api/public/hooks/seo-indexation-submit'
-      preLoaderRoute: typeof ApiPublicHooksSeoIndexationSubmitRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/og-rescrape': {
-      id: '/api/public/hooks/og-rescrape'
-      path: '/api/public/hooks/og-rescrape'
-      fullPath: '/api/public/hooks/og-rescrape'
-      preLoaderRoute: typeof ApiPublicHooksOgRescrapeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/hooks/calendar-sync-retry': {
-      id: '/api/public/hooks/calendar-sync-retry'
-      path: '/api/public/hooks/calendar-sync-retry'
-      fullPath: '/api/public/hooks/calendar-sync-retry'
-      preLoaderRoute: typeof ApiPublicHooksCalendarSyncRetryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/public/bookings/cancel': {
-      id: '/api/public/bookings/cancel'
-      path: '/api/public/bookings/cancel'
-      fullPath: '/api/public/bookings/cancel'
-      preLoaderRoute: typeof ApiPublicBookingsCancelRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/admin/seo/raporty': {
-      id: '/_authenticated/admin/seo/raporty'
-      path: '/raporty'
-      fullPath: '/admin/seo/raporty'
-      preLoaderRoute: typeof AuthenticatedAdminSeoRaportyRouteImport
-      parentRoute: typeof AuthenticatedAdminSeoRoute
-    }
-    '/_authenticated/admin/seo/og-rescrape': {
-      id: '/_authenticated/admin/seo/og-rescrape'
-      path: '/og-rescrape'
-      fullPath: '/admin/seo/og-rescrape'
-      preLoaderRoute: typeof AuthenticatedAdminSeoOgRescrapeRouteImport
+    '/_authenticated/admin/seo/indeksacja': {
+      id: '/_authenticated/admin/seo/indeksacja'
+      path: '/indeksacja'
+      fullPath: '/admin/seo/indeksacja'
+      preLoaderRoute: typeof AuthenticatedAdminSeoIndeksacjaRouteImport
       parentRoute: typeof AuthenticatedAdminSeoRoute
     }
     '/_authenticated/admin/seo/keywords': {
@@ -1714,12 +1616,110 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminSeoKeywordsRouteImport
       parentRoute: typeof AuthenticatedAdminSeoRoute
     }
-    '/_authenticated/admin/seo/indeksacja': {
-      id: '/_authenticated/admin/seo/indeksacja'
-      path: '/indeksacja'
-      fullPath: '/admin/seo/indeksacja'
-      preLoaderRoute: typeof AuthenticatedAdminSeoIndeksacjaRouteImport
+    '/_authenticated/admin/seo/og-rescrape': {
+      id: '/_authenticated/admin/seo/og-rescrape'
+      path: '/og-rescrape'
+      fullPath: '/admin/seo/og-rescrape'
+      preLoaderRoute: typeof AuthenticatedAdminSeoOgRescrapeRouteImport
       parentRoute: typeof AuthenticatedAdminSeoRoute
+    }
+    '/_authenticated/admin/seo/raporty': {
+      id: '/_authenticated/admin/seo/raporty'
+      path: '/raporty'
+      fullPath: '/admin/seo/raporty'
+      preLoaderRoute: typeof AuthenticatedAdminSeoRaportyRouteImport
+      parentRoute: typeof AuthenticatedAdminSeoRoute
+    }
+    '/api/public/bookings/cancel': {
+      id: '/api/public/bookings/cancel'
+      path: '/api/public/bookings/cancel'
+      fullPath: '/api/public/bookings/cancel'
+      preLoaderRoute: typeof ApiPublicBookingsCancelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/calendar-sync-retry': {
+      id: '/api/public/hooks/calendar-sync-retry'
+      path: '/api/public/hooks/calendar-sync-retry'
+      fullPath: '/api/public/hooks/calendar-sync-retry'
+      preLoaderRoute: typeof ApiPublicHooksCalendarSyncRetryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/og-rescrape': {
+      id: '/api/public/hooks/og-rescrape'
+      path: '/api/public/hooks/og-rescrape'
+      fullPath: '/api/public/hooks/og-rescrape'
+      preLoaderRoute: typeof ApiPublicHooksOgRescrapeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/seo-indexation-submit': {
+      id: '/api/public/hooks/seo-indexation-submit'
+      path: '/api/public/hooks/seo-indexation-submit'
+      fullPath: '/api/public/hooks/seo-indexation-submit'
+      preLoaderRoute: typeof ApiPublicHooksSeoIndexationSubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/seo-snapshot': {
+      id: '/api/public/hooks/seo-snapshot'
+      path: '/api/public/hooks/seo-snapshot'
+      fullPath: '/api/public/hooks/seo-snapshot'
+      preLoaderRoute: typeof ApiPublicHooksSeoSnapshotRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/hooks/sitemap-validate': {
+      id: '/api/public/hooks/sitemap-validate'
+      path: '/api/public/hooks/sitemap-validate'
+      fullPath: '/api/public/hooks/sitemap-validate'
+      preLoaderRoute: typeof ApiPublicHooksSitemapValidateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/indexnow/$': {
+      id: '/api/public/indexnow/$'
+      path: '/api/public/indexnow/$'
+      fullPath: '/api/public/indexnow/$'
+      preLoaderRoute: typeof ApiPublicIndexnowSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/payments/webhook': {
+      id: '/api/public/payments/webhook'
+      path: '/api/public/payments/webhook'
+      fullPath: '/api/public/payments/webhook'
+      preLoaderRoute: typeof ApiPublicPaymentsWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/preview': {
+      id: '/lovable/email/auth/preview'
+      path: '/lovable/email/auth/preview'
+      fullPath: '/lovable/email/auth/preview'
+      preLoaderRoute: typeof LovableEmailAuthPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/auth/webhook': {
+      id: '/lovable/email/auth/webhook'
+      path: '/lovable/email/auth/webhook'
+      fullPath: '/lovable/email/auth/webhook'
+      preLoaderRoute: typeof LovableEmailAuthWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/queue/process': {
+      id: '/lovable/email/queue/process'
+      path: '/lovable/email/queue/process'
+      fullPath: '/lovable/email/queue/process'
+      preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/preview': {
+      id: '/lovable/email/transactional/preview'
+      path: '/lovable/email/transactional/preview'
+      fullPath: '/lovable/email/transactional/preview'
+      preLoaderRoute: typeof LovableEmailTransactionalPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lovable/email/transactional/send': {
+      id: '/lovable/email/transactional/send'
+      path: '/lovable/email/transactional/send'
+      fullPath: '/lovable/email/transactional/send'
+      preLoaderRoute: typeof LovableEmailTransactionalSendRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
