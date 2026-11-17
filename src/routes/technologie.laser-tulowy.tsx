@@ -49,7 +49,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
     const title =
       "Laser tulowy 1927 nm — melasma, przebarwienia, depigmentacja | BMClinics.ai Warszawa";
     const description =
-      "Laser tulowy 1927 nm — najbezpieczniejsza technologia w leczeniu melasmy i przebarwień posłonecznych. Precyzyjna depigmentacja bez wpływu na głębsze warstwy skóry. Standard premium klinik warszawskich w Warszawie.";
+      "Laser tulowy 1927 nm — najbezpieczniejsza technologia w leczeniu melasmy i przebarwień posłonecznych. Precyzyjna depigmentacja bez wpływu na głębsze warstwy skóry. Standard premium klinik warszawskich.";
 
     const serviceSchema = {
       "@context": "https://schema.org",
@@ -131,7 +131,7 @@ export const Route = createFileRoute("/technologie/laser-tulowy")({
           name: "Ile kosztuje zabieg w Warszawie?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Pojedyncza sesja twarzy: 1750 zł. Pakiet 3 sesji twarzy: 4600 zł (ok. 15% taniej). Combo twarz + szyja + dekolt: 4000 zł. To cennik klinik warszawskich — bez konieczności dojazdu do Warszawy.",
+            text: "Pojedyncza sesja twarzy: 1750 zł. Pakiet 3 sesji twarzy: 4600 zł (ok. 15% taniej). Combo twarz + szyja + dekolt: 4000 zł. Ostateczną wycenę ustalamy na konsultacji.",
           },
         },
         {
@@ -224,7 +224,7 @@ function LaserTulowyPage() {
               Nieablacyjna fototermoliza frakcyjna lasera tulowego 1927 nm. Najbezpieczniejsza
               i najbardziej selektywna technologia w terapii hiperpigmentacji i melasmy.
               Działa na powierzchni skóry — około 0,1 mm — dlatego nie zakłóca efektów
-              zabiegów z toksyną botulinową. Standard premium klinik warszawskich — w Warszawie.
+              zabiegów z toksyną botulinową. Standard premium klinik warszawskich.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Link
@@ -482,7 +482,7 @@ function LaserTulowyPage() {
         <SectionHeading
           eyebrow="Cennik"
           title="Inwestycja"
-          description="Standard premium klinik warszawskich — bez konieczności dojazdu, urlopu i parkingu w centrum stolicy."
+          description="Standard premium — w klinice przy ul. Branickiego 10 w warszawskim Wilanowie."
         />
         <div className="mt-10 overflow-hidden rounded-xl border border-border/60">
           <table className="w-full">
@@ -611,7 +611,7 @@ function LaserTulowyPage() {
             />
             <p className="text-sm text-muted-foreground">
               BMClinics.ai Warszawa · 10 lat doświadczenia w klinikach premium Warszawy ·
-              ten sam sprzęt, ten sam standard, lokalnie.
+              ul. Branickiego 10, Wilanów.
             </p>
           </div>
           <BookingFormLazy />

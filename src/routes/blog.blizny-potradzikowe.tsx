@@ -48,7 +48,7 @@ const FAQ = [
   },
   {
     q: "Ile kosztuje terapia blizn potrądzikowych?",
-    a: "Pojedyncza sesja laserem pikosekundowym kosztuje od 600 zł, sesja radiofrekwencji mikroigłowej od 800 zł. Cena pełnego protokołu łączonego (6 sesji) to ok. 4 200–5 400 zł. Oferujemy pakiety zabiegowe z 15–20% zniżką. Standard warszawski w Warszawie — bez konieczności dojazdu do stolicy.",
+    a: "Pojedyncza sesja laserem pikosekundowym kosztuje od 600 zł, sesja radiofrekwencji mikroigłowej od 800 zł. Cena pełnego protokołu łączonego (6 sesji) to ok. 4 200–5 400 zł. Oferujemy pakiety zabiegowe z 15–20% zniżką. Standard premium w Wilanowie.",
   },
 ];
 
@@ -481,14 +481,14 @@ function AcneScarsGuide() {
           <div className="sticky top-24 space-y-6">
             <div className="rounded-lg border border-border bg-secondary/30 p-6">
               <div className="text-xs uppercase tracking-[0.3em] text-champagne">
-                Standard warszawski
+                Standard premium
               </div>
               <h3 className="mt-2 font-serif text-xl text-ink">
-                Bez dojeżdżania do stolicy
+                Standard premium w Wilanowie
               </h3>
               <p className="mt-3 text-sm text-muted-foreground">
                 Od 10 lat pracuję w premium klinikach Warszawy. Ten sam protokół, te same urządzenia,
-                ten sam standard bezpieczeństwa — teraz w Warszawie.
+                ten sam standard bezpieczeństwa — przy ul. Branickiego 10.
               </p>
               <Link
                 to="/konsultacja"

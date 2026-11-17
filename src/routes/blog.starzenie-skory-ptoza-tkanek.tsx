@@ -505,11 +505,11 @@ function AgingPillarArticle() {
             </div>
 
             <div className="rounded-lg border border-border bg-secondary/30 p-6">
-              <div className="text-xs uppercase tracking-[0.3em] text-champagne">Standard warszawski</div>
+              <div className="text-xs uppercase tracking-[0.3em] text-champagne">Standard premium</div>
               <h3 className="mt-2 font-serif text-xl text-ink">Plan szyty na miarę</h3>
               <p className="mt-3 text-sm text-muted-foreground">
-                Mapowanie ptozy, ocena jakości skóry i indywidualna sekwencja zabiegów — bez
-                dojeżdżania do stolicy.
+                Mapowanie ptozy, ocena jakości skóry i indywidualna sekwencja zabiegów — na
+                konsultacji przy ul. Branickiego 10.
               </p>
               <Link to="/konsultacja" className="mt-5 inline-flex h-11 items-center justify-center rounded-md bg-ink px-5 text-sm text-alabaster">
                 Umów konsultację

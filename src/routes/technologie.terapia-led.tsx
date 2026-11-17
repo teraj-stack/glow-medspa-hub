@@ -548,7 +548,7 @@ function TerapiaLedPage() {
         <SectionHeading
           eyebrow="Cennik"
           title="Inwestycja"
-          description="Standard premium klinik warszawskich — bez konieczności dojazdu, urlopu i parkingu w centrum stolicy."
+          description="Standard premium — w klinice przy ul. Branickiego 10 w warszawskim Wilanowie."
         />
         <div className="mt-10 overflow-hidden rounded-xl border border-border/60">
           <table className="w-full">
@@ -641,7 +641,7 @@ function TerapiaLedPage() {
             <p className="text-sm text-muted-foreground">
               <Droplet className="mr-1 inline h-4 w-4 text-champagne" />
               BMClinics.ai Warszawa · 10 lat doświadczenia w klinikach premium Warszawy ·
-              ten sam sprzęt, ten sam standard, lokalnie.
+              ul. Branickiego 10, Wilanów.
             </p>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Sparkles className="h-4 w-4 text-champagne" />

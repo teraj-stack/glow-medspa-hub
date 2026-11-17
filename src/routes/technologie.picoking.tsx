@@ -503,8 +503,8 @@ function PikosekundowyPage() {
         <div className="container-luxury">
           <SectionHeading
             eyebrow="Cennik"
-            title="Standard warszawski — bez dojeżdżania do stolicy"
-            description="Od 10 lat pracuję w premium klinikach Warszawy. Ten sam standard zabiegu, protokołów i bezpieczeństwa — przy ul. Branickiego 10."
+            title="Cennik zabiegów — Warszawa, Wilanów"
+            description="Od 10 lat pracuję w premium klinikach Warszawy. Ten sam standard zabiegu, protokołów i bezpieczeństwa stosuję w klinice przy ul. Branickiego 10."
           />
           <div className="mt-12 grid gap-8 md:grid-cols-[2fr_1fr]">
             <div className="overflow-hidden rounded-lg border border-border bg-card shadow-soft">

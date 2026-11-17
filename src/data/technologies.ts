@@ -249,7 +249,7 @@ export const TECHNOLOGIES: Technology[] = [
       { q: "Ile zabiegów potrzeba?", a: "Efekt rozświetlenia widać po jednym zabiegu. Dla trwałej redukcji porów, sebum i lekkiego trądziku zalecamy serię 4–6 zabiegów co 2–3 tygodnie, a następnie podtrzymanie raz na kwartał." },
       { q: "Czy peeling węglowy leczy trądzik?", a: "Działa wspomagająco w lekkim trądziku zaskórnikowym i zapalnym — redukuje sebum, niszczy bakterie C. acnes i oczyszcza pory. W cięższych postaciach stanowi element protokołu łączonego (zimna plazma + LED + peeling węglowy), nie zastępuje jednak leczenia dermatologicznego." },
       { q: "Dlaczego stosuję peeling węglowy w protokołach łączonych?", a: "Doskonale finiszuje zabiegi pikosekundowe i laserowe — sublimacja pasty węglowej dodatkowo wygładza warstwę rogową naskórka, a tryb Q-Switched pobudza powierzchowną syntezę kolagenu. Skóra wychodzi z gabinetu z efektem „filtra” w jednej sesji." },
-      { q: "Dlaczego ceny są na poziomie warszawskim?", a: "Od 10 lat pracuję wyłącznie w premium klinikach Warszawy. W Warszawie oferuję dokładnie ten sam standard — protokoły, jakość urządzenia i bezpieczeństwo są identyczne. Oszczędzasz natomiast czas, paliwo i dzień urlopu." },
+      { q: "Od czego zależy cena zabiegu?", a: "Cena obejmuje kwalifikację lekarską, zabieg wykonany według protokołu premium oraz opiekę pozabiegową. Od 10 lat pracuję wyłącznie w premium klinikach Warszawy — ostateczną wycenę ustalamy na konsultacji przy ul. Branickiego 10." },
     ],
   },
   {
@@ -291,7 +291,7 @@ export const TECHNOLOGIES: Technology[] = [
       { q: "Ile sesji potrzeba?", a: "Toning i fotoodmładzanie — seria 4–6 zabiegów co 3–4 tygodnie. Melasma — 3–5 sesji w trybie Dual Pulse. Blizny potrądzikowe — 4–6 sesji w trybie frakcyjnym Honeycomb. Tatuaż — średnio 4–8 sesji co 6–8 tygodni." },
       { q: "Jak długo trwa rekonwalescencja?", a: "Laser pikosekundowy pracuje wyłącznie w protokołach złożonych (zimna plazma + rewitalizacja + fototerapia LED). Dzięki temu rekonwalescencja jest minimalna — zwykle zero śladów już po 2–4 godzinach. Planowanie urlopu czy rezygnacja z aktywności jest niepotrzebna." },
       { q: "Czy zabieg boli?", a: "W trybie Multipulse (MPTP) zabieg jest niemal bezbolesny. W pozostałych trybach stosujemy chłodzenie i krem znieczulający." },
-      { q: "Dlaczego ceny są na poziomie warszawskim?", a: "Od 10 lat pracuję wyłącznie w premium klinikach Warszawy. W Warszawie oferuję dokładnie ten sam standard — protokoły, jakość urządzenia i bezpieczeństwo są identyczne. Oszczędzasz natomiast czas, paliwo i dzień urlopu." },
+      { q: "Od czego zależy cena zabiegu?", a: "Cena obejmuje kwalifikację lekarską, zabieg wykonany według protokołu premium oraz opiekę pozabiegową. Od 10 lat pracuję wyłącznie w premium klinikach Warszawy — ostateczną wycenę ustalamy na konsultacji przy ul. Branickiego 10." },
       { q: "Dlaczego laser pikosekundowy jest dostępny tylko w protokołach złożonych?", a: "Obecnie stosuję laser pikosekundowy wyłącznie w procedurach łączonych, ponieważ synergia z innymi technologiami (np. zimna plazma, fototerapia LED) daje wyniki niedostępne dla pojedynczych zabiegów. Skóra otrzymuje pełną regenerację w jednej sesji, a ultrakrótki impuls 350 ps gwarantuje brak rekonwalescencji." },
     ],
   },
@@ -358,8 +358,8 @@ export const TECHNOLOGIES: Technology[] = [
         a: "Przyrost masy mięśniowej utrzymuje się tak długo, jak utrzymujesz aktywność fizyczną — analogicznie do efektów siłowni. Redukcja tkanki tłuszczowej (apoptoza adipocytów) jest trwała przy stabilnej wadze. Rekomenduję sesję podtrzymującą co 2–3 miesiące, szczególnie w protokołach na pośladki i mięśnie dna miednicy.",
       },
       {
-        q: "Dlaczego cena jest na poziomie warszawskim?",
-        a: "Od 10 lat pracuję wyłącznie w premium klinikach Warszawy. W Warszawie oferuję dokładnie ten sam standard — protokoły, jakość urządzenia, kwalifikację medyczną i bezpieczeństwo. Oszczędzasz natomiast czas dojazdu, paliwo i dzień urlopu, a przy serii 4–6 sesji daje to realnie kilkaset złotych różnicy.",
+        q: "Od czego zależy cena zabiegu?",
+        a: "Cena obejmuje kwalifikację lekarską, zabieg według protokołu premium i opiekę pozabiegową. Od 10 lat pracuję wyłącznie w premium klinikach Warszawy. Przy serii 4–6 sesji proponujemy pakiet w preferencyjnej cenie — szczegóły ustalamy na konsultacji.",
       },
     ],
   },

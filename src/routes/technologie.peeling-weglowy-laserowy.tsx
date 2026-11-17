@@ -34,7 +34,7 @@ export const Route = createFileRoute("/technologie/peeling-weglowy-laserowy")({
     const title =
       "Peeling węglowy laserowy (Hollywood Peel / Carbon Peel) — efekt glow bez rekonwalescencji | BMClinics.ai Warszawa";
     const description =
-      "Laserowy peeling węglowy (Carbon Peel, Hollywood Peel) — natychmiastowy efekt rozświetlenia, zwężenia porów i wygładzenia skóry. Bez bólu, bez rekonwalescencji. Standard premium klinik warszawskich w Warszawie.";
+      "Laserowy peeling węglowy (Carbon Peel, Hollywood Peel) — natychmiastowy efekt rozświetlenia, zwężenia porów i wygładzenia skóry. Bez bólu, bez rekonwalescencji. Standard premium klinik warszawskich.";
 
     const serviceSchema = {
       "@context": "https://schema.org",
@@ -66,7 +66,7 @@ export const Route = createFileRoute("/technologie/peeling-weglowy-laserowy")({
         { "@type": "Question", name: "Czy po peelingu węglowym jest rekonwalescencja?", acceptedAnswer: { "@type": "Answer", text: "Praktycznie zerowa. Możliwy delikatny rumień 1–2 godziny po zabiegu. Można wrócić do pracy tego samego dnia, makijaż nakładamy następnego dnia." } },
         { "@type": "Question", name: "Ile zabiegów peelingu węglowego potrzeba?", acceptedAnswer: { "@type": "Answer", text: "Efekt rozświetlenia po jednym zabiegu. Dla trwałej redukcji porów, sebum i lekkiego trądziku — seria 4–6 zabiegów co 2–3 tygodnie, następnie podtrzymanie raz na kwartał." } },
         { "@type": "Question", name: "Czy peeling węglowy leczy trądzik?", acceptedAnswer: { "@type": "Answer", text: "Działa wspomagająco w lekkim trądziku zaskórnikowym i zapalnym — redukuje sebum, niszczy bakterie C. acnes i oczyszcza pory. W cięższych postaciach stanowi element protokołu łączonego." } },
-        { "@type": "Question", name: "Ile kosztuje peeling węglowy w Warszawie?", acceptedAnswer: { "@type": "Answer", text: "Twarz — 600 zł, twarz + szyja + dekolt — 1100 zł. Seria 4 zabiegów twarzy — 2050 zł (ok. 15% taniej). Cennik premium klinik warszawskich, bez konieczności dojazdu do Warszawy." } },
+        { "@type": "Question", name: "Ile kosztuje peeling węglowy w Warszawie?", acceptedAnswer: { "@type": "Answer", text: "Twarz — 600 zł, twarz + szyja + dekolt — 1100 zł. Seria 4 zabiegów twarzy — 2050 zł (ok. 15% taniej). Cennik premium klinik warszawskich." } },
       ],
     };
 
@@ -148,7 +148,7 @@ function PeelingWeglowyPage() {
             <p className="max-w-xl text-lg text-muted-foreground">
               Laserowa fototermoliza pasty węglowej. Pory mniejsze, skóra rozświetlona,
               tekstura wygładzona — wszystko w jednej sesji, bez rekonwalescencji.
-              Klasyczny zabieg czerwonego dywanu — standard klinik warszawskich w Warszawie.
+              Klasyczny zabieg czerwonego dywanu — standard premium klinik warszawskich.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Link

@@ -382,9 +382,8 @@ function FractionalLaserRecoveryGuide() {
             />
             <p className="mt-4 text-base text-foreground/85 md:text-lg leading-relaxed">
               Najważniejszy fragment przewodnika. Dla każdego dnia opisuję, jak wygląda skóra,
-              jak ją pielęgnować i co można robić. Plan oparty na praktyce w klinikach
-              warszawskich, w których zabiegi prowadzimy od ponad 10 lat — ten sam standard
-              gabinetowy znajdziesz w Warszawie.
+              jak ją pielęgnować i co można robić. Plan oparty na ponad 10 latach praktyki
+              w premium klinikach Warszawy.
             </p>
 
             <div className="mt-8 space-y-8">
@@ -594,11 +593,11 @@ function FractionalLaserRecoveryGuide() {
             <div className="tile-icon">
               <ShieldCheck className="size-5" />
             </div>
-            <div className="tile-title text-base">Standard warszawski w Warszawie</div>
+            <div className="tile-title text-base">Standard premium w Wilanowie</div>
             <p className="tile-text">
               10 lat doświadczenia w klinikach premium Warszawy — ten sam protokół
-              bezpieczeństwa, ten sam standard pielęgnacji pozabiegowej, bez konieczności
-              dojazdu i nocowania w stolicy.
+              bezpieczeństwa, ten sam standard pielęgnacji pozabiegowej — przy
+              ul. Branickiego 10.
             </p>
             <Link
               to="/konsultacja"

@@ -63,7 +63,7 @@ export const Route = createFileRoute("/technologie/fusion-plasma")({
     const url = "https://bmclinics.ai/technologie/fusion-plasma";
     const title = "Zimna plazma — rewitalizacja skóry | BMClinics.ai Warszawa";
     const description =
-      "Zimna plazma to najczęściej wybierany zabieg rewitalizacyjny na świecie — bezbolesny, bez rekonwalescencji. Skóra od razu wygląda promiennie. Standard premium klinik warszawskich w Warszawie.";
+      "Zimna plazma to najczęściej wybierany zabieg rewitalizacyjny na świecie — bezbolesny, bez rekonwalescencji. Skóra od razu wygląda promiennie. Standard premium klinik warszawskich.";
 
     const serviceSchema = loaderData
       ? {
@@ -286,7 +286,7 @@ function FusionPlasmaPage() {
           <div className="mt-6 rounded-lg border border-champagne/30 bg-white/5 p-6">
             <div className="text-xs uppercase tracking-[0.3em] text-champagne">Standard premium</div>
             <p className="mt-3 text-sm text-alabaster/85">
-              10 lat doświadczenia w warszawskich klinikach premium. Ten sam protokół, to samo bezpieczeństwo — bez konieczności jazdy do stolicy.
+              10 lat doświadczenia w warszawskich klinikach premium. Ten sam protokół, to samo bezpieczeństwo.
             </p>
           </div>
         </div>

@@ -33,7 +33,7 @@ export const Route = createFileRoute("/renasculpt")({
     const title =
       "Modelowanie sylwetki HIFEM + EMS + RF — Renasculpt | BMClinics.ai Warszawa";
     const description =
-      "Synchroniczna stymulacja elektromagnetyczna mięśni (HIFEM/EMS) połączona z radiofrekwencją: 30-minutowa sesja, bez nacięć, bez znieczulenia, bez rekonwalescencji. Średnio +16% masy mięśniowej i -19% tkanki tłuszczowej w badaniach klinicznych. Standard premium klinik warszawskich — w Warszawie.";
+      "Synchroniczna stymulacja elektromagnetyczna mięśni (HIFEM/EMS) połączona z radiofrekwencją: 30-minutowa sesja, bez nacięć, bez znieczulenia, bez rekonwalescencji. Średnio +16% masy mięśniowej i -19% tkanki tłuszczowej w badaniach klinicznych. Standard premium klinik warszawskich.";
     const keywords =
       "HIFEM, EMS, RF, radiofrekwencja, modelowanie sylwetki Warszawa, redukcja tkanki tłuszczowej, lifting pośladków bez operacji, mięśnie dna miednicy, diastasis recti, Renasculpt, BMClinics.ai";
 
@@ -277,7 +277,7 @@ function RenasculptPage() {
         <SectionHeading
           eyebrow="Cennik"
           title="Inwestycja"
-          description="Standard premium klinik warszawskich — bez konieczności dojazdu, urlopu i parkingu w centrum stolicy."
+          description="Standard premium — w klinice przy ul. Branickiego 10 w warszawskim Wilanowie."
         />
         <div className="mt-10 overflow-hidden rounded-xl border border-border/60">
           <table className="w-full">
