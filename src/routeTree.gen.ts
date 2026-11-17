@@ -70,12 +70,12 @@ import { Route as AuthenticatedAdminLekarzeRouteImport } from './routes/_authent
 import { Route as AuthenticatedAdminNapRouteImport } from './routes/_authenticated/admin/nap'
 import { Route as AuthenticatedAdminPanelRouteImport } from './routes/_authenticated/admin/panel'
 import { Route as AuthenticatedAdminRezerwacjeRouteImport } from './routes/_authenticated/admin/rezerwacje'
-import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin/seo'
 import { Route as AuthenticatedAdminUzytkownicyRouteImport } from './routes/_authenticated/admin/uzytkownicy'
 import { Route as AuthenticatedAdminWebVitalsRouteImport } from './routes/_authenticated/admin/web-vitals'
 import { Route as AuthenticatedKontoPostepowaniePozabiegoweRouteImport } from './routes/_authenticated/konto.postepowanie-pozabiegowe'
 import { Route as AuthenticatedKontoWizytyRouteImport } from './routes/_authenticated/konto.wizyty'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as AuthenticatedAdminSeoIndexRouteImport } from './routes/_authenticated/admin/seo.index'
 import { Route as AuthenticatedAdminSeoIndeksacjaRouteImport } from './routes/_authenticated/admin/seo.indeksacja'
 import { Route as AuthenticatedAdminSeoKeywordsRouteImport } from './routes/_authenticated/admin/seo.keywords'
 import { Route as AuthenticatedAdminSeoOgRescrapeRouteImport } from './routes/_authenticated/admin/seo.og-rescrape'
@@ -420,11 +420,6 @@ const AuthenticatedAdminRezerwacjeRoute =
     path: '/rezerwacje',
     getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
-const AuthenticatedAdminSeoRoute = AuthenticatedAdminSeoRouteImport.update({
-  id: '/seo',
-  path: '/seo',
-  getParentRoute: () => AuthenticatedAdminRouteRoute,
-} as any)
 const AuthenticatedAdminUzytkownicyRoute =
   AuthenticatedAdminUzytkownicyRouteImport.update({
     id: '/uzytkownicy',
@@ -454,29 +449,35 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminSeoIndexRoute =
+  AuthenticatedAdminSeoIndexRouteImport.update({
+    id: '/seo/',
+    path: '/seo/',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
+  } as any)
 const AuthenticatedAdminSeoIndeksacjaRoute =
   AuthenticatedAdminSeoIndeksacjaRouteImport.update({
-    id: '/indeksacja',
-    path: '/indeksacja',
-    getParentRoute: () => AuthenticatedAdminSeoRoute,
+    id: '/seo/indeksacja',
+    path: '/seo/indeksacja',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminSeoKeywordsRoute =
   AuthenticatedAdminSeoKeywordsRouteImport.update({
-    id: '/keywords',
-    path: '/keywords',
-    getParentRoute: () => AuthenticatedAdminSeoRoute,
+    id: '/seo/keywords',
+    path: '/seo/keywords',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminSeoOgRescrapeRoute =
   AuthenticatedAdminSeoOgRescrapeRouteImport.update({
-    id: '/og-rescrape',
-    path: '/og-rescrape',
-    getParentRoute: () => AuthenticatedAdminSeoRoute,
+    id: '/seo/og-rescrape',
+    path: '/seo/og-rescrape',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const AuthenticatedAdminSeoRaportyRoute =
   AuthenticatedAdminSeoRaportyRouteImport.update({
-    id: '/raporty',
-    path: '/raporty',
-    getParentRoute: () => AuthenticatedAdminSeoRoute,
+    id: '/seo/raporty',
+    path: '/seo/raporty',
+    getParentRoute: () => AuthenticatedAdminRouteRoute,
   } as any)
 const ApiPublicBookingsCancelRoute = ApiPublicBookingsCancelRouteImport.update({
   id: '/api/public/bookings/cancel',
@@ -613,7 +614,6 @@ export interface FileRoutesByFullPath {
   '/admin/nap': typeof AuthenticatedAdminNapRoute
   '/admin/panel': typeof AuthenticatedAdminPanelRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
-  '/admin/seo': typeof AuthenticatedAdminSeoRouteWithChildren
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
@@ -637,6 +637,7 @@ export interface FileRoutesByFullPath {
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
+  '/admin/seo/': typeof AuthenticatedAdminSeoIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -696,7 +697,6 @@ export interface FileRoutesByTo {
   '/admin/nap': typeof AuthenticatedAdminNapRoute
   '/admin/panel': typeof AuthenticatedAdminPanelRoute
   '/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
-  '/admin/seo': typeof AuthenticatedAdminSeoRouteWithChildren
   '/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
@@ -720,6 +720,7 @@ export interface FileRoutesByTo {
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
+  '/admin/seo': typeof AuthenticatedAdminSeoIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -783,7 +784,6 @@ export interface FileRoutesById {
   '/_authenticated/admin/nap': typeof AuthenticatedAdminNapRoute
   '/_authenticated/admin/panel': typeof AuthenticatedAdminPanelRoute
   '/_authenticated/admin/rezerwacje': typeof AuthenticatedAdminRezerwacjeRoute
-  '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRouteWithChildren
   '/_authenticated/admin/uzytkownicy': typeof AuthenticatedAdminUzytkownicyRoute
   '/_authenticated/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/_authenticated/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
@@ -807,6 +807,7 @@ export interface FileRoutesById {
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
+  '/_authenticated/admin/seo/': typeof AuthenticatedAdminSeoIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -870,7 +871,6 @@ export interface FileRouteTypes {
     | '/admin/nap'
     | '/admin/panel'
     | '/admin/rezerwacje'
-    | '/admin/seo'
     | '/admin/uzytkownicy'
     | '/admin/web-vitals'
     | '/konto/postepowanie-pozabiegowe'
@@ -894,6 +894,7 @@ export interface FileRouteTypes {
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
+    | '/admin/seo/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -953,7 +954,6 @@ export interface FileRouteTypes {
     | '/admin/nap'
     | '/admin/panel'
     | '/admin/rezerwacje'
-    | '/admin/seo'
     | '/admin/uzytkownicy'
     | '/admin/web-vitals'
     | '/konto/postepowanie-pozabiegowe'
@@ -977,6 +977,7 @@ export interface FileRouteTypes {
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
+    | '/admin/seo'
   id:
     | '__root__'
     | '/'
@@ -1039,7 +1040,6 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/nap'
     | '/_authenticated/admin/panel'
     | '/_authenticated/admin/rezerwacje'
-    | '/_authenticated/admin/seo'
     | '/_authenticated/admin/uzytkownicy'
     | '/_authenticated/admin/web-vitals'
     | '/_authenticated/konto/postepowanie-pozabiegowe'
@@ -1063,6 +1063,7 @@ export interface FileRouteTypes {
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
+    | '/_authenticated/admin/seo/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -1560,13 +1561,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRezerwacjeRouteImport
       parentRoute: typeof AuthenticatedAdminRouteRoute
     }
-    '/_authenticated/admin/seo': {
-      id: '/_authenticated/admin/seo'
-      path: '/seo'
-      fullPath: '/admin/seo'
-      preLoaderRoute: typeof AuthenticatedAdminSeoRouteImport
-      parentRoute: typeof AuthenticatedAdminRouteRoute
-    }
     '/_authenticated/admin/uzytkownicy': {
       id: '/_authenticated/admin/uzytkownicy'
       path: '/uzytkownicy'
@@ -1602,33 +1596,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/seo/': {
+      id: '/_authenticated/admin/seo/'
+      path: '/seo'
+      fullPath: '/admin/seo/'
+      preLoaderRoute: typeof AuthenticatedAdminSeoIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRouteRoute
+    }
     '/_authenticated/admin/seo/indeksacja': {
       id: '/_authenticated/admin/seo/indeksacja'
-      path: '/indeksacja'
+      path: '/seo/indeksacja'
       fullPath: '/admin/seo/indeksacja'
       preLoaderRoute: typeof AuthenticatedAdminSeoIndeksacjaRouteImport
-      parentRoute: typeof AuthenticatedAdminSeoRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/seo/keywords': {
       id: '/_authenticated/admin/seo/keywords'
-      path: '/keywords'
+      path: '/seo/keywords'
       fullPath: '/admin/seo/keywords'
       preLoaderRoute: typeof AuthenticatedAdminSeoKeywordsRouteImport
-      parentRoute: typeof AuthenticatedAdminSeoRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/seo/og-rescrape': {
       id: '/_authenticated/admin/seo/og-rescrape'
-      path: '/og-rescrape'
+      path: '/seo/og-rescrape'
       fullPath: '/admin/seo/og-rescrape'
       preLoaderRoute: typeof AuthenticatedAdminSeoOgRescrapeRouteImport
-      parentRoute: typeof AuthenticatedAdminSeoRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/_authenticated/admin/seo/raporty': {
       id: '/_authenticated/admin/seo/raporty'
-      path: '/raporty'
+      path: '/seo/raporty'
       fullPath: '/admin/seo/raporty'
       preLoaderRoute: typeof AuthenticatedAdminSeoRaportyRouteImport
-      parentRoute: typeof AuthenticatedAdminSeoRoute
+      parentRoute: typeof AuthenticatedAdminRouteRoute
     }
     '/api/public/bookings/cancel': {
       id: '/api/public/bookings/cancel'
@@ -1724,25 +1725,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface AuthenticatedAdminSeoRouteChildren {
-  AuthenticatedAdminSeoIndeksacjaRoute: typeof AuthenticatedAdminSeoIndeksacjaRoute
-  AuthenticatedAdminSeoKeywordsRoute: typeof AuthenticatedAdminSeoKeywordsRoute
-  AuthenticatedAdminSeoOgRescrapeRoute: typeof AuthenticatedAdminSeoOgRescrapeRoute
-  AuthenticatedAdminSeoRaportyRoute: typeof AuthenticatedAdminSeoRaportyRoute
-}
-
-const AuthenticatedAdminSeoRouteChildren: AuthenticatedAdminSeoRouteChildren = {
-  AuthenticatedAdminSeoIndeksacjaRoute: AuthenticatedAdminSeoIndeksacjaRoute,
-  AuthenticatedAdminSeoKeywordsRoute: AuthenticatedAdminSeoKeywordsRoute,
-  AuthenticatedAdminSeoOgRescrapeRoute: AuthenticatedAdminSeoOgRescrapeRoute,
-  AuthenticatedAdminSeoRaportyRoute: AuthenticatedAdminSeoRaportyRoute,
-}
-
-const AuthenticatedAdminSeoRouteWithChildren =
-  AuthenticatedAdminSeoRoute._addFileChildren(
-    AuthenticatedAdminSeoRouteChildren,
-  )
-
 interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminAudytRoute: typeof AuthenticatedAdminAudytRoute
   AuthenticatedAdminCennikRoute: typeof AuthenticatedAdminCennikRoute
@@ -1751,10 +1733,14 @@ interface AuthenticatedAdminRouteRouteChildren {
   AuthenticatedAdminNapRoute: typeof AuthenticatedAdminNapRoute
   AuthenticatedAdminPanelRoute: typeof AuthenticatedAdminPanelRoute
   AuthenticatedAdminRezerwacjeRoute: typeof AuthenticatedAdminRezerwacjeRoute
-  AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRouteWithChildren
   AuthenticatedAdminUzytkownicyRoute: typeof AuthenticatedAdminUzytkownicyRoute
   AuthenticatedAdminWebVitalsRoute: typeof AuthenticatedAdminWebVitalsRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedAdminSeoIndeksacjaRoute: typeof AuthenticatedAdminSeoIndeksacjaRoute
+  AuthenticatedAdminSeoKeywordsRoute: typeof AuthenticatedAdminSeoKeywordsRoute
+  AuthenticatedAdminSeoOgRescrapeRoute: typeof AuthenticatedAdminSeoOgRescrapeRoute
+  AuthenticatedAdminSeoRaportyRoute: typeof AuthenticatedAdminSeoRaportyRoute
+  AuthenticatedAdminSeoIndexRoute: typeof AuthenticatedAdminSeoIndexRoute
 }
 
 const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren =
@@ -1766,10 +1752,14 @@ const AuthenticatedAdminRouteRouteChildren: AuthenticatedAdminRouteRouteChildren
     AuthenticatedAdminNapRoute: AuthenticatedAdminNapRoute,
     AuthenticatedAdminPanelRoute: AuthenticatedAdminPanelRoute,
     AuthenticatedAdminRezerwacjeRoute: AuthenticatedAdminRezerwacjeRoute,
-    AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRouteWithChildren,
     AuthenticatedAdminUzytkownicyRoute: AuthenticatedAdminUzytkownicyRoute,
     AuthenticatedAdminWebVitalsRoute: AuthenticatedAdminWebVitalsRoute,
     AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+    AuthenticatedAdminSeoIndeksacjaRoute: AuthenticatedAdminSeoIndeksacjaRoute,
+    AuthenticatedAdminSeoKeywordsRoute: AuthenticatedAdminSeoKeywordsRoute,
+    AuthenticatedAdminSeoOgRescrapeRoute: AuthenticatedAdminSeoOgRescrapeRoute,
+    AuthenticatedAdminSeoRaportyRoute: AuthenticatedAdminSeoRaportyRoute,
+    AuthenticatedAdminSeoIndexRoute: AuthenticatedAdminSeoIndexRoute,
   }
 
 const AuthenticatedAdminRouteRouteWithChildren =

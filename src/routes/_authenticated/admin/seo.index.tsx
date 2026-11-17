@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-export const Route = createFileRoute("/_authenticated/admin/seo")({
+export const Route = createFileRoute("/_authenticated/admin/seo/")({
   codeSplitGroupings: [["loader", "component", "errorComponent", "notFoundComponent", "pendingComponent"]],
   component: SeoPanel,
 });
