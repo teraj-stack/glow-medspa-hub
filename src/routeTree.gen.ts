@@ -14,7 +14,6 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BezpieczenstwoZabiegowLaserowychRouteImport } from './routes/bezpieczenstwo-zabiegow-laserowych'
 import { Route as CennikRouteImport } from './routes/cennik'
-import { Route as DiagnostykaSkorySiedlceRouteImport } from './routes/diagnostyka-skory-siedlce'
 import { Route as DiagnostykaSkoryWarszawaRouteImport } from './routes/diagnostyka-skory-warszawa'
 import { Route as KonsultacjaRouteImport } from './routes/konsultacja'
 import { Route as KonsultacjaDziekujemyRouteImport } from './routes/konsultacja-dziekujemy'
@@ -117,11 +116,6 @@ const BezpieczenstwoZabiegowLaserowychRoute =
 const CennikRoute = CennikRouteImport.update({
   id: '/cennik',
   path: '/cennik',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiagnostykaSkorySiedlceRoute = DiagnostykaSkorySiedlceRouteImport.update({
-  id: '/diagnostyka-skory-siedlce',
-  path: '/diagnostyka-skory-siedlce',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DiagnostykaSkoryWarszawaRoute =
@@ -559,7 +553,6 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/bezpieczenstwo-zabiegow-laserowych': typeof BezpieczenstwoZabiegowLaserowychRoute
   '/cennik': typeof CennikRoute
-  '/diagnostyka-skory-siedlce': typeof DiagnostykaSkorySiedlceRoute
   '/diagnostyka-skory-warszawa': typeof DiagnostykaSkoryWarszawaRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
@@ -644,7 +637,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/bezpieczenstwo-zabiegow-laserowych': typeof BezpieczenstwoZabiegowLaserowychRoute
   '/cennik': typeof CennikRoute
-  '/diagnostyka-skory-siedlce': typeof DiagnostykaSkorySiedlceRoute
   '/diagnostyka-skory-warszawa': typeof DiagnostykaSkoryWarszawaRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
@@ -729,7 +721,6 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/bezpieczenstwo-zabiegow-laserowych': typeof BezpieczenstwoZabiegowLaserowychRoute
   '/cennik': typeof CennikRoute
-  '/diagnostyka-skory-siedlce': typeof DiagnostykaSkorySiedlceRoute
   '/diagnostyka-skory-warszawa': typeof DiagnostykaSkoryWarszawaRoute
   '/konsultacja': typeof KonsultacjaRoute
   '/konsultacja-dziekujemy': typeof KonsultacjaDziekujemyRoute
@@ -816,7 +807,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bezpieczenstwo-zabiegow-laserowych'
     | '/cennik'
-    | '/diagnostyka-skory-siedlce'
     | '/diagnostyka-skory-warszawa'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
@@ -901,7 +891,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bezpieczenstwo-zabiegow-laserowych'
     | '/cennik'
-    | '/diagnostyka-skory-siedlce'
     | '/diagnostyka-skory-warszawa'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
@@ -985,7 +974,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/bezpieczenstwo-zabiegow-laserowych'
     | '/cennik'
-    | '/diagnostyka-skory-siedlce'
     | '/diagnostyka-skory-warszawa'
     | '/konsultacja'
     | '/konsultacja-dziekujemy'
@@ -1072,7 +1060,6 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BezpieczenstwoZabiegowLaserowychRoute: typeof BezpieczenstwoZabiegowLaserowychRoute
   CennikRoute: typeof CennikRoute
-  DiagnostykaSkorySiedlceRoute: typeof DiagnostykaSkorySiedlceRoute
   DiagnostykaSkoryWarszawaRoute: typeof DiagnostykaSkoryWarszawaRoute
   KonsultacjaRoute: typeof KonsultacjaRoute
   KonsultacjaDziekujemyRoute: typeof KonsultacjaDziekujemyRoute
@@ -1167,13 +1154,6 @@ declare module '@tanstack/react-router' {
       path: '/cennik'
       fullPath: '/cennik'
       preLoaderRoute: typeof CennikRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/diagnostyka-skory-siedlce': {
-      id: '/diagnostyka-skory-siedlce'
-      path: '/diagnostyka-skory-siedlce'
-      fullPath: '/diagnostyka-skory-siedlce'
-      preLoaderRoute: typeof DiagnostykaSkorySiedlceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/diagnostyka-skory-warszawa': {
@@ -1804,7 +1784,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BezpieczenstwoZabiegowLaserowychRoute: BezpieczenstwoZabiegowLaserowychRoute,
   CennikRoute: CennikRoute,
-  DiagnostykaSkorySiedlceRoute: DiagnostykaSkorySiedlceRoute,
   DiagnostykaSkoryWarszawaRoute: DiagnostykaSkoryWarszawaRoute,
   KonsultacjaRoute: KonsultacjaRoute,
   KonsultacjaDziekujemyRoute: KonsultacjaDziekujemyRoute,

@@ -37,15 +37,12 @@ const FORBIDDEN = [
   { id: "bielany", pattern: /\bbielany\b/i, note: "Klinika jest w Wilanowie, nie na Bielanach." },
   { id: "woycickiego", pattern: /\bw(?:ó|o)ycickiego\b/i, note: "Stary adres (ul. Wóycickiego) — zastąp ul. Branickiego 10." },
   { id: "postal-02-097", pattern: /\b02-097\b/, note: "Stary kod pocztowy (Bielany). Kanoniczny: 02-972 (Wilanów)." },
-  { id: "siedlce-praktyka", pattern: /\bprzyjmuj(?:e|ę|emy)\b[^.\n]{0,60}\bsiedlc/i, note: "Nie prowadzimy praktyki w Siedlcach — tylko Warszawa." },
+  { id: "siedlce", pattern: /siedl(?:c|ec)/i, note: "Nie używamy nazwy tego miasta nigdzie w serwisie — tylko Warszawa." },
 ];
 
 // ---------- Allowlista plików (pełne ścieżki relatywne od root) ----------
 const ALLOWLIST = new Set([
   "scripts/validate-nap.mjs",
-  // Historyczny redirect z Siedlec — słowo "Siedlce" jest tam OK.
-  "src/routes/diagnostyka-skory-siedlce.tsx",
-  // Trasa "siedlce" w sitemap-entries może zawierać nazwę.
   "src/lib/sitemap-entries.ts",
 ]);
 
