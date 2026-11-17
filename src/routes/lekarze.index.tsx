@@ -211,7 +211,7 @@ function DoctorCard({ doctor }: { doctor: { id: string; slug: string; full_name:
   if (hasProfilePage) {
     return (
       <Link
-        to={`/lekarze/${doctor.slug}`}
+        to={doctor.slug === "jan-bujok" ? "/lekarze/jan-bujok" : "/lekarze/halina-gabara"}
         className="group block rounded-2xl border border-border/60 bg-card p-6 transition-shadow hover:shadow-md md:p-8"
         aria-label={`Profil ${doctor.full_name}`}
       >
