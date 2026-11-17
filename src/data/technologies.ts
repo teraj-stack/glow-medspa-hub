@@ -148,7 +148,7 @@ export const TECHNOLOGIES: Technology[] = [
       "Najskuteczniejszy nieoperacyjny lifting twarzy, szyi i ciała. Skupione ultradźwięki HIFU docierają głęboko do warstwy SMAS, nie uszkadzając skóry i nie pozostawiając śladu. Zabieg można wykonywać o każdej porze roku — również latem, ponieważ nie ma przeciwwskazań do ekspozycji słonecznej po procedurze.",
     mechanism:
       "Technologia HIFU (High Intensity Focused Ultrasound) dostarcza precyzyjnie skupioną energię ultradźwiękową na głębokość od 1,5 do 13 mm, tworząc punktowe ogniska termicznej koagulacji. Energia dociera do powierzchniowo-mięśniowej warstwy SMAS, której chirurgiczne naciągnięcie jest podstawą klasycznego liftingu twarzy — HIFU wywołuje jej obkurczanie i intensywną stymulację nowego kolagenu, dając efekt naturalnego, nieoperacyjnego liftingu bez cięcia i bez śladu po zabiegu. " +
-      "Pacjenci z Siedlec i okolic często pytają o tę metodę, dlatego warto jasno opisać wszystkie możliwości urządzenia. Posiadana sonda umożliwia wykonanie zabiegu identycznego z implantacją nici pod skórę — działa w tej samej płaszczyźnie, natychmiast podtrzymuje kontur twarzy i wywołuje długotrwałe ujędrnienie. Dzięki temu HIFU nie tylko liftinguje owal i linię żuchwy, ale także kompleksowo rewitalizuje skórę, poprawia jej gęstość i opóźnia procesy starzenia. " +
+      "Pacjenci często pytają o tę metodę, dlatego warto jasno opisać wszystkie możliwości urządzenia. Posiadana sonda umożliwia wykonanie zabiegu identycznego z implantacją nici pod skórę — działa w tej samej płaszczyźnie, natychmiast podtrzymuje kontur twarzy i wywołuje długotrwałe ujędrnienie. Dzięki temu HIFU nie tylko liftinguje owal i linię żuchwy, ale także kompleksowo rewitalizuje skórę, poprawia jej gęstość i opóźnia procesy starzenia. " +
       "Procedura jest w pełni bezinwazyjna — skóra pozostaje nieprzekłuta i nieuszkodzona, nie powstają strupy, opuchlizna ani okres rekonwalescencji. Dlatego latem nie ma przeciwwskazań do wykonywania zabiegu; pacjentka może wrócić do codziennych aktywności i stosować standardową ochronę przeciwsłoneczną. Efekt utrzymuje się 2–3 lata — wystarczy jedna sesja, by przez lata cieszyć się wyraźnie młodszą, bardziej napiętą i promienną skórą. To właśnie dlatego, pomimo upływu lat i pojawiania się nowszych technologii, HIFU pozostaje najskuteczniejszym narzędziem rewitalizującym i anti-aging.",
     mechanismImage: {
       avifSrcSet: `${hifuAvif640.url} 640w, ${hifuAvif960.url} 960w, ${hifuAvif1280.url} 1280w`,
@@ -257,7 +257,7 @@ export const TECHNOLOGIES: Technology[] = [
     name: "Laser pikosekundowy",
     category: "skóra",
     shortDesc:
-      "Impulsy 350 pikosekund w trzech długościach fali (1064 / 755 / 532 nm) — efekt fotoakustyczny zamiast termicznego. Jedyne takie urządzenie w promieniu 120 km od Siedlec.",
+      "Impulsy 350 pikosekund w trzech długościach fali (1064 / 755 / 532 nm) — efekt fotoakustyczny zamiast termicznego.",
     mechanism:
       "Ultrakrótkie impulsy (350 ps) rozbijają pigment falą uderzeniową ciśnienia, a nie ciepłem. Otaczające tkanki pozostają chłodne — bezpieczne dla fototypów III–V, niemal bez ryzyka przebarwień pozapalnych (PIH).",
     applicators: [

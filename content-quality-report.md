@@ -694,7 +694,6 @@ Przeskanowanych plików tras: 60
 ### `/technologie/picoking`
 - urwane: "Laser pikosekundowy · 350 ps"
 - urwane: "Umów konsultację"
-- brak kropki: "Jedyne urządzenie tej klasy w promieniu 120 km od Siedlec"
 - urwane: "Czas impulsu 350 ps"
 - urwane: "nanosekunda · ciepło"
 

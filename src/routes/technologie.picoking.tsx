@@ -197,7 +197,7 @@ function PikosekundowyPage() {
             </div>
             <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-champagne/30 bg-ink/40 px-4 py-2 text-sm text-champagne-light">
               <MapPin className="size-4" />
-              Jedyne urządzenie tej klasy w promieniu 120 km od Siedlec
+              Warszawa, ul. Branickiego 10
             </div>
           </div>
         </div>
@@ -504,7 +504,7 @@ function PikosekundowyPage() {
           <SectionHeading
             eyebrow="Cennik"
             title="Standard warszawski — bez dojeżdżania do stolicy"
-            description="Od 10 lat pracuję w premium klinikach Warszawy. Ten sam standard zabiegu, protokoły i bezpieczeństwo — teraz w Warszawie. Oszczędzasz pół dnia, paliwo i parking."
+            description="Od 10 lat pracuję w premium klinikach Warszawy. Ten sam standard zabiegu, protokołów i bezpieczeństwa — przy ul. Branickiego 10."
           />
           <div className="mt-12 grid gap-8 md:grid-cols-[2fr_1fr]">
             <div className="overflow-hidden rounded-lg border border-border bg-card shadow-soft">
@@ -532,9 +532,9 @@ function PikosekundowyPage() {
             <div className="space-y-4">
               <div className="rounded-lg border border-champagne/40 bg-card p-6">
                 <div className="text-xs uppercase tracking-[0.25em] text-champagne">Region Warszawa</div>
-                <h3 className="mt-2 font-serif text-xl text-ink">Najbliższy laser tej klasy — 120 km</h3>
+                <h3 className="mt-2 font-serif text-xl text-ink">Laser pikosekundowy w Warszawie</h3>
                 <p className="mt-3 text-sm text-foreground/75">
-                  Do tej pory pacjentki z Siedlec, Mińska Mazowieckiego, Łukowa, Łosic, Sokołowa i Białej Podlaskiej musiały jeździć do Warszawy. Teraz nie muszą.
+                  Zabiegi wykonujemy w Warszawie przy ul. Branickiego 10 (klinika ginekologii), z pełnym protokołem bezpieczeństwa i opieką pozabiegową.
                 </p>
               </div>
               <div className="rounded-lg border border-border bg-ink p-6 text-alabaster">

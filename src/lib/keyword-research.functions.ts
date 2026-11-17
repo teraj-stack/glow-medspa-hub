@@ -233,7 +233,7 @@ export const generateContentClusters = createServerFn({ method: "POST" })
 
     const system = `Jesteś strategiem SEO dla warszawskiej kliniki medycyny estetycznej. Grupujesz frazy w klastry contentowe (pillar + wspierające). Reguły:
 - NIE używaj nazw handlowych urządzeń (np. PicoKing, PicoSure, Fraxel). Używaj tylko ogólnych nazw technologii (laser pikosekundowy, laser tulowy 1927 nm, laser frakcyjny CO2).
-- Klinika: BMClinics, Warszawa, ul. Branickiego 10 (klinika ginekologii). NIE wspominaj Siedlec, chyba że fraza wprost tego dotyczy.
+- Klinika: BMClinics, Warszawa, ul. Branickiego 10 (klinika ginekologii). Nie wspominaj innych miast niż Warszawa.
 - Tytuły artykułów: konkretne, do 60 znaków, bez clickbaitu, po polsku.
 - Preferuj klastry pod realne usługi kliniki (podane niżej).
 - Grupuj frazy synonimiczne i pochodne w JEDEN artykuł zamiast osobnych.
