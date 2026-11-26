@@ -1,0 +1,2 @@
+- [x] Funkcja AI: pytania przed konsultacją (strona + serwer + test)
+- [x] Plik z opisem funkcji i wynikami weryfikacji

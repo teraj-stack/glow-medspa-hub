@@ -10,3 +10,5 @@
 <!-- LOVABLE:END -->
 
 - Keep Vercel Git-triggered deployments disabled in `vercel.json` so repository sync does not deploy the app to Vercel.
+- Consultation questions use a public same-origin streaming server route and server-only AI Gateway helpers; patient descriptions never enter persistent application storage or logs.
+- Persist AI access/credit blocks in service-only operational state; never automatically replay a denied request across reloads or deployments.

@@ -73,6 +73,7 @@ import { Route as AuthenticatedAdminUzytkownicyRouteImport } from './routes/_aut
 import { Route as AuthenticatedAdminWebVitalsRouteImport } from './routes/_authenticated/admin/web-vitals'
 import { Route as AuthenticatedKontoPostepowaniePozabiegoweRouteImport } from './routes/_authenticated/konto.postepowanie-pozabiegowe'
 import { Route as AuthenticatedKontoWizytyRouteImport } from './routes/_authenticated/konto.wizyty'
+import { Route as ApiPublicConsultationQuestionsRouteImport } from './routes/api/public/consultation-questions'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as AuthenticatedAdminSeoIndexRouteImport } from './routes/_authenticated/admin/seo.index'
 import { Route as AuthenticatedAdminSeoIndeksacjaRouteImport } from './routes/_authenticated/admin/seo.indeksacja'
@@ -438,6 +439,12 @@ const AuthenticatedKontoWizytyRoute =
     path: '/konto/wizyty',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const ApiPublicConsultationQuestionsRoute =
+  ApiPublicConsultationQuestionsRouteImport.update({
+    id: '/api/public/consultation-questions',
+    path: '/api/public/consultation-questions',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
@@ -611,6 +618,7 @@ export interface FileRoutesByFullPath {
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
+  '/api/public/consultation-questions': typeof ApiPublicConsultationQuestionsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
@@ -693,6 +701,7 @@ export interface FileRoutesByTo {
   '/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   '/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
+  '/api/public/consultation-questions': typeof ApiPublicConsultationQuestionsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
@@ -779,6 +788,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/web-vitals': typeof AuthenticatedAdminWebVitalsRoute
   '/_authenticated/konto/postepowanie-pozabiegowe': typeof AuthenticatedKontoPostepowaniePozabiegoweRoute
   '/_authenticated/konto/wizyty': typeof AuthenticatedKontoWizytyRoute
+  '/api/public/consultation-questions': typeof ApiPublicConsultationQuestionsRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/seo/indeksacja': typeof AuthenticatedAdminSeoIndeksacjaRoute
@@ -865,6 +875,7 @@ export interface FileRouteTypes {
     | '/admin/web-vitals'
     | '/konto/postepowanie-pozabiegowe'
     | '/konto/wizyty'
+    | '/api/public/consultation-questions'
     | '/lovable/email/suppression'
     | '/admin/'
     | '/admin/seo/indeksacja'
@@ -947,6 +958,7 @@ export interface FileRouteTypes {
     | '/admin/web-vitals'
     | '/konto/postepowanie-pozabiegowe'
     | '/konto/wizyty'
+    | '/api/public/consultation-questions'
     | '/lovable/email/suppression'
     | '/admin'
     | '/admin/seo/indeksacja'
@@ -1032,6 +1044,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/web-vitals'
     | '/_authenticated/konto/postepowanie-pozabiegowe'
     | '/_authenticated/konto/wizyty'
+    | '/api/public/consultation-questions'
     | '/lovable/email/suppression'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/seo/indeksacja'
@@ -1103,6 +1116,7 @@ export interface RootRouteChildren {
   TechnologieIndexRoute: typeof TechnologieIndexRoute
   WskazaniaIndexRoute: typeof WskazaniaIndexRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
+  ApiPublicConsultationQuestionsRoute: typeof ApiPublicConsultationQuestionsRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicBookingsCancelRoute: typeof ApiPublicBookingsCancelRoute
   ApiPublicHooksCalendarSyncRetryRoute: typeof ApiPublicHooksCalendarSyncRetryRoute
@@ -1569,6 +1583,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedKontoWizytyRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/consultation-questions': {
+      id: '/api/public/consultation-questions'
+      path: '/api/public/consultation-questions'
+      fullPath: '/api/public/consultation-questions'
+      preLoaderRoute: typeof ApiPublicConsultationQuestionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
       path: '/lovable/email/suppression'
@@ -1837,6 +1858,7 @@ const rootRouteChildren: RootRouteChildren = {
   TechnologieIndexRoute: TechnologieIndexRoute,
   WskazaniaIndexRoute: WskazaniaIndexRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
+  ApiPublicConsultationQuestionsRoute: ApiPublicConsultationQuestionsRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicBookingsCancelRoute: ApiPublicBookingsCancelRoute,
   ApiPublicHooksCalendarSyncRetryRoute: ApiPublicHooksCalendarSyncRetryRoute,

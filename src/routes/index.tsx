@@ -12,6 +12,7 @@ import { cfImage } from "@/lib/cf-image";
 import { CLINIC_ADDRESS, CLINIC_POSTAL_ADDRESS_JSONLD } from "@/config/clinic";
 import { withOgVersion } from "@/config/social-preview";
 import ogCard from "@/assets/og/index.jpg";
+import { ConsultationQuestions } from "@/components/site/ConsultationQuestions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,6 +24,8 @@ export const Route = createFileRoute("/")({
           "Medycyna estetyczna w Warszawie w Wilanowie — konsultacje w Klinice Ginekologii, ul. Branickiego 10. Autorskie protokoły, sprawdzone technologie, naturalny efekt. Umów konsultację.",
       },
       { property: "og:title", content: "Medycyna estetyczna Warszawa — BMClinics.ai" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:description", content: "Klinika medycyny estetycznej i laserowej w Warszawie (Wilanów, klinika ginekologii). Dyskretne, autorskie protokoły i naturalny efekt." },
       { property: "og:url", content: "https://bmclinics.ai/" },
       { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
@@ -110,6 +113,7 @@ function Home() {
       <LocalWarsawSection />
       <TechnologiesPreview />
       <Testimonials />
+      <ConsultationQuestions />
       <BookingSection />
     </>
   );
