@@ -20,12 +20,18 @@ export const Route = createFileRoute("/technologie/")({
           "Park technologii uporządkowany według potrzeb pacjenta — od liftingu, przez teksturę HD, po modelowanie sylwetki. Kontynuacja sekcji Rozwiązania.",
       },
       { property: "og:title", content: "Technologie — BMClinics.ai" },
-      { property: "og:description", content: "Technologie dobrane do pięciu obszarów naszej praktyki." },
+      {
+        property: "og:description",
+        content: "Technologie dobrane do pięciu obszarów naszej praktyki.",
+      },
       { property: "og:url", content: "https://bmclinics.ai/technologie" },
       { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
-      { property: "og:image:alt", content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10" },
+      {
+        property: "og:image:alt",
+        content: "BMClinics.ai — Warszawa (Wilanów), ul. Branickiego 10",
+      },
       { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
     ],
     links: [
@@ -35,13 +41,12 @@ export const Route = createFileRoute("/technologie/")({
         rel: "preload",
         as: "image",
         href: konturyAsset.url,
-        fetchpriority: "high",
+        fetchPriority: "high",
       },
     ],
   }),
   component: TechnologiesPage,
 });
-
 
 type NeedGroup = {
   nr: string;
@@ -62,8 +67,7 @@ const GROUPS: NeedGroup[] = [
     tagline: "LIFTING I OWAL",
     title: "Przywrócenie konturów",
     icon: konturyAsset.url,
-    lead:
-      "Najskuteczniejszym narzędziem nieoperacyjnego liftingu jest HIFU — dociera do warstwy SMAS i pracuje w tej samej płaszczyźnie co nici. Następnie pikosekundowy laser w trybach frakcyjnych przebudowuje kolagen powierzchowny i ujednolica koloryt.",
+    lead: "Najskuteczniejszym narzędziem nieoperacyjnego liftingu jest HIFU — dociera do warstwy SMAS i pracuje w tej samej płaszczyźnie co nici. Następnie pikosekundowy laser w trybach frakcyjnych przebudowuje kolagen powierzchowny i ujednolica koloryt.",
     highlight: "hifu",
     techSlugs: ["hifu", "picoking", "virtue-rf"],
   },
@@ -73,9 +77,15 @@ const GROUPS: NeedGroup[] = [
     tagline: "REDUKCJA BLIZN I ZMARSZCZEK",
     title: "Tekstura « HD »",
     icon: teksturaAsset.url,
-    lead:
-      "Praca nad porami, bliznami i drobnymi zmarszczkami — łączymy frakcyjną fototermolizę z efektem fotoakustycznym i regeneracją w niskiej temperaturze fizjologicznej.",
-    techSlugs: ["picoking", "fusion-plasma", "peeling-weglowy-laserowy", "ipl-bm14", "virtue-rf", "laser-tulowy"],
+    lead: "Praca nad porami, bliznami i drobnymi zmarszczkami — łączymy frakcyjną fototermolizę z efektem fotoakustycznym i regeneracją w niskiej temperaturze fizjologicznej.",
+    techSlugs: [
+      "picoking",
+      "fusion-plasma",
+      "peeling-weglowy-laserowy",
+      "ipl-bm14",
+      "virtue-rf",
+      "laser-tulowy",
+    ],
   },
   {
     nr: "03",
@@ -83,8 +93,7 @@ const GROUPS: NeedGroup[] = [
     tagline: "GĘSTOŚĆ, JĘDRNOŚĆ",
     title: "Rewitalizacja dłoni i ciała",
     icon: dlonieAsset.url,
-    lead:
-      "Dłonie, ramiona, wewnętrzna strona ud, brzuch — odbudowa gęstości skóry i jednolitego kolorytu. W tej strefie najskuteczniejszy jest laser pikosekundowy, następnie zimna plazma atmosferyczna, a na trzecim miejscu fototerapia LED. Pozostałe narzędzia nie przynoszą tu oczekiwanego efektu.",
+    lead: "Dłonie, ramiona, wewnętrzna strona ud, brzuch — odbudowa gęstości skóry i jednolitego kolorytu. W tej strefie najskuteczniejszy jest laser pikosekundowy, następnie zimna plazma atmosferyczna, a na trzecim miejscu fototerapia LED. Pozostałe narzędzia nie przynoszą tu oczekiwanego efektu.",
     techSlugs: ["picoking", "fusion-plasma", "terapia-led"],
   },
   {
@@ -93,8 +102,7 @@ const GROUPS: NeedGroup[] = [
     tagline: "KONTUR OKA · BLASK SPOJRZENIA",
     title: "Okolica oka",
     icon: okoAsset,
-    lead:
-      "Cienka skóra powieki wymaga technologii precyzyjnych i bezpiecznych. HIFU z dedykowaną sondą podnosi opadającą powiekę i pracuje na strukturze podporowej, a RF mikroigłowa z głowicą do okolicy oka zagęszcza skórę i redukuje « kurze łapki ».",
+    lead: "Cienka skóra powieki wymaga technologii precyzyjnych i bezpiecznych. HIFU z dedykowaną sondą podnosi opadającą powiekę i pracuje na strukturze podporowej, a RF mikroigłowa z głowicą do okolicy oka zagęszcza skórę i redukuje « kurze łapki ».",
     highlight: "hifu",
     techSlugs: ["hifu", "virtue-rf"],
   },
@@ -104,8 +112,7 @@ const GROUPS: NeedGroup[] = [
     tagline: "BODY CONTOUR",
     title: "Modelowanie sylwetki",
     icon: bodyContourAsset.url,
-    lead:
-      "Budowa gorsetu mięśniowego i redukcja niechcianej tkanki tłuszczowej w technologii EMS+RF, uzupełniona o regenerację LED i ujędrnienie głębokich warstw skóry.",
+    lead: "Budowa gorsetu mięśniowego i redukcja niechcianej tkanki tłuszczowej w technologii EMS+RF, uzupełniona o regenerację LED i ujędrnienie głębokich warstw skóry.",
     techSlugs: ["renasculpt", "hifu", "terapia-led"],
   },
 ];
@@ -118,10 +125,7 @@ function getTech(slug: string): Technology | undefined {
 }
 
 function TechnologiesPage() {
-  const usedSlugs = new Set<string>([
-    ...GROUPS.flatMap((g) => g.techSlugs),
-    ...STANDALONE_SLUGS,
-  ]);
+  const usedSlugs = new Set<string>([...GROUPS.flatMap((g) => g.techSlugs), ...STANDALONE_SLUGS]);
   const otherTechs = TECHNOLOGIES.filter((t) => !usedSlugs.has(t.slug));
   const standalone = STANDALONE_SLUGS.map(getTech).filter(Boolean) as Technology[];
 
@@ -148,10 +152,19 @@ function TechnologiesPage() {
             Trzy technologie, które łączymy w większości przypadków
           </h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Z mojego doświadczenia kolejność zimna plazma → laser pikosekundowy → fototerapia LED to podstawowe, uniwersalne rozwiązanie dla większości pacjentek. Łączenie tych trzech narzędzi pozwala uzyskać efekt, który wcześniej wymagał dwukrotnie dłuższego czasu rekonwalescencji. Całą sekwencję planuje i koordynuje MySkinCode.ai — silnik AI, który umożliwia zespołowi wspólną opiekę nad pacjentem.
+            Z mojego doświadczenia kolejność zimna plazma → laser pikosekundowy → fototerapia LED to
+            podstawowe, uniwersalne rozwiązanie dla większości pacjentek. Łączenie tych trzech
+            narzędzi pozwala uzyskać efekt, który wcześniej wymagał dwukrotnie dłuższego czasu
+            rekonwalescencji. Całą sekwencję planuje i koordynuje MySkinCode.ai — silnik AI, który
+            umożliwia zespołowi wspólną opiekę nad pacjentem.
           </p>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
-            Dzięki MySkinCode.ai buduję zespół, który szybko zdobywa wiedzę i umiejętności, ujednolica poziom biegłości w najnowszych technologiach laserowych oraz hi-tech, a jednocześnie daje pacjentowi i każdemu członkowi zespołu poczucie bezpieczeństwa. Narzędzie, które miało wyjściowo zastępować 10-letnie doświadczenie zawodowe, stało się systemem, który kształci i rozwija — umożliwiając ustalenie planu zabiegowego nawet na 3–6 miesięcy.
+            Dzięki MySkinCode.ai buduję zespół, który szybko zdobywa wiedzę i umiejętności,
+            ujednolica poziom biegłości w najnowszych technologiach laserowych oraz hi-tech, a
+            jednocześnie daje pacjentowi i każdemu członkowi zespołu poczucie bezpieczeństwa.
+            Narzędzie, które miało wyjściowo zastępować 10-letnie doświadczenie zawodowe, stało się
+            systemem, który kształci i rozwija — umożliwiając ustalenie planu zabiegowego nawet na
+            3–6 miesięcy.
           </p>
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
@@ -180,22 +193,24 @@ function TechnologiesPage() {
                   Krok {item.step}
                 </div>
                 <h3 className="mt-2 font-serif text-xl text-ink">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-foreground/75">
-                  {item.desc}
-                </p>
+                <p className="mt-2 text-sm leading-relaxed text-foreground/75">{item.desc}</p>
               </div>
             ))}
           </div>
 
           <div className="mt-8 rounded-lg border border-champagne/30 bg-ink p-6 text-alabaster md:p-8">
-            <div className="text-xs uppercase tracking-[0.3em] text-champagne">
-              Efekt łączenia
-            </div>
+            <div className="text-xs uppercase tracking-[0.3em] text-champagne">Efekt łączenia</div>
             <p className="mt-3 text-sm leading-relaxed text-alabaster/85 md:text-base">
-              Po 2 zabiegach laserem pikosekundowym (około 3 tygodniach) uzyskujemy efekt porównywalny z 6 tygodniami klasycznego czasu rekonwalescencji przy zabiegach wyłącznie laserowych. Już po 3 tygodniach pracy w bazowym modelu opieki widoczny rezultat jest lepszy niż przy zabiegach prowadzonych pojedynczo, bez łączenia technologii.
+              Po 2 zabiegach laserem pikosekundowym (około 3 tygodniach) uzyskujemy efekt
+              porównywalny z 6 tygodniami klasycznego czasu rekonwalescencji przy zabiegach
+              wyłącznie laserowych. Już po 3 tygodniach pracy w bazowym modelu opieki widoczny
+              rezultat jest lepszy niż przy zabiegach prowadzonych pojedynczo, bez łączenia
+              technologii.
             </p>
             <p className="mt-4 text-sm leading-relaxed text-alabaster/85 md:text-base">
-              Dla pacjenta to krótszy, bardziej komfortowy i ekonomicznie korzystniejszy proces. Po zakończeniu fazy wstępnej przechodzimy do zabiegów podtrzymujących i utrwalających rezultat.
+              Dla pacjenta to krótszy, bardziej komfortowy i ekonomicznie korzystniejszy proces. Po
+              zakończeniu fazy wstępnej przechodzimy do zabiegów podtrzymujących i utrwalających
+              rezultat.
             </p>
           </div>
         </div>
@@ -205,11 +220,7 @@ function TechnologiesPage() {
         const techs = group.techSlugs.map(getTech).filter(Boolean) as Technology[];
         if (!techs.length) return null;
         return (
-          <section
-            key={group.slug}
-            id={group.slug}
-            className="container-luxury py-12 md:py-16"
-          >
+          <section key={group.slug} id={group.slug} className="container-luxury py-12 md:py-16">
             <div className="group mb-8 flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
               <a
                 href={`/rozwiazania#${group.slug}`}
@@ -279,7 +290,9 @@ function TechnologiesPage() {
             </h2>
           </div>
           <div className="tile-grid">
-            {standalone.map((t) => <TechCard key={t.slug} tech={t} />)}
+            {standalone.map((t) => (
+              <TechCard key={t.slug} tech={t} />
+            ))}
           </div>
         </section>
       )}
@@ -295,7 +308,9 @@ function TechnologiesPage() {
             </h2>
           </div>
           <div className="tile-grid">
-            {otherTechs.map((t) => <TechCard key={t.slug} tech={t} />)}
+            {otherTechs.map((t) => (
+              <TechCard key={t.slug} tech={t} />
+            ))}
           </div>
         </section>
       )}

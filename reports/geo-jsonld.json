@@ -1,0 +1,13 @@
+{
+  "canonical": {
+    "latitude": 52.15515,
+    "longitude": 21.09006
+  },
+  "tolerance": 0.0001,
+  "filesWithGeo": [
+    "src/routes/diagnostyka-skory-warszawa.tsx",
+    "src/routes/index.tsx",
+    "src/routes/technologie.laser-frakcyjny-co2-warszawa.tsx"
+  ],
+  "issues": []
+}

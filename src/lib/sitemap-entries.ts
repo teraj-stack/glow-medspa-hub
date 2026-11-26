@@ -75,7 +75,6 @@ export const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/konsultacja-dziekujemy", changefreq: "yearly", priority: "0.3" },
   { path: "/auth", changefreq: "yearly", priority: "0.3" },
   { path: "/unsubscribe", changefreq: "yearly", priority: "0.3" },
-  { path: "/email/unsubscribe", changefreq: "yearly", priority: "0.3" },
   { path: "/polityka-prywatnosci", changefreq: "yearly", priority: "0.3" },
   { path: "/regulamin", changefreq: "yearly", priority: "0.3" },
 ];
@@ -103,11 +102,13 @@ export function buildSitemapEntries(): SitemapEntry[] {
 
   // Dedup po path (na wypadek duplikatu w STATIC_ENTRIES)
   const seen = new Set<string>();
-  const all = [...STATIC_ENTRIES, ...technologyEntries, ...blogEntries, ...wskazaniaEntries].filter((e) => {
-    if (seen.has(e.path)) return false;
-    seen.add(e.path);
-    return true;
-  });
+  const all = [...STATIC_ENTRIES, ...technologyEntries, ...blogEntries, ...wskazaniaEntries].filter(
+    (e) => {
+      if (seen.has(e.path)) return false;
+      seen.add(e.path);
+      return true;
+    },
+  );
 
   return all;
 }

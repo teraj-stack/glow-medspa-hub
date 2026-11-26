@@ -26,7 +26,11 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Medycyna estetyczna Warszawa — BMClinics.ai" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:description", content: "Klinika medycyny estetycznej i laserowej w Warszawie (Wilanów, klinika ginekologii). Dyskretne, autorskie protokoły i naturalny efekt." },
+      {
+        property: "og:description",
+        content:
+          "Klinika medycyny estetycznej i laserowej w Warszawie (Wilanów, klinika ginekologii). Dyskretne, autorskie protokoły i naturalny efekt.",
+      },
       { property: "og:url", content: "https://bmclinics.ai/" },
       { property: "og:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
       { name: "twitter:image", content: withOgVersion(`https://bmclinics.ai${ogCard}`) },
@@ -43,10 +47,10 @@ export const Route = createFileRoute("/")({
         href: cfImage(bujokAvif.url, { width: 640, format: "avif" }),
         type: "image/avif",
         fetchPriority: "high",
-        imagesrcset: [360, 480, 640, 800, 1200]
+        imageSrcSet: [360, 480, 640, 800, 1200]
           .map((w) => `${cfImage(bujokAvif.url, { width: w, format: "avif" })} ${w}w`)
           .join(", "),
-        imagesizes: "(max-width: 768px) 92vw, (min-width: 1280px) 600px, 50vw",
+        imageSizes: "(max-width: 768px) 92vw, (min-width: 1280px) 600px, 50vw",
       },
     ],
     scripts: [
@@ -124,7 +128,9 @@ function Hero() {
     <section className="relative overflow-hidden bg-alabaster">
       <div className="container-luxury grid items-center gap-12 py-20 md:grid-cols-2 md:py-32">
         <div className="rise-in">
-          <div className="text-xs uppercase tracking-[0.3em] text-champagne">Medycyna estetyczna · Warszawa · Wilanów</div>
+          <div className="text-xs uppercase tracking-[0.3em] text-champagne">
+            Medycyna estetyczna · Warszawa · Wilanów
+          </div>
           <h1 className="mt-6 font-serif text-ink">
             Piękno nie potrzebuje hałasu. Potrzebuje{" "}
             <span className="bg-gradient-to-r from-champagne-light via-gold to-champagne bg-clip-text text-transparent">
@@ -132,8 +138,10 @@ function Hero() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-            W mojej pracowni medycyna staje się sztuką proporcji,&nbsp;<br />
-            a technologia służy naturze. Poznaj autorskie protokoły&nbsp;<br />
+            W mojej pracowni medycyna staje się sztuką proporcji,&nbsp;
+            <br />
+            a technologia służy naturze. Poznaj autorskie protokoły&nbsp;
+            <br />
             zabiegowe skrojone pod Twoją anatomię.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -166,8 +174,14 @@ function Hero() {
             imgClassName="aspect-[4/5] w-full rounded-lg object-cover shadow-elegant"
           />
           <div className="absolute -bottom-6 -left-6 hidden rounded-lg border border-border bg-card p-5 shadow-soft md:block">
-            <div className="mt-1 text-lg text-ink">"Najlepsza technologia jest bezwartościowa&nbsp;<br />bez empatii i partnerskiej relacji z pacjentem."</div>
-            <div className="text-xs uppercase tracking-[0.3em] text-champagne">AUTOR: JAN BUJOK</div>
+            <div className="mt-1 text-lg text-ink">
+              "Najlepsza technologia jest bezwartościowa&nbsp;
+              <br />
+              bez empatii i partnerskiej relacji z pacjentem."
+            </div>
+            <div className="text-xs uppercase tracking-[0.3em] text-champagne">
+              AUTOR: JAN BUJOK
+            </div>
           </div>
         </div>
       </div>
@@ -180,24 +194,31 @@ function ManifestSection() {
     <section className="bg-secondary/30 py-20 md:py-28">
       <div className="container-luxury max-w-4xl">
         <div className="text-xs uppercase tracking-[0.3em] text-champagne">Manifest / O twórcy</div>
-        <h2 className="mt-4 font-serif text-ink">Spójrz na czystą linię obojczyka,&nbsp;<br />na cień pod dolną wargą, na układ rzęs...</h2>
-        
+        <h2 className="mt-4 font-serif text-ink">
+          Spójrz na czystą linię obojczyka,&nbsp;
+          <br />
+          na cień pod dolną wargą, na układ rzęs...
+        </h2>
+
         <div className="mt-10 space-y-8 text-foreground">
           <p>
-            Jako chirurg i człowiek, który kocha tworzyć, spędziłem tysiące godzin, badając strukturę ludzkiego ciała. 
-            Wiem, jak reaguje tkanka, jak starzeje się skóra i jak światło potrafi zmienić odbiór całej twarzy. 
-            Moja pracownia powstała po to, by tę wiedzę zamienić w bezpieczną rzeczywistość.
+            Jako chirurg i człowiek, który kocha tworzyć, spędziłem tysiące godzin, badając
+            strukturę ludzkiego ciała. Wiem, jak reaguje tkanka, jak starzeje się skóra i jak
+            światło potrafi zmienić odbiór całej twarzy. Moja pracownia powstała po to, by tę wiedzę
+            zamienić w bezpieczną rzeczywistość.
           </p>
-          
+
           <p>
-            Nie znajdziesz tu taśmowej pracy. Każdy protokół zabiegowy traktuję jak unikalny projekt — skrojony pod Twoją anatomię, 
-            Twoje emocje i Twój styl życia. Lasery i zaawansowana technologia, którymi dysponuję, dają mi absolutną kontrolę nad procesem, 
-            ale to ludzkie oko i bezpieczna ręka chirurga decydują o ostatecznym efekcie. Tworzę to miejsce jako przestrzeń absolutnego zaufania i dyskrecji.
+            Nie znajdziesz tu taśmowej pracy. Każdy protokół zabiegowy traktuję jak unikalny projekt
+            — skrojony pod Twoją anatomię, Twoje emocje i Twój styl życia. Lasery i zaawansowana
+            technologia, którymi dysponuję, dają mi absolutną kontrolę nad procesem, ale to ludzkie
+            oko i bezpieczna ręka chirurga decydują o ostatecznym efekcie. Tworzę to miejsce jako
+            przestrzeń absolutnego zaufania i dyskrecji.
           </p>
-          
+
           <p>
-            Każdą technologię dobieram jak nutę w kompozycji — nie jak produkt z katalogu.
-            Buduję tę opiekę tak, by była spójna, bezpieczna i osobista od pierwszego wdrożenia.
+            Każdą technologię dobieram jak nutę w kompozycji — nie jak produkt z katalogu. Buduję tę
+            opiekę tak, by była spójna, bezpieczna i osobista od pierwszego wdrożenia.
           </p>
         </div>
       </div>
@@ -209,13 +230,15 @@ function LocalWarsawSection() {
   return (
     <section id="medycyna-estetyczna-warszawa" className="container-luxury py-20 md:py-28">
       <div className="mx-auto max-w-4xl">
-        <div className="text-xs uppercase tracking-[0.3em] text-champagne">Lokalizacja · Warszawa Wilanów</div>
+        <div className="text-xs uppercase tracking-[0.3em] text-champagne">
+          Lokalizacja · Warszawa Wilanów
+        </div>
         <h2 className="mt-4 font-serif text-ink">
           Medycyna estetyczna w Warszawie — konsultacje w Wilanowie
         </h2>
         <p className="mt-6 text-foreground/85">
-          Przyjmuję w <strong>Klinice Ginekologii</strong> przy ul. Branickiego 10 w Warszawie (Wilanów).
-          Dziesięć lat doświadczenia w premium klinikach stolicy przekładam na autorskie
+          Przyjmuję w <strong>Klinice Ginekologii</strong> przy ul. Branickiego 10 w Warszawie
+          (Wilanów). Dziesięć lat doświadczenia w premium klinikach stolicy przekładam na autorskie
           protokoły oparte na diagnostyce skóry i sprawdzonych technologiach laserowych.
         </p>
 
@@ -233,10 +256,23 @@ function LocalWarsawSection() {
             <ul className="mt-4 space-y-2 text-sm text-foreground/85">
               <li>· Wywiad medyczny i cele pacjenta (~20 min)</li>
               <li>
-                · <Link to="/diagnostyka-skory-warszawa" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">Diagnostyka skóry twarzy</Link> — mapping, analiza spektralna
+                ·{" "}
+                <Link
+                  to="/diagnostyka-skory-warszawa"
+                  className="underline decoration-champagne/60 underline-offset-4 hover:text-ink"
+                >
+                  Diagnostyka skóry twarzy
+                </Link>{" "}
+                — mapping, analiza spektralna
               </li>
               <li>
-                · Indywidualny plan leczenia i wybór <Link to="/technologie" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">technologii</Link>
+                · Indywidualny plan leczenia i wybór{" "}
+                <Link
+                  to="/technologie"
+                  className="underline decoration-champagne/60 underline-offset-4 hover:text-ink"
+                >
+                  technologii
+                </Link>
               </li>
             </ul>
           </div>
@@ -246,23 +282,40 @@ function LocalWarsawSection() {
           <div>
             <h3 className="font-serif text-lg text-ink">Zakres zabiegów</h3>
             <p className="mt-3 text-sm text-foreground/80">
-              Lasery frakcyjne, laser tulowy, terapia LED, fusion plasma, peeling węglowy —
-              zobacz <Link to="/technologie" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">wszystkie technologie</Link>.
+              Lasery frakcyjne, laser tulowy, terapia LED, fusion plasma, peeling węglowy — zobacz{" "}
+              <Link
+                to="/technologie"
+                className="underline decoration-champagne/60 underline-offset-4 hover:text-ink"
+              >
+                wszystkie technologie
+              </Link>
+              .
             </p>
           </div>
           <div>
             <h3 className="font-serif text-lg text-ink">Zespół</h3>
             <p className="mt-3 text-sm text-foreground/80">
-              Poznaj <Link to="/lekarze" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">lekarzy i specjalistów</Link> prowadzących
-              konsultacje w Warszawie.
+              Poznaj{" "}
+              <Link
+                to="/lekarze"
+                className="underline decoration-champagne/60 underline-offset-4 hover:text-ink"
+              >
+                lekarzy i specjalistów
+              </Link>{" "}
+              prowadzących konsultacje w Warszawie.
             </p>
           </div>
           <div>
             <h3 className="font-serif text-lg text-ink">Bezpieczeństwo</h3>
             <p className="mt-3 text-sm text-foreground/80">
-              Standardy pracy i przeciwwskazania opisujemy w sekcji
-              {" "}
-              <Link to="/bezpieczenstwo-zabiegow-laserowych" className="underline decoration-champagne/60 underline-offset-4 hover:text-ink">bezpieczeństwo zabiegów</Link>.
+              Standardy pracy i przeciwwskazania opisujemy w sekcji{" "}
+              <Link
+                to="/bezpieczenstwo-zabiegow-laserowych"
+                className="underline decoration-champagne/60 underline-offset-4 hover:text-ink"
+              >
+                bezpieczeństwo zabiegów
+              </Link>
+              .
             </p>
           </div>
         </div>
@@ -270,9 +323,8 @@ function LocalWarsawSection() {
         <div className="mt-12 rounded-lg border border-border bg-card p-6 md:p-8">
           <h3 className="font-serif text-lg text-ink">Adres i dojazd</h3>
           <p className="mt-3 text-sm text-foreground/85">
-            Klinika Ginekologii, ul. Branickiego 10, 02-972 Warszawa (Wilanów).
-            Dogodny dojazd z Mokotowa, Ursynowa, Śródmieścia i całej Warszawy;
-            parking na terenie kliniki.
+            Klinika Ginekologii, ul. Branickiego 10, 02-972 Warszawa (Wilanów). Dogodny dojazd z
+            Mokotowa, Ursynowa, Śródmieścia i całej Warszawy; parking na terenie kliniki.
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
@@ -294,7 +346,6 @@ function LocalWarsawSection() {
   );
 }
 
-
 function TechnologiesPreview() {
   const featured = TECHNOLOGIES.slice(0, 6);
   return (
@@ -305,12 +356,17 @@ function TechnologiesPreview() {
           title="Sprawdzone urządzenia, świadomie dobrane"
           description="Pracujemy wyłącznie na technologiach o udokumentowanej skuteczności. Opisujemy je technicznie — bez marketingowego szumu."
         />
-        <Link to="/technologie" className="inline-flex items-center gap-2 text-sm tracking-wide text-ink hover:gap-3 transition-all">
+        <Link
+          to="/technologie"
+          className="inline-flex items-center gap-2 text-sm tracking-wide text-ink hover:gap-3 transition-all"
+        >
           Wszystkie technologie <ArrowRight className="size-4" />
         </Link>
       </div>
       <div className="tile-grid mt-12">
-        {featured.map((t) => <TechCard key={t.slug} tech={t} />)}
+        {featured.map((t) => (
+          <TechCard key={t.slug} tech={t} />
+        ))}
       </div>
     </section>
   );
@@ -340,7 +396,9 @@ function Testimonials() {
           {items.map((it) => (
             <blockquote key={it.q} className="rounded-lg border border-white/10 bg-white/5 p-6">
               <p className="font-serif text-lg leading-relaxed">« {it.q} »</p>
-              <footer className="mt-4 text-xs uppercase tracking-[0.25em] text-champagne">{it.a}</footer>
+              <footer className="mt-4 text-xs uppercase tracking-[0.25em] text-champagne">
+                {it.a}
+              </footer>
             </blockquote>
           ))}
         </div>
@@ -362,7 +420,9 @@ function BookingSection() {
           <dl className="mt-8 space-y-4 text-sm">
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Adres</dt>
-              <dd className="mt-1 text-foreground">Klinika Ginekologii, ul. Branickiego 10, Warszawa (Wilanów)</dd>
+              <dd className="mt-1 text-foreground">
+                Klinika Ginekologii, ul. Branickiego 10, Warszawa (Wilanów)
+              </dd>
             </div>
             <div>
               <dt className="text-xs uppercase tracking-[0.3em] text-champagne">Godziny</dt>
@@ -377,8 +437,8 @@ function BookingSection() {
         <div className="rounded-lg border border-border bg-card p-8 md:p-10">
           <h3 className="font-serif text-2xl text-ink">Zarezerwuj termin</h3>
           <p className="mt-3 text-sm text-foreground/75">
-            Wybierz formę spotkania, podaj kontakt i opłać rezerwację kartą. Po płatności
-            otrzymasz e-mail z linkiem do formularza diagnostycznego.
+            Wybierz formę spotkania, podaj kontakt i opłać rezerwację kartą. Po płatności otrzymasz
+            e-mail z linkiem do formularza diagnostycznego.
           </p>
           <Link
             to="/konsultacja"
