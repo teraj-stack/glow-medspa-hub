@@ -1,2 +1,4 @@
 - [x] Funkcja AI: pytania przed konsultacją (strona + serwer + test)
 - [x] Plik z opisem funkcji i wynikami weryfikacji
+- [ ] Pakiet offline publicznej strony: wszystkie strony z mapy serwisu, lokalne obrazy, style i czcionki
+- [ ] Weryfikacja nawigacji i wyglądu bez internetu oraz archiwum ZIP z instrukcją
